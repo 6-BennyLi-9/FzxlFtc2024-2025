@@ -9,8 +9,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.RuntimeOption;
-import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {
 	Motors motors;
@@ -40,7 +41,7 @@ public class Structure {
 		OpenFrontClip();
 		OpenRearClip();
 
-		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
@@ -48,7 +49,7 @@ public class Structure {
 		CloseFrontClip();
 		CloseRearClip();
 
-		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
@@ -62,7 +63,7 @@ public class Structure {
 				closeClips();
 				break;
 			default:
-				throw new RuntimeException("UnKnown ClipPosition");
+				throw new UnKnownErrorsException("UnKnown ClipPosition");
 		}
 	}
 	
@@ -79,7 +80,7 @@ public class Structure {
 						clipPosition=ClipPosition.Open;
 						break;
 					default:
-						throw new RuntimeException("UnKnown ClipPosition");
+						throw new UnKnownErrorsException("UnKnown ClipPosition");
 				}
 			}
 		}else gamePadButtonBHolding=false;

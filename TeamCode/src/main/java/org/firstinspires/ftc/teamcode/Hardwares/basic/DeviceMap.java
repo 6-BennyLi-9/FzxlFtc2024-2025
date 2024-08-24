@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareState;
+import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
+import org.firstinspires.ftc.teamcode.utils.Exceptions.DeviceDisabledException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,15 +38,19 @@ public class DeviceMap {
 	}
 
 	public HardwareDevice getDevice(@NonNull HardwareDevices hardwareDevices){
-		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
+		if(hardwareDevices.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
 		if(devices.containsKey(hardwareDevices)){
 			return devices.get(hardwareDevices);
 		}else{
-			throw new NullPointerException("Device Not Found:"+ hardwareDevices.toString());
+			throw new NullPointerException("Device Not Found:"+ hardwareDevices);
 		}
 	}
 	public void setDirection(@NonNull HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){
-		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
+		if(hardwareDevices.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setDirection(direction);
@@ -54,7 +59,9 @@ public class DeviceMap {
 		}
 	}
 	public void setPower(@NonNull HardwareDevices hardwareDevices, double power){
-		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
+		if(hardwareDevices.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setPower(power);
@@ -65,7 +72,9 @@ public class DeviceMap {
 		}
 	}
 	public void setPosition(@NonNull HardwareDevices hardwareDevices, double position){
-		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
+		if(hardwareDevices.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof Servo){
 			((Servo) device).setPosition(position);
@@ -74,7 +83,9 @@ public class DeviceMap {
 		}
 	}
 	public double getPosition(@NonNull HardwareDevices hardwareDevices){
-		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
+		if(hardwareDevices.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
 		HardwareDevice device=getDevice(hardwareDevices);
 		if (device instanceof Servo) {
 			return ((Servo) device).getPosition();

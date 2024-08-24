@@ -22,9 +22,9 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.enums.State;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.utils.Enums.State;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 import java.util.Objects;
 
@@ -71,8 +71,8 @@ public class Robot {
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
 			InitInAutonomous();
 		} else if (state == runningState.ManualDrive) {
-			RuntimeOption.runUpdateWhenAnyNewOptionsAdded=true;
-			RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower=false;
+			Params.runUpdateWhenAnyNewOptionsAdded=true;
+			Params.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
 			InitInManualDrive();
 		} else {
@@ -113,14 +113,14 @@ public class Robot {
 		sensors.update();
 		servos.update();
 		encoders.update();
-		if(RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower) {
+		if(Params.driverUsingAxisPowerInsteadOfCurrentPower) {
 			motors.update(sensors.FirstAngle);
 		}else{
 			motors.update();
 		}
 
 		client.changeDate("State",state.name());
-		while(RuntimeOption.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
+		while(Params.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}

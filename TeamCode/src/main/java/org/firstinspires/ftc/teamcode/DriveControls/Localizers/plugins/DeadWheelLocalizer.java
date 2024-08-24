@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Positi
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
@@ -51,7 +51,7 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 				RobotPosition=new Pose2d(
 						RobotPosition.position.x+delta.RealPart,
 						RobotPosition.position.y+delta.imaginary(),
-						RobotPosition.heading.toDouble()+Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
+						Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
 				);
 				break;
 		}
