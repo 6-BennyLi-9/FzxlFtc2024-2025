@@ -6,28 +6,25 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.Enums.Quadrant;
+import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
+import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
 public class Classic {
 	public Motors motors;
 	public Sensors sensors;
-	public DeadWheelEncoders encoders;
 	
 	/**
 	 * 该BufPower只用于手动程序中
 	 */
 	private double BufPower=1;
 
-	public Classic(Motors motors,Sensors sensors,DeadWheelEncoders encoders) {
+	public Classic(Motors motors,Sensors sensors) {
 		this.motors     =motors;
 		this.sensors    =sensors;
-		this.encoders   =encoders;
 	}
 
 	public void drive(@NonNull driveDirection driveDirection, double power) {
@@ -51,7 +48,7 @@ public class Classic {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -91,7 +88,7 @@ public class Classic {
 				break;
 		}
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -139,7 +136,7 @@ public class Classic {
 		motors.updateDriveOptions(sensors.FirstAngle);
 	}
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
-		if(Params.useRightStickYToConfigRobotSpeed){
+		if(Params.Configs.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
 			BufPower=Mathematics.intervalClip(BufPower,-1,1);
 			motors.simpleMotorPowerController(

@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 
 /**
  * 1.运行程序
@@ -39,8 +39,8 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 		r=robot.sensors.XMoved/2;
 		xP=r;
 		yP=robot.sensors.YMoved-2*r;
-		robot.client.changeDate("xError",xP);
-		robot.client.changeDate("yError", yP);
+		robot.changeData("xError",xP);
+		robot.changeData("yError", yP);
 
 		sleep(1145141919);
 	}

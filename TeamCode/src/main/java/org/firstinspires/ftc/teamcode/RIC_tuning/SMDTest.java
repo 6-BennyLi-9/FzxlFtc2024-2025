@@ -5,11 +5,11 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
 @TuningOpModes
@@ -27,7 +27,7 @@ public class SMDTest extends AutonomousProgramTemplate {
 
 		if (!opModeIsActive() || isStopRequested())return;
 
-		drive=robot.enableSimpleMecanumDrive(new Pose2d(0,0,0));
+		drive=robot.InitMecanumDrive(new Pose2d(0,0,0));
 
 		DriveCommandPackage trajectory=robot.drivingCommandsBuilder()
 				.StrafeInDistance(0,24)
@@ -35,7 +35,7 @@ public class SMDTest extends AutonomousProgramTemplate {
 				.StrafeTo(new Vector2d(24,0))
 				.END();
 
-		drive.runDriveCommandPackage(trajectory);
+		drive.runOrderPackage(trajectory);
 		robot.update();
 		robot.turnAngle(-90);
 

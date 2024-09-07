@@ -1,36 +1,65 @@
 package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
+
+import static org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState.*;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
+import org.firstinspires.ftc.teamcode.Params.namespace;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage;
+import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
-//TODO:以下名字均为我们团队所测定的
 /**
- * 仅适用于类型为<code>HardwareDevice</code> 接口下的硬件
- * <p>
  * 可以自动登记硬件的名字及其类型
+ * @see namespace
  */
 public enum HardwareDevices {
-	LeftFront("leftFront", DcMotorEx.class,HardwareState.Enabled),
-	RightFront("rightFront", DcMotorEx.class,HardwareState.Enabled),
-	LeftRear("leftBack", DcMotorEx.class,HardwareState.Enabled),
-	RightRear("rightBack", DcMotorEx.class,HardwareState.Enabled),
-	PlacementArm("rightLift", DcMotorEx.class,HardwareState.Disabled),
-	Intake("intake", DcMotorEx.class,HardwareState.Disabled),
-	FrontClip("frontClip", Servo.class,HardwareState.Disabled),
-	RearClip("rearClip", Servo.class,HardwareState.Disabled),
-	SuspensionArm("rack", DcMotorEx.class,HardwareState.Disabled),
-	LeftDeadWheel(LeftRear.deviceName, DcMotorEx.class,HardwareState.Enabled),
-	MiddleDeadWheel(LeftFront.deviceName,DcMotorEx.class,HardwareState.Enabled),
-	RightDeadWheel(RightFront.deviceName, DcMotorEx.class,HardwareState.Enabled);
+	LeftFront(namespace.LeftFront, DcMotorEx.class),
+	RightFront(namespace.RightFront, DcMotorEx.class),
+	LeftRear(namespace.LeftRear, DcMotorEx.class),
+	RightRear(namespace.RightRear, DcMotorEx.class),
+	PlacementArm(namespace.PlacementArm, DcMotorEx.class, Disabled),
+	Intake(namespace.Intake, DcMotorEx.class, Disabled),
+	FrontClip(namespace.FrontClip, Servo.class, Disabled),
+	RearClip(namespace.RearClip, Servo.class, Disabled),
+	SuspensionArm(namespace.SuspensionArm, DcMotorEx.class, Disabled),
+	LeftDeadWheel(LeftRear.deviceName, DcMotorEx.class, REVERSE),
+	MiddleDeadWheel(LeftFront.deviceName,DcMotorEx.class, REVERSE),
+	RightDeadWheel(RightFront.deviceName, DcMotorEx.class, REVERSE),
+	imu(namespace.Imu, BNO055IMU .class);
 	public final String deviceName;
 	public final Class<?> classType;
-	public final HardwareState state;
+	public final DeviceConfigPackage config;
 
-	HardwareDevices(String deviceName, Class<?> classType,HardwareState state){
-		this.deviceName=deviceName;
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType,DeviceConfigPackage config){
+		this.config=config;
 		this.classType=classType;
-		this.state=state;
+		this.deviceName=deviceName;
+	}
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType){
+		this(deviceName,classType,new DeviceConfigPackage().AutoComplete());
+	}
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType,HardwareState state){
+		this(deviceName,classType,new DeviceConfigPackage().AddConfig(state));
+	}
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType, Direction direction){
+		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction));
+	}
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType,HardwareState state, Direction direction){
+		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
+	}
+	@UserRequirementFunctions
+	HardwareDevices(String deviceName, Class<?> classType, Direction direction,HardwareState state){
+		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
 	}
 }

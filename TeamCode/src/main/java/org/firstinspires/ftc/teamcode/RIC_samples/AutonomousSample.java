@@ -4,9 +4,9 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.Enums.AutonomousLocation;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;
 
 @Autonomous(name = "AutonomousSample",group = "SAMPLE")
 public class AutonomousSample extends AutonomousProgramTemplate {
@@ -17,13 +17,13 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 		AutonomousLocation location = AutonomousLocation.failed;
 		while (opModeIsNotActive()) {
 			location=robot.webcam.getLocation();
-			robot.client.changeDate("Position",location.name());
+			robot.changeData("Position",location.name());
 			sleep(50);
 		}
 
 		if(WaitForStartRequest())return;
 
-		robot.client.deleteDate("Position");
+		robot.client.deleteData("Position");
 		switch (location){
 			case left:
 				robot.strafeTo(robot.pose().position.plus(new Vector2d(0,24)));
@@ -36,7 +36,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 						.TurnAngle(90)
 						.StrafeInDistance(Math.toRadians(-90),Math.sqrt(1152))
 						.END();
-				drive.runDriveCommandPackage(command);
+				drive.runOrderPackage(command);
 				break;
 			case right:
 				break;

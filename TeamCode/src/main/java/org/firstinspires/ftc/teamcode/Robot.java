@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
@@ -11,20 +13,21 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.drivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.utils.Client;
-import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.Enums.State;
-import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
+import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.PID_processor;
+import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.Objects;
 
@@ -34,7 +37,6 @@ public class Robot {
 	public final Motors motors;
 	public final Sensors sensors;
 	public final Servos servos;
-	public final DeadWheelEncoders encoders;
 
 	public Classic classic;
 	public Structure structure;
@@ -45,9 +47,9 @@ public class Robot {
 
 	public State state;
 	public runningState RunningState;
-	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
+	private SimpleMecanumDrive drive=null;
 
-	public long StartTimeMills,NowTimeMills;
+	public Timer timer;
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
@@ -56,11 +58,10 @@ public class Robot {
 		devices=new DeviceMap(hardwareMap);
 
 		motors=new Motors(devices);
-		sensors=new Sensors(hardwareMap);
+		sensors=new Sensors(devices);
 		servos=new Servos(devices);
-		encoders=new DeadWheelEncoders(devices);
 
-		classic=new Classic(motors,sensors,encoders);
+		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
 		webcam=new Webcam(hardwareMap);
 
@@ -71,8 +72,8 @@ public class Robot {
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
 			InitInAutonomous();
 		} else if (state == runningState.ManualDrive) {
-			Params.runUpdateWhenAnyNewOptionsAdded=true;
-			Params.driverUsingAxisPowerInsteadOfCurrentPower=false;
+			Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
+			Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
 			InitInManualDrive();
 		} else {
@@ -80,7 +81,7 @@ public class Robot {
 		}
 
 		RunningState=state;
-		StartTimeMills=System.currentTimeMillis();
+		timer=new Timer();
 		client.addData("State","UnKnow");
 	}
 
@@ -88,8 +89,11 @@ public class Robot {
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
-	public SimpleMecanumDrive enableSimpleMecanumDrive(Pose2d RobotPosition){
+	public SimpleMecanumDrive InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
+		if(RunningState!=runningState.Autonomous) {
+			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
+		}
 		return drive;
 	}
 	private void InitInAutonomous(){
@@ -104,23 +108,21 @@ public class Robot {
 	}
 
 	public void update()  {
-		NowTimeMills=System.currentTimeMillis();
-
-		if(NowTimeMills-StartTimeMills>=90000){
+		if(timer.stopAndGetDeltaTime()>=90000){
 			state=State.FinalState;
 		}
 
 		sensors.update();
 		servos.update();
-		encoders.update();
-		if(Params.driverUsingAxisPowerInsteadOfCurrentPower) {
+
+		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
 			motors.update(sensors.FirstAngle);
 		}else{
 			motors.update();
 		}
 
-		client.changeDate("State",state.name());
-		while(Params.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
+		client.changeData("State",state.name());
+		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
@@ -130,7 +132,7 @@ public class Robot {
 		classic.operateThroughGamePad(gamepad1);
 		structure.operateThroughGamePad(gamepad2);
 	}
-	public drivingCommandsBuilder drivingCommandsBuilder(){
+	public DrivingCommandsBuilder drivingCommandsBuilder(){
 		return drive.drivingCommandsBuilder();
 	}
 
@@ -140,11 +142,11 @@ public class Robot {
 	 */
 	public void turnAngle(double angle){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+		drive.runOrderPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
+		drive.runOrderPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
 	}
 
 	public Pose2d pose(){
@@ -158,8 +160,33 @@ public class Robot {
 	 */
 	public void SetGlobalBufPower(double BufPower){
 		if(drive!=null) {
-			drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+			drive.runOrderPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
 		}
 		motors.setBufPower(BufPower);
 	}
+
+	@ExtractedInterfaces
+	public void addData(String key, String val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void addData(String key,int val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void addData(String key,double val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
+	@ExtractedInterfaces
+	public void changeData(String key, String val){client.changeData(key, val);}
+	@ExtractedInterfaces
+	public void changeData(String key,int val){client.changeData(key, val);}
+	@ExtractedInterfaces
+	public void changeData(String key,double val){client.changeData(key, val);}
+	@ExtractedInterfaces
+	public void addLine(String val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void addLine(int val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void addLine(double val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
+	@ExtractedInterfaces
+	public void deleteLine(String key){try{client.deleteLine(key);}catch (Exception ignored){}}
 }

@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.Hardwares.basic;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Complex;
+import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 
 public class Motors {
@@ -57,7 +58,7 @@ public class Motors {
 	 * @see org.firstinspires.ftc.teamcode.Params
 	 */
 	public void updateDriveOptions(double headingDeg){
-		if( Params.driverUsingAxisPowerInsteadOfCurrentPower ){
+		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower,currentYPower,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
@@ -106,7 +107,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(Params.autoPrepareForNextOptionWhenUpdate){
+		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}
@@ -116,7 +117,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(Params.autoPrepareForNextOptionWhenUpdate){
+		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}

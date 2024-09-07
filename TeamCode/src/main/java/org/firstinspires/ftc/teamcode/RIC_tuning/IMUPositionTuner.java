@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处
@@ -26,20 +26,20 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 
 		if (WaitForStartRequest())return;
 
-		robot.client.addData("xError","waitingForFeedback");
-		robot.client.addData("yError","waitingForFeedback");
+		robot.addData("xError","waitingForFeedback");
+		robot.addData("yError","waitingForFeedback");
 
 		while(!isStopRequested()){
 			robot.update();
 			r=robot.sensors.XMoved/2;
 			xP=r;
 			yP=robot.sensors.YMoved-2*r;
-			robot.client.changeDate("xError",xP);
-			robot.client.changeDate("yError", yP);
-			robot.client.changeDate("R",r);
-			robot.client.changeDate("X", robot.sensors.XMoved);
-			robot.client.changeDate("Y", robot.sensors.YMoved);
-			robot.client.changeDate("Heading", robot.sensors.FirstAngle);
+			robot.changeData ("xError",xP);
+			robot.changeData("yError", yP);
+			robot.changeData("R",r);
+			robot.changeData("X", robot.sensors.XMoved);
+			robot.changeData("Y", robot.sensors.YMoved);
+			robot.changeData("Heading", robot.sensors.FirstAngle);
 		}
 	}
 }
