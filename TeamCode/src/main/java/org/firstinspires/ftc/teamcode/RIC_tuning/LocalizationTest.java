@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
-@TeleOp(name = "LocalizationTest",group = "tune")
-@TuningOpModes
+@TuningOrSampleTeleOPs(name = "LocalizationTest",group = "tune")
 public class LocalizationTest extends TeleopProgramTemplate {
 	SimpleMecanumDrive drive;
 	@Override
 	public void whenInit() {
-		drive=robot.InitMecanumDrive(new Pose2d(0,0,0));
+		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(new Pose2d(0,0,0));
 		robot.addData("POSITION","WAIT FOR START");
 	}
 

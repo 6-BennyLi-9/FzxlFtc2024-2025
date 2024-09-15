@@ -15,6 +15,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveAction;
+import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveActionBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
@@ -30,7 +31,7 @@ import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
-import org.firstinspires.ftc.teamcode.Utils.PID_processor;
+import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.LinkedList;
@@ -40,7 +41,7 @@ public class MecanumDrive implements DriverProgram {
 	public final Classic classic;
 	private final Motors motors;
 	private final Client client;
-	private final PID_processor pidProcessor;
+	private final PidProcessor pidProcessor;
 
 	public final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	public Pose2d RobotPosition;
@@ -51,7 +52,7 @@ public class MecanumDrive implements DriverProgram {
 	public State state;
 
 	public MecanumDrive(@NonNull Classic classic, Client client,
-	                    PID_processor pidProcessor, State state, Pose2d RobotPosition){
+	                    PidProcessor pidProcessor, State state, Pose2d RobotPosition){
 		this.classic=classic;
 		this.client=client;
 		this.pidProcessor=pidProcessor;
@@ -199,5 +200,17 @@ public class MecanumDrive implements DriverProgram {
 	@Override
 	public Classic getClassic() {
 		return classic;
+	}
+
+	@Override
+	public Pose2d getCurrentPose() {
+		return RobotPosition;
+	}
+
+	/**
+	 * @return 定义开启新的 DriveActionBuilder
+	 */
+	public DriveActionBuilder drivingCommandsBuilder(){
+		return new DriveActionBuilder(this);
 	}
 }

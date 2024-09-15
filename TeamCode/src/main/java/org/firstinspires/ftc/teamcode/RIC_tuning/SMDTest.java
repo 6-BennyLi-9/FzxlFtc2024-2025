@@ -2,24 +2,22 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
-@Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
-@TuningOpModes
+@TuningOrSampleTeleOPs(name = "SimpleMecanumDrive_Test",group = "tune")
 public class SMDTest extends AutonomousProgramTemplate {
 	Robot robot;
 	SimpleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() {
-		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningStateType.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);
@@ -27,9 +25,9 @@ public class SMDTest extends AutonomousProgramTemplate {
 
 		if (!opModeIsActive() || isStopRequested())return;
 
-		drive=robot.InitMecanumDrive(new Pose2d(0,0,0));
+		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(new Pose2d(0,0,0));
 
-		DriveCommandPackage trajectory=robot.drivingCommandsBuilder()
+		DriveCommandPackage trajectory= (DriveCommandPackage) robot.DrivingOrderBuilder()
 				.StrafeInDistance(0,24)
 				.TurnAngle(90)
 				.StrafeTo(new Vector2d(24,0))
