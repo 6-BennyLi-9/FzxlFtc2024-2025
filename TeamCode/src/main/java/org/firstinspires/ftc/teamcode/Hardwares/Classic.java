@@ -4,13 +4,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class Classic {
@@ -50,7 +50,7 @@ public class Classic {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.FirstAngle);
+			motors.update(sensors.RobotAngle());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class Classic {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.FirstAngle);
+			motors.update(sensors.RobotAngle());
 		}
 	}
 
@@ -133,23 +133,24 @@ public class Classic {
 	public void STOP(){
 		motors.clearDriveOptions();
 		sensors.update();
-		motors.updateDriveOptions(sensors.FirstAngle);
+		motors.updateDriveOptions(sensors.RobotAngle());
 	}
-	public void operateThroughGamePad(@NonNull Gamepad gamepad){
-		if(Params.Configs.useRightStickYToConfigRobotSpeed){
-			BufPower+=gamepad.right_stick_y*0.6;
-			BufPower=Functions.intervalClip(BufPower,-1,1);
-			motors.simpleMotorPowerController(
-					gamepad.left_stick_x*BufPower* Params.factorXPower,
-					gamepad.left_stick_y*BufPower* Params.factorYPower,
-					gamepad.right_stick_x*BufPower* Params.factorHeadingPower
-			        );
-		}else {
-			motors.simpleMotorPowerController(
-					gamepad.left_stick_x* Params.factorXPower,
-					gamepad.left_stick_y* Params.factorYPower,
-					gamepad.right_stick_x* Params.factorHeadingPower
-			        );
+	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+		if(gamepad.map.containsKeySetting(KeyTag.ClassicSpeedControl)){
+			BufPower+=gamepad.getRodState(KeyTag.ClassicSpeedControl)*0.6;
+		}else if(gamepad.map.containsKeySetting(KeyTag.ClassicSpeedConfig)){
+			if(gamepad.getButtonRunAble(KeyTag.ClassicSpeedConfig)){
+				BufPower=0.9;
+			}else{
+				BufPower=0.3;
+			}
 		}
+		BufPower=Functions.intervalClip(BufPower,-1,1);
+
+		motors.simpleMotorPowerController(
+				gamepad.getRodState(KeyTag.ClassicRunForward)*BufPower* Params.factorXPower,
+				gamepad.getRodState(KeyTag.ClassicRunStrafe)*BufPower* Params.factorYPower,
+				gamepad.getRodState(KeyTag.ClassicTurn)*BufPower* Params.factorHeadingPower
+		);
 	}
 }
