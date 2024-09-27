@@ -5,12 +5,12 @@ import static org.firstinspires.ftc.teamcode.Params.factorSuspensionArmPower;
 
 import androidx.annotation.NonNull;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {
@@ -24,30 +24,30 @@ public class Structure {
 		this.servos=servos;
 	}
 //  TODO:测量这些值
-	public void OpenFrontClip(){
+	public void openFrontClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void OpenRearClip(){
+	public void openRearClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void CloseFrontClip(){
+	public void closeFrontClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void CloseRearClip(){
+	public void closeRearClip(){
 		servos.FrontClipPosition=0;
 	}
 
 	private void openClips(){
-		OpenFrontClip();
-		OpenRearClip();
+		openFrontClip();
+		openRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
 	private void closeClips(){
-		CloseFrontClip();
-		CloseRearClip();
+		closeFrontClip();
+		closeRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
@@ -66,26 +66,15 @@ public class Structure {
 				throw new UnKnownErrorsException("UnKnown ClipPosition");
 		}
 	}
-	
-	private boolean gamePadButtonBHolding=false;
-	public void operateThroughGamePad(@NonNull Gamepad gamepad){
-		if(gamepad.b){
-			if(!gamePadButtonBHolding) {
-				gamePadButtonBHolding = true;
-				switch (clipPosition) {
-					case Open:
-						clipPosition=ClipPosition.Close;
-						break;
-					case Close:
-						clipPosition=ClipPosition.Open;
-						break;
-					default:
-						throw new UnKnownErrorsException("UnKnown ClipPosition");
-				}
-			}
-		}else gamePadButtonBHolding=false;
-		
-		motors.SuspensionArmPower=gamepad.right_stick_y* factorSuspensionArmPower;
-		motors.IntakePower=gamepad.left_stick_y* factorIntakePower;
+
+	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+		if(gamepad.getButtonRunAble(KeyTag.Pop)){
+			clipPosition=ClipPosition.Open;
+		}else{
+			clipPosition=ClipPosition.Close;
+		}
+
+		motors.SuspensionArmPower=gamepad.getRodState(KeyTag.SuspensionArm)* factorSuspensionArmPower;
+		motors.IntakePower=gamepad.getRodState(KeyTag.Intake)* factorIntakePower;
 	}
 }

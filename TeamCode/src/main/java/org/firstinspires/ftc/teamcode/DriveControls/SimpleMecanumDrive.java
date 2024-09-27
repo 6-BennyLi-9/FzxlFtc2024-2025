@@ -12,19 +12,20 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import org.firstinspires.ftc.teamcode.Localizers.Definition.Localizer;
+import org.firstinspires.ftc.teamcode.Localizers.Plugin.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RobotState;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
+import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
@@ -36,6 +37,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 	private final Motors motors;
 	private final Client client;
 	private final PidProcessor pidProcessor;
+	private final String[] ContentTags;
 	
 	public final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	public Pose2d RobotPosition;
@@ -43,22 +45,28 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 	public final Localizer localizer;
 
-	public static State state;
+	public static RobotState robotState;
 
 	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
-	                          PidProcessor pidProcessor, State state, Pose2d RobotPosition){
+	                          PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
 		this.classic=classic;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
-		SimpleMecanumDrive.state =state;
+		SimpleMecanumDrive.robotState = robotState;
 		motors=classic.motors;
 		this.pidProcessor=pidProcessor;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelSubassemblyLocalizer(classic);
+		localizer=new DeadWheelLocalizer(client,classic.sensors);
+
+		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
+
+		pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
+		pidProcessor.loadContent(new PidContent(ContentTags[1],1));
+		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
-		this(robot.classic, robot.client, robot.pidProcessor, robot.state, RobotPosition);
+		this(robot.classic, robot.client, robot.pidProcessor, robot.robotState, RobotPosition);
 	}
 
 	/**
@@ -103,7 +111,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 				Pose2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, RobotPosition, progress);
 
 				if (timer.getDeltaTime() > estimatedTime + timeOutProtectionMills && Params.Configs.useOutTimeProtection) {//保护机制
-					state = State.BrakeDown;
+					robotState = RobotState.BrakeDown;
 					motors.updateDriveOptions();
 					break;
 				}
@@ -114,16 +122,15 @@ public class SimpleMecanumDrive implements DriverProgram {
 							|| Math.abs(aim.heading.toDouble() - RobotPosition.heading.toDouble()) > aem
 							|| Params.Configs.alwaysRunPIDInAutonomous) {
 						//间断地调用pid可能会导致pid的效果不佳
-						pidProcessor.inaccuracies[0] = aim.position.x - RobotPosition.position.x;
-						pidProcessor.inaccuracies[1] = aim.position.y - RobotPosition.position.y;
-						pidProcessor.inaccuracies[2] = aim.heading.toDouble() - RobotPosition.heading.toDouble();
+						pidProcessor.registerInaccuracies(ContentTags[0], aim.position.x- RobotPosition.position.x);
+						pidProcessor.registerInaccuracies(ContentTags[1], aim.position.y- RobotPosition.position.y);
+						pidProcessor.registerInaccuracies(ContentTags[2], aim.heading.toDouble()- RobotPosition.heading.toDouble());
+
 						pidProcessor.update();
 
-						double[] fulfillment = pidProcessor.fulfillment;
-
-						motors.xAxisPower += fulfillment[0];
-						motors.yAxisPower += fulfillment[1];
-						motors.headingPower += fulfillment[2];
+						motors.xAxisPower+=pidProcessor.getFulfillment(ContentTags[0]);
+						motors.yAxisPower+=pidProcessor.getFulfillment(ContentTags[1]);
+						motors.headingPower+=pidProcessor.getFulfillment(ContentTags[2]);
 					}
 				} else {
 					if (Math.abs(aim.position.x - RobotPosition.position.x) > pem
@@ -144,7 +151,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 				motors.updateDriveOptions(RobotPosition.heading.toDouble());
 			}
 
-			state= State.WaitingAtPoint;
+			robotState = RobotState.WaitingAtPoint;
 		}
 		client.deleteData("distance");
 		client.deleteData("estimatedTime");
@@ -153,7 +160,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		client.dashboard.deletePacketByTag("TargetLine");
 
 		classic.STOP();
-		state= State.IDLE;
+		robotState = RobotState.IDLE;
 	}
 
 	@Override
