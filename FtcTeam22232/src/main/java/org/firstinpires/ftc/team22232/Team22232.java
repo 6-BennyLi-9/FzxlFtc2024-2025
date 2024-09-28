@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
 /**
  * 可以将该类重命名为队伍编号
  */
-@TeleOp(name = "RENAME WITH TEAM CODE",group = "main")
+@TeleOp(name = "22232",group = "main")
 @Disabled
-public class MainTeleOp extends TeleopProgramTemplate {
+public class Team22232 extends TeleopProgramTemplate {
 	@Override
 	public void whileActivating() {
 		robot.operateThroughGamePad();
