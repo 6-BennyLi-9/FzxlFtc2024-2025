@@ -21,5 +21,6 @@ public class Team4406 extends TeleopProgramTemplate {
 	public void whenInit() {
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.setParamsOverride(new TeamCodeParams());
+		robot.setKeyMapController(new TeamCodeKeyMap());
 	}
 }
