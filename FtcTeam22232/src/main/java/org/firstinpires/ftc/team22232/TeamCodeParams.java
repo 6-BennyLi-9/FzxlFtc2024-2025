@@ -1,4 +1,4 @@
-package org.firstinpires.ftc.team3970;
+package org.firstinpires.ftc.team22232;
 
 import com.acmerobotics.dashboard.config.Config;
 
