@@ -6,8 +6,15 @@
 
 buildscript {
 	repositories {
-		mavenCentral()
-		google()
+		maven {
+			url 'https://maven.aliyun.com/nexus/content/repositories/google'
+		}
+		maven {
+			url = 'https://maven.aliyun.com/nexus/content/repositories/central/'
+		}
+		maven {
+			url = 'https://maven.brott.dev/'
+		}
 	}
 	dependencies {
 		// Note for FTC Teams: Do not modify this yourself.
@@ -20,11 +27,23 @@ buildscript {
 // google() repository beginning with version 3.2 of the Android Gradle Plugin
 allprojects {
 	repositories {
-		mavenCentral()
-		google()
+		maven {
+			url 'https://maven.aliyun.com/nexus/content/repositories/google'
+		}
+		maven {
+			url = 'https://maven.aliyun.com/nexus/content/repositories/central/'
+		}
+		maven {
+			url = 'https://maven.brott.dev/'
+		}
 	}
 }
 
 repositories {
-	mavenCentral()
+	maven {
+		url = 'https://maven.aliyun.com/nexus/content/repositories/central/'
+	}
+	maven {
+		url = 'https://maven.brott.dev/'
+	}
 }
