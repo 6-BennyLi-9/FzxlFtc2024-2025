@@ -1,9 +1,23 @@
 repositories {
-    mavenCentral()
-    google() // Needed for androidx
+//    mavenCentral()
+//    google() // Needed for androidx
+//    maven {
+//        url 'http://maven.aliyun.com/nexus/content/repositories/mavenCentral'
+//    }
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/google'
+    }
     maven {
         url = 'https://maven.brott.dev/'
     }
+
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+
 }
 
 dependencies {
