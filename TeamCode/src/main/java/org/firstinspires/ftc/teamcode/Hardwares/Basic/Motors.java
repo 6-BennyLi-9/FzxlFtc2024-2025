@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Basic;
+package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Complex;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import org.firstinspires.ftc.teamcode.utils.Complex;
+import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
 public class Motors {
 	public IntegrationHardwareMap hardware;
@@ -16,9 +16,9 @@ public class Motors {
 	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
 	public double xAxisPower,yAxisPower,headingPower;
-	public double PlacementArmPower,SuspensionArmPower,IntakePower;
+	public double SuspensionArmPower,IntakePower;
 
-	private double ClassicBufPower =1, StructureBufPower =1;
+	private double ChassisBufPower =1, StructureBufPower =1;
 
 	public Motors(IntegrationHardwareMap deviceMap){
 		hardware= deviceMap;
@@ -27,21 +27,8 @@ public class Motors {
 		LeftRearPower=0;
 		RightRearPower=0;
 
-		PlacementArmPower=0;
 		SuspensionArmPower=0;
 		IntakePower=0;
-
-		//TODO:根据实际情况修改
-		hardware.setDirection(HardwareDevices.LeftFront, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDevices.LeftRear, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDevices.RightFront, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(HardwareDevices.RightRear, DcMotorSimple.Direction.REVERSE);
-
-		try {
-			hardware.setDirection(HardwareDevices.PlacementArm, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDevices.Intake, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDevices.SuspensionArm, DcMotorSimple.Direction.FORWARD);
-		}catch (Exception ignored){}
 	}
 
 	public void clearDriveOptions(){
@@ -88,25 +75,27 @@ public class Motors {
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
 
-		hardware.setPowerSmooth(HardwareDevices.LeftFront, LeftFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.LeftRear, LeftRearPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.RightFront, RightFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.RightRear, RightRearPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(HardwareDevices.PlacementArm, PlacementArmPower* StructureBufPower);
-		hardware.setPower(HardwareDevices.Intake, IntakePower* StructureBufPower);
-		hardware.setPower(HardwareDevices.SuspensionArm, SuspensionArmPower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.SuspensionArm, SuspensionArmPower* StructureBufPower);
 	}
+
+	public PositionalIntegrationMotor placementArm(){
+		return (PositionalIntegrationMotor) hardware.getDevice(HardwareDeviceTypes.PlacementArm);
+	}
+
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
 	 * @see org.firstinspires.ftc.teamcode.Params
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
-		try{
-			updateStructureOptions();
-		}catch (Exception ignored){}
+		updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
@@ -114,9 +103,7 @@ public class Motors {
 	}
 	public void update(){
 		updateDriveOptions();
-		try{
-			updateStructureOptions();
-		}catch (Exception ignored){}
+		updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
@@ -134,14 +121,14 @@ public class Motors {
 		RightFrontPower += yAxisPower-xPoser+headingPower;
 		RightRearPower  += yAxisPower+xPoser+headingPower;
 	}
-	public void setClassicBufPower(double BufPower){
-		ClassicBufPower =BufPower;
+	public void setChassisBufPower(double BufPower){
+		ChassisBufPower =BufPower;
 	}
 	public void setStructureBufPower(double BufPower){
 		StructureBufPower =BufPower;
 	}
 	public void setBufPower(double BudPower){
-		setClassicBufPower(BudPower);
+		setChassisBufPower(BudPower);
 		setStructureBufPower(BudPower);
 	}
 }

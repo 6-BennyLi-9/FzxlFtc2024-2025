@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.Utils.Clients;
+package org.firstinspires.ftc.teamcode.utils.clients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.codes.samples.ClientUsage;
 
 /**
- * @see org.firstinspires.ftc.teamcode.Samples.ClientUsage
+ * @see ClientUsage
  */
 //TODO 测试 NoSortTelemetryClient
 public class Client extends TelemetryClient{

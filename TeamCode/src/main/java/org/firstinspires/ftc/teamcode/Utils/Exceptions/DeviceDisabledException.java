@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils.Exceptions;
+package org.firstinspires.ftc.teamcode.utils.exceptions;
 
 public class DeviceDisabledException extends NullPointerException{
 	public DeviceDisabledException(String s){

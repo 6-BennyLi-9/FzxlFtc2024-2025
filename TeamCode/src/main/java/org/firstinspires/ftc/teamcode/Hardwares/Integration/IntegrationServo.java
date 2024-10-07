@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.hardwares.integration;
 
 import android.util.Log;
 
@@ -6,11 +6,13 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 public class IntegrationServo extends IntegrationDevice{
+	private final static double AllowErrorPosition=0.1;
+
 	public final double positionPerRadian,speed,basePose;
 	private final boolean lazyMode;
 	public boolean smoothMode=false;
@@ -19,7 +21,7 @@ public class IntegrationServo extends IntegrationDevice{
 	public final Servo servo;
 
 	@UserRequirementFunctions
-	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDevices deviceType,
+	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDeviceTypes deviceType,
 	                        double positionPerRadian, double speed, double basePose){
 		super(deviceType.deviceName);
 		this.servo= servo;
@@ -29,7 +31,7 @@ public class IntegrationServo extends IntegrationDevice{
 		lazyMode=false;
 	}
 	@UserRequirementFunctions
-	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDevices deviceType){
+	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDeviceTypes deviceType){
 		super(deviceType.deviceName);
 		this.servo= servo;
 		positionPerRadian=0;
@@ -79,6 +81,10 @@ public class IntegrationServo extends IntegrationDevice{
 		}
 		timer.pushTimeTag("LastUpdateTime");
 		updated=true;
+	}
+
+	public boolean inPlace(){
+		return Math.abs(servo.getPosition() - targetPose) < AllowErrorPosition;
 	}
 
 	@Override

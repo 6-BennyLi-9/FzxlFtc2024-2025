@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.hardwares.integration;
 
 public abstract class IntegrationDevice implements Integrations{
 	public final String name;

@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Basic;
+package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;
+import org.firstinspires.ftc.teamcode.codes.samples.CameraDetection;
+import org.firstinspires.ftc.teamcode.utils.enums.AutonomousLocation;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -12,7 +13,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 /**
  * 我们这里使用的是OpenCV的颜色块识别，如果你有更多方案，可以进行修改，或者新建拉取请求
- * @see org.firstinspires.ftc.teamcode.Samples.CameraDetection
+ * @see CameraDetection
  */
 public class Camera extends OpenCvPipeline {
 	private final Telemetry telemetry;

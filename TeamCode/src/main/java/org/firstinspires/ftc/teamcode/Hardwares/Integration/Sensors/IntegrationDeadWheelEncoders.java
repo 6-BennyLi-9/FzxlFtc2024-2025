@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors;
+package org.firstinspires.ftc.teamcode.hardwares.integration.sensors;
 
 import androidx.annotation.NonNull;
 

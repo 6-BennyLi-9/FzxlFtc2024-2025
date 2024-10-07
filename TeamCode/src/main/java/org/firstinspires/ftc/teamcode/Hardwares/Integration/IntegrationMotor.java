@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.hardwares.integration;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
-import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
-import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
+import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
 
 public class IntegrationMotor extends IntegrationDevice{
 	private boolean PID_ENABLED =true;
@@ -22,7 +21,7 @@ public class IntegrationMotor extends IntegrationDevice{
 	public double minPowerToOvercomeKineticFriction=0;
 	public double minPowerToOvercomeStaticFriction=0;
 
-	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor,
+	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor,
 	                        @NonNull IntegrationHardwareMap integrationHardwareMap){
 		super(deviceType.deviceName);
 		this.motor= motor;

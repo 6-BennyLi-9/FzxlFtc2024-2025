@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils.Clients;
+package org.firstinspires.ftc.teamcode.utils.clients;
 
 import android.util.Pair;
 
@@ -10,9 +10,9 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.utils.Functions;
 
 import java.util.Comparator;
 import java.util.HashMap;

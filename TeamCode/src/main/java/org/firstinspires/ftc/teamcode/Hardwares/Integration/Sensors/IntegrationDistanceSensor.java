@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors;
+package org.firstinspires.ftc.teamcode.hardwares.integration.sensors;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

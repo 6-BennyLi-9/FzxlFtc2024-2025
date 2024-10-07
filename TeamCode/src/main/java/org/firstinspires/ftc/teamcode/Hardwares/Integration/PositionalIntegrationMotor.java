@@ -1,17 +1,19 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.hardwares.integration;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
-import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
-import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
+import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
 
 public class PositionalIntegrationMotor extends IntegrationDevice{
+	private final static double AllowErrorPosition=15;
+
 	private boolean PID_ENABLED =true;
 	private boolean LAZY_MODE = false;
 
@@ -20,7 +22,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	private double bufPower=1f;
 	private int targetPosition;
 
-	public PositionalIntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor){
+	public PositionalIntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor){
 		super(deviceType.deviceName);
 		this.motor=motor;
 		this.pidProcessor=pidProcessor;
@@ -63,6 +65,11 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 		updated=true;
 	}
 
+	@UserRequirementFunctions
+	public boolean inPlace(){
+		return Math.abs(motor.getCurrentPosition() - targetPosition) < AllowErrorPosition;
+	}
+
 	@Override
 	public double getPosition() {
 		return motor.getCurrentPosition();
@@ -74,7 +81,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	}
 
 	@UserRequirementFunctions
-	public void ConfigPidEnable(boolean val) {
+	public void configPidEnable(boolean val) {
 		PID_ENABLED = val;
 	}
 }

@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.utils;
 
-import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 import java.util.HashMap;
 import java.util.Map;

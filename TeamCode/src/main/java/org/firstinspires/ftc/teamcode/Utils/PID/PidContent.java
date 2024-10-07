@@ -1,16 +1,18 @@
-package org.firstinspires.ftc.teamcode.Utils.PID;
+package org.firstinspires.ftc.teamcode.utils.PID;
 
 import static org.firstinspires.ftc.teamcode.Params.PIDParams;
 import static org.firstinspires.ftc.teamcode.Params.PIDParams.kD;
 import static org.firstinspires.ftc.teamcode.Params.PIDParams.kI;
 import static org.firstinspires.ftc.teamcode.Params.PIDParams.kP;
 
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Timer;
+import androidx.annotation.NonNull;
+
+import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @UtilFunctions
 public class PidContent {
-	public final String Tag;
+	public final String tag;
 	public final double vP,vI,vD,MAX_I;
 	public double P,I,D;
 	public double inaccuracies,lastInaccuracies,fulfillment;
@@ -18,7 +20,7 @@ public class PidContent {
 	public final int ParamID;
 
 	public PidContent(String tag,double p,double i,double d,double max_i,int paramID){
-		Tag=tag;
+		this.tag =tag;
 		vP=p;
 		vI=i;
 		vD=d;
@@ -43,4 +45,9 @@ public class PidContent {
 		return kI[ParamID];
 	}
 
+	@NonNull
+	@Override
+	public String toString() {
+		return "\""+ tag +"\":"+P+","+I+","+"D";
+	}
 }

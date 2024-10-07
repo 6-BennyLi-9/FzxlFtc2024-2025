@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Basic;
+package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationDeadWheelEncoders;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好
@@ -16,10 +16,10 @@ public class Sensors {
 	public IntegrationDeadWheelEncoders Left,Middle,Right;
 
 	public Sensors(@NonNull IntegrationHardwareMap hardwareMap){
-		imu=(IntegrationBNO055) hardwareMap.getDevice(HardwareDevices.imu);
-		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.LeftDeadWheel);
-		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.MiddleDeadWheel);
-		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.RightDeadWheel);
+		imu= (IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
+		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
+		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
+		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
 	}
 
 	public void updateEncoders(){
@@ -55,7 +55,7 @@ public class Sensors {
 	}
 
 	@ExtractedInterfaces
-	public double RobotAngle() {
-		return imu.RobotAngle;
+	public double robotAngle() {
+		return imu.robotAngle;
 	}
 }
