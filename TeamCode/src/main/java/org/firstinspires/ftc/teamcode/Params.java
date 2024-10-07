@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.teamcode.codes.tunings.SecPowerPerInchTuner;
+import org.firstinspires.ftc.teamcode.codes.tunings.ThreeInOne_DeadWheelTuner;
+
 @Config
 public class Params {
 	@Config
 	public static class PIDParams{
-		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
+		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.secPowerPerInch
 		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
 		//TODO:若要更改，则请查看对该类型的访问中的序数是否需要改变
 		public static double[] kP= new double[]{0.12, 0.15, 0.12};
@@ -32,10 +35,10 @@ public class Params {
 		public static boolean usePIDInAutonomous = true;
 		/**必须在自动程序中保持改变量为<code>true</code>*/
 		public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
-		/**在手动程序中，使用<code>gamepad1</code>的<code>right_stick_y</code>来控制底盘速度*/
-		public static boolean useRightStickYToConfigRobotSpeed = true;
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
+		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
+		public static boolean autoRegisterAllHardwaresWhenInit = false;
 	}
 	@Config
 	public static class namespace{
@@ -50,37 +53,39 @@ public class Params {
 		public static String SuspensionArm="rack";
 		public static String Imu="imu";
 	}
+	@Config
+	public static class ServoConfigs{
+		public static double frontClipOpen=0;
+		public static double rearClipOpen=0;
+		public static double frontClipClose=0;
+		public static double rearClipClose=0;
+	}
+	@Config
+	public static class PositionalMotorConfigs{
+		public static int IDLEPlacement=0;
+		public static int LowPlacement=0;
+		public static int HighPlacement=0;
+	}
 	/**
 	 * 每Tick机器所旋转的角度
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
-	 * IMU相较于机器的正中心在X轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
-	 */
-	@Deprecated
-	public static double X_error=0;
-	/**
-	 * IMU相较于机器的正中心在Y轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
-	 */
-	@Deprecated
-	public static double Y_error=0;
-	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
+	 * @see SecPowerPerInchTuner
 	 */
-	public static double vP=0;
+	public static double secPowerPerInch =0;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */

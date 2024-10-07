@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat
 // build.gradle in FtcRobotController
 //
 apply plugin: 'com.android.library'
-apply from: '../build.dependencies.gradle'
 
 android {
 
@@ -24,3 +23,4 @@ android {
 	namespace = 'com.qualcomm.ftcrobotcontroller'
 }
 
+apply from: '../build.dependencies.gradle'
