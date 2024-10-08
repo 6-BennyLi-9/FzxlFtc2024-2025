@@ -10,9 +10,9 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 
 import java.util.Comparator;
 import java.util.HashMap;

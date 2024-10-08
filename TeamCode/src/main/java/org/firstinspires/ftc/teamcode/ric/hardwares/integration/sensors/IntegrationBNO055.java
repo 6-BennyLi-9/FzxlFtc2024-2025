@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 
 public class IntegrationBNO055 extends IntegrationSensor{
 	public final BNO055IMU sensor;

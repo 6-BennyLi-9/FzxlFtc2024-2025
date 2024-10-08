@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.ric.hardwares.integration;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.BasicIntegrationGamepad;
-import org.firstinspires.ftc.teamcode.KeyMap;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.BasicIntegrationGamepad;
+import org.firstinspires.ftc.teamcode.ric.KeyMap;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 
 public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;

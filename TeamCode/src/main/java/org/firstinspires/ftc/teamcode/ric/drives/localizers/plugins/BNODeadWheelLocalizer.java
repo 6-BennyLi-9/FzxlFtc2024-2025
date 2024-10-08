@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.plugins;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.definition.PositionLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
 /**
  * 使用imu获取机器的角度

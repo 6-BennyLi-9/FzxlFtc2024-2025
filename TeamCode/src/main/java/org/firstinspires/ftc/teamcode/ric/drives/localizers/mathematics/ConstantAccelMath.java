@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.mathematics;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.utils.Position2d;
+import org.firstinspires.ftc.teamcode.ric.utils.Position2d;
 
 public class ConstantAccelMath {
 	public static final double FIDELITY = 1E-8;

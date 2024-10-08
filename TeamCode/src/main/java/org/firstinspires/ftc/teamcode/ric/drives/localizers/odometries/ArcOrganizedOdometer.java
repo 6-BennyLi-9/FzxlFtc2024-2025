@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.OdometerPrograms;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
 @OdometerPrograms
 public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{

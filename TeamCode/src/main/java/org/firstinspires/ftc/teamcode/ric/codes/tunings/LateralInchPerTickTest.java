@@ -4,8 +4,8 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "LateralInchPerTickTest",group = "tune")
 @Disabled

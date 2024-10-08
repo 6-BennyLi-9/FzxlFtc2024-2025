@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.hardwares.Structure;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.ClipPosition;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Structure;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 @Deprecated
 public class ClipOptionAction implements Action {

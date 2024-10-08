@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 public class IntegrationServo extends IntegrationDevice{
 	private final static double AllowErrorPosition=0.1;

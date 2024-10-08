@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 
 @TeleOp(name = "DeadWheelEncoders_Test",group = "tune")
 @Deprecated

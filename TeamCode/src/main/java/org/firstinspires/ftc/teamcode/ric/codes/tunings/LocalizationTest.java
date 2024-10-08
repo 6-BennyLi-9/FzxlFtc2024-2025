@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 
 @TeleOp(name = "LocalizationTest",group = "tune")
 public class LocalizationTest extends TuningProgramTemplate {

@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UtilFunctions;
 
 public interface Odometry {
 	/**

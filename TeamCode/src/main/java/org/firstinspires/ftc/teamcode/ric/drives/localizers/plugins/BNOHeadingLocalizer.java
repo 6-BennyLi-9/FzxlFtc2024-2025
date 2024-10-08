@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.plugins;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.drives.localizers.definition.HeadingLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.definition.HeadingLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public class BNOHeadingLocalizer implements HeadingLocalizerPlugin {

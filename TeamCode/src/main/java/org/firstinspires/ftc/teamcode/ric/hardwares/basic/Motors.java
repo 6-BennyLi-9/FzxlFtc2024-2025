@@ -2,13 +2,14 @@ package org.firstinspires.ftc.teamcode.ric.hardwares.basic;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Functions;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.PositionalIntegrationMotor;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.Complex;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.Quadrant;
 
 public class Motors {
 	public IntegrationHardwareMap hardware;
@@ -43,7 +44,7 @@ public class Motors {
 
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.Params
+	 * @see Params
 	 */
 	public void updateDriveOptions(double headingDeg){
 		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
@@ -53,12 +54,12 @@ public class Motors {
 			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
 			
 			switch (robotHeading.quadrant()){
-				case firstQuadrant://逆时针转
-				case thirdQuadrant:
+				case Quadrant.firstQuadrant://逆时针转
+				case Quadrant.thirdQuadrant:
 					aim=aim.times(Counterclockwise);
 					break;
-				case secondQuadrant://顺时针转
-				case forthQuadrant:
+				case Quadrant.secondQuadrant://顺时针转
+				case Quadrant.forthQuadrant:
 					aim=aim.divide(Counterclockwise);
 					break;
 			}
@@ -91,7 +92,7 @@ public class Motors {
 
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.Params
+	 * @see Params
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);

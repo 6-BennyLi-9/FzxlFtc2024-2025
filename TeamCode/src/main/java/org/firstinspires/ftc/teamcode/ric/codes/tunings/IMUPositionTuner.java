@@ -4,7 +4,8 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.Params;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
  * <p>
  * 3.把机器移动到地垫的另一端
  * <p>
- * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
+ * 4.查看xError和yError，填入{@link Params}
  */
 @TeleOp(name = "IMUPositionTuner",group = "tune")
 @Disabled

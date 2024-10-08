@@ -5,12 +5,12 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
-import org.firstinspires.ftc.teamcode.drives.controls.TrajectoryType;
-import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
-import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriveOrder;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.TrajectoryType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
+import org.firstinspires.ftc.teamcode.ric.utils.Complex;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 
 public class DriveCommand implements DriveOrder {
 	private final Chassis chassis;

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.ric;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 /**
  * @see Robot

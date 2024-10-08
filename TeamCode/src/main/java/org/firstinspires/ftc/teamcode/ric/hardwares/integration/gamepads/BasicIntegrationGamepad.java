@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 import java.util.HashMap;
 import java.util.Map;

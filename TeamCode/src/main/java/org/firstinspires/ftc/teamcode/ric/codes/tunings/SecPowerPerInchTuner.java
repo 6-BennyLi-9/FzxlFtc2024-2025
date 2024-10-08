@@ -8,11 +8,11 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @TeleOp(name = "SecPowerPerInchTuner",group = "tune")
 public class SecPowerPerInchTuner extends TuningProgramTemplate {

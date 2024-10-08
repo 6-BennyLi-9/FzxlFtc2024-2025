@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.templates.TestProgramTemplate;
-import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TestProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
+import org.firstinspires.ftc.teamcode.ric.Robot;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 @TeleOp(name = "ChassisTest",group = "tune")
 public class ChassisTest extends TestProgramTemplate {

@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.integration;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.DeviceConfigPackage.Direction.Reversed;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.Intake;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.LeftDeadWheel;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.LeftFront;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.LeftRear;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.MiddleDeadWheel;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RightDeadWheel;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RightFront;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RightRear;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DeviceConfigPackage.Direction.Reversed;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.Intake;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.LeftDeadWheel;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.LeftFront;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.LeftRear;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.MiddleDeadWheel;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.RightDeadWheel;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.RightFront;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.RightRear;
 
 import androidx.annotation.NonNull;
 
@@ -19,16 +19,16 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
-import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceNotFoundException;
-import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.CustomizedHardwareRegisterOptions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareState;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.exceptions.DeviceDisabledException;
+import org.firstinspires.ftc.teamcode.ric.utils.exceptions.DeviceNotFoundException;
+import org.firstinspires.ftc.teamcode.ric.utils.PID.PidProcessor;
 
 import java.util.HashMap;
 import java.util.HashSet;

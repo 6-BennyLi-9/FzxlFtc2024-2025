@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode.ric;
 
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType.*;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag.*;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyRodType.*;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType.*;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType.*;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.BasicIntegrationGamepad;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.BasicIntegrationGamepad;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyRodType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 
 import java.util.HashMap;
 import java.util.Map;

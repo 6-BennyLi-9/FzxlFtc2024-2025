@@ -5,9 +5,9 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,26 +1,26 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares;
 
-import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.HighPlacement;
-import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.IDLEPlacement;
-import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.LowPlacement;
-import static org.firstinspires.ftc.teamcode.Params.factorIntakePower;
-import static org.firstinspires.ftc.teamcode.Params.factorSuspensionArmPower;
+import static org.firstinspires.ftc.teamcode.ric.Params.PositionalMotorConfigs.HighPlacement;
+import static org.firstinspires.ftc.teamcode.ric.Params.PositionalMotorConfigs.IDLEPlacement;
+import static org.firstinspires.ftc.teamcode.ric.Params.PositionalMotorConfigs.LowPlacement;
+import static org.firstinspires.ftc.teamcode.ric.Params.factorIntakePower;
+import static org.firstinspires.ftc.teamcode.ric.Params.factorSuspensionArmPower;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.actions.MotorControllerAction;
-import org.firstinspires.ftc.teamcode.actions.StructureActions;
-import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
+import org.firstinspires.ftc.teamcode.ric.actions.MotorControllerAction;
+import org.firstinspires.ftc.teamcode.ric.actions.StructureActions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.ClipPosition;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationGamepad;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.exceptions.UnKnownErrorsException;
 
 public class Structure {
 	public Motors motors;

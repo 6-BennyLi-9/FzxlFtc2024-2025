@@ -4,11 +4,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.templates.TestProgramTemplate;
-import org.firstinspires.ftc.teamcode.drives.controls.commands.DriveCommandPackage;
-import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TestProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.commands.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.ric.Robot;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 @TeleOp(name = "SimpleMecanumDrive_Test",group = "tune")
 public class SimpleMecanumDriveTest extends TestProgramTemplate {

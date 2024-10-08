@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.ric.utils.clients;
 import android.util.Pair;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 import java.util.Map;
 import java.util.Objects;

@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.ric.hardwares.basic;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好

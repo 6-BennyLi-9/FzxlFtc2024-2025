@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.Robot;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 /**
  * 1.运行程序
  * <p>
- * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
+ * 2.查看xError和yError，填入{@link Params}
  */
 @Autonomous(name = "AutoIMUPositionTuner",group = "tune")
 @Disabled

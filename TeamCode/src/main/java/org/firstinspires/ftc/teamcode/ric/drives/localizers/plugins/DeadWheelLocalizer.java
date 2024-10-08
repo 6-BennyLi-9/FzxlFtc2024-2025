@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.plugins;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ArcOrganizedOdometer;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.definition.PositionLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.ArcOrganizedOdometer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.Odometry;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {

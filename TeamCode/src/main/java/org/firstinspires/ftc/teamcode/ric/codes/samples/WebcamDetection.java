@@ -5,8 +5,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Webcam;
 
 @Disabled
 @Autonomous (name = "WebcamDetection",group = "sample")

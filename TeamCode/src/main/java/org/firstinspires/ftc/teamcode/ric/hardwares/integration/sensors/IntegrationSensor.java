@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.Integrations;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.Integrations;
 
 public abstract class IntegrationSensor implements Integrations {
 	public final String name;

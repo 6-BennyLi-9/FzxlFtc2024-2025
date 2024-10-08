@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 
 /**
  * @see AxialInchPerTickTest

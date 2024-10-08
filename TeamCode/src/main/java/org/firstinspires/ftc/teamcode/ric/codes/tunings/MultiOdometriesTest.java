@@ -6,20 +6,20 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.KeyMap;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ArcOrganizedOdometer;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ClassicOdometer;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.IntegralOrganizedOdometer;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
-import org.firstinspires.ftc.teamcode.drives.localizers.odometries.SuperRubbishUselessAwfulOdometer;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
+import org.firstinspires.ftc.teamcode.ric.KeyMap;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.ArcOrganizedOdometer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.ClassicOdometer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.IntegralOrganizedOdometer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.Odometry;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.SuperRubbishUselessAwfulOdometer;
+import org.firstinspires.ftc.teamcode.ric.Robot;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.DashboardClient;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyRodType;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 @TeleOp(name = "MultiOdometriesTest",group = "tune")
 public class MultiOdometriesTest extends OpMode {

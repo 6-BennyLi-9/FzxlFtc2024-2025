@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.samples;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TeleopProgramTemplate;
 
 @TeleOp(name = "ManualCodeSample",group = "samples")
 @Disabled

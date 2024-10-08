@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.ric.codes.templates;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.annotations.Templates;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.ric.Robot;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.Templates;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 @Templates
 public abstract class AutonomousProgramTemplate extends LinearOpMode {

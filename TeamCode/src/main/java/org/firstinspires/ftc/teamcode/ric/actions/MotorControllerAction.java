@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.PositionalIntegrationMotor;
 
 public class MotorControllerAction implements Action {
 	private final PositionalIntegrationMotor motor;

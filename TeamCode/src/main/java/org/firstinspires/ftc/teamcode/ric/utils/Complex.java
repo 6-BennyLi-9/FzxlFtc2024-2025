@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.Quadrant;
 
 /**
  * 但凡Java支持重载运算符，都不至于写得这么复杂

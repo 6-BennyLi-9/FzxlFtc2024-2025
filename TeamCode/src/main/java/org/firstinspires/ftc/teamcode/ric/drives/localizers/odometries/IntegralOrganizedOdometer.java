@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.drives.localizers.mathematics.ConstantAccelMath;
-import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.utils.Functions;
-import org.firstinspires.ftc.teamcode.utils.Position2d;
-import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.mathematics.ConstantAccelMath;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.OdometerPrograms;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.utils.Position2d;
+import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 import java.util.Vector;
 

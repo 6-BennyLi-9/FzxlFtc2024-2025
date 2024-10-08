@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.ric.utils.PID;
 
-import static org.firstinspires.ftc.teamcode.Params.PIDParams;
-import static org.firstinspires.ftc.teamcode.Params.PIDParams.kD;
-import static org.firstinspires.ftc.teamcode.Params.PIDParams.kI;
-import static org.firstinspires.ftc.teamcode.Params.PIDParams.kP;
+import static org.firstinspires.ftc.teamcode.ric.Params.PIDParams;
+import static org.firstinspires.ftc.teamcode.ric.Params.PIDParams.kD;
+import static org.firstinspires.ftc.teamcode.ric.Params.PIDParams.kI;
+import static org.firstinspires.ftc.teamcode.ric.Params.PIDParams.kP;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @UtilFunctions
 public class PidContent {

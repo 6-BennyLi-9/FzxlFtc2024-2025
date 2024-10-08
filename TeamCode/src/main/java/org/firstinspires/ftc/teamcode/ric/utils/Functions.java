@@ -5,10 +5,11 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
-import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.TrajectoryType;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriveOrder;
+import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RobotState;
 import org.jetbrains.annotations.Contract;
 
 public final class Functions extends Mathematics{
@@ -48,12 +49,12 @@ public final class Functions extends Mathematics{
     @UtilFunctions
     public static Pose2d getAimPositionThroughTrajectory(@NonNull DriveOrder driveOrder, @NonNull Pose2d RobotPosition , double progress){
         switch (driveOrder.getState()) {
-            case LinerStrafe:
-            case LinerWithTurn:
-            case TurnOnly:
+            case TrajectoryType.LinerStrafe:
+            case TrajectoryType.LinerWithTurn:
+            case TrajectoryType.TurnOnly:
                 SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
                 return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.NEXT(), RobotPosition , progress);
-            case Spline://TODO:功能仍在开发中
+            case TrajectoryType.Spline://TODO:功能仍在开发中
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
             default:

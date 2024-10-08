@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
+import org.firstinspires.ftc.teamcode.ric.utils.exceptions.UnKnownErrorsException;
 
 public abstract class SubassemblyLocalizer implements Localizer{
 	public final LocalizerPlugin[] plugins;

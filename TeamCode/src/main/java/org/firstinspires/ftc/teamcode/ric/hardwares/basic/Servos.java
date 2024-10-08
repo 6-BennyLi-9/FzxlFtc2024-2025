@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.basic;
 
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.FrontClip;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RearClip;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.FrontClip;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes.RearClip;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationHardwareMap;
 
 public class Servos {
 	public IntegrationHardwareMap hardware;

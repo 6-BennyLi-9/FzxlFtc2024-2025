@@ -1,21 +1,21 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares;
 
-import static org.firstinspires.ftc.teamcode.Params.Configs;
-import static org.firstinspires.ftc.teamcode.Params.factorHeadingPower;
-import static org.firstinspires.ftc.teamcode.Params.factorXPower;
-import static org.firstinspires.ftc.teamcode.Params.factorYPower;
+import static org.firstinspires.ftc.teamcode.ric.Params.Configs;
+import static org.firstinspires.ftc.teamcode.ric.Params.factorHeadingPower;
+import static org.firstinspires.ftc.teamcode.ric.Params.factorXPower;
+import static org.firstinspires.ftc.teamcode.ric.Params.factorYPower;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
-import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
-import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationGamepad;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.Quadrant;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 
 public class Chassis {
 	public Motors motors;

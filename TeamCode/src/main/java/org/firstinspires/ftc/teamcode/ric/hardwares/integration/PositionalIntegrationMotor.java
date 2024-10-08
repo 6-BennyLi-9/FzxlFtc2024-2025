@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.utils.Functions;
-import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
-import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.utils.Functions;
+import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
+import org.firstinspires.ftc.teamcode.ric.utils.PID.PidProcessor;
 
 public class PositionalIntegrationMotor extends IntegrationDevice{
 	private final static double AllowErrorPosition=15;
