@@ -49,12 +49,12 @@ public final class Functions extends Mathematics{
     @UtilFunctions
     public static Pose2d getAimPositionThroughTrajectory(@NonNull DriveOrder driveOrder, @NonNull Pose2d RobotPosition , double progress){
         switch (driveOrder.getState()) {
-            case TrajectoryType.LinerStrafe:
-            case TrajectoryType.LinerWithTurn:
-            case TrajectoryType.TurnOnly:
+            case LinerStrafe:
+            case LinerWithTurn:
+            case TurnOnly:
                 SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
                 return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.NEXT(), RobotPosition , progress);
-            case TrajectoryType.Spline://TODO:功能仍在开发中
+            case Spline://TODO:功能仍在开发中
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
             default:

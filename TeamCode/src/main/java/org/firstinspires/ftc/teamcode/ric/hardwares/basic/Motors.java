@@ -54,12 +54,12 @@ public class Motors {
 			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
 			
 			switch (robotHeading.quadrant()){
-				case Quadrant.firstQuadrant://逆时针转
-				case Quadrant.thirdQuadrant:
+				case firstQuadrant://逆时针转
+				case thirdQuadrant:
 					aim=aim.times(Counterclockwise);
 					break;
-				case Quadrant.secondQuadrant://顺时针转
-				case Quadrant.forthQuadrant:
+				case secondQuadrant://顺时针转
+				case forthQuadrant:
 					aim=aim.divide(Counterclockwise);
 					break;
 			}
