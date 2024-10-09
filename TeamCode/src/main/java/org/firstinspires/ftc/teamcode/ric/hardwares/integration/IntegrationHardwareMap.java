@@ -46,10 +46,7 @@ public class IntegrationHardwareMap {
 		lazyHardwareMap=map;
 		lazyProcessor=processor;
 
-		if(Params.Configs.autoRegisterAllHardwaresWhenInit) {
-			registerAllDevices();
-		}
-
+		//TODO 列举需要PositionalIntegrationMotor的类
 		IsIntegrationMotor=new HashSet<>();
 		IsDeadWheel=new HashSet<>();
 		//TODO 列举需要IntegrationMotor而非PositionalIntegrationMotor的类
@@ -63,6 +60,10 @@ public class IntegrationHardwareMap {
 		IsDeadWheel.add(LeftDeadWheel);
 		IsDeadWheel.add(MiddleDeadWheel);
 		IsDeadWheel.add(RightDeadWheel);
+
+		if(Params.Configs.autoRegisterAllHardwaresWhenInit) {
+			registerAllDevices();
+		}
 	}
 
 	public void loadHardwareObject(@NonNull HardwareDeviceTypes device){
@@ -95,7 +96,8 @@ public class IntegrationHardwareMap {
 	@ExtractedInterfaces
 	public void registerAllDevices(){
 		for(HardwareDeviceTypes device: HardwareDeviceTypes.values()){
-			loadHardwareObject(device);
+			if(device!=null)
+				loadHardwareObject(device);
 		}
 	}
 	@ExtractedInterfaces

@@ -38,7 +38,7 @@ public class Params {
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
-		public static boolean autoRegisterAllHardwaresWhenInit = false;
+		public static boolean autoRegisterAllHardwaresWhenInit = true;
 	}
 	@Config
 	public static class namespace{

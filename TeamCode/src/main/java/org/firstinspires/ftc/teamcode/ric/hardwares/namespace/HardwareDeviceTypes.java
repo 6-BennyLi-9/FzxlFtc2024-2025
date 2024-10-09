@@ -28,7 +28,7 @@ public enum HardwareDeviceTypes {
 	LeftDeadWheel   (-1,LeftRear.deviceName, DcMotorEx.class, Direction.Reversed),
 	MiddleDeadWheel (-1,LeftFront.deviceName,DcMotorEx.class, Direction.Reversed),
 	RightDeadWheel  (-1,RightFront.deviceName, DcMotorEx.class, Direction.Reversed),
-	imu             (-1,namespace.Imu, BNO055IMU .class);
+	imu             (-1,namespace.Imu, BNO055IMU.class);
 	public final String deviceName;
 	public final Class<?> classType;
 	public final DeviceConfigPackage config;
