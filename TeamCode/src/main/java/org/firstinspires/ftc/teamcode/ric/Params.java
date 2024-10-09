@@ -41,11 +41,11 @@ public class Params {
 		public static boolean autoRegisterAllHardwaresWhenInit = true;
 	}
 	@Config
-	public static class namespace{
+	public static class HardwareNamespace {
 		public static String LeftFront="leftFront";
 		public static String RightFront="rightFront";
 		public static String LeftRear="leftBack";
-		public static String RightRear="rightRear";
+		public static String RightRear="rightBack";
 		public static String PlacementArm="rightLift";
 		public static String Intake="intake";
 		public static String FrontClip="frontClip";

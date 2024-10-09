@@ -46,7 +46,6 @@ public class IntegrationHardwareMap {
 		lazyHardwareMap=map;
 		lazyProcessor=processor;
 
-		//TODO 列举需要PositionalIntegrationMotor的类
 		IsIntegrationMotor=new HashSet<>();
 		IsDeadWheel=new HashSet<>();
 		//TODO 列举需要IntegrationMotor而非PositionalIntegrationMotor的类
