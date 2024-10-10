@@ -71,11 +71,6 @@ public class Motors {
 		updateDriveOptions();
 	}
 	public void updateDriveOptions(){
-		LeftFrontPower=Mathematics.intervalClip(LeftFrontPower,-1,1);
-		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
-		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
-		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
-
 		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
 		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
 		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
@@ -95,6 +90,8 @@ public class Motors {
 	 * @see Params
 	 */
 	public void update(double headingDeg){
+		powersRationalize();
+
 		updateDriveOptions(headingDeg);
 		updateStructureOptions();
 
@@ -103,6 +100,8 @@ public class Motors {
 		}
 	}
 	public void update(){
+		powersRationalize();
+
 		updateDriveOptions();
 		updateStructureOptions();
 
@@ -121,6 +120,8 @@ public class Motors {
 		LeftRearPower   += yAxisPower-xPoser-headingPower;
 		RightFrontPower += yAxisPower-xPoser+headingPower;
 		RightRearPower  += yAxisPower+xPoser+headingPower;
+
+		powersRationalize();
 	}
 	public void setChassisBufPower(double BufPower){
 		ChassisBufPower =BufPower;
@@ -131,5 +132,15 @@ public class Motors {
 	public void setBufPower(double BudPower){
 		setChassisBufPower(BudPower);
 		setStructureBufPower(BudPower);
+	}
+
+	private void powersRationalize(){
+		LeftFrontPower=Mathematics.intervalClip(LeftFrontPower,-1,1);
+		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
+		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
+		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
+
+		SuspensionArmPower=Mathematics.intervalClip(SuspensionArmPower,-1,1);
+		IntakePower=Mathematics.intervalClip(IntakePower,-1,1);
 	}
 }
