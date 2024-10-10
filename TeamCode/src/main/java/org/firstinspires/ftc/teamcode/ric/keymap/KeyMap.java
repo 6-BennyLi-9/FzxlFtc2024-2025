@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ric;
+package org.firstinspires.ftc.teamcode.ric.keymap;
 
 import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag.*;
 import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyRodType.*;
@@ -19,44 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-abstract class KeyMapContent{
-	public final boolean IsControlledByGamePad1;
-	public final KeyTag tag;
-	public final KeyMapSettingType setting;
-	public KeyMapContent(KeyTag tag,KeyMapSettingType setting){
-		this(tag,setting,true);
-	}
-	public KeyMapContent(KeyTag tag,KeyMapSettingType setting,boolean IsControlledByGamePad1){
-		this.tag=tag;
-		this.setting=setting;
-		this.IsControlledByGamePad1 = IsControlledByGamePad1;
-	}
-}
-class KeyMapButtonContent extends KeyMapContent{
-	public final KeyButtonType type;
-	public KeyMapButtonContent(KeyTag tag,KeyButtonType type, KeyMapSettingType setting) {
-		super(tag, setting);
-		this.type=type;
-	}
-	public KeyMapButtonContent(KeyTag tag,KeyButtonType type, KeyMapSettingType setting,boolean IsControlledByGamePad1) {
-		super(tag, setting, IsControlledByGamePad1);
-		this.type=type;
-	}
-}
-class KeyMapRodContent extends KeyMapContent{
-	public final KeyRodType type;
-	public KeyMapRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting) {
-		super(tag, setting);
-		this.type=type;
-	}
-	public KeyMapRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting,boolean IsControlledByGamePad1) {
-		super(tag, setting, IsControlledByGamePad1);
-		this.type=type;
-	}
-}
-
 public final class KeyMap {
-	private final Map<KeyTag, KeyMapContent> contents;
+	public final Map<KeyTag, KeyMapContent> contents;
 	public KeyMap(){
 		contents=new HashMap<>();
 	}

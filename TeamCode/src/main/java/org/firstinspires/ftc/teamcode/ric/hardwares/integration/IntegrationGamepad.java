@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.ric.hardwares.integration;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.BasicIntegrationGamepad;
-import org.firstinspires.ftc.teamcode.ric.KeyMap;
+import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ric;
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 /**
