@@ -91,6 +91,11 @@ public class MultiOdometriesTest extends OpMode {
 		classic.registerToDashBoard("classic");
 	}
 
+	@Override
+	public void stop() {
+		super.stop();
+	}
+
 	public void print(@NonNull Odometry aim){
 		Pose2d pose=aim.getCurrentPose();
 		client.changeData(aim.getClass().getName(),pose.position.x+","+pose.position.y+"|"+pose.heading.toDouble());
