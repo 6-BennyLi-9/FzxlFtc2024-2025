@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 
-@TeleOp(name = "LocalizationTest",group = "tune")
+@TeleOp(name = "LocalizationOutputTest",group = "tune")
 @Disabled
 @Deprecated
 public class LocalizationTest extends TuningProgramTemplate {
