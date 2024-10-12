@@ -112,7 +112,7 @@ public final class KeyMap {
 
 	public void showContentInfo(){
 		for(Map.Entry<KeyTag, KeyMapContent> entry:contents.entrySet()){
-			Global.client.addData(entry.getKey().name() , entry.getValue().toString());
+			Global.client.changeData(entry.getKey().name() , entry.getValue().toString());
 		}
 	}
 }

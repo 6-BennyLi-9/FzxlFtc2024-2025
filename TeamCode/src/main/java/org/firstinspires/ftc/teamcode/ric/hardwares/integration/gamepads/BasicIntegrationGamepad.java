@@ -78,13 +78,18 @@ public class BasicIntegrationGamepad{
 				res=DpadRight();
 				break;
 		}
-		return Boolean.TRUE.equals(LastState.put(type, res));
+		return res;
 	}
 	@UserRequirementFunctions
 	public boolean getButtonState(@NonNull KeyButtonType type, @NonNull KeyMapSettingType setting){
+		if(!LastState.containsKey(type)){
+			LastState.put(type,false);
+		}
 		boolean lst= Boolean.TRUE.equals(LastState.get(type));
 		boolean now= getCurrentButtonState(type);
 		boolean res=false;
+
+		Global.client.changeData("getButtonState-params",lst+","+now);
 
 		switch (setting) {
 			case RunWhenButtonPressed:
@@ -104,6 +109,7 @@ public class BasicIntegrationGamepad{
 				throw new RuntimeException("Cannot Get The STATE Of A PullRod");
 		}
 
+		LastState.put(type,now);
 		return res;
 	}
 	@UserRequirementFunctions
@@ -128,7 +134,7 @@ public class BasicIntegrationGamepad{
 
 	public void showLst(String enterCode){
 		for(Map.Entry<KeyButtonType,Boolean> entry:LastState.entrySet()){
-			Global.client.addData("["+enterCode+"]"+entry.getKey().name(),entry.getValue());
+			Global.client.changeData("["+enterCode+"]"+entry.getKey().name(),entry.getValue());
 		}
 	}
 }

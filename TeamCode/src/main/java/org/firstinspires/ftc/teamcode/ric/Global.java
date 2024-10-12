@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.ric;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -27,6 +28,9 @@ public class Global {
 		runMode = null;
 		actionBox = null;
 		driverProgram = null;
+		integrationGamepad = null;
+		currentGamepad1 = null;
+		currentGamepad2 = null;
 	}
 
 	public static void setRobot(@NonNull Robot robot) {
@@ -35,8 +39,10 @@ public class Global {
 		Global.client = robot.client;
 		Global.runMode = robot.runningState;
 		Global.actionBox = robot.actionBox;
-		Global.integrationGamepad = robot.gamepad;
-		Global.currentGamepad1 = robot.gamepad.gamepad1.gamepad;
-		Global.currentGamepad2 = robot.gamepad.gamepad2.gamepad;
+		if(robot.gamepad!= null) {
+			Global.integrationGamepad = robot.gamepad;
+			Global.currentGamepad1 = robot.gamepad.gamepad1.gamepad;
+			Global.currentGamepad2 = robot.gamepad.gamepad2.gamepad;
+		}
 	}
 }

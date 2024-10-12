@@ -20,17 +20,20 @@ public class IntegrationGamepadTest extends TuningProgramTemplate {
 	public void whileActivating() {
 		robot.client.changeData("KBT(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).tag.name());
 		robot.client.changeData("KMS(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).setting.name());
-		robot.client.changeData("A(current)",gamepad.gamepad1.A());
+//		robot.client.changeData("A(current)",gamepad.gamepad1.A());
 		robot.client.changeData("A(integration)",gamepad.getButtonRunAble(KeyTag.TuningButton1));
 
 		if(gamepad.getButtonRunAble(KeyTag.TuningButton1)) ++count;
 
 		robot.client.changeData("A(count)",count);
-		robot.client.changeData("A(integration-current)",gamepad.gamepad1.getButtonState(KeyButtonType.A,KeyMapSettingType.RunWhenButtonHold));
-		robot.client.changeData("A(integration-last)",gamepad.gamepad1.LastState.get(KeyButtonType.A));
+//		robot.client.changeData("A(integration-current)",gamepad.gamepad1.getButtonState(KeyButtonType.A,KeyMapSettingType.RunWhenButtonHold));
+//		robot.client.changeData("A(integration-last)",gamepad.gamepad1.LastState.get(KeyButtonType.A));
 
 		robot.client.changeData("LeftStickX(current)",gamepad.gamepad1.LeftStickX());
 		robot.client.changeData("LeftStickX(integration)",gamepad.getRodState(KeyTag.TuningButton2));
+
+		gamepad.showLst();
+//		gamepad.showContentInfo();
 	}
 
 	@Override

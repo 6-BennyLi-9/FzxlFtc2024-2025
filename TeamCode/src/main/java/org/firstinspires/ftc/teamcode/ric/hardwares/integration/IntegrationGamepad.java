@@ -53,9 +53,10 @@ public class IntegrationGamepad {
 	}
 
 	@ExtractedInterfaces
-	public void showDebugInfo(){
+	public void showContentInfo(){
 		keyMap.showContentInfo();
 	}
+	@ExtractedInterfaces
 	public void showLst(){
 		gamepad1.showLst("gamepad1");
 		gamepad2.showLst("gamepad2");
