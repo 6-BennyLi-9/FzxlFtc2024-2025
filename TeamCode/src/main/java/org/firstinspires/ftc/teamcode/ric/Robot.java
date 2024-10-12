@@ -54,7 +54,7 @@ public class Robot {
 	public RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
 	public final ActionBox actionBox;
-	private DriverProgram drive=null;
+	public DriverProgram drive=null;
 
 	public Timer timer;
 
