@@ -100,6 +100,8 @@ public class Robot {
 		actionBox = new ActionBox();
 		timer=new Timer();
 		client.addData("RobotState","UnKnow");
+
+		Global.setRobot(this);
 	}
 
 	@UserRequirementFunctions
@@ -138,10 +140,14 @@ public class Robot {
 
 	public void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
+
+		Global.currentGamepad1=gamepad1;
+		Global.currentGamepad2=gamepad2;
+		Global.integrationGamepad=gamepad;
 	}
 
 	public void update()  {
-		if(timer.stopAndGetDeltaTime()>=90000){
+		if(timer.stopAndGetDeltaTime()>=90000&&runningState==RunningMode.ManualDrive){
 			robotState = RobotState.FinalState;
 		}
 
@@ -210,9 +216,6 @@ public class Robot {
 	 * @param BufPower 提供的电机力度因数
 	 */
 	public void SetGlobalBufPower(double BufPower){
-		if(drive!=null) {
-			drive.runOrderPackage(DrivingOrderBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
-		}
 		motors.setBufPower(BufPower);
 	}
 

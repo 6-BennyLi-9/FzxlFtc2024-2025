@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 import java.util.HashMap;
@@ -123,5 +124,11 @@ public class BasicIntegrationGamepad{
 				break;
 		}
 		return res;
+	}
+
+	public void showLst(String enterCode){
+		for(Map.Entry<KeyButtonType,Boolean> entry:LastState.entrySet()){
+			Global.client.addData("["+enterCode+"]"+entry.getKey().name(),entry.getValue());
+		}
 	}
 }

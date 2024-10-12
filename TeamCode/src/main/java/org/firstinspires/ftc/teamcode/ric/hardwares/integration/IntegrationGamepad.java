@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.keymap.KeyMapButtonContent;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 
@@ -49,5 +50,14 @@ public class IntegrationGamepad {
 		}else {
 			return keyMap.getRodStateFromTagAndGamePad(tag,gamepad2);
 		}
+	}
+
+	@ExtractedInterfaces
+	public void showDebugInfo(){
+		keyMap.showContentInfo();
+	}
+	public void showLst(){
+		gamepad1.showLst("gamepad1");
+		gamepad2.showLst("gamepad2");
 	}
 }

@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
@@ -107,5 +108,11 @@ public final class KeyMap {
 	@ExtractedInterfaces
 	public boolean containsKeySetting(KeyTag tag){
 		return contents.containsKey(tag);
+	}
+
+	public void showContentInfo(){
+		for(Map.Entry<KeyTag, KeyMapContent> entry:contents.entrySet()){
+			Global.client.addData(entry.getKey().name() , entry.getValue().toString());
+		}
 	}
 }

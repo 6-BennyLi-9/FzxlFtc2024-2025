@@ -2,18 +2,23 @@ package org.firstinspires.ftc.teamcode.ric;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+
 import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriverProgram;
+import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.ric.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 public class Global {
-	public static Robot  robot;
-	public static Client client;
-	public static RunningMode runMode;
-	public static ActionBox actionBox;
-	public static DriverProgram driverProgram;
+	public static Robot              robot;
+	public static Client             client;
+	public static RunningMode        runMode;
+	public static ActionBox          actionBox;
+	public static DriverProgram      driverProgram;
+	public static IntegrationGamepad integrationGamepad;
+	public static Gamepad            currentGamepad1, currentGamepad2;
 
 	@UserRequirementFunctions
 	public static void clear() {
@@ -30,5 +35,8 @@ public class Global {
 		Global.client = robot.client;
 		Global.runMode = robot.runningState;
 		Global.actionBox = robot.actionBox;
+		Global.integrationGamepad = robot.gamepad;
+		Global.currentGamepad1 = robot.gamepad.gamepad1.gamepad;
+		Global.currentGamepad2 = robot.gamepad.gamepad2.gamepad;
 	}
 }
