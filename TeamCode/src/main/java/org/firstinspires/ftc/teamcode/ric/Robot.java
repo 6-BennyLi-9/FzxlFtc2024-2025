@@ -120,7 +120,7 @@ public class Robot {
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
-		drive=new SimpleMecanumDrive(this,RobotPosition);
+		drive=new SimpleMecanumDrive(RobotPosition);
 		if(runningState != RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}

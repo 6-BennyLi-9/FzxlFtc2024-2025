@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunct
 import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
-public class Global {
+public final class Global {
 	public static Robot              robot;
 	public static Client             client;
 	public static RunningMode        runMode;

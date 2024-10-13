@@ -14,26 +14,26 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.Robot;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.actions.DriveAction;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.actions.DriveActionBuilder;
-import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.ric.drives.localizers.definition.Localizer;
-import org.firstinspires.ftc.teamcode.ric.drives.localizers.plugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.definition.DriverProgram;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.definition.Localizer;
+import org.firstinspires.ftc.teamcode.ric.drives.localizers.plugins.DeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.ric.Params;
-import org.firstinspires.ftc.teamcode.ric.Robot;
-import org.firstinspires.ftc.teamcode.ric.utils.annotations.DrivingPrograms;
-import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.ric.utils.clients.DashboardClient;
-import org.firstinspires.ftc.teamcode.ric.utils.enums.RobotState;
 import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.ric.utils.Timer;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.DrivingPrograms;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.ric.utils.clients.DashboardClient;
+import org.firstinspires.ftc.teamcode.ric.utils.enums.RobotState;
 
 import java.util.LinkedList;
 
@@ -53,27 +53,24 @@ public class MecanumDrive implements DriverProgram {
 
 	public RobotState robotState;
 
-	public MecanumDrive(@NonNull Chassis chassis, Client client,
-	                    PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
-		this.chassis = chassis;
-		this.client=client;
-		this.pidProcessor=pidProcessor;
-		this.robotState = robotState;
+	public MecanumDrive(Pose2d RobotPosition){
+		this.client=Global.client;
+		this.pidProcessor=Global.robot.pidProcessor;
+		this.robotState = Robot.robotState;
 		this.RobotPosition=RobotPosition;
-		motors= chassis.motors;
+
+		this.chassis= Global.robot.chassis;
+
+		motors= Global.robot.motors;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelLocalizer(client, chassis.sensors);
+		localizer=new DeadWheelLocalizer(Global.robot.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 
-		pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
-		pidProcessor.loadContent(new PidContent(ContentTags[1],1));
-		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
-	}
-	@ExtractedInterfaces
-	public MecanumDrive(@NonNull Robot robot,Pose2d RobotPosition){
-		this(robot.chassis,robot.client,robot.pidProcessor,robot.robotState,RobotPosition);
+		this.pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
+		this.pidProcessor.loadContent(new PidContent(ContentTags[1],1));
+		this.pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 
 	@Override
