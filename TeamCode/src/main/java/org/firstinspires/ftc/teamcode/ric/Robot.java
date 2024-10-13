@@ -58,8 +58,8 @@ public class Robot {
 
 	public Timer timer;
 
-	public ParamsController paramsController =new VoidParamsController();
-	public KeyMapController keyMapController =new VoidKeyMapController();
+	public ParamsController paramsController =new DefaultParamsController();
+	public KeyMapController keyMapController =new DefaultKeyMapController();
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
