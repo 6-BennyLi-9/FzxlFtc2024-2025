@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.Templates;
 import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
@@ -11,6 +12,7 @@ public abstract class TestProgramTemplate extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
+		Global.clear();
 		client=new Client(telemetry);
 		opInit();
 

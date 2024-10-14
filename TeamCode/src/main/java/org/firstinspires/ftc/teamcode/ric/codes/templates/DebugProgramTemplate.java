@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.Templates;
 import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.ric.utils.Timer;
@@ -13,6 +14,7 @@ public abstract class DebugProgramTemplate extends OpMode {
 
 	@Override
 	public void init() {
+		Global.clear();
 		client=new Client(telemetry);
 		timer=new Timer();
 		whenInit();

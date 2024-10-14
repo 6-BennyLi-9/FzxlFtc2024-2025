@@ -9,10 +9,15 @@ import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTempl
 import org.firstinspires.ftc.teamcode.ric.drives.controls.commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.ric.utils.enums.AutonomousLocation;
 
+/**
+ * A sample of 2023-2024 season basic Autonomous.
+ *
+ * 基於 FTC 2023-2034 賽季的代碼樣式
+ */
 @Autonomous(name = "AutonomousSample",group = "SAMPLE")
 @Disabled
-@Deprecated
-public class AutonomousSample extends AutonomousProgramTemplate {
+//@Deprecated
+public class AutonomousSample2024 extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Init(new Pose2d(0,0,0));
