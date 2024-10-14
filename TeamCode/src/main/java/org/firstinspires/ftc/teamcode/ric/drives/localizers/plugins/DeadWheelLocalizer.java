@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.Odometry;
 import org.firstinspires.ftc.teamcode.ric.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.LocalizationPlugin;
-import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {
@@ -16,8 +15,8 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	protected final Sensors sensors;
 	public Pose2d robotPosition;
 
-	public DeadWheelLocalizer(Client client,Sensors sensors){
-		odometry=new ArcOrganizedOdometer(client);
+	public DeadWheelLocalizer(Sensors sensors){
+		odometry=new ArcOrganizedOdometer();
 		this.sensors=sensors;
 	}
 

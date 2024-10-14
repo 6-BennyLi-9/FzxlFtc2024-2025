@@ -33,9 +33,9 @@ public class MultiOdometriesTest extends OpMode {
 
 		client.addLine("按[A]进入直线模式，该模式下机器将无法全方向平移");
 
-		arc=new ArcOrganizedOdometer(client);
-		rubbish=new SuperRubbishUselessAwfulOdometer(client);
-		classic=new ClassicOdometer(client);
+		arc=new ArcOrganizedOdometer();
+		rubbish=new SuperRubbishUselessAwfulOdometer();
+		classic=new ClassicOdometer();
 		integral=new IntegralOrganizedOdometer(client);
 
 		arc.setColor(DashboardClient.Blue);

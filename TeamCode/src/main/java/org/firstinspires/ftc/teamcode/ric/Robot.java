@@ -58,8 +58,8 @@ public class Robot {
 
 	public Timer timer;
 
-	public ParamsController paramsController =new VoidParamsController();
-	public KeyMapController keyMapController =new VoidKeyMapController();
+	public ParamsController paramsController =new DefaultParamsController();
+	public KeyMapController keyMapController =new DefaultKeyMapController();
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
@@ -122,7 +122,7 @@ public class Robot {
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
-		drive=new SimpleMecanumDrive(this,RobotPosition);
+		drive=new SimpleMecanumDrive(RobotPosition);
 		if(runningState != RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
