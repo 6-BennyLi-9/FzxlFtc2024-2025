@@ -17,7 +17,8 @@ public class MotorsTest extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {
 		motor1.setPower(1);
-		motor2.setTargetPowerSmooth(1);
+		motor2.setPower(1);
+		motor2.update();
 
 		robot.client.changeData("M1 power",motor1.getPower());
 		robot.client.changeData("M2 power",motor2.getPower());
@@ -35,6 +36,6 @@ public class MotorsTest extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
 		motor1 = ((IntegrationMotor) robot.lazyIntegratedDevices.getDevice(HardwareDeviceTypes.LeftFront)).motor;
-		motor2= (IntegrationMotor) robot.lazyIntegratedDevices.getDevice(HardwareDeviceTypes.RightFront);
+		motor2= (IntegrationMotor) robot.lazyIntegratedDevices.getDevice(HardwareDeviceTypes.RightRear);
 	}
 }

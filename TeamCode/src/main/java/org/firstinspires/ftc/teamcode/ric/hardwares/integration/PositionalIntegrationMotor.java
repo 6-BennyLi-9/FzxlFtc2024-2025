@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.utils.Functions;
@@ -63,6 +64,10 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 			}
 		}
 		updated=true;
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 
 	@UserRequirementFunctions

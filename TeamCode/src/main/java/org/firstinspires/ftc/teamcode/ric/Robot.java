@@ -65,6 +65,8 @@ public class Robot {
 		this(hardwareMap,state,new Client(telemetry));
 	}
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
+		pidProcessor=new PidProcessor();
+
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
 		motors=new Motors(lazyIntegratedDevices);

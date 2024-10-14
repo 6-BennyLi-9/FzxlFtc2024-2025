@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
@@ -45,6 +46,10 @@ public class IntegrationServo extends IntegrationDevice{
 		if(smoothMode) smoothMode=false;
 		this.targetPose = targetPose;
 		updated=false;
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 	@UserRequirementFunctions
 	public void setTargetPoseInTime(double targetPose,double TimeMills){
@@ -55,6 +60,10 @@ public class IntegrationServo extends IntegrationDevice{
 		}
 		Log.w("W","建议提供 speed");
 		timer.pushObjectionTimeTag("InTimeStartTag",TimeMills);
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 
 	@ExtractedInterfaces

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
@@ -16,7 +17,7 @@ public class IntegrationMotor extends IntegrationDevice{
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
-	private double power=1f,lastPower;
+	private double power=0,lastPower;
 	private final IntegrationHardwareMap lazyIntegrationHardwareMap;
 	public double minPowerToOvercomeKineticFriction=0;
 	public double minPowerToOvercomeStaticFriction=0;
@@ -43,15 +44,15 @@ public class IntegrationMotor extends IntegrationDevice{
 		}
 		power= Functions.intervalClip(power,-1,1);
 
-		double m = (timer.getCurrentTime() > Params.switchFromStaticToKinetic + timer.getTimeTag("LastZeroTime") ?
-				   minPowerToOvercomeKineticFriction : minPowerToOvercomeStaticFriction)
-				* (12/ lazyIntegrationHardwareMap.getVoltage());
-		power *= 1-m;
-
-		this.power = power + m * Math.signum(power);
+		this.power = power;
 		updated=false;
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 
+	@Beta
 	public void setTargetPowerSmooth(double power) {
 		double k = 0.7;
 
@@ -74,17 +75,22 @@ public class IntegrationMotor extends IntegrationDevice{
 
 	@Override
 	public void update() {
-		if(updated)return;//TODO:run checkout pid
+		if(updated)return;
 		updated=true;
-		if(PID_ENABLED){
+		if(PID_ENABLED&&pidProcessor!=null){
 			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
 			pidProcessor.ModifyPidByTag(pidTag);
 			motor.setPower(motor.getPower()+pidProcessor.getFulfillment(pidTag));
 		}else{
 			motor.setPower(power);
+			PID_ENABLED=false;
 		}
 		timer.pushTimeTag("LastUpdateTime");
 		lastPower=power;
+
+		if(!PID_ENABLED&&pidProcessor!=null) {
+			PID_ENABLED=true;
+		}
 	}
 
 	@Override
