@@ -37,5 +37,6 @@ public class MotorsTest extends TuningProgramTemplate {
 	public void whenInit() {
 		motor1 = ((IntegrationMotor) robot.lazyIntegratedDevices.getDevice(HardwareDeviceTypes.LeftFront)).motor;
 		motor2= (IntegrationMotor) robot.lazyIntegratedDevices.getDevice(HardwareDeviceTypes.RightRear);
+		motor2.ConfigPidEnable(false);
 	}
 }

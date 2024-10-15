@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
@@ -71,34 +73,38 @@ public class IntegrationMotor extends IntegrationDevice{
 		power = power + m * Math.signum(power);
 		// 0.5
 		this.power = power* k + this.lastPower*(1- k);
+
+		updated=false;
 	}
 
 	@Override
 	public void update() {
 		if(updated)return;
 		updated=true;
+
+		Global.client.changeData("in box power",power);
+
 		if(PID_ENABLED&&pidProcessor!=null){
+			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
 			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
 			pidProcessor.ModifyPidByTag(pidTag);
 			motor.setPower(motor.getPower()+pidProcessor.getFulfillment(pidTag));
 		}else{
+			Global.client.changeData(motor.getDeviceName(),"No PID Running");
 			motor.setPower(power);
-			PID_ENABLED=false;
 		}
 		timer.pushTimeTag("LastUpdateTime");
 		lastPower=power;
-
-		if(!PID_ENABLED&&pidProcessor!=null) {
-			PID_ENABLED=true;
-		}
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPosition() {
 		return motor.getCurrentPosition();
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPower() {
 		return motor.getPower();
 	}

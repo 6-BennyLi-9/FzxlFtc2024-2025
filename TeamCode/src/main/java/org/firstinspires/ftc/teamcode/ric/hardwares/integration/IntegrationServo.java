@@ -97,6 +97,7 @@ public class IntegrationServo extends IntegrationDevice{
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPosition() {
 		return servo.getPosition();
 	}
