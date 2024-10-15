@@ -20,7 +20,6 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {
 		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton1)){
-			robot.motors.simpleMotorPowerController(0,1,0);
 			Actions.runBlocking(new ParallelAction(
 					new Action() {
 						final Timer timer=new Timer();
@@ -28,13 +27,14 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 
 						@Override
 						public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+							robot.motors.simpleMotorPowerController(0,1,0);
 							robot.motors.updateDriveOptions();
 							if(!initialized){
 								timer.pushTimeTag("drove");
 								initialized=true;
 								return true;
 							}
-							return timer.getTimeTag("drove")<1000;
+							return timer.getCurrentTime()-timer.getTimeTag("drove")<1000;
 						}
 					}
 			));
@@ -44,7 +44,7 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
 		registerGamePad();
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
+		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonHold);
 
 		robot.addLine("按下A键后，机器会开始向前行驶1s");
 		robot.addLine("⚠⚠⚠当心机器伤人⚠⚠⚠");

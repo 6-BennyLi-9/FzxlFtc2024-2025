@@ -71,10 +71,10 @@ public class Motors {
 		updateDriveOptions();
 	}
 	public void updateDriveOptions(){
-		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
 	}
 	public void updateStructureOptions(){
 		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower* StructureBufPower);
