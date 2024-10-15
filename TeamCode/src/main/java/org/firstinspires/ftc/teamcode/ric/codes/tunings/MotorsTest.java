@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 
+/**
+ * done
+ * @since 2024.10.15
+ */
 @Autonomous(name = "MotorsTest",group = "tune")
+@Disabled
 public class MotorsTest extends TuningProgramTemplate {
 	public DcMotorEx        motor1;
 	public IntegrationMotor motor2;
