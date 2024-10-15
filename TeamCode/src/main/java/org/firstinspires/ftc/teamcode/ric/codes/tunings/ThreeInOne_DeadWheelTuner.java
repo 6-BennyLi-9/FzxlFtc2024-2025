@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
  * @see LateralInchPerTickTest
  * @see TurningDegPerTickTest
  * */
-@TeleOp(name = "[3 in one!]DeadWheelTuner")
+@TeleOp(name = "[3 in one!]DeadWheelTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {

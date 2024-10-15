@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.ric.keymap.KeyMapRodContent;
 
 import java.util.Map;
 
-@TeleOp(name = "KeyMapTest",group = "tune")
+@TeleOp(name = "KeyMapTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class KeyMapTest extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {

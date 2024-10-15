@@ -2,12 +2,13 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TestProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.ric.Robot;
 import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
-@TeleOp(name = "ChassisTest",group = "tune")
+@TeleOp(name = "ChassisTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class ChassisTest extends TestProgramTemplate {
 	public Chassis chassis;
 	public Robot lazyRobot;

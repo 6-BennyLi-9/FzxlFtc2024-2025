@@ -4,10 +4,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 
-@TeleOp(name = "LocalizationOutputTest",group = "tune")
+@TeleOp(name = "LocalizationOutputTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 @Deprecated
 public class LocalizationTest extends TuningProgramTemplate {

@@ -8,13 +8,14 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
-@TeleOp(name = "SecPowerPerInchTuner",group = "tune")
+@TeleOp(name = "SecPowerPerInchTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class SecPowerPerInchTuner extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {
@@ -42,8 +43,8 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 
 	@Override
 	public void whenInit() {
+		registerGamePad();
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
-		robot.registerGamepad(gamepad1,gamepad2);
 
 		robot.addLine("按下A键后，机器会开始向前行驶1s");
 		robot.addLine("⚠⚠⚠当心机器伤人⚠⚠⚠");

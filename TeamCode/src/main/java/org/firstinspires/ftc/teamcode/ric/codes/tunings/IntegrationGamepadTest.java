@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 
 import java.util.Objects;
 
-@TeleOp(name = "IntegrationGamepadTest",group = "tune")
+@TeleOp(name = "IntegrationGamepadTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class IntegrationGamepadTest extends TuningProgramTemplate {
 	private IntegrationGamepad gamepad;
 	private int count=0;

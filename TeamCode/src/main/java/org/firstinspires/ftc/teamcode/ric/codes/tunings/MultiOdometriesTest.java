@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.ArcOrganizedOdometer;
 import org.firstinspires.ftc.teamcode.ric.drives.localizers.odometries.ClassicOdometer;
@@ -21,7 +22,7 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyRodT
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
-@TeleOp(name = "MultiOdometriesTest",group = "tune")
+@TeleOp(name = "MultiOdometriesTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class MultiOdometriesTest extends OpMode {
 	public Client client;
 	public Odometry arc,rubbish,classic,integral;

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
 
-@TeleOp(name = "LateralInchPerTickTest",group = "tune")
+@TeleOp(name = "LateralInchPerTickTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 @Deprecated
 public class LateralInchPerTickTest extends AutonomousProgramTemplate {

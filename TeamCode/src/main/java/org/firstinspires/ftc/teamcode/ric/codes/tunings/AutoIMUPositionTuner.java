@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
  * <p>
  * 2.查看xError和yError，填入{@link Params}
  */
-@Autonomous(name = "AutoIMUPositionTuner",group = "tune")
+@Autonomous(name = "AutoIMUPositionTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 @Deprecated
 public class AutoIMUPositionTuner extends AutonomousProgramTemplate {

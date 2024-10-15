@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.ric.Params;
  * <p>
  * 4.查看xError和yError，填入{@link Params}
  */
-@TeleOp(name = "IMUPositionTuner",group = "tune")
+@TeleOp(name = "IMUPositionTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 @Deprecated
 public class IMUPositionTuner extends AutonomousProgramTemplate {

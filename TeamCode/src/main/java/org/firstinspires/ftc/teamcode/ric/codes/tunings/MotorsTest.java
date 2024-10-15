@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceType
  * done
  * @since 2024.10.15
  */
-@Autonomous(name = "MotorsTest",group = "tune")
+@Autonomous(name = "MotorsTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 public class MotorsTest extends TuningProgramTemplate {
 	public DcMotorEx        motor1;
