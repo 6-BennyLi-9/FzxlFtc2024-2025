@@ -56,7 +56,7 @@ public class IntegrationMotor extends IntegrationDevice{
 			update();
 		}
 
-		if(reversed)this.power=-this.power;
+//		if(reversed)this.power=-this.power;
 	}
 
 	@Beta
@@ -81,7 +81,7 @@ public class IntegrationMotor extends IntegrationDevice{
 
 		updated=false;
 
-		if(reversed)this.power=-this.power;
+//		if(reversed)this.power=-this.power;
 	}
 
 	@Override

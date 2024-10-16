@@ -61,7 +61,7 @@ public class Robot {
 	public ParamsController paramsController =new DefaultParamsController();
 	public KeyMapController keyMapController =new DefaultKeyMapController();
 
-	private void ConfigsReset(){
+	private void configsReset(){
 		Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
 		Params.Configs.runUpdateWhenAnyNewOptionsAdded=false;
 		Params.Configs.waitForServoUntilThePositionIsInPlace=false;
@@ -78,7 +78,7 @@ public class Robot {
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
 		pidProcessor=new PidProcessor();
-		ConfigsReset();
+		configsReset();
 
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
