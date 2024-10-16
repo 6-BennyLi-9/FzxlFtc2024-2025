@@ -61,11 +61,24 @@ public class Robot {
 	public ParamsController paramsController =new DefaultParamsController();
 	public KeyMapController keyMapController =new DefaultKeyMapController();
 
+	private void ConfigsReset(){
+		Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
+		Params.Configs.runUpdateWhenAnyNewOptionsAdded=false;
+		Params.Configs.waitForServoUntilThePositionIsInPlace=false;
+		Params.Configs.autoPrepareForNextOptionWhenUpdate=false;
+		Params.Configs.alwaysRunPIDInAutonomous=false;
+		Params.Configs.usePIDInAutonomous=true;
+		Params.Configs.useOutTimeProtection=true;
+		Params.Configs.autoRegisterAllHardwaresWhenInit=true;
+	}
+
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
+
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
 		pidProcessor=new PidProcessor();
+		ConfigsReset();
 
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
@@ -84,6 +97,8 @@ public class Robot {
 		//TODO:如果需要，在这里修改 Params.Config 中的值
 		switch (state) {
 			case Autonomous:
+				Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
+
 				InitInAutonomous();
 				break;
 			case ManualDrive:
