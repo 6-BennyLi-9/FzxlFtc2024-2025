@@ -9,10 +9,10 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.ric.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @TeleOp(name = "SecPowerPerInchTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
@@ -34,10 +34,20 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 								initialized=true;
 								return true;
 							}
+
+							robot.client.changeData("Current Delta Time Mills",timer.getCurrentTime()-timer.getTimeTag("drove"));
+							robot.motors.showPowers();
+
 							return timer.getCurrentTime()-timer.getTimeTag("drove")<1000;
 						}
 					}
 			));
+		}else{
+			Actions.runBlocking(telemetryPacket -> {
+				robot.motors.clearDriveOptions();
+				robot.motors.updateDriveOptions();
+				return false;
+			});
 		}
 	}
 

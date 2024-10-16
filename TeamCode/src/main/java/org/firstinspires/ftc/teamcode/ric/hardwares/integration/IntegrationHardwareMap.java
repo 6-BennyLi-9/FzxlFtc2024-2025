@@ -132,7 +132,13 @@ public class IntegrationHardwareMap {
 		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
+
 		Integrations device=getDevice(hardwareDeviceTypes);
+
+		if(hardwareDeviceTypes.config.direction==Reversed){
+			power=-power;
+		}
+
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setPower(power);
 		}else if(device instanceof IntegrationServo){

@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidProcessor;
 
 public class IntegrationMotor extends IntegrationDevice{
-	private boolean PID_ENABLED =true;
+	private boolean PID_ENABLED = false;
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
@@ -85,6 +85,7 @@ public class IntegrationMotor extends IntegrationDevice{
 		Global.client.changeData("in box power",power);
 
 		if(PID_ENABLED&&pidProcessor!=null){
+			//警告：如果沒有匹配的 PID Params 電極將無法轉動
 			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
 			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
 			pidProcessor.ModifyPidByTag(pidTag);
