@@ -107,6 +107,10 @@ public class Motors {
 	 * @see Params
 	 */
 	public void update(double headingDeg){
+		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower){
+			update();
+		}
+
 		powersRationalize();
 
 		updateDriveOptions(headingDeg);
