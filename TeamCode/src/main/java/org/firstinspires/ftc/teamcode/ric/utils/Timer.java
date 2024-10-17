@@ -22,7 +22,7 @@ public class Timer {
     }
     @UserRequirementFunctions
     @ExtractedInterfaces
-    public final double getCurrentTime(){
+    public static double getCurrentTime(){
         return Functions.getCurrentTimeMills();
     }
 

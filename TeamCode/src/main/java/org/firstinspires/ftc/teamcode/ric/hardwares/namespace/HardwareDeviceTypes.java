@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.namespace;
 
 import static org.firstinspires.ftc.teamcode.ric.Params.HardwareNamespace.*;
-import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareState.Disabled;
+import static org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareState.*;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DeviceConfigPackag
  */
 public enum HardwareDeviceTypes {
 	LeftFront       (-1, HardwareNamespace.LeftFront, DcMotorEx.class,Direction.Reversed),
-	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class),
+	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class,Direction.Reversed),
 	LeftRear        (-1, HardwareNamespace.LeftRear, DcMotorEx.class),
 	RightRear       (-1, HardwareNamespace.RightRear, DcMotorEx.class),
 	PlacementArm    (-1, HardwareNamespace.PlacementArm, DcMotorEx.class, Disabled),

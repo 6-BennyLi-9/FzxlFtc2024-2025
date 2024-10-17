@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.ric.codes.templates;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -24,6 +26,8 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 
 		robot=new Robot(hardwareMap, RunningMode.Autonomous,telemetry);
 		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(position);
+
+		FtcDashboard.getInstance().sendTelemetryPacket(new TelemetryPacket(true));
 	}
 
 	/**

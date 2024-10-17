@@ -1,26 +1,26 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.integration;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.*;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.ric.Global;
-import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DeviceConfigPackage;
-import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.Params;
-import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
-import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.utils.Functions;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.ric.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
 public class IntegrationMotor extends IntegrationDevice{
 	private boolean PID_ENABLED = false;
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
-	public final boolean reversed;
 	private double power=0,lastPower;
 	private final IntegrationHardwareMap lazyIntegrationHardwareMap;
 	public double minPowerToOvercomeKineticFriction=0;
@@ -29,7 +29,6 @@ public class IntegrationMotor extends IntegrationDevice{
 	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor,
 	                        @NonNull IntegrationHardwareMap integrationHardwareMap){
 		super(deviceType.deviceName);
-		reversed= deviceType.config.direction == DeviceConfigPackage.Direction.Reversed;
 		this.motor= motor;
 		this.pidProcessor=pidProcessor;
 		lazyIntegrationHardwareMap = integrationHardwareMap;
@@ -55,8 +54,15 @@ public class IntegrationMotor extends IntegrationDevice{
 		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
 			update();
 		}
+	}
 
-//		if(reversed)this.power=-this.power;
+	@UserRequirementFunctions
+	public void reverse(){
+		motor.setDirection(motor.getDirection() == REVERSE ? FORWARD : REVERSE);
+	}
+	@UserRequirementFunctions
+	public boolean isReversed(){
+		return motor.getDirection() == REVERSE;
 	}
 
 	@Beta
@@ -80,8 +86,6 @@ public class IntegrationMotor extends IntegrationDevice{
 		this.power = power* k + this.lastPower*(1- k);
 
 		updated=false;
-
-//		if(reversed)this.power=-this.power;
 	}
 
 	@Override
