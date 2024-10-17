@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.ric.codes.samples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.ric.Params;
+import org.firstinspires.ftc.teamcode.ric.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
 
 /**
@@ -10,12 +14,15 @@ import org.firstinspires.ftc.teamcode.ric.utils.clients.Client;
  * @see Telemetry
  * @see Client
  */
+@Beta
+@Autonomous(name = "CompareTelemetryAndClient",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class CompareTelemetryAndClient extends LinearOpMode {
 	public Client client=new Client(telemetry);
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-
+		telemetryVersion();
 	}
 
 	public void telemetryVersion(){
