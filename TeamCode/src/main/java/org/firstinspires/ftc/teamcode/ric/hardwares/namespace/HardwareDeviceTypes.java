@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DeviceConfigPackag
  */
 public enum HardwareDeviceTypes {
 	LeftFront       (-1, HardwareNamespace.LeftFront, DcMotorEx.class,Direction.Reversed),
-	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class),
-	LeftRear        (-1, HardwareNamespace.LeftRear, DcMotorEx.class,Direction.Forward),
+	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class,Direction.Reversed),
+	LeftRear        (-1, HardwareNamespace.LeftRear, DcMotorEx.class),
 	RightRear       (-1, HardwareNamespace.RightRear, DcMotorEx.class),
 	PlacementArm    (-1, HardwareNamespace.PlacementArm, DcMotorEx.class, Disabled),
 	Intake          (-1, HardwareNamespace.Intake, DcMotorEx.class, Disabled),

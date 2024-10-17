@@ -3,25 +3,11 @@ package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.ric.Params;
-import org.firstinspires.ftc.teamcode.ric.codes.templates.TestProgramTemplate;
-import org.firstinspires.ftc.teamcode.ric.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.ric.Robot;
-import org.firstinspires.ftc.teamcode.ric.utils.enums.RunningMode;
 
 @TeleOp(name = "ChassisTest",group = Params.Configs.TuningAndTuneOpModesGroup)
-public class ChassisTest extends TestProgramTemplate {
-	public Chassis chassis;
-	public Robot lazyRobot;
-
+public class ChassisTest extends SecPowerPerInchTuner {
 	@Override
-	public void opInit() {
-		lazyRobot=new Robot(hardwareMap, RunningMode.TestOrTune,telemetry);
-		chassis =lazyRobot.chassis;
-		lazyRobot.registerGamepad(gamepad1,gamepad2);
-	}
-
-	@Override
-	public void mainCode() {
-		chassis.operateThroughGamePad(lazyRobot.gamepad);
+	public double getBufPower() {
+		return 0.1f;
 	}
 }

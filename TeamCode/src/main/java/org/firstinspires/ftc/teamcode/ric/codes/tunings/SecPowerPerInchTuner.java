@@ -17,6 +17,8 @@ import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @TeleOp(name = "SecPowerPerInchTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class SecPowerPerInchTuner extends TuningProgramTemplate {
+	public double getBufPower(){return 1;}
+
 	@Override
 	public void whileActivating() {
 		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton1)){
@@ -27,18 +29,19 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 
 						@Override
 						public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-							robot.motors.simpleMotorPowerController(0,1,0);
+							robot.motors.simpleMotorPowerController(0,getBufPower(),0);
 							robot.motors.updateDriveOptions();
+							robot.motors.clearDriveOptions();
 							if(!initialized){
 								timer.pushTimeTag("drove");
 								initialized=true;
 								return true;
 							}
 
-							robot.client.changeData("Current Delta Time Mills",timer.getCurrentTime()-timer.getTimeTag("drove"));
+							robot.client.changeData("Current Delta Time Mills", Timer.getCurrentTime() - timer.getTimeTag("drove"));
 							robot.motors.showPowers();
 
-							return timer.getCurrentTime()-timer.getTimeTag("drove")<1000;
+							return Timer.getCurrentTime() - timer.getTimeTag("drove") < 1000;
 						}
 					}
 			));
@@ -55,6 +58,10 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 	public void whenInit() {
 		registerGamePad();
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonHold);
+
+		// Y
+		//X B
+		// A
 
 		robot.addLine("按下A键后，机器会开始向前行驶1s");
 		robot.addLine("⚠⚠⚠当心机器伤人⚠⚠⚠");
