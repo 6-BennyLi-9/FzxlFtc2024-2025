@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.ric.hardwares.integration;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.*;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.Params;
@@ -57,11 +58,11 @@ public class IntegrationMotor extends IntegrationDevice{
 
 	@UserRequirementFunctions
 	public void reverse(){
-		motor.setDirection(motor.getDirection() == DcMotorSimple.Direction.REVERSE ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+		motor.setDirection(motor.getDirection() == REVERSE ? FORWARD : REVERSE);
 	}
 	@UserRequirementFunctions
 	public boolean isReversed(){
-		return motor.getDirection() == DcMotorSimple.Direction.REVERSE;
+		return motor.getDirection() == REVERSE;
 	}
 
 	@Beta

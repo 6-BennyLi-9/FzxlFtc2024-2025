@@ -16,10 +16,14 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  * @see CameraDetection
  */
 public class Webcam {
-	Camera detector;
-	OpenCvCamera camera;
+	public Camera detector;
+	public OpenCvCamera camera;
+
+	public static boolean useWebcam=false;//Webcam is useless in 2024-2025 season
 
 	public Webcam(@NonNull HardwareMap hardwareMap){
+		if(!useWebcam)return;
+
 		//TODO：根据需要更改名称
 		int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 		camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);

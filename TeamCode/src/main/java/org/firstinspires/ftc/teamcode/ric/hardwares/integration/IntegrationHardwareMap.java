@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.ric.Global;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.CustomizedHardwareRegisterOptions;
@@ -72,6 +73,8 @@ public class IntegrationHardwareMap {
 			DcMotorEx motor= lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
 			if(device.config.direction==Reversed){
 				motor.setDirection(Direction.REVERSE);
+			}else{
+				motor.setDirection(Direction.FORWARD);
 			}
 			if (IsIntegrationMotor.contains(device)){
 				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
@@ -84,6 +87,8 @@ public class IntegrationHardwareMap {
 			Servo servo= lazyHardwareMap.get(Servo.class,device.deviceName);
 			if(device.config.direction==Reversed){
 				servo.setDirection(Servo.Direction.REVERSE);
+			}else{
+				servo.setDirection(Servo.Direction.FORWARD);
 			}
 			devices.put(device,new IntegrationServo(servo,device));
 		} else if (device.classType == BNO055IMU.class) {
@@ -192,6 +197,13 @@ public class IntegrationHardwareMap {
 			return ((IntegrationServo) device).inPlace();
 		}else{
 			throw new RuntimeException("Not Allowed");
+		}
+	}
+
+	public void printSettings(){
+		for(HardwareDeviceTypes types:HardwareDeviceTypes.values()){
+			Global.client.changeData(types+" direction",types.config.direction);
+			Global.client.changeData(types+" state",types.config.state);
 		}
 	}
 }

@@ -8,8 +8,8 @@ public class DeviceConfigPackage {
 	}
 	public Direction direction;
 	public DeviceConfigPackage(){
-		state=null;
-		direction=null;
+		state=HardwareState.Enabled;
+		direction=Direction.Forward;
 	}
 	public DeviceConfigPackage AutoComplete(){
 		if(state==null)state=HardwareState.Enabled;

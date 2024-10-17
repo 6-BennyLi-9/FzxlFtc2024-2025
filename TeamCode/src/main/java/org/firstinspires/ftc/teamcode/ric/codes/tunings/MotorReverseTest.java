@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.ric.Global;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class MotorReverseTest extends TuningProgramTemplate {
 	IntegrationMotor motor;
 	boolean          lst =false, now;
@@ -25,6 +27,8 @@ public class MotorReverseTest extends TuningProgramTemplate {
 		registerGamePad();
 		robot.gamepad.keyMap=new KeyMap();
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
+
+		Global.integrationHardwareMap.printSettings();
 	}
 
 	@Override
