@@ -42,6 +42,7 @@ public class Params {
 
 
 		public static final String TuningAndTuneOpModesGroup = "0_Tunings";
+		public static final String SampleOpModesGroup = "0_Samples";
 	}
 	@Config
 	public static class HardwareNamespace {

@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Disabled
-@Autonomous(name = "CameraDetection",group = "sample")
+@Autonomous(name = "CameraDetection",group = "samples")
 public class CameraDetection extends AutonomousProgramTemplate {
 	OpenCvCamera webcam;
 	Camera detector=new Camera(telemetry);

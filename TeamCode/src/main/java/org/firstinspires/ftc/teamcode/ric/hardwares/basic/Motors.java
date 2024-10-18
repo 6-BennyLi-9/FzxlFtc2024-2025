@@ -137,10 +137,10 @@ public class Motors {
 	 * @param headingPower 机器旋转力
 	 */
 	public void simpleMotorPowerController(double xPoser,double yAxisPower,double headingPower){
-		LeftFrontPower  += yAxisPower+xPoser-headingPower;
-		LeftRearPower   += yAxisPower-xPoser-headingPower;
-		RightFrontPower += yAxisPower-xPoser+headingPower;
-		RightRearPower  += yAxisPower+xPoser+headingPower;
+		LeftFrontPower  += yAxisPower-xPoser-headingPower;
+		LeftRearPower   += yAxisPower+xPoser-headingPower;
+		RightFrontPower += yAxisPower+xPoser+headingPower;
+		RightRearPower  += yAxisPower-xPoser+headingPower;
 
 		powersRationalize();
 	}

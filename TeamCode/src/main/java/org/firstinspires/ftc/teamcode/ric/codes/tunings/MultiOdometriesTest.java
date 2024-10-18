@@ -47,10 +47,10 @@ public class MultiOdometriesTest extends OpMode {
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.gamepad.keyMap =new KeyMap();
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.ClassicSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadButtonContent(KeyTag.ChassisSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
 	}
 
 	boolean LinerMode=false;
@@ -59,15 +59,15 @@ public class MultiOdometriesTest extends OpMode {
 	public void loop() {
 		LinerMode=robot.gamepad.getButtonRunAble(KeyTag.TuningButton1);
 		client.changeData("直线模式",LinerMode);
-		if(robot.gamepad.getButtonRunAble(KeyTag.ClassicSpeedConfig)){
+		if(robot.gamepad.getButtonRunAble(KeyTag.ChassisSpeedConfig)){
 			robot.motors.setBufPower(0.9);
 		}else{
 			robot.motors.setBufPower(0.3);
 		}
 		if(LinerMode){
-			double x=robot.gamepad.getRodState(KeyTag.ClassicRunForward);
-			double y=robot.gamepad.getRodState(KeyTag.ClassicRunStrafe);
-			double t=robot.gamepad.getRodState(KeyTag.ClassicTurn);
+			double x=robot.gamepad.getRodState(KeyTag.ChassisRunForward);
+			double y=robot.gamepad.getRodState(KeyTag.ChassisRunStrafe);
+			double t=robot.gamepad.getRodState(KeyTag.ChassisTurn);
 			if(Math.abs(x)> Math.abs(y)){
 				robot.motors.simpleMotorPowerController(x,0,t);
 			}else{

@@ -30,9 +30,9 @@ public final class KeyMap {
 		contents.clear();
 
 		//TODO: 填入需求键位
-		 loadRodContent(ClassicRunForward,       LeftStickY,     PullRod)
-		.loadRodContent(ClassicRunStrafe,        LeftStickY,     PullRod)
-		.loadRodContent(ClassicTurn,             RightStickY,    PullRod);
+		 loadRodContent(ChassisRunForward,       LeftStickY,     PullRod)
+		.loadRodContent(ChassisRunStrafe,        LeftStickY,     PullRod)
+		.loadRodContent(ChassisTurn,             RightStickY,    PullRod);
 
 		 loadButtonContent(Intake,               A,          RunWhenButtonHold,  false)
 		.loadButtonContent(Pop,                  B,          RunWhenButtonHold,  false);
