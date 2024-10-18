@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.drives.controls.commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.ric.hardwares.Webcam;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.ric.utils.enums.AutonomousLocation;
  *
  * 基於 FTC 2023-2034 賽季的代碼樣式
  */
-@Autonomous(name = "AutonomousSample",group = "SAMPLE")
+@Autonomous(name = "AutonomousSample",group = Params.Configs.SampleOpModesGroup)
 @Disabled
 //@Deprecated
 public class AutonomousSample2024 extends AutonomousProgramTemplate {

@@ -5,11 +5,12 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.ric.hardwares.Webcam;
 
 @Disabled
-@Autonomous (name = "WebcamDetection",group = "sample")
+@Autonomous (name = "WebcamDetection",group = Params.Configs.SampleOpModesGroup)
 public class WebcamDetection extends AutonomousProgramTemplate {
 	Webcam webcam=new Webcam(hardwareMap);
 
