@@ -20,9 +20,10 @@ public class ManualDriveSample extends TeleopProgramTemplate {
 	@Override
 	public void whileActivating() {
 		robot.chassis.motors.simpleMotorPowerController(
-				robot.gamepad.getRodState(KeyTag.ChassisRunStrafe),
-				robot.gamepad.getRodState(KeyTag.ChassisRunForward),
-				robot.gamepad.getRodState(KeyTag.ChassisTurn));
+				robot.gamepad.getRodState(KeyTag.ChassisRunStrafe)*0.8,
+				robot.gamepad.getRodState(KeyTag.ChassisRunForward)*0.8,
+				robot.gamepad.getRodState(KeyTag.ChassisTurn)*0.8
+		);
 
 		robot.chassis.motors.updateDriveOptions();
 		robot.chassis.motors.clearDriveOptions();
