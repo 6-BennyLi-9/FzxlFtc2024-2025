@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.ric.codes.tunings;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.ric.Global;
@@ -12,37 +11,59 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyMapS
 import org.firstinspires.ftc.teamcode.ric.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.ric.keymap.KeyMap;
-import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)
-@Disabled
 public class MotorReverseTest extends TuningProgramTemplate {
-	IntegrationMotor motor;
-	boolean          lst =false, now;
+	IntegrationMotor leftFront, leftRear, rightFront, rightRear;
 
 	@Override
 	public void whenInit() {
-		motor = (IntegrationMotor) Global.integrationHardwareMap.getDevice(HardwareDeviceTypes.LeftRear);
-		client.addLine("按A鍵以REVERSE電機");
+		leftFront = (IntegrationMotor) Global.integrationHardwareMap.getDevice(HardwareDeviceTypes.LeftFront);
+		leftRear = (IntegrationMotor) Global.integrationHardwareMap.getDevice(HardwareDeviceTypes.LeftRear);
+		rightFront = (IntegrationMotor) Global.integrationHardwareMap.getDevice(HardwareDeviceTypes.RightFront);
+		rightRear = (IntegrationMotor) Global.integrationHardwareMap.getDevice(HardwareDeviceTypes.RightRear);
+		client.addLine("按A鍵以REVERSE LeftRear");
+		client.addLine("按B鍵以REVERSE RightRear");
+		client.addLine("按X鍵以REVERSE LeftFront");
+		client.addLine("按Y鍵以REVERSE LeftRear");
 		registerGamePad();
 		robot.gamepad.keyMap=new KeyMap();
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
+		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed)
+				.loadButtonContent(KeyTag.TuningButton2, KeyButtonType.B, KeyMapSettingType.RunWhenButtonPressed)
+				.loadButtonContent(KeyTag.TuningButton3, KeyButtonType.X, KeyMapSettingType.RunWhenButtonPressed)
+				.loadButtonContent(KeyTag.TuningButton4, KeyButtonType.Y, KeyMapSettingType.RunWhenButtonPressed);
 
 		Global.integrationHardwareMap.printSettings();
 	}
 
 	@Override
 	public void whileActivating() {
-		now =robot.gamepad.getButtonRunAble(KeyTag.TuningButton1);
-		if(!lst && now){
-			motor.reverse();
-			client.addData("["+Timer.getCurrentTime()+"]","Motors Reversed");
+		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton1)){
+			leftRear.reverse();
 		}
-		lst = now;
+		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton2)){
+			rightRear.reverse();
+		}
+		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton3)){
+			leftFront.reverse();
+		}
+		if(robot.gamepad.getButtonRunAble(KeyTag.TuningButton4)){
+			rightFront.reverse();
+		}
 
-		motor.setPower(0.5);
-		motor.update();
+		leftFront.setPower(0.1);
+		leftRear.setPower(0.1);
+		rightFront.setPower(0.1);
+		rightRear.setPower(0.1);
 
-		client.changeData("Motor Direction",motor.isReversed());
+		leftFront.update();
+		leftRear.update();
+		rightFront.update();
+		rightRear.update();
+
+		client.changeData("LeftFront Motor Direction",leftFront.isReversed());
+		client.changeData("LeftRear Motor Direction",leftRear.isReversed());
+		client.changeData("RightFront Motor Direction",rightFront.isReversed());
+		client.changeData("RightRear Motor Direction",rightRear.isReversed());
 	}
 }

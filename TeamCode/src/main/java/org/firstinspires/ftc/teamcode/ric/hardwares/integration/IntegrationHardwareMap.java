@@ -71,16 +71,23 @@ public class IntegrationHardwareMap {
 
 		if (device.classType == DcMotor.class || device.classType == DcMotorEx.class) {
 			DcMotorEx motor= lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
-			if(device.config.direction==Reversed){
-				motor.setDirection(Direction.REVERSE);
-			}else{
-				motor.setDirection(Direction.FORWARD);
-			}
 			if (IsIntegrationMotor.contains(device)){
+				if(device.config.direction==Reversed){
+					motor.setDirection(Direction.REVERSE);
+				}else{
+					motor.setDirection(Direction.FORWARD);
+				}
 				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
 			}else if(IsDeadWheel.contains(device)){
-				devices.put(device,new IntegrationDeadWheelEncoders(motor));
+				IntegrationDeadWheelEncoders encoders=new IntegrationDeadWheelEncoders(motor);
+				encoders.sensor.setDirection(Direction.REVERSE);
+				devices.put(device,encoders);
 			}else {
+				if(device.config.direction==Reversed){
+					motor.setDirection(Direction.REVERSE);
+				}else{
+					motor.setDirection(Direction.FORWARD);
+				}
 				devices.put(device,new PositionalIntegrationMotor(motor,device,lazyProcessor));
 			}
 		}else if (device.classType == Servo.class){

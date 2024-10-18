@@ -17,17 +17,17 @@ import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.DeviceConfigPackag
  */
 public enum HardwareDeviceTypes {
 	LeftFront       (-1, HardwareNamespace.LeftFront, DcMotorEx.class,Direction.Reversed),
-	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class,Direction.Reversed),
-	LeftRear        (-1, HardwareNamespace.LeftRear, DcMotorEx.class),
+	RightFront      (-1, HardwareNamespace.RightFront, DcMotorEx.class),
+	LeftRear        (-1, HardwareNamespace.LeftRear, DcMotorEx.class,Direction.Reversed),
 	RightRear       (-1, HardwareNamespace.RightRear, DcMotorEx.class),
 	PlacementArm    (-1, HardwareNamespace.PlacementArm, DcMotorEx.class, Disabled),
 	Intake          (-1, HardwareNamespace.Intake, DcMotorEx.class, Disabled),
 	FrontClip       (-1, HardwareNamespace.FrontClip, Servo.class, Disabled),
 	RearClip        (-1, HardwareNamespace.RearClip, Servo.class, Disabled),
 	SuspensionArm   (-1, HardwareNamespace.SuspensionArm, DcMotorEx.class, Disabled),
-	LeftDeadWheel   (-1,LeftRear.deviceName, DcMotorEx.class, Direction.Reversed),
-	MiddleDeadWheel (-1,LeftFront.deviceName,DcMotorEx.class, Direction.Reversed),
-	RightDeadWheel  (-1,RightFront.deviceName, DcMotorEx.class, Direction.Reversed),
+	LeftDeadWheel   (-1, LeftRear.deviceName, DcMotorEx.class, Direction.Reversed),
+	MiddleDeadWheel (-1, LeftFront.deviceName,DcMotorEx.class, Direction.Reversed),
+	RightDeadWheel  (-1, RightFront.deviceName, DcMotorEx.class, Direction.Reversed),
 	imu             (-1, Imu, BNO055IMU.class);
 	public final String deviceName;
 	public final Class<?> classType;

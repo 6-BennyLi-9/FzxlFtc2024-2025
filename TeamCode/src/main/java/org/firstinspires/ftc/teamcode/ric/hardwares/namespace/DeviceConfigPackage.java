@@ -7,6 +7,8 @@ public class DeviceConfigPackage {
 		Reversed
 	}
 	public Direction direction;
+	public boolean isDeadWheel;
+
 	public DeviceConfigPackage(){
 		state=HardwareState.Enabled;
 		direction=Direction.Forward;
