@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.ric.Params;
 import org.firstinspires.ftc.teamcode.ric.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.ric.utils.Timer;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.ric.utils.annotations.UserRequirementFunctions;
 
@@ -74,7 +75,7 @@ public class IntegrationServo extends IntegrationDevice{
 	@Override
 	public void update() {
 		if(smoothMode){
-			if((double) timer.getTimeTagObjection("InTimeStartTag")+timer.getTimeTag("InTimeStartTag")>timer.getCurrentTime()){
+			if((double) timer.getTimeTagObjection("InTimeStartTag")+timer.getTimeTag("InTimeStartTag") > Timer.getCurrentTime()){
 				if(targetPose-servo.getPosition()>0.05f){
 					servo.setPosition(targetPose);
 				}else{
@@ -82,7 +83,7 @@ public class IntegrationServo extends IntegrationDevice{
 					//done
 				}
 			}else{
-				double delta=targetVelocity*(timer.getCurrentTime()-timer.getTimeTag("LastUpdateTime"));
+				double delta=targetVelocity*(Timer.getCurrentTime() - timer.getTimeTag("LastUpdateTime"));
 				servo.setPosition(servo.getPosition()+delta);
 			}
 		}else {
