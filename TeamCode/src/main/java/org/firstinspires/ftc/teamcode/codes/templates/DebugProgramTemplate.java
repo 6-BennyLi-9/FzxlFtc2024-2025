@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.codes.templates;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.Templates;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @Templates
 public abstract class DebugProgramTemplate extends OpMode {

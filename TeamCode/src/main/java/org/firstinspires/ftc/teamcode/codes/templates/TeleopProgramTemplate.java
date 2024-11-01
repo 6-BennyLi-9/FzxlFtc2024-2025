@@ -5,11 +5,11 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.Templates;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
-import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @Templates
 public abstract class TeleopProgramTemplate extends OpMode {
@@ -22,7 +22,7 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	 */
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, RunningMode.ManualDrive,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.ManualDrive, telemetry);
 		timer=new Timer();
 		registerGamePad();
 		whenInit();

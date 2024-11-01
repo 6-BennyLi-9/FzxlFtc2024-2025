@@ -11,7 +11,7 @@ public abstract class TestProgramTemplate extends LinearOpMode {
 	public Client client;
 
 	@Override
-	public void runOpMode() throws InterruptedException {
+	public void runOpMode() {
 		Global.clear();
 		client=new Client(telemetry);
 		opInit();

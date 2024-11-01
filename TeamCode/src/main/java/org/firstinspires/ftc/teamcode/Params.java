@@ -4,6 +4,9 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.codes.tunings.SecPowerPerInchTuner;
 import org.firstinspires.ftc.teamcode.codes.tunings.ThreeInOne_DeadWheelTuner;
+import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
+import org.firstinspires.ftc.teamcode.utils.clients.TelemetryClient;
 
 @Config
 public class Params {
@@ -30,15 +33,29 @@ public class Params {
 		/**在对舵机下达命令时，自动等待舵机到位*/
 		public static boolean waitForServoUntilThePositionIsInPlace = false;
 		/**让机器即使在不调用<code>pid</code>时，依然执行<code>pid.update()</code>*/
-		public static boolean alwaysRunPIDInAutonomous = false;
+		public static boolean alwaysRunPIDInAutonomous                  = false;
 		/**在自动程序中使用<code>pid</code>*/
-		public static boolean usePIDInAutonomous = true;
+		public static boolean usePIDToDriveInAutonomous                 = true;
 		/**必须在自动程序中保持改变量为<code>true</code>*/
-		public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
+		public static boolean driverUsingAxisPowerInsteadOfCurrentPower =true;
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
 		public static boolean autoRegisterAllHardwaresWhenInit = true;
+
+		/**
+		 * 自动在<code>Client</code>定义时候加入 FtcDashboardTelemetry
+		 * @see Client
+		 */
+		public static boolean clientAutoRegisteredFtcDashboardTelemetry=true;
+		/**
+		 * 自动在<code>TelemetryClient.addData</code>时更新 DashboardClient
+		 * @see TelemetryClient#addData(String, Object)
+		 * @see DashboardClient#put(Object, Object)
+		 */
+		public static boolean dashboardAutoSyncWithTelemetry=true;
+
+		public static boolean sortDataInTelemetryClientUpdate=true;
 
 		public static void reset(){
 			driverUsingAxisPowerInsteadOfCurrentPower=true;
@@ -46,9 +63,12 @@ public class Params {
 			waitForServoUntilThePositionIsInPlace=false;
 			autoPrepareForNextOptionWhenUpdate=false;
 			alwaysRunPIDInAutonomous=false;
-			usePIDInAutonomous=true;
+			usePIDToDriveInAutonomous =true;
 			useOutTimeProtection=true;
 			autoRegisterAllHardwaresWhenInit=true;
+			clientAutoRegisteredFtcDashboardTelemetry=true;
+			dashboardAutoSyncWithTelemetry=true;
+			sortDataInTelemetryClientUpdate=true;
 		}
 
 		public static final String TuningAndTuneOpModesGroup = "0_Tunings";
@@ -84,12 +104,12 @@ public class Params {
 	 * 每Tick机器所旋转的角度
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double TurningDegPerTick = 0.01339983622422392615201369761;
+	public static double TurningDegPerTick = 0.15;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double AxialInchPerTick=0.001131541725601131541725601132;
+	public static double AxialInchPerTick=0.00114285714285714285714285714286;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see ThreeInOne_DeadWheelTuner
@@ -99,7 +119,7 @@ public class Params {
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 * @see SecPowerPerInchTuner
 	 */
-	public static double secPowerPerInch =0;
+	public static double secPowerPerInch = 24;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
@@ -140,8 +160,4 @@ public class Params {
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
 	public static double factorSuspensionArmPower=1;
-	/**
-	 * 电机的转力从0到其余数的保护时间，单位：ms
-	 */
-	public static double switchFromStaticToKinetic =75;
 }

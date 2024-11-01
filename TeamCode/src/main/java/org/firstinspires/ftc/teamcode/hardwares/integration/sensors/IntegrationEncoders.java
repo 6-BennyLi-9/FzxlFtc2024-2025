@@ -13,13 +13,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
  *
  * @see Encoder
  */
-public class IntegrationDeadWheelEncoders extends IntegrationSensor{
+public class IntegrationEncoders extends IntegrationSensor{
 	public final Encoder sensor;
 	public double encTick,velocity;
 	public double lastEncTick,lastVelocity;
 	public double deltaEncTicks,deltaVelocity;
 
-	public IntegrationDeadWheelEncoders(@NonNull DcMotorEx motor) {
+	public IntegrationEncoders(@NonNull DcMotorEx motor) {
 		super(motor.getDeviceName());
 		sensor=new OverflowEncoder(new RawEncoder(motor));
 	}

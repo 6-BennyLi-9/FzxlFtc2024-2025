@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.drives.localizers.plugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
@@ -77,8 +77,7 @@ public class MecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.deletePacketByTag("RobotPosition");
-		client.dashboard.DrawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
+		client.dashboard.drawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
 	}
@@ -100,11 +99,11 @@ public class MecanumDrive implements DriverProgram {
 
 		Vector2d[] PoseList;
 		PoseList=new Vector2d[commandLists.length+1];
-		PoseList[0]=commandLists[0].pose.asVector();
+		PoseList[0]=commandLists[0].pose.toVector();
 		Timer timer = new Timer();
 
 		for(int i=0;i<commandLists.length;++i){
-			PoseList[i+1]=commandLists[i].NEXT().asVector();
+			PoseList[i+1]=commandLists[i].nextPose().toVector();
 		}
 
 		Actions.runBlocking(new Action() {
@@ -112,7 +111,7 @@ public class MecanumDrive implements DriverProgram {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 				DriveAction singleAction =commandLists[ID];
-				singleAction.RUN();
+				singleAction.run();
 				update();
 				motors.updateDriveOptions(RobotPosition.heading);
 
@@ -129,7 +128,7 @@ public class MecanumDrive implements DriverProgram {
 				timer.restart();
 				while ((Math.abs(RobotPosition.x-PoseList[ID+1].x)> pem)
 						&& (Math.abs(RobotPosition.y-PoseList[ID+1].y)> pem)
-						&& (Math.abs(RobotPosition.heading-singleAction.NEXT().heading)> aem)){
+						&& (Math.abs(RobotPosition.heading-singleAction.nextPose().heading) > aem)){
 					double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 					client.changeData("progress", progress +"%");
 					Position2d aim= Functions.getAimPositionThroughTrajectory(singleAction,RobotPosition,progress);
@@ -140,7 +139,7 @@ public class MecanumDrive implements DriverProgram {
 						break;
 					}
 
-					if(Params.Configs.usePIDInAutonomous){
+					if(Params.Configs.usePIDToDriveInAutonomous){
 						if(Math.abs(aim.x- RobotPosition.x)> pem
 								|| Math.abs(aim.y- RobotPosition.y)> pem
 								|| Math.abs(aim.heading- RobotPosition.heading)> aem

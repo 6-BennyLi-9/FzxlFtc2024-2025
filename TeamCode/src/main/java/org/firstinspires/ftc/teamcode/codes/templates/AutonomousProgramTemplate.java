@@ -24,7 +24,7 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	public void Init(Position2d position){
 		Global.clear();
 
-		robot=new Robot(hardwareMap, RunningMode.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.Autonomous, telemetry);
 		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(position);
 
 		FtcDashboard.getInstance().sendTelemetryPacket(new TelemetryPacket(true));
