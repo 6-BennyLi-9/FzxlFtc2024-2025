@@ -1,4 +1,4 @@
 include ':FtcRobotController'
 include ':TeamCode'
 include ':RoadrunnerCores'
-include ':TeamCodeCores'
+include ':FtcTeamCodeSample'
