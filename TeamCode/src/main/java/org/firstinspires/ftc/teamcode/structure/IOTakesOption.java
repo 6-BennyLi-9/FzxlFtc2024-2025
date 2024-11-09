@@ -37,7 +37,7 @@ public enum IOTakesOption {
 
 	@NonNull
 	@Contract(pure = true)
-	public static Action IOtakesOptionAction(@NonNull final IOTakesPositionTypes option){
+	public static Action IOtakes(@NonNull final IOTakesPositionTypes option){
 		switch (option) {
 			case intake:
 				return new IntakeAction();

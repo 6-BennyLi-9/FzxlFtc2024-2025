@@ -19,6 +19,7 @@ public class Main extends OpMode {
 	@Override
 	public void loop() {
 		robot.runThread();
+
 		robot.operateThroughGamepad();
 		robot.driveThroughGamepad();
 	}

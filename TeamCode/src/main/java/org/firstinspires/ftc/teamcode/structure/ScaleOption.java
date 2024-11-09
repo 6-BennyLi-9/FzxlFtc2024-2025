@@ -40,25 +40,25 @@ public enum ScaleOption {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action scaleInitAction(){
+	public static Action init(){
 		recent=ScalePositionTypes.idle;
 		return new ScaleIDLEAction();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action scaleSafeOption(){
+	public static Action safe(){
 		recent=ScalePositionTypes.safe;
 		return new ScaleSafeAction();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action scaleIntakeOption(){
+	public static Action intake(){
 		recent=ScalePositionTypes.intake;
 		return new ScaleIntakeAction();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action scaleIDLEOption(){
+	public static Action idle(){
 		recent=ScalePositionTypes.idle;
 		return new ScaleIDLEAction();
 	}

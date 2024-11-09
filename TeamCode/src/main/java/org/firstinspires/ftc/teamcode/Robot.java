@@ -55,58 +55,60 @@ public class Robot {
 	}
 
 	public void initActions(){
-		thread.add("clip",ClipOption.clipInitAction());
-		thread.add("intake", IOTakesOption.IOtakesOptionAction(IOTakesOption.IOTakesPositionTypes.idle));
+		thread.add("clip",ClipOption.init());
+		thread.add("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
 		thread.add("lift", LiftOption.cloneController());
-		thread.add("place", PlaceOption.placeInitOption());
-		thread.add("scale",ScaleOption.scaleInitAction());
+		thread.add("place", PlaceOption.init());
+		thread.add("scale",ScaleOption.init());
 	}
 
 	public void operateThroughGamepad(){
 		syncRequests();
 		if(clipOption){
-			thread.replace("clip", ClipOption.clipOptionChangeAction());
+			thread.replace("clip", ClipOption.change());
 		}
+
 		if(intakeSamples &&!outtakeSamples){
-			thread.replace("intake", IOTakesOption.IOtakesOptionAction(intake));
+			thread.replace("intake", IOTakesOption.IOtakes(intake));
 		}else if(!intakeSamples && outtakeSamples){
-			thread.replace("intake", IOTakesOption.IOtakesOptionAction(outtake));
+			thread.replace("intake", IOTakesOption.IOtakes(outtake));
 		}else {
-			thread.replace("intake", IOTakesOption.IOtakesOptionAction(IOTakesOption.IOTakesPositionTypes.idle));
+			thread.replace("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
 		}
+
 		if(liftIDLE){
 			if(ScaleOption.ScalePositionTypes.idle == ScaleOption.recent){
-				thread.replace("scale",ScaleOption.scaleSafeOption());
+				thread.replace("scale",ScaleOption.safe());
 			}
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent){
-				thread.replace("place",PlaceOption.idleOption());
+				thread.replace("place",PlaceOption.idle());
 			}
 			if(close == ClipOption.recent){
-				thread.replace("clip",ClipOption.clipOptionChangeAction());
+				thread.replace("clip",ClipOption.change());
 			}
-			LiftOption.syncPosition(idle);
+			LiftOption.sync(idle);
 		}else if(liftDecantLow		&&	(idle == LiftOption.recent ||LiftOption.decanting())){
 			if(ScaleOption.ScalePositionTypes.idle == ScaleOption.recent){
-				thread.replace("scale",ScaleOption.scaleSafeOption());
+				thread.replace("scale",ScaleOption.safe());
 			}
-			LiftOption.syncPosition(decantLow);
+			LiftOption.sync(decantLow);
 		}else if(liftDecantHigh		&&	(idle == LiftOption.recent ||LiftOption.decanting())){
 			if(ScaleOption.ScalePositionTypes.idle == ScaleOption.recent){
-				thread.replace("scale",ScaleOption.scaleSafeOption());
+				thread.replace("scale",ScaleOption.safe());
 			}
-			LiftOption.syncPosition(decantHigh);
+			LiftOption.sync(decantHigh);
 		} else if (liftHighSuspend 	&&	 idle == LiftOption.recent) {
 			if(ScaleOption.ScalePositionTypes.idle == ScaleOption.recent){
-				thread.replace("scale",ScaleOption.scaleSafeOption());
+				thread.replace("scale",ScaleOption.safe());
 			}
-			LiftOption.syncPosition(highSuspendPrepare);
+			LiftOption.sync(highSuspendPrepare);
 		}
 
 		if(decant && LiftOption.decanting()){
-			thread.replace("place",PlaceOption.decantOption());
+			thread.replace("place",PlaceOption.decant());
 		}
 		if(suspend && highSuspend == LiftOption.recent){
-			LiftOption.syncPosition(highSuspend);
+			LiftOption.sync(highSuspend);
 		}
 	}
 

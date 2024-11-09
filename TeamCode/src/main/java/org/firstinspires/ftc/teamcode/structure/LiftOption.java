@@ -36,7 +36,7 @@ public enum LiftOption {
 		return new LiftController();
 	}
 
-	public static void syncPosition(@NonNull final LiftPositionTypes option){
+	public static void sync(@NonNull final LiftPositionTypes option){
 		recent=option;
 		switch (option) {
 			case idle:

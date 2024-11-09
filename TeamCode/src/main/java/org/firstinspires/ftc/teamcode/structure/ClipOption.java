@@ -31,13 +31,13 @@ public enum ClipOption {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action clipInitAction(){
+	public static Action init(){
 		recent=ClipPositionTypes.open;
 		return new ClipOpen();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action clipOptionChangeAction(){
+	public static Action change(){
 		switch (recent) {
 			case open:case unknown:
 				recent= ClipPositionTypes.close;

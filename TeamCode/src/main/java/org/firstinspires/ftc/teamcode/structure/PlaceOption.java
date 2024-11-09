@@ -30,18 +30,18 @@ public enum PlaceOption {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action placeInitOption(){
-		return idleOption();
+	public static Action init(){
+		return idle();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action decantOption(){
+	public static Action decant(){
 		recent=PlacePositionTypes.decant;
 		return new PlaceDecantAction();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action idleOption(){
+	public static Action idle(){
 		recent=PlacePositionTypes.idle;
 		return new PlaceIDLEAction();
 	}
