@@ -38,11 +38,14 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double X_MULTIPLIER = 1.017335420348886; // Multiplier in the X direction
     public static double Y_MULTIPLIER = 1.017335420348886; // Multiplier in the Y direction
 
-    private Encoder leftEncoder, rightEncoder, frontEncoder;
+    private final Encoder leftEncoder;
+	private final Encoder rightEncoder;
+	private final Encoder frontEncoder;
 
-    private List<Integer> lastEncPositions, lastEncVels;
+    private final List<Integer> lastEncPositions;
+	private final List<Integer> lastEncVels;
 
-    public StandardTrackingWheelLocalizer(HardwareMap hardwareMap, List<Integer> lastTrackingEncPositions, List<Integer> lastTrackingEncVels) {
+    public StandardTrackingWheelLocalizer(final HardwareMap hardwareMap, final List<Integer> lastTrackingEncPositions, final List<Integer> lastTrackingEncVels) {
         super(Arrays.asList(
                 new Pose2d(0, LATERAL_DISTANCE / 2, 0), // left
                 new Pose2d(0, -LATERAL_DISTANCE / 2, 0), // right
@@ -62,16 +65,16 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         rightEncoder.setDirection(Encoder.Direction.REVERSE);
     }
 
-    public static double encoderTicksToInches(double ticks) {
+    public static double encoderTicksToInches(final double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
     }
 
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-        int leftPos = leftEncoder.getCurrentPosition();
-        int rightPos = rightEncoder.getCurrentPosition();
-        int frontPos = frontEncoder.getCurrentPosition();
+        final int leftPos = leftEncoder.getCurrentPosition();
+        final int rightPos = rightEncoder.getCurrentPosition();
+        final int frontPos = frontEncoder.getCurrentPosition();
 
         lastEncPositions.clear();
         lastEncPositions.add(leftPos);
@@ -88,9 +91,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     @NonNull
     @Override
     public List<Double> getWheelVelocities() {
-        int leftVel = (int) leftEncoder.getCorrectedVelocity();
-        int rightVel = (int) rightEncoder.getCorrectedVelocity();
-        int frontVel = (int) frontEncoder.getCorrectedVelocity();
+        final int leftVel = (int) leftEncoder.getCorrectedVelocity();
+        final int rightVel = (int) rightEncoder.getCorrectedVelocity();
+        final int frontVel = (int) frontEncoder.getCorrectedVelocity();
 
         lastEncVels.clear();
         lastEncVels.add(leftVel);

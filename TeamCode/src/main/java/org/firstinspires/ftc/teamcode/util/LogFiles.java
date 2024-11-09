@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+
+import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -28,14 +29,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import fi.iki.elonen.NanoHTTPD;
 
-public final class LogFiles {
-    private static final File ROOT =
+public enum LogFiles {
+	;
+	private static final File ROOT =
             new File(AppUtil.ROOT_FOLDER + "/RoadRunner/logs/");
 
     public static LogFile log = new LogFile("uninitialized");
@@ -110,17 +113,17 @@ public final class LogFiles {
         public List<List<Integer>> trackingEncPositions = new ArrayList<>();
         public List<List<Integer>> trackingEncVels = new ArrayList<>();
 
-        public LogFile(String opModeName) {
+        public LogFile(final String opModeName) {
             this.opModeName = opModeName;
         }
     }
 
     public static void record(
-            Pose2d targetPose, Pose2d pose, double voltage,
-            List<Integer> lastDriveEncPositions, List<Integer> lastDriveEncVels, List<Integer> lastTrackingEncPositions, List<Integer> lastTrackingEncVels
+		    final Pose2d targetPose, final Pose2d pose, final double voltage,
+		    final List<Integer> lastDriveEncPositions, final List<Integer> lastDriveEncVels, final List<Integer> lastTrackingEncPositions, final List<Integer> lastTrackingEncVels
     ) {
-        long nsTime = System.nanoTime();
-        if (nsTime - log.nsStart > 3 * 60 * 1_000_000_000L) {
+        final long nsTime = System.nanoTime();
+        if (3 * 60 * 1_000_000_000L < nsTime - log.nsStart) {
             return;
         }
 
@@ -171,19 +174,19 @@ public final class LogFiles {
                 .writerWithDefaultPrettyPrinter();
 
         @Override
-        public void onOpModePreInit(OpMode opMode) {
+        public void onOpModePreInit(final OpMode opMode) {
             log = new LogFile(opMode.getClass().getCanonicalName());
 
             // clean up old files
-            File[] fs = Objects.requireNonNull(ROOT.listFiles());
-            Arrays.sort(fs, (a, b) -> Long.compare(a.lastModified(), b.lastModified()));
+            final File[] fs = Objects.requireNonNull(ROOT.listFiles());
+            Arrays.sort(fs, Comparator.comparingLong(File::lastModified));
             long totalSizeBytes = 0;
-            for (File f : fs) {
+            for (final File f : fs) {
                 totalSizeBytes += f.length();
             }
 
             int i = 0;
-            while (i < fs.length && totalSizeBytes >= 32 * 1000 * 1000) {
+            while (i < fs.length && 32 * 1000 * 1000 <= totalSizeBytes) {
                 totalSizeBytes -= fs[i].length();
                 if (!fs[i].delete()) {
                     RobotLog.setGlobalErrorMsg("Unable to delete file " + fs[i].getAbsolutePath());
@@ -193,23 +196,23 @@ public final class LogFiles {
         }
 
         @Override
-        public void onOpModePreStart(OpMode opMode) {
+        public void onOpModePreStart(final OpMode opMode) {
             log.nsStart = System.nanoTime();
         }
 
         @Override
-        public void onOpModePostStop(OpMode opMode) {
+        public void onOpModePostStop(final OpMode opMode) {
             log.nsStop = System.nanoTime();
 
             if (!(opMode instanceof OpModeManagerImpl.DefaultOpMode)) {
                 //noinspection ResultOfMethodCallIgnored
                 ROOT.mkdirs();
 
-                String filename = dateFormat.format(new Date(log.msInit)) + "__" + opMode.getClass().getSimpleName() + ".json";
-                File file = new File(ROOT, filename);
+                final String filename = dateFormat.format(new Date(log.msInit)) + "__" + opMode.getClass().getSimpleName() + ".json";
+                final File file = new File(ROOT, filename);
                 try {
                     jsonWriter.writeValue(file, log);
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     RobotLog.setGlobalErrorMsg(new RuntimeException(e),
                             "Unable to write data to " + file.getAbsolutePath());
                 }
@@ -218,7 +221,7 @@ public final class LogFiles {
     };
 
     @WebHandlerRegistrar
-    public static void registerRoutes(Context context, WebHandlerManager manager) {
+    public static void registerRoutes(@NonNull final WebHandlerManager manager) {
         //noinspection ResultOfMethodCallIgnored
         ROOT.mkdirs();
 
@@ -231,9 +234,9 @@ public final class LogFiles {
         manager.register("/logs", session -> {
             final StringBuilder sb = new StringBuilder();
             sb.append("<!doctype html><html><head><title>Logs</title></head><body><ul>");
-            File[] fs = Objects.requireNonNull(ROOT.listFiles());
+            final File[] fs = Objects.requireNonNull(ROOT.listFiles());
             Arrays.sort(fs, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
-            for (File f : fs) {
+            for (final File f : fs) {
                 sb.append("<li><a href=\"/logs/download?file=");
                 sb.append(f.getName());
                 sb.append("\" download=\"");
@@ -249,18 +252,18 @@ public final class LogFiles {
 
         manager.register("/logs/download", session -> {
             final String[] pairs = session.getQueryParameterString().split("&");
-            if (pairs.length != 1) {
+            if (1 != pairs.length) {
                 return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST,
                         NanoHTTPD.MIME_PLAINTEXT, "expected one query parameter, got " + pairs.length);
             }
 
             final String[] parts = pairs[0].split("=");
-            if (!parts[0].equals("file")) {
+            if (!"file".equals(parts[0])) {
                 return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST,
                         NanoHTTPD.MIME_PLAINTEXT, "expected file query parameter, got " + parts[0]);
             }
 
-            File f = new File(ROOT, parts[1]);
+            final File f = new File(ROOT, parts[1]);
             if (!f.exists()) {
                 return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.NOT_FOUND,
                         NanoHTTPD.MIME_PLAINTEXT, "file " + f + " doesn't exist");

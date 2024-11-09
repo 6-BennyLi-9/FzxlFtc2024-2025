@@ -11,7 +11,7 @@ public final class TurnSegment extends SequenceSegment {
     private final double totalRotation;
     private final MotionProfile motionProfile;
 
-    public TurnSegment(Pose2d startPose, double totalRotation, MotionProfile motionProfile, List<TrajectoryMarker> markers) {
+    public TurnSegment(final Pose2d startPose, final double totalRotation, final MotionProfile motionProfile, final List<TrajectoryMarker> markers) {
         super(
                 motionProfile.duration(),
                 startPose,
@@ -26,11 +26,11 @@ public final class TurnSegment extends SequenceSegment {
         this.motionProfile = motionProfile;
     }
 
-    public final double getTotalRotation() {
+    public double getTotalRotation() {
         return this.totalRotation;
     }
 
-    public final MotionProfile getMotionProfile() {
+    public MotionProfile getMotionProfile() {
         return this.motionProfile;
     }
 }

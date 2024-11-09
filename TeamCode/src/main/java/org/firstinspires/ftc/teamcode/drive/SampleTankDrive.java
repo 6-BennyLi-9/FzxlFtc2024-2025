@@ -51,19 +51,21 @@ public class SampleTankDrive extends TankDrive {
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
 
-    private TrajectorySequenceRunner trajectorySequenceRunner;
+    private final TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint accelConstraint = getAccelerationConstraint(MAX_ACCEL);
 
-    private TrajectoryFollower follower;
+    private final TrajectoryFollower follower;
 
-    private List<DcMotorEx> motors, leftMotors, rightMotors;
-    private IMU imu;
+    private final List<DcMotorEx> motors;
+	private final List<DcMotorEx> leftMotors;
+	private final List<DcMotorEx> rightMotors;
+    private final IMU imu;
 
-    private VoltageSensor batteryVoltageSensor;
+    private final VoltageSensor batteryVoltageSensor;
 
-    public SampleTankDrive(HardwareMap hardwareMap) {
+    public SampleTankDrive(final HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH);
 
         follower = new TankPIDVAFollower(AXIAL_PID, CROSS_TRACK_PID,
@@ -73,28 +75,28 @@ public class SampleTankDrive extends TankDrive {
 
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
+        for (final LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
+        final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                LOGO_FACING_DIR, USB_FACING_DIR));
         imu.initialize(parameters);
 
         // add/remove motors depending on your robot (e.g., 6WD)
-        DcMotorEx leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        DcMotorEx leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        DcMotorEx rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        DcMotorEx rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        final DcMotorEx leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        final DcMotorEx leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        final DcMotorEx rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+        final DcMotorEx rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
         leftMotors = Arrays.asList(leftFront, leftRear);
         rightMotors = Arrays.asList(rightFront, rightRear);
 
-        for (DcMotorEx motor : motors) {
-            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+        for (final DcMotorEx motor : motors) {
+            final MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
         }
@@ -105,7 +107,7 @@ public class SampleTankDrive extends TankDrive {
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
+        if (RUN_USING_ENCODER && null != MOTOR_VELO_PID) {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
 
@@ -120,19 +122,19 @@ public class SampleTankDrive extends TankDrive {
         );
     }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
+    public TrajectoryBuilder trajectoryBuilder(final Pose2d startPose) {
         return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, accelConstraint);
     }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
+    public TrajectoryBuilder trajectoryBuilder(final Pose2d startPose, final boolean reversed) {
         return new TrajectoryBuilder(startPose, reversed, VEL_CONSTRAINT, accelConstraint);
     }
 
-    public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
+    public TrajectoryBuilder trajectoryBuilder(final Pose2d startPose, final double startHeading) {
         return new TrajectoryBuilder(startPose, startHeading, VEL_CONSTRAINT, accelConstraint);
     }
 
-    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d startPose) {
+    public TrajectorySequenceBuilder trajectorySequenceBuilder(final Pose2d startPose) {
         return new TrajectorySequenceBuilder(
                 startPose,
                 VEL_CONSTRAINT, accelConstraint,
@@ -140,7 +142,7 @@ public class SampleTankDrive extends TankDrive {
         );
     }
 
-    public void turnAsync(double angle) {
+    public void turnAsync(final double angle) {
         trajectorySequenceRunner.followTrajectorySequenceAsync(
                 trajectorySequenceBuilder(getPoseEstimate())
                         .turn(angle)
@@ -148,12 +150,12 @@ public class SampleTankDrive extends TankDrive {
         );
     }
 
-    public void turn(double angle) {
+    public void turn(final double angle) {
         turnAsync(angle);
         waitForIdle();
     }
 
-    public void followTrajectoryAsync(Trajectory trajectory) {
+    public void followTrajectoryAsync(final Trajectory trajectory) {
         trajectorySequenceRunner.followTrajectorySequenceAsync(
                 trajectorySequenceBuilder(trajectory.start())
                         .addTrajectory(trajectory)
@@ -161,16 +163,16 @@ public class SampleTankDrive extends TankDrive {
         );
     }
 
-    public void followTrajectory(Trajectory trajectory) {
+    public void followTrajectory(final Trajectory trajectory) {
         followTrajectoryAsync(trajectory);
         waitForIdle();
     }
 
-    public void followTrajectorySequenceAsync(TrajectorySequence trajectorySequence) {
+    public void followTrajectorySequenceAsync(final TrajectorySequence trajectorySequence) {
         trajectorySequenceRunner.followTrajectorySequenceAsync(trajectorySequence);
     }
 
-    public void followTrajectorySequence(TrajectorySequence trajectorySequence) {
+    public void followTrajectorySequence(final TrajectorySequence trajectorySequence) {
         followTrajectorySequenceAsync(trajectorySequence);
         waitForIdle();
     }
@@ -182,8 +184,8 @@ public class SampleTankDrive extends TankDrive {
 
     public void update() {
         updatePoseEstimate();
-        DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
-        if (signal != null) setDriveSignal(signal);
+        final DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
+        if (null != signal) setDriveSignal(signal);
     }
 
     public void waitForIdle() {
@@ -195,34 +197,34 @@ public class SampleTankDrive extends TankDrive {
         return trajectorySequenceRunner.isBusy();
     }
 
-    public void setMode(DcMotor.RunMode runMode) {
-        for (DcMotorEx motor : motors) {
+    public void setMode(final DcMotor.RunMode runMode) {
+        for (final DcMotorEx motor : motors) {
             motor.setMode(runMode);
         }
     }
 
-    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-        for (DcMotorEx motor : motors) {
+    public void setZeroPowerBehavior(final DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+        for (final DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(zeroPowerBehavior);
         }
     }
 
-    public void setPIDFCoefficients(DcMotor.RunMode runMode, PIDFCoefficients coefficients) {
-        PIDFCoefficients compensatedCoefficients = new PIDFCoefficients(
+    public void setPIDFCoefficients(final DcMotor.RunMode runMode, final PIDFCoefficients coefficients) {
+        final PIDFCoefficients compensatedCoefficients = new PIDFCoefficients(
                 coefficients.p, coefficients.i, coefficients.d,
                 coefficients.f * 12 / batteryVoltageSensor.getVoltage()
         );
-        for (DcMotorEx motor : motors) {
+        for (final DcMotorEx motor : motors) {
             motor.setPIDFCoefficients(runMode, compensatedCoefficients);
         }
     }
 
-    public void setWeightedDrivePower(Pose2d drivePower) {
+    public void setWeightedDrivePower(final Pose2d drivePower) {
         Pose2d vel = drivePower;
 
-        if (Math.abs(drivePower.getX()) + Math.abs(drivePower.getHeading()) > 1) {
+        if (1 < Math.abs(drivePower.getX()) + Math.abs(drivePower.getHeading())) {
             // re-normalize the powers according to the weights
-            double denom = VX_WEIGHT * Math.abs(drivePower.getX())
+            final double denom = VX_WEIGHT * Math.abs(drivePower.getX())
                     + OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
 
             vel = new Pose2d(
@@ -242,10 +244,10 @@ public class SampleTankDrive extends TankDrive {
     @Override
     public List<Double> getWheelPositions() {
         double leftSum = 0, rightSum = 0;
-        for (DcMotorEx leftMotor : leftMotors) {
+        for (final DcMotorEx leftMotor : leftMotors) {
             leftSum += encoderTicksToInches(leftMotor.getCurrentPosition());
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (final DcMotorEx rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
         }
         return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
@@ -253,21 +255,21 @@ public class SampleTankDrive extends TankDrive {
 
     public List<Double> getWheelVelocities() {
         double leftSum = 0, rightSum = 0;
-        for (DcMotorEx leftMotor : leftMotors) {
+        for (final DcMotorEx leftMotor : leftMotors) {
             leftSum += encoderTicksToInches(leftMotor.getVelocity());
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (final DcMotorEx rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getVelocity());
         }
         return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
 
     @Override
-    public void setMotorPowers(double v, double v1) {
-        for (DcMotorEx leftMotor : leftMotors) {
+    public void setMotorPowers(final double v, final double v1) {
+        for (final DcMotorEx leftMotor : leftMotors) {
             leftMotor.setPower(v);
         }
-        for (DcMotorEx rightMotor : rightMotors) {
+        for (final DcMotorEx rightMotor : rightMotors) {
             rightMotor.setPower(v1);
         }
     }
@@ -282,14 +284,14 @@ public class SampleTankDrive extends TankDrive {
         return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
     }
 
-    public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {
+    public static TrajectoryVelocityConstraint getVelocityConstraint(final double maxVel, final double maxAngularVel, final double trackWidth) {
         return new MinVelocityConstraint(Arrays.asList(
                 new AngularVelocityConstraint(maxAngularVel),
                 new TankVelocityConstraint(maxVel, trackWidth)
         ));
     }
 
-    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
+    public static TrajectoryAccelerationConstraint getAccelerationConstraint(final double maxAccel) {
         return new ProfileAccelerationConstraint(maxAccel);
     }
 }

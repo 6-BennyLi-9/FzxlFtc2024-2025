@@ -11,14 +11,14 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Encoder {
     private final static int CPS_STEP = 0x10000;
 
-    private static double inverseOverflow(double input, double estimate) {
+    private static double inverseOverflow(final double input, final double estimate) {
         // convert to uint16
         int real = (int) input & 0xffff;
         // initial, modulo-based correction: it can recover the remainder of 5 of the upper 16 bits
         // because the velocity is always a multiple of 20 cps due to Expansion Hub's 50ms measurement window
         real += ((real % 20) / 4) * CPS_STEP;
         // estimate-based correction: it finds the nearest multiple of 5 to correct the upper bits by
-        real += Math.round((estimate - real) / (5 * CPS_STEP)) * 5 * CPS_STEP;
+        real += (int) (Math.round((estimate - real) / (5 * CPS_STEP)) * 5 * CPS_STEP);
         return real;
     }
 
@@ -26,9 +26,9 @@ public class Encoder {
         FORWARD(1),
         REVERSE(-1);
 
-        private int multiplier;
+        private final int multiplier;
 
-        Direction(int multiplier) {
+        Direction(final int multiplier) {
             this.multiplier = multiplier;
         }
 
@@ -37,17 +37,17 @@ public class Encoder {
         }
     }
 
-    private DcMotorEx motor;
-    private NanoClock clock;
+    private final DcMotorEx motor;
+    private final NanoClock clock;
 
     private Direction direction;
 
     private int lastPosition;
     private int velocityEstimateIdx;
-    private double[] velocityEstimates;
+    private final double[] velocityEstimates;
     private double lastUpdateTime;
 
-    public Encoder(DcMotorEx motor, NanoClock clock) {
+    public Encoder(final DcMotorEx motor, final NanoClock clock) {
         this.motor = motor;
         this.clock = clock;
 
@@ -58,7 +58,7 @@ public class Encoder {
         this.lastUpdateTime = clock.seconds();
     }
 
-    public Encoder(DcMotorEx motor) {
+    public Encoder(final DcMotorEx motor) {
         this(motor, NanoClock.system());
     }
 
@@ -67,14 +67,14 @@ public class Encoder {
     }
 
     private int getMultiplier() {
-        return getDirection().getMultiplier() * (motor.getDirection() == DcMotorSimple.Direction.FORWARD ? 1 : -1);
+        return direction.getMultiplier() * (DcMotorSimple.Direction.FORWARD == motor.getDirection() ? 1 : -1);
     }
 
     /**
      * Allows you to set the direction of the counts and velocity without modifying the motor's direction state
      * @param direction either reverse or forward depending on if encoder counts should be negated
      */
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
@@ -85,11 +85,11 @@ public class Encoder {
      * @return encoder position
      */
     public int getCurrentPosition() {
-        int multiplier = getMultiplier();
-        int currentPosition = motor.getCurrentPosition() * multiplier;
+        final int multiplier = getMultiplier();
+        final int currentPosition = motor.getCurrentPosition() * multiplier;
         if (currentPosition != lastPosition) {
-            double currentTime = clock.seconds();
-            double dt = currentTime - lastUpdateTime;
+            final double currentTime = clock.seconds();
+            final double dt = currentTime - lastUpdateTime;
             velocityEstimates[velocityEstimateIdx] = (currentPosition - lastPosition) / dt;
             velocityEstimateIdx = (velocityEstimateIdx + 1) % 3;
             lastPosition = currentPosition;
@@ -105,7 +105,7 @@ public class Encoder {
      * @return raw velocity
      */
     public double getRawVelocity() {
-        int multiplier = getMultiplier();
+        final int multiplier = getMultiplier();
         return motor.getVelocity() * multiplier;
     }
 
@@ -117,7 +117,7 @@ public class Encoder {
      * @return corrected velocity
      */
     public double getCorrectedVelocity() {
-        double median = velocityEstimates[0] > velocityEstimates[1]
+        final double median = velocityEstimates[0] > velocityEstimates[1]
                 ? Math.max(velocityEstimates[1], Math.min(velocityEstimates[0], velocityEstimates[2]))
                 : Math.max(velocityEstimates[0], Math.min(velocityEstimates[1], velocityEstimates[2]));
         return inverseOverflow(getRawVelocity(), median);

@@ -48,7 +48,7 @@ import java.util.Objects;
 public class ManualFeedforwardTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
 
-    private FtcDashboard dashboard = FtcDashboard.getInstance();
+    private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
     private SampleMecanumDrive drive;
 
@@ -59,9 +59,9 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
     private Mode mode;
 
-    private static MotionProfile generateProfile(boolean movingForward) {
-        MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
-        MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
+    private static MotionProfile generateProfile(final boolean movingForward) {
+        final MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
+        final MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
         return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, MAX_VEL, MAX_ACCEL);
     }
 
@@ -72,7 +72,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                     "when using the built-in drive motor velocity PID.");
         }
 
-        Telemetry telemetry = new MultipleTelemetry(this.telemetry, dashboard.getTelemetry());
+        final Telemetry telemetry = new MultipleTelemetry(this.telemetry, dashboard.getTelemetry());
 
         drive = new SampleMecanumDrive(hardwareMap);
 
@@ -80,7 +80,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
         mode = Mode.TUNING_MODE;
 
-        NanoClock clock = NanoClock.system();
+        final NanoClock clock = NanoClock.system();
 
         telemetry.addLine("Ready!");
         telemetry.update();
@@ -105,7 +105,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                     }
 
                     // calculate and set the motor power
-                    double profileTime = clock.seconds() - profileStart;
+                    final double profileTime = clock.seconds() - profileStart;
 
                     if (profileTime > activeProfile.duration()) {
                         // generate a new profile
@@ -114,16 +114,16 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                         profileStart = clock.seconds();
                     }
 
-                    MotionState motionState = activeProfile.get(profileTime);
-                    double targetPower = Kinematics.calculateMotorFeedforward(motionState.getV(), motionState.getA(), kV, kA, kStatic);
+                    final MotionState motionState = activeProfile.get(profileTime);
+                    final double targetPower = Kinematics.calculateMotorFeedforward(motionState.getV(), motionState.getA(), kV, kA, kStatic);
 
                     final double NOMINAL_VOLTAGE = 12.0;
                     final double voltage = voltageSensor.getVoltage();
                     drive.setDrivePower(new Pose2d(NOMINAL_VOLTAGE / voltage * targetPower, 0, 0));
                     drive.updatePoseEstimate();
 
-                    Pose2d poseVelo = Objects.requireNonNull(drive.getPoseVelocity(), "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer.");
-                    double currentVelo = poseVelo.getX();
+                    final Pose2d poseVelo = Objects.requireNonNull(drive.getPoseVelocity(), "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer.");
+                    final double currentVelo = poseVelo.getX();
 
                     // update telemetry
                     telemetry.addData("targetVelocity", motionState.getV());

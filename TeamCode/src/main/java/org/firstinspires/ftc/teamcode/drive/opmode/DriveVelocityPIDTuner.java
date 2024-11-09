@@ -60,9 +60,9 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
         TUNING_MODE
     }
 
-    private static MotionProfile generateProfile(boolean movingForward) {
-        MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
-        MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
+    private static MotionProfile generateProfile(final boolean movingForward) {
+        final MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
+        final MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
         return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, MAX_VEL, MAX_ACCEL);
     }
 
@@ -73,9 +73,9 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                     "PID is not in use", getClass().getSimpleName());
         }
 
-        Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+        final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        final SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Mode mode = Mode.TUNING_MODE;
 
@@ -86,7 +86,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
         drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
 
-        NanoClock clock = NanoClock.system();
+        final NanoClock clock = NanoClock.system();
 
         telemetry.addLine("Ready!");
         telemetry.update();
@@ -112,7 +112,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                     }
 
                     // calculate and set the motor power
-                    double profileTime = clock.seconds() - profileStart;
+                    final double profileTime = clock.seconds() - profileStart;
 
                     if (profileTime > activeProfile.duration()) {
                         // generate a new profile
@@ -121,11 +121,11 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                         profileStart = clock.seconds();
                     }
 
-                    MotionState motionState = activeProfile.get(profileTime);
-                    double targetPower = kV * motionState.getV();
+                    final MotionState motionState = activeProfile.get(profileTime);
+                    final double targetPower = kV * motionState.getV();
                     drive.setDrivePower(new Pose2d(targetPower, 0, 0));
 
-                    List<Double> velocities = drive.getWheelVelocities();
+                    final List<Double> velocities = drive.getWheelVelocities();
 
                     // update telemetry
                     telemetry.addData("targetVelocity", motionState.getV());

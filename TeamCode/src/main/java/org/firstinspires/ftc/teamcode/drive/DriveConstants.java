@@ -16,9 +16,10 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * and op modes themselves.
  */
 @Config
-public class DriveConstants {
+public enum DriveConstants {
+	;
 
-    /*
+	/*
      * These are motor constants that should be listed online for your motors.
      */
     public static final double TICKS_PER_REV = 560;
@@ -55,8 +56,8 @@ public class DriveConstants {
      * empirically tuned.
      */
     public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
-    public static double kA = 0;
-    public static double kStatic = 0;
+    public static double kA;
+    public static double kStatic;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -79,15 +80,15 @@ public class DriveConstants {
             RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 
 
-    public static double encoderTicksToInches(double ticks) {
+    public static double encoderTicksToInches(final double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
     }
 
-    public static double rpmToVelocity(double rpm) {
+    public static double rpmToVelocity(final double rpm) {
         return rpm * GEAR_RATIO * 2 * Math.PI * WHEEL_RADIUS / 60.0;
     }
 
-    public static double getMotorVelocityF(double ticksPerSecond) {
+    public static double getMotorVelocityF(final double ticksPerSecond) {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 / ticksPerSecond;
     }

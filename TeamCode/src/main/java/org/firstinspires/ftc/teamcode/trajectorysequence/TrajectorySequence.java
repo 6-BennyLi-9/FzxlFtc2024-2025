@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.trajectorysequence;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.teamcode.trajectorysequence.sequencesegment.SequenceSegment;
@@ -10,8 +12,8 @@ import java.util.List;
 public class TrajectorySequence {
     private final List<SequenceSegment> sequenceList;
 
-    public TrajectorySequence(List<SequenceSegment> sequenceList) {
-        if (sequenceList.size() == 0) throw new EmptySequenceException();
+    public TrajectorySequence(@NonNull final List<SequenceSegment> sequenceList) {
+        if (sequenceList.isEmpty()) throw new EmptySequenceException();
 
         this.sequenceList = Collections.unmodifiableList(sequenceList);
     }
@@ -27,14 +29,14 @@ public class TrajectorySequence {
     public double duration() {
         double total = 0.0;
 
-        for (SequenceSegment segment : sequenceList) {
+        for (final SequenceSegment segment : sequenceList) {
             total += segment.getDuration();
         }
 
         return total;
     }
 
-    public SequenceSegment get(int i) {
+    public SequenceSegment get(final int i) {
         return sequenceList.get(i);
     }
 

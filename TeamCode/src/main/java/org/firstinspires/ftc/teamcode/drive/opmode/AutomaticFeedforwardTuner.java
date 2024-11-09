@@ -47,11 +47,11 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
                     "when using the built-in drive motor velocity PID.");
         }
 
-        Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+        final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        final SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        NanoClock clock = NanoClock.system();
+        final NanoClock clock = NanoClock.system();
 
         telemetry.addLine("Press play to begin the feedforward tuning routine");
         telemetry.update();
@@ -99,25 +99,25 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
         telemetry.addLine("Running...");
         telemetry.update();
 
-        double maxVel = rpmToVelocity(MAX_RPM);
-        double finalVel = MAX_POWER * maxVel;
-        double accel = (finalVel * finalVel) / (2.0 * DISTANCE);
-        double rampTime = Math.sqrt(2.0 * DISTANCE / accel);
+        final double maxVel = rpmToVelocity(MAX_RPM);
+        final double finalVel = MAX_POWER * maxVel;
+        final double accel = (finalVel * finalVel) / (2.0 * DISTANCE);
+        final double rampTime = Math.sqrt(2.0 * DISTANCE / accel);
 
-        List<Double> timeSamples = new ArrayList<>();
-        List<Double> positionSamples = new ArrayList<>();
-        List<Double> powerSamples = new ArrayList<>();
+        final List<Double> timeSamples = new ArrayList<>();
+        final List<Double> positionSamples = new ArrayList<>();
+        final List<Double> powerSamples = new ArrayList<>();
 
         drive.setPoseEstimate(new Pose2d());
 
         double startTime = clock.seconds();
         while (!isStopRequested()) {
-            double elapsedTime = clock.seconds() - startTime;
+            final double elapsedTime = clock.seconds() - startTime;
             if (elapsedTime > rampTime) {
                 break;
             }
-            double vel = accel * elapsedTime;
-            double power = vel / maxVel;
+            final double vel = accel * elapsedTime;
+            final double power = vel / maxVel;
 
             timeSamples.add(elapsedTime);
             positionSamples.add(drive.getPoseEstimate().getX());
@@ -128,7 +128,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
         }
         drive.setDrivePower(new Pose2d(0.0, 0.0, 0.0));
 
-        RegressionUtil.RampResult rampResult = RegressionUtil.fitRampData(
+        final RegressionUtil.RampResult rampResult = RegressionUtil.fitRampData(
                 timeSamples, positionSamples, powerSamples, fitIntercept,
                 LoggingUtil.getLogFile(Misc.formatInvariant(
                         "DriveRampRegression-%d.csv", System.currentTimeMillis())));
@@ -180,7 +180,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
             telemetry.addLine("Running...");
             telemetry.update();
 
-            double maxPowerTime = DISTANCE / maxVel;
+            final double maxPowerTime = DISTANCE / maxVel;
 
             timeSamples.clear();
             positionSamples.clear();
@@ -191,7 +191,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 
             startTime = clock.seconds();
             while (!isStopRequested()) {
-                double elapsedTime = clock.seconds() - startTime;
+                final double elapsedTime = clock.seconds() - startTime;
                 if (elapsedTime > maxPowerTime) {
                     break;
                 }
@@ -204,7 +204,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
             }
             drive.setDrivePower(new Pose2d(0.0, 0.0, 0.0));
 
-            RegressionUtil.AccelResult accelResult = RegressionUtil.fitAccelData(
+            final RegressionUtil.AccelResult accelResult = RegressionUtil.fitAccelData(
                     timeSamples, positionSamples, powerSamples, rampResult,
                     LoggingUtil.getLogFile(Misc.formatInvariant(
                             "DriveAccelRegression-%d.csv", System.currentTimeMillis())));

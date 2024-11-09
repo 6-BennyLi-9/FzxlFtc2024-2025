@@ -4,20 +4,22 @@ import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Utility functions for log files.
  */
-public class LoggingUtil {
-    public static final File ROAD_RUNNER_FOLDER =
+public enum LoggingUtil {
+	;
+	public static final File ROAD_RUNNER_FOLDER =
             new File(AppUtil.ROOT_FOLDER + "/RoadRunner/");
 
     private static final long LOG_QUOTA = 25 * 1024 * 1024; // 25MB log quota for now
 
-    private static void buildLogList(List<File> logFiles, File dir) {
-        for (File file : dir.listFiles()) {
+    private static void buildLogList(final List<File> logFiles, final File dir) {
+        for (final File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
                 buildLogList(logFiles, file);
             } else {
@@ -27,19 +29,18 @@ public class LoggingUtil {
     }
 
     private static void pruneLogsIfNecessary() {
-        List<File> logFiles = new ArrayList<>();
+        final List<File> logFiles = new ArrayList<>();
         buildLogList(logFiles, ROAD_RUNNER_FOLDER);
-        Collections.sort(logFiles, (lhs, rhs) ->
-                Long.compare(lhs.lastModified(), rhs.lastModified()));
+        logFiles.sort(Comparator.comparingLong(File::lastModified));
 
         long dirSize = 0;
-        for (File file: logFiles) {
+        for (final File file: logFiles) {
             dirSize += file.length();
         }
 
-        while (dirSize > LOG_QUOTA) {
-            if (logFiles.size() == 0) break;
-            File fileToRemove = logFiles.remove(0);
+        while (LOG_QUOTA < dirSize) {
+            if (logFiles.isEmpty()) break;
+            final File fileToRemove = logFiles.remove(0);
             dirSize -= fileToRemove.length();
             //noinspection ResultOfMethodCallIgnored
             fileToRemove.delete();
@@ -49,7 +50,7 @@ public class LoggingUtil {
     /**
      * Obtain a log file with the provided name
      */
-    public static File getLogFile(String name) {
+    public static File getLogFile(final String name) {
         //noinspection ResultOfMethodCallIgnored
         ROAD_RUNNER_FOLDER.mkdirs();
 

@@ -16,18 +16,19 @@ import java.io.InputStream;
 /**
  * Set of utilities for loading trajectories from assets (the plugin save location).
  */
-public class AssetsTrajectoryManager {
+public enum AssetsTrajectoryManager {
+	;
 
-    /**
+	/**
      * Loads the group config.
      */
     public static @Nullable
     TrajectoryGroupConfig loadGroupConfig() {
         try {
-            InputStream inputStream = AppUtil.getDefContext().getAssets().open(
+            final InputStream inputStream = AppUtil.getDefContext().getAssets().open(
                     "trajectory/" + TrajectoryConfigManager.GROUP_FILENAME);
             return TrajectoryConfigManager.loadGroupConfig(inputStream);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return null;
         }
     }
@@ -35,12 +36,12 @@ public class AssetsTrajectoryManager {
     /**
      * Loads a trajectory config with the given name.
      */
-    public static @Nullable TrajectoryConfig loadConfig(String name) {
+    public static @Nullable TrajectoryConfig loadConfig(final String name) {
         try {
-            InputStream inputStream = AppUtil.getDefContext().getAssets().open(
+            final InputStream inputStream = AppUtil.getDefContext().getAssets().open(
                     "trajectory/" + name + ".yaml");
             return TrajectoryConfigManager.loadConfig(inputStream);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return null;
         }
     }
@@ -48,10 +49,10 @@ public class AssetsTrajectoryManager {
     /**
      * Loads a trajectory builder with the given name.
      */
-    public static @Nullable TrajectoryBuilder loadBuilder(String name) {
-        TrajectoryGroupConfig groupConfig = loadGroupConfig();
-        TrajectoryConfig config = loadConfig(name);
-        if (groupConfig == null || config == null) {
+    public static @Nullable TrajectoryBuilder loadBuilder(final String name) {
+        final TrajectoryGroupConfig groupConfig = loadGroupConfig();
+        final TrajectoryConfig config = loadConfig(name);
+        if (null == groupConfig || null == config) {
             return null;
         }
         return config.toTrajectoryBuilder(groupConfig);
@@ -60,9 +61,9 @@ public class AssetsTrajectoryManager {
     /**
      * Loads a trajectory with the given name.
      */
-    public static @Nullable Trajectory load(String name) {
-        TrajectoryBuilder builder = loadBuilder(name);
-        if (builder == null) {
+    public static @Nullable Trajectory load(final String name) {
+        final TrajectoryBuilder builder = loadBuilder(name);
+        if (null == builder) {
             return null;
         }
         return builder.build();
