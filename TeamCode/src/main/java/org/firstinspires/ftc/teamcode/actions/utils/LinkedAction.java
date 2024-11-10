@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.actions.utils;
 
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.actions.Action;
 
 import java.util.Arrays;
@@ -8,7 +10,7 @@ import java.util.List;
 
 public final class LinkedAction implements Action{
 	private final List<Action> actions;
-	private int ptr=0;
+	private int ptr;
 
 	public LinkedAction(final List<Action> actions){
 		this.actions=actions;
@@ -25,5 +27,15 @@ public final class LinkedAction implements Action{
 			ptr++;
 			return ptr<actions.size();
 		}
+	}
+
+	@NonNull
+	@Override
+	public String paramsString() {
+		final StringBuilder res= new StringBuilder("{");
+		for(final Action action:actions){
+			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+		}
+		return res.append("}").toString();
 	}
 }

@@ -11,7 +11,7 @@ import java.util.*;
 public class TimedAllottedPriorityAction implements Action {
 	public final List<PriorityAction> actions;
 	private final long allottedMilliseconds;
-	private boolean initialized=false;
+	private boolean initialized;
 
 	public TimedAllottedPriorityAction(final long allottedMilliseconds,final List<PriorityAction> actions){
 		this.actions=new ArrayList<>();
@@ -28,7 +28,7 @@ public class TimedAllottedPriorityAction implements Action {
 	@Override
 	public boolean run() {
 		if(!initialized){
-			startTime=System.nanoTime()/1e6;
+			startTime=System.nanoTime()/ 1.0e6;
 			initialized=true;
 		}
 		final Set<PriorityAction> removes=new HashSet<>();
@@ -37,12 +37,21 @@ public class TimedAllottedPriorityAction implements Action {
 			if(!action.run()){
 				removes.add(action);
 			}
-			if(System.nanoTime()/1e6-startTime>=allottedMilliseconds){
+			if(System.nanoTime()/ 1.0e6 -startTime>=allottedMilliseconds){
 				break;
 			}
 		}
 
 		actions.removeAll(removes);
 		return !actions.isEmpty();
+	}
+
+	@Override
+	public String paramsString() {
+		final StringBuilder res= new StringBuilder("<");
+		for(final Action action:actions){
+			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+		}
+		return res.append(">").toString();
 	}
 }

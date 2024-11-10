@@ -32,4 +32,13 @@ public class PriorityThreadedAction implements Action {
 		actions.removeAll(removes);
 		return !actions.isEmpty();
 	}
+
+	@Override
+	public String paramsString() {
+		final StringBuilder res= new StringBuilder("[");
+		for(final Action action:actions){
+			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+		}
+		return res.append("]").toString();
+	}
 }

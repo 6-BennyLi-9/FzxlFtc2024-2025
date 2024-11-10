@@ -153,6 +153,10 @@ public class Robot {
 
 	public void printThreadDebugs(){
 		final Map<String, PriorityAction> map=thread.getActionMap();
-		map.forEach((s,a)-> TelemetryClient.getInstance().addData(s,a));
+		for (final Map.Entry<String, PriorityAction> entry : map.entrySet()) {
+			final String s = entry.getKey();
+			final PriorityAction a = entry.getValue();
+			TelemetryClient.getInstance().addData(s, a.getClass().getSimpleName()+":"+a.paramsString());
+		}
 	}
 }

@@ -23,4 +23,9 @@ public class StatementAction implements Action {
 		node.run();
 		return false;
 	}
+
+	@Override
+	public String paramsString() {
+		return node.toString();
+	}
 }
