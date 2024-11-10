@@ -26,7 +26,9 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.actions.PriorityAction;
 import org.firstinspires.ftc.teamcode.actions.packages.TaggedActionPackage;
+import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOption;
 import org.firstinspires.ftc.teamcode.structure.ClipOption;
 import org.firstinspires.ftc.teamcode.structure.DriveOption;
@@ -34,6 +36,8 @@ import org.firstinspires.ftc.teamcode.structure.IOTakesOption;
 import org.firstinspires.ftc.teamcode.structure.LiftOption;
 import org.firstinspires.ftc.teamcode.structure.PlaceOption;
 import org.firstinspires.ftc.teamcode.structure.ScaleOption;
+
+import java.util.Map;
 
 /**
  * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)}
@@ -145,5 +149,10 @@ public class Robot {
 
 	public void runThread(){
 		thread.run();
+	}
+
+	public void printThreadDebugs(){
+		final Map<String, PriorityAction> map=thread.getActionMap();
+		map.forEach((s,a)-> TelemetryClient.getInstance().addData(s,a));
 	}
 }

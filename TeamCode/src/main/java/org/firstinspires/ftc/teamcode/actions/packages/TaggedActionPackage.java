@@ -15,25 +15,25 @@ public class TaggedActionPackage extends ActionPackage{
 
 	/**@throws UnsupportedOperationException 必须提供Action的标签*/
 	@Override
-	public void add(Action action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
+	public void add(final Action action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
 
 	/**@throws UnsupportedOperationException 必须提供Action的标签*/
 	@Override
-	public void add(PriorityAction action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
+	public void add(final PriorityAction action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
 
 	/**
 	 * @param tag 标签
 	 * @param action 要加入的 {@code  Action}
 	 * @see HashMap#put(Object, Object)
 	 */
-	public void add(String tag,PriorityAction action){
+	public void add(final String tag, final PriorityAction action){
 		priorityActionMap.put(tag, action);
 	}
 
 	/**
 	 * @see #add(String, PriorityAction)
 	 */
-	public void add(String tag,Action action){
+	public void add(final String tag, final Action action){
 		add(tag,Actions.asPriority(action));
 	}
 
@@ -41,7 +41,7 @@ public class TaggedActionPackage extends ActionPackage{
 	 * @param tag 标签
 	 * @param action 如果该 {@code  Action} 不存在于集合中,将自动加入集合
 	 */
-	public void replace(String tag,PriorityAction action){
+	public void replace(final String tag, final PriorityAction action){
 		if(priorityActionMap.containsKey(tag)){
 			priorityActionMap.replace(tag, action);
 		}else{
@@ -51,21 +51,18 @@ public class TaggedActionPackage extends ActionPackage{
 	/**
 	 * @see #replace(String, PriorityAction)
 	 */
-	public void replace(String tag,Action action){
+	public void replace(final String tag, final Action action){
 		replace(tag,Actions.asPriority(action));
 	}
 
 	/**
 	 * @see HashMap#remove(Object)
 	 */
-	public void delete(String tag){
+	public void delete(final String tag){
 		priorityActionMap.remove(tag);
 	}
 
 
-	/**
-	 * @see ActionPackage#run()
-	 */
 	@Override
 	public boolean run() {
 		final ArrayList<PriorityAction> actions = new ArrayList<>(priorityActionMap.values());
@@ -73,7 +70,7 @@ public class TaggedActionPackage extends ActionPackage{
 
 		final Set<PriorityAction> remove=new HashSet<>();
 
-		for(PriorityAction action:actions){
+		for(final PriorityAction action:actions){
 			if(!action.run()){
 				remove.add(action);
 			}
@@ -83,12 +80,13 @@ public class TaggedActionPackage extends ActionPackage{
 		return !actions.isEmpty();
 	}
 
-	/**
-	 * @see ActionPackage#runTillEnd()
-	 */
 	@Override
 	public void runTillEnd() {
 		Actions.runAction(new PriorityThreadedAction(new ArrayList<>(priorityActionMap.values())));
 		priorityActionMap.clear();
+	}
+
+	public Map<String, PriorityAction> getActionMap() {
+		return priorityActionMap;
 	}
 }

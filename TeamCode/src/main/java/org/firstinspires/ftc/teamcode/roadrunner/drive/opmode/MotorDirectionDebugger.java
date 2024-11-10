@@ -13,38 +13,63 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 /**
  * This is a simple teleop routine for debugging your motor configuration.
  * Pressing each of the buttons will power its respective motor.
- *
+ * <p>
  * Button Mappings:
- *
+ * <p>
  * Xbox/PS4 Button - Motor
+ * <p>
  *   X / ▢         - Front Left
+ * <p>
  *   Y / Δ         - Front Right
+ * <p>
  *   B / O         - Rear  Right
+ * <p>
  *   A / X         - Rear  Left
+ * <p>
  *                                    The buttons are mapped to match the wheels spatially if you
+ * <p>
  *                                    were to rotate the gamepad 45deg°. x/square is the front left
+ * <p>
  *                    ________        and each button corresponds to the wheel as you go clockwise
+ * <p>
  *                   / ______ \
+ * <p>
  *     ------------.-'   _  '-..+              Front of Bot
+ * <p>
  *              /   _  ( Y )  _  \                  ^
+ * <p>
  *             |  ( X )  _  ( B ) |     Front Left   \    Front Right
+ * <p>
  *        ___  '.      ( A )     /|       Wheel       \      Wheel
+ * <p>
  *      .'    '.    '-._____.-'  .'       (x/▢)        \     (Y/Δ)
+ * <p>
  *     |       |                 |                      \
+ * <p>
  *      '.___.' '.               |          Rear Left    \   Rear Right
+ * <p>
  *               '.             /             Wheel       \    Wheel
+ * <p>
  *                \.          .'              (A/X)        \   (B/O)
+ * <p>
  *                  \________/
- *
+ * <p>
  * Uncomment the @Disabled tag below to use this opmode.
  */
 @Disabled
 @Config
 @TeleOp(group = "drive")
-public class MotorDirectionDebugger extends LinearOpMode {
+class MotorDirectionDebugger extends LinearOpMode {
     public static double MOTOR_POWER = 0.7;
 
-    @Override
+	private MotorDirectionDebugger() {
+	}
+
+	static MotorDirectionDebugger createMotorDirectionDebugger() {
+		return new MotorDirectionDebugger();
+	}
+
+	@Override
     public void runOpMode() throws InterruptedException {
         final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 

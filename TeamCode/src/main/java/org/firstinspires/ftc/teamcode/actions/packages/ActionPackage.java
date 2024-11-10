@@ -14,10 +14,10 @@ public class ActionPackage {
 		actions=new ArrayList<>();
 	}
 
-	public void add(PriorityAction action){
+	public void add(final PriorityAction action){
 		actions.add(action);
 	}
-	public void add(Action action){
+	public void add(final Action action){
 		add(Actions.asPriority(action));
 	}
 
@@ -33,7 +33,7 @@ public class ActionPackage {
 		sort();
 		final Set<PriorityAction> remove=new HashSet<>();
 
-		for(PriorityAction action:actions){
+		for(final PriorityAction action:actions){
 			if(!action.run()){
 				remove.add(action);
 			}
