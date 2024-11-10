@@ -13,7 +13,11 @@ public enum PlaceOption {
 		decant,
 		unknown
 	}
-	public static PlacePositionTypes recent=PlacePositionTypes.unknown;
+	private static PlacePositionTypes recent=PlacePositionTypes.unknown;
+
+	public static PlacePositionTypes recent() {
+		return recent;
+	}
 
 	private static final class PlaceDecantAction implements Action{
 		@Override

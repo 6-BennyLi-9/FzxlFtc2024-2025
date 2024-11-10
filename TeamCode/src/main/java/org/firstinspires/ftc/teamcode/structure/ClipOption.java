@@ -14,7 +14,11 @@ public enum ClipOption {
 		close,
 		unknown
 	}
-	public static ClipPositionTypes recent= ClipPositionTypes.unknown;
+	private static ClipPositionTypes recent= ClipPositionTypes.unknown;
+
+	public static ClipPositionTypes recent() {
+		return recent;
+	}
 
 	private final static class ClipOpen implements Action{
 		@Override

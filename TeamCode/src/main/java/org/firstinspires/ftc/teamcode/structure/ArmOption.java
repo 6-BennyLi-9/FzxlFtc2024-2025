@@ -9,9 +9,14 @@ import org.jetbrains.annotations.Contract;
 public enum ArmOption {
 	;
 	public enum ArmPositionTypes {
-		idle,intake,safe,unknown;
+		idle,intake,safe,unknown
 	}
-	public static ArmPositionTypes recent= ArmPositionTypes.unknown;
+	private static ArmPositionTypes recent= ArmPositionTypes.unknown;
+
+	public static ArmPositionTypes recent() {
+		return recent;
+	}
+
 	private static final class ArmIDLEAction implements Action {
 		@Override
 		public boolean run() {

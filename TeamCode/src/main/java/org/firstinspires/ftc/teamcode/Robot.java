@@ -80,27 +80,31 @@ public class Robot {
 			thread.replace("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
 		}
 
-		if(liftIDLE){
-			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent){
+		if(liftIDLE
+				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
+			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				thread.replace("place",PlaceOption.idle());
 			}
-			if(close == ClipOption.recent){
+			if(close == ClipOption.recent()){
 				thread.replace("clip",ClipOption.change());
 			}
 			LiftOption.sync(idle);
-		}else if(liftDecantLow		&&	(idle == LiftOption.recent ||LiftOption.decanting())){
+		}else if(liftDecantLow		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
+				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
 			}
 
 			LiftOption.sync(decantLow);
-		}else if(liftDecantHigh		&&	(idle == LiftOption.recent ||LiftOption.decanting())){
+		}else if(liftDecantHigh		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
+				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
 			}
 
 			LiftOption.sync(decantHigh);
-		} else if (liftHighSuspend 	&&	 idle == LiftOption.recent) {
+		} else if (liftHighSuspend 	&&	 idle == LiftOption.recent()
+				&& ScaleOption.ScalePosition.back == ScaleOption.recent()) {
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
 			}
@@ -112,15 +116,18 @@ public class Robot {
 			thread.replace("place",PlaceOption.decant());
 		}
 
-		if(suspend && highSuspend == LiftOption.recent){
+		if(suspend && highSuspend == LiftOption.recent()){
 			LiftOption.sync(highSuspend);
 		}
 
-		if(flipArms&& idle == LiftOption.recent){
+		if(flipArms&& idle == LiftOption.recent()){
 			thread.replace("arm",ArmOption.flip());
 		}
 
-		if(probe && idle == LiftOption.recent){
+		if(probe && idle == LiftOption.recent()){
+			if(ScaleOption.ScalePosition.probe == ScaleOption.recent() && ArmOption.ArmPositionTypes.idle != ArmOption.recent()){
+				thread.replace("arm",ArmOption.idle());
+			}
 			thread.replace("scale",ScaleOption.flip());
 		}
 	}

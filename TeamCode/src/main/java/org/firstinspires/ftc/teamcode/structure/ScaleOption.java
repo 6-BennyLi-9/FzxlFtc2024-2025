@@ -13,7 +13,11 @@ public enum ScaleOption {
 		probe,
 		unknown
 	}
-	public static ScalePosition recent=ScalePosition.unknown;
+	private static ScalePosition recent=ScalePosition.unknown;
+
+	public static ScalePosition recent() {
+		return recent;
+	}
 
 	private static final class ScaleProbe implements Action{
 		@Override

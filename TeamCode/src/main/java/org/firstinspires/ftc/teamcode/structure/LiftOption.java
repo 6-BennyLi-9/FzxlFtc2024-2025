@@ -15,9 +15,13 @@ public enum LiftOption {
 		highSuspend,
 		highSuspendPrepare
 	}
-	public static LiftPositionTypes recent=LiftPositionTypes.idle;
+	private static LiftPositionTypes recent=LiftPositionTypes.idle;
 	public static long targetPosition;
 	private static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
+
+	public static LiftPositionTypes recent() {
+		return recent;
+	}
 
 	private static class LiftController implements Action{
 		@Override
