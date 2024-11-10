@@ -29,7 +29,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.actions.packages.TaggedActionPackage;
 import org.firstinspires.ftc.teamcode.structure.ArmOption;
 import org.firstinspires.ftc.teamcode.structure.ClipOption;
-import org.firstinspires.ftc.teamcode.structure.DriveOption;
+import org.firstinspires.ftc.teamcode.structure.SimpleDriveOption;
 import org.firstinspires.ftc.teamcode.structure.IOTakesOption;
 import org.firstinspires.ftc.teamcode.structure.LiftOption;
 import org.firstinspires.ftc.teamcode.structure.PlaceOption;
@@ -136,7 +136,7 @@ public class Robot {
 
 	public void driveThroughGamepad(){
 		driveBufPower=1+gamepad1.right_stick_y*0.5;
-		thread.replace("drive", DriveOption.build(
+		thread.replace("drive", SimpleDriveOption.build(
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
 				driveBufPower
 		));

@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
 import org.jetbrains.annotations.Contract;
 
-public enum DriveOption {
+public enum SimpleDriveOption {
 	;
-	private static final class DriveOptions implements Action {
+	private static final class SimpleDriveAction implements Action {
 		private final double x,y,turn;
-		DriveOptions(final double x, final double y, final double turn){
+		SimpleDriveAction(final double x, final double y, final double turn){
 			this.x=x;
 			this.y=y;
 			this.turn=turn;
@@ -29,12 +29,12 @@ public enum DriveOption {
 	@NonNull
 	@Contract("_, _, _ -> new")
 	public static Action build(final double x, final double y, final double turn){
-		return new DriveOptions(x,y,turn);
+		return new SimpleDriveAction(x,y,turn);
 	}
 	@NonNull
 	@Contract("_, _, _, _ -> new")
 	public static Action build(final double x, final double y, final double turn,final double bufPower){
-		return new DriveOptions(x*bufPower,y*bufPower,turn*bufPower);
+		return new SimpleDriveAction(x*bufPower,y*bufPower,turn*bufPower);
 	}
 
 }
