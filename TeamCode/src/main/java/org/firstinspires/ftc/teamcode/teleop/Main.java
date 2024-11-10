@@ -46,6 +46,8 @@ public class Main extends OpMode {
 
 		robot.operateThroughGamepad();
 		robot.driveThroughGamepad();
+
+		robot.printThreadDebugs();
 	}
 
 	@Override

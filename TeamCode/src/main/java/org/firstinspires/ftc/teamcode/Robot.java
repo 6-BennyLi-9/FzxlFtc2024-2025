@@ -151,12 +151,17 @@ public class Robot {
 		thread.run();
 	}
 
+	public static final char[] printCode= "-\\|/".toCharArray();
+	public static int updateTime;
+
 	public void printThreadDebugs(){
+		++updateTime;
 		final Map<String, PriorityAction> map=thread.getActionMap();
 		for (final Map.Entry<String, PriorityAction> entry : map.entrySet()) {
 			final String s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			TelemetryClient.getInstance().addData(s, a.getClass().getSimpleName()+":"+a.paramsString());
+			TelemetryClient.getInstance().changeData(s+"-action", "["+printCode[updateTime%printCode.length]+"]"
+					+a.getClass().getSimpleName()+":"+a.paramsString());
 		}
 	}
 }
