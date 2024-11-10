@@ -22,6 +22,7 @@ public enum PlaceOption {
 	private static final class PlaceDecantAction implements Action{
 		@Override
 		public boolean run() {
+			recent=PlacePositionTypes.decant;
 			HardwareConstants.place.setPosition(1);
 			return false;
 		}
@@ -29,6 +30,7 @@ public enum PlaceOption {
 	private static final class PlaceIDLEAction implements Action{
 		@Override
 		public boolean run() {
+			recent=PlacePositionTypes.idle;
 			HardwareConstants.place.setPosition(0);
 			return false;
 		}
@@ -42,13 +44,11 @@ public enum PlaceOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action decant(){
-		recent=PlacePositionTypes.decant;
 		return new PlaceDecantAction();
 	}
 	@NonNull
 	@Contract(" -> new")
 	public static Action idle(){
-		recent=PlacePositionTypes.idle;
 		return new PlaceIDLEAction();
 	}
 }

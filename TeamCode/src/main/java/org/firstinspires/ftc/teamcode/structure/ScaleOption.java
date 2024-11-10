@@ -22,6 +22,7 @@ public enum ScaleOption {
 	private static final class ScaleProbe implements Action{
 		@Override
 		public boolean run() {
+			recent=ScalePosition.probe;
 			HardwareConstants.leftScale.setPosition(0.5);
 			HardwareConstants.rightScale.setPosition(1);
 			return false;
@@ -30,6 +31,7 @@ public enum ScaleOption {
 	private static final class ScaleBack implements Action{
 		@Override
 		public boolean run() {
+			recent=ScalePosition.back;
 			HardwareConstants.leftScale.setPosition(1);
 			HardwareConstants.rightScale.setPosition(0.5);
 			return false;
@@ -39,19 +41,16 @@ public enum ScaleOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action init(){
-		recent=ScalePosition.back;
-		return new ScaleBack();
+		return back();
 	}
 	@NonNull
 	@Contract(" -> new")
 	public static Action probe(){
-		recent=ScalePosition.probe;
 		return new ScaleProbe();
 	}
 	@NonNull
 	@Contract(" -> new")
 	public static Action back(){
-		recent=ScalePosition.back;
 		return new ScaleBack();
 	}
 

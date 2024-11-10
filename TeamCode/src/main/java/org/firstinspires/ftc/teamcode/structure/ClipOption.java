@@ -23,6 +23,7 @@ public enum ClipOption {
 	private final static class ClipOpen implements Action{
 		@Override
 		public boolean run() {
+			recent=ClipPositionTypes.open;
 			HardwareConstants.clip.setPosition(0);
 			return false;
 		}
@@ -30,6 +31,7 @@ public enum ClipOption {
 	private final static class ClipClose implements Action{
 		@Override
 		public boolean run() {
+			recent=ClipPositionTypes.close;
 			HardwareConstants.clip.setPosition(0.5);
 			return false;
 		}
@@ -38,7 +40,6 @@ public enum ClipOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action init(){
-		recent=ClipPositionTypes.open;
 		return new ClipOpen();
 	}
 	@NonNull
@@ -46,13 +47,10 @@ public enum ClipOption {
 	public static Action change(){
 		switch (recent) {
 			case open:case unknown:
-				recent= ClipPositionTypes.close;
 				return new ClipClose();
 			case close:
-				recent= ClipPositionTypes.open;
 				return new ClipOpen();
 		}
-		recent= ClipPositionTypes.unknown;
 		return new ClipClose();
 	}
 }

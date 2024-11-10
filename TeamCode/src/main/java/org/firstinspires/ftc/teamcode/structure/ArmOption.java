@@ -20,6 +20,7 @@ public enum ArmOption {
 	private static final class ArmIDLEAction implements Action {
 		@Override
 		public boolean run() {
+			recent=ArmPositionTypes.idle;
 			HardwareConstants.leftScale.setPosition(0.86);
 			HardwareConstants.rightScale.setPosition(0.86);
 			return false;
@@ -28,6 +29,7 @@ public enum ArmOption {
 	private static final class ArmIntakeAction implements Action {
 		@Override
 		public boolean run() {
+			recent=ArmPositionTypes.intake;
 			HardwareConstants.leftScale.setPosition(0.28);
 			HardwareConstants.rightScale.setPosition(0.28);
 			return false;
@@ -36,6 +38,7 @@ public enum ArmOption {
 	private static final class ArmSafeAction implements Action {
 		@Override
 		public boolean run() {
+			recent=ArmPositionTypes.safe;
 			HardwareConstants.leftScale.setPosition(0.7);
 			HardwareConstants.rightScale.setPosition(0.7);
 			return false;
@@ -45,26 +48,22 @@ public enum ArmOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action init(){
-		recent= ArmPositionTypes.idle;
-		return new ArmIDLEAction();
+		return safe();
 	}
 
 	@NonNull
 	@Contract(" -> new")
 	public static Action intake(){
-		recent= ArmPositionTypes.intake;
 		return new ArmIntakeAction();
 	}
 	@NonNull
 	@Contract(" -> new")
 	public static Action idle(){
-		recent= ArmPositionTypes.idle;
 		return new ArmIDLEAction();
 	}
 	@NonNull
 	@Contract(" -> new")
 	public static Action safe(){
-		recent=ArmPositionTypes.safe;
 		return new ArmSafeAction();
 	}
 
