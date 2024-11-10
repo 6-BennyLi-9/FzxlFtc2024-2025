@@ -10,7 +10,9 @@ public enum IOTakesOption {
 	;
 
 	public enum IOTakesPositionTypes {
-		intake,outtake,idle
+		intake,
+		outtake,
+		idle
 	}
 
 	private static final class IntakeAction implements Action {

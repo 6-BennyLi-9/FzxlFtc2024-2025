@@ -9,7 +9,9 @@ import org.jetbrains.annotations.Contract;
 public enum PlaceOption {
 	;
 	public enum PlacePositionTypes {
-		idle,decant,unknown
+		idle,
+		decant,
+		unknown
 	}
 	public static PlacePositionTypes recent=PlacePositionTypes.unknown;
 

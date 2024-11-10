@@ -9,7 +9,11 @@ import org.jetbrains.annotations.Contract;
 public enum LiftOption {
 	;
 	public enum LiftPositionTypes{
-		idle,decantLow,decantHigh,highSuspend,highSuspendPrepare
+		idle,
+		decantLow,
+		decantHigh,
+		highSuspend,
+		highSuspendPrepare
 	}
 	public static LiftPositionTypes recent=LiftPositionTypes.idle;
 	public static long targetPosition;

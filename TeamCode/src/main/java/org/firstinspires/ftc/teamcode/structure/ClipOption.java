@@ -10,7 +10,9 @@ public enum ClipOption {
 	;
 
 	public enum ClipPositionTypes {
-		open,close,unknown
+		open,
+		close,
+		unknown
 	}
 	public static ClipPositionTypes recent= ClipPositionTypes.unknown;
 

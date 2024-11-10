@@ -8,20 +8,14 @@ import org.jetbrains.annotations.Contract;
 
 public enum ScaleOption {
 	;
-	public enum ScalePositionTypes{
-		idle,intake,safe,unknown
+	public enum ScalePosition{
+		back,
+		probe,
+		unknown
 	}
-	public static ScalePositionTypes recent=ScalePositionTypes.unknown;
+	public static ScalePosition recent=ScalePosition.unknown;
 
-	private static final class ScaleIDLEAction implements Action {
-		@Override
-		public boolean run() {
-			HardwareConstants.leftScale.setPosition(1);
-			HardwareConstants.rightScale.setPosition(0.5);
-			return false;
-		}
-	}
-	private static final class ScaleIntakeAction implements Action {
+	private static final class ScaleProbe implements Action{
 		@Override
 		public boolean run() {
 			HardwareConstants.leftScale.setPosition(0.5);
@@ -29,11 +23,11 @@ public enum ScaleOption {
 			return false;
 		}
 	}
-	private static final class ScaleSafeAction implements Action {
+	private static final class ScaleBack implements Action{
 		@Override
 		public boolean run() {
-			HardwareConstants.leftScale.setPosition(0.8);
-			HardwareConstants.rightScale.setPosition(0.7);
+			HardwareConstants.leftScale.setPosition(1);
+			HardwareConstants.rightScale.setPosition(0.5);
 			return false;
 		}
 	}
@@ -41,25 +35,27 @@ public enum ScaleOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action init(){
-		recent=ScalePositionTypes.idle;
-		return new ScaleIDLEAction();
+		recent=ScalePosition.back;
+		return new ScaleBack();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action safe(){
-		recent=ScalePositionTypes.safe;
-		return new ScaleSafeAction();
+	public static Action probe(){
+		recent=ScalePosition.probe;
+		return new ScaleProbe();
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action intake(){
-		recent=ScalePositionTypes.intake;
-		return new ScaleIntakeAction();
+	public static Action back(){
+		recent=ScalePosition.back;
+		return new ScaleBack();
 	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action idle(){
-		recent=ScalePositionTypes.idle;
-		return new ScaleIDLEAction();
+
+	public static Action flip(){
+		if(ScalePosition.probe == recent){
+			return back();
+		}else{
+			return probe();
+		}
 	}
 }

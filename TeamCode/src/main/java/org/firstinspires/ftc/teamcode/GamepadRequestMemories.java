@@ -9,7 +9,7 @@ public enum GamepadRequestMemories {
 	/**吐出样本（小功率）*/
 	public static boolean outtakeSamples;
 	/**翻转收取杆*/
-	public static boolean flipScales;
+	public static boolean flipArms;
 	/**电梯低筐预备*/
 	public static boolean liftDecantLow;
 	/**电梯高筐预备*/
@@ -28,9 +28,9 @@ public enum GamepadRequestMemories {
 	public static boolean probe;
 
 	public static void syncRequests(){
-		intakeSamples 	= 0.3 < gamepad2.left_stick_x;
+		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 < gamepad2.left_stick_y;
-		flipScales      = gamepad2.a;
+		flipArms 		= gamepad2.a;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
 		liftHighSuspend = gamepad2.dpad_right;
