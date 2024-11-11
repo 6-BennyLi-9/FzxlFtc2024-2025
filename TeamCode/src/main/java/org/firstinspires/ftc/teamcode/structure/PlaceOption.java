@@ -26,6 +26,13 @@ public enum PlaceOption {
 			HardwareConstants.place.setPosition(1);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:decant";
+		}
 	}
 	private static final class PlaceIDLEAction implements Action{
 		@Override
@@ -33,6 +40,13 @@ public enum PlaceOption {
 			recent=PlacePositionTypes.idle;
 			HardwareConstants.place.setPosition(0);
 			return false;
+		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:idle";
 		}
 	}
 

@@ -25,6 +25,13 @@ public enum ArmOption {
 			HardwareConstants.rightScale.setPosition(0.86);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:idle";
+		}
 	}
 	private static final class ArmIntakeAction implements Action {
 		@Override
@@ -34,6 +41,13 @@ public enum ArmOption {
 			HardwareConstants.rightScale.setPosition(0.28);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:intake";
+		}
 	}
 	private static final class ArmSafeAction implements Action {
 		@Override
@@ -42,6 +56,13 @@ public enum ArmOption {
 			HardwareConstants.leftScale.setPosition(0.7);
 			HardwareConstants.rightScale.setPosition(0.7);
 			return false;
+		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:safe";
 		}
 	}
 

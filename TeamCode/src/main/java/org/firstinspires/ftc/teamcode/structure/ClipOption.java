@@ -27,6 +27,13 @@ public enum ClipOption {
 			HardwareConstants.clip.setPosition(0);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:open";
+		}
 	}
 	private final static class ClipClose implements Action{
 		@Override
@@ -34,6 +41,13 @@ public enum ClipOption {
 			recent=ClipPositionTypes.close;
 			HardwareConstants.clip.setPosition(0.5);
 			return false;
+		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:close";
 		}
 	}
 

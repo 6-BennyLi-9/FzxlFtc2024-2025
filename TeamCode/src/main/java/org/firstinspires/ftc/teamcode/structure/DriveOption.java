@@ -32,6 +32,13 @@ public enum DriveOption {
 			Actions.runAction(SimpleDriveOption.build(x,y,output));
 			return true;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "x:"+x+",y"+y+",heading:"+output;
+		}
 	}
 
 	@NonNull

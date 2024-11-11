@@ -27,6 +27,13 @@ public enum ScaleOption {
 			HardwareConstants.rightScale.setPosition(1);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:probe";
+		}
 	}
 	private static final class ScaleBack implements Action{
 		@Override
@@ -35,6 +42,13 @@ public enum ScaleOption {
 			HardwareConstants.leftScale.setPosition(1);
 			HardwareConstants.rightScale.setPosition(0.5);
 			return false;
+		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:back";
 		}
 	}
 

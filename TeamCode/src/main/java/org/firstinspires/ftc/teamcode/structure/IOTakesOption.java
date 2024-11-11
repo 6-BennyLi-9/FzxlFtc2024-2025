@@ -21,6 +21,13 @@ public enum IOTakesOption {
 			HardwareConstants.intake.setPosition(1);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:intake";
+		}
 	}
 	private static final class OuttakeAction implements Action {
 		@Override
@@ -28,12 +35,26 @@ public enum IOTakesOption {
 			HardwareConstants.intake.setPosition(0.3);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:outtake";
+		}
 	}
 	private static final class IDLEAction implements Action {
 		@Override
 		public boolean run() {
 			HardwareConstants.intake.setPosition(0.5);
 			return false;
+		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "now:idle";
 		}
 	}
 

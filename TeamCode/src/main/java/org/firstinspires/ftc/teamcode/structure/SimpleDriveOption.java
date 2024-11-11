@@ -24,6 +24,13 @@ public enum SimpleDriveOption {
 			HardwareConstants.rightRear.setPower	(y+x+turn);
 			return false;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "x:"+x+",y:"+y+",turn:"+turn;
+		}
 	}
 
 	@NonNull

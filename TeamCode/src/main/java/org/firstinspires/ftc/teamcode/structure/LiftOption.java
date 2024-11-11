@@ -36,6 +36,13 @@ public enum LiftOption {
 			}
 			return true;
 		}
+
+		@NonNull
+		@Contract(pure = true)
+		@Override
+		public String paramsString() {
+			return "target:"+targetPosition;
+		}
 	}
 
 	@NonNull
