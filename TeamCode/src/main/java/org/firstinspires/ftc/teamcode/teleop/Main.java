@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
@@ -48,6 +49,7 @@ public class Main extends OpMode {
 		robot.driveThroughGamepad();
 
 		robot.printThreadDebugs();
+		GamepadRequestMemories.printValues();
 	}
 
 	@Override

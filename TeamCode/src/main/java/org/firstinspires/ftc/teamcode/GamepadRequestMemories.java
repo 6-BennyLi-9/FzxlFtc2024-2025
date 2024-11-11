@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Robot.*;
 
+import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+
 public enum GamepadRequestMemories {
 	;
 	/**输入样本*/
@@ -30,7 +32,7 @@ public enum GamepadRequestMemories {
 	public static void syncRequests(){
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 < gamepad2.left_stick_y;
-		flipArms 		= gamepad2.a;
+		flipArms 		= gamepad2.a  ;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
 		liftHighSuspend = gamepad2.dpad_right;
@@ -39,5 +41,20 @@ public enum GamepadRequestMemories {
 		suspend			= gamepad2.y;
 		clipOption		= gamepad2.b;
 		probe			= gamepad2.right_bumper;
+	}
+
+	public static void printValues(){
+		TelemetryClient instance=TelemetryClient.getInstance();
+		instance.changeData("intakeSamples",intakeSamples);
+		instance.changeData("outtakeSamples",outtakeSamples);
+		instance.changeData("flipArms",flipArms);
+		instance.changeData("liftDecantLow",liftDecantLow);
+		instance.changeData("liftDecantHigh",liftDecantHigh);
+		instance.changeData("liftHighSuspend",liftHighSuspend);
+		instance.changeData("liftIDLE",liftIDLE);
+		instance.changeData("decant",decant);
+		instance.changeData("suspend",suspend);
+		instance.changeData("clipOption",clipOption);
+		instance.changeData("probe",probe);
 	}
 }
