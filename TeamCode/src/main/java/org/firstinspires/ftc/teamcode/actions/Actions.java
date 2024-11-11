@@ -70,6 +70,11 @@ public enum Actions {
 			public Action next() {
 				return action.next();
 			}
+
+			@Override
+			public String paramsString() {
+				return action.paramsString();
+			}
 		};
 	}
 }
