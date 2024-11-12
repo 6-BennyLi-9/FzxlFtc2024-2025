@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GamepadRequestMemories;
+import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
@@ -18,6 +19,7 @@ public class TeleOpCore extends OpMode {
 		robot=new Robot(hardwareMap);
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.initActions();
+		HardwareConstants.chassisConfig();
 		TelemetryClient.registerInstance(new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
 
 		TelemetryClient.getInstance()

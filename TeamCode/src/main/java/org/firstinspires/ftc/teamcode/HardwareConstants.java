@@ -50,10 +50,16 @@ public enum HardwareConstants {
 	 * 关于底盘的设定需要在 {@code Drive} 中修改
 	 */
 	public static void config(){
+		lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 		lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
 		lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+		lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 		final BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 		parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -65,5 +71,15 @@ public enum HardwareConstants {
 		//延时0.5秒，以确保imu正常工作
 		Actions.runAction(new SleepingAction(500));
 		imu.initialize(parameters);
+	}
+
+	/**
+	 * 手动用
+	 */
+	public static void chassisConfig(){
+		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);   //F
+		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
+		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
+		rightRear.setDirection(DcMotorSimple.Direction.REVERSE);   //R
 	}
 }
