@@ -31,7 +31,7 @@ public enum GamepadRequestMemories {
 
 	public static void syncRequests(){
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
-		outtakeSamples 	= -0.3 < gamepad2.left_stick_y;
+		outtakeSamples 	= -0.3 > gamepad2.left_stick_y;
 		flipArms 		= gamepad2.a  ;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
