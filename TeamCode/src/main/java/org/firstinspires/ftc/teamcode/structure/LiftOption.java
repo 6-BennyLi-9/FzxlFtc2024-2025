@@ -16,7 +16,7 @@ public enum LiftOption {
 		highSuspendPrepare
 	}
 	private static LiftPositionTypes recent=LiftPositionTypes.idle;
-	public static long targetPosition;
+	private static long targetPosition;
 	private static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
 
 	public static LiftPositionTypes recent() {
@@ -24,15 +24,18 @@ public enum LiftOption {
 	}
 
 	private static class LiftController implements Action{
+		private long currentPosition;
+
 		@Override
 		public boolean run() {
-			final long delta=targetPosition- HardwareConstants.lift.getCurrentPosition();
-			if(10 > Math.abs(delta)){
+			currentPosition=HardwareConstants.lift.getCurrentPosition();
+			final long delta=targetPosition- currentPosition;
+			if(50 > Math.abs(delta)){
 				HardwareConstants.lift.setPower(0);
-			}else if(50 > Math.abs(delta)){
-				HardwareConstants.lift.setPower(0.3 * Math.signum(delta));
+			}else if(100 > Math.abs(delta)){
+				HardwareConstants.lift.setPower(0.1 * Math.signum(delta));
 			}else{
-				HardwareConstants.lift.setPower(0.6 * Math.signum(delta));
+				HardwareConstants.lift.setPower(0.5 * Math.signum(delta));
 			}
 			return true;
 		}
@@ -41,7 +44,7 @@ public enum LiftOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "target:"+targetPosition;
+			return currentPosition+"->"+targetPosition;
 		}
 	}
 

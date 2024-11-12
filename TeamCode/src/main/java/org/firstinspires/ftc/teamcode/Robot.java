@@ -85,8 +85,7 @@ public class Robot {
 			thread.replace("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
 		}
 
-		if(liftIDLE
-				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
+		if(liftIDLE){
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				thread.replace("place",PlaceOption.idle());
 			}
@@ -94,21 +93,21 @@ public class Robot {
 				thread.replace("clip",ClipOption.change());
 			}
 			LiftOption.sync(idle);
-		}else if(liftDecantLow		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
+		}else if(liftDecantLow
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
 			}
 
 			LiftOption.sync(decantLow);
-		}else if(liftDecantHigh		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
+		}else if(liftDecantHigh
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
 			}
 
 			LiftOption.sync(decantHigh);
-		} else if (liftHighSuspend 	&&	 idle == LiftOption.recent()
+		} else if (liftHighSuspend
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()) {
 			if(ArmOption.isNotSafe()){
 				thread.replace("arm",ArmOption.safe());
@@ -141,6 +140,7 @@ public class Robot {
 
 	public void driveThroughGamepad(){
 		driveBufPower=1+gamepad1.right_stick_y*0.5;
+
 		DriveOption.sync(
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
 				driveBufPower
