@@ -54,7 +54,7 @@ public enum Actions {
 	}
 	@Contract(value = "_, _ -> new", pure = true)
 	@NotNull
-	public static PriorityAction asPriority(final Action action, long priorityGrade){
+	public static PriorityAction asPriority(final Action action, final long priorityGrade){
 		return new PriorityAction() {
 			@Override
 			public long getPriorityCode() {

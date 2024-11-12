@@ -14,7 +14,7 @@ public enum ScaleOption {
 	public enum ScalePosition{
 		back,
 		probe,
-		unknown;
+		unknown
 	}
 	private static ScalePosition recent=ScalePosition.unknown;
 	public static ScalePosition recent() {
