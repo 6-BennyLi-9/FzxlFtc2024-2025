@@ -23,10 +23,12 @@ public class TaggedActionPackage extends ActionPackage {
 
 	/**@throws UnsupportedOperationException 必须提供Action的标签*/
 	@Override
+	@Deprecated
 	public void add(final Action action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
 
 	/**@throws UnsupportedOperationException 必须提供Action的标签*/
 	@Override
+	@Deprecated
 	public void add(final PriorityAction action) {throw new UnsupportedOperationException("Must Given A Tag For Using This Method");}
 
 	/**
@@ -53,7 +55,7 @@ public class TaggedActionPackage extends ActionPackage {
 		if(priorityActionMap.containsKey(tag)){
 			priorityActionMap.replace(tag, action);
 		}else{
-			add(action);
+			add(tag,action);
 		}
 	}
 	/**
