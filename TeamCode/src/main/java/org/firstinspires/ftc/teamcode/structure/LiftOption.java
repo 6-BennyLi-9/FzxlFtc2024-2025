@@ -41,7 +41,7 @@ public enum LiftOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "target:"+targetPosition;
+			return "now:"+recent.name();
 		}
 	}
 

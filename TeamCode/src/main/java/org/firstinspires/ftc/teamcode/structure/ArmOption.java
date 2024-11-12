@@ -44,7 +44,7 @@ public enum ArmOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "now:idle";
+			return "now:"+recent.name();
 		}
 	}
 

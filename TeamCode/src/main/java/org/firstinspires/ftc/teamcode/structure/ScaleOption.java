@@ -43,7 +43,7 @@ public enum ScaleOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "now:probe";
+			return "now:"+recent.name();
 		}
 
 	}

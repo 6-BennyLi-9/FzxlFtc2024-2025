@@ -40,7 +40,7 @@ public enum PlaceOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "now:decant";
+			return "now:"+recent.name();
 		}
 	}
 

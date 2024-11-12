@@ -41,7 +41,7 @@ public enum ClipOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "now:open";
+			return "now:"+recent.name();
 		}
 	}
 
