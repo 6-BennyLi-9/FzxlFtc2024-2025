@@ -1,12 +1,19 @@
 package org.firstinspires.ftc.teamcode.actions.packages;
 
-import org.firstinspires.ftc.teamcode.actions.Action;
-import org.firstinspires.ftc.teamcode.actions.Actions;
-import org.firstinspires.ftc.teamcode.actions.PriorityAction;
-import org.firstinspires.ftc.teamcode.actions.utils.PriorityThreadedAction;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.Actions;
+import  org.firstinspires.ftc.teamcode.actions.PriorityAction;
+import  org.firstinspires.ftc.teamcode.actions.utils.PriorityThreadedAction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+/**
+ * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
+ */
 public class ActionPackage {
 	private final List<PriorityAction> actions;
 

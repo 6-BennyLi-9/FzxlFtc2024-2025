@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.actions.utils;
 
 
-import org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import org.jetbrains.annotations.NotNull;
 
 public class StatementAction implements Action {
+	/**
+	 * @implNote  如果要打印有实际意义的 {@code paramsString} 输出，需要在实现接口时重写 {@link #toString()}
+	 */
 	public interface StatementNode{
 		void run();
 	}
@@ -24,8 +28,9 @@ public class StatementAction implements Action {
 		return false;
 	}
 
+	@NotNull
 	@Override
 	public String paramsString() {
-		return node.toString();
+		return "statement:"+node;
 	}
 }

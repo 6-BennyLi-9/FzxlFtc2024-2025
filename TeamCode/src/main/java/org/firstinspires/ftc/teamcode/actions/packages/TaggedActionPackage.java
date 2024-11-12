@@ -1,13 +1,21 @@
 package org.firstinspires.ftc.teamcode.actions.packages;
 
-import org.firstinspires.ftc.teamcode.actions.Action;
-import org.firstinspires.ftc.teamcode.actions.Actions;
-import org.firstinspires.ftc.teamcode.actions.PriorityAction;
-import org.firstinspires.ftc.teamcode.actions.utils.PriorityThreadedAction;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.Actions;
+import  org.firstinspires.ftc.teamcode.actions.PriorityAction;
+import  org.firstinspires.ftc.teamcode.actions.utils.PriorityThreadedAction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-public class TaggedActionPackage extends ActionPackage{
+/**
+ * 将 {@code Action} 块进一步打包，可以通过数据标签（类型为 {@code String} ）自动处理、替换 {@code Action} 块
+ */
+public class TaggedActionPackage extends ActionPackage {
 	private final Map<String, PriorityAction> priorityActionMap;
 	public TaggedActionPackage(){
 		priorityActionMap=new HashMap<>();
@@ -84,9 +92,5 @@ public class TaggedActionPackage extends ActionPackage{
 	public void runTillEnd() {
 		Actions.runAction(new PriorityThreadedAction(new ArrayList<>(priorityActionMap.values())));
 		priorityActionMap.clear();
-	}
-
-	public Map<String, PriorityAction> getActionMap() {
-		return priorityActionMap;
 	}
 }
