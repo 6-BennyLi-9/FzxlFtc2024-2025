@@ -62,63 +62,65 @@ public class Robot {
 	}
 
 	public void initActions(){
-		thread.add("clip",ClipOption.init());
-		thread.add("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
+		thread.add("clip",ClipOption.cloneController());
+		thread.add("intake", IOTakesOption.cloneController());
 		thread.add("lift", LiftOption.cloneController());
-		thread.add("place", PlaceOption.init());
-		thread.add("arm", ArmOption.init());
-		thread.add("scale", ScaleOption.init());
+		thread.add("place", PlaceOption.cloneController());
+		thread.add("arm", ArmOption.cloneController());
+		thread.add("scale", ScaleOption.cloneController());
 		thread.add("drive", DriveOption.cloneAction());
+
+		ArmOption.init();
 	}
 
 	public void operateThroughGamepad(){
 		syncRequests();
 		if(clipOption){
-			thread.replace("clip", ClipOption.change());
+			ClipOption.change();
 		}
 
 		if(intakeSamples &&!outtakeSamples){
-			thread.replace("intake", IOTakesOption.IOtakes(intake));
+			IOTakesOption.sync(intake);
 		}else if(!intakeSamples && outtakeSamples){
-			thread.replace("intake", IOTakesOption.IOtakes(outtake));
+			IOTakesOption.sync(outtake);
 		}else {
-			thread.replace("intake", IOTakesOption.IOtakes(IOTakesOption.IOTakesPositionTypes.idle));
+			IOTakesOption.sync(IOTakesOption.IOTakesPositionTypes.idle);
 		}
 
 		if(liftIDLE
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
-				thread.replace("place",PlaceOption.idle());
+				PlaceOption.idle();
 			}
 			if(close == ClipOption.recent()){
-				thread.replace("clip",ClipOption.change());
+				ClipOption.change();
 			}
 			LiftOption.sync(idle);
 		}else if(liftDecantLow		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
-				thread.replace("arm",ArmOption.safe());
+				ArmOption.safe();
 			}
 
 			LiftOption.sync(decantLow);
 		}else if(liftDecantHigh		&&	(idle == LiftOption.recent() ||LiftOption.decanting())
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
 			if(ArmOption.isNotSafe()){
-				thread.replace("arm",ArmOption.safe());
+				ArmOption.safe();
 			}
 
 			LiftOption.sync(decantHigh);
 		} else if (liftHighSuspend 	&&	 idle == LiftOption.recent()
 				&& ScaleOption.ScalePosition.back == ScaleOption.recent()) {
 			if(ArmOption.isNotSafe()){
-				thread.replace("arm",ArmOption.safe());
+				ArmOption.safe();
 			}
 
 			LiftOption.sync(highSuspendPrepare);
 		}
 
 		if(decant && LiftOption.decanting()){
-			thread.replace("place",PlaceOption.decant());
+			PlaceOption.decant();
 		}
 
 		if(suspend && highSuspend == LiftOption.recent()){
@@ -126,14 +128,14 @@ public class Robot {
 		}
 
 		if(flipArms&& idle == LiftOption.recent()){
-			thread.replace("arm",ArmOption.flip());
+			ArmOption.flip();
 		}
 
 		if(probe && idle == LiftOption.recent()){
 			if(ScaleOption.ScalePosition.probe == ScaleOption.recent() && ArmOption.ArmPositionTypes.idle != ArmOption.recent()){
-				thread.replace("arm",ArmOption.idle());
+				ArmOption.idle();
 			}
-			thread.replace("scale",ScaleOption.flip());
+			ScaleOption.flip();
 		}
 	}
 

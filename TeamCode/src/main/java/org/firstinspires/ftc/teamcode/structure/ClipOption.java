@@ -20,12 +20,21 @@ public enum ClipOption {
 		return recent;
 	}
 
-	private final static class ClipOpen implements Action{
+	private final static class ClipController implements Action{
 		@Override
 		public boolean run() {
-			recent=ClipPositionTypes.open;
-			HardwareConstants.clip.setPosition(0);
-			return false;
+			switch (recent) {
+				case open:
+					HardwareConstants.clip.setPosition(0);
+					break;
+				case close:
+					HardwareConstants.clip.setPosition(0.5);
+					break;
+				case unknown: default:
+					init();
+					return run();
+			}
+			return true;
 		}
 
 		@NonNull
@@ -35,36 +44,28 @@ public enum ClipOption {
 			return "now:open";
 		}
 	}
-	private final static class ClipClose implements Action{
-		@Override
-		public boolean run() {
-			recent=ClipPositionTypes.close;
-			HardwareConstants.clip.setPosition(0.5);
-			return false;
-		}
 
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:close";
-		}
+	public static void init(){
+		close();
 	}
-
-	@NonNull
-	@Contract(" -> new")
-	public static Action init(){
-		return new ClipOpen();
-	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action change(){
+	public static void change(){
 		switch (recent) {
-			case open:case unknown:
-				return new ClipClose();
 			case close:
-				return new ClipOpen();
+				open();
+			case open:default:
+				close();
 		}
-		return new ClipClose();
+	}
+	public static void open(){
+		recent=ClipPositionTypes.open;
+	}
+	private static void close(){
+		recent=ClipPositionTypes.close;
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	public static Action cloneController(){
+		return new ClipController();
 	}
 }

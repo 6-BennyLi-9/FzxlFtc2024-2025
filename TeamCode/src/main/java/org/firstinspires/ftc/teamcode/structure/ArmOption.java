@@ -17,13 +17,27 @@ public enum ArmOption {
 		return recent;
 	}
 
-	private static final class ArmIDLEAction implements Action {
+	private static final class ArmController implements Action {
 		@Override
 		public boolean run() {
-			recent=ArmPositionTypes.idle;
-			HardwareConstants.leftScale.setPosition(0.86);
-			HardwareConstants.rightScale.setPosition(0.86);
-			return false;
+			switch (recent){
+				case idle:
+					HardwareConstants.leftScale.setPosition(0.86);
+					HardwareConstants.rightScale.setPosition(0.86);
+					break;
+				case intake:
+					HardwareConstants.leftScale.setPosition(0.28);
+					HardwareConstants.rightScale.setPosition(0.28);
+					break;
+				case safe:
+					HardwareConstants.leftScale.setPosition(0.7);
+					HardwareConstants.rightScale.setPosition(0.7);
+					break;
+				default:
+					init();
+					return run();
+			}
+			return true;
 		}
 
 		@NonNull
@@ -33,72 +47,40 @@ public enum ArmOption {
 			return "now:idle";
 		}
 	}
-	private static final class ArmIntakeAction implements Action {
-		@Override
-		public boolean run() {
-			recent=ArmPositionTypes.intake;
-			HardwareConstants.leftScale.setPosition(0.28);
-			HardwareConstants.rightScale.setPosition(0.28);
-			return false;
-		}
 
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:intake";
-		}
+	public static void init(){
+		safe();
 	}
-	private static final class ArmSafeAction implements Action {
-		@Override
-		public boolean run() {
-			recent=ArmPositionTypes.safe;
-			HardwareConstants.leftScale.setPosition(0.7);
-			HardwareConstants.rightScale.setPosition(0.7);
-			return false;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:safe";
-		}
+	public static void intake(){
+		recent=ArmPositionTypes.intake;
+	}
+	public static void idle(){
+		recent=ArmPositionTypes.idle;
+	}
+	public static void safe(){
+		recent=ArmPositionTypes.safe;
 	}
 
-	@NonNull
-	@Contract(" -> new")
-	public static Action init(){
-		return safe();
-	}
-
-	@NonNull
-	@Contract(" -> new")
-	public static Action intake(){
-		return new ArmIntakeAction();
-	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action idle(){
-		return new ArmIDLEAction();
-	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action safe(){
-		return new ArmSafeAction();
-	}
-
-	@NonNull
-	@Contract(" -> new")
-	public static Action flip(){
-		if(ArmPositionTypes.intake == recent){
-			return idle();
-		}else{
-			return intake();
+	public static void flip(){
+		switch (recent){
+			case intake:
+				recent=ArmPositionTypes.idle;
+				break;
+			case safe:
+				recent=ArmPositionTypes.intake;
+				break;
+			case idle:
+			default:
+				recent=ArmPositionTypes.safe;
 		}
 	}
 
 	public static boolean isNotSafe(){
 		return ArmPositionTypes.safe != recent;
+	}
+	@NonNull
+	@Contract(" -> new")
+	public static Action cloneController(){
+		return new ArmController();
 	}
 }

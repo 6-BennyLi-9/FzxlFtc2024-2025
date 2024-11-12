@@ -93,4 +93,8 @@ public class TaggedActionPackage extends ActionPackage {
 		Actions.runAction(new PriorityThreadedAction(new ArrayList<>(priorityActionMap.values())));
 		priorityActionMap.clear();
 	}
+
+	public Map<String, PriorityAction> getActionMap() {
+		return priorityActionMap;
+	}
 }

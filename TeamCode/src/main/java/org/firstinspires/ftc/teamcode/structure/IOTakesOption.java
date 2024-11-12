@@ -15,10 +15,24 @@ public enum IOTakesOption {
 		idle
 	}
 
-	private static final class IntakeAction implements Action {
+	private static IOTakesPositionTypes recent;
+
+	private static final class IOTakesController implements Action {
 		@Override
 		public boolean run() {
-			HardwareConstants.intake.setPosition(1);
+			switch (recent) {
+				case intake:
+					HardwareConstants.intake.setPosition(1);
+					break;
+				case outtake:
+					HardwareConstants.intake.setPosition(0);
+					break;
+				case idle:
+					HardwareConstants.intake.setPosition(0.5);
+					break;
+				default:
+
+			}
 			return false;
 		}
 
@@ -29,46 +43,13 @@ public enum IOTakesOption {
 			return "now:intake";
 		}
 	}
-	private static final class OuttakeAction implements Action {
-		@Override
-		public boolean run() {
-			HardwareConstants.intake.setPosition(0.3);
-			return false;
-		}
 
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:outtake";
-		}
+	public static void sync(@NonNull final IOTakesPositionTypes option){
+		recent=option;
 	}
-	private static final class IDLEAction implements Action {
-		@Override
-		public boolean run() {
-			HardwareConstants.intake.setPosition(0.5);
-			return false;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:idle";
-		}
-	}
-
 	@NonNull
-	@Contract(pure = true)
-	public static Action IOtakes(@NonNull final IOTakesPositionTypes option){
-		switch (option) {
-			case intake:
-				return new IntakeAction();
-			case outtake:
-				return new OuttakeAction();
-			case idle:
-				return new IDLEAction();
-		}
-		return new IDLEAction();
+	@Contract(" -> new")
+	public static Action cloneController(){
+		return new IOTakesController();
 	}
 }
