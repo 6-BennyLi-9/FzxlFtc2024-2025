@@ -19,11 +19,20 @@ public enum PlaceOption {
 		return recent;
 	}
 
-	private static final class PlaceDecantAction implements Action{
+	private static final class PlaceController implements Action{
 		@Override
 		public boolean run() {
-			recent=PlacePositionTypes.decant;
-			HardwareConstants.place.setPosition(1);
+			switch (recent){
+				case idle:
+					HardwareConstants.place.setPosition(0);
+					break;
+				case decant:
+					HardwareConstants.place.setPosition(1);
+					break;
+				case unknown: default:
+					init();
+					return run();
+			}
 			return false;
 		}
 
@@ -31,38 +40,23 @@ public enum PlaceOption {
 		@Contract(pure = true)
 		@Override
 		public String paramsString() {
-			return "now:decant";
+			return "now:"+recent.name();
 		}
 	}
-	private static final class PlaceIDLEAction implements Action{
-		@Override
-		public boolean run() {
-			recent=PlacePositionTypes.idle;
-			HardwareConstants.place.setPosition(0);
-			return false;
-		}
 
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:idle";
-		}
+	public static void init(){
+		idle();
+	}
+	public static void decant(){
+		recent=PlacePositionTypes.decant;
+	}
+	public static void idle(){
+		recent=PlacePositionTypes.idle;
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action init(){
-		return idle();
-	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action decant(){
-		return new PlaceDecantAction();
-	}
-	@NonNull
-	@Contract(" -> new")
-	public static Action idle(){
-		return new PlaceIDLEAction();
+	public static Action cloneController(){
+		return new PlaceController();
 	}
 }

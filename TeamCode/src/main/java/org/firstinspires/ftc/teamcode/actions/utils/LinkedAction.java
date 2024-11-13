@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode.actions.utils;
 
 
-import androidx.annotation.NonNull;
-
-import org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 链式的 {@code Action} 块，可以优化代码书写，可悲的是除了这个功能就没啥好处了，毕竟 {@code Action} 块是自带链式功能的
+ */
 public final class LinkedAction implements Action{
 	private final List<Action> actions;
-	private int ptr;
+	private int ptr=0;
 
 	public LinkedAction(final List<Action> actions){
 		this.actions=actions;
@@ -29,13 +31,13 @@ public final class LinkedAction implements Action{
 		}
 	}
 
-	@NonNull
+	@NotNull
 	@Override
 	public String paramsString() {
-		final StringBuilder res= new StringBuilder("{");
+		final StringBuilder stringBuilder=new StringBuilder("{");
 		for(final Action action:actions){
-			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+			stringBuilder.append(action.paramsString()).append(",");
 		}
-		return res.append("}").toString();
+		return stringBuilder.append("}").toString();
 	}
 }

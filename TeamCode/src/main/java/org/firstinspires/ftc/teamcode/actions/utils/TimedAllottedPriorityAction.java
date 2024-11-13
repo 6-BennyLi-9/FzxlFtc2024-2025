@@ -1,9 +1,15 @@
 package org.firstinspires.ftc.teamcode.actions.utils;
 
-import org.firstinspires.ftc.teamcode.actions.Action;
-import org.firstinspires.ftc.teamcode.actions.PriorityAction;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.PriorityAction;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 根据 {@code PriorityAction} 的优先级排序后进行执行操作，如果超时后将强制退出执行链
@@ -11,7 +17,7 @@ import java.util.*;
 public class TimedAllottedPriorityAction implements Action {
 	public final List<PriorityAction> actions;
 	private final long allottedMilliseconds;
-	private boolean initialized;
+	private boolean initialized=false;
 
 	public TimedAllottedPriorityAction(final long allottedMilliseconds,final List<PriorityAction> actions){
 		this.actions=new ArrayList<>();
@@ -46,12 +52,13 @@ public class TimedAllottedPriorityAction implements Action {
 		return !actions.isEmpty();
 	}
 
+	@NotNull
 	@Override
 	public String paramsString() {
-		final StringBuilder res= new StringBuilder("<");
-		for(final Action action:actions){
-			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+		final StringBuilder stringBuilder=new StringBuilder("tl:"+allottedMilliseconds+"{");
+		for(final PriorityAction action:actions){
+			stringBuilder.append("[").append(action.getPriorityCode()).append(")").append(action.paramsString()).append(",");
 		}
-		return res.append(">").toString();
+		return stringBuilder.append("}").toString();
 	}
 }

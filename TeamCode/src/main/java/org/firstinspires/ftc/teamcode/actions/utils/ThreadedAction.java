@@ -1,9 +1,14 @@
 package org.firstinspires.ftc.teamcode.actions.utils;
 
 
-import org.firstinspires.ftc.teamcode.actions.Action;
+import  org.firstinspires.ftc.teamcode.actions.Action;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 多线程的 {@code Action} 块，对 {@code tps} 要求较高
@@ -31,12 +36,13 @@ public final class ThreadedAction implements Action {
 		return !actions.isEmpty();
 	}
 
+	@NotNull
 	@Override
 	public String paramsString() {
-		final StringBuilder res= new StringBuilder("[");
+		final StringBuilder stringBuilder=new StringBuilder("{");
 		for(final Action action:actions){
-			res.append(action.getClass().getSimpleName()).append(":").append(action.paramsString()).append(",");
+			stringBuilder.append(action.paramsString()).append(",");
 		}
-		return res.append("]").toString();
+		return stringBuilder.append("}").toString();
 	}
 }

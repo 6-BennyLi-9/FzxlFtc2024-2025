@@ -10,7 +10,7 @@ public enum Actions {
 	/**
 	 * 标志 {@code Action} 块的最后一个节点
 	 */
-	public static class FinalNodeAction implements Action{
+	public static final class FinalNodeAction implements Action {
 		@Override
 		public boolean run() {return false;}
 	}
@@ -36,8 +36,8 @@ public enum Actions {
 	 */
 	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds){
 		Action recent=actionBlock;
-		double start=System.nanoTime()/1e6;
-		while (!(System.nanoTime()/1e6-start >= allottedMilliseconds)) {
+		final double start=System.nanoTime()/ 1.0e6;
+		while (!(System.nanoTime()/ 1.0e6 -start >= allottedMilliseconds)) {
 			if (!recent.run()) {
 				if (recent.next() instanceof FinalNodeAction) {
 					break;
@@ -54,7 +54,7 @@ public enum Actions {
 	}
 	@Contract(value = "_, _ -> new", pure = true)
 	@NotNull
-	public static PriorityAction asPriority(final Action action, long priorityGrade){
+	public static PriorityAction asPriority(final Action action, final long priorityGrade){
 		return new PriorityAction() {
 			@Override
 			public long getPriorityCode() {
