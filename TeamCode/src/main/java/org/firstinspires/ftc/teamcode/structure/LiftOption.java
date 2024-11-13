@@ -29,24 +29,19 @@ public enum LiftOption {
 		@Override
 		public boolean run() {
 			currentPosition=HardwareConstants.lift.getCurrentPosition();
-			final int max_position=2600;
-			final int bufVal=150;//硬核修复
-			if (targetPosition < max_position && targetPosition > 5) {
-				if (currentPosition < targetPosition - bufVal) {
-					HardwareConstants.lift.setPower(1.0);
-				} else if (currentPosition > targetPosition + bufVal) {
-					HardwareConstants.lift.setPower(-1.0);
-				} else {
-					HardwareConstants.lift.setPower(0);
-				}
-			} else if (targetPosition==0) {
-				if (currentPosition > 210){//40,210
-					HardwareConstants.lift.setPower(-0.8);
-				}else if (currentPosition > 30){//10
-					HardwareConstants.lift.setPower(-0.8);
-				} else if (currentPosition < 0){
-					HardwareConstants.lift.setPower(0);
-				}
+			final long delta=targetPosition- currentPosition;
+
+			if(targetPosition==0){
+				HardwareConstants.lift.setPower(currentPosition <= 10 ? 0 : - 0.5);
+				return true;
+			}
+
+			if(40 > Math.abs(delta)){
+				HardwareConstants.lift.setPower(0);
+			}else if(120 > Math.abs(delta)){
+				HardwareConstants.lift.setPower(0.3 * Math.signum(delta));
+			}else{
+				HardwareConstants.lift.setPower(0.7 * Math.signum(delta));
 			}
 			return true;
 		}
