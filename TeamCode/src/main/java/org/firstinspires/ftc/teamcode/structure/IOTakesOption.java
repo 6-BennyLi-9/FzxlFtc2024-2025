@@ -15,7 +15,7 @@ public enum IOTakesOption {
 		idle
 	}
 
-	private static IOTakesPositionTypes recent;
+	private static IOTakesPositionTypes recent=IOTakesPositionTypes.idle;
 
 	private static final class IOTakesController implements Action {
 		@Override
