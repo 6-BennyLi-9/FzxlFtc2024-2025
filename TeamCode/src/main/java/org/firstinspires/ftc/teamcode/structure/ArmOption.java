@@ -22,16 +22,16 @@ public enum ArmOption {
 		public boolean run() {
 			switch (recent){
 				case idle:
-					HardwareConstants.leftScale.setPosition(0.86);
-					HardwareConstants.rightScale.setPosition(0.86);
+					HardwareConstants.leftArm.setPosition(0.86);
+					HardwareConstants.rightArm.setPosition(0.86);
 					break;
 				case intake:
-					HardwareConstants.leftScale.setPosition(0.28);
-					HardwareConstants.rightScale.setPosition(0.28);
+					HardwareConstants.leftArm.setPosition(0.28);
+					HardwareConstants.rightArm.setPosition(0.28);
 					break;
 				case safe:
-					HardwareConstants.leftScale.setPosition(0.7);
-					HardwareConstants.rightScale.setPosition(0.7);
+					HardwareConstants.leftArm.setPosition(0.7);
+					HardwareConstants.rightArm.setPosition(0.7);
 					break;
 				default:
 					init();

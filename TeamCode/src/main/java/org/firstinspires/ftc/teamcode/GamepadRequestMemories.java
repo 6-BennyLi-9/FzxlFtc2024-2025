@@ -31,16 +31,16 @@ public enum GamepadRequestMemories {
 
 	public static void syncRequests(){
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
-		outtakeSamples 	= -0.3 > gamepad2.left_stick_y;
-		flipArms 		= gamepad2.a 		&& !flipArms;
+		outtakeSamples 	= -0.3 > gamepad2.left_stick_x;
+		flipArms 		= gamepad2.a 		    !=flipArms;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
 		liftHighSuspend = gamepad2.dpad_right;
 		liftIDLE      	= gamepad2.dpad_down;
 		decant			= gamepad2.x;
 		suspend			= gamepad2.y;
-		clipOption		= gamepad2.b		&& !clipOption;
-		probe			= gamepad2.right_bumper	&&!probe;
+		clipOption		= gamepad2.b		    !=clipOption;
+		probe			= gamepad2.right_bumper	!=probe;
 	}
 
 	public static void printValues(){

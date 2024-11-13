@@ -6,11 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GamepadRequestMemories;
+import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
 @TeleOp(name = "22232",group = "Main")
-public class Main extends OpMode {
+public class TeleOpCore extends OpMode {
 	public Robot robot;
 
 	@Override
@@ -18,6 +19,7 @@ public class Main extends OpMode {
 		robot=new Robot(hardwareMap);
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.initActions();
+		HardwareConstants.chassisConfig();
 		TelemetryClient.registerInstance(new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
 
 		TelemetryClient.getInstance()
@@ -33,6 +35,8 @@ public class Main extends OpMode {
 	public void init_loop() {
 		start=System.nanoTime()/ 1.0e9;
 		lst=start;
+
+		robot.runThread();
 	}
 
 	@Override
@@ -42,14 +46,17 @@ public class Main extends OpMode {
 				.changeData("time",now-start)
 				.changeData("TPS",1/(now-lst));
 		lst=now;
+		//主程序开始
 
-		robot.runThread();
 
 		robot.operateThroughGamepad();
-		robot.driveThroughGamepad();
+//		robot.driveThroughGamepad();
 
+		//主程序结束
 		robot.printThreadDebugs();
 		GamepadRequestMemories.printValues();
+
+		robot.runThread();
 	}
 
 	@Override

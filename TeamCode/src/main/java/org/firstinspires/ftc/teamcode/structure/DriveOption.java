@@ -16,6 +16,7 @@ public enum DriveOption {
 
 	private static void syncAngle(){
 		double angleErr= targetAngle-HardwareConstants.imu.getAngularOrientation().firstAngle;
+
 		while (-180 > angleErr) angleErr+=360;
 		while (180 < angleErr)  angleErr-=360;
 		final double differentiation=angleErr-lastAngleErr;
@@ -29,7 +30,10 @@ public enum DriveOption {
 		@Override
 		public boolean run() {
 			syncAngle();
-			Actions.runAction(SimpleDriveOption.build(x,y,output));
+			HardwareConstants.leftFront.setPower	(y+x-output);
+			HardwareConstants.leftRear.setPower		(y-x-output);
+			HardwareConstants.rightFront.setPower	(y-x+output);
+			HardwareConstants.rightRear.setPower	(y+x+output);
 			return true;
 		}
 
