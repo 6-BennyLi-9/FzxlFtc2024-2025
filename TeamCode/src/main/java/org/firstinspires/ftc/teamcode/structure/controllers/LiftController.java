@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.structure.controllers;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.actions.Action;
@@ -7,9 +9,11 @@ import org.firstinspires.ftc.teamcode.actions.Action;
 public class LiftController implements Action {
 	private long currentPosition,targetPosition;
 	public final DcMotorEx targetLift;
+	private String tag;
 
-	public LiftController(final DcMotorEx target){
+	public LiftController(@NonNull final DcMotorEx target){
 		targetLift=target;
+		tag=target.getDeviceName();
 	}
 
 
@@ -34,10 +38,14 @@ public class LiftController implements Action {
 	}
 	@Override
 	public String paramsString() {
-		return targetLift.getDeviceName()+":"+currentPosition+"->"+targetPosition;
+		return tag+":"+currentPosition+"->"+targetPosition;
 	}
 
 	public void setTargetPosition(final long targetPosition) {
 		this.targetPosition = targetPosition;
+	}
+
+	public void setTag(final String tag) {
+		this.tag = tag;
 	}
 }
