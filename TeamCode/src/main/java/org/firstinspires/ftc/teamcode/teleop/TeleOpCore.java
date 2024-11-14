@@ -27,8 +27,7 @@ public class TeleOpCore extends OpMode {
 
 		TelemetryClient.getInstance()
 				.addData("TPS","wait for start")
-				.addData("time","wait for start")
-				.addLine("=================");
+				.addData("time","wait for start");
 	}
 
 	/**单位：秒*/
@@ -40,6 +39,15 @@ public class TeleOpCore extends OpMode {
 		lst=start;
 
 		robot.runThread();
+
+		TelemetryClient.getInstance()
+				.addLine("ROBOT INITIALIZE COMPLETE!")
+				.addLine("=======================");
+	}
+
+	@Override
+	public void start() {
+		TelemetryClient.getInstance().deleteLine("ROBOT INITIALIZE COMPLETE!");
 	}
 
 	@Override
@@ -50,7 +58,6 @@ public class TeleOpCore extends OpMode {
 				.changeData("TPS",1/(now-lst));
 		lst=now;
 		//主程序开始
-
 
 		robot.operateThroughGamepad();
 		robot.driveThroughGamepad();

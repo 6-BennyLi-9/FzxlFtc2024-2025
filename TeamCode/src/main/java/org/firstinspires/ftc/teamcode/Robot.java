@@ -166,12 +166,15 @@ public class Robot {
 
 	public void printThreadDebugs(){
 		++updateTime;
+
+		final String updateCode="["+printCode[updateTime%printCode.length]+"]";
+
 		final Map<String, PriorityAction> map=thread.getActionMap();
 		for (final Map.Entry<String, PriorityAction> entry : map.entrySet()) {
 			final String s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			TelemetryClient.getInstance().changeData(s+"-action", "["+printCode[updateTime%printCode.length]+"]"
-					+a.getClass().getSimpleName()+":"+a.paramsString());
+			TelemetryClient.getInstance().changeData(s+"-action", updateCode
+					+ a.getClass().getSimpleName() + ":" + a.paramsString());
 		}
 	}
 }
