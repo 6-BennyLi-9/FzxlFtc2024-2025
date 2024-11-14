@@ -25,9 +25,27 @@ public enum DriveOption {
 	private final static double kP=-0.12,kI=0.0,kD=0.04;
 	private static double lastAngleErr,integralAngle;
 	private static double output,targetAngle;
-	private static double x,y;
+	private static double x,y,turn;
 
 	private static boolean driveUsingPID = true;
+
+	private static void syncAngle(){
+		final double currentAngle=HardwareConstants.imu.getAngularOrientation().firstAngle;
+		double angleErr= targetAngle-currentAngle;
+
+		if(!driveUsingPID){
+			output=turn;
+			return;
+		}
+
+		while (-180 > angleErr) angleErr+=360;
+		while (180 < angleErr)  angleErr-=360;
+		final double differentiation=angleErr-lastAngleErr;
+		integralAngle+=angleErr;
+		lastAngleErr=angleErr;
+
+		output=(kP*angleErr+kI*integralAngle+kD*differentiation)/15;
+	}
 
 	@NonNull
 	@Contract(" -> new")
@@ -35,8 +53,24 @@ public enum DriveOption {
 		return chassisController;
 	}
 
+	public static void sync(final double x, final double y, final double turn){
+		sync(x,y,turn,1);
+	}
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
-		chassisController.setPowers(x, y, turn, bufPower);
+		DriveOption.x=x;
+		DriveOption.y=y;
+		DriveOption.turn=turn;
+
+		targetAngle+=turn;
+		syncAngle();
+		chassisController.setPowers(x, y, output, bufPower);
+	}
+	public static void additions(final double x, final double y, final double turn,final double bufPower){
+		sync(
+				DriveOption.x		+x*bufPower,
+				DriveOption.y		+y*bufPower,
+				DriveOption.turn	+turn*bufPower
+		);
 	}
 
 	public static void setDriveUsingPID(final boolean driveUsingPID) {
