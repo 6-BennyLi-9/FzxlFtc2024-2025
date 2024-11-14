@@ -16,7 +16,7 @@ public enum IOTakesOption {
 		idle
 	}
 
-	private static IOTakesPositionTypes recent;
+	private static IOTakesPositionTypes recent=IOTakesPositionTypes.idle;
 	private final static ServoController intakeController;
 
 	static {
