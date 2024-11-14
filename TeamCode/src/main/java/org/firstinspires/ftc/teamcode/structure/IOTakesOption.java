@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
 import org.jetbrains.annotations.Contract;
 
 public enum IOTakesOption {
@@ -16,41 +17,29 @@ public enum IOTakesOption {
 	}
 
 	private static IOTakesPositionTypes recent;
+	private final static ServoController intakeController;
 
-	private static final class IOTakesController implements Action {
-		@Override
-		public boolean run() {
-			switch (recent) {
-				case intake:
-					HardwareConstants.intake.setPosition(1);
-					break;
-				case outtake:
-					HardwareConstants.intake.setPosition(0);
-					break;
-				case idle:
-					HardwareConstants.intake.setPosition(0.5);
-					break;
-				default:
-
-			}
-			return false;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:"+recent.name();
-		}
+	static {
+		intakeController=new ServoController(HardwareConstants.intake,0.5);
 	}
 
-	@Deprecated
-	public static void sync(@NonNull final IOTakesPositionTypes option){
-		recent=option;
+
+	public static void idle(){
+		recent=IOTakesPositionTypes.idle;
+		intakeController.setTargetPosition(0.5);
 	}
+	public static void intake(){
+		recent=IOTakesPositionTypes.intake;
+		intakeController.setTargetPosition(1);
+	}
+	public static void outtake(){
+		recent=IOTakesPositionTypes.outtake;
+		intakeController.setTargetPosition(0);
+	}
+
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneController(){
-		return new IOTakesController();
+		return intakeController;
 	}
 }

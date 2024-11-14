@@ -13,8 +13,6 @@ import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.probe;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.suspend;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.syncRequests;
 import static org.firstinspires.ftc.teamcode.structure.ClipOption.ClipPositionTypes.close;
-import static org.firstinspires.ftc.teamcode.structure.IOTakesOption.IOTakesPositionTypes.intake;
-import static org.firstinspires.ftc.teamcode.structure.IOTakesOption.IOTakesPositionTypes.outtake;
 import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.decantHigh;
 import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.decantLow;
 import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.highSuspend;
@@ -80,11 +78,11 @@ public class Robot {
 		}
 
 		if(intakeSamples &&!outtakeSamples){
-			IOTakesOption.sync(intake);
+			IOTakesOption.intake();
 		}else if(!intakeSamples && outtakeSamples){
-			IOTakesOption.sync(outtake);
+			IOTakesOption.outtake();
 		}else {
-			IOTakesOption.sync(IOTakesOption.IOTakesPositionTypes.idle);
+			IOTakesOption.idle();
 		}
 
 		if(liftIDLE){
