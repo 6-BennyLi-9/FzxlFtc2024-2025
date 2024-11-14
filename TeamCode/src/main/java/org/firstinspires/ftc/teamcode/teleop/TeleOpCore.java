@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.structure.DriveOption;
 
 @TeleOp(name = "22232",group = "Main")
 public class TeleOpCore extends OpMode {
@@ -16,6 +17,8 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void init() {
+		DriveOption.setDriveUsingPID(false);
+
 		robot=new Robot(hardwareMap);
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.initActions();
