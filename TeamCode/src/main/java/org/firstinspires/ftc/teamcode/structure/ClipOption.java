@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
 import org.jetbrains.annotations.Contract;
 
 public enum ClipOption {
@@ -15,34 +16,13 @@ public enum ClipOption {
 		unknown
 	}
 	private static ClipPositionTypes recent= ClipPositionTypes.unknown;
+	private static final ServoController clipControl;
+	static {
+		clipControl=new ServoController(HardwareConstants.clip,0);
+	}
 
 	public static ClipPositionTypes recent() {
 		return recent;
-	}
-
-	private final static class ClipController implements Action{
-		@Override
-		public boolean run() {
-			switch (recent) {
-				case open:
-					HardwareConstants.clip.setPosition(0);
-					break;
-				case close:
-					HardwareConstants.clip.setPosition(0.5);
-					break;
-				case unknown: default:
-					init();
-					return run();
-			}
-			return true;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:"+recent.name();
-		}
 	}
 
 	public static void init(){
@@ -58,14 +38,16 @@ public enum ClipOption {
 	}
 	public static void open(){
 		recent=ClipPositionTypes.open;
+		clipControl.setTargetPosition(0);
 	}
 	private static void close(){
 		recent=ClipPositionTypes.close;
+		clipControl.setTargetPosition(0.5);
 	}
 
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneController(){
-		return new ClipController();
+		return clipControl;
 	}
 }

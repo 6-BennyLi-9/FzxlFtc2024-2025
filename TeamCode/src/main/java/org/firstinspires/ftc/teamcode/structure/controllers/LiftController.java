@@ -36,4 +36,8 @@ public class LiftController implements Action {
 	public String paramsString() {
 		return targetLift.getDeviceName()+":"+currentPosition+"->"+targetPosition;
 	}
+
+	public void setTargetPosition(final long targetPosition) {
+		this.targetPosition = targetPosition;
+	}
 }

@@ -44,6 +44,7 @@ public enum IOTakesOption {
 		}
 	}
 
+	@Deprecated
 	public static void sync(@NonNull final IOTakesPositionTypes option){
 		recent=option;
 	}

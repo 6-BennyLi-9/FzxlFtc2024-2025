@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
 import org.jetbrains.annotations.Contract;
 
 public enum ArmOption {
@@ -12,40 +14,15 @@ public enum ArmOption {
 		idle,intake,safe,unknown
 	}
 	private static ArmPositionTypes recent= ArmPositionTypes.unknown;
+	private static final ServoController leftArmControl, rightArmControl;
+
+	static {
+		leftArmControl =new ServoController(HardwareConstants.leftArm,0.7);
+		rightArmControl =new ServoController(HardwareConstants.rightArm,0.7);
+	}
 
 	public static ArmPositionTypes recent() {
 		return recent;
-	}
-
-	private static final class ArmController implements Action {
-		@Override
-		public boolean run() {
-			switch (recent){
-				case idle:
-					HardwareConstants.leftArm.setPosition(0.86);
-					HardwareConstants.rightArm.setPosition(0.86);
-					break;
-				case intake:
-					HardwareConstants.leftArm.setPosition(0.28);
-					HardwareConstants.rightArm.setPosition(0.28);
-					break;
-				case safe:
-					HardwareConstants.leftArm.setPosition(0.7);
-					HardwareConstants.rightArm.setPosition(0.7);
-					break;
-				default:
-					init();
-					return run();
-			}
-			return true;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:"+recent.name();
-		}
 	}
 
 	public static void init(){
@@ -53,12 +30,18 @@ public enum ArmOption {
 	}
 	public static void intake(){
 		recent=ArmPositionTypes.intake;
+		leftArmControl.setTargetPosition(0.28);
+		rightArmControl.setTargetPosition(0.28);
 	}
 	public static void idle(){
 		recent=ArmPositionTypes.idle;
+		leftArmControl.setTargetPosition(0.86);
+		rightArmControl.setTargetPosition(0.86);
 	}
 	public static void safe(){
 		recent=ArmPositionTypes.safe;
+		leftArmControl.setTargetPosition(0.7);
+		rightArmControl.setTargetPosition(0.7);
 	}
 
 	public static void flip(){
@@ -81,6 +64,6 @@ public enum ArmOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneController(){
-		return new ArmController();
+		return new ThreadedAction(leftArmControl, rightArmControl);
 	}
 }

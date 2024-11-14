@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
 import org.jetbrains.annotations.Contract;
 
 public enum PlaceOption {
@@ -14,34 +15,14 @@ public enum PlaceOption {
 		unknown
 	}
 	private static PlacePositionTypes recent=PlacePositionTypes.unknown;
+	private static final ServoController placeController;
+
+	static {
+		placeController=new ServoController(HardwareConstants.place,0);
+	}
 
 	public static PlacePositionTypes recent() {
 		return recent;
-	}
-
-	private static final class PlaceController implements Action{
-		@Override
-		public boolean run() {
-			switch (recent){
-				case idle:
-					HardwareConstants.place.setPosition(0);
-					break;
-				case decant:
-					HardwareConstants.place.setPosition(1);
-					break;
-				case unknown: default:
-					init();
-					return run();
-			}
-			return false;
-		}
-
-		@NonNull
-		@Contract(pure = true)
-		@Override
-		public String paramsString() {
-			return "now:"+recent.name();
-		}
 	}
 
 	public static void init(){
@@ -49,14 +30,16 @@ public enum PlaceOption {
 	}
 	public static void decant(){
 		recent=PlacePositionTypes.decant;
+		placeController.setTargetPosition(1);
 	}
 	public static void idle(){
 		recent=PlacePositionTypes.idle;
+		placeController.setTargetPosition(0);
 	}
 
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneController(){
-		return new PlaceController();
+		return placeController;
 	}
 }
