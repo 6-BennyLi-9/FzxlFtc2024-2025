@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
-import org.firstinspires.ftc.teamcode.actions.Actions;
 import org.jetbrains.annotations.Contract;
 
 public enum DriveOption {
@@ -14,7 +13,14 @@ public enum DriveOption {
 	private static double output,targetAngle;
 	private static double x,y;
 
+	private static boolean driveUsingPID = true;
+
 	private static void syncAngle(){
+		if(!driveUsingPID){
+			output=targetAngle;
+			return;
+		}
+
 		double angleErr= targetAngle-HardwareConstants.imu.getAngularOrientation().firstAngle;
 
 		while (-180 > angleErr) angleErr+=360;
@@ -54,6 +60,10 @@ public enum DriveOption {
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
 		DriveOption.x=x*bufPower;
 		DriveOption.y=y*bufPower;
-		targetAngle+=turn*bufPower;
+		targetAngle=turn*bufPower;
+	}
+
+	public static void setDriveUsingPID(boolean driveUsingPID) {
+		DriveOption.driveUsingPID = driveUsingPID;
 	}
 }

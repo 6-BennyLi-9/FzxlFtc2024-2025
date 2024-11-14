@@ -69,6 +69,9 @@ public class Robot {
 		thread.add("drive", DriveOption.cloneAction());
 
 		ArmOption.init();
+		ClipOption.init();
+		PlaceOption.init();
+		ScaleOption.init();
 	}
 
 	public void operateThroughGamepad(){
