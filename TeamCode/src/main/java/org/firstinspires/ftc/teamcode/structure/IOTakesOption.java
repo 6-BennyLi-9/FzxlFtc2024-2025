@@ -21,6 +21,8 @@ public enum IOTakesOption {
 
 	static {
 		intakeController=new ServoController(HardwareConstants.intake,0.5);
+
+		intakeController.setTag("intake");
 	}
 
 

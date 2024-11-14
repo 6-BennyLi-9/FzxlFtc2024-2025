@@ -19,6 +19,8 @@ public enum PlaceOption {
 
 	static {
 		placeController=new ServoController(HardwareConstants.place,0);
+
+		placeController.setTag("place");
 	}
 
 	public static PlacePositionTypes recent() {

@@ -19,6 +19,9 @@ public enum ArmOption {
 	static {
 		leftArmControl =new ServoController(HardwareConstants.leftArm,0.7);
 		rightArmControl =new ServoController(HardwareConstants.rightArm,0.7);
+
+		leftArmControl.setTag("leftArm");
+		rightArmControl.setTag("rightArm");
 	}
 
 	public static ArmPositionTypes recent() {

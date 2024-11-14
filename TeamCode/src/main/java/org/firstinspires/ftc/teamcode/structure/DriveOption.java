@@ -63,7 +63,7 @@ public enum DriveOption {
 		targetAngle=turn*bufPower;
 	}
 
-	public static void setDriveUsingPID(boolean driveUsingPID) {
+	public static void setDriveUsingPID(final boolean driveUsingPID) {
 		DriveOption.driveUsingPID = driveUsingPID;
 	}
 }

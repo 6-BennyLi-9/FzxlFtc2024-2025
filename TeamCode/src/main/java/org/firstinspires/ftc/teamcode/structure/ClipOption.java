@@ -17,8 +17,11 @@ public enum ClipOption {
 	}
 	private static ClipPositionTypes recent= ClipPositionTypes.unknown;
 	private static final ServoController clipControl;
+
 	static {
 		clipControl=new ServoController(HardwareConstants.clip,0);
+
+		clipControl.setTag("clip");
 	}
 
 	public static ClipPositionTypes recent() {

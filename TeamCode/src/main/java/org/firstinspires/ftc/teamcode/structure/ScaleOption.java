@@ -21,6 +21,9 @@ public enum ScaleOption {
 	static {
 		leftScaleController =new ServoController(HardwareConstants.leftScale,1);
 		rightScaleController=new ServoController(HardwareConstants.rightScale,0.5);
+
+		leftScaleController.setTag("leftScale");
+		rightScaleController.setTag("rightScale");
 	}
 
 	public static ScalePosition recent() {

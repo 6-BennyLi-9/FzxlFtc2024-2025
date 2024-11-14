@@ -18,8 +18,11 @@ public enum LiftOption {
 	}
 	private static LiftPositionTypes recent=LiftPositionTypes.idle;
 	private static final LiftController liftController;
+
 	static {
 		liftController=new LiftController(HardwareConstants.lift);
+
+		liftController.setTag("lift");
 	}
 	
 	private static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
