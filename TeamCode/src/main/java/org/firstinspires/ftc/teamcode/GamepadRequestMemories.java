@@ -44,7 +44,7 @@ public enum GamepadRequestMemories {
 	}
 
 	public static void printValues(){
-		TelemetryClient instance=TelemetryClient.getInstance();
+		final TelemetryClient instance=TelemetryClient.getInstance();
 		instance.changeData("intakeSamples",intakeSamples);
 		instance.changeData("outtakeSamples",outtakeSamples);
 		instance.changeData("flipArms",flipArms);
