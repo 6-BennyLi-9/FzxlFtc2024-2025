@@ -10,7 +10,7 @@ public enum GamepadLatest {
 	a,b,x,y,dpadUp,dpadDown,dpadLeft,dpadRight,leftBumper,rightBumper;
 	public boolean value;
 
-	public static void sync(@NonNull Gamepad gamepad){
+	public static void sync(@NonNull final Gamepad gamepad){
 		a.value=gamepad.a;
 		b.value= gamepad.b;
 		x.value=gamepad.x;
@@ -26,7 +26,7 @@ public enum GamepadLatest {
 	}
 
 	public static void output(){
-		for(GamepadLatest value:values()){
+		for(final GamepadLatest value:values()){
 			TelemetryClient.getInstance().changeData("gamepad "+value.name(),value.value);
 		}
 	}

@@ -65,6 +65,9 @@ public enum DriveOption {
 		syncAngle();
 		chassisController.setPowers(x, y, output, bufPower);
 	}
+	public static void additions(final double x, final double y, final double turn){
+		additions(x,y,turn,1);
+	}
 	public static void additions(final double x, final double y, final double turn,final double bufPower){
 		sync(
 				DriveOption.x		+x*bufPower,

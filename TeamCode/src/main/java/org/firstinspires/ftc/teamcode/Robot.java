@@ -148,6 +148,13 @@ public class Robot {
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
 				driveBufPower
 		);
+
+		if(gamepad1.left_bumper){
+			DriveOption.additions(0,0,-0.1);
+		}
+		if(gamepad1.right_bumper){
+			DriveOption.additions(0,0,0.1);
+		}
 	}
 
 	public void runThread(){
