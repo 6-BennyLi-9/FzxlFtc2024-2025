@@ -53,7 +53,7 @@ public class TeleOpCore extends OpMode {
 
 
 		robot.operateThroughGamepad();
-//		robot.driveThroughGamepad();
+		robot.driveThroughGamepad();
 
 		//主程序结束
 		robot.printThreadDebugs();
