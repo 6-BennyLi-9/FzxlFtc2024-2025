@@ -26,7 +26,8 @@ public class ChassisController implements Action {
 	}
 	@Override
 	public String paramsString() {
-		return "x:"+pX+
+		return tag+":"+
+				"x:"+pX+
 				",y"+pY+
 				",heading:"+pTurn;
 	}
@@ -38,5 +39,9 @@ public class ChassisController implements Action {
 		pX=x*bufVal;
 		pY=y*bufVal;
 		pTurn=turn*bufVal;
+	}
+
+	public void setTag(final String tag) {
+		this.tag = tag;
 	}
 }
