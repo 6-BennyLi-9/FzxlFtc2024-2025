@@ -32,21 +32,23 @@ public enum GamepadRequestMemories {
 	private static boolean lstGamepad2a,lstGamepad2b,lstGamepad2Right_bumper;
 
 	public static void syncRequests(){
+		GamepadLatest.sync(gamepad2);
+
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 > gamepad2.left_stick_x;
-		flipArms 		= gamepad2.a && !lstGamepad2a;
-		liftDecantLow   = gamepad2.dpad_up;
-		liftDecantHigh  = gamepad2.left_bumper;
-		liftHighSuspend = gamepad2.dpad_right;
-		liftIDLE      	= gamepad2.dpad_down;
-		decant			= gamepad2.x;
-		suspend			= gamepad2.y;
-		clipOption		= gamepad2.b && !lstGamepad2b;
-		probe			= gamepad2.right_bumper	&& !lstGamepad2Right_bumper;
+		flipArms 		= GamepadLatest.a.value && !lstGamepad2a;
+		liftDecantLow   = GamepadLatest.dpadUp.value;
+		liftDecantHigh  = GamepadLatest.leftBumper.value;
+		liftHighSuspend = GamepadLatest.dpadRight.value;
+		liftIDLE      	= GamepadLatest.dpadDown.value;
+		decant			= GamepadLatest.x.value;
+		suspend			= GamepadLatest.y.value;
+		clipOption		= GamepadLatest.b.value && !lstGamepad2b;
+		probe			= GamepadLatest.rightBumper.value	&& !lstGamepad2Right_bumper;
 
-		lstGamepad2a=gamepad2.a;
-		lstGamepad2b=gamepad2.b;
-		lstGamepad2Right_bumper=gamepad2.right_bumper;
+		lstGamepad2a=GamepadLatest.a.value;
+		lstGamepad2b=GamepadLatest.b.value;
+		lstGamepad2Right_bumper=GamepadLatest.rightBumper.value;
 	}
 
 	public static void printValues(){
@@ -62,5 +64,7 @@ public enum GamepadRequestMemories {
 		instance.changeData("suspend",suspend);
 		instance.changeData("clipOption",clipOption);
 		instance.changeData("probe",probe);
+
+		GamepadLatest.output();
 	}
 }
