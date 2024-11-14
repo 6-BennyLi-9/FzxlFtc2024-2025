@@ -29,18 +29,24 @@ public enum GamepadRequestMemories {
 	/**伸缩吸取滑轨*/
 	public static boolean probe;
 
+	private static boolean lstGamepad2a,lstGamepad2b,lstGamepad2Right_bumper;
+
 	public static void syncRequests(){
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 > gamepad2.left_stick_x;
-		flipArms 		= gamepad2.a 		    !=flipArms;
+		flipArms 		= gamepad2.a && !lstGamepad2a;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
 		liftHighSuspend = gamepad2.dpad_right;
 		liftIDLE      	= gamepad2.dpad_down;
 		decant			= gamepad2.x;
 		suspend			= gamepad2.y;
-		clipOption		= gamepad2.b		    !=clipOption;
-		probe			= gamepad2.right_bumper	!=probe;
+		clipOption		= gamepad2.b && !lstGamepad2b;
+		probe			= gamepad2.right_bumper	&& !lstGamepad2Right_bumper;
+
+		lstGamepad2a=gamepad2.a;
+		lstGamepad2b=gamepad2.b;
+		lstGamepad2Right_bumper=gamepad2.right_bumper;
 	}
 
 	public static void printValues(){
