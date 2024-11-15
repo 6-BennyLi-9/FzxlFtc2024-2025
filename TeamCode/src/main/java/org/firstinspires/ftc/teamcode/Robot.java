@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.clipOption;
+import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.clipOptionRan;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.decant;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.flipArms;
+import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.flipArmsRan;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.intakeSamples;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.liftDecantHigh;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.liftDecantLow;
@@ -10,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.liftHighSusp
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.liftIDLE;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.outtakeSamples;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.probe;
+import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.probeRan;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.suspend;
 import static org.firstinspires.ftc.teamcode.GamepadRequestMemories.syncRequests;
 import static org.firstinspires.ftc.teamcode.structure.ClipOption.ClipPositionTypes.close;
@@ -49,8 +52,7 @@ public class Robot {
 		gamepad2=new Gamepad();
 	}
 
-	public Robot(@NonNull final HardwareMap hardwareMap){
-		HardwareConstants.sync(hardwareMap);
+	public Robot(){
 		thread =new TaggedActionPackage();
 	}
 
@@ -60,6 +62,14 @@ public class Robot {
 	}
 
 	public void initActions(){
+		ArmOption.connect();
+		ClipOption.connect();
+		DriveOption.connect();
+		IOTakesOption.connect();
+		LiftOption.connect();
+		PlaceOption.connect();
+		ScaleOption.connect();
+
 		thread.add("clip",ClipOption.cloneController());
 		thread.add("intake", IOTakesOption.cloneController());
 		thread.add("lift", LiftOption.cloneController());
@@ -76,8 +86,9 @@ public class Robot {
 
 	public void operateThroughGamepad(){
 		syncRequests();
-		if(clipOption){
+		if(clipOption && !clipOptionRan){
 			ClipOption.change();
+			clipOptionRan=true;
 		}
 
 		if(intakeSamples &&!outtakeSamples){
@@ -88,6 +99,7 @@ public class Robot {
 			IOTakesOption.idle();
 		}
 
+		/*
 		if(liftIDLE){
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				PlaceOption.idle();
@@ -118,6 +130,7 @@ public class Robot {
 
 			LiftOption.sync(highSuspendPrepare);
 		}
+		*/
 
 		if(decant && LiftOption.decanting()){
 			PlaceOption.decant();
@@ -127,15 +140,19 @@ public class Robot {
 			LiftOption.sync(highSuspend);
 		}
 
-		if(flipArms&& idle == LiftOption.recent()){
+		if(flipArms && !flipArmsRan
+		   && idle == LiftOption.recent()){
 			ArmOption.flip();
+			flipArmsRan=true;
 		}
 
-		if(probe && idle == LiftOption.recent()){
+		if(probe &&!probeRan
+		   && idle == LiftOption.recent()){
 			if(ScaleOption.ScalePosition.probe == ScaleOption.recent() && ArmOption.ArmPositionTypes.idle != ArmOption.recent()){
 				ArmOption.idle();
 			}
 			ScaleOption.flip();
+			probeRan=true;
 		}
 	}
 

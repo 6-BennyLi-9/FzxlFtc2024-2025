@@ -77,9 +77,9 @@ public enum HardwareConstants {
 	 * 手动用
 	 */
 	public static void chassisConfig(){
-		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);   //F
+		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);   //F
 		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
 		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
-		rightRear.setDirection(DcMotorSimple.Direction.REVERSE);   //R
+		rightRear.setDirection(DcMotorSimple.Direction.FORWARD);   //R
 	}
 }

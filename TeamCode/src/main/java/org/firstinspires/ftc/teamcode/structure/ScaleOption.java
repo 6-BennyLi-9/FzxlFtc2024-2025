@@ -16,9 +16,9 @@ public enum ScaleOption {
 		unknown
 	}
 	private static ScalePosition recent=ScalePosition.unknown;
-	private final static ServoController leftScaleController,rightScaleController;
+	private static ServoController leftScaleController,rightScaleController;
 
-	static {
+	public static void connect() {
 		leftScaleController =new ServoController(HardwareConstants.leftScale,1);
 		rightScaleController=new ServoController(HardwareConstants.rightScale,0.5);
 
