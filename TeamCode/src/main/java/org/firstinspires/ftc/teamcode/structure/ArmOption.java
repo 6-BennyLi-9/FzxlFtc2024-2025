@@ -43,21 +43,22 @@ public enum ArmOption {
 	}
 	public static void safe(){
 		recent=ArmPositionTypes.safe;
-		leftArmControl.setTargetPosition(0.7);
-		rightArmControl.setTargetPosition(0.7);
+		leftArmControl.setTargetPosition(0.75);
+		rightArmControl.setTargetPosition(0.75);
 	}
 
 	public static void flip(){
 		switch (recent){
 			case intake:
-				recent=ArmPositionTypes.idle;
+				idle();
 				break;
 			case safe:
-				recent=ArmPositionTypes.intake;
+				intake();
 				break;
 			case idle:
 			default:
-				recent=ArmPositionTypes.safe;
+				safe();
+				break;
 		}
 	}
 

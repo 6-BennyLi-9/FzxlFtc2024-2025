@@ -29,26 +29,32 @@ public enum GamepadRequestMemories {
 	/**伸缩吸取滑轨*/
 	public static boolean probe;
 
-	private static boolean lstGamepad2a,lstGamepad2b,lstGamepad2Right_bumper;
+	public static boolean flipArmsRan,clipOptionRan,probeRan;
 
 	public static void syncRequests(){
 		GamepadLatest.sync(gamepad2);
 
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 > gamepad2.left_stick_x;
-		flipArms 		= GamepadLatest.a.value && !lstGamepad2a;
+		flipArms 		= GamepadLatest.a.value;
 		liftDecantLow   = GamepadLatest.dpadUp.value;
 		liftDecantHigh  = GamepadLatest.leftBumper.value;
 		liftHighSuspend = GamepadLatest.dpadRight.value;
 		liftIDLE      	= GamepadLatest.dpadDown.value;
 		decant			= GamepadLatest.x.value;
 		suspend			= GamepadLatest.y.value;
-		clipOption		= GamepadLatest.b.value && !lstGamepad2b;
-		probe			= GamepadLatest.rightBumper.value	&& !lstGamepad2Right_bumper;
+		clipOption		= GamepadLatest.b.value;
+		probe			= GamepadLatest.rightBumper.value;
 
-		lstGamepad2a=GamepadLatest.a.value;
-		lstGamepad2b=GamepadLatest.b.value;
-		lstGamepad2Right_bumper=GamepadLatest.rightBumper.value;
+		if(!flipArms){
+			flipArmsRan=false;
+		}
+		if(!clipOption){
+			clipOptionRan=false;
+		}
+		if(!probe){
+			probeRan=false;
+		}
 	}
 
 	public static void printValues(){
@@ -64,6 +70,12 @@ public enum GamepadRequestMemories {
 		instance.changeData("suspend",suspend);
 		instance.changeData("clipOption",clipOption);
 		instance.changeData("probe",probe);
+
+		instance.changeData("--------ran---------","");
+		instance.changeData("flipArmsRan",flipArmsRan);
+		instance.changeData("clipOptionRan",clipOptionRan);
+		instance.changeData("probeRan",probeRan);
+
 
 		GamepadLatest.output();
 	}

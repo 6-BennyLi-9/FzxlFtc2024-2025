@@ -2,13 +2,30 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 import org.jetbrains.annotations.Contract;
 
+@Config
 public enum LiftOption {
 	;
+	/** @noinspection PublicField*/
+	public static long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
+	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
+
+	static {
+		zeroPoseTargetingAllowError=10;
+		staticAllowError=40;
+		lowerErrorRange=40;
+
+		zeroPoseCalibrationPow=-0.5;
+		lowerCalibrationPow=0.3;
+		higherCalibrationPow=0.7;
+	}
+
 	public enum LiftPositionTypes{
 		idle,
 		decantLow,
@@ -23,9 +40,16 @@ public enum LiftOption {
 		liftController=new LiftController(HardwareConstants.lift);
 
 		liftController.setTag("lift");
+		liftController.zeroPoseTargetingAllowError=zeroPoseTargetingAllowError;
+		liftController.staticAllowError=staticAllowError;
+		liftController.lowerErrorRange=lowerErrorRange;
+
+		liftController.zeroPoseCalibrationPow=zeroPoseCalibrationPow;
+		liftController.lowerCalibrationPow=lowerCalibrationPow;
+		liftController.higherCalibrationPow=higherCalibrationPow;
 	}
 	
-	private static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
+	public static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
 
 	public static LiftPositionTypes recent() {
 		return recent;

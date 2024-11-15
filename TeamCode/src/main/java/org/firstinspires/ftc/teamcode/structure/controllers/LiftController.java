@@ -9,7 +9,21 @@ import org.firstinspires.ftc.teamcode.actions.Action;
 public class LiftController implements Action {
 	private long currentPosition,targetPosition;
 	public final DcMotorEx targetLift;
+
+	public long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
+	public double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
+
 	private String tag;
+
+	{
+		zeroPoseTargetingAllowError=10;
+		staticAllowError=40;
+		lowerErrorRange=40;
+
+		zeroPoseCalibrationPow=-0.5;
+		lowerCalibrationPow=0.3;
+		higherCalibrationPow=0.7;
+	}
 
 	public LiftController(@NonNull final DcMotorEx target){
 		targetLift=target;
@@ -23,16 +37,16 @@ public class LiftController implements Action {
 		final long delta=targetPosition- currentPosition;
 
 		if(0 == targetPosition){
-			targetLift.setPower(10 >= currentPosition ? 0 : - 0.5);
+			targetLift.setPower(zeroPoseTargetingAllowError >= currentPosition ? 0 : - zeroPoseCalibrationPow);
 			return true;
 		}
 
-		if(40 > Math.abs(delta)){
+		if(staticAllowError > Math.abs(delta)){
 			targetLift.setPower(0);
-		}else if(120 > Math.abs(delta)){
-			targetLift.setPower(0.3 * Math.signum(delta));
+		}else if(lowerErrorRange > Math.abs(delta)){
+			targetLift.setPower(lowerCalibrationPow * Math.signum(delta));
 		}else{
-			targetLift.setPower(0.7 * Math.signum(delta));
+			targetLift.setPower(higherCalibrationPow * Math.signum(delta));
 		}
 		return true;
 	}

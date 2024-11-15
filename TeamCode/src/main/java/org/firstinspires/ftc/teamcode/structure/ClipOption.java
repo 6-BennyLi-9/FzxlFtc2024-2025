@@ -35,8 +35,10 @@ public enum ClipOption {
 		switch (recent) {
 			case close:
 				open();
+				break;
 			case open:default:
 				close();
+				break;
 		}
 	}
 	public static void open(){

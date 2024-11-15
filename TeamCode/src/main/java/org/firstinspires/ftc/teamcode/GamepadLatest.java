@@ -12,7 +12,7 @@ public enum GamepadLatest {
 
 	public static void sync(@NonNull final Gamepad gamepad){
 		a.value=gamepad.a;
-		b.value= gamepad.b;
+		b.value=gamepad.b;
 		x.value=gamepad.x;
 		y.value=gamepad.y;
 
