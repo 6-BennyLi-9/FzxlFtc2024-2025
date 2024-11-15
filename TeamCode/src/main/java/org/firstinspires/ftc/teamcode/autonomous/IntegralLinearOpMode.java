@@ -8,9 +8,9 @@ public abstract class IntegralLinearOpMode extends LinearOpMode {
 		initialize();
 		waitForStart();
 		if(isStopRequested())return;
-		run();
+		linear();
 	}
 
 	public abstract void initialize();
-	public abstract void run();
+	public abstract void linear();
 }
