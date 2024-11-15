@@ -12,7 +12,7 @@ import java.util.List;
  */
 public final class LinkedAction implements Action{
 	private final List<Action> actions;
-	private int ptr=0;
+	private int ptr;
 
 	public LinkedAction(final List<Action> actions){
 		this.actions=actions;

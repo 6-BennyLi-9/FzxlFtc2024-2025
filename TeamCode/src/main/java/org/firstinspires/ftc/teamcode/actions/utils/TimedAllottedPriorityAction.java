@@ -17,7 +17,7 @@ import java.util.Set;
 public class TimedAllottedPriorityAction implements Action {
 	public final List<PriorityAction> actions;
 	private final long allottedMilliseconds;
-	private boolean initialized=false;
+	private boolean initialized;
 
 	public TimedAllottedPriorityAction(final long allottedMilliseconds,final List<PriorityAction> actions){
 		this.actions=new ArrayList<>();

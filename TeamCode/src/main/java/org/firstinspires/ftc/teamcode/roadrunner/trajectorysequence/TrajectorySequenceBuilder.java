@@ -583,7 +583,7 @@ public class TrajectorySequenceBuilder {
     private Double motionProfileDisplacementToTime(final MotionProfile profile, final double s) {
         double tLo = 0.0;
         double tHi = profile.duration();
-        while (!(1e-6 > Math.abs(tLo - tHi))) {
+        while (!(1.0e-6 > Math.abs(tLo - tHi))) {
             final double tMid = 0.5 * (tLo + tHi);
             if (profile.get(tMid).getX() > s) {
                 tHi = tMid;

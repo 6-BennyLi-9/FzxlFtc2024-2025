@@ -89,7 +89,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: adjust the names of the following hardware devices to match your configuration
           imu = hardwareMap.get(IMU.class, "imu");
           final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                LOGO_FACING_DIR, USB_FACING_DIR));
+                DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
           imu.initialize(parameters);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
@@ -117,8 +117,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         // TODO: reverse any motors using DcMotor.setDirection()
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);   //F
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
+        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);    //F
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);  //R
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);   //R
 
         final List<Integer> lastTrackingEncPositions = new ArrayList<>();
@@ -234,7 +234,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         Pose2d vel = drivePower;
 
         if (1 < Math.abs(drivePower.getX()) + Math.abs(drivePower.getY())
-		        + Math.abs(drivePower.getHeading())) {
+				+ Math.abs(drivePower.getHeading())) {
             // re-normalize the powers according to the weights
             final double denom = VX_WEIGHT * Math.abs(drivePower.getX())
                     + VY_WEIGHT * Math.abs(drivePower.getY())
