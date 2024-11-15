@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public abstract class IntegralLinearOpMode extends LinearOpMode {
 	@Override
-	public void runOpMode() throws InterruptedException {
+	public final void runOpMode() throws InterruptedException {
 		initialize();
 		waitForStart();
 		if(isStopRequested())return;
