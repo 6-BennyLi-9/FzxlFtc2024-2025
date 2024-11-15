@@ -14,9 +14,9 @@ public enum ArmOption {
 		idle,intake,safe,unknown
 	}
 	private static ArmPositionTypes recent= ArmPositionTypes.unknown;
-	private static final ServoController leftArmControl, rightArmControl;
+	private static ServoController leftArmControl, rightArmControl;
 
-	static {
+	public static void connect() {
 		leftArmControl =new ServoController(HardwareConstants.leftArm,0.7);
 		rightArmControl =new ServoController(HardwareConstants.rightArm,0.7);
 

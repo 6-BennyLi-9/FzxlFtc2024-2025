@@ -19,10 +19,11 @@ public class TeleOpCore extends OpMode {
 	public void init() {
 		DriveOption.setDriveUsingPID(false);
 
-		robot=new Robot(hardwareMap);
+		HardwareConstants.sync(hardwareMap);
+		HardwareConstants.chassisConfig();
+		robot=new Robot();
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.initActions();
-		HardwareConstants.chassisConfig();
 		TelemetryClient.registerInstance(new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
 
 		TelemetryClient.getInstance()

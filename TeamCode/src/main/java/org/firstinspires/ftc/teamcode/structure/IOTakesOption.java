@@ -17,9 +17,9 @@ public enum IOTakesOption {
 	}
 
 	private static IOTakesPositionTypes recent=IOTakesPositionTypes.idle;
-	private final static ServoController intakeController;
+	private static ServoController intakeController;
 
-	static {
+	public static void connect() {
 		intakeController=new ServoController(HardwareConstants.intake,0.5);
 
 		intakeController.setTag("intake");

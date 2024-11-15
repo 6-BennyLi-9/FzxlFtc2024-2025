@@ -17,9 +17,9 @@ public enum LiftOption {
 		highSuspendPrepare
 	}
 	private static LiftPositionTypes recent=LiftPositionTypes.idle;
-	private static final LiftController liftController;
+	private static LiftController liftController;
 
-	static {
+	public static void connect() {
 		liftController=new LiftController(HardwareConstants.lift);
 
 		liftController.setTag("lift");

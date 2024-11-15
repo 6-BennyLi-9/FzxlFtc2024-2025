@@ -49,8 +49,7 @@ public class Robot {
 		gamepad2=new Gamepad();
 	}
 
-	public Robot(@NonNull final HardwareMap hardwareMap){
-		HardwareConstants.sync(hardwareMap);
+	public Robot(){
 		thread =new TaggedActionPackage();
 	}
 
@@ -60,6 +59,14 @@ public class Robot {
 	}
 
 	public void initActions(){
+		ArmOption.connect();
+		ClipOption.connect();
+		DriveOption.connect();
+		IOTakesOption.connect();
+		LiftOption.connect();
+		PlaceOption.connect();
+		ScaleOption.connect();
+
 		thread.add("clip",ClipOption.cloneController());
 		thread.add("intake", IOTakesOption.cloneController());
 		thread.add("lift", LiftOption.cloneController());

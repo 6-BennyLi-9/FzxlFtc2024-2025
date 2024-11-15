@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Contract;
 
 public enum DriveOption {
 	;
-	private final static ChassisController chassisController;
+	private static ChassisController chassisController;
 
-	static {
+	public static void connect() {
 		chassisController=new ChassisController(
 				HardwareConstants.leftFront,
 				HardwareConstants.leftRear,
