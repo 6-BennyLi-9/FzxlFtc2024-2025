@@ -153,7 +153,7 @@ public class Robot {
 		}
 	}
 
-	public static double driveBufPower=1,triggerBufFal;
+	public static double driveBufPower=1,triggerBufFal=0.5;
 
 	public final void driveThroughGamepad(){
 		driveBufPower=1+gamepad1.right_stick_y*0.5;
