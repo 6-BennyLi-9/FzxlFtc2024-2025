@@ -83,7 +83,7 @@ public class Robot {
 		ScaleOption.init();
 	}
 
-	public void operateThroughGamepad(){
+	public final void operateThroughGamepad(){
 		syncRequests();
 		if(clipOption && !clipOptionRan){
 			ClipOption.change();
@@ -153,9 +153,9 @@ public class Robot {
 		}
 	}
 
-	public double driveBufPower=1;
+	public static double driveBufPower=1,triggerBufFal;
 
-	public void driveThroughGamepad(){
+	public final void driveThroughGamepad(){
 		driveBufPower=1+gamepad1.right_stick_y*0.5;
 
 		DriveOption.sync(
@@ -169,6 +169,8 @@ public class Robot {
 		if(gamepad1.right_bumper){
 			DriveOption.additions(0,0,0.1);
 		}
+
+		DriveOption.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger,triggerBufFal);
 	}
 
 	public void runThread(){
