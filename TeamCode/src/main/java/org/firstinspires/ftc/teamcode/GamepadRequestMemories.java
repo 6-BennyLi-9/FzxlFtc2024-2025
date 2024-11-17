@@ -32,19 +32,17 @@ public enum GamepadRequestMemories {
 	public static boolean flipArmsRan,clipOptionRan,probeRan;
 
 	public static void syncRequests(){
-		GamepadLatest.sync(gamepad2);
-
 		intakeSamples 	=  0.3 < gamepad2.left_stick_x;
 		outtakeSamples 	= -0.3 > gamepad2.left_stick_x;
-		flipArms 		= GamepadLatest.a.value;
-		liftDecantLow   = GamepadLatest.dpadUp.value;
-		liftDecantHigh  = GamepadLatest.leftBumper.value;
-		liftHighSuspend = GamepadLatest.dpadRight.value;
-		liftIDLE      	= GamepadLatest.dpadDown.value;
-		decant			= GamepadLatest.x.value;
-		suspend			= GamepadLatest.y.value;
-		clipOption		= GamepadLatest.b.value;
-		probe			= GamepadLatest.rightBumper.value;
+		flipArms 		= gamepad2.a;
+		liftDecantLow   = gamepad2.dpad_up;
+		liftDecantHigh  = gamepad2.left_bumper;
+		liftHighSuspend = gamepad2.dpad_right;
+		liftIDLE      	= gamepad2.dpad_down;
+		decant			= gamepad2.x;
+		suspend			= gamepad2.y;
+		clipOption		= gamepad2.b;
+		probe			= gamepad2.right_bumper;
 
 		if(!flipArms){
 			flipArmsRan=false;
@@ -75,8 +73,5 @@ public enum GamepadRequestMemories {
 		instance.changeData("flipArmsRan",flipArmsRan);
 		instance.changeData("clipOptionRan",clipOptionRan);
 		instance.changeData("probeRan",probeRan);
-
-
-		GamepadLatest.output();
 	}
 }
