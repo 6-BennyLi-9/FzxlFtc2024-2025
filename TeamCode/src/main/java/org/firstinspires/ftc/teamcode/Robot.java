@@ -25,7 +25,6 @@ import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTy
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.actions.PriorityAction;
 import org.firstinspires.ftc.teamcode.actions.packages.TaggedActionPackage;
@@ -99,7 +98,6 @@ public class Robot {
 			IOTakesOption.idle();
 		}
 
-		/*
 		if(liftIDLE){
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				PlaceOption.idle();
@@ -130,7 +128,6 @@ public class Robot {
 
 			LiftOption.sync(highSuspendPrepare);
 		}
-		*/
 
 		if(decant && LiftOption.decanting()){
 			PlaceOption.decant();
