@@ -12,6 +12,13 @@ public class PIDLiftController extends LiftController{
 	private final PidProcessor processor;
 	public static double vP,vI,vD,max_I;
 
+	static {
+		vP=1;
+		vI=0;
+		vD=0;
+		max_I=1;
+	}
+
 	public PIDLiftController(@NonNull final DcMotorEx target) {
 		super(target);
 		processor=new PidProcessor(vP,vI,vD,max_I);

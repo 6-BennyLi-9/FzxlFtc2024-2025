@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisController;
 import org.jetbrains.annotations.Contract;
 
+@Config
 public enum DriveOption {
 	;
 	private static ChassisController chassisController;
@@ -22,7 +25,7 @@ public enum DriveOption {
 		chassisController.setTag("chassis");
 	}
 
-	private final static double kP=-0.12,kI=0.0,kD=0.04;
+	public static double kP=-0.12,kI,kD=0.04;
 	private static double lastAngleErr,integralAngle;
 	private static double output,targetAngle;
 	private static double x,y,turn;
