@@ -7,11 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @Config
 public class ClassicLiftController extends LiftController {
-	public long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
-	public double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
+	public static long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
+	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
 	private double calibrateVal;
 
-	{
+	static {
 		zeroPoseTargetingAllowError=10;
 		staticAllowError=40;
 		lowerErrorRange=40;
