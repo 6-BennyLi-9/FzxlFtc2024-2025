@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.structure.controllers;
+package org.firstinspires.ftc.teamcode.structure.controllers.lift;
 
 import androidx.annotation.NonNull;
 
@@ -6,9 +6,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 
 @Config
-public class PIDLiftController extends LiftController{
+public class PIDLiftController extends LiftController {
 	private final PidProcessor processor;
 	public static double vP,vI,vD,max_I;
 

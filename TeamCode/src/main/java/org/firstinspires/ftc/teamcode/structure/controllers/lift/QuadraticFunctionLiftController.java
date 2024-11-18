@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode.structure.controllers;
+package org.firstinspires.ftc.teamcode.structure.controllers.lift;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+
 @Config
-public class QuadraticFunctionLiftController extends LiftController{
+public class QuadraticFunctionLiftController extends LiftController {
 	private double calibrateVal;
 	public static double vA;
 
