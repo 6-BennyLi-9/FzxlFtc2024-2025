@@ -37,6 +37,8 @@ public class PidProcessor {
 		lstErr=err;
 
 		calibrateVal=sP+sI+sD;
+
+		timer.restart();
 	}
 
 	public double getCalibrateVal() {
