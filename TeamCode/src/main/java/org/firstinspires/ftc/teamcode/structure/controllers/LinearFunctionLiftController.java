@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.structure.controllers;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@Config
 public class LinearFunctionLiftController extends LiftController{
 	private double calibrateVal;
 	public static double vA;
