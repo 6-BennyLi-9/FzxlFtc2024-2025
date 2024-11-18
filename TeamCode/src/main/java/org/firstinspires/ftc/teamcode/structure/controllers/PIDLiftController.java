@@ -33,4 +33,9 @@ public class PIDLiftController extends LiftController{
 	public double getCalibrateVal() {
 		return processor.getCalibrateVal();
 	}
+
+	@Override
+	public String paramsString() {
+		return super.paramsString()+"//"+processor;
+	}
 }
