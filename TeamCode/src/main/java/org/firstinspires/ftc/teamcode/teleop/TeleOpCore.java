@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.DriveOption;
 
-@TeleOp(name = "22232",group = "Main")
+@TeleOp(name = "19419",group = "Main")
 public class TeleOpCore extends OpMode {
 	public Robot robot;
 
