@@ -5,9 +5,9 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.GamepadRequestMemories;
-import org.firstinspires.ftc.teamcode.HardwareConstants;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.Robot;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.DriveOption;
 

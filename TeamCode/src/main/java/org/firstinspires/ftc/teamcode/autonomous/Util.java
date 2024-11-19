@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.HardwareConstants.*;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.*;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.util.Robot;
 import org.firstinspires.ftc.teamcode.actions.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.actions.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
