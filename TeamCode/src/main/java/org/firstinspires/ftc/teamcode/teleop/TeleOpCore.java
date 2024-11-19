@@ -19,7 +19,7 @@ public class TeleOpCore extends OpMode {
 	public void init() {
 		DriveOption.setDriveUsingPID(false);
 
-		HardwareConstants.sync(hardwareMap);
+		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
 		robot=new Robot();
 		robot.registerGamepad(gamepad1,gamepad2);

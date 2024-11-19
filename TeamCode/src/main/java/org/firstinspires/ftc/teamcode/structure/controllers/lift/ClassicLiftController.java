@@ -5,20 +5,21 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 
 @Config
 public class ClassicLiftController extends LiftController {
-	public static long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
+	public static long staticAllowError;
+	public static long lowerErrorRange;
 	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
 	private double calibrateVal;
 
 	static {
-		zeroPoseTargetingAllowError=10;
-		staticAllowError=40;
-		lowerErrorRange=40;
+		staticAllowError=20;
+		lowerErrorRange=50;
 
-		zeroPoseCalibrationPow=-0.5;
+		zeroPoseCalibrationPow=1;
 		lowerCalibrationPow=0.3;
 		higherCalibrationPow=0.7;
 	}
@@ -30,7 +31,7 @@ public class ClassicLiftController extends LiftController {
 	@Override
 	public void modify() {
 		if(0 == getTargetPosition()){
-			calibrateVal= zeroPoseTargetingAllowError >= getCurrentPosition() ? 0 : - zeroPoseCalibrationPow;
+			calibrateVal= !HardwareConstants.liftTouch.isPressed() ? 0 : - zeroPoseCalibrationPow;
 			return;
 		}
 

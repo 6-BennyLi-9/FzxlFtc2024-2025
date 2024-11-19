@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 
 @Config
@@ -22,6 +23,14 @@ public class LinearFunctionLiftController extends LiftController {
 
 	@Override
 	public void modify() {
+		if(0 == getTargetPosition()){
+			if(HardwareConstants.liftTouch.isPressed()){//没到
+				calibrateVal=-1;
+			}else{
+				calibrateVal=0;
+			}
+			return;
+		}
 		calibrateVal=getErrorPosition()*vA;
 	}
 

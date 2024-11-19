@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.structure.controllers;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.HardwareConstants;
 import org.firstinspires.ftc.teamcode.actions.Action;
 
 public abstract class LiftController implements Action {
@@ -25,6 +27,11 @@ public abstract class LiftController implements Action {
 
 		modify();
 		targetLift.setPower(getCalibrateVal());
+
+		if(! HardwareConstants.liftTouch.isPressed()){
+			targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		}
 
 		return true;
 	}
