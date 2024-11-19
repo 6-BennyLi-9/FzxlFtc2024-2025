@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.utils;
+package org.firstinspires.ftc.teamcode.autonomous.structure;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.*;
 
