@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOpMode;
+import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
+
 @Autonomous
 public class BlueLeft extends IntegralLinearOpMode {
 
