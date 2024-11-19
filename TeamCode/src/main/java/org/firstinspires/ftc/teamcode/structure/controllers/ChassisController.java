@@ -18,10 +18,10 @@ public class ChassisController implements Action {
 	
 	@Override
 	public boolean run() {
-		leftFront.setPower	(pY+pX-pTurn);
-		leftRear.setPower	(pY-pX-pTurn);
-		rightFront.setPower	(pY-pX+pTurn);
-		rightRear.setPower	(pY+pX+pTurn);
+		leftFront.setPower	(pY-pX-pTurn);
+		leftRear.setPower	(pY+pX-pTurn);
+		rightFront.setPower	(pY+pX+pTurn);
+		rightRear.setPower	(pY-pX+pTurn);
 		return true;
 	}
 	@Override

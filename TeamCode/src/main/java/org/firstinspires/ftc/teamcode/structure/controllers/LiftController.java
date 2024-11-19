@@ -5,25 +5,19 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.structure.LiftOption;
 
+/**
+ * @see LiftOption 在这里修改参数
+ */
 public class LiftController implements Action {
 	private long currentPosition,targetPosition;
 	public final DcMotorEx targetLift;
 
-	public long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
-	public double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
+	public long     zeroPoseTargetingAllowError = 10,staticAllowError = 50,lowerErrorRange = 100;
+	public double   zeroPoseCalibrationPow = 0.5,lowerCalibrationPow = 0.3,higherCalibrationPow = 0.7;
 
 	private String tag;
-
-	{
-		zeroPoseTargetingAllowError=10;
-		staticAllowError=40;
-		lowerErrorRange=40;
-
-		zeroPoseCalibrationPow=-0.5;
-		lowerCalibrationPow=0.3;
-		higherCalibrationPow=0.7;
-	}
 
 	public LiftController(@NonNull final DcMotorEx target){
 		targetLift=target;

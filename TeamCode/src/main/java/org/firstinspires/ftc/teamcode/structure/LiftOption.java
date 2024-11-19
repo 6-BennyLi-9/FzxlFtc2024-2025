@@ -10,19 +10,19 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 import org.jetbrains.annotations.Contract;
 
 @Config
+@SuppressWarnings("PublicField")
 public enum LiftOption {
 	;
-	/** @noinspection PublicField*/
 	public static long     zeroPoseTargetingAllowError,staticAllowError,lowerErrorRange;
 	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
 
 	static {
 		zeroPoseTargetingAllowError=10;
-		staticAllowError=40;
-		lowerErrorRange=40;
+		staticAllowError=25;
+		lowerErrorRange=100;
 
-		zeroPoseCalibrationPow=-0.5;
-		lowerCalibrationPow=0.3;
+		zeroPoseCalibrationPow=0.5;
+		lowerCalibrationPow=0.35;
 		higherCalibrationPow=0.7;
 	}
 
