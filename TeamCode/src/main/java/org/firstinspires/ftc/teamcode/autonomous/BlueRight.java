@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOpMode;
 
-@Autonomous
+@Autonomous(preselectTeleOp = "19419")
 public class BlueRight extends IntegralLinearOpMode {
 
 	@Override
