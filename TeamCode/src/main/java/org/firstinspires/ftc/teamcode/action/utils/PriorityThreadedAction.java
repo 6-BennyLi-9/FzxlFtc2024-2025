@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.action.utils;
 
 
-import  org.firstinspires.ftc.teamcode.action.Action;
-import  org.firstinspires.ftc.teamcode.action.PriorityAction;
+import org.firstinspires.ftc.teamcode.action.Action;
+import org.firstinspires.ftc.teamcode.action.PriorityAction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
