@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.util;
 
-public class Ticker {
+/**
+ * 一个非常好用的计数器
+ */
+public final class Ticker {
 	private int ticked;
 
 	public void tickRst() {

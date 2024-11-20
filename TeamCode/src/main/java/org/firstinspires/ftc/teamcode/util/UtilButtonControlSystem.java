@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.util;
 
+/**
+ * 用于控制按键布尔状态，更加轻量化
+ */
 public final class UtilButtonControlSystem {
 	public enum ButtonConfig{
 		WhilePressing,

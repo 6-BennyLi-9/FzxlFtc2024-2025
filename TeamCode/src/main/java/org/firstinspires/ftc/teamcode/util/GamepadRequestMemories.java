@@ -5,6 +5,10 @@ import static org.firstinspires.ftc.teamcode.util.UtilButtonControlSystem.Button
 
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
+/**
+ * gamepad 控制请求的数据库
+ * @see UtilButtonControlSystem
+ */
 public enum GamepadRequestMemories {
 	;
 	/**输入样本*/
