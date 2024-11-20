@@ -11,11 +11,17 @@ import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
  * 适配于自动程序的 {@code Robot}
  * @see Robot
  */
+@SuppressWarnings("unused")
 public class Util{
 	private final ActionPackage thread;
 
 	public Util(){
 		thread=new ActionPackage();
+		deviceInit();
+	}
+
+	public void deviceInit(){
+		boxRst().armsIDLE().stopIO().scalesBack().openClip().runCached();
 	}
 
 	//PlaceOption
