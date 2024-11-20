@@ -1,26 +1,13 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOptionRan;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decant;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.flipArms;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.flipArmsRan;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.intakeSamples;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantHigh;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantLow;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decantOrSuspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantUpping;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDLE;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.outtakeSamples;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.probe;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.probeRan;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.suspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.sampleIO;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.syncRequests;
-import static org.firstinspires.ftc.teamcode.structure.ClipOption.ClipPositionTypes.close;
-import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.decantHigh;
-import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.decantLow;
-import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.highSuspend;
-import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.highSuspendPrepare;
-import static org.firstinspires.ftc.teamcode.structure.LiftOption.LiftPositionTypes.idle;
 
 import androidx.annotation.NonNull;
 
@@ -85,71 +72,82 @@ public class Robot {
 
 	public final void operateThroughGamepad(){
 		syncRequests();
-		if(clipOption && !clipOptionRan){
+
+		if(clipOption.getEnabled()){
 			ClipOption.change();
-			clipOptionRan=true;
 		}
 
-		if(intakeSamples &&!outtakeSamples){
-			IOTakesOption.intake();
-		}else if(!intakeSamples && outtakeSamples){
-			IOTakesOption.outtake();
-		}else {
-			IOTakesOption.idle();
+		if(sampleIO.getEnabled()){
+			sampleIO.ticker.tickAndMod(3);
+			switch (sampleIO.ticker.getTicked()){
+				case 0:
+					IOTakesOption.idle();
+					break;
+				case 1:
+					IOTakesOption.outtake();
+					break;
+				case 2:
+					IOTakesOption.intake();
+					break;
+				default:
+					throw new IllegalStateException("SampleOptioning Unexpected value: " + sampleIO.ticker.getTicked());
+			}
 		}
 
-		if(liftIDLE){
-			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
-				PlaceOption.idle();
-			}
-			if(close == ClipOption.recent()){
-				ClipOption.change();
-			}
-			LiftOption.sync(idle);
-		}else if(liftDecantLow
-				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
+		if(liftDecantUpping.getEnabled()){
 			if(ArmOption.isNotSafe()){
 				ArmOption.safe();
 			}
 
-			LiftOption.sync(decantLow);
-		}else if(liftDecantHigh
-				&& ScaleOption.ScalePosition.back == ScaleOption.recent()){
+			if(LiftOption.LiftPositionTypes.idle == LiftOption.recent()){
+				LiftOption.sync(LiftOption.LiftPositionTypes.decantLow);
+			}else if(LiftOption.LiftPositionTypes.decantLow == LiftOption.recent()){
+				LiftOption.sync(LiftOption.LiftPositionTypes.decantHigh);
+			}
+		}
+		if(liftIDLE.getEnabled()){
+			if(LiftOption.LiftPositionTypes.highSuspend == LiftOption.recent()){
+				ClipOption.open();
+			}
+			LiftOption.sync(LiftOption.LiftPositionTypes.decantLow);
+		}
+		if(liftHighSuspendPrepare.getEnabled()){
 			if(ArmOption.isNotSafe()){
 				ArmOption.safe();
 			}
 
-			LiftOption.sync(decantHigh);
-		} else if (liftHighSuspendPrepare
-		           && ScaleOption.ScalePosition.back == ScaleOption.recent()) {
-			if(ArmOption.isNotSafe()){
-				ArmOption.safe();
+			LiftOption.sync(LiftOption.LiftPositionTypes.highSuspendPrepare);
+		}
+
+		if(decantOrSuspend.getEnabled()){
+			if(LiftOption.decanting()){
+				PlaceOption.decant();
+			} else if (LiftOption.LiftPositionTypes.highSuspendPrepare == LiftOption.recent()) {
+				LiftOption.sync(LiftOption.LiftPositionTypes.highSuspend);
 			}
-
-			LiftOption.sync(highSuspendPrepare);
 		}
 
-		if(decant && LiftOption.decanting()){
-			PlaceOption.decant();
-		}
-
-		if(suspend && highSuspendPrepare == LiftOption.recent()){
-			LiftOption.sync(highSuspend);
-		}
-
-		if(flipArms && !flipArmsRan
-		   && idle == LiftOption.recent()){
-			ArmOption.flip();
-			flipArmsRan=true;
-		}
-
-		if(probe &&!probeRan
-		   && idle == LiftOption.recent()){
-			if(ScaleOption.ScalePosition.probe == ScaleOption.recent() && ArmOption.ArmPositionTypes.idle != ArmOption.recent()){
-				ArmOption.idle();
+		if(armScaleOperate.getEnabled()){
+			armScaleOperate.ticker.tickAndMod(4);
+			switch (armScaleOperate.ticker.getTicked()){
+				case 0:
+					ScaleOption.back();
+					ArmOption.safe();
+					break;
+				case 1:
+					ScaleOption.probe();
+					ArmOption.intake();
+					break;
+				case 2:
+					ScaleOption.back();
+					ArmOption.intake();
+					break;
+				case 3:
+					ScaleOption.back();
+					ArmOption.idle();
+				default:
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 			}
-			ScaleOption.flip();
-			probeRan=true;
 		}
 	}
 

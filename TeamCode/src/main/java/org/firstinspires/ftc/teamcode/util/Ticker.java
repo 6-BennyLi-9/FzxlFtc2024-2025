@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
 public class Ticker {
-	private long ticked;
+	private int ticked;
 
 	public void tickRst() {
 		ticked = 0;
@@ -11,7 +11,20 @@ public class Ticker {
 		++ticked;
 	}
 
-	public void modeTicked(final long mod) {
+	public void modTicked(final int mod) {
 		ticked %= mod;
+	}
+
+	public void tickAndMod(final int mod){
+		tick();
+		modTicked(mod);
+	}
+
+	public int getTicked() {
+		return ticked;
+	}
+
+	public void setTicked(final int ticked) {
+		this.ticked = ticked;
 	}
 }
