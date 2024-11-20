@@ -83,13 +83,17 @@ public class Util{
 
 	//ScaleOption
 	public Util scalesProbe(){
-		leftScale.setPosition(0.5);
-		rightScale.setPosition(1);
+		thread.add(new ThreadedAction(
+				new StatementAction(()-> leftScale.setPosition(0.5)),
+				new StatementAction(()-> rightScale.setPosition(1))
+		));
 		return this;
 	}
 	public Util scalesBack(){
-		leftScale.setPosition(1);
-		rightScale.setPosition(0.5);
+		thread.add(new ThreadedAction(
+				new StatementAction(()-> leftScale.setPosition(1)),
+				new StatementAction(()-> rightScale.setPosition(0.5))
+		));
 		return this;
 	}
 
