@@ -57,7 +57,7 @@ name="Template: Linear OpMode"
 
 2) 在新的Team0417文件夹中，删除TeamCode.iml文件。
 
-3) 在新的Team0417文件夹中，将“src/main/java/org/firstinspires/ftc/teamcode”文件夹重命名为一个匹配的名称，使用小写的'team'，例如：“team0417”。
+3) 在新的Team0417文件夹中，将“src/main/java/org/firstinspires/ftc/teamcode”文件夹重命名为一个匹配的名称，使用小写的 'team'，例如：“team0417”。
 
 4) 在新的Team0417/src/main文件夹中，编辑“AndroidManifest.xml”文件，将包含以下内容的行
    package="org.firstinspires.ftc.teamcode"
