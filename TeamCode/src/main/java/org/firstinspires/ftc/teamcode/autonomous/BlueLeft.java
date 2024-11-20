@@ -41,15 +41,13 @@ public class BlueLeft extends IntegralLinearOpMode {
 		sleep(1000);
 
 		runTrajectory("intake1");
-		utils.displayArms().intake().runCached();
+		utils.integralIntakes().runCached();
 		sleep(3000);
-		utils.stopIO().armsIDLE().runCached();
-		sleep(1500);
-		utils.outtake().runCached();
+		utils.integralIntakesEnding().runCached();
 		runTrajectory("decant1");
-		utils.stopIO().armsToSafePosition().decant().runCached();
+		utils.integralLiftUpPrepare().stopIO().decant().runCached();
 		sleep(3000);
-		utils.armsIDLE().boxRst().runCached();
+		utils.integralLiftDownPrepare().runCached();
 
 		runTrajectory("intake2");
 //		runTrajectory("intake3");

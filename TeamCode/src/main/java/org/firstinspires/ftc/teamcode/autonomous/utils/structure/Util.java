@@ -93,6 +93,20 @@ public class Util{
 		return this;
 	}
 
+	//integral
+	public Util integralIntakes(){
+		return displayArms().intake();
+	}
+	public Util integralIntakesEnding(){
+		return boxRst().armsIDLE().intake();
+	}
+	public Util integralLiftUpPrepare(){
+		return armsToSafePosition();
+	}
+	public Util integralLiftDownPrepare(){
+		return armsIDLE().boxRst();
+	}
+
 	public void runCached(){
 		thread.runTillEnd();
 	}
