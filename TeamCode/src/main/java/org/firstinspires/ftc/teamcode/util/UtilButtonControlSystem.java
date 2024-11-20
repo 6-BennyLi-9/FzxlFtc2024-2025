@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import androidx.annotation.NonNull;
+
 /**
  * 用于控制按键布尔状态，更加轻量化
  */
@@ -39,5 +41,11 @@ public final class UtilButtonControlSystem {
 			default:
 				return now&&!lst;
 		}
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "lst:"+lst+",now:"+now;
 	}
 }
