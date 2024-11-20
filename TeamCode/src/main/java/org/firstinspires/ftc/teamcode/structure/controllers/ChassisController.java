@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.structure.controllers;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.action.Action;
 
 public class ChassisController implements Action {
 	private double pX,pY,pTurn;

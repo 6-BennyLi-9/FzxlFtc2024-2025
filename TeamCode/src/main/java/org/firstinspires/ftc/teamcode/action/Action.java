@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.actions;
+package org.firstinspires.ftc.teamcode.action;
 
 /**
  * 基本的模块化程序块，可以应用于多方面的维护需求

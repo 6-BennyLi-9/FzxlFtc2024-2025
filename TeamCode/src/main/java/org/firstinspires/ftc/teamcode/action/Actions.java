@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.actions;
+package org.firstinspires.ftc.teamcode.action;
 
 
 import org.jetbrains.annotations.Contract;

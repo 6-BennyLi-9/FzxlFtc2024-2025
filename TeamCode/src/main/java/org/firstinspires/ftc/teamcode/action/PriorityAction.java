@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.actions;
+package org.firstinspires.ftc.teamcode.action;
 
 /**
  * 带有优先级编码的模块化程序块，继承自 {@code Action}

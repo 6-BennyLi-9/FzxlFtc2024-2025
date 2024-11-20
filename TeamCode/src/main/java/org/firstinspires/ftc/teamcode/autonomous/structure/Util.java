@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.autonomous.structure;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.*;
 
 import org.firstinspires.ftc.teamcode.util.Robot;
-import org.firstinspires.ftc.teamcode.actions.packages.ActionPackage;
-import org.firstinspires.ftc.teamcode.actions.utils.StatementAction;
-import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
+import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
+import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 
 /**
  * 适配于自动程序的 {@code Robot}

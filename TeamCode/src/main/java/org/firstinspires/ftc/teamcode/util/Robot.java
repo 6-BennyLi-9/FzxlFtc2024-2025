@@ -26,8 +26,8 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.actions.PriorityAction;
-import org.firstinspires.ftc.teamcode.actions.packages.TaggedActionPackage;
+import org.firstinspires.ftc.teamcode.action.PriorityAction;
+import org.firstinspires.ftc.teamcode.action.packages.TaggedActionPackage;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOption;
 import org.firstinspires.ftc.teamcode.structure.ClipOption;
