@@ -28,12 +28,17 @@ public abstract class IntegralLinearOpMode extends LinearOpMode {
 	public final void runOpMode() throws InterruptedException {
 		HardwareConstants.sync(hardwareMap, false);
 		drive=new SampleMecanumDrive(hardwareMap);
-		drive.setPoseEstimate(UtilPoses.BlueLeftStart.pose);
 		telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 		client=new TelemetryClient(telemetry);
 		utils=new Util();
 		initialize();
+
+		TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
+
 		waitForStart();
+
+		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
+
 		if(isStopRequested())return;
 		linear();
 	}
