@@ -12,9 +12,13 @@ public class TestAutonomous extends IntegralLinearOpMode {
 
 	@Override
 	public void linear() {
-		utils.armsIDLE().runCached();
+		utils.liftDecantLow().runCached();
 		sleep(5000);
-		utils.boxRst().displayArms().runCached();
+		utils.liftDecantHigh().runCached();
+		sleep(5000);
+		utils.liftSuspendHighPrepare().runCached();
+		sleep(5000);
+		utils.liftSuspendHigh().runCached();
 		sleep(5000);
 	}
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous.utils.structure;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.*;
 
+import org.firstinspires.ftc.teamcode.structure.LiftOption;
 import org.firstinspires.ftc.teamcode.util.Robot;
 import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
@@ -94,6 +95,28 @@ public class Util{
 				new StatementAction(()-> leftScale.setPosition(1)),
 				new StatementAction(()-> rightScale.setPosition(0.5))
 		));
+		return this;
+	}
+
+	//lift
+	public Util liftDown(){
+		thread.add(new ClassicLiftController(lift,0));
+		return this;
+	}
+	public Util liftDecantHigh(){
+		thread.add(new ClassicLiftController(lift, LiftOption.decantHigh));
+		return this;
+	}
+	public Util liftDecantLow(){
+		thread.add(new ClassicLiftController(lift, LiftOption.decantLow));
+		return this;
+	}
+	public Util liftSuspendHighPrepare(){
+		thread.add(new ClassicLiftController(lift, LiftOption.highSuspendPrepare));
+		return this;
+	}
+	public Util liftSuspendHigh(){
+		thread.add(new ClassicLiftController(lift, LiftOption.highSuspend));
 		return this;
 	}
 
