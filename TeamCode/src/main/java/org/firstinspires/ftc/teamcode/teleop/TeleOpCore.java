@@ -17,7 +17,7 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void init() {
-		DriveOption.setDriveUsingPID(false);
+//		DriveOption.setDriveUsingPID(true);
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
