@@ -35,13 +35,23 @@ public class BlueLeft extends IntegralLinearOpMode {
 	@Override
 	public void linear() {
 		runTrajectory("decant preload");
+		utils.armsToSafePosition().decant().runCached();
+		sleep(1000);
+		utils.boxRst().runCached();
+		sleep(1000);
+
 		runTrajectory("intake1");
 		utils.displayArms().intake().runCached();
 		sleep(3000);
 		utils.stopIO().armsIDLE().runCached();
 		sleep(1500);
-//		runTrajectory("decant1");
-//		runTrajectory("intake2");
+		utils.outtake().runCached();
+		runTrajectory("decant1");
+		utils.stopIO().armsToSafePosition().decant().runCached();
+		sleep(3000);
+		utils.armsIDLE().boxRst().runCached();
+
+		runTrajectory("intake2");
 //		runTrajectory("intake3");
 	}
 }
