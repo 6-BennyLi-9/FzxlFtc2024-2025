@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.autonomous.structure.Util;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -18,6 +19,7 @@ import java.util.Map;
 public abstract class IntegralLinearOpMode extends LinearOpMode {
 	public SampleMecanumDrive drive;
 	public TelemetryClient client;
+	public Util utils;
 
 	private final Map<String, Trajectory> trajectoryMap=new HashMap<>();
 	private final Map<String, TrajectorySequence> trajectorySequenceMap=new HashMap<>();
@@ -26,11 +28,17 @@ public abstract class IntegralLinearOpMode extends LinearOpMode {
 	public final void runOpMode() throws InterruptedException {
 		HardwareConstants.sync(hardwareMap, false);
 		drive=new SampleMecanumDrive(hardwareMap);
-		drive.setPoseEstimate(UtilPoses.BlueLeftStart.pose);
 		telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 		client=new TelemetryClient(telemetry);
+		utils=new Util();
 		initialize();
+
+		TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
+
 		waitForStart();
+
+		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
+
 		if(isStopRequested())return;
 		linear();
 	}

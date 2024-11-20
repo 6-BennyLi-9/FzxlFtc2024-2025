@@ -19,7 +19,7 @@ public enum GamepadRequestMemories {
 	/**电梯闲置（下）*/
 	public static boolean liftIDLE;
 	/**电梯挂样本准备*/
-	public static boolean liftHighSuspend;
+	public static boolean liftHighSuspendPrepare;
 	/**倒筐*/
 	public static boolean decant;
 	/**挂样本*/
@@ -37,7 +37,7 @@ public enum GamepadRequestMemories {
 		flipArms 		= gamepad2.a;
 		liftDecantLow   = gamepad2.dpad_up;
 		liftDecantHigh  = gamepad2.left_bumper;
-		liftHighSuspend = gamepad2.dpad_right;
+		liftHighSuspendPrepare = gamepad2.dpad_right;
 		liftIDLE      	= gamepad2.dpad_down;
 		decant			= gamepad2.x;
 		suspend			= gamepad2.y;
@@ -62,7 +62,7 @@ public enum GamepadRequestMemories {
 		instance.changeData("flipArms",flipArms);
 		instance.changeData("liftDecantLow",liftDecantLow);
 		instance.changeData("liftDecantHigh",liftDecantHigh);
-		instance.changeData("liftHighSuspend",liftHighSuspend);
+		instance.changeData("liftHighSuspendPrepare", liftHighSuspendPrepare);
 		instance.changeData("liftIDLE",liftIDLE);
 		instance.changeData("decant",decant);
 		instance.changeData("suspend",suspend);

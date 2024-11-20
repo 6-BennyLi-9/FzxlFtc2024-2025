@@ -32,7 +32,7 @@ public enum LiftOption {
 		liftController.setTag("lift");
 	}
 	
-	public static final long idlePosition=0,decantLow=1100,decantHigh=2000,highSuspend=730,highSuspendPrepare=1090;
+	public static long idlePosition=0,decantLow=1080,decantHigh=2000,highSuspend=740,highSuspendPrepare=1150;
 
 	public static LiftPositionTypes recent() {
 		return recent;

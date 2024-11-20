@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisController;
@@ -25,12 +26,12 @@ public enum DriveOption {
 		chassisController.setTag("chassis");
 	}
 
-	public static double kP=-0.12,kI,kD=0.04;
-	private static double lastAngleErr,integralAngle;
+	public static double kP=0.12,kI,kD;
 	private static double output,targetAngle;
 	private static double x,y,turn;
 
-	private static boolean driveUsingPID = true;
+	public  static       boolean      driveUsingPID = true;
+	private static final PidProcessor processor     = new PidProcessor(kP,kI,kD,180);
 
 	private static void syncAngle(){
 		final double currentAngle=HardwareConstants.imu.getAngularOrientation().firstAngle;
@@ -41,13 +42,8 @@ public enum DriveOption {
 			return;
 		}
 
-		while (-180 > angleErr) angleErr+=360;
-		while (180 < angleErr)  angleErr-=360;
-		final double differentiation=angleErr-lastAngleErr;
-		integralAngle+=angleErr;
-		lastAngleErr=angleErr;
-
-		output=(kP*angleErr+kI*integralAngle+kD*differentiation)/15;
+		processor.modify(angleErr);
+		output=processor.getCalibrateVal();
 	}
 
 	@NonNull
@@ -60,11 +56,11 @@ public enum DriveOption {
 		sync(x,y,turn,1);
 	}
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
-		DriveOption.x=x;
-		DriveOption.y=y;
-		DriveOption.turn=turn;
+		DriveOption.x=x * bufPower;
+		DriveOption.y=y * bufPower;
+		DriveOption.turn=turn *bufPower;
 
-		targetAngle+=turn;
+		targetAngle+=turn*bufPower;
 		syncAngle();
 		chassisController.setPowers(x, y, output, bufPower);
 	}
@@ -77,6 +73,10 @@ public enum DriveOption {
 				DriveOption.y		+y*bufPower,
 				DriveOption.turn	+turn*bufPower
 		);
+	}
+
+	public static void targetAngleRst(){
+		targetAngle=0;
 	}
 
 	public static void setDriveUsingPID(final boolean driveUsingPID) {

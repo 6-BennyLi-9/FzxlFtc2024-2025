@@ -8,7 +8,7 @@ import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.flipArm
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.intakeSamples;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantHigh;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantLow;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDLE;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.outtakeSamples;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.probe;
@@ -120,8 +120,8 @@ public class Robot {
 			}
 
 			LiftOption.sync(decantHigh);
-		} else if (liftHighSuspend
-				&& ScaleOption.ScalePosition.back == ScaleOption.recent()) {
+		} else if (liftHighSuspendPrepare
+		           && ScaleOption.ScalePosition.back == ScaleOption.recent()) {
 			if(ArmOption.isNotSafe()){
 				ArmOption.safe();
 			}
@@ -133,7 +133,7 @@ public class Robot {
 			PlaceOption.decant();
 		}
 
-		if(suspend && highSuspend == LiftOption.recent()){
+		if(suspend && highSuspendPrepare == LiftOption.recent()){
 			LiftOption.sync(highSuspend);
 		}
 
