@@ -21,7 +21,7 @@ public abstract class AutonomousLiftController extends LiftController {
 
 
 	@Override
-	public final boolean run() {
+	public boolean run() {
 		currentPosition= targetLift	.getCurrentPosition();
 		errorPosition=targetPosition- currentPosition;
 
