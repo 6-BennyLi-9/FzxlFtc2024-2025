@@ -95,9 +95,6 @@ public class Robot {
 		}
 
 		if(liftIDLE.getEnabled()){
-			if(ClipOption.ClipPositionTypes.open == ClipOption.recent()){
-				ClipOption.open();
-			}
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				PlaceOption.idle();
 			}
@@ -129,7 +126,7 @@ public class Robot {
 		}
 
 		if(armScaleOperate.getEnabled()){
-			armScaleOperate.ticker.tickAndMod(4);
+			armScaleOperate.ticker.tickAndMod(3);
 			switch (armScaleOperate.ticker.getTicked()){
 				case 0:
 					ScaleOption.back();
@@ -140,10 +137,6 @@ public class Robot {
 					ArmOption.intake();
 					break;
 				case 2:
-					ScaleOption.back();
-					ArmOption.intake();
-					break;
-				case 3:
 					ScaleOption.back();
 					ArmOption.idle();
 					break;
