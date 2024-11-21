@@ -95,8 +95,11 @@ public class Robot {
 		}
 
 		if(liftIDLE.getEnabled()){
-			if(LiftOption.LiftPositionTypes.highSuspend == LiftOption.recent()){
+			if(ClipOption.ClipPositionTypes.open == ClipOption.recent()){
 				ClipOption.open();
+			}
+			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
+				PlaceOption.idle();
 			}
 			LiftOption.sync(LiftOption.LiftPositionTypes.idle);
 		}else if(liftDecantUpping.getEnabled()){

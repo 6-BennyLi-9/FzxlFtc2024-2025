@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.autonomous.utils;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-@Config
 @SuppressWarnings("unused")
-public class UtilPoses {
+public enum UtilPoses {
+	;
 	//起始点位
 	public static Pose2d BlueLeftStart=new Pose2d(12,62,Math.toRadians(-90));
 	public static Pose2d BlueRightStart=new Pose2d(-12,62,Math.toRadians(-90));

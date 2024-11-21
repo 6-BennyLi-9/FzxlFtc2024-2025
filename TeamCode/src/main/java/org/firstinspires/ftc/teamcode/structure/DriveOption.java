@@ -34,8 +34,8 @@ public enum DriveOption {
 	private static final PidProcessor processor     = new PidProcessor(kP,kI,kD,180);
 
 	private static void syncAngle(){
-		final double currentAngle=HardwareConstants.imu.getAngularOrientation().firstAngle;
-		double angleErr= targetAngle-currentAngle;
+		final double currentAngle =HardwareConstants.imu.getAngularOrientation().firstAngle;
+		final double angleErr     = targetAngle - currentAngle;
 
 		if(!driveUsingPID){
 			output=turn;
