@@ -1,15 +1,22 @@
 package org.firstinspires.ftc.teamcode.autonomous.utils.structure;
 
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.*;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.intake;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftScale;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.lift;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.place;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 
-import org.firstinspires.ftc.teamcode.structure.LiftOption;
-import org.firstinspires.ftc.teamcode.util.Robot;
 import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.structure.LiftOption;
+import org.firstinspires.ftc.teamcode.util.Robot;
 
 /**
- * 适配于自动程序的 {@code Robot}
+ * 适配于自动程序的 {@code Robot} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}}
  * @see Robot
  */
 @SuppressWarnings("unused")
@@ -99,24 +106,28 @@ public class Util{
 	}
 
 	//lift
+	protected AutonomousLiftController liftControllerGenerator(final long target){
+		return new ClassicLiftController(lift,target);
+	}
+
 	public Util liftDown(){
-		thread.add(new ClassicLiftController(lift,0));
+		thread.add(liftControllerGenerator(0));
 		return this;
 	}
 	public Util liftDecantHigh(){
-		thread.add(new ClassicLiftController(lift, LiftOption.decantHigh));
+		thread.add(liftControllerGenerator(LiftOption.decantHigh));
 		return this;
 	}
 	public Util liftDecantLow(){
-		thread.add(new ClassicLiftController(lift, LiftOption.decantLow));
+		thread.add(liftControllerGenerator(LiftOption.decantLow));
 		return this;
 	}
 	public Util liftSuspendHighPrepare(){
-		thread.add(new ClassicLiftController(lift, LiftOption.highSuspendPrepare));
+		thread.add(liftControllerGenerator(LiftOption.highSuspendPrepare));
 		return this;
 	}
 	public Util liftSuspendHigh(){
-		thread.add(new ClassicLiftController(lift, LiftOption.highSuspend));
+		thread.add(liftControllerGenerator(LiftOption.highSuspend));
 		return this;
 	}
 
