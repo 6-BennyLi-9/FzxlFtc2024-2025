@@ -94,7 +94,12 @@ public class Robot {
 			}
 		}
 
-		if(liftDecantUpping.getEnabled()){
+		if(liftIDLE.getEnabled()){
+			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
+				PlaceOption.idle();
+			}
+			LiftOption.sync(LiftOption.LiftPositionTypes.idle);
+		}else if(liftDecantUpping.getEnabled()){
 			if(ArmOption.isNotSafe()){
 				ArmOption.safe();
 			}
@@ -104,14 +109,7 @@ public class Robot {
 			}else if(LiftOption.LiftPositionTypes.decantLow == LiftOption.recent()){
 				LiftOption.sync(LiftOption.LiftPositionTypes.decantHigh);
 			}
-		}
-		if(liftIDLE.getEnabled()){
-			if(LiftOption.LiftPositionTypes.highSuspend == LiftOption.recent()){
-				ClipOption.open();
-			}
-			LiftOption.sync(LiftOption.LiftPositionTypes.decantLow);
-		}
-		if(liftHighSuspendPrepare.getEnabled()){
+		}else if(liftHighSuspendPrepare.getEnabled()){
 			if(ArmOption.isNotSafe()){
 				ArmOption.safe();
 			}
@@ -128,7 +126,7 @@ public class Robot {
 		}
 
 		if(armScaleOperate.getEnabled()){
-			armScaleOperate.ticker.tickAndMod(4);
+			armScaleOperate.ticker.tickAndMod(3);
 			switch (armScaleOperate.ticker.getTicked()){
 				case 0:
 					ScaleOption.back();
@@ -140,11 +138,8 @@ public class Robot {
 					break;
 				case 2:
 					ScaleOption.back();
-					ArmOption.intake();
-					break;
-				case 3:
-					ScaleOption.back();
 					ArmOption.idle();
+					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 			}

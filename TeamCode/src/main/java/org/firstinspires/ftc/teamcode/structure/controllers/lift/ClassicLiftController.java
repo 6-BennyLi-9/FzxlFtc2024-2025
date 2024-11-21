@@ -20,8 +20,8 @@ public class ClassicLiftController extends LiftController {
 		lowerErrorRange=35;
 
 		zeroPoseCalibrationPow=1;
-		lowerCalibrationPow=0.4;
-		higherCalibrationPow=0.7;
+		lowerCalibrationPow=0.3;
+		higherCalibrationPow=1;
 	}
 
 	public ClassicLiftController(@NonNull final DcMotorEx target) {

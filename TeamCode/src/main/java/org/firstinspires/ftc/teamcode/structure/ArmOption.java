@@ -33,8 +33,8 @@ public enum ArmOption {
 	}
 	public static void intake(){
 		recent=ArmPositionTypes.intake;
-		leftArmControl.setTargetPosition(0.3);
-		rightArmControl.setTargetPosition(0.3);
+		leftArmControl.setTargetPosition(0.29);
+		rightArmControl.setTargetPosition(0.29);
 	}
 	public static void idle(){
 		recent=ArmPositionTypes.idle;
