@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOpMode;
@@ -12,44 +13,22 @@ public class BlueLeft extends IntegralLinearOpMode {
 	public void initialize() {
 		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
 
-		registerTrajectory("decant preload",generateBuilder(UtilPoses.BlueLeftStart)
-				.lineToLinearHeading(UtilPoses.BlueDecant)
-				.build());
-		registerTrajectory("intake1",generateBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample1)
-				.build());
-
-		registerTrajectory("decant1",generateBuilder(UtilPoses.BlueLeftSample1)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
 				.lineToLinearHeading(UtilPoses.BlueDecant)
 				.build());
 
-		registerTrajectory("intake2",generateBuilder(UtilPoses.BlueLeftSample1)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample2)
-				.build());
-
-		registerTrajectory("intake3",generateBuilder(UtilPoses.BlueLeftSample2)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample3)
+		Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueDecant)
+				.strafeLeft(24)
+				.forward(12)
+				.strafeRight(36)
 				.build());
 	}
 
 	@Override
 	public void linear() {
-		runTrajectory("decant preload");
-		utils.armsToSafePosition().decant().runCached();
+		runTrajectory("suspend preload");
+		utils.armsToSafePosition().openClip().runCached();
 		sleep(1000);
-		utils.boxRst().runCached();
-		sleep(1000);
-
-		runTrajectory("intake1");
-		utils.integralIntakes().runCached();
-		sleep(3000);
-		utils.integralIntakesEnding().runCached();
-		runTrajectory("decant1");
-		utils.integralLiftUpPrepare().stopIO().decant().runCached();
-		sleep(3000);
-		utils.integralLiftDownPrepare().runCached();
-
-		runTrajectory("intake2");
-//		runTrajectory("intake3");
+		runTrajectory("push samples");
 	}
 }
