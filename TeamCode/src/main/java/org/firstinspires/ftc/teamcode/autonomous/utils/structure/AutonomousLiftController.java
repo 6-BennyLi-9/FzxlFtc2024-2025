@@ -33,6 +33,9 @@ public abstract class AutonomousLiftController extends LiftController {
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
 
+		if(getCalibrationDone()){
+			targetLift.setPower(0);
+		}
 		return !getCalibrationDone();
 	}
 
