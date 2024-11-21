@@ -25,9 +25,6 @@ public class LinearLiftController extends LiftController {
 		return true;
 	}
 
-	@Override
-	public final void modify() {}
-
-	@Override
-	public final double getCalibrateVal() {return 0;}
+	@Override public final void modify() {}
+	@Override public final double getCalibrateVal() {return 0;}
 }
