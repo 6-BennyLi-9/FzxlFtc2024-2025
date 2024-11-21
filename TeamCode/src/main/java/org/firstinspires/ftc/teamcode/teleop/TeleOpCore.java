@@ -48,6 +48,7 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void start() {
+		TelemetryClient.getInstance().autoUpdate =true;
 		TelemetryClient.getInstance().deleteLine("ROBOT INITIALIZE COMPLETE!");
 	}
 
@@ -68,6 +69,8 @@ public class TeleOpCore extends OpMode {
 		GamepadRequestMemories.printValues();
 
 		robot.runThread();
+
+		TelemetryClient.getInstance().update();//更新缓存
 	}
 
 	@Override

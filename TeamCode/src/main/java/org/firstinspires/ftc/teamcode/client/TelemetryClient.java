@@ -15,6 +15,10 @@ public class TelemetryClient {
 	protected final Map < String , Pair< String , Integer >> data;
 	protected int ID;
 	public static boolean showIndex;
+	/**
+	 * 若启用，更改数据后需要执行 {@link #update()} ，关闭时则无需执行
+	 */
+	public boolean autoUpdate;
 	private static TelemetryClient instanceTelemetryClient;
 
 	public TelemetryClient(final Telemetry telemetry){
@@ -33,7 +37,9 @@ public class TelemetryClient {
 
 	public void clear(){
 		this.data.clear();
-		this.update();
+		if(!autoUpdate){
+			this.update();
+		}
 	}
 
 	/**
@@ -42,7 +48,9 @@ public class TelemetryClient {
 	public TelemetryClient addData(final String key, final String val){
 		++ this.ID;
 		this.data.put(key,new Pair<>(val, this.ID));
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
@@ -57,7 +65,9 @@ public class TelemetryClient {
 	 */
 	public TelemetryClient deleteData(final String key){
 		this.data.remove(key);
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
@@ -71,7 +81,9 @@ public class TelemetryClient {
 		}else{
 			this.addData(key, val);
 		}
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
@@ -85,7 +97,9 @@ public class TelemetryClient {
 	public TelemetryClient addLine(final String key){
 		++ this.ID;
 		this.data.put(key,new Pair<>("", this.ID));
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
@@ -97,7 +111,9 @@ public class TelemetryClient {
 	 */
 	public TelemetryClient deleteLine(final String key){
 		this.data.remove(key);
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
@@ -111,7 +127,9 @@ public class TelemetryClient {
 		final int cache =Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
 		this.data.put(newData,new Pair<>("",cache));
-		this.update();
+		if(!autoUpdate) {
+			this.update();
+		}
 
 		return this;
 	}
