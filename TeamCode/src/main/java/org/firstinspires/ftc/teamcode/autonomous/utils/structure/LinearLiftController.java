@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class LinearLiftController extends AutonomousLiftController{
-	protected LinearLiftController(@NonNull DcMotorEx target, long targetPosition) {
+	public LinearLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target, targetPosition);
 		target.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
 	public boolean run() {
-		if(targetLift.getMode() != DcMotor.RunMode.RUN_TO_POSITION){
+		if(DcMotor.RunMode.RUN_TO_POSITION != targetLift.getMode()){
 			targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		}
 
