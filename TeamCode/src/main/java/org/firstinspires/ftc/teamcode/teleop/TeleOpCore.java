@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Robot;
 
-@TeleOp(name = "19419",group = "Main")
+@TeleOp(name = "19419",group = "0_Main")
 public class TeleOpCore extends OpMode {
 	public Robot robot;
 
