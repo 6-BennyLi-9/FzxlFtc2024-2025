@@ -5,10 +5,10 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
 @Config
-public class QuadraticFunctionLiftController extends LiftController {
+public class QuadraticFunctionLiftCtrl extends LiftCtrl {
 	private double calibrateVal;
 	public static double vA;
 
@@ -16,7 +16,7 @@ public class QuadraticFunctionLiftController extends LiftController {
 		vA=0.02;
 	}
 
-	public QuadraticFunctionLiftController(@NonNull final DcMotorEx target) {
+	public QuadraticFunctionLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
 	}
 

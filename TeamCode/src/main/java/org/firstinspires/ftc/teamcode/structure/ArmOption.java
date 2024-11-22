@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public enum ArmOption {
@@ -14,11 +14,11 @@ public enum ArmOption {
 		idle,intake,safe,unknown
 	}
 	private static ArmPositionTypes recent= ArmPositionTypes.unknown;
-	private static ServoController leftArmControl, rightArmControl;
+	private static ServoCtrl leftArmControl, rightArmControl;
 
 	public static void connect() {
-		leftArmControl =new ServoController(HardwareConstants.leftArm,0.7);
-		rightArmControl =new ServoController(HardwareConstants.rightArm,0.7);
+		leftArmControl =new ServoCtrl(HardwareConstants.leftArm,0.7);
+		rightArmControl =new ServoCtrl(HardwareConstants.rightArm,0.7);
 
 		leftArmControl.setTag("leftArm");
 		rightArmControl.setTag("rightArm");

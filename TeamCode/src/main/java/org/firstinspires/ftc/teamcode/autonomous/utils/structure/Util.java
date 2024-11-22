@@ -106,8 +106,8 @@ public class Util{
 	}
 
 	//lift
-	protected AutonomousLiftController liftControllerGenerator(final long target){
-		return new ClassicLiftController(lift,target);
+	protected AutonomousLiftCtrl liftControllerGenerator(final long target){
+		return new ClassicLiftCtrl(lift,target);
 	}
 
 	public Util liftDown(){

@@ -6,15 +6,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.action.Action;
 
-public class ServoController implements Action {
+public class ServoCtrl implements Action {
 	public final Servo controlTarget;
 	private double targetPosition;
 	private String tag;
 
-	public ServoController(@NonNull final Servo target){
+	public ServoCtrl(@NonNull final Servo target){
 		this(target,0.5);
 	}
-	public ServoController(@NonNull final Servo target, final double defaultPosition){
+	public ServoCtrl(@NonNull final Servo target, final double defaultPosition){
 		targetPosition=defaultPosition;
 		controlTarget=target;
 		tag=target.getDeviceName();

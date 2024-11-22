@@ -4,12 +4,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.action.Action;
 
-public class ChassisController implements Action {
+public class ChassisCtrl implements Action {
 	private double pX,pY,pTurn;
 	public final DcMotorEx leftFront,leftRear,rightFront,rightRear;
 	private String tag;
 	
-	public ChassisController(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear){
+	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear){
 		this.leftFront=leftFront;
 		this.leftRear=leftRear;
 		this.rightFront=rightFront;

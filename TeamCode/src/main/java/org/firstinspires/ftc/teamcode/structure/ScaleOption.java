@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public enum ScaleOption {
@@ -16,11 +16,11 @@ public enum ScaleOption {
 		unknown
 	}
 	private static ScalePosition recent=ScalePosition.unknown;
-	private static ServoController leftScaleController,rightScaleController;
+	private static ServoCtrl leftScaleController,rightScaleController;
 
 	public static void connect() {
-		leftScaleController =new ServoController(HardwareConstants.leftScale,1);
-		rightScaleController=new ServoController(HardwareConstants.rightScale,0.5);
+		leftScaleController =new ServoCtrl(HardwareConstants.leftScale,1);
+		rightScaleController=new ServoCtrl(HardwareConstants.rightScale,0.5);
 
 		leftScaleController.setTag("leftScale");
 		rightScaleController.setTag("rightScale");

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public enum IOTakesOption {
@@ -17,10 +17,10 @@ public enum IOTakesOption {
 	}
 
 	private static IOTakesPositionTypes recent=IOTakesPositionTypes.idle;
-	private static ServoController intakeController;
+	private static ServoCtrl intakeController;
 
 	public static void connect() {
-		intakeController=new ServoController(HardwareConstants.intake,0.5);
+		intakeController=new ServoCtrl(HardwareConstants.intake,0.5);
 
 		intakeController.setTag("intake");
 	}

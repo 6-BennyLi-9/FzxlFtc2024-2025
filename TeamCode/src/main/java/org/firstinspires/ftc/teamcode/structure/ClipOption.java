@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public enum ClipOption {
@@ -16,10 +16,10 @@ public enum ClipOption {
 		unknown
 	}
 	private static ClipPositionTypes recent= ClipPositionTypes.unknown;
-	private static ServoController clipControl;
+	private static ServoCtrl clipControl;
 
 	public static void connect() {
-		clipControl=new ServoController(HardwareConstants.clip,0);
+		clipControl=new ServoCtrl(HardwareConstants.clip,0);
 
 		clipControl.setTag("clip");
 	}

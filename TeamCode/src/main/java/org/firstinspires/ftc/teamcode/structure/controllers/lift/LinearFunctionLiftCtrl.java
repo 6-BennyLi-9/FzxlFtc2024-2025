@@ -6,10 +6,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
 @Config
-public class LinearFunctionLiftController extends LiftController {
+public class LinearFunctionLiftCtrl extends LiftCtrl {
 	private double calibrateVal;
 	public static double vA;
 
@@ -17,7 +17,7 @@ public class LinearFunctionLiftController extends LiftController {
 		vA=0.05;
 	}
 
-	public LinearFunctionLiftController(@NonNull final DcMotorEx target) {
+	public LinearFunctionLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
 	}
 

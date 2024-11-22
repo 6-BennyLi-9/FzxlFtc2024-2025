@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 
-public abstract class LiftController implements Action {
+public abstract class LiftCtrl implements Action {
 	protected long currentPosition,targetPosition;
 	protected final DcMotorEx targetLift;
 
 	protected String tag;
 
-	protected LiftController(@NonNull final DcMotorEx target){
+	protected LiftCtrl(@NonNull final DcMotorEx target){
 		targetLift=target;
 		tag=target.getDeviceName();
 	}

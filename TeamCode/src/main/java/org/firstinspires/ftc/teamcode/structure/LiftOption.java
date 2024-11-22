@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.lift.ClassicLiftController;
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+import org.firstinspires.ftc.teamcode.structure.controllers.lift.ClassicLiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -24,12 +24,12 @@ public enum LiftOption {
 		highSuspendPrepare
 	}
 	public static LiftPositionTypes recent=LiftPositionTypes.idle;
-	public static LiftController liftController;
+	public static LiftCtrl liftCtrl;
 
 	public static void connect() {
-		liftController=new ClassicLiftController(HardwareConstants.lift);
+		liftCtrl =new ClassicLiftCtrl(HardwareConstants.lift);
 
-		liftController.setTag("lift");
+		liftCtrl.setTag("lift");
 	}
 	
 	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1200;
@@ -41,26 +41,26 @@ public enum LiftOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneController(){
-		return liftController;
+		return liftCtrl;
 	}
 
 	public static void sync(@NonNull final LiftPositionTypes option){
 		recent=option;
 		switch (option) {
 			case idle:
-				liftController.setTargetPosition(idlePosition);
+				liftCtrl.setTargetPosition(idlePosition);
 				break;
 			case decantLow:
-				liftController.setTargetPosition(decantLow);
+				liftCtrl.setTargetPosition(decantLow);
 				break;
 			case decantHigh:
-				liftController.setTargetPosition(decantHigh);
+				liftCtrl.setTargetPosition(decantHigh);
 				break;
 			case highSuspend:
-				liftController.setTargetPosition(highSuspend);
+				liftCtrl.setTargetPosition(highSuspend);
 				break;
 			case highSuspendPrepare:
-				liftController.setTargetPosition(highSuspendPrepare);
+				liftCtrl.setTargetPosition(highSuspendPrepare);
 				break;
 		}
 	}

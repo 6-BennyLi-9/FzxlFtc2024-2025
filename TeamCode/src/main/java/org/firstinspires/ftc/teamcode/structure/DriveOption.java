@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.ChassisController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -17,17 +17,17 @@ public enum DriveOption {
 		StraightLinear,PID,SimpleCalibrate
 	}
 	public static  DriveConfig config;
-	private static ChassisController chassisController;
+	private static ChassisCtrl chassisCtrl;
 
 	public static void connect() {
-		chassisController=new ChassisController(
+		chassisCtrl =new ChassisCtrl(
 				HardwareConstants.leftFront,
 				HardwareConstants.leftRear,
 				HardwareConstants.rightFront,
 				HardwareConstants.rightRear
 		);
 
-		chassisController.setTag("chassis");
+		chassisCtrl.setTag("chassis");
 	}
 
 	public static double kP=0.0001,kI,kD;
@@ -58,7 +58,7 @@ public enum DriveOption {
 	@NonNull
 	@Contract(" -> new")
 	public static Action cloneAction(){
-		return chassisController;
+		return chassisCtrl;
 	}
 
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
@@ -69,7 +69,7 @@ public enum DriveOption {
 		targetAngle+=turn*bufPower;
 		syncAngle();
 		currentPowerAngle+=output;
-		chassisController.setPowers(x, y, output);
+		chassisCtrl.setPowers(x, y, output);
 	}
 	public static void additions(final double x, final double y, final double turn){
 		additions(x,y,turn,1);

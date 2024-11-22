@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 @Config
-public class ClassicLiftController extends AutonomousLiftController {
+public class ClassicLiftCtrl extends AutonomousLiftCtrl {
 	public static long staticAllowError;
 	public static long lowerErrorRange;
 	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
@@ -24,7 +24,7 @@ public class ClassicLiftController extends AutonomousLiftController {
 		higherCalibrationPow=0.7;
 	}
 
-	public ClassicLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
+	public ClassicLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target, targetPosition);
 	}
 

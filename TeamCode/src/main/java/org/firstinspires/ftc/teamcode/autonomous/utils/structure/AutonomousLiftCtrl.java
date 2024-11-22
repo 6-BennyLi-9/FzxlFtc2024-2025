@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
-public abstract class AutonomousLiftController extends LiftController {
+public abstract class AutonomousLiftCtrl extends LiftCtrl {
 	protected final long targetPosition;
 	protected final DcMotorEx targetLift;
 
-	protected AutonomousLiftController(@NonNull final DcMotorEx target,final long targetPosition){
+	protected AutonomousLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition){
 		super(target);
 		targetLift=target;
 		tag=target.getDeviceName();

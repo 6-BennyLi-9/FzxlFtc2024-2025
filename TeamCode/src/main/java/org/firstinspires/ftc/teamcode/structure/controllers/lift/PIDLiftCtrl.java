@@ -6,10 +6,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
 @Config
-public class PIDLiftController extends LiftController {
+public class PIDLiftCtrl extends LiftCtrl {
 	private final PidProcessor processor;
 	public static double vP,vI,vD,max_I;
 
@@ -20,7 +20,7 @@ public class PIDLiftController extends LiftController {
 		max_I=1;
 	}
 
-	public PIDLiftController(@NonNull final DcMotorEx target) {
+	public PIDLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
 		processor=new PidProcessor(vP,vI,vD,max_I);
 	}

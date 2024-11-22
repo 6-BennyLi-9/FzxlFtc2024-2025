@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.ServoController;
+import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public enum PlaceOption {
@@ -15,10 +15,10 @@ public enum PlaceOption {
 		unknown
 	}
 	private static PlacePositionTypes recent=PlacePositionTypes.unknown;
-	private static ServoController placeController;
+	private static ServoCtrl placeController;
 
 	public static void connect() {
-		placeController=new ServoController(HardwareConstants.place,0);
+		placeController=new ServoCtrl(HardwareConstants.place,0);
 
 		placeController.setTag("place");
 	}
