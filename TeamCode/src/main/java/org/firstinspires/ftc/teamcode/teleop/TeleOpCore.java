@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.client.DashTelemetry;
+import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.structure.DriveOption;
 import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Robot;
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
-import org.firstinspires.ftc.teamcode.structure.DriveOption;
 
 @TeleOp(name = "19419",group = "Main")
 public class TeleOpCore extends OpMode {
@@ -24,7 +24,7 @@ public class TeleOpCore extends OpMode {
 		robot=new Robot();
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.initActions();
-		TelemetryClient.registerInstance(new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
+		TelemetryClient.constructInstance(new DashTelemetry(FtcDashboard.getInstance(),telemetry));
 
 		TelemetryClient.getInstance()
 				.addData("TPS","wait for start")
