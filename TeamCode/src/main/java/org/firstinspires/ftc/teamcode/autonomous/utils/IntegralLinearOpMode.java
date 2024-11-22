@@ -70,4 +70,13 @@ public abstract class IntegralLinearOpMode extends LinearOpMode {
 	public TrajectorySequenceBuilder generateSequenceBuilder(final Pose2d pose){
 		return drive.trajectorySequenceBuilder(pose);
 	}
+
+	public Trajectory angleCalibration(final double angle){
+		return drive.trajectoryBuilder(drive.getPoseEstimate())
+				.lineToLinearHeading(drive.getPoseEstimate().minus(new Pose2d(
+						drive.getPoseEstimate().getX(),
+						drive.getPoseEstimate().getY(),
+						angle
+				))).build();
+	}
 }
