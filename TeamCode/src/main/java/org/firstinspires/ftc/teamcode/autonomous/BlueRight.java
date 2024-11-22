@@ -10,42 +10,40 @@ import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
 public class BlueRight extends IntegralLinearOpMode {
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.RedLeftStart);
+		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.RedLeftStart)
-				.lineToLinearHeading(UtilPoses.RedLeftSuspend)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
+				.lineToLinearHeading(UtilPoses.BlueRightSuspend)
 				.build());
 
-		Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
-				.strafeLeft(24)
-				.turn(Math.toRadians(90))
+		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueRightSuspend)
 				.strafeRight(24)
 				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
+				.strafeRight(24)
 				.build());
 
-		registerTrajectory("intake sample1",generateSequenceBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample1)
+		registerTrajectory("get sample1",generateSequenceBuilder(afterPushing)
+				.lineToLinearHeading(UtilPoses.BlueGetSample)
 				.build());
-		registerTrajectory("intake sample1",generateSequenceBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample2)
-				.build());
-		registerTrajectory("intake sample1",generateSequenceBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample3)
-				.build());
-		registerTrajectory("go decant",generateBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.BlueDecant)
+		registerTrajectory("suspend1",generateBuilder(UtilPoses.BlueGetSample)
+				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(-5,0)))
 				.build());
 
-		registerTrajectory("park",generateBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftPark)
+		registerTrajectory("get sample u",generateSequenceBuilder(UtilPoses.BlueRightSuspend)
+				.lineToLinearHeading(UtilPoses.BlueGetSample)
+				.build());
+
+		registerTrajectory("suspend2",generateBuilder(UtilPoses.BlueGetSample)
+				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(5,0)))
+				.build());
+		registerTrajectory("suspend3",generateBuilder(UtilPoses.BlueGetSample)
+				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(10,0)))
+				.build());
+
+
+		registerTrajectory("park",generateBuilder(UtilPoses.BlueRightSuspend)
+				.lineToLinearHeading(UtilPoses.BlueGetSample)
+				.lineToLinearHeading(UtilPoses.BlueRightPark)
 				.build());
 	}
 
@@ -56,32 +54,27 @@ public class BlueRight extends IntegralLinearOpMode {
 		utils.liftSuspendHigh().runCached();
 		utils.openClip().liftDown().runCached();
 		runTrajectory("push samples");
-		runTrajectory("intake sample1");
-		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
-		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
 
-		runTrajectory("intake sample2");
-		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
-		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
+		runTrajectory("get sample1");
+		utils.closeClip().runCached();
+		runTrajectory("suspend1");
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
+		utils.liftSuspendHigh().runCached();
+		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
 
-		runTrajectory("intake sample3");
-		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
-		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
+		runTrajectory("get sample u");
+		utils.closeClip().runCached();
+		runTrajectory("suspend2");
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
+		utils.liftSuspendHigh().runCached();
+		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
+
+		runTrajectory("get sample u");
+		utils.closeClip().runCached();
+		runTrajectory("suspend3");
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
+		utils.liftSuspendHigh().runCached();
+		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
 
 		runTrajectory("park");
 	}
