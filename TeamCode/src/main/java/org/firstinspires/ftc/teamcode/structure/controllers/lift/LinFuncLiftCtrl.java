@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
+/**
+ * 基于一次函数 {@code LinearFunction}
+ */
 @Config
 public class LinFuncLiftCtrl extends LiftCtrl {
 	private double calibrateVal;

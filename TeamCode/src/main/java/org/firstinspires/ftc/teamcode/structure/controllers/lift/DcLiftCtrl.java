@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
+/**
+ * 使用 {@link DcMotorEx} 为基础的控制器
+ */
 public class DcLiftCtrl extends LiftCtrl {
 	public static double bufPow=1;
 	public static int tolerance=10;

@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
+/**
+ * 基于二次函数 {@code QuadrantFunction}
+ */
 @Config
 public class QuadFuncLiftCtrl extends LiftCtrl {
 	private double calibrateVal;

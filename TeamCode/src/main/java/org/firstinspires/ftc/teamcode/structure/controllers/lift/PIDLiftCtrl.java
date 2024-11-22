@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
+/**
+ * 基于 {@code PID}
+ */
 @Config
 public class PIDLiftCtrl extends LiftCtrl {
 	private final PidProcessor processor;
