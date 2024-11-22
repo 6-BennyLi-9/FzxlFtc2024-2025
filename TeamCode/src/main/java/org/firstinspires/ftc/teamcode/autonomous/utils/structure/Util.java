@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.util.Robot;
  * 适配于自动程序的 {@code Robot} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}}
  * @see Robot
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","UnusedReturnValue"})
 public class Util{
 	private final ActionPackage thread;
 

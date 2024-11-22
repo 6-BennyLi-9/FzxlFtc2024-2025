@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOpMode;
+import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
 
 @Autonomous(group = "tests")
-public class TestAutonomous extends IntegralLinearOpMode {
+public class TestAutonomous extends IntegralLinearOp {
 	@Override
 	public void initialize() {
 		utils.armsToSafePosition().runCached();
