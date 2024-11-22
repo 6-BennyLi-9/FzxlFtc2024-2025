@@ -16,7 +16,7 @@ public class DashTelemetry implements Telemetry {
 	private final FtcDashboard dashboard;
 	private TelemetryPacket packet=new TelemetryPacket();
 
-	public DashTelemetry(@NonNull FtcDashboard dashboard, Telemetry... telemetries){
+	public DashTelemetry(@NonNull final FtcDashboard dashboard, final Telemetry... telemetries){
 		this.telemetries=new MultipleTelemetry(telemetries);
 		this.dashboard=dashboard;
 		if(!Arrays.asList(telemetries).contains(dashboard.getTelemetry())) {
@@ -25,25 +25,25 @@ public class DashTelemetry implements Telemetry {
 	}
 
 	@Override
-	public Item addData(String caption, String format, Object... args) {
+	public Item addData(final String caption, final String format, final Object... args) {
 		packet.put(caption,String.format(format,args));
 		return telemetries.addData(caption, format, args);
 	}
 
 	@Override
-	public Item addData(String caption, Object value) {
+	public Item addData(final String caption, final Object value) {
 		packet.put(caption,value);
 		return telemetries.addData(caption, value);
 	}
 
 	@Override
-	public <T> Item addData(String caption, Func <T> valueProducer) {
+	public <T> Item addData(final String caption, final Func <T> valueProducer) {
 		packet.put(caption, valueProducer);
 		return telemetries.addData(caption, valueProducer);
 	}
 
 	@Override
-	public <T> Item addData(String caption, String format, Func <T> valueProducer) {
+	public <T> Item addData(final String caption, final String format, final Func <T> valueProducer) {
 		packet.put(caption, String.format(format,valueProducer));
 		return telemetries.addData(caption, format, valueProducer);
 	}
@@ -52,7 +52,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public boolean removeItem(Item item) {
+	public boolean removeItem(final Item item) {
 		return telemetries.removeItem(item);
 	}
 
@@ -76,7 +76,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public Object addAction(Runnable action) {
+	public Object addAction(final Runnable action) {
 		return telemetries.addAction(action);
 	}
 
@@ -84,7 +84,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public boolean removeAction(Object token) {
+	public boolean removeAction(final Object token) {
 		return telemetries.removeAction(token);
 	}
 
@@ -92,7 +92,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void speak(String text) {
+	public void speak(final String text) {
 		telemetries.speak(text);
 	}
 
@@ -100,7 +100,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void speak(String text, String languageCode, String countryCode) {
+	public void speak(final String text, final String languageCode, final String countryCode) {
 		telemetries.speak(text, languageCode, countryCode);
 	}
 
@@ -118,7 +118,7 @@ public class DashTelemetry implements Telemetry {
 	}
 
 	@Override
-	public Line addLine(String lineCaption) {
+	public Line addLine(final String lineCaption) {
 		packet.addLine(lineCaption);
 		return telemetries.addLine(lineCaption);
 	}
@@ -127,7 +127,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public boolean removeLine(Line line) {
+	public boolean removeLine(final Line line) {
 		return telemetries.removeLine(line);
 	}
 
@@ -143,7 +143,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void setAutoClear(boolean autoClear) {
+	public void setAutoClear(final boolean autoClear) {
 		telemetries.setAutoClear(autoClear);
 	}
 
@@ -159,7 +159,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void setMsTransmissionInterval(int msTransmissionInterval) {
+	public void setMsTransmissionInterval(final int msTransmissionInterval) {
 		telemetries.setMsTransmissionInterval(msTransmissionInterval);
 	}
 
@@ -175,7 +175,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void setItemSeparator(String itemSeparator) {
+	public void setItemSeparator(final String itemSeparator) {
 		telemetries.setItemSeparator(itemSeparator);
 	}
 
@@ -191,7 +191,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void setCaptionValueSeparator(String captionValueSeparator) {
+	public void setCaptionValueSeparator(final String captionValueSeparator) {
 		telemetries.setCaptionValueSeparator(captionValueSeparator);
 	}
 
@@ -199,7 +199,7 @@ public class DashTelemetry implements Telemetry {
 	 *  不受 {@link FtcDashboard} 支持
 	 */
 	@Override
-	public void setDisplayFormat(DisplayFormat displayFormat) {
+	public void setDisplayFormat(final DisplayFormat displayFormat) {
 		telemetries.setDisplayFormat(displayFormat);
 	}
 

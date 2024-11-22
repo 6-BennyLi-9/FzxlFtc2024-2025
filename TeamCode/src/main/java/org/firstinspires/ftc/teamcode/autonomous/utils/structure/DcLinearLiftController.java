@@ -1,18 +1,16 @@
-package org.firstinspires.ftc.teamcode.structure.controllers.lift;
+package org.firstinspires.ftc.teamcode.autonomous.utils.structure;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
-
-public class DcLiftController extends LiftController {
+public class DcLinearLiftController extends AutonomousLiftController{
 	public static double bufPow=1;
 	public static int tolerance=10;
 
-	public DcLiftController(@NonNull final DcMotorEx target) {
-		super(target);
+	public DcLinearLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
+		super(target, targetPosition);
 	}
 
 	@Override
@@ -22,9 +20,10 @@ public class DcLiftController extends LiftController {
 		targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		targetLift.setPower(bufPow * Math.signum(getErrorPosition()));
 
-		return true;
+		return false;
 	}
 
+	@Override public boolean getCalibrationDone() {return false;}
 	@Override public void modify() {}
 	@Override public double getCalibrateVal() {return 0;}
 }
