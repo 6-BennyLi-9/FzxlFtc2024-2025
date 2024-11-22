@@ -24,7 +24,7 @@ public class ClassicLiftController extends AutonomousLiftController {
 		higherCalibrationPow=0.7;
 	}
 
-	protected ClassicLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
+	public ClassicLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target, targetPosition);
 	}
 
