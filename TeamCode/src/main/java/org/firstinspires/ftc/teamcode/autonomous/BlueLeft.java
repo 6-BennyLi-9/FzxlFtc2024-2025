@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
 public class BlueLeft extends IntegralLinearOpMode {
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.RedLeftStart);
+		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.RedLeftStart)
-				.lineToLinearHeading(UtilPoses.RedLeftSuspend)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
+				.lineToLinearHeading(UtilPoses.BlueLeftSuspend)
 				.build());
 
 		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)

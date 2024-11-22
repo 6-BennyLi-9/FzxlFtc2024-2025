@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
 public class BlueRight extends IntegralLinearOpMode {
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
+		drive.setPoseEstimate(UtilPoses.BlueRightStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueRightStart)
 				.lineToLinearHeading(UtilPoses.BlueRightSuspend)
 				.build());
 
