@@ -16,11 +16,11 @@ public class ClassicLiftController extends LiftController {
 	private double calibrateVal;
 
 	static {
-		staticAllowError=20;
-		lowerErrorRange=35;
+		staticAllowError=35;
+		lowerErrorRange=60;
 
 		zeroPoseCalibrationPow=1;
-		lowerCalibrationPow=0.3;
+		lowerCalibrationPow=0.35;
 		higherCalibrationPow=1;
 	}
 

@@ -61,9 +61,6 @@ public enum DriveOption {
 		return chassisController;
 	}
 
-	public static void sync(final double x, final double y, final double turn){
-		sync(x,y,turn,1);
-	}
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
 		DriveOption.x=x * bufPower;
 		DriveOption.y=y * bufPower;
