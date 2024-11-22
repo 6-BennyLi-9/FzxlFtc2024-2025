@@ -31,6 +31,9 @@ public enum UtilPoses {
 	BlueRightSample2=new Pose2d(-50,BlueRightSample1.getY(),Math.toRadians(180)),
 	BlueRightSample3=new Pose2d(-52,BlueRightSample1.getY(),Math.toRadians(180)),
 
+	BlueGetSample=new Pose2d(-48,60,Math.toRadians(90)),
+	RedGetSample=new Pose2d(-48,-60,Math.toRadians(90)),
+
 	RedRightSample1=new Pose2d(-48,-23,Math.toRadians(180)),
 	RedRightSample2=new Pose2d(-50,RedRightSample1.getY(),Math.toRadians(180)),
 	RedRightSample3=new Pose2d(-52,RedRightSample1.getY(),Math.toRadians(180)),
