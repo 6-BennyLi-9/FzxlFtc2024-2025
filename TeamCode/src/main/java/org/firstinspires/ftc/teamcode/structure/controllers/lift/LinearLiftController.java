@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
 
 public class LinearLiftController extends LiftController {
-	protected LinearLiftController(@NonNull DcMotorEx target) {
+	protected LinearLiftController(@NonNull final DcMotorEx target) {
 		super(target);
 		target.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 	}
