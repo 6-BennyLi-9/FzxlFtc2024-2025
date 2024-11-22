@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
 @Config
-public class QuadraticFunctionLiftCtrl extends LiftCtrl {
+public class QuadFuncLiftCtrl extends LiftCtrl {
 	private double calibrateVal;
 	public static double vA;
 
@@ -16,7 +16,7 @@ public class QuadraticFunctionLiftCtrl extends LiftCtrl {
 		vA=0.02;
 	}
 
-	public QuadraticFunctionLiftCtrl(@NonNull final DcMotorEx target) {
+	public QuadFuncLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
 	}
 

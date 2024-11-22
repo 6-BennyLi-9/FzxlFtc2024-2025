@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 
 @Config
-public class LinearFunctionLiftCtrl extends LiftCtrl {
+public class LinFuncLiftCtrl extends LiftCtrl {
 	private double calibrateVal;
 	public static double vA;
 
@@ -17,7 +17,7 @@ public class LinearFunctionLiftCtrl extends LiftCtrl {
 		vA=0.05;
 	}
 
-	public LinearFunctionLiftCtrl(@NonNull final DcMotorEx target) {
+	public LinFuncLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
 	}
 

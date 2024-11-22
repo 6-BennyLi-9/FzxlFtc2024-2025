@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class DcLinearLiftCtrl extends AutonomousLiftCtrl {
+public class DcLiftCtrl extends AutonomousLiftCtrl {
 	public static double bufPow=1;
 	public static int tolerance=10;
 
-	public DcLinearLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
+	public DcLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target, targetPosition);
 	}
 
