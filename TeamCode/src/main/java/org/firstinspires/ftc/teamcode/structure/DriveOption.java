@@ -30,7 +30,7 @@ public enum DriveOption {
 		chassisController.setTag("chassis");
 	}
 
-	public static double kP=0.12,kI,kD;
+	public static double kP=0.0001,kI,kD;
 	private static double output,targetAngle,currentPowerAngle;
 	private static double x,y,turn;
 

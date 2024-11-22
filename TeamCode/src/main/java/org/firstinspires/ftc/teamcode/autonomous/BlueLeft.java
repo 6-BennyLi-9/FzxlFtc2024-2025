@@ -14,21 +14,27 @@ public class BlueLeft extends IntegralLinearOpMode {
 		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
 
 		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
-				.lineToLinearHeading(UtilPoses.BlueDecant)
+				.lineToLinearHeading(UtilPoses.BlueLeftSuspend)
 				.build());
 
-		Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueDecant)
-				.strafeLeft(24)
-				.forward(12)
-				.strafeRight(36)
+		Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
+				.strafeRight(24)
+				.back(12)
+				.strafeRight(24)
+				.build());
+
+		registerTrajectory("intake sample1",generateSequenceBuilder(afterPushing)
+				.lineToLinearHeading(UtilPoses.BlueLeftSample1)
 				.build());
 	}
 
 	@Override
 	public void linear() {
 		runTrajectory("suspend preload");
-		utils.armsToSafePosition().openClip().runCached();
-		sleep(1000);
+		utils.liftSuspendHighPrepare().armsToSafePosition().openClip().runCached();
+		utils.liftSuspendHigh().runCached();
+		utils.openClip().liftDown().runCached();
 		runTrajectory("push samples");
+		runTrajectory("intake sample1");
 	}
 }

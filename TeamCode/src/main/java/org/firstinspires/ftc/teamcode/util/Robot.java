@@ -98,6 +98,10 @@ public class Robot {
 			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
 				PlaceOption.idle();
 			}
+			if(LiftOption.LiftPositionTypes.highSuspend == LiftOption.recent()){
+				ClipOption.open();
+			}
+
 			LiftOption.sync(LiftOption.LiftPositionTypes.idle);
 		}else if(liftDecantUpping.getEnabled()){
 			if(ArmOption.isNotSafe()){
@@ -164,6 +168,10 @@ public class Robot {
 		}
 
 		DriveOption.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger,triggerBufFal);
+
+		if(gamepad1.a){
+			DriveOption.targetAngleRst();
+		}
 	}
 
 	public void runThread(){
