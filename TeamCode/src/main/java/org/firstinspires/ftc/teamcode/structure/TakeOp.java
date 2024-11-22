@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public enum IOTakesOp {
+public enum TakeOp {
 	;
 
 	public enum IOTakesPositionTypes {

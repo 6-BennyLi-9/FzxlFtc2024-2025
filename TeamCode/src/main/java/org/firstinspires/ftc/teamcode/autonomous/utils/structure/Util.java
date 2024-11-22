@@ -52,7 +52,7 @@ public class Util{
 		return this;
 	}
 
-	//IOTakesOp
+	//TakeOp
 	public Util intake(){
 		thread.add(new StatementAction(()-> intake.setPosition(1)));
 		return this;

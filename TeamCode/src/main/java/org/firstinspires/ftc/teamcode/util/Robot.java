@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
-import org.firstinspires.ftc.teamcode.structure.IOTakesOp;
+import org.firstinspires.ftc.teamcode.structure.TakeOp;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
@@ -51,13 +51,13 @@ public class Robot {
 		ArmOp.connect();
 		ClipOp.connect();
 		DriveOp.connect();
-		IOTakesOp.connect();
+		TakeOp.connect();
 		LiftOp.connect();
 		PlaceOp.connect();
 		ScaleOp.connect();
 
 		thread.add("clip", ClipOp.cloneController());
-		thread.add("intake", IOTakesOp.cloneController());
+		thread.add("intake", TakeOp.cloneController());
 		thread.add("lift", LiftOp.cloneController());
 		thread.add("place", PlaceOp.cloneController());
 		thread.add("arm", ArmOp.cloneController());
@@ -81,13 +81,13 @@ public class Robot {
 			sampleIO.ticker.tickAndMod(3);
 			switch (sampleIO.ticker.getTicked()){
 				case 0:
-					IOTakesOp.idle();
+					TakeOp.idle();
 					break;
 				case 1:
-					IOTakesOp.outtake();
+					TakeOp.outtake();
 					break;
 				case 2:
-					IOTakesOp.intake();
+					TakeOp.intake();
 					break;
 				default:
 					throw new IllegalStateException("SampleOptioning Unexpected value: " + sampleIO.ticker.getTicked());
