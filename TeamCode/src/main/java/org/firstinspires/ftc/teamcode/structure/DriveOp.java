@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public enum DriveOption {
+public enum DriveOp {
 	;
 	public enum DriveConfig{
 		StraightLinear,PID,SimpleCalibrate
@@ -62,9 +62,9 @@ public enum DriveOption {
 	}
 
 	public static void sync(final double x, final double y, final double turn,final double bufPower){
-		DriveOption.x=x * bufPower;
-		DriveOption.y=y * bufPower;
-		DriveOption.turn=turn *bufPower;
+		DriveOp.x=x * bufPower;
+		DriveOp.y=y * bufPower;
+		DriveOp.turn=turn *bufPower;
 
 		targetAngle+=turn*bufPower;
 		syncAngle();
@@ -76,9 +76,9 @@ public enum DriveOption {
 	}
 	public static void additions(final double x, final double y, final double turn,final double bufPower){
 		sync(
-				DriveOption.x		+x,
-				DriveOption.y		+y,
-				DriveOption.turn	+turn,
+				DriveOp.x		+x,
+				DriveOp.y		+y,
+				DriveOp.turn	+turn,
 				bufPower
 		);
 	}

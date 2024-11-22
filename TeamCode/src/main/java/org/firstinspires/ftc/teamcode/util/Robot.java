@@ -16,13 +16,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.action.PriorityAction;
 import org.firstinspires.ftc.teamcode.action.packages.TaggedActionPackage;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
-import org.firstinspires.ftc.teamcode.structure.ArmOption;
-import org.firstinspires.ftc.teamcode.structure.ClipOption;
-import org.firstinspires.ftc.teamcode.structure.DriveOption;
-import org.firstinspires.ftc.teamcode.structure.IOTakesOption;
-import org.firstinspires.ftc.teamcode.structure.LiftOption;
-import org.firstinspires.ftc.teamcode.structure.PlaceOption;
-import org.firstinspires.ftc.teamcode.structure.ScaleOption;
+import org.firstinspires.ftc.teamcode.structure.ArmOp;
+import org.firstinspires.ftc.teamcode.structure.ClipOp;
+import org.firstinspires.ftc.teamcode.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.structure.IOTakesOp;
+import org.firstinspires.ftc.teamcode.structure.LiftOp;
+import org.firstinspires.ftc.teamcode.structure.PlaceOp;
+import org.firstinspires.ftc.teamcode.structure.ScaleOp;
 
 import java.util.Map;
 
@@ -48,46 +48,46 @@ public class Robot {
 	}
 
 	public void initActions(){
-		ArmOption.connect();
-		ClipOption.connect();
-		DriveOption.connect();
-		IOTakesOption.connect();
-		LiftOption.connect();
-		PlaceOption.connect();
-		ScaleOption.connect();
+		ArmOp.connect();
+		ClipOp.connect();
+		DriveOp.connect();
+		IOTakesOp.connect();
+		LiftOp.connect();
+		PlaceOp.connect();
+		ScaleOp.connect();
 
-		thread.add("clip",ClipOption.cloneController());
-		thread.add("intake", IOTakesOption.cloneController());
-		thread.add("lift", LiftOption.cloneController());
-		thread.add("place", PlaceOption.cloneController());
-		thread.add("arm", ArmOption.cloneController());
-		thread.add("scale", ScaleOption.cloneController());
-		thread.add("drive", DriveOption.cloneAction());
+		thread.add("clip", ClipOp.cloneController());
+		thread.add("intake", IOTakesOp.cloneController());
+		thread.add("lift", LiftOp.cloneController());
+		thread.add("place", PlaceOp.cloneController());
+		thread.add("arm", ArmOp.cloneController());
+		thread.add("scale", ScaleOp.cloneController());
+		thread.add("drive", DriveOp.cloneAction());
 
-		ArmOption.init();
-		ClipOption.init();
-		PlaceOption.init();
-		ScaleOption.init();
+		ArmOp.init();
+		ClipOp.init();
+		PlaceOp.init();
+		ScaleOp.init();
 	}
 
 	public final void operateThroughGamepad(){
 		syncRequests();
 
 		if(clipOption.getEnabled()){
-			ClipOption.change();
+			ClipOp.change();
 		}
 
 		if(sampleIO.getEnabled()){
 			sampleIO.ticker.tickAndMod(3);
 			switch (sampleIO.ticker.getTicked()){
 				case 0:
-					IOTakesOption.idle();
+					IOTakesOp.idle();
 					break;
 				case 1:
-					IOTakesOption.outtake();
+					IOTakesOp.outtake();
 					break;
 				case 2:
-					IOTakesOption.intake();
+					IOTakesOp.intake();
 					break;
 				default:
 					throw new IllegalStateException("SampleOptioning Unexpected value: " + sampleIO.ticker.getTicked());
@@ -95,37 +95,37 @@ public class Robot {
 		}
 
 		if(liftIDLE.getEnabled()){
-			if(PlaceOption.PlacePositionTypes.decant == PlaceOption.recent()){
-				PlaceOption.idle();
+			if(PlaceOp.PlacePositionTypes.decant == PlaceOp.recent()){
+				PlaceOp.idle();
 			}
-			if(LiftOption.LiftPositionTypes.highSuspend == LiftOption.recent()){
-				ClipOption.open();
+			if(LiftOp.LiftPositionTypes.highSuspend == LiftOp.recent()){
+				ClipOp.open();
 			}
 
-			LiftOption.sync(LiftOption.LiftPositionTypes.idle);
+			LiftOp.sync(LiftOp.LiftPositionTypes.idle);
 		}else if(liftDecantUpping.getEnabled()){
-			if(ArmOption.isNotSafe()){
-				ArmOption.safe();
+			if(ArmOp.isNotSafe()){
+				ArmOp.safe();
 			}
 
-			if(LiftOption.LiftPositionTypes.idle == LiftOption.recent()){
-				LiftOption.sync(LiftOption.LiftPositionTypes.decantLow);
-			}else if(LiftOption.LiftPositionTypes.decantLow == LiftOption.recent()){
-				LiftOption.sync(LiftOption.LiftPositionTypes.decantHigh);
+			if(LiftOp.LiftPositionTypes.idle == LiftOp.recent()){
+				LiftOp.sync(LiftOp.LiftPositionTypes.decantLow);
+			}else if(LiftOp.LiftPositionTypes.decantLow == LiftOp.recent()){
+				LiftOp.sync(LiftOp.LiftPositionTypes.decantHigh);
 			}
 		}else if(liftHighSuspendPrepare.getEnabled()){
-			if(ArmOption.isNotSafe()){
-				ArmOption.safe();
+			if(ArmOp.isNotSafe()){
+				ArmOp.safe();
 			}
 
-			LiftOption.sync(LiftOption.LiftPositionTypes.highSuspendPrepare);
+			LiftOp.sync(LiftOp.LiftPositionTypes.highSuspendPrepare);
 		}
 
 		if(decantOrSuspend.getEnabled()){
-			if(LiftOption.decanting()){
-				PlaceOption.decant();
-			} else if (LiftOption.LiftPositionTypes.highSuspendPrepare == LiftOption.recent()) {
-				LiftOption.sync(LiftOption.LiftPositionTypes.highSuspend);
+			if(LiftOp.decanting()){
+				PlaceOp.decant();
+			} else if (LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
+				LiftOp.sync(LiftOp.LiftPositionTypes.highSuspend);
 			}
 		}
 
@@ -133,16 +133,16 @@ public class Robot {
 			armScaleOperate.ticker.tickAndMod(3);
 			switch (armScaleOperate.ticker.getTicked()){
 				case 0:
-					ScaleOption.back();
-					ArmOption.safe();
+					ScaleOp.back();
+					ArmOp.safe();
 					break;
 				case 1:
-					ScaleOption.probe();
-					ArmOption.intake();
+					ScaleOp.probe();
+					ArmOp.intake();
 					break;
 				case 2:
-					ScaleOption.back();
-					ArmOption.idle();
+					ScaleOp.back();
+					ArmOp.idle();
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -155,22 +155,22 @@ public class Robot {
 	public final void driveThroughGamepad(){
 		driveBufPower=1+gamepad1.right_stick_y*0.5;
 
-		DriveOption.sync(
+		DriveOp.sync(
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
 				driveBufPower
 		);
 
 		if(gamepad1.left_bumper){
-			DriveOption.additions(0,0,-0.1);
+			DriveOp.additions(0,0,-0.1);
 		}
 		if(gamepad1.right_bumper){
-			DriveOption.additions(0,0,0.1);
+			DriveOp.additions(0,0,0.1);
 		}
 
-		DriveOption.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger,triggerBufFal);
+		DriveOp.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger,triggerBufFal);
 
 		if(gamepad1.a){
-			DriveOption.targetAngleRst();
+			DriveOp.targetAngleRst();
 		}
 	}
 

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.action.Action;
 import org.jetbrains.annotations.Contract;
 
 @Deprecated
-public enum SimpleDriveOption {
+public enum SimpleDriveOp {
 	;
 	private static final class SimpleDriveAction implements Action {
 		private final double x,y,turn;

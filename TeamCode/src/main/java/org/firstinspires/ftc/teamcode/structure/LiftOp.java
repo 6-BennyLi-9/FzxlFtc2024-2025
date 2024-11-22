@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
-public enum LiftOption {
+public enum LiftOp {
 	;
 
 

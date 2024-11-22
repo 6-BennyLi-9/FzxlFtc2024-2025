@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public enum ScaleOption {
+public enum ScaleOp {
 	;
 	public enum ScalePosition{
 		back,

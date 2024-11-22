@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public enum ArmOption {
+public enum ArmOp {
 	;
 	public enum ArmPositionTypes {
 		idle,intake,safe,unknown

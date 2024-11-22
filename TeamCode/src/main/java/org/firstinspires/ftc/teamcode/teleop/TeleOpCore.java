@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
-import org.firstinspires.ftc.teamcode.structure.DriveOption;
+import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Robot;
@@ -17,7 +17,7 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void init() {
-		DriveOption.config= DriveOption.DriveConfig.StraightLinear;
+		DriveOp.config= DriveOp.DriveConfig.StraightLinear;
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();

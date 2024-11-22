@@ -12,7 +12,7 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.structure.LiftOption;
+import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.util.Robot;
 
 /**
@@ -32,7 +32,7 @@ public class Util{
 		boxRst().armsIDLE().stopIO().scalesBack().openClip().runCached();
 	}
 
-	//PlaceOption
+	//PlaceOp
 	public Util decant(){
 		thread.add(new StatementAction(()-> place.setPosition(1)));
 		return this;
@@ -42,7 +42,7 @@ public class Util{
 		return this;
 	}
 
-	//ClipOption
+	//ClipOp
 	public Util openClip(){
 		thread.add(new StatementAction(()-> clip.setPosition(0)));
 		return this;
@@ -52,7 +52,7 @@ public class Util{
 		return this;
 	}
 
-	//IOTakesOption
+	//IOTakesOp
 	public Util intake(){
 		thread.add(new StatementAction(()-> intake.setPosition(1)));
 		return this;
@@ -66,7 +66,7 @@ public class Util{
 		return this;
 	}
 
-	//ArmOption
+	//ArmOp
 	public Util displayArms(){
 		thread.add(new ThreadedAction(
 				new StatementAction(()-> leftArm.setPosition(0.3)),
@@ -89,7 +89,7 @@ public class Util{
 		return this;
 	}
 
-	//ScaleOption
+	//ScaleOp
 	public Util scalesProbe(){
 		thread.add(new ThreadedAction(
 				new StatementAction(()-> leftScale.setPosition(0.5)),
@@ -115,19 +115,19 @@ public class Util{
 		return this;
 	}
 	public Util liftDecantHigh(){
-		thread.add(liftControllerGenerator(LiftOption.decantHigh));
+		thread.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
 	public Util liftDecantLow(){
-		thread.add(liftControllerGenerator(LiftOption.decantLow));
+		thread.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
 	public Util liftSuspendHighPrepare(){
-		thread.add(liftControllerGenerator(LiftOption.highSuspendPrepare));
+		thread.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
 	public Util liftSuspendHigh(){
-		thread.add(liftControllerGenerator(LiftOption.highSuspend));
+		thread.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
 
