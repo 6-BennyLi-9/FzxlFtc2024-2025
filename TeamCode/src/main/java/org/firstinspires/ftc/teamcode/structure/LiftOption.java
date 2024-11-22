@@ -23,8 +23,8 @@ public enum LiftOption {
 		highSuspend,
 		highSuspendPrepare
 	}
-	private static LiftPositionTypes recent=LiftPositionTypes.idle;
-	private static LiftController liftController;
+	public static LiftPositionTypes recent=LiftPositionTypes.idle;
+	public static LiftController liftController;
 
 	public static void connect() {
 		liftController=new ClassicLiftController(HardwareConstants.lift);
@@ -32,7 +32,7 @@ public enum LiftOption {
 		liftController.setTag("lift");
 	}
 	
-	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1150;
+	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1200;
 
 	public static LiftPositionTypes recent() {
 		return recent;
