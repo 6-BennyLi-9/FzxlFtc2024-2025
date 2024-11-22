@@ -13,6 +13,10 @@ import org.jetbrains.annotations.Contract;
 @Config
 public enum DriveOption {
 	;
+	public enum DriveConfig{
+		StraightLinear,PID,SimpleCalibrate
+	}
+	public static  DriveConfig config;
 	private static ChassisController chassisController;
 
 	public static void connect() {
@@ -27,23 +31,28 @@ public enum DriveOption {
 	}
 
 	public static double kP=0.12,kI,kD;
-	private static double output,targetAngle;
+	private static double output,targetAngle,currentPowerAngle;
 	private static double x,y,turn;
 
-	public  static       boolean      driveUsingPID = true;
 	private static final PidProcessor processor     = new PidProcessor(kP,kI,kD,180);
 
 	private static void syncAngle(){
 		final double currentAngle =HardwareConstants.imu.getAngularOrientation().firstAngle;
 		final double angleErr     = targetAngle - currentAngle;
 
-		if(!driveUsingPID){
-			output=turn;
-			return;
+		switch (config){
+			case PID:
+				processor.modify(angleErr);
+				output=processor.getCalibrateVal();
+				break;
+			case SimpleCalibrate:
+				output=(targetAngle-currentPowerAngle)*0.8;
+				break;
+			case StraightLinear:
+			default:
+				output=turn;
+				break;
 		}
-
-		processor.modify(angleErr);
-		output=processor.getCalibrateVal();
 	}
 
 	@NonNull
@@ -62,24 +71,22 @@ public enum DriveOption {
 
 		targetAngle+=turn*bufPower;
 		syncAngle();
-		chassisController.setPowers(x, y, output, bufPower);
+		currentPowerAngle+=output;
+		chassisController.setPowers(x, y, output);
 	}
 	public static void additions(final double x, final double y, final double turn){
 		additions(x,y,turn,1);
 	}
 	public static void additions(final double x, final double y, final double turn,final double bufPower){
 		sync(
-				DriveOption.x		+x*bufPower,
-				DriveOption.y		+y*bufPower,
-				DriveOption.turn	+turn*bufPower
+				DriveOption.x		+x,
+				DriveOption.y		+y,
+				DriveOption.turn	+turn,
+				bufPower
 		);
 	}
 
 	public static void targetAngleRst(){
 		targetAngle=0;
-	}
-
-	public static void setDriveUsingPID(final boolean driveUsingPID) {
-		DriveOption.driveUsingPID = driveUsingPID;
 	}
 }

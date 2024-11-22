@@ -17,7 +17,7 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void init() {
-		DriveOption.setDriveUsingPID(false);
+		DriveOption.config= DriveOption.DriveConfig.StraightLinear;
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
@@ -48,7 +48,7 @@ public class TeleOpCore extends OpMode {
 
 	@Override
 	public void start() {
-		TelemetryClient.getInstance().autoUpdate =true;
+		TelemetryClient.getInstance().autoUpdate = false;
 		TelemetryClient.getInstance().deleteLine("ROBOT INITIALIZE COMPLETE!");
 	}
 

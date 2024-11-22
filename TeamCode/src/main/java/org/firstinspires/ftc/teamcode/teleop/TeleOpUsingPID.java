@@ -10,6 +10,6 @@ public class TeleOpUsingPID extends TeleOpCore{
 	@Override
 	public void init() {
 		super.init();
-		DriveOption.setDriveUsingPID(true);
+		DriveOption.config= DriveOption.DriveConfig.PID;
 	}
 }
