@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOpMode;
 public class TestAutonomous extends IntegralLinearOpMode {
 	@Override
 	public void initialize() {
+		utils.armsToSafePosition().runCached();
 	}
 
 	@Override

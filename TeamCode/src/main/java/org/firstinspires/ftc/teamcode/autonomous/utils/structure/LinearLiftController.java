@@ -5,19 +5,19 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@Deprecated
 public class LinearLiftController extends AutonomousLiftController{
 	public LinearLiftController(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target, targetPosition);
-		target.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
 	public boolean run() {
+		targetLift.setTargetPosition((int)getTargetPosition());
+
 		if(DcMotor.RunMode.RUN_TO_POSITION != targetLift.getMode()){
 			targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		}
-
-		targetLift.setTargetPosition((int)getTargetPosition());
 
 		return false;
 	}

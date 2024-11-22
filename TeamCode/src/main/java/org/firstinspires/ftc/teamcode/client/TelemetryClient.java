@@ -31,7 +31,7 @@ public class TelemetryClient {
 		return instanceTelemetryClient;
 	}
 
-	public static void registerInstance(final Telemetry telemetry){
+	public static void constructInstance(final Telemetry telemetry){
 		instanceTelemetryClient=new TelemetryClient(telemetry);
 	}
 
