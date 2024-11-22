@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftController;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 public class LinearLiftController extends LiftController {
 	protected LinearLiftController(@NonNull DcMotorEx target) {
@@ -16,7 +15,7 @@ public class LinearLiftController extends LiftController {
 
 	@Override
 	public boolean run() {
-		if(targetLift.getMode() != DcMotor.RunMode.RUN_TO_POSITION){
+		if(DcMotor.RunMode.RUN_TO_POSITION != targetLift.getMode()){
 			targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		}
 

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 
 public abstract class LiftController implements Action {
-	protected long currentPosition,targetPosition,errorPosition;
+	protected long currentPosition,targetPosition;
 	protected final DcMotorEx targetLift;
 
 	protected String tag;
@@ -23,7 +23,6 @@ public abstract class LiftController implements Action {
 	@Override
 	public boolean run() {
 		currentPosition= targetLift	.getCurrentPosition();
-		errorPosition=targetPosition- currentPosition;
 
 		modify();
 		targetLift.setPower(getCalibrateVal());
@@ -61,6 +60,6 @@ public abstract class LiftController implements Action {
 	}
 
 	public long getErrorPosition() {
-		return errorPosition;
+		return targetPosition - currentPosition;
 	}
 }
