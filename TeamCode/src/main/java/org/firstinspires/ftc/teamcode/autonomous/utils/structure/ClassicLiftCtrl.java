@@ -28,7 +28,7 @@ public class ClassicLiftCtrl extends LiftCtrl {
 	public ClassicLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target);
 		setTargetPosition(targetPosition);
-		setInfinityRun(false);
+		disableInfinityRun();
 	}
 
 	@Override

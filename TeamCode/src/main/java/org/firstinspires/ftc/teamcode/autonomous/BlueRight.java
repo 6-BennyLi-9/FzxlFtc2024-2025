@@ -4,9 +4,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
-import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
 
-@Autonomous(preselectTeleOp = "19419")
+@Autonomous(preselectTeleOp = "19419",group = "0_main")
 public class BlueRight extends IntegralLinearOp {
 	@Override
 	public void initialize() {
@@ -17,9 +16,18 @@ public class BlueRight extends IntegralLinearOp {
 				.build());
 
 		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueRightSuspend)
+				.strafeLeft(24)
+				.turn(Math.toRadians(90))
 				.strafeRight(24)
 				.back(12)
-				.strafeRight(24)
+				.strafeLeft(50)
+				.strafeRight(50)
+				.back(12)
+				.strafeLeft(50)
+				.strafeRight(50)
+				.back(12)
+				.strafeLeft(50)
+				.strafeRight(50)
 				.build());
 
 		registerTrajectory("get sample1",generateSequenceBuilder(afterPushing)

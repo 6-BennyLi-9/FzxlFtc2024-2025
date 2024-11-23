@@ -4,9 +4,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
-import org.firstinspires.ftc.teamcode.autonomous.utils.UtilPoses;
 
-@Autonomous(preselectTeleOp = "19419")
+@Autonomous(preselectTeleOp = "19419",group = "0_main")
 public class BlueLeft extends IntegralLinearOp {
 	@Override
 	public void initialize() {
@@ -17,18 +16,9 @@ public class BlueLeft extends IntegralLinearOp {
 				.build());
 
 		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
-				.strafeLeft(24)
-				.turn(Math.toRadians(90))
 				.strafeRight(24)
 				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
+				.strafeRight(24)
 				.build());
 
 		registerTrajectory("intake sample1",generateSequenceBuilder(afterPushing)
@@ -51,9 +41,10 @@ public class BlueLeft extends IntegralLinearOp {
 
 	@Override
 	public void linear() {
+		utils.liftSuspendHighPrepare().armsToSafePosition().runCached();
 		runTrajectory("suspend preload");
-		utils.liftSuspendHighPrepare().armsToSafePosition().openClip().runCached();
 		utils.liftSuspendHigh().runCached();
+		sleep(1000);
 		utils.openClip().liftDown().runCached();
 		runTrajectory("push samples");
 		runTrajectory("intake sample1");

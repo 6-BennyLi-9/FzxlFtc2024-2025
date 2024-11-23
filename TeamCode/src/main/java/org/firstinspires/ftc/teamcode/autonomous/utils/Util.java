@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.utils.structure;
+package org.firstinspires.ftc.teamcode.autonomous.utils;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.intake;
@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.autonomous.utils.structure.ClassicLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.Robot;
@@ -30,7 +31,7 @@ public class Util{
 	}
 
 	public void deviceInit(){
-		boxRst().armsIDLE().stopIO().scalesBack().openClip().runCached();
+		boxRst().armsIDLE().stopIO().scalesBack().closeClip().liftDown().runCached();
 	}
 
 	//PlaceOp
@@ -143,7 +144,7 @@ public class Util{
 		return armsToSafePosition();
 	}
 	public Util integralLiftDownPrepare(){
-		return armsIDLE().boxRst();
+		return boxRst();
 	}
 
 	public void runCached(){
