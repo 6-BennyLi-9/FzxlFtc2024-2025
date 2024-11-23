@@ -21,6 +21,7 @@ public final class LinkedAction implements Action{
 		this(Arrays.asList(actions));
 	}
 
+
 	@Override
 	public boolean run() {
 		if(actions.get(ptr).run()){

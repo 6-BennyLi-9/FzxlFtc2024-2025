@@ -15,23 +15,22 @@ public class BlueLeft extends IntegralLinearOp {
 				.lineToLinearHeading(UtilPoses.BlueLeftSuspend)
 				.build());
 
-		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
+		final Pose2d samplesPot =registerTrajectory("to samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
 				.strafeRight(24)
-				.back(12)
-				.strafeRight(24)
+				.back(10)
+				.turn(Math.toRadians(-90))
+				.build());
+		final Pose2d afterPushing = registerTrajectory("push",generateSequenceBuilder(samplesPot)
+				.forward(15)
 				.build());
 
-		registerTrajectory("intake sample1",generateSequenceBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample1)
-				.build());
-		registerTrajectory("intake sample1",generateSequenceBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample2)
-				.build());
-		registerTrajectory("intake sample1",generateSequenceBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftSample3)
-				.build());
+
 		registerTrajectory("go decant",generateBuilder(afterPushing)
 				.lineToLinearHeading(UtilPoses.BlueDecant)
+				.build());
+
+		registerTrajectory("to port",generateSequenceBuilder(UtilPoses.BlueDecant)
+				.lineToLinearHeading(samplesPot)
 				.build());
 
 		registerTrajectory("park",generateBuilder(UtilPoses.BlueDecant)
@@ -41,39 +40,41 @@ public class BlueLeft extends IntegralLinearOp {
 
 	@Override
 	public void linear() {
-		utils.liftSuspendHighPrepare().armsToSafePosition().runCached();
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
-		sleep(1000);
-		utils.openClip().liftDown().runCached();
-		runTrajectory("push samples");
-		runTrajectory("intake sample1");
+		sleep(500);
+		utils.openClip().liftDown().runAsThread();
+		runTrajectory("to samples");
 		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
-		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
+		runTrajectory("push");
 
-		runTrajectory("intake sample2");
-		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
+		sleep(500);
+		utils.armsIDLE().waitMs(1500).integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
+		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().integralIntakes().runAsThread();
 
-		runTrajectory("intake sample3");
-		utils.integralIntakes().runCached();
-		sleep(1000);
-		utils.integralIntakesEnding().runCached();
+		runTrajectory("to port");
+		runTrajectory("push");
+		utils.armsIDLE().waitMs(1500).integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		runTrajectory("go decant");
-		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
-		utils.decant();
-		utils.integralLiftDownPrepare().liftDown().runCached();
-
-		runTrajectory("park");
+//		utils.integralIntakes().runCached();
+//		sleep(1000);
+//		utils.integralIntakesEnding().runCached();
+//		runTrajectory("go decant");
+//		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
+//		utils.decant();
+//		utils.integralLiftDownPrepare().liftDown().runCached();
+//
+//		runTrajectory("intake sample3");
+//		utils.integralIntakes().runCached();
+//		sleep(1000);
+//		utils.integralIntakesEnding().runCached();
+//		runTrajectory("go decant");
+//		utils.integralLiftUpPrepare().liftDecantHigh().runCached();
+//		utils.decant();
+//		utils.integralLiftDownPrepare().liftDown().runCached();
+//
+//		runTrajectory("park");
 	}
 }

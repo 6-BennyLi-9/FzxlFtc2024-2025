@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.structure.controllers.lift;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -11,9 +12,11 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 /**
  * 使用 {@link DcMotorEx} 为基础的控制器
  */
+@Config
 public class DcLiftCtrl extends LiftCtrl {
 	public static double bufPow=1;
 	public static int tolerance=10;
+	public static boolean using_touch_calibrate=true;
 
 	public DcLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
@@ -21,7 +24,7 @@ public class DcLiftCtrl extends LiftCtrl {
 
 	@Override
 	public boolean run() {
-		if(0 == getTargetPosition()){
+		if(0 == getTargetPosition()&&using_touch_calibrate){
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 			targetLift.setPower(! HardwareConstants.liftTouch.isPressed() ? 0 : - 1);
 			if(!HardwareConstants.liftTouch.isPressed()){

@@ -12,7 +12,7 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.autonomous.utils.structure.ClassicLiftCtrl;
+import org.firstinspires.ftc.teamcode.autonomous.utils.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.Robot;
@@ -31,7 +31,15 @@ public class Util{
 	}
 
 	public void deviceInit(){
-		boxRst().armsIDLE().stopIO().scalesBack().closeClip().liftDown().runCached();
+		boxRst().armsToSafePosition().stopIO().scalesBack().closeClip().liftDown().runCached();
+	}
+	public Util waitMs(long waitMillis){
+		thread.add(new StatementAction(()-> {
+			try {
+				Thread.sleep(waitMillis);
+			} catch (InterruptedException ignore) {}
+		}));
+		return this;
 	}
 
 	//PlaceOp
@@ -109,7 +117,7 @@ public class Util{
 
 	//lift
 	protected LiftCtrl liftControllerGenerator(final long target){
-		return new ClassicLiftCtrl(lift,target);
+		return new DcAutoLiftCtrl(lift,target);
 	}
 
 	public Util liftDown(){
@@ -149,5 +157,11 @@ public class Util{
 
 	public void runCached(){
 		thread.runTillEnd();
+	}
+	public void runAsThread(){
+		saveCachedAsThread().start();
+	}
+	public Thread saveCachedAsThread(){
+		return new Thread(this::runCached);
 	}
 }

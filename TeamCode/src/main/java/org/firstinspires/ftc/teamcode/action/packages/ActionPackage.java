@@ -15,7 +15,7 @@ import java.util.Set;
  * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
  */
 public class ActionPackage {
-	private final List<PriorityAction> actions;
+	protected final List<PriorityAction> actions;
 
 	public ActionPackage(){
 		actions=new ArrayList<>();
