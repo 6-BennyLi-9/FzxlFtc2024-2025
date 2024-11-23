@@ -38,8 +38,8 @@ public enum UtilPoses {
 	RedRightSample2=new Pose2d(-50,RedRightSample1.getY(),Math.toRadians(180)),
 	RedRightSample3=new Pose2d(-52,RedRightSample1.getY(),Math.toRadians(180)),
 
-	BlueLeftPark=new Pose2d(30,12,Math.toRadians(180)),
-	BlueRightPark=new Pose2d(-30,12,Math.toRadians(0)),
-	RedLeftPark=new Pose2d(-30,-12,Math.toRadians(0)),
-	RedRightPark=new Pose2d(30,-12,Math.toRadians(180));
+	BlueLeftPark=new Pose2d(25,12,Math.toRadians(0)),
+	BlueRightPark=new Pose2d(-25,12,Math.toRadians(180)),
+	RedLeftPark=new Pose2d(-25,-12,Math.toRadians(180)),
+	RedRightPark=new Pose2d(25,-12,Math.toRadians(0));
 }

@@ -7,10 +7,12 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.action.Actions;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
+import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
 
@@ -29,30 +31,28 @@ public abstract class IntegralLinearOp extends LinearOpMode {
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
-		try {
-			HardwareConstants.sync(hardwareMap, false);
-			drive=new SampleMecanumDrive(hardwareMap);
-			telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-			client=new TelemetryClient(telemetry);
-			utils=new Util();
-			timer=new Timer();
-			initialize();
+		HardwareConstants.sync(hardwareMap, true);
+		drive=new SampleMecanumDrive(hardwareMap);
+		telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+		client=new TelemetryClient(telemetry);
+		utils=new Util();
+		timer=new Timer();
+		initialize();
 
-			TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
+		TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
 
-			waitForStart();
+		waitForStart();
 
-			TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
+		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
 
-			if(!opModeIsActive())return;
-			timer.restart();
-			Thread linear=new Thread(this::linear);
-			linear.start();
-			while (opModeIsActive()&&!linear.isInterrupted()){
-				sleep(10);
-			}
-			linear.interrupt();
-		}catch (Throwable ignore){}
+		if(!opModeIsActive())return;
+		timer.restart();
+		Thread linear=new Thread(this::linear);
+		linear.start();
+		while (opModeIsActive()&&!linear.isInterrupted()){
+			sleep(10);
+		}
+		linear.interrupt();
 	}
 
 	public abstract void initialize();
@@ -81,12 +81,22 @@ public abstract class IntegralLinearOp extends LinearOpMode {
 		return drive.trajectorySequenceBuilder(pose);
 	}
 
-	public Trajectory angleCalibration(final double angle){
-		return drive.trajectoryBuilder(drive.getPoseEstimate())
-				.lineToLinearHeading(drive.getPoseEstimate().minus(new Pose2d(
-						drive.getPoseEstimate().getX(),
-						drive.getPoseEstimate().getY(),
-						angle
-				))).build();
+	public void angleCalibration(final double angle){
+		angleCalibration(angle,drive.getPoseEstimate());
+	}
+	public void angleCalibration(final double angle,final Pose2d poseEst){
+		Actions.runAction(() -> {
+			final double allow=5;
+			if(HardwareConstants.imu.getAngularOrientation().firstAngle>angle+allow){
+				Actions.runAction(SimpleDriveOp.build(0,0,-0.5));
+				return true;
+			}else if(HardwareConstants.imu.getAngularOrientation().firstAngle<angle-allow){
+				Actions.runAction(SimpleDriveOp.build(0,0,0.5));
+				return true;
+			}
+			Actions.runAction(SimpleDriveOp.build(0,0,0));
+			return false;
+		});
+		drive.setPoseEstimate(poseEst);
 	}
 }
