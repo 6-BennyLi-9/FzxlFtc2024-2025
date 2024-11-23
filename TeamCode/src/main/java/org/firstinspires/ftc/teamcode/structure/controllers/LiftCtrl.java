@@ -13,7 +13,7 @@ public abstract class LiftCtrl implements Action {
 	protected final DcMotorEx targetLift;
 
 	protected String tag;
-	protected boolean infinityRun=true;
+	private boolean infinityRun=true;
 
 	protected LiftCtrl(@NonNull final DcMotorEx target){
 		targetLift=target;
@@ -65,5 +65,9 @@ public abstract class LiftCtrl implements Action {
 	}
 	public long getErrorPosition() {
 		return targetPosition - currentPosition;
+	}
+
+	protected void setInfinityRun(final boolean infinityRun) {
+		this.infinityRun = infinityRun;
 	}
 }
