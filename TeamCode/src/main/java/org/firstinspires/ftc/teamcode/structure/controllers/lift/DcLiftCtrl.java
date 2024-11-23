@@ -23,7 +23,7 @@ public class DcLiftCtrl extends LiftCtrl {
 		targetLift.setTargetPositionTolerance(tolerance);
 		targetLift.setTargetPosition((int) getTargetPosition());
 		targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		targetLift.setPower(bufPow * Math.signum(getErrorPosition()));
+		targetLift.setPower(bufPow);
 
 		return true;
 	}
