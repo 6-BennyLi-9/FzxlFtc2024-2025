@@ -13,6 +13,7 @@ public abstract class LiftCtrl implements Action {
 	protected final DcMotorEx targetLift;
 
 	protected String tag;
+	protected boolean infinityRun=true;
 
 	protected LiftCtrl(@NonNull final DcMotorEx target){
 		targetLift=target;
@@ -32,11 +33,17 @@ public abstract class LiftCtrl implements Action {
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
 
-		return true;
+		if(infinityRun)return true;
+		return !getCalibrateDone();
 	}
 
 	public abstract void modify();
 	public abstract double getCalibrateVal();
+
+	/**
+	 * @return 校准是否完成
+	 */
+	public boolean getCalibrateDone() {return true;}
 
 	@Override
 	public String paramsString() {
@@ -46,7 +53,6 @@ public abstract class LiftCtrl implements Action {
 	public void setTargetPosition(final long targetPosition) {
 		this.targetPosition = targetPosition;
 	}
-
 	public void setTag(final String tag) {
 		this.tag = tag;
 	}
@@ -54,11 +60,9 @@ public abstract class LiftCtrl implements Action {
 	public long getTargetPosition() {
 		return targetPosition;
 	}
-
 	public long getCurrentPosition() {
 		return currentPosition;
 	}
-
 	public long getErrorPosition() {
 		return targetPosition - currentPosition;
 	}

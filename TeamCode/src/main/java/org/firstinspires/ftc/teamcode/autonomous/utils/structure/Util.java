@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.action.packages.ActionPackage;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.Robot;
 
 /**
@@ -106,7 +107,7 @@ public class Util{
 	}
 
 	//lift
-	protected AutonomousLiftCtrl liftControllerGenerator(final long target){
+	protected LiftCtrl liftControllerGenerator(final long target){
 		return new ClassicLiftCtrl(lift,target);
 	}
 

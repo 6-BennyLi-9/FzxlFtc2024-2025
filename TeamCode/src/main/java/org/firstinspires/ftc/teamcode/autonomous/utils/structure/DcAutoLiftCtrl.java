@@ -5,12 +5,15 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class DcAutoLiftCtrl extends AutonomousLiftCtrl {
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
+
+public class DcAutoLiftCtrl extends LiftCtrl {
 	public static double bufPow=1;
 	public static int tolerance=10;
 
 	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
-		super(target, targetPosition);
+		super(target);
+		setTargetPosition(targetPosition);
 	}
 
 	@Override
@@ -23,7 +26,7 @@ public class DcAutoLiftCtrl extends AutonomousLiftCtrl {
 		return false;
 	}
 
-	@Override public boolean getCalibrationDone() {return false;}
+	@Override public boolean getCalibrateDone() {return false;}
 	@Override public void modify() {}
 	@Override public double getCalibrateVal() {return 0;}
 }

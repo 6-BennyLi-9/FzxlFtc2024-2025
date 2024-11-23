@@ -5,10 +5,11 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 @Config
-public class ClassicLiftCtrl extends AutonomousLiftCtrl {
+public class ClassicLiftCtrl extends LiftCtrl {
 	public static long staticAllowError;
 	public static long lowerErrorRange;
 	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
@@ -25,7 +26,8 @@ public class ClassicLiftCtrl extends AutonomousLiftCtrl {
 	}
 
 	public ClassicLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
-		super(target, targetPosition);
+		super(target);
+		setTargetPosition(targetPosition);
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class ClassicLiftCtrl extends AutonomousLiftCtrl {
 	}
 
 	@Override
-	public boolean getCalibrationDone() {
+	public boolean getCalibrateDone() {
 		return calibrationDone;
 	}
 }
