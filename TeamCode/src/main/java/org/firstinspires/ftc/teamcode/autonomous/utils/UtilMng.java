@@ -26,10 +26,10 @@ import java.util.LinkedList;
  * @see RobotMng
  */
 @SuppressWarnings({"unused","UnusedReturnValue"})
-public class Util{
+public class UtilMng {
 	private final LinkedList <Action> actions;
 
-	public Util(){
+	public UtilMng(){
 		actions =new LinkedList <>();
 		deviceInit();
 	}
@@ -37,7 +37,7 @@ public class Util{
 	public void deviceInit(){
 		boxRst().armsToSafePosition().stopIO().scalesBack().closeClip().liftDown().runCached();
 	}
-	public Util waitMs(long waitMillis){
+	public UtilMng waitMs(long waitMillis){
 		actions.add(new StatementAction(()-> {
 			try {
 				Thread.sleep(waitMillis);
@@ -47,55 +47,55 @@ public class Util{
 	}
 
 	//PlaceOp
-	public Util decant(){
+	public UtilMng decant(){
 		actions.add(new StatementAction(()-> place.setPosition(1)));
 		return this;
 	}
-	public Util boxRst(){
+	public UtilMng boxRst(){
 		actions.add(new StatementAction(()-> place.setPosition(0)));
 		return this;
 	}
 
 	//ClipOp
-	public Util openClip(){
+	public UtilMng openClip(){
 		actions.add(new StatementAction(()-> clip.setPosition(0)));
 		return this;
 	}
-	public Util closeClip(){
+	public UtilMng closeClip(){
 		actions.add(new StatementAction(()-> clip.setPosition(0.5)));
 		return this;
 	}
 
 	//TakeOp
-	public Util intake(){
+	public UtilMng intake(){
 		actions.add(new StatementAction(()-> intake.setPosition(1)));
 		return this;
 	}
-	public Util outtake(){
+	public UtilMng outtake(){
 		actions.add(new StatementAction(()-> intake.setPosition(0)));
 		return this;
 	}
-	public Util stopIO(){
+	public UtilMng stopIO(){
 		actions.add(new StatementAction(()-> intake.setPosition(0.5)));
 		return this;
 	}
 
 	//ArmOp
-	public Util displayArms(){
+	public UtilMng displayArms(){
 		actions.add(new ThreadedAction(
 				new StatementAction(()-> leftArm.setPosition(0.3)),
 				new StatementAction(()-> rightArm.setPosition(0.3))
 		));
 		return this;
 	}
-	public Util armsIDLE(){
+	public UtilMng armsIDLE(){
 		actions.add(new ThreadedAction(
 				new StatementAction(()-> leftArm.setPosition(0.86)),
 				new StatementAction(()-> rightArm.setPosition(0.86))
 		));
 		return this;
 	}
-	public Util armsToSafePosition(){
+	public UtilMng armsToSafePosition(){
 		actions.add(new ThreadedAction(
 				new StatementAction(()-> leftArm.setPosition(0.75)),
 				new StatementAction(()-> rightArm.setPosition(0.75))
@@ -104,14 +104,14 @@ public class Util{
 	}
 
 	//ScaleOp
-	public Util scalesProbe(){
+	public UtilMng scalesProbe(){
 		actions.add(new ThreadedAction(
 				new StatementAction(()-> leftScale.setPosition(0.5)),
 				new StatementAction(()-> rightScale.setPosition(1))
 		));
 		return this;
 	}
-	public Util scalesBack(){
+	public UtilMng scalesBack(){
 		actions.add(new ThreadedAction(
 				new StatementAction(()-> leftScale.setPosition(1)),
 				new StatementAction(()-> rightScale.setPosition(0.5))
@@ -124,38 +124,38 @@ public class Util{
 		return new DcAutoLiftCtrl(lift,target);
 	}
 
-	public Util liftDown(){
+	public UtilMng liftDown(){
 		actions.add(liftControllerGenerator(0));
 		return this;
 	}
-	public Util liftDecantHigh(){
+	public UtilMng liftDecantHigh(){
 		actions.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
-	public Util liftDecantLow(){
+	public UtilMng liftDecantLow(){
 		actions.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
-	public Util liftSuspendHighPrepare(){
+	public UtilMng liftSuspendHighPrepare(){
 		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
-	public Util liftSuspendHigh(){
+	public UtilMng liftSuspendHigh(){
 		actions.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
 
 	//integral
-	public Util integralIntakes(){
+	public UtilMng integralIntakes(){
 		return displayArms().intake();
 	}
-	public Util integralIntakesEnding(){
+	public UtilMng integralIntakesEnding(){
 		return boxRst().armsIDLE().intake();
 	}
-	public Util integralLiftUpPrepare(){
+	public UtilMng integralLiftUpPrepare(){
 		return armsToSafePosition();
 	}
-	public Util integralLiftDownPrepare(){
+	public UtilMng integralLiftDownPrepare(){
 		return boxRst();
 	}
 

@@ -23,7 +23,7 @@ import java.util.Map;
 public abstract class IntegralLinearOp extends LinearOpMode {
 	public SampleMecanumDrive drive;
 	public TelemetryClient    client;
-	public Util               utils;
+	public UtilMng utils;
 	public Timer              timer;
 
 	private final Map<String, Trajectory> trajectoryMap=new HashMap<>();
@@ -35,7 +35,7 @@ public abstract class IntegralLinearOp extends LinearOpMode {
 		drive=new SampleMecanumDrive(hardwareMap);
 		telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 		client=new TelemetryClient(telemetry);
-		utils=new Util();
+		utils=new UtilMng();
 		timer=new Timer();
 		initialize();
 

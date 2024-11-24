@@ -4,13 +4,13 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
-import org.firstinspires.ftc.teamcode.autonomous.utils.Util;
+import org.firstinspires.ftc.teamcode.autonomous.utils.UtilMng;
 
 @Autonomous(group = "9_tests")
 public class TestAutonomous extends IntegralLinearOp {
 	@Override
 	public void initialize() {
-		utils=new Util();
+		utils=new UtilMng();
 		utils.armsToSafePosition().runCached();
 	}
 
