@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
+import org.firstinspires.ftc.teamcode.util.ops.IntegralLinearOp;
 
 @Autonomous(preselectTeleOp = "19419",group = "0_main")
 public class Right extends IntegralLinearOp {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.utils;
+package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -24,7 +24,7 @@ import java.util.Map;
 public abstract class IntegralLinearOp extends LinearOpMode {
 	public SampleMecanumDrive drive;
 	public Client			  client;
-	public UtilMng 			  utils;
+	public UtilMng utils;
 	public Timer              timer;
 
 	private final Map<String, Trajectory> trajectoryMap=new HashMap<>();

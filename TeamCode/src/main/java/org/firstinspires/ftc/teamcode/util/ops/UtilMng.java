@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.utils;
+package org.firstinspires.ftc.teamcode.util.ops;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.intake;
@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.action.Actions;
 import org.firstinspires.ftc.teamcode.action.utils.LinkedAction;
 import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.autonomous.utils.structure.DcAutoLiftCtrl;
+import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.util.RobotMng;
