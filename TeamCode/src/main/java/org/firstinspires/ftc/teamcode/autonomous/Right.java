@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
 
 @Autonomous(preselectTeleOp = "19419",group = "0_main")
-public class BlueRight extends IntegralLinearOp {
+public class Right extends IntegralLinearOp {
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(UtilPoses.BlueRightStart);

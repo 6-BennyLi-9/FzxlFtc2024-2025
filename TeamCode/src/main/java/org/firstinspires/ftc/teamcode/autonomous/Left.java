@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
 
 @Autonomous(preselectTeleOp = "19419",group = "0_main")
-public class BlueLeft extends IntegralLinearOp {
+public class Left extends IntegralLinearOp {
 	Pose2d samplesPot,afterPushing;
 	@Override
 	public void initialize() {
