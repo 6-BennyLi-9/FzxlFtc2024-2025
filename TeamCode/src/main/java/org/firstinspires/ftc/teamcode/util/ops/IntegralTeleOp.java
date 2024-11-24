@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.RobotMng;
 import org.firstinspires.ftc.teamcode.util.Timer;
 
 public abstract class IntegralTeleOp extends OpMode {
-	public RobotMng robotMng;
+	public RobotMng robot;
 	public Timer timer;
 	public Client client;
 
@@ -21,9 +21,9 @@ public abstract class IntegralTeleOp extends OpMode {
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
-		robotMng =new RobotMng();
-		robotMng.registerGamepad(gamepad1,gamepad2);
-		robotMng.initActions();
+		robot =new RobotMng();
+		robot.registerGamepad(gamepad1,gamepad2);
+		robot.initActions();
 		client=new Client(new DashTelemetry(FtcDashboard.getInstance(),telemetry));
 
 		client  .addData("TPS","wait for start")
@@ -31,7 +31,7 @@ public abstract class IntegralTeleOp extends OpMode {
 				.addLine("ROBOT INITIALIZE COMPLETE!")
 				.addLine("=======================");
 
-		robotMng.runThread();
+		robot.runThread();
 	}
 
 	@Override

@@ -13,14 +13,14 @@ public class TeleOpCore extends IntegralTeleOp {
 		super.loop();
 		//主程序开始
 
-		robotMng.operateThroughGamepad();
-		robotMng.driveThroughGamepad();
+		robot.operateThroughGamepad();
+		robot.driveThroughGamepad();
 
 		//主程序结束
-		robotMng.printThreadDebugs();
+		robot.printThreadDebugs();
 		GamepadRequestMemories.printValues();
 
-		robotMng.runThread();
+		robot.runThread();
 
 		TelemetryClient.getInstance().update();//更新缓存
 	}
