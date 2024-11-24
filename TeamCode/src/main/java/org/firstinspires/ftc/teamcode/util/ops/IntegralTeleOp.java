@@ -43,7 +43,7 @@ public abstract class IntegralTeleOp extends OpMode {
 	public void start() {
 		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
 		timer.pushTimeTag("start");
-	};
+	}
 
 	@Override
 	public void loop() {
@@ -53,8 +53,6 @@ public abstract class IntegralTeleOp extends OpMode {
 		}
 		client	.changeData("TPS",1.0e3/timer.restartAndGetDeltaTime())
 				.changeData("time",getRuntime());
-
-
 	}
 
 	@Override
