@@ -50,25 +50,31 @@ public class BlueLeft extends IntegralLinearOp {
 
 		angleCalibration(-90,samplesPot);
 		runTrajectory("push");
-		utils.armsIDLE().waitMs(1900).stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.armsIDLE()
+				.waitMs(1900)
+				.stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();
 		sleep(950);
-		utils.boxRst().liftDown().integralIntakes().runAsThread();
 
+		utils.boxRst().liftDown().integralIntakes().runAsThread();
 		runTrajectory("to port");
 		angleCalibration(-90,samplesPot);
-		runTrajectory("push");
-		utils.armsIDLE().waitMs(1900).stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.armsIDLE().scalesProbe().
+				waitMs(1900)
+				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();
 		sleep(950);
-		utils.boxRst().liftDown().integralIntakes().runAsThread();
 
+		utils.boxRst().liftDown().integralIntakes().runAsThread();
 		runTrajectory("to port");
 		angleCalibration(-90,samplesPot);
-		runTrajectory("push");
-		utils.armsIDLE().waitMs(1900).stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.armsIDLE().scalesProbe()
+				.waitMs(1900)
+				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();
 		sleep(950);
