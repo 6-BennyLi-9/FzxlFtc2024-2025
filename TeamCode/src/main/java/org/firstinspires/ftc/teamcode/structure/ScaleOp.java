@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 public enum ScaleOp {
@@ -30,6 +30,12 @@ public enum ScaleOp {
 		return recent;
 	}
 
+	public static void manage(double position){
+		position= Math.min(Math.max(position,-0.5),1);
+		leftScaleController.setTargetPosition(1.5-position);
+		rightScaleController.setTargetPosition(position);
+	}
+
 	public static void init(){
 		back();
 	}
@@ -43,14 +49,15 @@ public enum ScaleOp {
 
 	public static void probe(){
 		recent=ScalePosition.probe;
-		leftScaleController.setTargetPosition(0.5);
-		rightScaleController.setTargetPosition(1);
-
+		manage(1);
 	}
 	public static void back(){
 		recent=ScalePosition.back;
-		leftScaleController.setTargetPosition(1);
-		rightScaleController.setTargetPosition(0.5);
+		manage(0.5);
+	}
+	public static void operate(final double position){
+		recent=ScalePosition.probe;
+		manage(position);
 	}
 
 	@NonNull
