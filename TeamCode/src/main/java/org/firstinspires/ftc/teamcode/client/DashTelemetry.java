@@ -22,6 +22,7 @@ public class DashTelemetry implements Telemetry {
 		if(!Arrays.asList(telemetries).contains(dashboard.getTelemetry())) {
 			this.telemetries.addTelemetry(dashboard.getTelemetry());
 		}
+		this.telemetries.clearAll();
 	}
 
 	@Override

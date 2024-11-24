@@ -27,36 +27,36 @@ public final class Timer {
     }
 
     /**重新定义{@code StartTime}*/
-    public final void restart(){
+    public void restart(){
         StartTime=getCurrentTime();
     }
     /**定义{@code EndTime}*/
-    public final void stop(){
+    public void stop(){
         EndTime=getCurrentTime();
     }
     /**获取{@code EndTime-StartTime}*/
-    public final double getDeltaTime(){
+    public double getDeltaTime(){
         return EndTime-StartTime;
     }
     /**定义{@code EndTime}并获取{@code EndTime-StartTime}*/
-    public final double stopAndGetDeltaTime(){
+    public double stopAndGetDeltaTime(){
         stop();
         return getDeltaTime();
     }
     /**定义{@code EndTime}并获取{@code EndTime-StartTime}并重新定义{@code StartTime}*/
-    public final double restartAndGetDeltaTime(){
+    public double restartAndGetDeltaTime(){
         final double res=stopAndGetDeltaTime();
         restart();
         return res;
     }
     /**重新定义{@code StartTime}并定义{@code EndTime}*/
-    public final void stopAndRestart(){
+    public void stopAndRestart(){
         stop();
         restart();
     }
 
     /**自动覆写如果存在相同的tag*/
-    public final void pushTimeTag(final String tag){
+    public void pushTimeTag(final String tag){
         if(Tags.containsKey(tag)){
             Tags.replace(tag,getCurrentTime());
         }else {
@@ -64,7 +64,7 @@ public final class Timer {
         }
     }
     /**自动覆写如果存在相同的tag*/
-    public final void pushObjectionTimeTag(final String tag, final Object objection){
+    public void pushObjectionTimeTag(final String tag, final Object objection){
         pushTimeTag(tag);
         if(Tags.containsKey(tag)){
             TagMeaning.replace(tag,objection);

@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.action.Actions;
+import org.firstinspires.ftc.teamcode.client.Client;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
@@ -22,8 +23,8 @@ import java.util.Map;
 @SuppressWarnings({"unused","UnusedReturnValue"})
 public abstract class IntegralLinearOp extends LinearOpMode {
 	public SampleMecanumDrive drive;
-	public TelemetryClient    client;
-	public UtilMng utils;
+	public Client			  client;
+	public UtilMng 			  utils;
 	public Timer              timer;
 
 	private final Map<String, Trajectory> trajectoryMap=new HashMap<>();
@@ -34,7 +35,7 @@ public abstract class IntegralLinearOp extends LinearOpMode {
 		HardwareConstants.sync(hardwareMap, true);
 		drive=new SampleMecanumDrive(hardwareMap);
 		telemetry=new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-		client=new TelemetryClient(telemetry);
+		client=new Client(telemetry);
 		utils=new UtilMng();
 		timer=new Timer();
 		initialize();
@@ -47,12 +48,13 @@ public abstract class IntegralLinearOp extends LinearOpMode {
 
 		if(!opModeIsActive())return;
 		timer.restart();
-		Thread linear=new Thread(this::linear);
+		final Thread linear=new Thread(this::linear);
 		linear.start();
 		while (opModeIsActive()&&!linear.isInterrupted()){
 			sleep(10);
 		}
 		linear.interrupt();
+		client.interrupt();
 	}
 
 	public abstract void initialize();
