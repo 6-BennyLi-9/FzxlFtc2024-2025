@@ -9,13 +9,13 @@ import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
 public class Right extends IntegralLinearOp {
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.BlueRightStart);
+		drive.setPoseEstimate(UtilPoses.RightStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueRightStart)
-				.lineToLinearHeading(UtilPoses.BlueRightSuspend)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.RightStart)
+				.lineToLinearHeading(UtilPoses.RightSuspend)
 				.build());
 
-		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.BlueRightSuspend)
+		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.RightSuspend)
 				.strafeLeft(24)
 				.turn(Math.toRadians(90))
 				.strafeRight(24)
@@ -31,27 +31,27 @@ public class Right extends IntegralLinearOp {
 				.build());
 
 		registerTrajectory("get sample1",generateSequenceBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.BlueGetSample)
+				.lineToLinearHeading(UtilPoses.GetSample)
 				.build());
-		registerTrajectory("suspend1",generateBuilder(UtilPoses.BlueGetSample)
-				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(-5,0)))
-				.build());
-
-		registerTrajectory("get sample u",generateSequenceBuilder(UtilPoses.BlueRightSuspend)
-				.lineToLinearHeading(UtilPoses.BlueGetSample)
+		registerTrajectory("suspend1",generateBuilder(UtilPoses.GetSample)
+				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(-5,0)))
 				.build());
 
-		registerTrajectory("suspend2",generateBuilder(UtilPoses.BlueGetSample)
-				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(5,0)))
+		registerTrajectory("get sample u",generateSequenceBuilder(UtilPoses.RightSuspend)
+				.lineToLinearHeading(UtilPoses.GetSample)
 				.build());
-		registerTrajectory("suspend3",generateBuilder(UtilPoses.BlueGetSample)
-				.lineToLinearHeading(UtilPoses.BlueRightSuspend.plus(new Pose2d(10,0)))
+
+		registerTrajectory("suspend2",generateBuilder(UtilPoses.GetSample)
+				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(5,0)))
+				.build());
+		registerTrajectory("suspend3",generateBuilder(UtilPoses.GetSample)
+				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(10,0)))
 				.build());
 
 
-		registerTrajectory("park",generateBuilder(UtilPoses.BlueRightSuspend)
-				.lineToLinearHeading(UtilPoses.BlueGetSample)
-				.lineToLinearHeading(UtilPoses.BlueRightPark)
+		registerTrajectory("park",generateBuilder(UtilPoses.RightSuspend)
+				.lineToLinearHeading(UtilPoses.GetSample)
+				.lineToLinearHeading(UtilPoses.RightPark)
 				.build());
 	}
 

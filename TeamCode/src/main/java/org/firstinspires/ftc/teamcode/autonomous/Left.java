@@ -10,13 +10,13 @@ public class Left extends IntegralLinearOp {
 	Pose2d samplesPot,afterPushing;
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.BlueLeftStart);
+		drive.setPoseEstimate(UtilPoses.LeftStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.BlueLeftStart)
-				.lineToLinearHeading(UtilPoses.BlueLeftSuspend)
+		registerTrajectory("suspend preload",generateBuilder(UtilPoses.LeftStart)
+				.lineToLinearHeading(UtilPoses.LeftSuspend)
 				.build());
 
-		samplesPot =registerTrajectory("to samples",generateSequenceBuilder(UtilPoses.BlueLeftSuspend)
+		samplesPot =registerTrajectory("to samples",generateSequenceBuilder(UtilPoses.LeftSuspend)
 				.strafeRight(24)
 				.back(9)
 				.build());
@@ -27,15 +27,15 @@ public class Left extends IntegralLinearOp {
 
 
 		registerTrajectory("go decant",generateBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.BlueDecant)
+				.lineToLinearHeading(UtilPoses.Decant)
 				.build());
 
-		registerTrajectory("to port",generateSequenceBuilder(UtilPoses.BlueDecant)
+		registerTrajectory("to port",generateSequenceBuilder(UtilPoses.Decant)
 				.lineToLinearHeading(samplesPot)
 				.build());
 
-		registerTrajectory("park",generateBuilder(UtilPoses.BlueDecant)
-				.lineToLinearHeading(UtilPoses.BlueLeftPark)
+		registerTrajectory("park",generateBuilder(UtilPoses.Decant)
+				.lineToLinearHeading(UtilPoses.LeftPark)
 				.build());
 	}
 
