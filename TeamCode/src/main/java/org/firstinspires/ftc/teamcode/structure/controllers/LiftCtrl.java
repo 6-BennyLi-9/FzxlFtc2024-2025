@@ -67,7 +67,7 @@ public abstract class LiftCtrl implements Action {
 		return targetPosition - currentPosition;
 	}
 
-	protected void setInfinityRun(final boolean infinityRun) {
-		this.infinityRun = infinityRun;
+	protected void disableInfinityRun() {
+		this.infinityRun = false;
 	}
 }

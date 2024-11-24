@@ -1,25 +1,23 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.autonomous.utils.IntegralLinearOp;
+import org.firstinspires.ftc.teamcode.autonomous.utils.Util;
 
-@Autonomous(group = "tests")
+@Autonomous(group = "9_tests")
 public class TestAutonomous extends IntegralLinearOp {
 	@Override
 	public void initialize() {
+		utils=new Util();
 		utils.armsToSafePosition().runCached();
 	}
 
 	@Override
 	public void linear() {
-		utils.liftDecantLow().runCached();
-		sleep(5000);
-		utils.liftDecantHigh().runCached();
-		sleep(5000);
-		utils.liftSuspendHighPrepare().runCached();
-		sleep(5000);
-		utils.liftSuspendHigh().runCached();
-		sleep(5000);
+		angleCalibration(0,new Pose2d());
+		sleep(1000);
+		angleCalibration(90,new Pose2d(0,0,90));//逆时针
 	}
 }

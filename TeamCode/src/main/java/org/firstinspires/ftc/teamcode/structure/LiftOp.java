@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.structure.controllers.lift.ClassicLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -27,12 +27,12 @@ public enum LiftOp {
 	public static LiftCtrl liftCtrl;
 
 	public static void connect() {
-		liftCtrl =new ClassicLiftCtrl(HardwareConstants.lift);
+		liftCtrl =new DcLiftCtrl(HardwareConstants.lift);
 
 		liftCtrl.setTag("lift");
 	}
 	
-	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1200;
+	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1250;
 
 	public static LiftPositionTypes recent() {
 		return recent;

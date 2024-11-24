@@ -26,6 +26,7 @@ public final class ThreadedAction implements Action {
 
 	@Override
 	public boolean run() {
+		if(actions.isEmpty())return false;
 		final Set<Action> removes=new HashSet<>();
 		for(final Action action:actions){
 			if(!action.run()){

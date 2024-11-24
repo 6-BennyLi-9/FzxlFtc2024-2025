@@ -6,7 +6,6 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.jetbrains.annotations.Contract;
 
-@Deprecated
 public enum SimpleDriveOp {
 	;
 	private static final class SimpleDriveAction implements Action {

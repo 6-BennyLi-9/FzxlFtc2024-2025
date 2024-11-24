@@ -1,6 +1,16 @@
 package org.firstinspires.ftc.teamcode.roadrunner.drive;
 
-import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.*;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kV;
 
 import androidx.annotation.NonNull;
 
@@ -20,12 +30,10 @@ import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationCon
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.lynx.LynxModule;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
@@ -66,8 +74,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 	private final DcMotorEx rightFront;
     private final List<DcMotorEx> motors;
 
-    private final IMU imu;
-    private final VoltageSensor batteryVoltageSensor;
+	private final VoltageSensor batteryVoltageSensor;
 
     private final List<Integer> lastEncPositions = new ArrayList<>();
     private final List<Integer> lastEncVels = new ArrayList<>();
@@ -86,11 +93,11 @@ public class SampleMecanumDrive extends MecanumDrive {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
-        // TODO: adjust the names of the following hardware devices to match your configuration
-          imu = hardwareMap.get(IMU.class, "imu");
-          final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                LOGO_FACING_DIR, USB_FACING_DIR));
-          imu.initialize(parameters);
+//        // TODO: adjust the names of the following hardware devices to match your configuration
+//	    IMU imu = hardwareMap.get(IMU.class, "imu");
+//          final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+//                LOGO_FACING_DIR, USB_FACING_DIR));
+//          imu.initialize(parameters);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
