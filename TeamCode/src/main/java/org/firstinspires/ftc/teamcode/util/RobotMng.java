@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)}
  */
-public class Robot {
+public class RobotMng {
 	@NonNull public static Gamepad gamepad1,gamepad2;
 	public TaggedActionPackage thread;
 
@@ -38,13 +38,13 @@ public class Robot {
 		gamepad2=new Gamepad();
 	}
 
-	public Robot(){
+	public RobotMng(){
 		thread =new TaggedActionPackage();
 	}
 
 	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2){
-		Robot.gamepad1 =gamepad1;
-		Robot.gamepad2 =gamepad2;
+		RobotMng.gamepad1 =gamepad1;
+		RobotMng.gamepad2 =gamepad2;
 	}
 
 	public void initActions(){

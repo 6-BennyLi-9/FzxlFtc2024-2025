@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.util;
 
-import static org.firstinspires.ftc.teamcode.util.Robot.*;
+import static org.firstinspires.ftc.teamcode.util.RobotMng.*;
 import static org.firstinspires.ftc.teamcode.util.UtilButtonControlSystem.ButtonConfig.SingleWhenPressed;
 
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;

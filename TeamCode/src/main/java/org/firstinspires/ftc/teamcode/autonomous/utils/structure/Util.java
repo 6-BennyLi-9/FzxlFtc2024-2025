@@ -14,11 +14,11 @@ import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.Robot;
+import org.firstinspires.ftc.teamcode.util.RobotMng;
 
 /**
- * 适配于自动程序的 {@code Robot} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}}
- * @see Robot
+ * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}}
+ * @see RobotMng
  */
 @SuppressWarnings({"unused","UnusedReturnValue"})
 public class Util{

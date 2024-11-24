@@ -9,11 +9,11 @@ import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.util.Robot;
+import org.firstinspires.ftc.teamcode.util.RobotMng;
 
 @TeleOp(name = "19419",group = "0_Main")
 public class TeleOpCore extends OpMode {
-	public Robot robot;
+	public RobotMng robotMng;
 
 	@Override
 	public void init() {
@@ -21,9 +21,9 @@ public class TeleOpCore extends OpMode {
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
-		robot=new Robot();
-		robot.registerGamepad(gamepad1,gamepad2);
-		robot.initActions();
+		robotMng =new RobotMng();
+		robotMng.registerGamepad(gamepad1,gamepad2);
+		robotMng.initActions();
 		TelemetryClient.constructInstance(new DashTelemetry(FtcDashboard.getInstance(),telemetry));
 
 		TelemetryClient.getInstance()
@@ -39,7 +39,7 @@ public class TeleOpCore extends OpMode {
 		start=System.nanoTime()/ 1.0e9;
 		lst=start;
 
-		robot.runThread();
+		robotMng.runThread();
 
 		TelemetryClient.getInstance()
 				.addLine("ROBOT INITIALIZE COMPLETE!")
@@ -61,14 +61,14 @@ public class TeleOpCore extends OpMode {
 		lst=now;
 		//主程序开始
 
-		robot.operateThroughGamepad();
-		robot.driveThroughGamepad();
+		robotMng.operateThroughGamepad();
+		robotMng.driveThroughGamepad();
 
 		//主程序结束
-		robot.printThreadDebugs();
+		robotMng.printThreadDebugs();
 		GamepadRequestMemories.printValues();
 
-		robot.runThread();
+		robotMng.runThread();
 
 		TelemetryClient.getInstance().update();//更新缓存
 	}
