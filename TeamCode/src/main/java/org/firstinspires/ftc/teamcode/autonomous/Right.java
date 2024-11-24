@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.util.ops.IntegralLinearOp;
+import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Autonomous(preselectTeleOp = "19419",group = "0_main")
-public class Right extends IntegralLinearOp {
+public class Right extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(UtilPoses.RightStart);

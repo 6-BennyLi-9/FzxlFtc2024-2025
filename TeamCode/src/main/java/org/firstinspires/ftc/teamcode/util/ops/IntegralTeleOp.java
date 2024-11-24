@@ -53,6 +53,8 @@ public abstract class IntegralTeleOp extends OpMode {
 		}
 		client	.changeData("TPS",1.0e3/timer.restartAndGetDeltaTime())
 				.changeData("time",getRuntime());
+
+
 	}
 
 	@Override

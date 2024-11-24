@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.util.ops.IntegralLinearOp;
+import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Autonomous(group = "1_utils")
-public final class ClipPreload extends IntegralLinearOp {
+public final class ClipPreload extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		utils.openClip().runCached();

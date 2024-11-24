@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"unused","UnusedReturnValue"})
-public abstract class IntegralLinearOp extends LinearOpMode {
+public abstract class IntegralAutonomous extends LinearOpMode {
 	public SampleMecanumDrive drive;
 	public Client			  client;
 	public UtilMng utils;
