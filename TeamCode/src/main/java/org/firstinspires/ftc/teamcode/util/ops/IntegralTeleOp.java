@@ -18,6 +18,7 @@ public abstract class IntegralTeleOp extends OpMode {
 	@Override
 	public void init() {
 		DriveOp.config= DriveOp.DriveConfig.StraightLinear;
+		timer=new Timer();
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
@@ -45,9 +46,15 @@ public abstract class IntegralTeleOp extends OpMode {
 		timer.pushTimeTag("start");
 	};
 
+	private boolean auto_terminate_when_TLE=true;
+
+	public void auto_terminate_when_TLE(boolean auto_terminate_when_TLE) {
+		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
+	}
+
 	@Override
 	public void loop() {
-		if(120 < getRuntime()){
+		if(121 < getRuntime() && auto_terminate_when_TLE){
 			stop();
 			terminateOpModeNow();
 		}
