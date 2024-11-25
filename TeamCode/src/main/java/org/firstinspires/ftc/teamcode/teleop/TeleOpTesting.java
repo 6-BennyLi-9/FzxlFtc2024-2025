@@ -10,7 +10,7 @@ public class TeleOpTesting extends TeleOpCore{
 	public void init() {
 		super.init();
 		DriveOp.config= DriveOp.DriveConfig.SimpleCalibrate;
-
+		auto_terminate_when_TLE(false);
 	}
 
 	@Override

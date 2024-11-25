@@ -14,7 +14,10 @@ public class Client extends TelemetryClient{
 				Actions.runAction(new SleepingAction(1000));
 			}
 		});
-		telemetry.setAutoClear(false);
+		try {
+//			telemetry.setAutoClear(false);
+			autoUpdate=false;
+		}catch (UnsupportedOperationException ignore){}
 	}
 
 	public void interrupt(){
