@@ -138,7 +138,7 @@ public class RobotMng {
 				ArmOp.safe();
 				break;
 			case 1:
-				ScaleOp.operate(gamepad2.left_stick_y*0.2+0.8);
+				ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
 				ArmOp.intake();
 				break;
 			case 2:
