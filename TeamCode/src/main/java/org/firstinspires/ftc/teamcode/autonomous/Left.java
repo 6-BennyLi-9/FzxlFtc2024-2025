@@ -52,7 +52,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("push");
 		utils.armsIDLE()
 				.waitMs(1900)
-				.stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
+				.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();
 		sleep(950);
@@ -62,7 +62,7 @@ public class Left extends IntegralAutonomous {
 		angleCalibration(-90,samplesPot);
 		utils.armsIDLE().scalesProbe().
 				waitMs(1900)
-				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+				.scalesBack().openClaw().integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();
@@ -73,7 +73,7 @@ public class Left extends IntegralAutonomous {
 		angleCalibration(-90,samplesPot);
 		utils.armsIDLE().scalesProbe()
 				.waitMs(1900)
-				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+				.scalesBack().openClaw().integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		runTrajectory("go decant");
 		utils.decant().runCached();

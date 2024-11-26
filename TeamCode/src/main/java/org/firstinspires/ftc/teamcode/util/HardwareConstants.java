@@ -23,10 +23,12 @@ public enum HardwareConstants {
 	public static DcMotorEx lift;
 	public static Servo     leftScale;
 	public static Servo rightScale;
+	/**用于悬挂样本*/
 	public static Servo clip;
 	public static Servo place;
 	public static Servo leftArm;
 	public static Servo rightArm;
+	/**用于夹取样本*/
 	public static Servo claw;
 	public static Servo rotate;
 	public static BNO055IMU   imu;

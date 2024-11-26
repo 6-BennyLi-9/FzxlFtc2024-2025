@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.util.ops;
 
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.intake;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftArm;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftScale;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.lift;
@@ -35,7 +35,7 @@ public class UtilMng {
 	}
 
 	public void deviceInit(){
-		boxRst().armsToSafePosition().stopIO().scalesBack().closeClip().liftDown().runCached();
+		boxRst().armsToSafePosition().openClaw().scalesBack().closeClip().liftDown().runCached();
 	}
 	public UtilMng waitMs(long waitMillis){
 		actions.add(new StatementAction(()-> {
@@ -66,17 +66,13 @@ public class UtilMng {
 		return this;
 	}
 
-	//TakeOp
-	public UtilMng intake(){
-		actions.add(new StatementAction(()-> intake.setPosition(1)));
+	//ClawOp
+	public UtilMng closeClaw(){
+		actions.add(new StatementAction(()-> claw.setPosition(0.44)));
 		return this;
 	}
-	public UtilMng outtake(){
-		actions.add(new StatementAction(()-> intake.setPosition(0)));
-		return this;
-	}
-	public UtilMng stopIO(){
-		actions.add(new StatementAction(()-> intake.setPosition(0.5)));
+	public UtilMng openClaw(){
+		actions.add(new StatementAction(()-> claw.setPosition(0.9)));
 		return this;
 	}
 
@@ -147,10 +143,10 @@ public class UtilMng {
 
 	//integral
 	public UtilMng integralIntakes(){
-		return displayArms().intake();
+		return displayArms().closeClaw();
 	}
 	public UtilMng integralIntakesEnding(){
-		return boxRst().armsIDLE().intake();
+		return boxRst().armsIDLE().closeClaw();
 	}
 	public UtilMng integralLiftUpPrepare(){
 		return armsToSafePosition();
