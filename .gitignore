@@ -85,3 +85,4 @@ lint/tmp/
 
 #local gradle settings
 gradle/
+/~$机器配置.xlsx
