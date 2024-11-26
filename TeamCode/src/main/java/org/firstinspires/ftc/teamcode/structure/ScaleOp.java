@@ -10,13 +10,13 @@ import org.jetbrains.annotations.Contract;
 
 public enum ScaleOp {
 	;
-	public enum ScalePosition{
+	public enum ScalePositionTypes {
 		back,
 		probe,
 		unknown
 	}
-	private static ScalePosition recent=ScalePosition.unknown;
-	private static ServoCtrl leftScaleController,rightScaleController;
+	private static ScalePositionTypes recent = ScalePositionTypes.unknown;
+	private static ServoCtrl          leftScaleController,rightScaleController;
 
 	public static void connect() {
 		leftScaleController =new ServoCtrl(HardwareConstants.leftScale,1);
@@ -26,7 +26,7 @@ public enum ScaleOp {
 		rightScaleController.setTag("rightScale");
 	}
 
-	public static ScalePosition recent() {
+	public static ScalePositionTypes recent() {
 		return recent;
 	}
 
@@ -40,7 +40,7 @@ public enum ScaleOp {
 		back();
 	}
 	public static void flip(){
-		if(ScalePosition.probe == recent){
+		if(ScalePositionTypes.probe == recent){
 			back();
 		}else{
 			probe();
@@ -48,15 +48,15 @@ public enum ScaleOp {
 	}
 
 	public static void probe(){
-		recent=ScalePosition.probe;
+		recent= ScalePositionTypes.probe;
 		manage(1);
 	}
 	public static void back(){
-		recent=ScalePosition.back;
+		recent= ScalePositionTypes.back;
 		manage(0.5);
 	}
 	public static void operate(final double position){
-		recent=ScalePosition.probe;
+		recent= ScalePositionTypes.probe;
 		manage(position);
 	}
 

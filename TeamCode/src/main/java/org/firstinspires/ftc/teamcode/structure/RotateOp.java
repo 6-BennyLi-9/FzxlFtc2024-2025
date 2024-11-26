@@ -12,7 +12,7 @@ public enum RotateOp {
 	private static ServoCtrl rotateController;
 
 	public static void connect() {
-		rotateController =new ServoCtrl(HardwareConstants.claw,0.79);
+		rotateController =new ServoCtrl(HardwareConstants.rotate,0.79);
 
 		rotateController.setTag("rotate");
 	}

@@ -27,7 +27,7 @@ public enum LiftOp {
 	public static LiftCtrl liftCtrl;
 
 	public static void connect() {
-		liftCtrl =new DcLiftCtrl(HardwareConstants.lift);
+		liftCtrl = new DcLiftCtrl(HardwareConstants.lift);
 
 		liftCtrl.setTag("lift");
 	}

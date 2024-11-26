@@ -75,7 +75,7 @@ public class RobotMng {
 		ScaleOp.init();
 	}
 
-	public static final double rotateTriggerBufFal =0.4;
+	public static final double rotateTriggerBufFal = 0.1;
 
 	public final void operateThroughGamepad(){
 		syncRequests();
@@ -159,16 +159,15 @@ public class RobotMng {
 		}
 		if(armScaleOperate.ticker.getTicked()==1){//特殊处理
 			ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
+			RotateOp.turn((gamepad2.right_trigger-gamepad2.left_trigger) * rotateTriggerBufFal);
 		}
-
-		RotateOp.turn((gamepad2.right_trigger-gamepad2.left_trigger) * rotateTriggerBufFal);
 	}
 
 	public static double       driveBufPower       =1;
 	public final static double driverTriggerBufFal =0.5;
 
 	public final void driveThroughGamepad(){
-		driveBufPower+=gamepad1.right_stick_y*0.3;
+		driveBufPower=1+gamepad1.right_stick_y*0.3;
 
 		DriveOp.sync(
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
