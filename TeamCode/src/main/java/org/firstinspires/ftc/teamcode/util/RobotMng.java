@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
+import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
 
 import java.util.Map;
@@ -54,6 +55,7 @@ public class RobotMng {
 		DriveOp.connect();
 		LiftOp.connect();
 		PlaceOp.connect();
+		RotateOp.connect();
 		ScaleOp.connect();
 
 		thread.add("arm", ArmOp.getController());
@@ -61,6 +63,7 @@ public class RobotMng {
 		thread.add("claw", ClawOp.getController());
 		thread.add("lift", LiftOp.getController());
 		thread.add("place", PlaceOp.getController());
+		thread.add("rotate", RotateOp.getController());
 		thread.add("scale", ScaleOp.getController());
 		thread.add("drive", DriveOp.getController());
 
@@ -68,8 +71,11 @@ public class RobotMng {
 		ClawOp.init();
 		ClipOp.init();
 		PlaceOp.init();
+		RotateOp.init();
 		ScaleOp.init();
 	}
+
+	public static final double rotateTriggerBufFal =0.4;
 
 	public final void operateThroughGamepad(){
 		syncRequests();
@@ -129,28 +135,37 @@ public class RobotMng {
 
 		if(armScaleOperate.getEnabled()){
 			armScaleOperate.ticker.tickAndMod(3);
+			switch (armScaleOperate.ticker.getTicked()){
+				case 0:
+					ScaleOp.back();
+					ArmOp.safe();
+					PlaceOp.safe();
+					break;
+				case 1:
+					RotateOp.mid();
+					ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
+					ArmOp.intake();
+					ClawOp.open();
+					break;
+				case 2:
+					RotateOp.mid();
+					ScaleOp.back();
+					ArmOp.idle();
+					PlaceOp.idle();
+					break;
+				default:
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+			}
 		}
-		switch (armScaleOperate.ticker.getTicked()){
-			case 0:
-				ScaleOp.back();
-				ArmOp.safe();
-				PlaceOp.safe();
-				break;
-			case 1:
-				ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
-				ArmOp.intake();
-				break;
-			case 2:
-				ScaleOp.back();
-				ArmOp.idle();
-				break;
-			default:
-				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+		if(armScaleOperate.ticker.getTicked()==1){//特殊处理
+			ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
 		}
+
+		RotateOp.turn((gamepad2.right_trigger-gamepad2.left_trigger) * rotateTriggerBufFal);
 	}
 
-	public static double driveBufPower=1;
-	public final static double triggerBufFal =0.5;
+	public static double       driveBufPower       =1;
+	public final static double driverTriggerBufFal =0.5;
 
 	public final void driveThroughGamepad(){
 		driveBufPower+=gamepad1.right_stick_y*0.3;
@@ -167,7 +182,7 @@ public class RobotMng {
 			DriveOp.additions(0,0,0.1);
 		}
 
-		DriveOp.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger,triggerBufFal);
+		DriveOp.additions(0,0,gamepad1.right_trigger-gamepad1.left_trigger, driverTriggerBufFal);
 
 		if(gamepad1.a){
 			DriveOp.targetAngleRst();
