@@ -16,9 +16,19 @@ import org.firstinspires.ftc.teamcode.action.utils.SleepingAction;
 
 public enum HardwareConstants {
 	;
-	public static DcMotorEx leftFront,leftRear,rightFront,rightRear;
+	public static DcMotorEx leftFront;
+	public static DcMotorEx leftRear;
+	public static DcMotorEx rightFront;
+	public static DcMotorEx rightRear;
 	public static DcMotorEx lift;
-	public static Servo     leftScale,rightScale,clip,place,leftArm,rightArm,claw,rotate;
+	public static Servo     leftScale;
+	public static Servo rightScale;
+	public static Servo clip;
+	public static Servo place;
+	public static Servo leftArm;
+	public static Servo rightArm;
+	public static Servo claw;
+	public static Servo rotate;
 	public static BNO055IMU   imu;
 	public static TouchSensor liftTouch;
 
