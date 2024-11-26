@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
-@Autonomous(preselectTeleOp = "19419",group = "0_main")
+@Autonomous(preselectTeleOp = "19419",group = "0_Main")
 public class Left extends IntegralAutonomous {
 	Pose2d samplesPot,afterPushing;
 	@Override
@@ -16,22 +16,9 @@ public class Left extends IntegralAutonomous {
 				.lineToLinearHeading(UtilPoses.LeftSuspend)
 				.build());
 
-		samplesPot =registerTrajectory("to samples",generateSequenceBuilder(UtilPoses.LeftSuspend)
-				.strafeRight(24)
-				.back(9)
-				.build());
-		samplesPot=samplesPot.plus(new Pose2d(0,0,Math.toRadians(-90)));
-		afterPushing = registerTrajectory("push",generateSequenceBuilder(samplesPot)
-				.forward(13)
-				.build());
-
-
-		registerTrajectory("go decant",generateBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.Decant)
-				.build());
-
-		registerTrajectory("to port",generateSequenceBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(samplesPot)
+		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
+				.lineTo(UtilPoses.LeftSample1.vec())
+				.turn(Math.toRadians(180))
 				.build());
 
 		registerTrajectory("park",generateBuilder(UtilPoses.Decant)
