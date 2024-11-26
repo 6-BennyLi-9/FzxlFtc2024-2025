@@ -18,7 +18,7 @@ public enum HardwareConstants {
 	;
 	public static DcMotorEx leftFront,leftRear,rightFront,rightRear;
 	public static DcMotorEx lift;
-	public static Servo     leftScale,rightScale,clip,place,leftArm,rightArm,intake;
+	public static Servo     leftScale,rightScale,clip,place,leftArm,rightArm,claw,rotate;
 	public static BNO055IMU   imu;
 	public static TouchSensor liftTouch;
 
@@ -33,7 +33,8 @@ public enum HardwareConstants {
 		//收集
 		leftScale=hardwareMap.get(Servo.class,"leftScale");
 		rightScale=hardwareMap.get(Servo.class,"rightScale");
-		intake=hardwareMap.get(Servo.class,"intake");
+		claw=hardwareMap.get(Servo.class,"claw");
+		rotate=hardwareMap.get(Servo.class,"rotate");
 
 		//传递
 		leftArm=hardwareMap.get(Servo.class,"leftArm");

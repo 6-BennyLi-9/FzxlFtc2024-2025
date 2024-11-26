@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
+@Deprecated
 public enum TakeOp {
 	;
 
@@ -20,7 +20,7 @@ public enum TakeOp {
 	private static ServoCtrl intakeController;
 
 	public static void connect() {
-		intakeController=new ServoCtrl(HardwareConstants.intake,0.5);
+//		intakeController=new ServoCtrl(HardwareConstants.intake,0.5);
 
 		intakeController.setTag("intake");
 	}
