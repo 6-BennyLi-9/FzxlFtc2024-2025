@@ -44,7 +44,7 @@ public enum ArmOp {
 	}
 	public static void idle(){
 		recent=ArmPositionTypes.idle;
-		manage(0.76);
+		manage(0.79);
 	}
 	public static void safe(){
 		recent=ArmPositionTypes.safe;

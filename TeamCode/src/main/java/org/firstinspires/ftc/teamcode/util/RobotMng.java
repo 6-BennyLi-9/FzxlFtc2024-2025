@@ -75,7 +75,7 @@ public class RobotMng {
 		ScaleOp.init();
 	}
 
-	public static final double rotateTriggerBufFal = 0.1;
+	public static final double rotateTriggerBufFal = 0.01;
 
 	public final void operateThroughGamepad(){
 		syncRequests();
@@ -102,7 +102,7 @@ public class RobotMng {
 			if(PlaceOp.PlacePositionTypes.decant == PlaceOp.recent()){
 				PlaceOp.idle();
 			}
-			if(LiftOp.LiftPositionTypes.highSuspend == LiftOp.recent()){
+			if(LiftOp.LiftPositionTypes.highSuspend == LiftOp.recent() || LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()){
 				ClipOp.open();
 			}
 
@@ -137,10 +137,12 @@ public class RobotMng {
 			armScaleOperate.ticker.tickAndMod(3);
 			switch (armScaleOperate.ticker.getTicked()){
 				case 0:
-					ScaleOp.back();
-					ArmOp.safe();
-					PlaceOp.safe();
-					break;
+					armScaleOperate.ticker.tickAndMod(3);
+//				case 0:
+//					ScaleOp.back();
+//					ArmOp.safe();
+//					PlaceOp.safe();
+//					break;
 				case 1:
 					RotateOp.mid();
 					ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);

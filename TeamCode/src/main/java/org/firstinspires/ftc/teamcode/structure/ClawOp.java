@@ -42,7 +42,7 @@ public enum ClawOp {
 	}
 	public static void open(){
 		recent= ClawPositionTypes.open;
-		clawControl.setTargetPosition(0.9);
+		clawControl.setTargetPosition(0.7);
 	}
 	public static void close(){
 		recent= ClawPositionTypes.close;
