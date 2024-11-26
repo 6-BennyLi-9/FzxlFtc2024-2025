@@ -31,7 +31,7 @@ public enum ScaleOp {
 	}
 
 	public static void manage(double position){
-		position= Math.min(Math.max(position,-0.5),1);
+		position= Math.min(Math.max(position,0.58),0.92);
 		leftScaleController.setTargetPosition(1.5-position);
 		rightScaleController.setTargetPosition(position);
 	}

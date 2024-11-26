@@ -38,6 +38,9 @@ public enum PlaceOp {
 		recent=PlacePositionTypes.idle;
 		placeController.setTargetPosition(0);
 	}
+	public static void safe(){
+		placeController.setTargetPosition(0.28);
+	}
 
 	@NonNull
 	@Contract(" -> new")

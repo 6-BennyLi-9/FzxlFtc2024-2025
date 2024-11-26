@@ -31,20 +31,24 @@ public enum ArmOp {
 	public static void init(){
 		safe();
 	}
+
+	public static void manage(double position){
+		position= Math.min(Math.max(position,0),0.92);
+		leftArmControl.setTargetPosition(position+0.08);
+		rightArmControl.setTargetPosition(position);
+	}
+
 	public static void intake(){
 		recent=ArmPositionTypes.intake;
-		leftArmControl.setTargetPosition(0.29);
-		rightArmControl.setTargetPosition(0.29);
+		manage(0.12);
 	}
 	public static void idle(){
 		recent=ArmPositionTypes.idle;
-		leftArmControl.setTargetPosition(0.86);
-		rightArmControl.setTargetPosition(0.86);
+		manage(0.76);
 	}
 	public static void safe(){
 		recent=ArmPositionTypes.safe;
-		leftArmControl.setTargetPosition(0.75);
-		rightArmControl.setTargetPosition(0.75);
+		manage(0.61);
 	}
 
 	public static void flip(){

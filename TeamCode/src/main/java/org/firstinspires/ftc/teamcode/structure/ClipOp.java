@@ -45,7 +45,7 @@ public enum ClipOp {
 		recent=ClipPositionTypes.open;
 		clipControl.setTargetPosition(0);
 	}
-	private static void close(){
+	public static void close(){
 		recent=ClipPositionTypes.close;
 		clipControl.setTargetPosition(0.5);
 	}

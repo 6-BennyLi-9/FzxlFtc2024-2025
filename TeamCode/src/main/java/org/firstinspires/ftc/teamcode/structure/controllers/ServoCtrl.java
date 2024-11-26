@@ -34,6 +34,9 @@ public class ServoCtrl implements Action {
 	public void setTargetPosition(final double targetPosition) {
 		this.targetPosition = targetPosition;
 	}
+	public void changeTargetPositionBy(final double targetPosition){
+		this.targetPosition+=targetPosition;
+	}
 
 	public void setTag(final String tag) {
 		this.tag = tag;

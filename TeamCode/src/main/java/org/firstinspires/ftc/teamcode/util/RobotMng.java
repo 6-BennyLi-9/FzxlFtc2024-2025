@@ -17,9 +17,9 @@ import org.firstinspires.ftc.teamcode.action.PriorityAction;
 import org.firstinspires.ftc.teamcode.action.packages.TaggedActionPackage;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
+import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
-import org.firstinspires.ftc.teamcode.structure.TakeOp;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
@@ -49,22 +49,23 @@ public class RobotMng {
 
 	public void initActions(){
 		ArmOp.connect();
+		ClawOp.connect();
 		ClipOp.connect();
 		DriveOp.connect();
-		TakeOp.connect();
 		LiftOp.connect();
 		PlaceOp.connect();
 		ScaleOp.connect();
 
+		thread.add("arm", ArmOp.cloneController());
 		thread.add("clip", ClipOp.cloneController());
-		thread.add("intake", TakeOp.cloneController());
+		thread.add("claw", ClawOp.cloneController());
 		thread.add("lift", LiftOp.cloneController());
 		thread.add("place", PlaceOp.cloneController());
-		thread.add("arm", ArmOp.cloneController());
 		thread.add("scale", ScaleOp.cloneController());
 		thread.add("drive", DriveOp.cloneAction());
 
 		ArmOp.init();
+		ClawOp.init();
 		ClipOp.init();
 		PlaceOp.init();
 		ScaleOp.init();
@@ -78,16 +79,13 @@ public class RobotMng {
 		}
 
 		if(sampleIO.getEnabled()){
-			sampleIO.ticker.tickAndMod(3);
+			sampleIO.ticker.tickAndMod(2);
 			switch (sampleIO.ticker.getTicked()){
 				case 0:
-					TakeOp.idle();
+					ClawOp.open();
 					break;
 				case 1:
-					TakeOp.outtake();
-					break;
-				case 2:
-					TakeOp.intake();
+					ClawOp.close();
 					break;
 				default:
 					throw new IllegalStateException("SampleOptioning Unexpected value: " + sampleIO.ticker.getTicked());
@@ -136,6 +134,7 @@ public class RobotMng {
 			case 0:
 				ScaleOp.back();
 				ArmOp.safe();
+				PlaceOp.safe();
 				break;
 			case 1:
 				ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
@@ -150,10 +149,11 @@ public class RobotMng {
 		}
 	}
 
-	public static double driveBufPower=1,triggerBufFal=0.5;
+	public static double driveBufPower=1;
+	public final static double triggerBufFal =0.5;
 
 	public final void driveThroughGamepad(){
-		driveBufPower=1+gamepad1.right_stick_y*0.5;
+		driveBufPower+=gamepad1.right_stick_y*0.3;
 
 		DriveOp.sync(
 				gamepad1.left_stick_x,gamepad1.left_stick_y,gamepad1.right_stick_x,
