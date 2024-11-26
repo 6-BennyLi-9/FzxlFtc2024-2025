@@ -40,7 +40,7 @@ public enum LiftOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController(){
 		return liftCtrl;
 	}
 

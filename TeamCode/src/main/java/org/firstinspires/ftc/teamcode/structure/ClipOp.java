@@ -52,7 +52,7 @@ public enum ClipOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController(){
 		return clipControl;
 	}
 }

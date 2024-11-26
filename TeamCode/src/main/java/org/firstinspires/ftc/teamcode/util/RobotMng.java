@@ -56,13 +56,13 @@ public class RobotMng {
 		PlaceOp.connect();
 		ScaleOp.connect();
 
-		thread.add("arm", ArmOp.cloneController());
-		thread.add("clip", ClipOp.cloneController());
-		thread.add("claw", ClawOp.cloneController());
-		thread.add("lift", LiftOp.cloneController());
-		thread.add("place", PlaceOp.cloneController());
-		thread.add("scale", ScaleOp.cloneController());
-		thread.add("drive", DriveOp.cloneAction());
+		thread.add("arm", ArmOp.getController());
+		thread.add("clip", ClipOp.getController());
+		thread.add("claw", ClawOp.getController());
+		thread.add("lift", LiftOp.getController());
+		thread.add("place", PlaceOp.getController());
+		thread.add("scale", ScaleOp.getController());
+		thread.add("drive", DriveOp.getController());
 
 		ArmOp.init();
 		ClawOp.init();

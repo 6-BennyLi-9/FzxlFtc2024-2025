@@ -57,7 +57,7 @@ public enum DriveOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneAction(){
+	public static Action getController(){
 		return chassisCtrl;
 	}
 

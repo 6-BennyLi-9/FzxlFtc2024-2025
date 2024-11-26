@@ -44,7 +44,7 @@ public enum PlaceOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController(){
 		return placeController;
 	}
 }

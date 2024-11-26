@@ -71,7 +71,7 @@ public enum ArmOp {
 	}
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController(){
 		return new ThreadedAction(leftArmControl, rightArmControl);
 	}
 }
