@@ -26,6 +26,5 @@ public enum UtilPoses {
 
 	GetSample =new Pose2d(-48,60, toRadians(90)),
 
-	LeftPark =new Pose2d(25,12, toRadians(0)),
-	RightPark =new Pose2d(-25,12, toRadians(180));
+	LeftPark =new Pose2d(25,12, toRadians(0));
 }

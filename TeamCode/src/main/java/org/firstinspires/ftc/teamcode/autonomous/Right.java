@@ -15,74 +15,50 @@ public class Right extends IntegralAutonomous {
 				.lineToLinearHeading(UtilPoses.RightSuspend)
 				.build());
 
-		final Pose2d afterPushing=registerTrajectory("push samples",generateSequenceBuilder(UtilPoses.RightSuspend)
-				.strafeLeft(24)
-				.turn(Math.toRadians(90))
-				.strafeRight(24)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
-				.back(12)
-				.strafeLeft(50)
-				.strafeRight(50)
+		registerTrajectory("push sample 1",generateBuilder(UtilPoses.RightSuspend)
+				.lineToLinearHeading(UtilPoses.RightSample1)
+				.build());
+		registerTrajectory("push sample 2",generateBuilder(UtilPoses.RightSample1)
+				.lineToLinearHeading(UtilPoses.RightSample2)
+				.build());
+		registerTrajectory("push sample 3",generateBuilder(UtilPoses.RightSample2)
+				.lineToLinearHeading(UtilPoses.RightSample3)
 				.build());
 
-		registerTrajectory("get sample1",generateSequenceBuilder(afterPushing)
+		registerTrajectory("get sample",generateBuilder(UtilPoses.RightSuspend)
 				.lineToLinearHeading(UtilPoses.GetSample)
 				.build());
+
 		registerTrajectory("suspend1",generateBuilder(UtilPoses.GetSample)
-				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(-5,0)))
-				.build());
-
-		registerTrajectory("get sample u",generateSequenceBuilder(UtilPoses.RightSuspend)
-				.lineToLinearHeading(UtilPoses.GetSample)
-				.build());
-
-		registerTrajectory("suspend2",generateBuilder(UtilPoses.GetSample)
 				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(5,0)))
 				.build());
-		registerTrajectory("suspend3",generateBuilder(UtilPoses.GetSample)
+		registerTrajectory("suspend2",generateBuilder(UtilPoses.GetSample)
 				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(10,0)))
+				.build());
+		registerTrajectory("suspend3",generateBuilder(UtilPoses.GetSample)
+				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(15,0)))
 				.build());
 
 
 		registerTrajectory("park",generateBuilder(UtilPoses.RightSuspend)
 				.lineToLinearHeading(UtilPoses.GetSample)
-				.lineToLinearHeading(UtilPoses.RightPark)
 				.build());
 	}
 
 	@Override
 	public void linear() {
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
-		utils.liftSuspendHighPrepare().armsToSafePosition().openClip().runCached();
 		utils.liftSuspendHigh().runCached();
-		utils.openClip().liftDown().runCached();
-		runTrajectory("push samples");
+		sleep(500);
+		utils.openClip().liftDown().integralIntakes().runAsThread();
 
-		runTrajectory("get sample1");
-		utils.closeClip().runCached();
-		runTrajectory("suspend1");
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
-		utils.liftSuspendHigh().runCached();
-		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
+		utils.openClaw().displayArms().runAsThread();
+		runTrajectory("push sample 1");
+		utils.closeClaw().armsIDLE().waitMs(1000).runAsThread();
 
-		runTrajectory("get sample u");
-		utils.closeClip().runCached();
-		runTrajectory("suspend2");
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
-		utils.liftSuspendHigh().runCached();
-		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
+		runTrajectory("get sample");
 
-		runTrajectory("get sample u");
-		utils.closeClip().runCached();
-		runTrajectory("suspend3");
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runCached();
-		utils.liftSuspendHigh().runCached();
-		utils.openClip().integralLiftDownPrepare().liftDown().runCached();
 
 		runTrajectory("park");
 	}
