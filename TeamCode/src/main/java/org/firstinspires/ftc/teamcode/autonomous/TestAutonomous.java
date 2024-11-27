@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 import org.firstinspires.ftc.teamcode.util.ops.UtilMng;
 
 @Autonomous(group = "9_Tests")
-public class TestAutonomous extends IntegralAutonomous {
+public final class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		utils = new UtilMng();
