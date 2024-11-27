@@ -143,7 +143,7 @@ public class RobotMng {
 					break;
 				case 1:
 					RotateOp.mid();
-					ScaleOp.operate(gamepad2.left_stick_x * 0.2 + 0.8);
+					ScaleOp.operate(gamepad2.left_stick_y * 0.2 + 0.8);
 					ArmOp.intake();
 					ClawOp.open();
 					break;
