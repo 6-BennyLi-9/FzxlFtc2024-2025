@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.structure.ScaleOp;
 import java.util.Map;
 
 /**
- * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)}
+ * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} ， {@link #initActions()}
  */
 public class RobotMng {
 	@NonNull public static Gamepad gamepad1,gamepad2;
@@ -49,30 +49,14 @@ public class RobotMng {
 	}
 
 	public void initActions(){
-		ArmOp.connect();
-		ClawOp.connect();
-		ClipOp.connect();
-		DriveOp.connect();
-		LiftOp.connect();
-		PlaceOp.connect();
-		RotateOp.connect();
-		ScaleOp.connect();
-
-		thread.add("arm", ArmOp.getController());
-		thread.add("clip", ClipOp.getController());
-		thread.add("claw", ClawOp.getController());
-		thread.add("lift", LiftOp.getController());
-		thread.add("place", PlaceOp.getController());
-		thread.add("rotate", RotateOp.getController());
-		thread.add("scale", ScaleOp.getController());
-		thread.add("drive", DriveOp.getController());
-
-		ArmOp.init();
-		ClawOp.init();
-		ClipOp.init();
-		PlaceOp.init();
-		RotateOp.init();
-		ScaleOp.init();
+		thread.add("arm", ArmOp.initController());
+		thread.add("clip", ClipOp.initController());
+		thread.add("claw", ClawOp.initController());
+		thread.add("lift", LiftOp.initController());
+		thread.add("place", PlaceOp.initController());
+		thread.add("rotate", RotateOp.initController());
+		thread.add("scale", ScaleOp.initController());
+		thread.add("drive", DriveOp.initController());
 	}
 
 	public static final double rotateTriggerBufFal = 0.01;
@@ -85,6 +69,8 @@ public class RobotMng {
 		}
 
 		if(sampleIO.getEnabled()){
+			ClawOp.change();
+/*
 			sampleIO.ticker.tickAndMod(2);
 			switch (sampleIO.ticker.getTicked()){
 				case 0:
@@ -96,6 +82,7 @@ public class RobotMng {
 				default:
 					throw new IllegalStateException("SampleOptioning Unexpected value: " + sampleIO.ticker.getTicked());
 			}
+*/
 		}
 
 		if(liftIDLE.getEnabled()){
@@ -134,26 +121,26 @@ public class RobotMng {
 		}
 
 		if(armScaleOperate.getEnabled()){
-			armScaleOperate.ticker.tickAndMod(3);
+			armScaleOperate.ticker.tickAndMod(2);
 			switch (armScaleOperate.ticker.getTicked()){
+/*
 				case 0:
-					armScaleOperate.ticker.tickAndMod(3);
-//				case 0:
-//					ScaleOp.back();
-//					ArmOp.safe();
-//					PlaceOp.safe();
-//					break;
+					ScaleOp.back();
+					ArmOp.safe();
+					PlaceOp.safe();
+					break;
+*/
+				case 0:
+					RotateOp.mid();
+					ScaleOp.back();
+					ArmOp.idle();
+					PlaceOp.idle();
+					break;
 				case 1:
 					RotateOp.mid();
 					ScaleOp.operate(gamepad2.left_stick_x*0.2+0.8);
 					ArmOp.intake();
 					ClawOp.open();
-					break;
-				case 2:
-					RotateOp.mid();
-					ScaleOp.back();
-					ArmOp.idle();
-					PlaceOp.idle();
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
