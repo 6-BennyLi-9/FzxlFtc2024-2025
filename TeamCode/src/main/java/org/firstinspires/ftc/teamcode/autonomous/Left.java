@@ -16,16 +16,15 @@ public class Left extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
-				.lineTo(UtilPoses.LeftSample1.vec())
-				.back(10)
-				.turn(Math.toRadians(180))
-				.forward(10)
+				.lineToSplineHeading(UtilPoses.LeftSample1)
+//				.forward(9)
+//				.turn(Math.toRadians(180))
 				.build());
 		registerTrajectory("get sample 2",generateSequenceBuilder(UtilPoses.Decant)
 				.lineTo(UtilPoses.LeftSample2.vec())
 				.turn(Math.toRadians(180))
 				.build());
-		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.Decant)
+		registerTrajectory("get sample 3",generateSequenceBuilder(UtilPoses.Decant)
 				.lineTo(UtilPoses.LeftSample3.vec())
 				.turn(Math.toRadians(180))
 				.build());
@@ -45,9 +44,8 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
 		sleep(500);
-		utils.openClip().liftDown().integralIntakes().runAsThread();
+		utils.openClip().liftDown().integralIntakes().openClaw().displayArms().runAsThread();
 
-		utils.openClaw().displayArms().runAsThread();
 		runTrajectory("get sample 1");
 		utils.closeClaw().armsIDLE().runCached();
 
@@ -73,5 +71,6 @@ public class Left extends IntegralAutonomous {
 
 //		utils.decant().runAsThread();
 //		runTrajectory("park");
+		flagging_op_complete();
 	}
 }

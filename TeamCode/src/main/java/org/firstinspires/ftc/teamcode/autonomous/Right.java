@@ -94,5 +94,6 @@ public class Right extends IntegralAutonomous {
 
 //		utils.decant().runAsThread();
 //		runTrajectory("park");
+		flagging_op_complete();
 	}
 }

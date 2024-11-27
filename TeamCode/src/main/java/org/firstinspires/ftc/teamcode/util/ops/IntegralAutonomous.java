@@ -58,7 +58,6 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	}
 
 	public abstract void initialize();
-
 	public abstract void linear();
 
 	public Pose2d registerTrajectory(final String tag, final Trajectory argument) {
@@ -105,5 +104,10 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 			return false;
 		});
 		drive.setPoseEstimate(poseEst);
+	}
+
+	public void flagging_op_complete(){
+		TelemetryClient.getInstance().addData("time used",timer.getDeltaTime());
+		TelemetryClient.getInstance().addData("time left",timer.getDeltaTime());
 	}
 }

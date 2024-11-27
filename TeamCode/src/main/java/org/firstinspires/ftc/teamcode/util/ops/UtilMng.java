@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.lift;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.place;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightArm;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rotate;
 
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.action.Actions;
@@ -36,6 +37,7 @@ public class UtilMng {
 	}
 
 	public void deviceInit() {
+		actions.add(new StatementAction(()->rotate.setPosition(0.79)));
 		boxRst().armsToSafePosition().openClaw().scalesBack().closeClip().liftDown().runCached();
 	}
 
@@ -54,7 +56,6 @@ public class UtilMng {
 		actions.add(new StatementAction(() -> place.setPosition(1)));
 		return this;
 	}
-
 	public UtilMng boxRst() {
 		actions.add(new StatementAction(() -> place.setPosition(0)));
 		return this;
@@ -78,23 +79,23 @@ public class UtilMng {
 	}
 
 	public UtilMng openClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.9)));
+		actions.add(new StatementAction(() -> claw.setPosition(0.65)));
 		return this;
 	}
 
 	//ArmOp
 	public UtilMng displayArms() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.3)), new StatementAction(() -> rightArm.setPosition(0.3))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.19)), new StatementAction(() -> rightArm.setPosition(0.11))));
 		return this;
 	}
 
 	public UtilMng armsIDLE() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.86)), new StatementAction(() -> rightArm.setPosition(0.86))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 		return this;
 	}
 
 	public UtilMng armsToSafePosition() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.75)), new StatementAction(() -> rightArm.setPosition(0.75))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 		return this;
 	}
 
