@@ -7,17 +7,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.action.Action;
 
 public class ServoCtrl implements Action {
-	public final Servo controlTarget;
-	private double targetPosition;
-	private String tag;
+	public final Servo  controlTarget;
+	private      double targetPosition;
+	private      String tag;
 
-	public ServoCtrl(@NonNull final Servo target){
-		this(target,0.5);
+	public ServoCtrl(@NonNull final Servo target) {
+		this(target, 0.5);
 	}
-	public ServoCtrl(@NonNull final Servo target, final double defaultPosition){
-		targetPosition=defaultPosition;
-		controlTarget=target;
-		tag=target.getDeviceName();
+
+	public ServoCtrl(@NonNull final Servo target, final double defaultPosition) {
+		targetPosition = defaultPosition;
+		controlTarget = target;
+		tag = target.getDeviceName();
 	}
 
 	@Override
@@ -28,14 +29,15 @@ public class ServoCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return tag+":"+targetPosition;
+		return tag + ":" + targetPosition;
 	}
 
 	public void setTargetPosition(final double targetPosition) {
 		this.targetPosition = targetPosition;
 	}
-	public void changeTargetPositionBy(final double targetPosition){
-		this.targetPosition+=targetPosition;
+
+	public void changeTargetPositionBy(final double targetPosition) {
+		this.targetPosition += targetPosition;
 	}
 
 	public void setTag(final String tag) {

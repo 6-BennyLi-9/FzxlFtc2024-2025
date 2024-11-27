@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
-@Autonomous(preselectTeleOp = "19419",group = "0_Main")
+@Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Right extends IntegralAutonomous {
 	@Override
 	public void initialize() {

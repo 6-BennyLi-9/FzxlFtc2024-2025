@@ -7,46 +7,46 @@ import androidx.annotation.NonNull;
  */
 @SuppressWarnings("unused")
 public final class UtilButtonControlSystem {
-	public enum ButtonConfig{
-		WhilePressing,
-		SingleWhenPressed
+	public enum ButtonConfig {
+		WhilePressing, SingleWhenPressed
 	}
+
 	public final ButtonConfig config;
-	public final Ticker ticker;
+	public final Ticker       ticker;
 
-	private boolean lst,now;
+	private boolean lst, now;
 
-	public UtilButtonControlSystem(final ButtonConfig config){
-		this.config=config;
-		ticker=new Ticker();
+	public UtilButtonControlSystem(final ButtonConfig config) {
+		this.config = config;
+		ticker = new Ticker();
 	}
 
-	public void sync(final boolean input){
-		switch (config){
+	public void sync(final boolean input) {
+		switch (config) {
 			case WhilePressing:
-				now=input;
+				now = input;
 				break;
 			case SingleWhenPressed:
 			default:
-				lst=now;
-				now=input;
+				lst = now;
+				now = input;
 				break;
 		}
 	}
 
-	public boolean getEnabled(){
-		switch (config){
+	public boolean getEnabled() {
+		switch (config) {
 			case WhilePressing:
 				return now;
 			case SingleWhenPressed:
 			default:
-				return now&&!lst;
+				return now && ! lst;
 		}
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
-		return "lst:"+lst+",now:"+now;
+		return "lst:" + lst + ",now:" + now;
 	}
 }

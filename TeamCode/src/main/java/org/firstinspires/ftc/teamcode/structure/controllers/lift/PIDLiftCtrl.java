@@ -14,18 +14,18 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 @Config
 public class PIDLiftCtrl extends LiftCtrl {
 	private final PidProcessor processor;
-	public static double vP,vI,vD,max_I;
+	public static double       vP, vI, vD, max_I;
 
 	static {
-		vP=1;
-		vI=0;
-		vD=0;
-		max_I=1;
+		vP = 1;
+		vI = 0;
+		vD = 0;
+		max_I = 1;
 	}
 
 	public PIDLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
-		processor=new PidProcessor(vP,vI,vD,max_I);
+		processor = new PidProcessor(vP, vI, vD, max_I);
 	}
 
 	@Override
@@ -40,6 +40,6 @@ public class PIDLiftCtrl extends LiftCtrl {
 
 	@Override
 	public String paramsString() {
-		return super.paramsString()+"//"+processor;
+		return super.paramsString() + "//" + processor;
 	}
 }

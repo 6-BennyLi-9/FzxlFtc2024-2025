@@ -11,15 +11,14 @@ public enum ClipOp {
 	;
 
 	public enum ClipPositionTypes {
-		open,
-		close,
-		unknown
+		open, close, unknown
 	}
-	private static ClipPositionTypes recent= ClipPositionTypes.unknown;
-	private static ServoCtrl clipControl;
+
+	private static ClipPositionTypes recent = ClipPositionTypes.unknown;
+	private static ServoCtrl         clipControl;
 
 	public static void connect() {
-		clipControl=new ServoCtrl(HardwareConstants.clip,0);
+		clipControl = new ServoCtrl(HardwareConstants.clip, 0);
 
 		clipControl.setTag("clip");
 	}
@@ -28,38 +27,42 @@ public enum ClipOp {
 		return recent;
 	}
 
-	public static void init(){
+	public static void init() {
 		close();
 	}
-	public static void change(){
+
+	public static void change() {
 		switch (recent) {
 			case close:
 				open();
 				break;
-			case open:default:
+			case open:
+			default:
 				close();
 				break;
 		}
 	}
-	public static void open(){
-		recent=ClipPositionTypes.open;
+
+	public static void open() {
+		recent = ClipPositionTypes.open;
 		clipControl.setTargetPosition(0);
 	}
-	public static void close(){
-		recent=ClipPositionTypes.close;
+
+	public static void close() {
+		recent = ClipPositionTypes.close;
 		clipControl.setTargetPosition(0.5);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController(){
+	public static Action getController() {
 		return clipControl;
 	}
 
 	@NonNull
-	public static Action initController(){
+	public static Action initController() {
 		connect();
-		Action res=getController();
+		Action res = getController();
 		init();
 		return res;
 	}

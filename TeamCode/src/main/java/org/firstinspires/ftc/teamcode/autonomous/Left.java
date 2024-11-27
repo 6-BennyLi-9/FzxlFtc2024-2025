@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
-@Autonomous(preselectTeleOp = "19419",group = "0_Main")
+@Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends IntegralAutonomous {
-	Pose2d samplesPot;
 
 	@Override
 	public void initialize() {

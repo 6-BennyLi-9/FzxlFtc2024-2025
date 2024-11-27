@@ -13,11 +13,11 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
  */
 @Config
 public class LinFuncLiftCtrl extends LiftCtrl {
-	private double calibrateVal;
+	private       double calibrateVal;
 	public static double vA;
 
 	static {
-		vA=0.05;
+		vA = 0.05;
 	}
 
 	public LinFuncLiftCtrl(@NonNull final DcMotorEx target) {
@@ -26,15 +26,15 @@ public class LinFuncLiftCtrl extends LiftCtrl {
 
 	@Override
 	public void modify() {
-		if(0 == getTargetPosition()){
-			if(HardwareConstants.liftTouch.isPressed()){//没到
-				calibrateVal=-1;
-			}else{
-				calibrateVal=0;
+		if (0 == getTargetPosition()) {
+			if (HardwareConstants.liftTouch.isPressed()) {//没到
+				calibrateVal = - 1;
+			} else {
+				calibrateVal = 0;
 			}
 			return;
 		}
-		calibrateVal=getErrorPosition()*vA;
+		calibrateVal = getErrorPosition() * vA;
 	}
 
 	@Override

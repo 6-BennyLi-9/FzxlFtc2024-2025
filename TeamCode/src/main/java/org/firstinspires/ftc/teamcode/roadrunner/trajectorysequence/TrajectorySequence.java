@@ -10,37 +10,37 @@ import java.util.Collections;
 import java.util.List;
 
 public class TrajectorySequence {
-    private final List<SequenceSegment> sequenceList;
+	private final List <SequenceSegment> sequenceList;
 
-    public TrajectorySequence(@NonNull final List<SequenceSegment> sequenceList) {
-        if (sequenceList.isEmpty()) throw new EmptySequenceException();
+	public TrajectorySequence(@NonNull final List <SequenceSegment> sequenceList) {
+		if (sequenceList.isEmpty()) throw new EmptySequenceException();
 
-        this.sequenceList = Collections.unmodifiableList(sequenceList);
-    }
+		this.sequenceList = Collections.unmodifiableList(sequenceList);
+	}
 
-    public Pose2d start() {
-        return sequenceList.get(0).getStartPose();
-    }
+	public Pose2d start() {
+		return sequenceList.get(0).getStartPose();
+	}
 
-    public Pose2d end() {
-        return sequenceList.get(sequenceList.size() - 1).getEndPose();
-    }
+	public Pose2d end() {
+		return sequenceList.get(sequenceList.size() - 1).getEndPose();
+	}
 
-    public double duration() {
-        double total = 0.0;
+	public double duration() {
+		double total = 0.0;
 
-        for (final SequenceSegment segment : sequenceList) {
-            total += segment.getDuration();
-        }
+		for (final SequenceSegment segment : sequenceList) {
+			total += segment.getDuration();
+		}
 
-        return total;
-    }
+		return total;
+	}
 
-    public SequenceSegment get(final int i) {
-        return sequenceList.get(i);
-    }
+	public SequenceSegment get(final int i) {
+		return sequenceList.get(i);
+	}
 
-    public int size() {
-        return sequenceList.size();
-    }
+	public int size() {
+		return sequenceList.size();
+	}
 }

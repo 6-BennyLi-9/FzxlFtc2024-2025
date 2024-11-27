@@ -10,14 +10,14 @@ import org.firstinspires.ftc.teamcode.util.ops.UtilMng;
 public class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		utils=new UtilMng();
+		utils = new UtilMng();
 		utils.armsToSafePosition().runCached();
 	}
 
 	@Override
 	public void linear() {
-		angleCalibration(0,new Pose2d());
+		angleCalibration(0, new Pose2d());
 		sleep(1000);
-		angleCalibration(90,new Pose2d(0,0,90));//逆时针
+		angleCalibration(90, new Pose2d(0, 0, 90));//逆时针
 	}
 }

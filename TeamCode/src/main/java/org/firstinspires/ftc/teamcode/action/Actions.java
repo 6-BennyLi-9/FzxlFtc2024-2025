@@ -12,16 +12,18 @@ public enum Actions {
 	 */
 	public static final class FinalNodeAction implements Action {
 		@Override
-		public boolean run() {return false;}
+		public boolean run() {
+			return false;
+		}
 	}
 
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
-	public static void runAction(final Action actionBlock){
-		Action recent=actionBlock;
-		while(true){
-			if(!recent.run()) {
+	public static void runAction(final Action actionBlock) {
+		Action recent = actionBlock;
+		while (true) {
+			if (! recent.run()) {
 				if (recent.next() instanceof FinalNodeAction) {
 					break;
 				}
@@ -32,13 +34,14 @@ public enum Actions {
 
 	/**
 	 * 在规定时间内，如果该 {@code Action} 块仍没有结束，将会强制停止
+	 *
 	 * @see #runAction(Action)
 	 */
-	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds){
-		Action recent=actionBlock;
-		final double start=System.nanoTime()/ 1.0e6;
-		while (!(System.nanoTime()/ 1.0e6 -start >= allottedMilliseconds)) {
-			if (!recent.run()) {
+	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds) {
+		Action       recent = actionBlock;
+		final double start  = System.nanoTime() / 1.0e6;
+		while (! (System.nanoTime() / 1.0e6 - start >= allottedMilliseconds)) {
+			if (! recent.run()) {
 				if (recent.next() instanceof FinalNodeAction) {
 					break;
 				}
@@ -49,12 +52,13 @@ public enum Actions {
 
 	@NotNull
 	@Contract(value = "_ -> new", pure = true)
-	public static PriorityAction asPriority(final Action action){
-		return asPriority(action,0);
+	public static PriorityAction asPriority(final Action action) {
+		return asPriority(action, 0);
 	}
+
 	@Contract(value = "_, _ -> new", pure = true)
 	@NotNull
-	public static PriorityAction asPriority(final Action action, final long priorityGrade){
+	public static PriorityAction asPriority(final Action action, final long priorityGrade) {
 		return new PriorityAction() {
 			@Override
 			public long getPriorityCode() {

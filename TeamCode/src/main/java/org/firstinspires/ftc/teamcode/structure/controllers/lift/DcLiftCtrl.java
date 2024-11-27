@@ -14,9 +14,9 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
  */
 @Config
 public class DcLiftCtrl extends LiftCtrl {
-	public static double bufPow=1;
-	public static int tolerance=10;
-	private boolean using_touch_calibrate=true;
+	public static double  bufPow                = 1;
+	public static int     tolerance             = 10;
+	private       boolean using_touch_calibrate = true;
 
 	public DcLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
@@ -24,10 +24,10 @@ public class DcLiftCtrl extends LiftCtrl {
 
 	@Override
 	public boolean run() {
-		if(0 == getTargetPosition()&&using_touch_calibrate){
+		if (0 == getTargetPosition() && using_touch_calibrate) {
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 			targetLift.setPower(! HardwareConstants.liftTouch.isPressed() ? 0 : - 1);
-			if(!HardwareConstants.liftTouch.isPressed()){
+			if (! HardwareConstants.liftTouch.isPressed()) {
 				targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			}
 			return true;
@@ -41,13 +41,20 @@ public class DcLiftCtrl extends LiftCtrl {
 		return true;
 	}
 
-	@Override public void modify() {}
-	@Override public double getCalibrateVal() {return 0;}
+	@Override
+	public void modify() {
+	}
+
+	@Override
+	public double getCalibrateVal() {
+		return 0;
+	}
 
 	public void using_touch_calibrate(boolean using_touch_calibrate) {
 		this.using_touch_calibrate = using_touch_calibrate;
 	}
-	public boolean get_using_touch_calibrate(){
+
+	public boolean get_using_touch_calibrate() {
 		return using_touch_calibrate;
 	}
 }
