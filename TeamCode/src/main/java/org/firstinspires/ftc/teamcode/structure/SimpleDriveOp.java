@@ -43,5 +43,4 @@ public enum SimpleDriveOp {
 	public static Action build(final double x, final double y, final double turn,final double bufPower){
 		return new SimpleDriveAction(x*bufPower,y*bufPower,turn*bufPower);
 	}
-
 }

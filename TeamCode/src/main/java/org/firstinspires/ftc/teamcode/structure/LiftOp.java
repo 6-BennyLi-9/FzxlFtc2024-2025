@@ -71,4 +71,10 @@ public enum LiftOp {
 	public static boolean decanting(){
 		return LiftPositionTypes.decantHigh == recent || LiftPositionTypes.decantLow == recent;
 	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		return getController();
+	}
 }

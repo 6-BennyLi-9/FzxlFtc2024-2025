@@ -51,9 +51,9 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("get sample 1");
 		utils.closeClaw().runCached();
 
-		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
-		runTrajectory("decant");
-		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
+//		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
+//		runTrajectory("decant");
+//		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
 
 //		utils.openClaw().displayArms().runAsThread();
 //		runTrajectory("get sample 2");

@@ -86,4 +86,10 @@ public enum DriveOp {
 	public static void targetAngleRst(){
 		targetAngle=0;
 	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		return getController();
+	}
 }

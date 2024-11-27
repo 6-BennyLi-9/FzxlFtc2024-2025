@@ -74,4 +74,12 @@ public enum ArmOp {
 	public static Action getController(){
 		return new ThreadedAction(leftArmControl, rightArmControl);
 	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		Action res=getController();
+		init();
+		return res;
+	}
 }

@@ -39,4 +39,12 @@ public enum RotateOp {
 	public static Action getController(){
 		return rotateController;
 	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		Action res=getController();
+		init();
+		return res;
+	}
 }

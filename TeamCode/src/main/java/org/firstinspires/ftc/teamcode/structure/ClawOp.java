@@ -42,7 +42,7 @@ public enum ClawOp {
 	}
 	public static void open(){
 		recent= ClawPositionTypes.open;
-		clawControl.setTargetPosition(0.7);
+		clawControl.setTargetPosition(0.65);
 	}
 	public static void close(){
 		recent= ClawPositionTypes.close;
@@ -53,5 +53,13 @@ public enum ClawOp {
 	@Contract(" -> new")
 	public static Action getController(){
 		return clawControl;
+	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		Action res=getController();
+		init();
+		return res;
 	}
 }

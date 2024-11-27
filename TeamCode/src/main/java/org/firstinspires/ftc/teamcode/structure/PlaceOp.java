@@ -47,4 +47,12 @@ public enum PlaceOp {
 	public static Action getController(){
 		return placeController;
 	}
+
+	@NonNull
+	public static Action initController(){
+		connect();
+		Action res=getController();
+		init();
+		return res;
+	}
 }
