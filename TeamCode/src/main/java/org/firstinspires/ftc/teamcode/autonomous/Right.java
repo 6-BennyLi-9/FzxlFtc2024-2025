@@ -29,13 +29,13 @@ public class Right extends IntegralAutonomous {
 				.lineToLinearHeading(UtilPoses.GetSample)
 				.build());
 
-		registerTrajectory("suspend1",generateBuilder(UtilPoses.GetSample)
+		registerTrajectory("suspend 1",generateBuilder(UtilPoses.GetSample)
 				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(5,0)))
 				.build());
-		registerTrajectory("suspend2",generateBuilder(UtilPoses.GetSample)
+		registerTrajectory("suspend 2",generateBuilder(UtilPoses.GetSample)
 				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(10,0)))
 				.build());
-		registerTrajectory("suspend3",generateBuilder(UtilPoses.GetSample)
+		registerTrajectory("suspend 3",generateBuilder(UtilPoses.GetSample)
 				.lineToLinearHeading(UtilPoses.RightSuspend.plus(new Pose2d(15,0)))
 				.build());
 
@@ -55,11 +55,43 @@ public class Right extends IntegralAutonomous {
 
 		utils.openClaw().displayArms().runAsThread();
 		runTrajectory("push sample 1");
-		utils.closeClaw().armsIDLE().waitMs(1000).runAsThread();
+		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
 
 		runTrajectory("get sample");
+		sleep(500);
+		utils.closeClip().runCached();
+		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		runTrajectory("suspend 1");
+		utils.liftSuspendHigh().runCached();
+		sleep(500);
+		utils.openClip().liftDown().integralIntakes().runAsThread();
 
+//		utils.openClaw().displayArms().runAsThread();
+//		runTrajectory("push sample 2");
+//		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
+//
+//		runTrajectory("get sample");
+//		sleep(500);
+//		utils.closeClip().runCached();
+//		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+//		runTrajectory("suspend 2");
+//		utils.liftSuspendHigh().runCached();
+//		sleep(500);
+//		utils.openClip().liftDown().integralIntakes().runAsThread();
+//
+//		utils.openClaw().displayArms().runAsThread();
+//		runTrajectory("push sample 3");
+//		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
+//
+//		runTrajectory("get sample");
+//		sleep(500);
+//		utils.closeClip().runCached();
+//		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+//		runTrajectory("suspend 3");
+//		utils.liftSuspendHigh().runCached();
+//		sleep(500);
+//		utils.openClip().liftDown().integralIntakes().runAsThread();
 
-		runTrajectory("park");
+//		runTrajectory("park");
 	}
 }
