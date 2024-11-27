@@ -15,19 +15,23 @@ public class Left extends IntegralAutonomous {
 				.lineToLinearHeading(UtilPoses.LeftSuspend)
 				.build());
 
-		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
-				.lineToSplineHeading(UtilPoses.LeftSample1)
-//				.forward(9)
+		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
+				.lineToSplineHeading(UtilPoses.GetSample)
+				.build());
+
+//		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
+//				.lineToSplineHeading(UtilPoses.LeftSample1)
+////				.forward(9)
+////				.turn(Math.toRadians(180))
+//				.build());
+//		registerTrajectory("get sample 2",generateSequenceBuilder(UtilPoses.Decant)
+//				.lineTo(UtilPoses.LeftSample2.vec())
 //				.turn(Math.toRadians(180))
-				.build());
-		registerTrajectory("get sample 2",generateSequenceBuilder(UtilPoses.Decant)
-				.lineTo(UtilPoses.LeftSample2.vec())
-				.turn(Math.toRadians(180))
-				.build());
-		registerTrajectory("get sample 3",generateSequenceBuilder(UtilPoses.Decant)
-				.lineTo(UtilPoses.LeftSample3.vec())
-				.turn(Math.toRadians(180))
-				.build());
+//				.build());
+//		registerTrajectory("get sample 3",generateSequenceBuilder(UtilPoses.Decant)
+//				.lineTo(UtilPoses.LeftSample3.vec())
+//				.turn(Math.toRadians(180))
+//				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample1)
 				.lineToLinearHeading(UtilPoses.Decant)
@@ -46,8 +50,8 @@ public class Left extends IntegralAutonomous {
 		sleep(500);
 		utils.openClip().liftDown().integralIntakes().openClaw().displayArms().runAsThread();
 
-		runTrajectory("get sample 1");
-		utils.closeClaw().armsIDLE().runCached();
+//		runTrajectory("get sample 1");
+//		utils.closeClaw().armsIDLE().runCached();
 
 //		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
 //		runTrajectory("decant");
