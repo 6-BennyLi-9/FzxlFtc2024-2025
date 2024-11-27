@@ -17,7 +17,9 @@ public class Left extends IntegralAutonomous {
 
 		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
 				.lineTo(UtilPoses.LeftSample1.vec())
+				.back(10)
 				.turn(Math.toRadians(180))
+				.forward(10)
 				.build());
 		registerTrajectory("get sample 2",generateSequenceBuilder(UtilPoses.Decant)
 				.lineTo(UtilPoses.LeftSample2.vec())
@@ -47,7 +49,7 @@ public class Left extends IntegralAutonomous {
 
 		utils.openClaw().displayArms().runAsThread();
 		runTrajectory("get sample 1");
-		utils.closeClaw().runCached();
+		utils.closeClaw().armsIDLE().runCached();
 
 //		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
 //		runTrajectory("decant");
@@ -69,6 +71,7 @@ public class Left extends IntegralAutonomous {
 //		runTrajectory("decant");
 //		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
 
-		runTrajectory("park");
+//		utils.decant().runAsThread();
+//		runTrajectory("park");
 	}
 }
