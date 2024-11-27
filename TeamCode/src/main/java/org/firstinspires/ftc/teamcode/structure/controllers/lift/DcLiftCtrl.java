@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 public class DcLiftCtrl extends LiftCtrl {
 	public static double bufPow=1;
 	public static int tolerance=10;
-	public static boolean using_touch_calibrate=true;
+	private boolean using_touch_calibrate=true;
 
 	public DcLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
@@ -43,4 +43,11 @@ public class DcLiftCtrl extends LiftCtrl {
 
 	@Override public void modify() {}
 	@Override public double getCalibrateVal() {return 0;}
+
+	public void using_touch_calibrate(boolean using_touch_calibrate) {
+		this.using_touch_calibrate = using_touch_calibrate;
+	}
+	public boolean get_using_touch_calibrate(){
+		return using_touch_calibrate;
+	}
 }

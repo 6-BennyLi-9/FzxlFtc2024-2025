@@ -8,16 +8,18 @@ import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 public class DcAutoLiftCtrl extends DcLiftCtrl {
-
 	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
+		this(target,targetPosition,false);
+	}
+	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition,final boolean using_touch_calibrate){
 		super(target);
 		setTargetPosition(targetPosition);
-		using_touch_calibrate=false;
+		using_touch_calibrate(using_touch_calibrate);
 	}
 
 	@Override
 	public boolean run() {
 		super.run();
-		return (getTargetPosition()==0 && HardwareConstants.liftTouch.isPressed());
+		return (get_using_touch_calibrate() && getTargetPosition()==0 && HardwareConstants.liftTouch.isPressed());
 	}
 }
