@@ -23,5 +23,6 @@ public class TeleOpCore extends IntegralTeleOp {
 		robotMng.runThread();
 
 		TelemetryClient.getInstance().update();//更新缓存
+		auto_terminate_when_TLE(false);
 	}
 }
