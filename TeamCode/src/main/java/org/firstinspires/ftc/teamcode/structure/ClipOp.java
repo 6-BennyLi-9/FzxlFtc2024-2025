@@ -28,7 +28,7 @@ public enum ClipOp {
 	}
 
 	public static void init() {
-		close();
+		open();
 	}
 
 	public static void change() {
