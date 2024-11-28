@@ -35,7 +35,6 @@ public class ServoCtrl implements Action {
 	public void setTargetPosition(final double targetPosition) {
 		this.targetPosition = targetPosition;
 	}
-
 	/**
 	 * 不能一步到位，需要重复调试
 	 * @param targetPosition 目标点位
@@ -48,16 +47,14 @@ public class ServoCtrl implements Action {
 			changeTargetPositionBy(Math.signum(targetPosition-this.targetPosition) * tolerance);
 		}
 	}
-
 	/**
 	 * 不能一步到位，需要重复调试
 	 * @param targetPosition 目标点位
 	 * @param smoothVal 关于调控量的因数
 	 */
 	public void setTargetPositionSmooth(double targetPosition, double smoothVal){
-		changeTargetPositionBy((targetPosition-this.targetPosition)*smoothVal);
+		setTargetPositionSmooth(targetPosition, smoothVal, 0);
 	}
-
 	/**
 	 * 不能一步到位，需要重复调试
 	 * @param targetPosition 目标点位
@@ -74,6 +71,36 @@ public class ServoCtrl implements Action {
 
 	public void changeTargetPositionBy(final double targetPosition) {
 		this.targetPosition += targetPosition;
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param tolerance 最大更改量
+	 */
+	public void changeTargetPositionTolerance(double targetPosition, double tolerance){
+		setTargetPositionTolerance(this.targetPosition+tolerance, tolerance);
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 */
+	public void changeTargetPositionSmooth(double targetPosition, double smoothVal){
+		changeTargetPositionSmooth(targetPosition, smoothVal, 0);
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 * @param minControlVal 最小调整数
+	 */
+	public void changeTargetPositionSmooth(double targetPosition, double smoothVal, double minControlVal){
+		targetPosition+=this.targetPosition;
+		if(Math.abs(targetPosition-this.targetPosition) <= minControlVal){
+			setTargetPosition(targetPosition);
+		}else{
+			changeTargetPositionBy(Math.max((targetPosition-this.targetPosition)*smoothVal, minControlVal));
+		}
 	}
 
 	public void setTag(final String tag) {
