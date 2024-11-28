@@ -45,8 +45,7 @@ public class UtilMng {
 		actions.add(new StatementAction(() -> {
 			try {
 				Thread.sleep(waitMillis);
-			} catch (InterruptedException ignore) {
-			}
+			} catch (InterruptedException ignore) {}
 		}));
 		return this;
 	}
