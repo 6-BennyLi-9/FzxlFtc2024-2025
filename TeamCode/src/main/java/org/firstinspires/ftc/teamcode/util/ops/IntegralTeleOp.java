@@ -43,8 +43,6 @@ public abstract class IntegralTeleOp extends OpMode {
 		timer.pushTimeTag("start");
 	}
 
-	;
-
 	private boolean auto_terminate_when_TLE = true;
 
 	public void auto_terminate_when_TLE(boolean auto_terminate_when_TLE) {
@@ -58,8 +56,6 @@ public abstract class IntegralTeleOp extends OpMode {
 			terminateOpModeNow();
 		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
-
-
 	}
 
 	@Override
