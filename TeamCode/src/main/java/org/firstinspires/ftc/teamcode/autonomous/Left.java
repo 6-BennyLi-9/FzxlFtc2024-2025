@@ -16,24 +16,14 @@ public class Left extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
-				.lineToSplineHeading(UtilPoses.GetSample)
+				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
 
-//		registerTrajectory("get sample 1",generateSequenceBuilder(UtilPoses.LeftSuspend)
-//				.lineToSplineHeading(UtilPoses.LeftSample1)
-////				.forward(9)
-////				.turn(Math.toRadians(180))
-//				.build());
-//		registerTrajectory("get sample 2",generateSequenceBuilder(UtilPoses.Decant)
-//				.lineTo(UtilPoses.LeftSample2.vec())
-//				.turn(Math.toRadians(180))
-//				.build());
-//		registerTrajectory("get sample 3",generateSequenceBuilder(UtilPoses.Decant)
-//				.lineTo(UtilPoses.LeftSample3.vec())
-//				.turn(Math.toRadians(180))
-//				.build());
+		registerTrajectory("decant to sample",generateBuilder(UtilPoses.Decant)
+				.lineToSplineHeading(UtilPoses.LeftSample)
+				.build());
 
-		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample1)
+		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
 				.lineToLinearHeading(UtilPoses.Decant)
 				.build());
 
@@ -47,32 +37,25 @@ public class Left extends IntegralAutonomous {
 		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
-		sleep(500);
-		utils.openClip().waitMs(100).liftDown().integralIntakes().openClaw().displayArms().runAsThread();
+		sleep(400);
+		utils.openClip().waitMs(100).liftDown()
+				.integralIntakes().scaleOperate(0.82).runAsThread();
 
 		runTrajectory("get sample");
-//		runTrajectory("get sample 1");
-//		utils.closeClaw().armsIDLE().runCached();
+		utils.integralIntakesEnding().waitMs(1000).openClaw().waitMs(600)
+				.integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
+		sleep(500);
+		runTrajectory("decant");
 
-//		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
-//		runTrajectory("decant");
-//		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
+		sleep(1000);
+		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown()
+//				.integralIntakes().scaleOperate(0.9)
+				.runAsThread();
+		sleep(1000);
+		runTrajectory("decant to sample");
+		angleCalibration(145);
 
-//		utils.openClaw().displayArms().runAsThread();
-//		runTrajectory("get sample 2");
-//		utils.closeClaw().runCached();
-//
-//		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
-//		runTrajectory("decant");
-//		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
-//
-//		utils.openClaw().displayArms().runAsThread();
-//		runTrajectory("get sample 3");
-//		utils.closeClaw().runCached();
-//
-//		utils.openClaw().integralLiftUpPrepare().liftDecantHigh().runAsThread();
-//		runTrajectory("decant");
-//		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown().runAsThread();
 
 //		utils.decant().runAsThread();
 //		runTrajectory("park");
