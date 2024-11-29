@@ -56,7 +56,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("to sample 1");
 //		angleCalibration(145);
 
-		utils.integralIntakes().scaleOperate(0.9).runCached();
+		utils.integralIntakes().rotateRightTurn(0.1).scaleOperate(0.9).runCached();
 		sleep(500);
 		utils.integralIntakesEnding().waitMs(1000).openClaw().runCached();
 
