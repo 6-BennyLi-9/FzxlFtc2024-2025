@@ -18,13 +18,23 @@ public class Right extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("to sample 1",generateBuilder(RightSuspend)
-				.lineToLinearHeading(RightSample)
+				.lineToLinearHeading(RightSample1)
 				.build());
-		registerTrajectory("turn to sample 2",generateSequenceBuilder(RightSample)
-				.turn(Math.toRadians(-22.5))
+		registerTrajectory("to sample 2",generateBuilder(RightSample1)
+				.lineToLinearHeading(RightSample2)
 				.build());
-		registerTrajectory("turn to sample 3",generateSequenceBuilder(RightSample)
-				.turn(Math.toRadians(23.5))
+		registerTrajectory("to sample 3",generateBuilder(RightSample2)
+				.lineToLinearHeading(RightSample3)
+				.build());
+
+		registerTrajectory("turn 1",generateSequenceBuilder(RightSample1)
+				.turn(90)
+				.build());
+		registerTrajectory("turn 2",generateSequenceBuilder(RightSample2)
+				.turn(90)
+				.build());
+		registerTrajectory("turn 3",generateSequenceBuilder(RightSample3)
+				.turn(90)
 				.build());
 
 		registerTrajectory("get sample",generateBuilder(RightSample)
@@ -56,39 +66,7 @@ public class Right extends IntegralAutonomous {
 		utils.openClip().waitMs(100).liftDown()
 				.integralIntakes().scaleOperate(0.82).runAsThread();
 
-		runTrajectory("to sample 1");
-		utils.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw()
-				.armsToSafePosition().decant()
-				.runCached();
 
-		runTrajectory("turn to sample 2");
-		utils.scaleOperate(0.9).integralIntakes().rotateRightTurn(0.125).scaleOperate(0.86)
-				.waitMs(1000)
-				.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw()
-				.armsToSafePosition().decant()
-				.runCached();
-
-		runTrajectory("turn to sample 3");
-		utils.scaleOperate(0.92).integralIntakes().rotateRightTurn(-0.125).scaleOperate(0.86)
-				.waitMs(1000)
-				.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw()
-				.armsToSafePosition().decant()
-				.runCached();
-
-		sleep(1000);
-		utils.boxRst().runAsThread();
-		runTrajectory("get sample");
-
-//		runTrajectory("park");
 		flagging_op_complete();
 	}
 }

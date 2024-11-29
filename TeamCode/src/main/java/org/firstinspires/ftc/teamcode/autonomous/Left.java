@@ -47,13 +47,14 @@ public class Left extends IntegralAutonomous {
 				.integralIntakes().scaleOperate(0.81).runAsThread();
 
 		runTrajectory("get sample");
-		utils.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1500)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.waitMs(400)
 				.openClaw()
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
-		sleep(500);
+		sleep(1000);
 		runTrajectory("decant");
 
 		sleep(1000);
@@ -65,13 +66,14 @@ public class Left extends IntegralAutonomous {
 
 		sleep(1000);
 
-		utils.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1500)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.waitMs(400)
 				.openClaw()
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
-		sleep(550);
+		sleep(1000);
 		runTrajectory("decant");
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
@@ -82,13 +84,14 @@ public class Left extends IntegralAutonomous {
 
 		sleep(1000);
 
-		utils.integralIntakesEnding().waitMs(1000)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1500)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.openClaw().waitMs(100).closeClaw().waitMs(100)
+//				.waitMs(400)
 				.openClaw()
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
-		sleep(550);
+		sleep(1000);
 		runTrajectory("decant");
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
