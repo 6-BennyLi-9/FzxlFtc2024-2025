@@ -153,7 +153,7 @@ public class UtilMng {
 	}
 
 	public UtilMng integralIntakesEnding() {
-		return boxRst().armsIDLE().closeClaw();
+		return boxRst().closeClaw().waitMs(50).armsIDLE().scalesBack();
 	}
 
 	public UtilMng integralLiftUpPrepare() {
@@ -161,7 +161,7 @@ public class UtilMng {
 	}
 
 	public UtilMng integralLiftDownPrepare() {
-		return boxRst();
+		return boxRst().armsToSafePosition();
 	}
 
 	public void runCached() {
