@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.util;
 /**
  * 一个非常好用的计数器
  */
-@SuppressWarnings("unused")
 public final class Ticker {
 	private int ticked;
 

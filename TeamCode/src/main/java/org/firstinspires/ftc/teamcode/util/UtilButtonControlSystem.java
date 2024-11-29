@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 /**
  * 用于控制按键布尔状态，更加轻量化
  */
-@SuppressWarnings("unused")
 public final class UtilButtonControlSystem {
 	public enum ButtonConfig {
 		WhilePressing, SingleWhenPressed

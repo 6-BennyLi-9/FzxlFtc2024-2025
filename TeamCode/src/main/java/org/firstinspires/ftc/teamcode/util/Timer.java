@@ -9,7 +9,6 @@ import java.util.Vector;
 /**
  * 一个非常好用的计时器
  */
-@SuppressWarnings("unused")
 public final class Timer {
 	public double StartTime, EndTime;
 	public final Map <String, Double>          Tags;

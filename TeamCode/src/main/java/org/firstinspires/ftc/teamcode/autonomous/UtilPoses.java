@@ -4,7 +4,6 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-@SuppressWarnings("unused")
 public enum UtilPoses {
 	;
 	public static Pose2d
