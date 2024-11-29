@@ -33,6 +33,11 @@ public enum ScaleOp {
 	public static double smooth=0.2;
 	public static void manage(double position) {
 		position = Math.min(Math.max(position, 0.58), 0.92);
+		leftScaleController.setTargetPosition(1.5 - position);
+		rightScaleController.setTargetPosition(position);
+	}
+	public static void manageSmooth(double position) {
+		position = Math.min(Math.max(position, 0.58), 0.92);
 		leftScaleController.setTargetPositionTolerance(1.5 - position,smooth);
 		rightScaleController.setTargetPositionTolerance(position,smooth);
 	}
@@ -61,7 +66,7 @@ public enum ScaleOp {
 
 	public static void operate(final double position) {
 		recent = ScalePositionTypes.probe;
-		manage(position);
+		manageSmooth(position);
 	}
 
 	@NonNull
