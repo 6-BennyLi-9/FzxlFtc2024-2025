@@ -40,9 +40,9 @@ public class ServoCtrl implements Action {
 	 * @param targetPosition 目标点位
 	 * @param tolerance 最大更改量
 	 */
-	public void setTargetPositionTolerance(double targetPosition, double tolerance){
+	public void setTargetPositionTolerance(final double targetPosition, final double tolerance){
 		if(Math.abs(targetPosition-this.targetPosition) <= tolerance){
-			setTargetPosition(targetPosition);
+			this.targetPosition = targetPosition;
 		}else{
 			changeTargetPositionBy(Math.signum(targetPosition-this.targetPosition) * tolerance);
 		}
@@ -52,7 +52,7 @@ public class ServoCtrl implements Action {
 	 * @param targetPosition 目标点位
 	 * @param smoothVal 关于调控量的因数
 	 */
-	public void setTargetPositionSmooth(double targetPosition, double smoothVal){
+	public void setTargetPositionSmooth(final double targetPosition, final double smoothVal){
 		setTargetPositionSmooth(targetPosition, smoothVal, 0);
 	}
 	/**
@@ -61,9 +61,9 @@ public class ServoCtrl implements Action {
 	 * @param smoothVal 关于调控量的因数
 	 * @param minControlVal 最小调整数
 	 */
-	public void setTargetPositionSmooth(double targetPosition, double smoothVal, double minControlVal){
+	public void setTargetPositionSmooth(final double targetPosition, final double smoothVal, final double minControlVal){
 		if(Math.abs(targetPosition-this.targetPosition) <= minControlVal){
-			setTargetPosition(targetPosition);
+			this.targetPosition = targetPosition;
 		}else{
 			changeTargetPositionBy(Math.max((targetPosition-this.targetPosition)*smoothVal, minControlVal));
 		}
@@ -77,7 +77,7 @@ public class ServoCtrl implements Action {
 	 * @param targetPosition 目标点位
 	 * @param tolerance 最大更改量
 	 */
-	public void changeTargetPositionTolerance(double targetPosition, double tolerance){
+	public void changeTargetPositionTolerance(final double targetPosition, final double tolerance){
 		setTargetPositionTolerance(this.targetPosition+tolerance, tolerance);
 	}
 	/**
@@ -85,7 +85,7 @@ public class ServoCtrl implements Action {
 	 * @param targetPosition 目标点位
 	 * @param smoothVal 关于调控量的因数
 	 */
-	public void changeTargetPositionSmooth(double targetPosition, double smoothVal){
+	public void changeTargetPositionSmooth(final double targetPosition, final double smoothVal){
 		changeTargetPositionSmooth(targetPosition, smoothVal, 0);
 	}
 	/**
@@ -94,10 +94,10 @@ public class ServoCtrl implements Action {
 	 * @param smoothVal 关于调控量的因数
 	 * @param minControlVal 最小调整数
 	 */
-	public void changeTargetPositionSmooth(double targetPosition, double smoothVal, double minControlVal){
+	public void changeTargetPositionSmooth(double targetPosition, final double smoothVal, final double minControlVal){
 		targetPosition+=this.targetPosition;
 		if(Math.abs(targetPosition-this.targetPosition) <= minControlVal){
-			setTargetPosition(targetPosition);
+			this.targetPosition = targetPosition;
 		}else{
 			changeTargetPositionBy(Math.max((targetPosition-this.targetPosition)*smoothVal, minControlVal));
 		}

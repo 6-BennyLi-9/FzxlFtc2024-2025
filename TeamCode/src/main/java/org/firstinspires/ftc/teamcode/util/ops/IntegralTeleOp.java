@@ -12,8 +12,9 @@ import org.firstinspires.ftc.teamcode.util.Timer;
 
 public abstract class IntegralTeleOp extends OpMode {
 	public RobotMng robot;
-	public Timer    timer;
-	public Client   client;
+	public Timer timer;
+	public Client client;
+	private boolean auto_terminate_when_TLE = true;
 
 	@Override
 	public void init() {
@@ -42,9 +43,7 @@ public abstract class IntegralTeleOp extends OpMode {
 		timer.pushTimeTag("start");
 	}
 
-	private boolean auto_terminate_when_TLE = true;
-
-	public void auto_terminate_when_TLE(boolean auto_terminate_when_TLE) {
+	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
 		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
 	}
 

@@ -50,7 +50,7 @@ public class DcLiftCtrl extends LiftCtrl {
 		return 0;
 	}
 
-	public void using_touch_calibrate(boolean using_touch_calibrate) {
+	public void using_touch_calibrate(final boolean using_touch_calibrate) {
 		this.using_touch_calibrate = using_touch_calibrate;
 	}
 
