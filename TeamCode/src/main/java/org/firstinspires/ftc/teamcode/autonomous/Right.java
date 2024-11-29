@@ -15,14 +15,14 @@ public class Right extends IntegralAutonomous {
 				.lineToLinearHeading(UtilPoses.RightSuspend)
 				.build());
 
-		registerTrajectory("push sample 1",generateBuilder(UtilPoses.RightSuspend)
-				.lineToLinearHeading(UtilPoses.RightSample1)
+		registerTrajectory("to sample 1",generateBuilder(UtilPoses.RightSuspend)
+				.lineToLinearHeading(UtilPoses.RightSample)
 				.build());
-		registerTrajectory("push sample 2",generateBuilder(UtilPoses.RightSample1)
-				.lineToLinearHeading(UtilPoses.RightSample2)
+		registerTrajectory("turn to sample 2",generateSequenceBuilder(UtilPoses.RightSample)
+				.turn(Math.toRadians(-22.5))
 				.build());
-		registerTrajectory("push sample 3",generateBuilder(UtilPoses.RightSample2)
-				.lineToLinearHeading(UtilPoses.RightSample3)
+		registerTrajectory("turn to sample 3",generateSequenceBuilder(UtilPoses.RightSample)
+				.turn(Math.toRadians(23.5))
 				.build());
 
 		registerTrajectory("get sample",generateBuilder(UtilPoses.RightSuspend)
@@ -50,49 +50,29 @@ public class Right extends IntegralAutonomous {
 		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
-		sleep(500);
-		utils.openClip().liftDown().integralIntakes().runAsThread();
+		sleep(400);
+		utils.openClip().waitMs(100).liftDown()
+				.integralIntakes().scaleOperate(0.82).runAsThread();
 
-		utils.openClaw().displayArms().runAsThread();
-		runTrajectory("push sample 1");
-		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
+		runTrajectory("to sample 1");
+		utils.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.armsToSafePosition().decant()
+				.runCached();
 
-		runTrajectory("get sample");
-		sleep(500);
-		utils.closeClip().runCached();
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
-		runTrajectory("suspend 1");
-		utils.liftSuspendHigh().runCached();
-		sleep(500);
-		utils.openClip().liftDown().integralIntakes().runAsThread();
+		runTrajectory("turn to sample 2");
+		utils.scaleOperate(0.89).integralIntakes().rotateRightTurn(0.125).scaleOperate(0.86)
+				.waitMs(1000)
+				.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.armsToSafePosition().decant()
+				.runCached();
 
-//		utils.openClaw().displayArms().runAsThread();
-//		runTrajectory("push sample 2");
-//		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
-//
-//		runTrajectory("get sample");
-//		sleep(500);
-//		utils.closeClip().runCached();
-//		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
-//		runTrajectory("suspend 2");
-//		utils.liftSuspendHigh().runCached();
-//		sleep(500);
-//		utils.openClip().liftDown().integralIntakes().runAsThread();
-//
-//		utils.openClaw().displayArms().runAsThread();
-//		runTrajectory("push sample 3");
-//		utils.closeClaw().armsIDLE().waitMs(1000).openClaw().decant().runAsThread();
-//
-//		runTrajectory("get sample");
-//		sleep(500);
-//		utils.closeClip().runCached();
-//		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
-//		runTrajectory("suspend 3");
-//		utils.liftSuspendHigh().runCached();
-//		sleep(500);
-//		utils.openClip().liftDown().integralIntakes().runAsThread();
 
-//		utils.armsToSafePosition().decant().runAsThread();
 //		runTrajectory("park");
 		flagging_op_complete();
 	}
