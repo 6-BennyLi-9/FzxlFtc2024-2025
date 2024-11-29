@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decantOrSuspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.highLowSpeedConfigChange;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantUpping;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDLE;
@@ -158,7 +159,13 @@ public class RobotMng {
 	}
 
 	public final void driveThroughGamepad() {
-		driveBufPower = 1 + gamepad1.right_stick_y * 0.3;
+		if(highLowSpeedConfigChange.getEnabled()){
+			if(driveBufPower==1){
+				driveBufPower=0.4;
+			}else{
+				driveBufPower=1;
+			}
+		}
 
 		DriveOp.sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, driveBufPower);
 
