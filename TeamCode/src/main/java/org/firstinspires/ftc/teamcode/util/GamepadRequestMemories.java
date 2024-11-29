@@ -64,6 +64,7 @@ public enum GamepadRequestMemories {
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
 		armScaleOperate.sync(gamepad2.right_bumper);
+
 		highLowSpeedConfigChange.sync(gamepad1.a);
 	}
 
