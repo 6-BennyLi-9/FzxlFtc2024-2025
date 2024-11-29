@@ -50,6 +50,16 @@ public class UtilMng {
 		return this;
 	}
 
+	//rotate
+	public UtilMng rotateToMid(){
+		actions.add(new StatementAction(()->rotate.setPosition(0.79)));
+		return this;
+	}
+	public UtilMng rotateRightTurn(double positionVal){
+		actions.add(new StatementAction(()->rotate.setPosition(rotate.getPosition()+positionVal)));
+		return this;
+	}
+
 	//PlaceOp
 	public UtilMng decant() {
 		actions.add(new StatementAction(() -> place.setPosition(1)));
@@ -149,11 +159,11 @@ public class UtilMng {
 
 	//integral
 	public UtilMng integralIntakes() {
-		return displayArms().openClaw();
+		return displayArms().openClaw().rotateToMid();
 	}
 
 	public UtilMng integralIntakesEnding() {
-		return boxRst().closeClaw().waitMs(50).armsIDLE().scalesBack();
+		return boxRst().closeClaw().waitMs(50).armsIDLE().scalesBack().rotateToMid();
 	}
 
 	public UtilMng integralLiftUpPrepare() {
