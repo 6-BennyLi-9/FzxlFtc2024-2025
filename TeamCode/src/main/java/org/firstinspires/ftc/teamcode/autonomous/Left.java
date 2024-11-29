@@ -48,13 +48,16 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant");
 
 		sleep(1000);
-		utils.decant().waitMs(1100).integralLiftDownPrepare().liftDown()
+		utils.decant().waitMs(1200).integralLiftDownPrepare().liftDown()
 //				.integralIntakes().scaleOperate(0.9)
 				.runAsThread();
 		sleep(1100);
 		runTrajectory("decant to sample");
 		angleCalibration(145);
 
+		utils.integralIntakes().scaleOperate(0.9).runCached();
+		sleep(500);
+		utils.integralIntakesEnding().waitMs(1000).openClaw().runCached();
 
 //		utils.decant().runAsThread();
 //		runTrajectory("park");
