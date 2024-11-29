@@ -49,6 +49,10 @@ public class UtilMng {
 		}));
 		return this;
 	}
+	public UtilMng addAction(Action action){
+		actions.add(action);
+		return this;
+	}
 
 	//rotate
 	public UtilMng rotateToMid(){
@@ -152,7 +156,7 @@ public class UtilMng {
 
 	//integral
 	public UtilMng integralIntakes() {
-		return displayArms().openClaw().rotateToMid();
+		return openClaw().rotateToMid();
 	}
 	public UtilMng integralIntakesEnding() {
 		return boxRst().closeClaw().waitMs(60).armsIDLE().scalesBack().rotateToMid();
