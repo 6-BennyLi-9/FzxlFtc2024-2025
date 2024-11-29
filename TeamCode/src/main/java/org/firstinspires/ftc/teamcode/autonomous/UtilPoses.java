@@ -11,7 +11,7 @@ public enum UtilPoses {
 			LeftStart = new Pose2d(12, 60, toRadians(90)),
 			RightStart = new Pose2d(- 12, 60, toRadians(90)),
 
-			Decant = new Pose2d(60, 50, toRadians(- 135)),
+			Decant = new Pose2d(60, 55, toRadians(- 135)),
 
 			LeftSuspend = new Pose2d(LeftStart.getX(), 32, toRadians(90)),
 			RightSuspend = new Pose2d(RightStart.getX(), 32, toRadians(90)),
