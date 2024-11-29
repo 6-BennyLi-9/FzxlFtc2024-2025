@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
@@ -18,8 +19,8 @@ public class Left extends IntegralAutonomous {
 		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
 				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
-		registerTrajectory("decant to sample",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample)
+		registerTrajectory("to sample 1",generateBuilder(UtilPoses.Decant)
+				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-25))))
 				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
@@ -41,7 +42,7 @@ public class Left extends IntegralAutonomous {
 				.integralIntakes().scaleOperate(0.82).runAsThread();
 
 		runTrajectory("get sample");
-		utils.integralIntakesEnding().waitMs(1000).openClaw().waitMs(600)
+		utils.integralIntakesEnding().waitMs(1000).openClaw().closeClaw().openClaw().closeClaw().openClaw()
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		sleep(500);
@@ -52,8 +53,8 @@ public class Left extends IntegralAutonomous {
 //				.integralIntakes().scaleOperate(0.9)
 				.runAsThread();
 		sleep(1100);
-		runTrajectory("decant to sample");
-		angleCalibration(145);
+		runTrajectory("to sample 1");
+//		angleCalibration(145);
 
 		utils.integralIntakes().scaleOperate(0.9).runCached();
 		sleep(500);
