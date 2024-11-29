@@ -170,10 +170,10 @@ public class RobotMng {
 		DriveOp.sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, driveBufPower);
 
 		if (gamepad1.left_bumper) {
-			DriveOp.additions(0, 0, - 0.1);
+			DriveOp.additions(0, 0, - 0.2);
 		}
 		if (gamepad1.right_bumper) {
-			DriveOp.additions(0, 0, 0.1);
+			DriveOp.additions(0, 0, 0.2);
 		}
 
 		DriveOp.additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
