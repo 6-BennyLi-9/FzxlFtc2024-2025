@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 
-@TeleOp(name = "19419",group = "0_Main")
+@TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void loop() {
@@ -23,5 +23,6 @@ public class TeleOpCore extends IntegralTeleOp {
 		robot.runThread();
 
 		TelemetryClient.getInstance().update();//更新缓存
+		auto_terminate_when_TLE(false);
 	}
 }

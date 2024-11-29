@@ -2,33 +2,33 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum ClipOp {
+public enum ClawOp {
 	;
 
-	public enum ClipPositionTypes {
+	public enum ClawPositionTypes {
 		open, close, unknown
 	}
 
-	private static ClipPositionTypes recent = ClipPositionTypes.unknown;
-	private static ServoCtrl         clipControl;
+	private static ClawPositionTypes recent = ClawPositionTypes.unknown;
+	private static ServoCtrl         clawControl;
 
 	public static void connect() {
-		clipControl = new ServoCtrl(HardwareConstants.clip, 0);
+		clawControl = new ServoCtrl(HardwareConstants.claw, 0);
 
-		clipControl.setTag("clip");
+		clawControl.setTag("claw");
 	}
 
-	public static ClipPositionTypes recent() {
+	public static ClawPositionTypes recent() {
 		return recent;
 	}
 
 	public static void init() {
-		open();
+		close();
 	}
 
 	public static void change() {
@@ -44,19 +44,19 @@ public enum ClipOp {
 	}
 
 	public static void open() {
-		recent = ClipPositionTypes.open;
-		clipControl.setTargetPosition(0);
+		recent = ClawPositionTypes.open;
+		clawControl.setTargetPosition(0.65);
 	}
 
 	public static void close() {
-		recent = ClipPositionTypes.close;
-		clipControl.setTargetPosition(0.5);
+		recent = ClawPositionTypes.close;
+		clawControl.setTargetPosition(0.44);
 	}
 
 	@NonNull
 	@Contract(" -> new")
 	public static Action getController() {
-		return clipControl;
+		return clawControl;
 	}
 
 	@NonNull

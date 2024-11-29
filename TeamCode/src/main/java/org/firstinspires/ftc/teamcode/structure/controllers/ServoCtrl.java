@@ -7,17 +7,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.action.Action;
 
 public class ServoCtrl implements Action {
-	public final Servo controlTarget;
-	private double targetPosition;
-	private String tag;
+	public final Servo  controlTarget;
+	private      double targetPosition;
+	private      String tag;
 
-	public ServoCtrl(@NonNull final Servo target){
-		this(target,0.5);
+	public ServoCtrl(@NonNull final Servo target) {
+		this(target, 0.5);
 	}
-	public ServoCtrl(@NonNull final Servo target, final double defaultPosition){
-		targetPosition=defaultPosition;
-		controlTarget=target;
-		tag=target.getDeviceName();
+
+	public ServoCtrl(@NonNull final Servo target, final double defaultPosition) {
+		targetPosition = defaultPosition;
+		controlTarget = target;
+		tag = target.getDeviceName();
 	}
 
 	@Override
@@ -28,11 +29,78 @@ public class ServoCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return tag+":"+targetPosition;
+		return tag + ":" + targetPosition;
 	}
 
 	public void setTargetPosition(final double targetPosition) {
 		this.targetPosition = targetPosition;
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param tolerance 最大更改量
+	 */
+	public void setTargetPositionTolerance(double targetPosition, double tolerance){
+		if(Math.abs(targetPosition-this.targetPosition) <= tolerance){
+			setTargetPosition(targetPosition);
+		}else{
+			changeTargetPositionBy(Math.signum(targetPosition-this.targetPosition) * tolerance);
+		}
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 */
+	public void setTargetPositionSmooth(double targetPosition, double smoothVal){
+		setTargetPositionSmooth(targetPosition, smoothVal, 0);
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 * @param minControlVal 最小调整数
+	 */
+	public void setTargetPositionSmooth(double targetPosition, double smoothVal, double minControlVal){
+		if(Math.abs(targetPosition-this.targetPosition) <= minControlVal){
+			setTargetPosition(targetPosition);
+		}else{
+			changeTargetPositionBy(Math.max((targetPosition-this.targetPosition)*smoothVal, minControlVal));
+		}
+	}
+
+	public void changeTargetPositionBy(final double targetPosition) {
+		this.targetPosition += targetPosition;
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param tolerance 最大更改量
+	 */
+	public void changeTargetPositionTolerance(double targetPosition, double tolerance){
+		setTargetPositionTolerance(this.targetPosition+tolerance, tolerance);
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 */
+	public void changeTargetPositionSmooth(double targetPosition, double smoothVal){
+		changeTargetPositionSmooth(targetPosition, smoothVal, 0);
+	}
+	/**
+	 * 不能一步到位，需要重复调试
+	 * @param targetPosition 目标点位
+	 * @param smoothVal 关于调控量的因数
+	 * @param minControlVal 最小调整数
+	 */
+	public void changeTargetPositionSmooth(double targetPosition, double smoothVal, double minControlVal){
+		targetPosition+=this.targetPosition;
+		if(Math.abs(targetPosition-this.targetPosition) <= minControlVal){
+			setTargetPosition(targetPosition);
+		}else{
+			changeTargetPositionBy(Math.max((targetPosition-this.targetPosition)*smoothVal, minControlVal));
+		}
 	}
 
 	public void setTag(final String tag) {

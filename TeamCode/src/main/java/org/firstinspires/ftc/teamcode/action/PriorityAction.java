@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.action;
 
 /**
  * 带有优先级编码的模块化程序块，继承自 {@code Action}
+ *
  * @see Action
  */
 public interface PriorityAction extends Action {
@@ -12,6 +13,6 @@ public interface PriorityAction extends Action {
 
 	@Override
 	default String paramsString() {
-		return Action.super.paramsString()+"->"+this.hashCode();
+		return Action.super.paramsString() + "->" + this.hashCode();
 	}
 }

@@ -13,18 +13,18 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
  */
 @Config
 public class ClassicLiftCtrl extends LiftCtrl {
-	public static long staticAllowError;
-	public static long lowerErrorRange;
-	public static double   zeroPoseCalibrationPow,lowerCalibrationPow,higherCalibrationPow;
+	public static long   staticAllowError;
+	public static long   lowerErrorRange;
+	public static double zeroPoseCalibrationPow, lowerCalibrationPow, higherCalibrationPow;
 	private double calibrateVal;
 
 	static {
-		staticAllowError=35;
-		lowerErrorRange=60;
+		staticAllowError = 35;
+		lowerErrorRange = 60;
 
-		zeroPoseCalibrationPow=1;
-		lowerCalibrationPow=0.35;
-		higherCalibrationPow=1;
+		zeroPoseCalibrationPow = 1;
+		lowerCalibrationPow = 0.35;
+		higherCalibrationPow = 1;
 	}
 
 	public ClassicLiftCtrl(@NonNull final DcMotorEx target) {
@@ -33,17 +33,17 @@ public class ClassicLiftCtrl extends LiftCtrl {
 
 	@Override
 	public void modify() {
-		if(0 == getTargetPosition()){
-			calibrateVal= !HardwareConstants.liftTouch.isPressed() ? 0 : - zeroPoseCalibrationPow;
+		if (0 == getTargetPosition()) {
+			calibrateVal = ! HardwareConstants.liftTouch.isPressed() ? 0 : - zeroPoseCalibrationPow;
 			return;
 		}
 
-		if(staticAllowError > Math.abs(getErrorPosition())){
-			calibrateVal= 0;
-		}else if(lowerErrorRange > Math.abs(getErrorPosition())){
-			calibrateVal= lowerCalibrationPow * Math.signum(getErrorPosition());
-		}else{
-			calibrateVal= higherCalibrationPow * Math.signum(getErrorPosition());
+		if (staticAllowError > Math.abs(getErrorPosition())) {
+			calibrateVal = 0;
+		} else if (lowerErrorRange > Math.abs(getErrorPosition())) {
+			calibrateVal = lowerCalibrationPow * Math.signum(getErrorPosition());
+		} else {
+			calibrateVal = higherCalibrationPow * Math.signum(getErrorPosition());
 		}
 	}
 

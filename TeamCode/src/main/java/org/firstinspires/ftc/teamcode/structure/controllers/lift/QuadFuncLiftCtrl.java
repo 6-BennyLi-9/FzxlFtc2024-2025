@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
  */
 @Config
 public class QuadFuncLiftCtrl extends LiftCtrl {
-	private double calibrateVal;
+	private       double calibrateVal;
 	public static double vA;
 
 	static {
-		vA=0.02;
+		vA = 0.02;
 	}
 
 	public QuadFuncLiftCtrl(@NonNull final DcMotorEx target) {
@@ -25,7 +25,7 @@ public class QuadFuncLiftCtrl extends LiftCtrl {
 
 	@Override
 	public void modify() {
-		calibrateVal=getErrorPosition()*vA * (1+getErrorPosition());
+		calibrateVal = getErrorPosition() * vA * (1 + getErrorPosition());
 	}
 
 	@Override

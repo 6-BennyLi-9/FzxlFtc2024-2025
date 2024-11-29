@@ -10,15 +10,17 @@ import org.jetbrains.annotations.Contract;
 
 public enum ArmOp {
 	;
+
 	public enum ArmPositionTypes {
-		idle,intake,safe,unknown
+		idle, intake, safe, unknown
 	}
-	private static ArmPositionTypes recent= ArmPositionTypes.unknown;
-	private static ServoCtrl leftArmControl, rightArmControl;
+
+	private static ArmPositionTypes recent = ArmPositionTypes.unknown;
+	private static ServoCtrl        leftArmControl, rightArmControl;
 
 	public static void connect() {
-		leftArmControl =new ServoCtrl(HardwareConstants.leftArm,0.7);
-		rightArmControl =new ServoCtrl(HardwareConstants.rightArm,0.7);
+		leftArmControl = new ServoCtrl(HardwareConstants.leftArm, 0.7);
+		rightArmControl = new ServoCtrl(HardwareConstants.rightArm, 0.7);
 
 		leftArmControl.setTag("leftArm");
 		rightArmControl.setTag("rightArm");
@@ -28,27 +30,33 @@ public enum ArmOp {
 		return recent;
 	}
 
-	public static void init(){
+	public static void init() {
 		safe();
 	}
-	public static void intake(){
-		recent=ArmPositionTypes.intake;
-		leftArmControl.setTargetPosition(0.29);
-		rightArmControl.setTargetPosition(0.29);
-	}
-	public static void idle(){
-		recent=ArmPositionTypes.idle;
-		leftArmControl.setTargetPosition(0.86);
-		rightArmControl.setTargetPosition(0.86);
-	}
-	public static void safe(){
-		recent=ArmPositionTypes.safe;
-		leftArmControl.setTargetPosition(0.75);
-		rightArmControl.setTargetPosition(0.75);
+
+	public static void manage(double position) {
+		position = Math.min(Math.max(position, 0), 0.92);
+		leftArmControl.setTargetPosition(position + 0.08);
+		rightArmControl.setTargetPosition(position);
 	}
 
-	public static void flip(){
-		switch (recent){
+	public static void intake() {
+		recent = ArmPositionTypes.intake;
+		manage(0.11);
+	}
+
+	public static void idle() {
+		recent = ArmPositionTypes.idle;
+		manage(0.79);
+	}
+
+	public static void safe() {
+		recent = ArmPositionTypes.safe;
+		manage(0.61);
+	}
+
+	public static void flip() {
+		switch (recent) {
 			case intake:
 				idle();
 				break;
@@ -62,12 +70,21 @@ public enum ArmOp {
 		}
 	}
 
-	public static boolean isNotSafe(){
+	public static boolean isNotSafe() {
 		return ArmPositionTypes.safe != recent;
 	}
+
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController() {
 		return new ThreadedAction(leftArmControl, rightArmControl);
+	}
+
+	@NonNull
+	public static Action initController() {
+		connect();
+		Action res = getController();
+		init();
+		return res;
 	}
 }

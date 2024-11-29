@@ -11,26 +11,26 @@ import org.jetbrains.annotations.NotNull;
  * {@code ... Actions.runAction(new SleepingAction(0.5)); ...}
  */
 public final class SleepingAction implements Action {
-	private final long sleepMilliseconds;
-	private double startTime;
-	private boolean initialized;
+	private final long    sleepMilliseconds;
+	private       double  startTime;
+	private       boolean initialized;
 
-	public SleepingAction(final long sleepMilliseconds){
+	public SleepingAction(final long sleepMilliseconds) {
 		this.sleepMilliseconds = sleepMilliseconds;
 	}
 
 	@Override
 	public boolean run() {
-		if(!initialized){
-			startTime=System.nanoTime()/ 1.0e6;
-			initialized=true;
+		if (! initialized) {
+			startTime = System.nanoTime() / 1.0e6;
+			initialized = true;
 		}
-		return System.nanoTime()/ 1.0e6 -startTime < sleepMilliseconds;
+		return System.nanoTime() / 1.0e6 - startTime < sleepMilliseconds;
 	}
 
 	@NotNull
 	@Override
 	public String paramsString() {
-		return "t:"+sleepMilliseconds+"ms";
+		return "t:" + sleepMilliseconds + "ms";
 	}
 }

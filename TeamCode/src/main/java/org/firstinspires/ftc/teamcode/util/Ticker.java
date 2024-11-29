@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.util;
 /**
  * 一个非常好用的计数器
  */
-@SuppressWarnings("unused")
 public final class Ticker {
 	private int ticked;
 
@@ -12,14 +11,14 @@ public final class Ticker {
 	}
 
 	public void tick() {
-		++ticked;
+		++ ticked;
 	}
 
 	public void modTicked(final int mod) {
 		ticked %= mod;
 	}
 
-	public void tickAndMod(final int mod){
+	public void tickAndMod(final int mod) {
 		tick();
 		modTicked(mod);
 	}

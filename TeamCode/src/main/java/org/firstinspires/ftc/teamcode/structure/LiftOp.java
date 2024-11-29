@@ -14,25 +14,20 @@ import org.jetbrains.annotations.Contract;
 @SuppressWarnings("PublicField")
 public enum LiftOp {
 	;
-
-
-	public enum LiftPositionTypes{
-		idle,
-		decantLow,
-		decantHigh,
-		highSuspend,
-		highSuspendPrepare
+	public enum LiftPositionTypes {
+		idle, decantLow, decantHigh, highSuspend, highSuspendPrepare
 	}
-	public static LiftPositionTypes recent=LiftPositionTypes.idle;
-	public static LiftCtrl liftCtrl;
+
+	public static LiftPositionTypes recent = LiftPositionTypes.idle;
+	public static LiftCtrl          liftCtrl;
 
 	public static void connect() {
-		liftCtrl =new DcLiftCtrl(HardwareConstants.lift);
+		liftCtrl = new DcLiftCtrl(HardwareConstants.lift);
 
 		liftCtrl.setTag("lift");
 	}
-	
-	public static long idlePosition,decantLow =1080,decantHigh =2000,highSuspend =740,highSuspendPrepare =1250;
+
+	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 690;
 
 	public static LiftPositionTypes recent() {
 		return recent;
@@ -40,12 +35,12 @@ public enum LiftOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController() {
 		return liftCtrl;
 	}
 
-	public static void sync(@NonNull final LiftPositionTypes option){
-		recent=option;
+	public static void sync(@NonNull final LiftPositionTypes option) {
+		recent = option;
 		switch (option) {
 			case idle:
 				liftCtrl.setTargetPosition(idlePosition);
@@ -68,7 +63,13 @@ public enum LiftOp {
 	/**
 	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
 	 */
-	public static boolean decanting(){
+	public static boolean decanting() {
 		return LiftPositionTypes.decantHigh == recent || LiftPositionTypes.decantLow == recent;
+	}
+
+	@NonNull
+	public static Action initController() {
+		connect();
+		return getController();
 	}
 }

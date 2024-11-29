@@ -1,41 +1,45 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.*;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
-@Autonomous(preselectTeleOp = "19419",group = "0_main")
+@Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends IntegralAutonomous {
-	Pose2d samplesPot,afterPushing;
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.LeftStart);
+		drive.setPoseEstimate(LeftStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.LeftStart)
-				.lineToLinearHeading(UtilPoses.LeftSuspend)
+		registerTrajectory("suspend preload",generateBuilder(LeftStart)
+				.lineToLinearHeading(LeftSuspend)
 				.build());
 
-		samplesPot =registerTrajectory("to samples",generateSequenceBuilder(UtilPoses.LeftSuspend)
-				.strafeRight(24)
-				.back(9)
+		registerTrajectory("get sample",generateBuilder(LeftSuspend)
+				.lineToLinearHeading(LeftSample)
 				.build());
-		samplesPot=samplesPot.plus(new Pose2d(0,0,Math.toRadians(-90)));
-		afterPushing = registerTrajectory("push",generateSequenceBuilder(samplesPot)
-				.forward(13)
+		registerTrajectory("to sample 1",generateBuilder(Decant)
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
 				.build());
-
-
-		registerTrajectory("go decant",generateBuilder(afterPushing)
-				.lineToLinearHeading(UtilPoses.Decant)
+		registerTrajectory("to sample 2",generateBuilder(Decant)
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
 				.build());
 
-		registerTrajectory("to port",generateSequenceBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(samplesPot)
+		registerTrajectory("decant 1",generateBuilder(LeftSample)
+				.lineToLinearHeading(Decant)
+				.build());
+		registerTrajectory("decant 2",generateBuilder(LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+				.lineToLinearHeading(Decant)
+				.build());
+		registerTrajectory("decant 3",generateBuilder(LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
+				.lineToLinearHeading(Decant)
 				.build());
 
-		registerTrajectory("park",generateBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(UtilPoses.LeftPark)
+		registerTrajectory("park",generateSequenceBuilder(Decant)
+				.lineToLinearHeading(LeftParkPrepare)
+				.back(15)
 				.build());
 	}
 
@@ -45,42 +49,59 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
 		sleep(500);
-		utils.openClip().liftDown().integralIntakes().runAsThread();
-		runTrajectory("to samples");
+		utils.openClip().waitMs(100).liftDown()
+				.integralIntakes().scaleOperate(0.82).runAsThread();
 
-		angleCalibration(-90,samplesPot);
-		runTrajectory("push");
-		utils.armsIDLE()
-				.waitMs(1900)
-				.stopIO().integralLiftUpPrepare().liftDecantHigh().runAsThread();
-		runTrajectory("go decant");
-		utils.decant().runCached();
-		sleep(950);
-
-		utils.boxRst().liftDown().integralIntakes().runAsThread();
-		runTrajectory("to port");
-		angleCalibration(-90,samplesPot);
-		utils.armsIDLE().scalesProbe().
-				waitMs(1900)
-				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+		runTrajectory("get sample");
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+				.openClaw()
+				.waitMs(200)
+				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
-		runTrajectory("go decant");
-		utils.decant().runCached();
-		sleep(950);
+		sleep(1000);
+		runTrajectory("decant 1");
 
-		utils.boxRst().liftDown().integralIntakes().runAsThread();
-		runTrajectory("to port");
-		angleCalibration(-90,samplesPot);
-		utils.armsIDLE().scalesProbe()
-				.waitMs(1900)
-				.scalesBack().stopIO().integralLiftUpPrepare().liftDecantHigh()
+		sleep(500);
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.integralIntakes().rotateRightTurn(0.135).scaleOperate(0.87)
 				.runAsThread();
-		runTrajectory("go decant");
-		utils.decant().runCached();
-		sleep(950);
-		utils.boxRst().liftDown().runAsThread();
+		sleep(1000);
+		runTrajectory("to sample 1");
 
-		utils.decant().runAsThread();
+		sleep(1000);
+
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+				.openClaw()
+				.waitMs(200)
+				.integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
+		sleep(1000);
+		runTrajectory("decant 2");
+
+		sleep(500);
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.waitMs(500).integralIntakes().rotateRightTurn(-0.14).scaleOperate(0.86)
+				.runAsThread();
+		sleep(1000);
+		runTrajectory("to sample 2");
+
+		sleep(1000);
+
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+				.openClaw()
+				.waitMs(200)
+				.integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
+		sleep(1000);
+		runTrajectory("decant 3");
+
+		sleep(500);
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.liftSuspendLv1()
+				.runAsThread();
+
+		sleep(1000);
 		runTrajectory("park");
+		flagging_op_complete();
 	}
 }

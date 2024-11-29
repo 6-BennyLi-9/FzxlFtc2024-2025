@@ -26,32 +26,23 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 @Config
 @Autonomous(group = "drive")
 public class FollowerPIDTuner extends LinearOpMode {
-    public static double DISTANCE = 20; // in
+	public static double DISTANCE = 20; // in
 
-    @Override
-    public void runOpMode() throws InterruptedException {
-        final SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+	@Override
+	public void runOpMode() throws InterruptedException {
+		final SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        final Pose2d startPose = new Pose2d(-DISTANCE / 2, -DISTANCE / 2, 0);
+		final Pose2d startPose = new Pose2d(- DISTANCE / 2, - DISTANCE / 2, 0);
 
-        drive.setPoseEstimate(startPose);
+		drive.setPoseEstimate(startPose);
 
-        waitForStart();
+		waitForStart();
 
-        if (isStopRequested()) return;
+		if (isStopRequested()) return;
 
-        while (!isStopRequested()) {
-            final TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                    .forward(DISTANCE)
-                    .turn(Math.toRadians(90))
-                    .forward(DISTANCE)
-                    .turn(Math.toRadians(90))
-                    .forward(DISTANCE)
-                    .turn(Math.toRadians(90))
-                    .forward(DISTANCE)
-                    .turn(Math.toRadians(90))
-                    .build();
-            drive.followTrajectorySequence(trajSeq);
-        }
-    }
+		while (! isStopRequested()) {
+			final TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose).forward(DISTANCE).turn(Math.toRadians(90)).forward(DISTANCE).turn(Math.toRadians(90)).forward(DISTANCE).turn(Math.toRadians(90)).forward(DISTANCE).turn(Math.toRadians(90)).build();
+			drive.followTrajectorySequence(trajSeq);
+		}
+	}
 }

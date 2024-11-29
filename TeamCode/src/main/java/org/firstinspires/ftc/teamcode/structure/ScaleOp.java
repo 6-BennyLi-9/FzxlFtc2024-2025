@@ -10,59 +10,76 @@ import org.jetbrains.annotations.Contract;
 
 public enum ScaleOp {
 	;
-	public enum ScalePosition{
-		back,
-		probe,
-		unknown
+
+	public enum ScalePositionTypes {
+		back, probe, unknown
 	}
-	private static ScalePosition recent=ScalePosition.unknown;
-	private static ServoCtrl leftScaleController,rightScaleController;
+
+	private static ScalePositionTypes recent = ScalePositionTypes.unknown;
+	private static ServoCtrl          leftScaleController, rightScaleController;
 
 	public static void connect() {
-		leftScaleController =new ServoCtrl(HardwareConstants.leftScale,1);
-		rightScaleController=new ServoCtrl(HardwareConstants.rightScale,0.5);
+		leftScaleController = new ServoCtrl(HardwareConstants.leftScale, 1);
+		rightScaleController = new ServoCtrl(HardwareConstants.rightScale, 0.5);
 
 		leftScaleController.setTag("leftScale");
 		rightScaleController.setTag("rightScale");
 	}
 
-	public static ScalePosition recent() {
+	public static ScalePositionTypes recent() {
 		return recent;
 	}
 
-	public static void manage(double position){
-		position= Math.min(Math.max(position,-0.5),1);
-		leftScaleController.setTargetPosition(1.5-position);
+	public static double smooth=0.2;
+	public static void manage(double position) {
+		position = Math.min(Math.max(position, 0.58), 0.92);
+		leftScaleController.setTargetPosition(1.5 - position);
 		rightScaleController.setTargetPosition(position);
 	}
+	public static void manageSmooth(double position) {
+		position = Math.min(Math.max(position, 0.58), 0.92);
+		leftScaleController.setTargetPositionTolerance(1.5 - position,smooth);
+		rightScaleController.setTargetPositionTolerance(position,smooth);
+	}
 
-	public static void init(){
+	public static void init() {
 		back();
 	}
-	public static void flip(){
-		if(ScalePosition.probe == recent){
+
+	public static void flip() {
+		if (ScalePositionTypes.probe == recent) {
 			back();
-		}else{
+		} else {
 			probe();
 		}
 	}
 
-	public static void probe(){
-		recent=ScalePosition.probe;
+	public static void probe() {
+		recent = ScalePositionTypes.probe;
 		manage(1);
 	}
-	public static void back(){
-		recent=ScalePosition.back;
+
+	public static void back() {
+		recent = ScalePositionTypes.back;
 		manage(0.5);
 	}
-	public static void operate(final double position){
-		recent=ScalePosition.probe;
-		manage(position);
+
+	public static void operate(final double position) {
+		recent = ScalePositionTypes.probe;
+		manageSmooth(position);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController() {
-		return new ThreadedAction(leftScaleController,rightScaleController);
+	public static Action getController() {
+		return new ThreadedAction(leftScaleController, rightScaleController);
+	}
+
+	@NonNull
+	public static Action initController() {
+		connect();
+		Action res = getController();
+		init();
+		return res;
 	}
 }

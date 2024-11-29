@@ -9,16 +9,16 @@ import org.jetbrains.annotations.Contract;
 
 public enum PlaceOp {
 	;
+
 	public enum PlacePositionTypes {
-		idle,
-		decant,
-		unknown
+		idle, decant, unknown
 	}
-	private static PlacePositionTypes recent=PlacePositionTypes.unknown;
-	private static ServoCtrl placeController;
+
+	private static PlacePositionTypes recent = PlacePositionTypes.unknown;
+	private static ServoCtrl          placeController;
 
 	public static void connect() {
-		placeController=new ServoCtrl(HardwareConstants.place,0);
+		placeController = new ServoCtrl(HardwareConstants.place, 0);
 
 		placeController.setTag("place");
 	}
@@ -27,21 +27,35 @@ public enum PlaceOp {
 		return recent;
 	}
 
-	public static void init(){
+	public static void init() {
 		idle();
 	}
-	public static void decant(){
-		recent=PlacePositionTypes.decant;
+
+	public static void decant() {
+		recent = PlacePositionTypes.decant;
 		placeController.setTargetPosition(1);
 	}
-	public static void idle(){
-		recent=PlacePositionTypes.idle;
+
+	public static void idle() {
+		recent = PlacePositionTypes.idle;
 		placeController.setTargetPosition(0);
+	}
+
+	public static void safe() {
+		placeController.setTargetPosition(0.28);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action cloneController(){
+	public static Action getController() {
 		return placeController;
+	}
+
+	@NonNull
+	public static Action initController() {
+		connect();
+		Action res = getController();
+		init();
+		return res;
 	}
 }
