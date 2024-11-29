@@ -28,13 +28,12 @@ public abstract class IntegralTeleOp extends OpMode {
 		client = new Client(new DashTelemetry(FtcDashboard.getInstance(), telemetry));
 
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
-
-		robotMng.runThread();
 	}
 
 	@Override
 	public void init_loop() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		robotMng.runThread();//防止一些 Action 出现异常表现
 	}
 
 	@Override
