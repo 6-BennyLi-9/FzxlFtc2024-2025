@@ -48,8 +48,9 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().runCached();
 		sleep(500);
-		utils.openClip().liftDown().integralIntakes().openClaw().displayArms().runAsThread();
+		utils.openClip().waitMs(100).liftDown().integralIntakes().openClaw().displayArms().runAsThread();
 
+		runTrajectory("get sample");
 //		runTrajectory("get sample 1");
 //		utils.closeClaw().armsIDLE().runCached();
 
