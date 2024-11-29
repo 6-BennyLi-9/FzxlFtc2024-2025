@@ -44,7 +44,7 @@ public class Left extends IntegralAutonomous {
 		utils.liftSuspendHigh().runCached();
 		sleep(400);
 		utils.openClip().waitMs(100).liftDown()
-				.integralIntakes().scaleOperate(0.81).runAsThread();
+				.integralIntakes().scaleOperate(0.82).runAsThread();
 
 		runTrajectory("get sample");
 		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1500)
@@ -52,6 +52,7 @@ public class Left extends IntegralAutonomous {
 //				.openClaw().waitMs(100).closeClaw().waitMs(100)
 //				.waitMs(400)
 				.openClaw()
+				.waitMs(100)
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		sleep(1000);
@@ -71,6 +72,7 @@ public class Left extends IntegralAutonomous {
 //				.openClaw().waitMs(100).closeClaw().waitMs(100)
 //				.waitMs(400)
 				.openClaw()
+				.waitMs(100)
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		sleep(1000);
@@ -89,6 +91,7 @@ public class Left extends IntegralAutonomous {
 //				.openClaw().waitMs(100).closeClaw().waitMs(100)
 //				.waitMs(400)
 				.openClaw()
+				.waitMs(100)
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		sleep(1000);
