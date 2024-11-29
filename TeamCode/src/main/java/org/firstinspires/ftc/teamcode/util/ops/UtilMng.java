@@ -75,7 +75,6 @@ public class UtilMng {
 		actions.add(new StatementAction(() -> clip.setPosition(0)));
 		return this;
 	}
-
 	public UtilMng closeClip() {
 		actions.add(new StatementAction(() -> clip.setPosition(0.5)));
 		return this;
@@ -86,7 +85,6 @@ public class UtilMng {
 		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
 		return this;
 	}
-
 	public UtilMng openClaw() {
 		actions.add(new StatementAction(() -> claw.setPosition(0.65)));
 		return this;
@@ -97,12 +95,10 @@ public class UtilMng {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.19)), new StatementAction(() -> rightArm.setPosition(0.11))));
 		return this;
 	}
-
 	public UtilMng armsIDLE() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 		return this;
 	}
-
 	public UtilMng armsToSafePosition() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 		return this;
@@ -113,12 +109,10 @@ public class UtilMng {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.5)), new StatementAction(() -> rightScale.setPosition(1))));
 		return this;
 	}
-
 	public UtilMng scalesBack() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0.5))));
 		return this;
 	}
-
 	public UtilMng scaleOperate(double rightScalePosition){
 		rightScalePosition = Math.min(Math.max(rightScalePosition, 0.58), 0.92);
 		double finalRightScalePosition = rightScalePosition;
@@ -131,32 +125,26 @@ public class UtilMng {
 	protected LiftCtrl liftControllerGenerator(final long target) {
 		return new DcAutoLiftCtrl(lift, target);
 	}
-
 	public UtilMng liftDown() {
 		actions.add(liftControllerGenerator(0));
 		return this;
 	}
-
 	public UtilMng liftDecantHigh() {
 		actions.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
-
 	public UtilMng liftDecantLow() {
 		actions.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
-
 	public UtilMng liftSuspendHighPrepare() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
-
 	public UtilMng liftSuspendHigh() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
-
 	public UtilMng liftSuspendLv1(){
 		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
 		return this;
@@ -166,15 +154,12 @@ public class UtilMng {
 	public UtilMng integralIntakes() {
 		return displayArms().openClaw().rotateToMid();
 	}
-
 	public UtilMng integralIntakesEnding() {
 		return boxRst().closeClaw().waitMs(50).armsIDLE().scalesBack().rotateToMid();
 	}
-
 	public UtilMng integralLiftUpPrepare() {
 		return armsToSafePosition();
 	}
-
 	public UtilMng integralLiftDownPrepare() {
 		return boxRst().armsToSafePosition();
 	}
@@ -183,11 +168,9 @@ public class UtilMng {
 		Actions.runAction(new LinkedAction(actions));
 		actions.clear();
 	}
-
 	public void runAsThread() {
 		saveCachedAsThread().start();
 	}
-
 	public Thread saveCachedAsThread() {
 		return new Thread(this::runCached);
 	}
