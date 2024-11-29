@@ -157,6 +157,11 @@ public class UtilMng {
 		return this;
 	}
 
+	public UtilMng liftSuspendLv1(){
+		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
+		return this;
+	}
+
 	//integral
 	public UtilMng integralIntakes() {
 		return displayArms().openClaw().rotateToMid();
