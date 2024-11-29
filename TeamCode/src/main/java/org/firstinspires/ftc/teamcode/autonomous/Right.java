@@ -92,7 +92,7 @@ public class Right extends IntegralAutonomous {
 //		sleep(500);
 //		utils.openClip().liftDown().integralIntakes().runAsThread();
 
-//		utils.decant().runAsThread();
+//		utils.armsToSafePosition().decant().runAsThread();
 //		runTrajectory("park");
 		flagging_op_complete();
 	}
