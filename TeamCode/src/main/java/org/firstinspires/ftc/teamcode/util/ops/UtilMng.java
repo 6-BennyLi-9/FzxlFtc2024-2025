@@ -155,7 +155,7 @@ public class UtilMng {
 		return displayArms().openClaw().rotateToMid();
 	}
 	public UtilMng integralIntakesEnding() {
-		return boxRst().closeClaw().waitMs(50).armsIDLE().scalesBack().rotateToMid();
+		return boxRst().closeClaw().waitMs(60).armsIDLE().scalesBack().rotateToMid();
 	}
 	public UtilMng integralLiftUpPrepare() {
 		return armsToSafePosition();
