@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.*;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -9,28 +11,28 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 public class Left extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		drive.setPoseEstimate(UtilPoses.LeftStart);
+		drive.setPoseEstimate(LeftStart);
 
-		registerTrajectory("suspend preload",generateBuilder(UtilPoses.LeftStart)
-				.lineToLinearHeading(UtilPoses.LeftSuspend)
-				.build());
-
-		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
-				.lineToLinearHeading(UtilPoses.LeftSample)
-				.build());
-		registerTrajectory("to sample 1",generateBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
-				.build());
-		registerTrajectory("to sample 2",generateBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
+		registerTrajectory("suspend preload",generateBuilder(LeftStart)
+				.lineToLinearHeading(LeftSuspend)
 				.build());
 
-		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
-				.lineToLinearHeading(UtilPoses.Decant)
+		registerTrajectory("get sample",generateBuilder(LeftSuspend)
+				.lineToLinearHeading(LeftSample)
+				.build());
+		registerTrajectory("to sample 1",generateBuilder(Decant)
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+				.build());
+		registerTrajectory("to sample 2",generateBuilder(Decant)
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
 				.build());
 
-		registerTrajectory("park",generateSequenceBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(UtilPoses.LeftParkPrepare)
+		registerTrajectory("decant",generateBuilder(LeftSample)
+				.lineToLinearHeading(Decant)
+				.build());
+
+		registerTrajectory("park",generateSequenceBuilder(Decant)
+				.lineToLinearHeading(LeftParkPrepare)
 				.back(15)
 				.build());
 	}
