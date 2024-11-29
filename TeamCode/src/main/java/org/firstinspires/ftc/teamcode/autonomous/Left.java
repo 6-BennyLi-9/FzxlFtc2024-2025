@@ -19,7 +19,10 @@ public class Left extends IntegralAutonomous {
 				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
 		registerTrajectory("to sample 1",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-22.5))))
+				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+				.build());
+		registerTrajectory("to sample 2",generateBuilder(UtilPoses.Decant)
+				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23))))
 				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
@@ -38,7 +41,7 @@ public class Left extends IntegralAutonomous {
 		utils.liftSuspendHigh().runCached();
 		sleep(400);
 		utils.openClip().waitMs(100).liftDown()
-				.integralIntakes().scaleOperate(0.82).runAsThread();
+				.integralIntakes().scaleOperate(0.81).runAsThread();
 
 		runTrajectory("get sample");
 		utils.integralIntakesEnding().waitMs(1000)
@@ -52,16 +55,44 @@ public class Left extends IntegralAutonomous {
 
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.integralIntakes().rotateRightTurn(0.15).scaleOperate(0.86)
+				.integralIntakes().rotateRightTurn(0.14).scaleOperate(0.87)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
 
 		sleep(1000);
-		utils.integralIntakesEnding().waitMs(1000).openClaw().runCached();
 
-//		utils.decant().runAsThread();
-//		runTrajectory("park");
+		utils.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
+		sleep(550);
+		runTrajectory("decant");
+		sleep(1000);
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.integralIntakes().rotateRightTurn(-0.14).scaleOperate(0.86)
+				.runAsThread();
+		sleep(1000);
+		runTrajectory("to sample 2");
+
+		sleep(1000);
+
+		utils.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.integralLiftUpPrepare().liftDecantHigh()
+				.runAsThread();
+		sleep(550);
+		runTrajectory("decant");
+		sleep(1000);
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.decant()
+				.runAsThread();
+
+		runTrajectory("park");
 		flagging_op_complete();
 	}
 }
