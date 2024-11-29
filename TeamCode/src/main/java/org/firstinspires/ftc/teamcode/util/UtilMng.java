@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.ops;
+package org.firstinspires.ftc.teamcode.util;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
@@ -18,7 +18,6 @@ import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.RobotMng;
 
 import java.util.LinkedList;
 

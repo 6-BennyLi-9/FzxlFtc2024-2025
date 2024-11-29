@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
+import org.firstinspires.ftc.teamcode.util.UtilMng;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ import java.util.Map;
 public abstract class IntegralAutonomous extends LinearOpMode {
 	public SampleMecanumDrive drive;
 	public Client             client;
-	public UtilMng            utils;
+	public UtilMng utils;
 	public Timer              timer;
 
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
