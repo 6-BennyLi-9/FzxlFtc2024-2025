@@ -18,7 +18,6 @@ public class Left extends IntegralAutonomous {
 		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
 				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
-
 		registerTrajectory("decant to sample",generateBuilder(UtilPoses.Decant)
 				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
@@ -49,10 +48,10 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant");
 
 		sleep(1000);
-		utils.decant().waitMs(1000).integralLiftDownPrepare().liftDown()
+		utils.decant().waitMs(1100).integralLiftDownPrepare().liftDown()
 //				.integralIntakes().scaleOperate(0.9)
 				.runAsThread();
-		sleep(1000);
+		sleep(1100);
 		runTrajectory("decant to sample");
 		angleCalibration(145);
 
