@@ -65,7 +65,7 @@ public class Right extends IntegralAutonomous {
 				.runCached();
 
 		runTrajectory("turn to sample 2");
-		utils.scaleOperate(0.89).integralIntakes().rotateRightTurn(0.125).scaleOperate(0.86)
+		utils.scaleOperate(0.9).integralIntakes().rotateRightTurn(0.125).scaleOperate(0.86)
 				.waitMs(1000)
 				.integralIntakesEnding().waitMs(1000)
 				.openClaw().waitMs(100).closeClaw().waitMs(100)
@@ -74,6 +74,19 @@ public class Right extends IntegralAutonomous {
 				.armsToSafePosition().decant()
 				.runCached();
 
+		runTrajectory("turn to sample 3");
+		utils.scaleOperate(0.92).integralIntakes().rotateRightTurn(-0.125).scaleOperate(0.86)
+				.waitMs(1000)
+				.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.armsToSafePosition().decant()
+				.runCached();
+
+		sleep(1000);
+		utils.boxRst().runAsThread();
+		runTrajectory("get sample");
 
 //		runTrajectory("park");
 		flagging_op_complete();
