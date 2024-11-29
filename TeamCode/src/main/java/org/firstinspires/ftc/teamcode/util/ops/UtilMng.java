@@ -109,6 +109,14 @@ public class UtilMng {
 		return this;
 	}
 
+	public UtilMng scaleOperate(double rightScalePosition){
+		rightScalePosition = Math.min(Math.max(rightScalePosition, 0.58), 0.92);
+		double finalRightScalePosition = rightScalePosition;
+		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1.5 - finalRightScalePosition)),
+				new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		return this;
+	}
+
 	//lift
 	protected LiftCtrl liftControllerGenerator(final long target) {
 		return new DcAutoLiftCtrl(lift, target);
@@ -141,7 +149,7 @@ public class UtilMng {
 
 	//integral
 	public UtilMng integralIntakes() {
-		return displayArms().closeClaw();
+		return displayArms().openClaw();
 	}
 
 	public UtilMng integralIntakesEnding() {
