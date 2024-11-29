@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends IntegralAutonomous {
-
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(UtilPoses.LeftStart);
@@ -20,7 +19,7 @@ public class Left extends IntegralAutonomous {
 				.lineToSplineHeading(UtilPoses.LeftSample)
 				.build());
 		registerTrajectory("to sample 1",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-25))))
+				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-22.5))))
 				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
@@ -42,22 +41,23 @@ public class Left extends IntegralAutonomous {
 				.integralIntakes().scaleOperate(0.82).runAsThread();
 
 		runTrajectory("get sample");
-		utils.integralIntakesEnding().waitMs(1000).openClaw().closeClaw().openClaw().closeClaw().openClaw()
+		utils.integralIntakesEnding().waitMs(1000)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
 				.integralLiftUpPrepare().liftDecantHigh()
 				.runAsThread();
 		sleep(500);
 		runTrajectory("decant");
 
 		sleep(1000);
-		utils.decant().waitMs(1200).integralLiftDownPrepare().liftDown()
-//				.integralIntakes().scaleOperate(0.9)
+		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+				.integralIntakes().rotateRightTurn(0.15).scaleOperate(0.86)
 				.runAsThread();
-		sleep(1100);
+		sleep(1000);
 		runTrajectory("to sample 1");
-//		angleCalibration(145);
 
-		utils.integralIntakes().rotateRightTurn(0.1).scaleOperate(0.9).runCached();
-		sleep(500);
+		sleep(1000);
 		utils.integralIntakesEnding().waitMs(1000).openClaw().runCached();
 
 //		utils.decant().runAsThread();
