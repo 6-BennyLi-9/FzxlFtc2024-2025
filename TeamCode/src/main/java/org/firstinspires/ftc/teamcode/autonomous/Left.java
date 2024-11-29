@@ -22,15 +22,16 @@ public class Left extends IntegralAutonomous {
 				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
 				.build());
 		registerTrajectory("to sample 2",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23))))
+				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
 				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
 				.lineToLinearHeading(UtilPoses.Decant)
 				.build());
 
-		registerTrajectory("park",generateBuilder(UtilPoses.Decant)
-				.lineToLinearHeading(UtilPoses.LeftPark)
+		registerTrajectory("park",generateSequenceBuilder(UtilPoses.Decant)
+				.lineToLinearHeading(UtilPoses.LeftParkPrepare)
+				.back(15)
 				.build());
 	}
 
@@ -55,7 +56,7 @@ public class Left extends IntegralAutonomous {
 
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.integralIntakes().rotateRightTurn(0.14).scaleOperate(0.87)
+				.integralIntakes().rotateRightTurn(0.135).scaleOperate(0.87)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
@@ -72,7 +73,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant");
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.integralIntakes().rotateRightTurn(-0.14).scaleOperate(0.86)
+				.waitMs(500).integralIntakes().rotateRightTurn(-0.135).scaleOperate(0.86)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 2");
@@ -89,9 +90,10 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant");
 		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.decant()
+				.liftSuspendLv1()
 				.runAsThread();
 
+		sleep(1000);
 		runTrajectory("park");
 		flagging_op_complete();
 	}
