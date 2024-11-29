@@ -16,13 +16,13 @@ public class Left extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("get sample",generateBuilder(UtilPoses.LeftSuspend)
-				.lineToSplineHeading(UtilPoses.LeftSample)
+				.lineToLinearHeading(UtilPoses.LeftSample)
 				.build());
 		registerTrajectory("to sample 1",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+				.lineToLinearHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
 				.build());
 		registerTrajectory("to sample 2",generateBuilder(UtilPoses.Decant)
-				.lineToSplineHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
+				.lineToLinearHeading(UtilPoses.LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
 				.build());
 
 		registerTrajectory("decant",generateBuilder(UtilPoses.LeftSample)
