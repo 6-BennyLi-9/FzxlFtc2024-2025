@@ -40,6 +40,10 @@ public enum GamepadRequestMemories {
 	 * 吸取滑轨与收取杆操作
 	 */
 	public static UtilButtonControlSystem armScaleOperate;
+	/**
+	 * 快慢速切换
+	 */
+	public static UtilButtonControlSystem highLowSpeedConfigChange;
 
 	static {
 		sampleIO = new UtilButtonControlSystem(SingleWhenPressed);
@@ -49,7 +53,7 @@ public enum GamepadRequestMemories {
 		decantOrSuspend = new UtilButtonControlSystem(SingleWhenPressed);
 		clipOption = new UtilButtonControlSystem(SingleWhenPressed);
 		armScaleOperate = new UtilButtonControlSystem(SingleWhenPressed);
-
+		highLowSpeedConfigChange = new UtilButtonControlSystem(SingleWhenPressed);
 	}
 
 	public static void syncRequests() {
@@ -60,6 +64,7 @@ public enum GamepadRequestMemories {
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
 		armScaleOperate.sync(gamepad2.right_bumper);
+		highLowSpeedConfigChange.sync(gamepad1.a);
 	}
 
 	public static void printValues() {
@@ -71,5 +76,6 @@ public enum GamepadRequestMemories {
 		instance.changeData("decantOrSuspend", decantOrSuspend);
 		instance.changeData("clipOption", clipOption);
 		instance.changeData("armScaleOperate", armScaleOperate);
+		instance.changeData("highLowSpeedConfigChange", highLowSpeedConfigChange);
 	}
 }
