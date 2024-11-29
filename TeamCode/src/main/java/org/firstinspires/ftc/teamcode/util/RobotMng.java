@@ -143,7 +143,7 @@ public class RobotMng {
 					break;
 				case 1:
 					RotateOp.mid();
-					ScaleOp.operate(gamepad2.left_stick_y * 0.2 + 0.8);
+					ScaleOp.operate(-gamepad2.left_stick_y * 0.2 + 0.8);
 					ArmOp.intake();
 					ClawOp.open();
 					break;
@@ -152,8 +152,8 @@ public class RobotMng {
 			}
 		}
 		if (armScaleOperate.ticker.getTicked() == 1) {//特殊处理
-			ScaleOp.operate(gamepad2.left_stick_x * 0.2 + 0.8);
-			RotateOp.turn((gamepad2.right_trigger - gamepad2.left_trigger) * rotateTriggerBufFal);
+			ScaleOp.operate(-gamepad2.left_stick_y * 0.2 + 0.8);
+			RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
 		}
 	}
 
