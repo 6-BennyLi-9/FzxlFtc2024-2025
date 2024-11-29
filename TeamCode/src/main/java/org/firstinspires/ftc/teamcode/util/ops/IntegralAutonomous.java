@@ -107,7 +107,9 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	}
 
 	public void flagging_op_complete(){
-		TelemetryClient.getInstance().addData("time used",timer.getDeltaTime());
-		TelemetryClient.getInstance().addData("time left",timer.getDeltaTime());
+		timer.stop();
+		TelemetryClient.getInstance()
+				.changeData("time used",timer.getDeltaTime())
+				.changeData("time left",timer.getDeltaTime());
 	}
 }
