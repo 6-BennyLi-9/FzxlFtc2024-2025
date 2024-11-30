@@ -32,20 +32,20 @@ import java.util.Map;
  * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} ， {@link #initActions()}
  */
 public class RobotMng {
-	public final static double              driverTriggerBufFal = 0.5;
-	public              TaggedActionPackage thread;
-	public static final char[]              printCode           = "-\\|/".toCharArray();
+	public final static double driverTriggerBufFal = 0.5;
+	public static final char[] printCode           = "-\\|/".toCharArray();
+	public static final double rotateTriggerBufFal = 0.01;
 	@NonNull
 	public static       Gamepad             gamepad1, gamepad2;
-	public static double driveBufPower = 1;
-	public static int    updateTime;
-
-	public static final double rotateTriggerBufFal = 0.01;
 
 	static {
 		gamepad1 = new Gamepad();
 		gamepad2 = new Gamepad();
 	}
+
+	public TaggedActionPackage thread;
+	public double              driveBufPower = 1;
+	public int                 updateTime;
 
 	public RobotMng() {
 		thread = new TaggedActionPackage();
@@ -144,7 +144,7 @@ public class RobotMng {
 					break;
 				case 1:
 					RotateOp.mid();
-					ScaleOp.operate(-gamepad2.left_stick_y * 0.2 + 0.8);
+					ScaleOp.operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 					ArmOp.intake();
 					ClawOp.open();
 					break;
@@ -153,17 +153,17 @@ public class RobotMng {
 			}
 		}
 		if (armScaleOperate.ticker.getTicked() == 1) {//特殊处理
-			ScaleOp.operate(-gamepad2.left_stick_y * 0.2 + 0.8);
+			ScaleOp.operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 			RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
 		}
 	}
 
 	public final void driveThroughGamepad() {
-		if(highLowSpeedConfigChange.getEnabled()){
-			if(driveBufPower==1){
-				driveBufPower=0.4;
-			}else{
-				driveBufPower=1;
+		if (highLowSpeedConfigChange.getEnabled()) {
+			if (driveBufPower == 1) {
+				driveBufPower = 0.4;
+			} else {
+				driveBufPower = 1;
 			}
 		}
 
