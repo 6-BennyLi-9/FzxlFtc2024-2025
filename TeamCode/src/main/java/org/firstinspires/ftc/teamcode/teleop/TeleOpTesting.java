@@ -8,13 +8,12 @@ import org.firstinspires.ftc.teamcode.structure.DriveOp;
 public class TeleOpTesting extends TeleOpCore {
 	@Override
 	public void op_init() {
-		super.init();
+		super.op_init();
 		DriveOp.config = DriveOp.DriveConfig.SimpleCalibrate;
-		auto_terminate_when_TLE(false);
 	}
 
 	@Override
 	public void op_start() {
-		super.start();
+		super.op_start();
 	}
 }

@@ -9,8 +9,14 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 @TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {
 	@Override
-	public void loop_init() {
-		super.loop();
+	public void op_init() {
+		super.op_init();
+		auto_terminate_when_TLE(false);
+	}
+
+	@Override
+	public void op_loop() {
+		super.op_loop();
 		//主程序开始
 
 		robot.operateThroughGamepad();
@@ -23,6 +29,5 @@ public class TeleOpCore extends IntegralTeleOp {
 		robot.runThread();
 
 		TelemetryClient.getInstance().update();//更新缓存
-		auto_terminate_when_TLE(false);
 	}
 }
