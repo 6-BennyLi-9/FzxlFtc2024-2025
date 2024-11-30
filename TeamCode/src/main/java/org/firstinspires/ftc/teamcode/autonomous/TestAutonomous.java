@@ -14,9 +14,7 @@ public final class TestAutonomous extends IntegralAutonomous {
 
 	@Override
 	public void linear() {
-		utils.integralLiftUpPrepare().liftDecantLow().waitMs(1000).liftDecantHigh().waitMs(1000).liftDown().runCached();
-		utils.integralIntakes().scaleOperate(0.82).waitMs(1000).integralIntakesEnding().runCached();
-
+		utils.integralIntakes().displayArms().waitMs(5000).integralIntakesEnding().runCached();
 		flagging_op_complete();
 	}
 }
