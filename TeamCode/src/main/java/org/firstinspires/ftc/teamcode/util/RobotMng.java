@@ -92,7 +92,7 @@ public class RobotMng {
 		}
 
 		if (liftIDLE.getEnabled()) {
-			if (PlaceOp.PlacePositionTypes.decant == PlaceOp.recent()) {
+			if (PlaceOp.decanting()) {
 				PlaceOp.idle();
 			}
 			if (LiftOp.LiftPositionTypes.highSuspend == LiftOp.recent() || LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {

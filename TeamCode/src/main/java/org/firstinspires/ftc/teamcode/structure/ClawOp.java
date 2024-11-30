@@ -14,17 +14,13 @@ public enum ClawOp {
 		open, close, unknown
 	}
 
-	private static ClawPositionTypes recent = ClawPositionTypes.unknown;
-	private static ServoCtrl         clawControl;
+	public static ClawPositionTypes recent = ClawPositionTypes.unknown;
+	public static ServoCtrl         clawControl;
 
 	public static void connect() {
 		clawControl = new ServoCtrl(HardwareConstants.claw, 0);
 
 		clawControl.setTag("claw");
-	}
-
-	public static ClawPositionTypes recent() {
-		return recent;
 	}
 
 	public static void init() {

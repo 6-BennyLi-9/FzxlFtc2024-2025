@@ -15,8 +15,8 @@ public enum ScaleOp {
 		back, probe, unknown
 	}
 
-	private static ScalePositionTypes recent = ScalePositionTypes.unknown;
-	private static ServoCtrl          leftScaleController, rightScaleController;
+	public static ScalePositionTypes recent = ScalePositionTypes.unknown;
+	public static ServoCtrl          leftScaleController, rightScaleController;
 
 	public static void connect() {
 		leftScaleController = new ServoCtrl(HardwareConstants.leftScale, 1);
@@ -24,10 +24,6 @@ public enum ScaleOp {
 
 		leftScaleController.setTag("leftScale");
 		rightScaleController.setTag("rightScale");
-	}
-
-	public static ScalePositionTypes recent() {
-		return recent;
 	}
 
 	public static double smooth=0.2;

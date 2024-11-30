@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Contract;
 
 public enum RotateOp {
 	;
-	private static ServoCtrl rotateController;
+	public static ServoCtrl rotateController;
 
 	public static void connect() {
 		rotateController = new ServoCtrl(HardwareConstants.rotate, 0.79);

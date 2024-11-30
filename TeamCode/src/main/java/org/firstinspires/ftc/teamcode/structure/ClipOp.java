@@ -14,17 +14,13 @@ public enum ClipOp {
 		open, close, unknown
 	}
 
-	private static ClipPositionTypes recent = ClipPositionTypes.unknown;
-	private static ServoCtrl         clipControl;
+	public static ClipPositionTypes recent = ClipPositionTypes.unknown;
+	public static ServoCtrl         clipControl;
 
 	public static void connect() {
 		clipControl = new ServoCtrl(HardwareConstants.clip, 0);
 
 		clipControl.setTag("clip");
-	}
-
-	public static ClipPositionTypes recent() {
-		return recent;
 	}
 
 	public static void init() {

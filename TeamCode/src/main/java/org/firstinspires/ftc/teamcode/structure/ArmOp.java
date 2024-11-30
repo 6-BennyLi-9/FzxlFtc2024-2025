@@ -15,8 +15,8 @@ public enum ArmOp {
 		idle, intake, safe, unknown
 	}
 
-	private static ArmPositionTypes recent = ArmPositionTypes.unknown;
-	private static ServoCtrl        leftArmControl, rightArmControl;
+	public static ArmPositionTypes recent = ArmPositionTypes.unknown;
+	public static ServoCtrl        leftArmControl, rightArmControl;
 
 	public static void connect() {
 		leftArmControl = new ServoCtrl(HardwareConstants.leftArm, 0.7);
@@ -24,10 +24,6 @@ public enum ArmOp {
 
 		leftArmControl.setTag("leftArm");
 		rightArmControl.setTag("rightArm");
-	}
-
-	public static ArmPositionTypes recent() {
-		return recent;
 	}
 
 	public static void init() {

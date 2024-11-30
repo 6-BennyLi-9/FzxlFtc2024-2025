@@ -18,8 +18,8 @@ public enum DriveOp {
 		StraightLinear, PID, SimpleCalibrate
 	}
 
-	public static  DriveConfig config = DriveConfig.StraightLinear;
-	private static ChassisCtrl chassisCtrl;
+	public static DriveConfig config = DriveConfig.StraightLinear;
+	public static ChassisCtrl chassisCtrl;
 
 	public static void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareConstants.leftFront, HardwareConstants.leftRear, HardwareConstants.rightFront, HardwareConstants.rightRear);

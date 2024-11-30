@@ -14,8 +14,8 @@ public enum PlaceOp {
 		idle, decant, unknown
 	}
 
-	private static PlacePositionTypes recent = PlacePositionTypes.unknown;
-	private static ServoCtrl          placeController;
+	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
+	public static ServoCtrl          placeController;
 
 	public static void connect() {
 		placeController = new ServoCtrl(HardwareConstants.place, 0);
@@ -23,8 +23,8 @@ public enum PlaceOp {
 		placeController.setTag("place");
 	}
 
-	public static PlacePositionTypes recent() {
-		return recent;
+	public static boolean decanting(){
+		return PlacePositionTypes.decant==recent;
 	}
 
 	public static void init() {
