@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 @TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {
 	@Override
-	public void loop() {
+	public void loop_init() {
 		super.loop();
 		//主程序开始
 

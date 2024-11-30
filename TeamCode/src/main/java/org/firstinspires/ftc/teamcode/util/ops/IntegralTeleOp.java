@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.client.Client;
 import org.firstinspires.ftc.teamcode.client.DashTelemetry;
@@ -10,14 +9,14 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.RobotMng;
 import org.firstinspires.ftc.teamcode.util.Timer;
 
-public abstract class IntegralTeleOp extends OpMode {
+public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	public RobotMng robot;
 	public Timer timer;
 	public Client client;
 	private boolean auto_terminate_when_TLE = true;
 
 	@Override
-	public void init() {
+	public void op_init() {
 		DriveOp.config = DriveOp.DriveConfig.StraightLinear;
 		timer = new Timer();
 
@@ -32,13 +31,13 @@ public abstract class IntegralTeleOp extends OpMode {
 	}
 
 	@Override
-	public void init_loop() {
+	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
 		robot.runThread();//防止一些 Action 出现异常表现
 	}
 
 	@Override
-	public void start() {
+	public void op_start() {
 		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
 		timer.pushTimeTag("start");
 	}
@@ -48,7 +47,7 @@ public abstract class IntegralTeleOp extends OpMode {
 	}
 
 	@Override
-	public void loop() {
+	public void op_loop() {
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
 			stop();
 			terminateOpModeNow();
@@ -57,7 +56,7 @@ public abstract class IntegralTeleOp extends OpMode {
 	}
 
 	@Override
-	public void stop() {
+	public void op_end() {
 		client.interrupt();
 	}
 }
