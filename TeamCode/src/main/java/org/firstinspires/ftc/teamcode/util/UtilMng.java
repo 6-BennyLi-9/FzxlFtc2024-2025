@@ -95,7 +95,7 @@ public class UtilMng {
 
 	//ArmOp
 	public UtilMng displayArms() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.16)), new StatementAction(() -> rightArm.setPosition(0.08))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
 		return this;
 	}
 	public UtilMng armsIDLE() {
