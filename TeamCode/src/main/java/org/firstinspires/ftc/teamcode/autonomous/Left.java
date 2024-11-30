@@ -19,6 +19,7 @@ public class Left extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(LeftStart);
+		client.addData("初始化点位",">| _ _");
 
 		registerTrajectory("suspend preload",generateBuilder(LeftStart)
 				.lineToLinearHeading(LeftSuspend)
