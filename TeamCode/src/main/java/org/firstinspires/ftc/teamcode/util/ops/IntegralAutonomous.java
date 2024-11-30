@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.UtilMng;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings({"unused", "UnusedReturnValue"})
+@SuppressWarnings("UnusedReturnValue")
 public abstract class IntegralAutonomous extends LinearOpMode {
 	private final Map<String, Trajectory> trajectoryMap = new HashMap<>();
 	private final Map<String, TrajectorySequence> trajectorySequenceMap = new HashMap<>();
