@@ -95,7 +95,7 @@ public class UtilMng {
 
 	//ArmOp
 	public UtilMng displayArms() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.18)), new StatementAction(() -> rightArm.setPosition(0.1))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.16)), new StatementAction(() -> rightArm.setPosition(0.08))));
 		return this;
 	}
 	public UtilMng armsIDLE() {
@@ -158,7 +158,7 @@ public class UtilMng {
 		return openClaw().rotateToMid();
 	}
 	public UtilMng integralIntakesEnding() {
-		return boxRst().closeClaw().waitMs(100).armsIDLE().scalesBack().rotateToMid();
+		return boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
 	}
 	public UtilMng integralLiftUpPrepare() {
 		return armsToSafePosition();
