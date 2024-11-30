@@ -86,17 +86,17 @@ public class UtilMng {
 
 	//ClawOp
 	public UtilMng closeClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
+		actions.add(new StatementAction(() -> claw.setPosition(0.45)));
 		return this;
 	}
 	public UtilMng openClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.65)));
+		actions.add(new StatementAction(() -> claw.setPosition(0.66)));
 		return this;
 	}
 
 	//ArmOp
 	public UtilMng displayArms() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.19)), new StatementAction(() -> rightArm.setPosition(0.11))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.18)), new StatementAction(() -> rightArm.setPosition(0.1))));
 		return this;
 	}
 	public UtilMng armsIDLE() {
