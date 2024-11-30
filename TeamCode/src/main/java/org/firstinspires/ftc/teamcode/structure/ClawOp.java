@@ -46,7 +46,7 @@ public enum ClawOp {
 
 	public static void close() {
 		recent = ClawPositionTypes.close;
-		clawControl.setTargetPosition(0.44);
+		clawControl.setTargetPosition(0.45);
 	}
 
 	@NonNull

@@ -38,7 +38,7 @@ public enum ArmOp {
 
 	public static void intake() {
 		recent = ArmPositionTypes.intake;
-		manage(0.1);
+		manage(0.11);
 	}
 
 	public static void idle() {
