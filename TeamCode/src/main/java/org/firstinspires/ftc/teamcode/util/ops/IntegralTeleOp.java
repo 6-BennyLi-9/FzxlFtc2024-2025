@@ -25,7 +25,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		robot = new RobotMng();
 		robot.registerGamepad(gamepad1, gamepad2);
 		robot.initActions();
-		client = new Client(new DashTelemetry(FtcDashboard.getInstance(), telemetry));
+		telemetry=new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		client = new Client(telemetry);
 
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 	}

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
@@ -9,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.action.Actions;
 import org.firstinspires.ftc.teamcode.client.Client;
+import org.firstinspires.ftc.teamcode.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
@@ -34,7 +34,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	public final void runOpMode() throws InterruptedException {
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
-		telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(),telemetry);
 		client = new Client(telemetry);
 		utils = new UtilMng();
 		timer = new Timer();
