@@ -18,7 +18,7 @@ public class Client extends TelemetryClient {
 		try {
 //			telemetry.setAutoClear(false);
 			autoUpdate = false;
-		} catch (UnsupportedOperationException ignore) {
+		} catch (final UnsupportedOperationException ignore) {
 		}
 	}
 

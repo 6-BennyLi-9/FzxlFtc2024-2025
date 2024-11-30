@@ -152,7 +152,7 @@ public class RobotMng {
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 			}
 		}
-		if (armScaleOperate.ticker.getTicked() == 1) {//特殊处理
+		if (1 == armScaleOperate.ticker.getTicked()) {//特殊处理
 			ScaleOp.operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 			RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
 		}
@@ -160,7 +160,7 @@ public class RobotMng {
 
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
-			if (driveBufPower == 1) {
+			if ( 1 == driveBufPower) {
 				driveBufPower = 0.4;
 			} else {
 				driveBufPower = 1;

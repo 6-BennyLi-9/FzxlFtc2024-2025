@@ -16,19 +16,19 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
+import org.firstinspires.ftc.teamcode.util.UtilMng;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public abstract class IntegralAutonomous extends LinearOpMode {
+	private final Map<String, Trajectory> trajectoryMap = new HashMap<>();
+	private final Map<String, TrajectorySequence> trajectorySequenceMap = new HashMap<>();
 	public SampleMecanumDrive drive;
-	public Client             client;
-	public UtilMng            utils;
-	public Timer              timer;
-
-	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
-	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
+	public Client client;
+	public UtilMng utils;
+	public Timer timer;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
@@ -46,11 +46,11 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
 
-		if (! opModeIsActive()) return;
+		if (!opModeIsActive()) return;
 		timer.restart();
 		final Thread linear = new Thread(this::linear);
 		linear.start();
-		while (opModeIsActive() && ! linear.isInterrupted()) {
+		while (opModeIsActive() && !linear.isInterrupted()) {
 			sleep(10);
 		}
 		linear.interrupt();
@@ -58,6 +58,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	}
 
 	public abstract void initialize();
+
 	public abstract void linear();
 
 	public Pose2d registerTrajectory(final String tag, final Trajectory argument) {
@@ -94,7 +95,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		Actions.runAction(() -> {
 			final double allowErr = 5;
 			if (HardwareConstants.imu.getAngularOrientation().firstAngle > angle + allowErr) {
-				Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
+				Actions.runAction(SimpleDriveOp.build(0, 0, -0.5));
 				return true;
 			} else if (HardwareConstants.imu.getAngularOrientation().firstAngle < angle - allowErr) {
 				Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
@@ -106,10 +107,10 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		drive.setPoseEstimate(poseEst);
 	}
 
-	public void flagging_op_complete(){
+	public void flagging_op_complete() {
 		timer.stop();
 		TelemetryClient.getInstance()
-				.changeData("time used",timer.getDeltaTime())
-				.changeData("time left",timer.getDeltaTime());
+				.changeData("time used", timer.getDeltaTime())
+				.changeData("time left", timer.getDeltaTime());
 	}
 }

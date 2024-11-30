@@ -58,7 +58,7 @@ public enum ClawOp {
 	@NonNull
 	public static Action initController() {
 		connect();
-		Action res = getController();
+		final Action res = getController();
 		init();
 		return res;
 	}

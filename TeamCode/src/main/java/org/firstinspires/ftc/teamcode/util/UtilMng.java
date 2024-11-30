@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.ops;
+package org.firstinspires.ftc.teamcode.util;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
@@ -18,7 +18,6 @@ import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.RobotMng;
 
 import java.util.LinkedList;
 
@@ -41,15 +40,15 @@ public class UtilMng {
 		boxRst().armsToSafePosition().openClaw().scalesBack().closeClip().liftDown().runCached();
 	}
 
-	public UtilMng waitMs(long waitMillis) {
+	public UtilMng waitMs(final long waitMillis) {
 		actions.add(new StatementAction(() -> {
 			try {
 				Thread.sleep(waitMillis);
-			} catch (InterruptedException ignore) {}
+			} catch (final InterruptedException ignore) {}
 		}));
 		return this;
 	}
-	public UtilMng addAction(Action action){
+	public UtilMng addAction(final Action action){
 		actions.add(action);
 		return this;
 	}
@@ -59,7 +58,7 @@ public class UtilMng {
 		actions.add(new StatementAction(()->rotate.setPosition(0.79)));
 		return this;
 	}
-	public UtilMng rotateRightTurn(double positionVal){
+	public UtilMng rotateRightTurn(final double positionVal){
 		actions.add(new StatementAction(()->rotate.setPosition(rotate.getPosition()+positionVal)));
 		return this;
 	}
@@ -119,7 +118,7 @@ public class UtilMng {
 	}
 	public UtilMng scaleOperate(double rightScalePosition){
 		rightScalePosition = Math.min(Math.max(rightScalePosition, 0.58), 0.92);
-		double finalRightScalePosition = rightScalePosition;
+		final double finalRightScalePosition = rightScalePosition;
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1.5 - finalRightScalePosition)),
 				new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 		return this;
