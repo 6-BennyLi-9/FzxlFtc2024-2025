@@ -91,15 +91,25 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		angleCalibration(angle, drive.getPoseEstimate());
 	}
 
-	public void angleCalibration(final double angle, final Pose2d poseEst) {
+	public void angleCalibration(final double target, final Pose2d poseEst) {
 		Actions.runAction(() -> {
-			final double allowErr = 5;
-			if (HardwareConstants.imu.getAngularOrientation().firstAngle > angle + allowErr) {
-				Actions.runAction(SimpleDriveOp.build(0, 0, -0.5));
-				return true;
-			} else if (HardwareConstants.imu.getAngularOrientation().firstAngle < angle - allowErr) {
-				Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
-				return true;
+			final double allowErr = 5,ang=HardwareConstants.imu.getAngularOrientation().firstAngle;
+			if(Math.abs(target-ang)<Math.abs(360-ang-target)) {
+				if (ang > target + allowErr) {
+					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
+					return true;
+				} else if (ang < target - allowErr) {
+					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
+					return true;
+				}
+			}else{
+				if (ang > target + allowErr) {
+					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
+					return true;
+				} else if (ang < target - allowErr) {
+					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
+					return true;
+				}
 			}
 			Actions.runAction(SimpleDriveOp.build(0, 0, 0));
 			return false;

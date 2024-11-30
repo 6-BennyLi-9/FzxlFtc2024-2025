@@ -22,7 +22,7 @@ public enum UtilPoses {
 			RightSample2 = new Pose2d(- 47, RightSample1.getY(), RightSample1.getHeading()),
 			RightSample3 = new Pose2d(- 55.5, RightSample1.getY(), RightSample1.getHeading()),
 
-			GetSample = new Pose2d(- 50, 61.8, toRadians(-90)),
+			GetSample = new Pose2d(- 50, 61, toRadians(-90)),
 
 			LeftParkPrepare = new Pose2d(36, 12, toRadians(0));
 }
