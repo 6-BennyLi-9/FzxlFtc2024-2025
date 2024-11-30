@@ -15,7 +15,7 @@ public enum UtilPoses {
 			LeftSuspend = new Pose2d(LeftStart.getX(), 32, toRadians(90)),
 			RightSuspend = new Pose2d(RightStart.getX(), 32, toRadians(90)),
 
-			LeftSample = new Pose2d(60,47, toRadians(-90)),
+			LeftSample = new Pose2d(58,47, toRadians(-90)),
 
 			RightSample = new Pose2d(- 60, 46, toRadians(-90)),
 			RightSample1 = new Pose2d(- 36, 36, toRadians(-135)),

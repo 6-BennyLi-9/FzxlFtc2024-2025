@@ -1,10 +1,17 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.*;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.Decant;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.LeftParkPrepare;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.LeftSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.LeftStart;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.LeftSuspend;
+
+import static java.lang.Math.*;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -21,19 +28,19 @@ public class Left extends IntegralAutonomous {
 				.lineToLinearHeading(LeftSample)
 				.build());
 		registerTrajectory("to sample 1",generateBuilder(Decant)
-				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(-23))))
 				.build());
 		registerTrajectory("to sample 2",generateBuilder(Decant)
-				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(23))))
 				.build());
 
 		registerTrajectory("decant 1",generateBuilder(LeftSample)
 				.lineToLinearHeading(Decant)
 				.build());
-		registerTrajectory("decant 2",generateBuilder(LeftSample.plus(new Pose2d(0,0,Math.toRadians(-23))))
+		registerTrajectory("decant 2",generateBuilder(LeftSample.plus(new Pose2d(0,0, toRadians(-23))))
 				.lineToLinearHeading(Decant)
 				.build());
-		registerTrajectory("decant 3",generateBuilder(LeftSample.plus(new Pose2d(0,0,Math.toRadians(23.5))))
+		registerTrajectory("decant 3",generateBuilder(LeftSample.plus(new Pose2d(0,0, toRadians(23.5))))
 				.lineToLinearHeading(Decant)
 				.build());
 
@@ -50,10 +57,11 @@ public class Left extends IntegralAutonomous {
 		utils.liftSuspendHigh().runCached();
 		sleep(500);
 		utils.openClip().waitMs(100).liftDown()
-				.integralIntakes().scaleOperate(0.82).runAsThread();
+				.integralIntakes().scaleOperate(0.83).runAsThread();
 
 		runTrajectory("get sample");
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
 				.integralLiftUpPrepare().liftDecantHigh()
@@ -61,16 +69,17 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 1");
 
-		sleep(500);
+		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.integralIntakes().rotateRightTurn(0.135).scaleOperate(0.87)
+				.waitMs(500).integralIntakes().rotateRightTurn(0.11).scaleOperate(0.88)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
 
 		sleep(1000);
 
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
 				.integralLiftUpPrepare().liftDecantHigh()
@@ -78,16 +87,17 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 2");
 
-		sleep(500);
+		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.waitMs(500).integralIntakes().rotateRightTurn(-0.14).scaleOperate(0.86)
+				.waitMs(500).integralIntakes().rotateRightTurn(-0.11).scaleOperate(0.875)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 2");
 
 		sleep(1000);
 
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1400)
+		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200)
+				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
 				.integralLiftUpPrepare().liftDecantHigh()
@@ -95,7 +105,7 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 3");
 
-		sleep(500);
+		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
 				.liftSuspendLv1()
 				.runAsThread();
@@ -103,5 +113,6 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("park");
 		flagging_op_complete();
+		utils.addAction(SimpleDriveOp.build(0,-0.25,0)).runCached();
 	}
 }
