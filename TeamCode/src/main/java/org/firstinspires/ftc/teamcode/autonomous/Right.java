@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample1;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample2;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample3;
@@ -28,35 +27,39 @@ public class Right extends IntegralAutonomous {
 		registerTrajectory("to sample 1",generateBuilder(RightSuspend)
 				.lineToLinearHeading(RightSample1)
 				.build());
-		registerTrajectory("to sample 2",generateBuilder(RightSample1)
+		Pose2d cache=registerTrajectory("turn 1",generateSequenceBuilder(RightSample1)
+				.turn(toRadians(-90))
+				.build());
+
+		registerTrajectory("to sample 2",generateBuilder(cache)
 				.lineToLinearHeading(RightSample2)
 				.build());
-		registerTrajectory("to sample 3",generateBuilder(RightSample2)
+		cache=registerTrajectory("turn 2",generateSequenceBuilder(RightSample2)
+				.turn(toRadians(-100))
+				.build());
+
+		registerTrajectory("to sample 3",generateBuilder(cache)
 				.lineToLinearHeading(RightSample3)
 				.build());
-
-		registerTrajectory("turn 1",generateSequenceBuilder(RightSample1)
-				.turn(toRadians(-90))
-				.build());
-		registerTrajectory("turn 2",generateSequenceBuilder(RightSample2)
-				.turn(toRadians(-90))
-				.build());
-		registerTrajectory("turn 3",generateSequenceBuilder(RightSample3)
-				.turn(toRadians(-90))
+		Pose2d afterGet=registerTrajectory("turn 3",generateSequenceBuilder(RightSample3)
+				.turn(toRadians(-100))
 				.build());
 
-		registerTrajectory("get sample",generateBuilder(RightSample)
+		registerTrajectory("place to get",generateBuilder(afterGet)
+				.lineToLinearHeading(GetSample)
+				.build());
+		registerTrajectory("suspend to get",generateBuilder(RightSuspend)
 				.lineToLinearHeading(GetSample)
 				.build());
 
 		registerTrajectory("suspend 1",generateBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,0)))
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5)))
 				.build());
 		registerTrajectory("suspend 2",generateBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(10,0)))
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(10)))
 				.build());
 		registerTrajectory("suspend 3",generateBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(15,0)))
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(15)))
 				.build());
 
 		registerTrajectory("park",generateBuilder(RightSuspend)
@@ -71,43 +74,49 @@ public class Right extends IntegralAutonomous {
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().runAsThread();
 
 		sleep(600);
-		utils.scaleOperate(0.76).rotateRightTurn(0.2).runCached();
+		utils.rotateRightTurn(0.18).scaleOperate(0.755).runCached();
 
 		runTrajectory("to sample 1");
 		sleep(500);
 		utils.displayArms().waitMs(600).closeClaw().waitMs(300)
-				.armsIDLE().scaleOperate(0.95).waitMs(500).runAsThread();
-		sleep(660);
+				.armsToSafePosition().scaleOperate(0.95).waitMs(500).runAsThread();
+		sleep(960);
 		runTrajectory("turn 1");
-		utils.displayArms().waitMs(500).openClaw().waitMs(200).scaleOperate(0.76).armsIDLE().runAsThread();
+		utils.displayArms().waitMs(500).openClaw().waitMs(200)
+				.armsToSafePosition().scaleOperate(0.76).runAsThread();
 
-		sleep(1000);
+		sleep(900);
 		runTrajectory("to sample 2");
 		sleep(500);
-		utils.displayArms().waitMs(800).closeClaw().waitMs(300)
-				.armsIDLE().scaleOperate(0.6).waitMs(500).runAsThread();
-		sleep(880);
+		utils.displayArms().waitMs(200).scaleOperate(0.76).waitMs(800).closeClaw().waitMs(300)
+				.armsToSafePosition().scaleOperate(0.6).waitMs(500).runAsThread();
+		sleep(900);
 		runTrajectory("turn 2");
 		utils.scaleOperate(0.9)
-				.displayArms().waitMs(600).openClaw().waitMs(500).scaleOperate(0.77).armsIDLE().runAsThread();
+				.displayArms().waitMs(800).openClaw().waitMs(400)
+				.armsToSafePosition().scalesBack().runAsThread();
 
 
 		sleep(1200);
+		utils.rotateToMid().rotateRightTurn(0.2).runAsThread();
 		runTrajectory("to sample 3");
 		sleep(500);
-		utils.displayArms().waitMs(800).closeClaw().waitMs(300)
-				.armsIDLE().scaleOperate(0.6).waitMs(500).runAsThread();
-		sleep(880);
+		utils.displayArms().waitMs(200).scaleOperate(0.765).waitMs(800).closeClaw().waitMs(300)
+				.armsToSafePosition().scaleOperate(0.6).waitMs(500)
+				.runCached();
+		sleep(900);
 		runTrajectory("turn 3");
 		utils.scaleOperate(0.9)
 				.displayArms().waitMs(600).openClaw().waitMs(200)
-				.armsIDLE().scalesBack().armsIDLE().rotateToMid().runCached();
+				.armsIDLE().scalesBack().rotateToMid().runCached();
 
-		runTrajectory("get sample");
-//		utils.closeClaw();
-//		runTrajectory("turn 1");
-//		utils.openClaw();
+		runTrajectory("place to get");
+		utils.closeClip().integralLiftUpPrepare().waitMs(300).liftSuspendHighPrepare().runAsThread();
+		sleep(1000);
+		runTrajectory("suspend 1");
+		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().runAsThread();
 
+		runTrajectory("park");
 		flagging_op_complete();
 	}
 }
