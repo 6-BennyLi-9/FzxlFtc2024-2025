@@ -28,7 +28,7 @@ public enum ScaleOp {
 
 	public static double smooth=0.2;
 	public static void manage(double position) {
-		position = Math.min(Math.max(position, 0.58), 0.92);
+		position = Math.max(position, 0.58);
 		leftScaleController.setTargetPosition(1.5 - position);
 		rightScaleController.setTargetPosition(position);
 	}

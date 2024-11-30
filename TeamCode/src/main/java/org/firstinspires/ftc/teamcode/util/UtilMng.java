@@ -117,7 +117,7 @@ public class UtilMng {
 		return this;
 	}
 	public UtilMng scaleOperate(double rightScalePosition){
-		rightScalePosition = Math.min(Math.max(rightScalePosition, 0.58), 0.92);
+		rightScalePosition = Math.max(rightScalePosition, 0.58);
 		final double finalRightScalePosition = rightScalePosition;
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1.5 - finalRightScalePosition)),
 				new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
