@@ -27,7 +27,7 @@ public enum LiftOp {
 		liftCtrl.setTag("lift");
 	}
 
-	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 690;
+	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
 	public static LiftPositionTypes recent() {
 		return recent;
