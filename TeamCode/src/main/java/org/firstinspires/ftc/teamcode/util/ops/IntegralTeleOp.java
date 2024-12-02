@@ -28,6 +28,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		telemetry=new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new Client(telemetry);
 
+		telemetry.clearAll();
+
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 	}
 
