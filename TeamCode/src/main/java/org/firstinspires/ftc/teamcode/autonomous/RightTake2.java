@@ -35,7 +35,7 @@ public class RightTake2 extends IntegralAutonomous {
 				.lineToSplineHeading(GetSample)
 				.build());
 
-		registerTrajectory("suspend got",generateBuilder(GetSample)
+		registerTrajectory("suspend got sample",generateBuilder(GetSample)
 				.lineToLinearHeading(RightSuspend)
 				.build());
 
@@ -49,17 +49,31 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
-				.scaleOperate(0.6).integralIntakes()
+				.integralIntakes().scaleOperate(0.8)
 				.runAsThread();
 		sleep(600);
 
-		runTrajectory("get  sample 1");
-		utils.displayArms().waitMs(300).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+		runTrajectory("get sample 1");
+		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
 
-		utils.waitMs(1200)
-				.openClaw().waitMs(100).closeClaw().waitMs(100)
+		sleep(1000);
+		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
-				.armsToSafePosition().waitMs(200).decant().runAsThread();
+				.scaleOperate(0.8).armsToSafePosition().waitMs(200).decant().runAsThread();
+		runTrajectory("get sample 2");
+		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+
+		sleep(1000);
+		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
+				.openClaw()
+				.waitMs(200)
+				.scaleOperate(0.8).armsToSafePosition().waitMs(200).decant().runAsThread();
+		sleep(1000);
+		utils.boxRst().armsToSafePosition().openClaw().runCached();
+
+		runTrajectory("get sample suspend");
+
+		flagging_op_complete();
 	}
 }
