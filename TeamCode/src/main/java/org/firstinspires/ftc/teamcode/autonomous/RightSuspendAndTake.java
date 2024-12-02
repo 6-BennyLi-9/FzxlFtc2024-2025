@@ -23,7 +23,7 @@ public class RightSuspendAndTake extends RightSuspend{
 	public void linear() {
 		super.linear();
 //		angleCalibration(180,cache);
-		utils.integralIntakes().scalesProbe().displayArms().waitMs(600).integralIntakesEnding()
+		utils.integralIntakes().scaleOperate(0.9).displayArms().waitMs(600).integralIntakesEnding()
 				.waitMs(1200)
 				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
