@@ -26,7 +26,7 @@ public class RightSuspend extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("suspend 1",generateSequenceBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(2.5,5)))
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,5)))
 				.back(5.2)
 				.build());
 
