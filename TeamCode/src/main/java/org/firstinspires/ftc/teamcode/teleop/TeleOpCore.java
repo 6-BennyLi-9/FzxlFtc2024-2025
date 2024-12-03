@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 
@@ -28,6 +27,6 @@ public class TeleOpCore extends IntegralTeleOp {
 
 		robot.runThread();
 
-		TelemetryClient.getInstance().update();//更新缓存
+		client.update();//更新缓存
 	}
 }
