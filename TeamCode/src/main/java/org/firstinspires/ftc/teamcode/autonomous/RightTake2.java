@@ -33,16 +33,16 @@ public class RightTake2 extends IntegralAutonomous {
 
 		registerTrajectory("get sample suspend",generateSequenceBuilder(RightGetSample2)
 				.lineToSplineHeading(GetSample.plus(new Pose2d(0,-5)))
-				.back(5.2)
+				.back(5.3)
 				.build());
 
 		registerTrajectory("suspend got sample 1",generateSequenceBuilder(GetSample)
 				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,5)))
-				.back(5.2)
+				.back(5.1)
 				.build());
 		registerTrajectory("suspend got sample 2",generateSequenceBuilder(GetSample)
 				.lineToLinearHeading(RightSuspend.plus(new Pose2d(10,5)))
-				.back(5.2)
+				.back(5.1)
 				.build());
 
 		registerTrajectory("park",generateBuilder(RightSuspend)
@@ -77,13 +77,13 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
-				.armsToSafePosition().waitMs(200).decant().runAsThread();
-		sleep(1000);
-		utils.armsToSafePosition().openClaw().runCached();
+				.armsToSafePosition().decant().runAsThread();
+		sleep(1100);
+		utils.armsToSafePosition().openClaw().boxRst().runAsThread();
 
 		runTrajectory("get sample suspend");
-		utils.boxRst().closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
-		sleep(400);
+		sleep(500);
+		utils.closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 
 		runTrajectory("suspend got sample 1");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
@@ -92,8 +92,8 @@ public class RightTake2 extends IntegralAutonomous {
 		sleep(600);
 
 		runTrajectory("get sample suspend");
-		utils.boxRst().closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
-		sleep(400);
+		sleep(500);
+		utils.closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 
 		runTrajectory("suspend got sample 2");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
