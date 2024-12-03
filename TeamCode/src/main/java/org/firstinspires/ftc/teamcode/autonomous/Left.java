@@ -72,7 +72,7 @@ public class Left extends IntegralAutonomous {
 
 		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.waitMs(500).integralIntakes().rotateRightTurn(0.11).scaleOperate(0.9)
+				.waitMs(500).integralIntakes().rotateRightTurn(0.11).scaleOperate(0.91)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
