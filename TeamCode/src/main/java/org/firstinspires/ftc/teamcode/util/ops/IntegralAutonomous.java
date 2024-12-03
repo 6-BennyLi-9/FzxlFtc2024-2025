@@ -35,7 +35,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(),telemetry);
-		client = new Client(telemetry);
+		client = new Client(telemetry,30);
 		utils = new UtilMng();
 		timer = new Timer();
 		initialize();
