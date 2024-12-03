@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.util.GamepadRequestMemories;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 
 @TeleOp(name = "19419", group = "0_Main")
@@ -22,8 +21,9 @@ public class TeleOpCore extends IntegralTeleOp {
 		robot.driveThroughGamepad();
 
 		//主程序结束
+
 		robot.printThreadDebugs();
-		GamepadRequestMemories.printValues();
+//		GamepadRequestMemories.printValues();
 
 		robot.runThread();
 

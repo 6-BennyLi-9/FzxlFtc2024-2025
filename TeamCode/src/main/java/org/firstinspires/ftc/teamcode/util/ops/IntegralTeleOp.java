@@ -48,6 +48,9 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
 		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
 	}
+	public boolean auto_terminate_when_TLE(){
+		return auto_terminate_when_TLE;
+	}
 
 	@Override
 	public void op_loop() {
