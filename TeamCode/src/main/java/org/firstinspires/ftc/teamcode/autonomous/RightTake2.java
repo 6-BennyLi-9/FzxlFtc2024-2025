@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
-@Autonomous(name = "*Right(2悬挂+2夹取)", preselectTeleOp = "19419", group = "2_Betas")
+@Autonomous(name = "Right(2悬挂+2夹取)", preselectTeleOp = "19419", group = "0_Main")
 public class RightTake2 extends IntegralAutonomous {
 	@Override
 	public void initialize() {
@@ -31,12 +31,18 @@ public class RightTake2 extends IntegralAutonomous {
 				.lineToLinearHeading(RightGetSample2)
 				.build());
 
-		registerTrajectory("get sample suspend",generateBuilder(RightGetSample2)
-				.lineToSplineHeading(GetSample)
+		registerTrajectory("get sample suspend",generateSequenceBuilder(RightGetSample2)
+				.lineToSplineHeading(GetSample.plus(new Pose2d(0,-5)))
+				.back(5.2)
 				.build());
 
-		registerTrajectory("suspend got sample",generateBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend)
+		registerTrajectory("suspend got sample 1",generateSequenceBuilder(GetSample)
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,5)))
+				.back(5.2)
+				.build());
+		registerTrajectory("suspend got sample 2",generateSequenceBuilder(GetSample)
+				.lineToLinearHeading(RightSuspend.plus(new Pose2d(10,5)))
+				.back(5.2)
 				.build());
 
 		registerTrajectory("park",generateBuilder(RightSuspend)
@@ -44,12 +50,14 @@ public class RightTake2 extends IntegralAutonomous {
 				.build());
 	}
 
+	public static double scaleGetPosition=0.85;
+
 	@Override
 	public void linear() {
 		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		runTrajectory("suspend preload");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
-				.integralIntakes().scaleOperate(0.8)
+				.integralIntakes().scaleOperate(scaleGetPosition)
 				.runAsThread();
 		sleep(600);
 
@@ -60,19 +68,40 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
-				.scaleOperate(0.8).armsToSafePosition().waitMs(200).decant().runAsThread();
+				.scaleOperate(scaleGetPosition).armsToSafePosition().waitMs(200).decant().runAsThread();
 		runTrajectory("get sample 2");
+		sleep(200);
 		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
 
 		sleep(1000);
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
-				.scaleOperate(0.8).armsToSafePosition().waitMs(200).decant().runAsThread();
+				.armsToSafePosition().waitMs(200).decant().runAsThread();
 		sleep(1000);
-		utils.boxRst().armsToSafePosition().openClaw().runCached();
+		utils.armsToSafePosition().openClaw().runCached();
 
 		runTrajectory("get sample suspend");
+		utils.boxRst().closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		sleep(400);
+
+		runTrajectory("suspend got sample 1");
+		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
+				.integralIntakes()
+				.runAsThread();
+		sleep(600);
+
+		runTrajectory("get sample suspend");
+		utils.boxRst().closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		sleep(400);
+
+		runTrajectory("suspend got sample 2");
+		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
+				.integralIntakes()
+				.runAsThread();
+		sleep(600);
+
+		runTrajectory("park");
 
 		flagging_op_complete();
 	}

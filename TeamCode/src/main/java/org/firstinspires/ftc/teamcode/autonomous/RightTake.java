@@ -10,9 +10,11 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
+@Disabled
 @Autonomous(name = "*Right(2悬挂+3夹取)", preselectTeleOp = "19419", group = "2_Betas")
 public class RightTake extends IntegralAutonomous {
 	@Override
