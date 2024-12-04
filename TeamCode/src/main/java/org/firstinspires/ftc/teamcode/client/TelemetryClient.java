@@ -120,10 +120,10 @@ public class TelemetryClient {
 	 */
 	public TelemetryClient deleteLine(final String key) {
 		this.data.remove(key);
+
 		if (! autoUpdate) {
 			this.update();
 		}
-
 		return this;
 	}
 
@@ -150,40 +150,43 @@ public class TelemetryClient {
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair < String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
-				final String  key     = i.getKey();
-				final String  val     = i.getValue().first;
-				final Integer IDCache = i.getValue().second;
+				final String  key = i.getKey();
+				final String  val = i.getValue().first;
+				final Integer id  = i.getValue().second;
 				if (! Objects.equals(i.getValue().first, "")) {//line
-					outputData.add(new Pair <>(IDCache, new Pair<>(key,val)));
+					outputData.add(new Pair <>(id, new Pair<>(key,val)));
 				} else {//line
-					outputData.add(new Pair <>(IDCache, new Pair<>(key,null)));
+					outputData.add(new Pair <>(id, new Pair<>(key,null)));
 				}
 			}
 			outputData.sort(Comparator.comparingInt(x -> x.first));
-			for (final Pair <Integer, Pair < String, String>> outputLine : outputData) {
+
+			for (int i = 0 ; i < outputData.size() ; i++) {
+				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
 				if (showIndex) {
-					String packedID="["+outputLine.first+"]";
-					if(telemetry instanceof DashTelemetry){
-						((DashTelemetry) telemetry).addSmartLine(packedID+outputLine.second.first,outputLine.second.second);
-					}else{
-						if(outputLine.second.second==null){
-							telemetry.addLine(packedID+outputLine.second.first);
-						}else{
-							telemetry.addData(packedID+outputLine.second.first,outputLine.second.second);
+					String packedID = "[" + outputLine.first + "]";
+					if (telemetry instanceof DashTelemetry) {
+						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
+					} else {
+						if (outputLine.second.second == null) {
+							telemetry.addLine(packedID + outputLine.second.first);
+						} else {
+							telemetry.addData(packedID + outputLine.second.first, outputLine.second.second);
 						}
 					}
 				} else {
-					if(telemetry instanceof DashTelemetry){
-						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first,outputLine.second.second);
-					}else{
-						if(outputLine.second.second==null){
+					if (telemetry instanceof DashTelemetry) {
+						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first, outputLine.second.second);
+					} else {
+						if (outputLine.second.second == null) {
 							telemetry.addLine(outputLine.second.first);
-						}else{
-							telemetry.addData(outputLine.second.first,outputLine.second.second);
+						} else {
+							telemetry.addData(outputLine.second.first, outputLine.second.second);
 						}
 					}
 				}
 			}
+
 			this.telemetry.update();
 		} else {
 			String cache;
