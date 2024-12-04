@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Autonomous(group = "1_Utils")
 @Disabled
+@Deprecated
 public final class ClipPreload extends IntegralAutonomous {
 	@Override
 	public void initialize() {
