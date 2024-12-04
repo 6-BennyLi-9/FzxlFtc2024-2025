@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.structure.controllers.lift;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
  * 基于 {@code PID}
  */
 @Config
+@Disabled
 public class PIDLiftCtrl extends LiftCtrl {
 	private final PidProcessor processor;
 	public static double       vP, vI, vD, max_I;

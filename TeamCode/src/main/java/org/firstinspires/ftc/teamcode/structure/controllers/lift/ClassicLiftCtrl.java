@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.structure.controllers.lift;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
  * 经典的电梯控制，人走码还在
  */
 @Config
+@Disabled
 public class ClassicLiftCtrl extends LiftCtrl {
 	public static long   staticAllowError;
 	public static long   lowerErrorRange;
