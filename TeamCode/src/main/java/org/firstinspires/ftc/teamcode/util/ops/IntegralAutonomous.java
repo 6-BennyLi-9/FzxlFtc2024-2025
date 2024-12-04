@@ -48,7 +48,13 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 		if (!opModeIsActive()) return;
 		timer.restart();
-		final Thread linear = new Thread(this::linear);
+		final Thread linear = new Thread(()->{
+			try{
+				linear();
+			}catch (Throwable throwable){
+				throwLocalThrowable(throwable);
+			}
+		});
 		linear.start();
 		while (opModeIsActive() && !linear.isInterrupted()) {
 			sleep(10);
@@ -122,5 +128,8 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		TelemetryClient.getInstance()
 				.changeData("time used", timer.getDeltaTime() * 1.0e-3)
 				.changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
+	}
+	public void throwLocalThrowable(Throwable exception){
+		throw new RuntimeException(exception);
 	}
 }
