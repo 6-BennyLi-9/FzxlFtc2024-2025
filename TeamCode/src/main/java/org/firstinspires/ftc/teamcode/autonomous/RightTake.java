@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Disabled
+@Deprecated
 @Autonomous(name = "*Right(2悬挂+3夹取)", preselectTeleOp = "19419", group = "2_Betas")
 public class RightTake extends IntegralAutonomous {
 	@Override

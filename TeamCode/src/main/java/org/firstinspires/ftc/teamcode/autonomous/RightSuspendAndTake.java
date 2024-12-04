@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+@Config
 @Autonomous(name = "Right(3悬挂+1夹取+1预载)", preselectTeleOp = "19419", group = "0_Main")
 public class RightSuspendAndTake extends RightSuspend{
 	Pose2d cache;
@@ -19,11 +21,13 @@ public class RightSuspendAndTake extends RightSuspend{
 				.build());
 	}
 
+	public static double scalePosition=0.9;
+
 	@Override
 	public void linear() {
 		super.linear();
 //		angleCalibration(180,cache);
-		utils.integralIntakes().scaleOperate(0.9).displayArms().waitMs(600).integralIntakesEnding()
+		utils.integralIntakes().scaleOperate(scalePosition).displayArms().waitMs(600).integralIntakesEnding()
 				.waitMs(1200)
 				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()

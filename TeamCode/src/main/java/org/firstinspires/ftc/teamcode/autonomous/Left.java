@@ -8,12 +8,14 @@ import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.LeftSuspend;
 
 import static java.lang.Math.*;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
+@Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends IntegralAutonomous {
 	@Override
@@ -51,6 +53,8 @@ public class Left extends IntegralAutonomous {
 				.build());
 	}
 
+	public static double scaleGetPosition1=0.85,scaleGetPosition2=0.91,scaleGetPosition3=0.88;
+
 	@Override
 	public void linear() {
 		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
@@ -58,7 +62,7 @@ public class Left extends IntegralAutonomous {
 		utils.liftSuspendHigh().runCached();
 		sleep(500);
 		utils.openClip().waitMs(100).liftDown()
-				.integralIntakes().scaleOperate(0.85).runAsThread();
+				.integralIntakes().scaleOperate(scaleGetPosition1).runAsThread();
 
 		runTrajectory("get sample");
 		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200)
@@ -72,7 +76,7 @@ public class Left extends IntegralAutonomous {
 
 		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(0.91)
+				.waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
@@ -90,7 +94,7 @@ public class Left extends IntegralAutonomous {
 
 		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.waitMs(500).integralIntakes().rotateRightTurn(-0.11).scaleOperate(0.88)
+				.waitMs(500).integralIntakes().rotateRightTurn(-0.11).scaleOperate(scaleGetPosition3)
 				.runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 2");
