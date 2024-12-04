@@ -9,8 +9,6 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.util.Arrays;
-
 public class DashTelemetry implements Telemetry {
 	private final MultipleTelemetry telemetries;
 	private final FtcDashboard      dashboard;
@@ -19,9 +17,9 @@ public class DashTelemetry implements Telemetry {
 	public DashTelemetry(@NonNull final FtcDashboard dashboard, final Telemetry... telemetries) {
 		this.telemetries = new MultipleTelemetry(telemetries);
 		this.dashboard = dashboard;
-		if (! Arrays.asList(telemetries).contains(dashboard.getTelemetry())) {
-			this.telemetries.addTelemetry(dashboard.getTelemetry());
-		}
+//		if (! Arrays.asList(telemetries).contains(dashboard.getTelemetry())) {
+//			this.telemetries.addTelemetry(dashboard.getTelemetry());
+//		}
 		this.telemetries.clearAll();
 	}
 
@@ -210,5 +208,26 @@ public class DashTelemetry implements Telemetry {
 	@Override
 	public Log log() {
 		return telemetries.log();
+	}
+
+//	public void addPacketVal(final String caption,final Object value){
+//		packet.put(caption,value);
+//	}
+//	public void addPacketVal(Map <String,Object> container){
+//		packet.putAll(container);
+//	}
+//
+//	public void addLineToTelemetry(String line){
+//		telemetries.addLine(line);
+//	}
+
+	public void addSmartLine(final String capital,final Object value){
+		if(value!=null){
+			telemetries.addData(capital,value);
+			packet.put(capital,value);
+		}else{
+			telemetries.addLine(capital);
+			packet.addLine(capital);
+		}
 	}
 }

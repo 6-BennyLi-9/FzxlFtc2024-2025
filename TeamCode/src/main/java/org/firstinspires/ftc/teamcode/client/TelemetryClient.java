@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.client;
 
 import android.util.Pair;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Comparator;
@@ -10,6 +12,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
 
+/** @noinspection UnusedReturnValue*/
+@Config
 public class TelemetryClient {
 	private final   Telemetry                            telemetry;
 	protected final Map <String, Pair <String, Integer>> data;
@@ -144,23 +148,40 @@ public class TelemetryClient {
 
 	public void update() {
 		if (sortDataInTelemetryClientUpdate) {
-			final Vector <Pair <Integer, String>> outputData = new Vector <>();
+			final Vector <Pair <Integer, Pair < String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
 				final String  key     = i.getKey();
 				final String  val     = i.getValue().first;
 				final Integer IDCache = i.getValue().second;
 				if (! Objects.equals(i.getValue().first, "")) {//line
-					outputData.add(new Pair <>(IDCache, key + ":" + val));
+					outputData.add(new Pair <>(IDCache, new Pair<>(key,val)));
 				} else {//line
-					outputData.add(new Pair <>(IDCache, key));
+					outputData.add(new Pair <>(IDCache, new Pair<>(key,null)));
 				}
 			}
 			outputData.sort(Comparator.comparingInt(x -> x.first));
-			for (final Pair <Integer, String> outputLine : outputData) {
+			for (final Pair <Integer, Pair < String, String>> outputLine : outputData) {
 				if (showIndex) {
-					this.telemetry.addLine("[" + outputLine.first + "]" + outputLine.second);
+					String packedID="["+outputLine.first+"]";
+					if(telemetry instanceof DashTelemetry){
+						((DashTelemetry) telemetry).addSmartLine(packedID+outputLine.second.first,outputLine.second.second);
+					}else{
+						if(outputLine.second.second==null){
+							telemetry.addLine(packedID+outputLine.second.first);
+						}else{
+							telemetry.addData(packedID+outputLine.second.first,outputLine.second.second);
+						}
+					}
 				} else {
-					this.telemetry.addLine(outputLine.second);
+					if(telemetry instanceof DashTelemetry){
+						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first,outputLine.second.second);
+					}else{
+						if(outputLine.second.second==null){
+							telemetry.addLine(outputLine.second.first);
+						}else{
+							telemetry.addData(outputLine.second.first,outputLine.second.second);
+						}
+					}
 				}
 			}
 			this.telemetry.update();
@@ -176,6 +197,7 @@ public class TelemetryClient {
 					this.telemetry.addLine(key + ":" + cache);
 				}
 			}
+			this.telemetry.update();
 		}
 	}
 }
