@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample1;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample2;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSample3;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightFirstSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSecondSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightThirdSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightStart;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSuspend;
 import static java.lang.Math.toRadians;
@@ -28,23 +28,23 @@ public class RightTake extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("to sample 1",generateBuilder(RightSuspend)
-				.lineToLinearHeading(RightSample1)
+				.lineToLinearHeading(RightFirstSample)
 				.build());
-		Pose2d cache=registerTrajectory("turn 1",generateSequenceBuilder(RightSample1)
+		Pose2d cache=registerTrajectory("turn 1",generateSequenceBuilder(RightFirstSample)
 				.turn(toRadians(-90))
 				.build());
 
 		registerTrajectory("to sample 2",generateBuilder(cache)
-				.lineToLinearHeading(RightSample2)
+				.lineToLinearHeading(RightSecondSample)
 				.build());
-		cache=registerTrajectory("turn 2",generateSequenceBuilder(RightSample2)
+		cache=registerTrajectory("turn 2",generateSequenceBuilder(RightSecondSample)
 				.turn(toRadians(-100))
 				.build());
 
 		registerTrajectory("to sample 3",generateBuilder(cache)
-				.lineToLinearHeading(RightSample3)
+				.lineToLinearHeading(RightThirdSample)
 				.build());
-		Pose2d afterGet=registerTrajectory("turn 3",generateSequenceBuilder(RightSample3)
+		Pose2d afterGet=registerTrajectory("turn 3",generateSequenceBuilder(RightThirdSample)
 				.turn(toRadians(-100))
 				.build());
 

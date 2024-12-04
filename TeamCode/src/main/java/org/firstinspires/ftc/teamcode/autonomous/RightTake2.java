@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSample1;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSample2;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetFirstSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSecondSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightStart;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSuspend;
 
@@ -27,13 +27,13 @@ public class RightTake2 extends IntegralAutonomous {
 				.build());
 
 		registerTrajectory("get sample 1",generateBuilder(RightSuspend)
-				.lineToLinearHeading(RightGetSample1)
+				.lineToLinearHeading(RightGetFirstSample)
 				.build());
-		registerTrajectory("get sample 2",generateBuilder(RightGetSample1)
-				.lineToLinearHeading(RightGetSample2)
+		registerTrajectory("get sample 2",generateBuilder(RightGetFirstSample)
+				.lineToLinearHeading(RightGetSecondSample)
 				.build());
 
-		registerTrajectory("get sample suspend",generateSequenceBuilder(RightGetSample2)
+		registerTrajectory("get sample suspend",generateSequenceBuilder(RightGetSecondSample)
 				.lineToSplineHeading(GetSample.plus(new Pose2d(0,-5)))
 				.back(5.3)
 				.build());
