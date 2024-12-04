@@ -34,7 +34,7 @@ public class Left extends IntegralAutonomous {
 				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(-23))))
 				.build());
 		registerTrajectory("to sample 2",generateBuilder(Decant)
-				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(22.5))))
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(21.7))))
 				.build());
 
 		registerTrajectory("decant 1",generateBuilder(LeftSample)
@@ -43,7 +43,7 @@ public class Left extends IntegralAutonomous {
 		registerTrajectory("decant 2",generateBuilder(LeftSample.plus(new Pose2d(0,0, toRadians(-23))))
 				.lineToLinearHeading(Decant)
 				.build());
-		registerTrajectory("decant 3",generateBuilder(LeftSample.plus(new Pose2d(0,0, toRadians(23.5))))
+		registerTrajectory("decant 3",generateBuilder(LeftSample.plus(new Pose2d(0,0, toRadians(21.7))))
 				.lineToLinearHeading(Decant)
 				.build());
 
@@ -53,7 +53,7 @@ public class Left extends IntegralAutonomous {
 				.build());
 	}
 
-	public static double scaleGetPosition1=0.85,scaleGetPosition2=0.91,scaleGetPosition3=0.88;
+	public static double scaleGetPosition1=0.85,scaleGetPosition2=0.92,scaleGetPosition3=0.88;
 
 	@Override
 	public void linear() {
@@ -94,14 +94,15 @@ public class Left extends IntegralAutonomous {
 
 		sleep(600);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
-				.waitMs(500).integralIntakes().rotateRightTurn(-0.11).scaleOperate(scaleGetPosition3)
+				.waitMs(500).integralIntakes().rotateRightTurn(-0.11)
+				.displayArms().scaleOperate(scaleGetPosition3)
 				.runAsThread();
-		sleep(1000);
+		sleep(1500);
 		runTrajectory("to sample 2");
 
 		sleep(1000);
 
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200)
+		utils.integralIntakesEnding().waitMs(1200)
 				.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
