@@ -34,7 +34,7 @@ public class Left extends IntegralAutonomous {
 				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(-23))))
 				.build());
 		registerTrajectory("to sample 2",generateBuilder(Decant)
-				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(23))))
+				.lineToLinearHeading(LeftSample.plus(new Pose2d(0,0, toRadians(22.5))))
 				.build());
 
 		registerTrajectory("decant 1",generateBuilder(LeftSample)
