@@ -5,13 +5,13 @@ import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetFirstS
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSecondSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightStart;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSuspend;
-
-import static java.lang.Math.*;
+import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Config
@@ -35,7 +35,6 @@ public class RightTake2 extends IntegralAutonomous {
 
 		registerTrajectory("get sample suspend",generateSequenceBuilder(RightGetSecondSample)
 				.lineToSplineHeading(GetSample.plus(new Pose2d(0,-5)))
-				.back(5.3)
 				.build());
 
 		registerTrajectory("suspend got sample 1",generateSequenceBuilder(GetSample)
@@ -85,7 +84,9 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("get sample suspend");
 		sleep(500);
-		utils.closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0,-0.5,0))
+				.waitMs(1500).closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		sleep(1500);
 
 		runTrajectory("suspend got sample 1");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
@@ -95,7 +96,9 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("get sample suspend");
 		sleep(500);
-		utils.closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0,-0.5,0))
+				.waitMs(1500).closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		sleep(1500);
 
 		runTrajectory("suspend got sample 2");
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown()
