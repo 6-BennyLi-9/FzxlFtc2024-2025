@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
 
 @Config
-@Autonomous(name = "Right(2悬挂+2夹取)", preselectTeleOp = "19419", group = "0_Main")
+@Autonomous(name = "Right(3悬挂+2夹取)", preselectTeleOp = "19419", group = "0_Main")
 public class RightTake2 extends IntegralAutonomous {
 	@Override
 	public void initialize() {
@@ -63,16 +63,19 @@ public class RightTake2 extends IntegralAutonomous {
 		sleep(600);
 
 		runTrajectory("get sample 1");
-		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+		utils.displayArms().waitMs(600).closeClaw().waitMs(300)
+				.integralIntakesEnding().runCached();
 
 		sleep(1000);
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
 				.openClaw()
 				.waitMs(200)
-				.scaleOperate(scaleGetPosition).armsToSafePosition().waitMs(200).decant().runAsThread();
+				.scaleOperate(scaleGetPosition).armsToSafePosition().waitMs(200)
+				.decant().runAsThread();
 		runTrajectory("get sample 2");
 		sleep(200);
-		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+		utils.displayArms().waitMs(600).closeClaw().waitMs(300)
+				.integralIntakesEnding().runCached();
 
 		sleep(1000);
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100)
@@ -80,12 +83,13 @@ public class RightTake2 extends IntegralAutonomous {
 				.waitMs(200)
 				.armsToSafePosition().decant().runAsThread();
 		sleep(1100);
-		utils.armsToSafePosition().openClaw().boxRst().runAsThread();
+		utils.armsToSafePosition().openClaw().runAsThread();
 
 		runTrajectory("get sample suspend");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0,-0.5,0))
-				.waitMs(1500).closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0,-0.4,0))
+				.waitMs(1500).closeClip().waitMs(500)
+				.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		sleep(1500);
 
 		runTrajectory("suspend got sample 1");
@@ -96,8 +100,9 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("get sample suspend");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0,-0.5,0))
-				.waitMs(1500).closeClip().waitMs(500).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0,-0.4,0))
+				.waitMs(1500).closeClip().waitMs(500)
+				.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		sleep(1500);
 
 		runTrajectory("suspend got sample 2");
