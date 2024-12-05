@@ -53,7 +53,7 @@ public class Left extends IntegralAutonomous {
 				.build());
 	}
 
-	public static double scaleGetPosition1=0.85,scaleGetPosition2=0.92,scaleGetPosition3=0.88;
+	public static double scaleGetPosition1=0.85,scaleGetPosition2=0.92,scaleGetPosition3=0.87;
 
 	@Override
 	public void linear() {
@@ -75,7 +75,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant 1");
 
 		sleep(600);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown()
 				.waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2)
 				.runAsThread();
 		sleep(1000);
@@ -93,7 +93,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant 2");
 
 		sleep(600);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown()
 				.waitMs(500).integralIntakes().rotateRightTurn(-0.11)
 				.displayArms().scaleOperate(scaleGetPosition3)
 				.runAsThread();
@@ -112,7 +112,7 @@ public class Left extends IntegralAutonomous {
 		runTrajectory("decant 3");
 
 		sleep(600);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().liftDown()
+		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown()
 				.liftSuspendLv1()
 				.runAsThread();
 
