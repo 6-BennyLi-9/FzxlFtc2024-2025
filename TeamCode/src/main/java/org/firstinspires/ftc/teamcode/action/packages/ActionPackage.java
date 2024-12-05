@@ -5,9 +5,9 @@ import org.firstinspires.ftc.teamcode.action.Actions;
 import org.firstinspires.ftc.teamcode.action.PriorityAction;
 import org.firstinspires.ftc.teamcode.action.utils.PriorityThreadedAction;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +18,7 @@ public class ActionPackage {
 	protected final List <PriorityAction> actions;
 
 	public ActionPackage() {
-		actions = new ArrayList <>();
+		actions = new LinkedList <>();
 	}
 
 	public void add(final PriorityAction action) {
