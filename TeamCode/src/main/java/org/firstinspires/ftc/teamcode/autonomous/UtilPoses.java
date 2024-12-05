@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public enum UtilPoses {
 	;
 	public static Pose2d
+			//正规：y-0.5
 			LeftStart = new Pose2d(12, 60, toRadians(90)),
 			RightStart = new Pose2d(- 12, 60, toRadians(90)),
 
