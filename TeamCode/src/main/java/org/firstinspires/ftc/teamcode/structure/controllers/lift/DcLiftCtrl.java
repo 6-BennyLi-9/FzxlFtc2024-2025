@@ -14,9 +14,10 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
  */
 @Config
 public class DcLiftCtrl extends LiftCtrl {
-	public static double  bufPow                = 1;
-	public static int     tolerance             = 10;
-	private       boolean using_touch_calibrate = true;
+	public static double  bufPow                     = 1;
+	public static int     tolerance                  = 10;
+	private       boolean using_touch_calibrate      = true;
+	private       boolean using_touch_reset_encoders = true;
 
 	public DcLiftCtrl(@NonNull final DcMotorEx target) {
 		super(target);
@@ -30,6 +31,13 @@ public class DcLiftCtrl extends LiftCtrl {
 			if (! HardwareConstants.liftTouch.isPressed()) {
 				targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			}
+			return true;
+		}
+
+		if(0 == getTargetPosition() && using_touch_reset_encoders && ! HardwareConstants.liftTouch.isPressed()){
+			targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+			targetLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+			targetLift.setPower(0);
 			return true;
 		}
 
@@ -53,8 +61,15 @@ public class DcLiftCtrl extends LiftCtrl {
 	public void using_touch_calibrate(final boolean using_touch_calibrate) {
 		this.using_touch_calibrate = using_touch_calibrate;
 	}
-
-	public boolean get_using_touch_calibrate() {
+	public boolean using_touch_calibrate() {
 		return using_touch_calibrate;
+	}
+
+
+	public void using_touch_reset_encoders(final boolean using_touch_reset_encoders) {
+		this.using_touch_reset_encoders = using_touch_reset_encoders;
+	}
+	public boolean using_touch_reset_encoders() {
+		return using_touch_reset_encoders;
 	}
 }

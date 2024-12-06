@@ -21,6 +21,6 @@ public class DcAutoLiftCtrl extends DcLiftCtrl {
 	@Override
 	public boolean run() {
 		super.run();
-		return (get_using_touch_calibrate() && 0 == getTargetPosition() && HardwareConstants.liftTouch.isPressed());
+		return (using_touch_calibrate() && 0 == getTargetPosition() && HardwareConstants.liftTouch.isPressed());
 	}
 }
