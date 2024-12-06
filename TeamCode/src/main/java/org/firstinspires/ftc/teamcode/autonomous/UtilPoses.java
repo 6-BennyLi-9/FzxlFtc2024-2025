@@ -7,12 +7,14 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public enum UtilPoses {
 	;
 	public static Pose2d
-			//正规：y-0.5
-			LeftStart = new Pose2d(12, 60, toRadians(90)), RightStart = new Pose2d(- 12, 60, toRadians(90)),
+	//正规：y-0.5
+	LeftStart = new Pose2d(12, 60, toRadians(90)),
+	RightStart = new Pose2d(- 12, 60, toRadians(90)),
 
 	Decant = new Pose2d(60, 54, toRadians(- 135)),
 
-	LeftSuspend = new Pose2d(LeftStart.getX(), 32, toRadians(90)), RightSuspend = new Pose2d(RightStart.getX(), 32, toRadians(90)),
+	LeftSuspend = new Pose2d(LeftStart.getX(), 32, toRadians(90)),
+	RightSuspend = new Pose2d(RightStart.getX(), 32, toRadians(90)),
 
 	LeftSample = new Pose2d(59, 47, toRadians(- 90)),
 
@@ -20,10 +22,13 @@ public enum UtilPoses {
 	RightSample = new Pose2d(- 60, 46, toRadians(- 90)),
 
 	//right take
-	RightFirstSample = new Pose2d(- 36, 36, toRadians(- 135)), RightSecondSample = new Pose2d(- 47, RightFirstSample.getY(), RightFirstSample.getHeading()), RightThirdSample = new Pose2d(- 55.5, RightFirstSample.getY(), RightFirstSample.getHeading()),
+	RightFirstSample = new Pose2d(- 36, 36, toRadians(- 135)),
+	RightSecondSample = new Pose2d(- 47, RightFirstSample.getY(), RightFirstSample.getHeading()),
+	RightThirdSample = new Pose2d(- 55.5, RightFirstSample.getY(), RightFirstSample.getHeading()),
 
 	//right take 2
-	RightGetFirstSample = new Pose2d(- 49.5, 48, toRadians(- 90)), RightGetSecondSample = new Pose2d(- 59.5, RightGetFirstSample.getY(), RightGetFirstSample.getHeading()),
+	RightGetFirstSample = new Pose2d(- 49.5, 48, toRadians(- 90)),
+	RightGetSecondSample = new Pose2d(- 59.5, RightGetFirstSample.getY(), RightGetFirstSample.getHeading()),
 
 	GetSample = new Pose2d(- 50, 61, toRadians(- 90)),
 
