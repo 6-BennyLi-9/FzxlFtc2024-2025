@@ -122,19 +122,19 @@ public class RobotMng {
 			switch (armScaleOperate.ticker.getTicked()) {
 				case 0:
 					RotateOp.mid();
+					PlaceOp.idle();
 					break;
 				case 1:
 					ClawOp.open();
 					break;
 				default:
-					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+					throw new IllegalStateException("4Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 			}
 		}
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.back();
 				ArmOp.idle();
-				PlaceOp.idle();
 				break;
 			case 1:
 				RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
