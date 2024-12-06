@@ -10,11 +10,11 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightArm;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rotate;
 
-import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.action.Actions;
-import org.firstinspires.ftc.teamcode.action.utils.LinkedAction;
-import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
-import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
+import org.betastudio.application.action.Action;
+import org.betastudio.application.action.Actions;
+import org.betastudio.application.action.utils.LinkedAction;
+import org.betastudio.application.action.utils.StatementAction;
+import org.betastudio.application.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;

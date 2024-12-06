@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.action.Action;
+import org.betastudio.application.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.action.Action;
+import org.betastudio.application.action.Action;
 
 public class ServoCtrl implements Action {
 	public final Servo  controlTarget;

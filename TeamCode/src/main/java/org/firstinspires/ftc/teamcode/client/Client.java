@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.client;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.action.Action;
-import org.firstinspires.ftc.teamcode.action.Actions;
-import org.firstinspires.ftc.teamcode.action.utils.SleepingAction;
-import org.firstinspires.ftc.teamcode.action.utils.StatementAction;
-import org.firstinspires.ftc.teamcode.action.utils.ThreadedAction;
+import org.betastudio.application.action.Action;
+import org.betastudio.application.action.Actions;
+import org.betastudio.application.action.utils.SleepingAction;
+import org.betastudio.application.action.utils.StatementAction;
+import org.betastudio.application.action.utils.ThreadedAction;
 
 public class Client extends TelemetryClient {
 	public static class InfinityLoopAction implements Action {
