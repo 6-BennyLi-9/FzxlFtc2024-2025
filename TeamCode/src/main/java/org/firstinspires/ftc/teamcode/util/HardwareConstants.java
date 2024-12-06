@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.betastudio.application.action.Actions;
 import org.betastudio.application.action.utils.SleepingAction;
+import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
 public enum HardwareConstants {
 	;
@@ -38,7 +39,11 @@ public enum HardwareConstants {
 	public static BNO055IMU   imu;
 	public static TouchSensor liftTouch;
 
+	private static HardwareMap hardwareMap;
+
 	public static void sync(@NonNull final HardwareMap hardwareMap, final boolean connectIMU) {
+		HardwareConstants.hardwareMap=hardwareMap;
+
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
 		rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
@@ -105,5 +110,21 @@ public enum HardwareConstants {
 		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
 		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
 		rightRear.setDirection(DcMotorSimple.Direction.FORWARD);   //R
+	}
+
+	public static void printVoltages(){
+		TelemetryClient.getInstance()
+				.changeData("leftFront voltage",getHardwareVoltage("leftFront"))
+				.changeData("leftRear voltage",getHardwareVoltage("leftRear"))
+				.changeData("rightFront voltage",getHardwareVoltage("rightFront"))
+				.changeData("rightRear voltage",getHardwareVoltage("rightRear"))
+				.changeData("clip voltage", getHardwareVoltage("clip"))
+				.changeData("place voltage",getHardwareVoltage("place"))
+				.changeData("claw voltage", getHardwareVoltage("claw"))
+				.changeData("rotate voltage", getHardwareVoltage("rotate"));
+	}
+	
+	private static double getHardwareVoltage(final String name){
+		return hardwareMap.voltageSensor.get(name).getVoltage();
 	}
 }
