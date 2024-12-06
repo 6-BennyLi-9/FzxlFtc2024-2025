@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 /**
  * 经典的电梯控制，人走码还在

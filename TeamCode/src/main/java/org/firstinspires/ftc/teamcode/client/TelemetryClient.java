@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
 
-/** @noinspection UnusedReturnValue*/
+/**
+ * @noinspection UnusedReturnValue
+ */
 @Config
 public class TelemetryClient {
 	private final   Telemetry                            telemetry;
@@ -148,15 +150,15 @@ public class TelemetryClient {
 
 	public void update() {
 		if (sortDataInTelemetryClientUpdate) {
-			final Vector <Pair <Integer, Pair < String, String>>> outputData = new Vector <>();
+			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
 				final String  key = i.getKey();
 				final String  val = i.getValue().first;
 				final Integer id  = i.getValue().second;
 				if (! Objects.equals(i.getValue().first, "")) {//line
-					outputData.add(new Pair <>(id, new Pair<>(key,val)));
+					outputData.add(new Pair <>(id, new Pair <>(key, val)));
 				} else {//line
-					outputData.add(new Pair <>(id, new Pair<>(key,null)));
+					outputData.add(new Pair <>(id, new Pair <>(key, null)));
 				}
 			}
 			outputData.sort(Comparator.comparingInt(x -> x.first));

@@ -14,30 +14,17 @@ public class RightSuspend extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(RightStart);
-		client.addData("初始化点位","_ _ |<");
+		client.addData("初始化点位", "_ _ |<");
 
-		registerTrajectory("suspend preload",generateBuilder(RightStart)
-				.lineToLinearHeading(RightSuspend)
-				.build());
+		registerTrajectory("suspend preload", generateBuilder(RightStart).lineToLinearHeading(RightSuspend).build());
 
-		registerTrajectory("get sample suspend",generateSequenceBuilder(RightSuspend)
-				.lineToLinearHeading(GetSample.plus(new Pose2d(0,-5)))
-				.back(5)
-				.build());
+		registerTrajectory("get sample suspend", generateSequenceBuilder(RightSuspend).lineToLinearHeading(GetSample.plus(new Pose2d(0, - 5))).back(5).build());
 
-		registerTrajectory("suspend 1",generateSequenceBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,5)))
-				.back(5.2)
-				.build());
+		registerTrajectory("suspend 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).back(5.2).build());
 
-		registerTrajectory("suspend 2",generateSequenceBuilder(GetSample)
-				.lineToLinearHeading(RightSuspend.plus(new Pose2d(5,5)))
-				.back(5.2)
-				.build());
+		registerTrajectory("suspend 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).back(5.2).build());
 
-		registerTrajectory("park",generateBuilder(RightSuspend)
-				.lineToLinearHeading(GetSample)
-				.build());
+		registerTrajectory("park", generateBuilder(RightSuspend).lineToLinearHeading(GetSample).build());
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Contract;
 @SuppressWarnings("PublicField")
 public enum LiftOp {
 	;
+
 	public enum LiftPositionTypes {
 		idle, decantLow, decantHigh, highSuspend, highSuspendPrepare
 	}

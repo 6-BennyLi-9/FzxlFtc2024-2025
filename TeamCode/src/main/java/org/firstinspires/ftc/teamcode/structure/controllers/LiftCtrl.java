@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 public abstract class LiftCtrl implements Action {
 	protected long currentPosition, targetPosition;

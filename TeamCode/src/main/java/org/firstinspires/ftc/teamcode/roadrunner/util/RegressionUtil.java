@@ -137,7 +137,7 @@ public enum RegressionUtil {
 			final double accel = accelSamples.get(i);
 			final double power = powerSamples.get(i);
 
-			final double powerFromVel = Kinematics.calculateMotorFeedforward(vel, 0.0, rampResult.kV, 0.0, rampResult.kStatic);
+			final double powerFromVel   = Kinematics.calculateMotorFeedforward(vel, 0.0, rampResult.kV, 0.0, rampResult.kStatic);
 			final double powerFromAccel = power - powerFromVel;
 
 			accelReg.addData(accel, powerFromAccel);

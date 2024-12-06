@@ -32,23 +32,22 @@ import java.util.Map;
  * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} ， {@link #initActions()}
  */
 public class RobotMng {
-	public final static double driverTriggerBufFal = 0.5;
-	public static final char[] printCode           = "-\\|/".toCharArray();
-	public static final double rotateTriggerBufFal = 0.01;
+	public static final double  driverTriggerBufFal = 0.5;
+	public static final char[]  printCode           = "-\\|/".toCharArray();
+	public static final double  rotateTriggerBufFal = 0.01;
 	@NonNull
-	public static       Gamepad             gamepad1, gamepad2;
+	public static       Gamepad gamepad1, gamepad2;
 
 	static {
 		gamepad1 = new Gamepad();
 		gamepad2 = new Gamepad();
 	}
 
-	public TaggedActionPackage thread;
+	public TaggedActionPackage thread        = new TaggedActionPackage();
 	public double              driveBufPower = 1;
 	public int                 updateTime;
 
 	public RobotMng() {
-		thread = new TaggedActionPackage();
 	}
 
 	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
@@ -108,10 +107,10 @@ public class RobotMng {
 		if (decantOrSuspend.getEnabled()) {
 			if (LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
 				LiftOp.sync(LiftOp.LiftPositionTypes.highSuspend);
-			} else if(PlaceOp.PlacePositionTypes.idle == PlaceOp.recent){
+			} else if (PlaceOp.PlacePositionTypes.idle == PlaceOp.recent) {
 				ArmOp.safe();
 				PlaceOp.decant();
-			}else{
+			} else {
 				PlaceOp.idle();
 			}
 		}
@@ -149,7 +148,7 @@ public class RobotMng {
 
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
-			if ( 1 == driveBufPower) {
+			if (1 == driveBufPower) {
 				driveBufPower = 0.4;
 			} else {
 				driveBufPower = 1;

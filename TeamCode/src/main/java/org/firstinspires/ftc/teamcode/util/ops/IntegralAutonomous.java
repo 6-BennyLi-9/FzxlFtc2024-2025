@@ -23,19 +23,19 @@ import java.util.Map;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class IntegralAutonomous extends LinearOpMode {
-	private final Map<String, Trajectory> trajectoryMap = new HashMap<>();
-	private final Map<String, TrajectorySequence> trajectorySequenceMap = new HashMap<>();
-	public SampleMecanumDrive drive;
-	public Client client;
-	public UtilMng utils;
-	public Timer timer;
+	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
+	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
+	public        SampleMecanumDrive               drive;
+	public        Client                           client;
+	public        UtilMng                          utils;
+	public        Timer                            timer;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
-		telemetry = new DashTelemetry(FtcDashboard.getInstance(),telemetry);
-		client = new Client(telemetry,30);
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		client = new Client(telemetry, 30);
 		utils = new UtilMng();
 		timer = new Timer();
 		initialize();
@@ -46,17 +46,17 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
 
-		if (!opModeIsActive()) return;
+		if (! opModeIsActive()) return;
 		timer.restart();
-		final Thread linear = new Thread(()->{
-			try{
+		final Thread linear = new Thread(() -> {
+			try {
 				linear();
-			}catch (Throwable throwable){
+			} catch (Throwable throwable) {
 				throwLocalThrowable(throwable);
 			}
 		});
 		linear.start();
-		while (opModeIsActive() && !linear.isInterrupted()) {
+		while (opModeIsActive() && ! linear.isInterrupted()) {
 			sleep(10);
 		}
 		linear.interrupt();
@@ -99,8 +99,8 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	public void angleCalibration(final double target, final Pose2d poseEst) {
 		Actions.runAction(() -> {
-			final double allowErr = 5,ang=HardwareConstants.imu.getAngularOrientation().firstAngle;
-			if(Math.abs(target-ang)<Math.abs(360-target+ang)) {
+			final double allowErr = 5, ang = HardwareConstants.imu.getAngularOrientation().firstAngle;
+			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
 				if (ang > target + allowErr) {
 					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
 					return true;
@@ -108,7 +108,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
 					return true;
 				}
-			}else{
+			} else {
 				if (ang > target + allowErr) {
 					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
 					return true;
@@ -125,11 +125,10 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	public void flagging_op_complete() {
 		timer.stop();
-		TelemetryClient.getInstance()
-				.changeData("time used", timer.getDeltaTime() * 1.0e-3)
-				.changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
+		TelemetryClient.getInstance().changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
 	}
-	public void throwLocalThrowable(Throwable exception){
+
+	public void throwLocalThrowable(Throwable exception) {
 		throw new RuntimeException(exception);
 	}
 }

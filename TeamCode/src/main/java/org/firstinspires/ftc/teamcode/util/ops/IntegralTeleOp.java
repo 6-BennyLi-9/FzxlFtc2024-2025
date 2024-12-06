@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.util.RobotMng;
 import org.firstinspires.ftc.teamcode.util.Timer;
 
 public abstract class IntegralTeleOp extends OverSpeedOpMode {
-	public RobotMng robot;
-	public Timer timer;
-	public Client client;
-	private boolean auto_terminate_when_TLE = true;
+	public  RobotMng robot;
+	public  Timer    timer;
+	public  Client   client;
+	private boolean  auto_terminate_when_TLE = true;
 
 	@Override
 	public void op_init() {
@@ -25,7 +25,7 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		robot = new RobotMng();
 		robot.registerGamepad(gamepad1, gamepad2);
 		robot.initActions();
-		telemetry=new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new Client(telemetry);
 
 		telemetry.clearAll();
@@ -48,7 +48,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
 		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
 	}
-	public boolean auto_terminate_when_TLE(){
+
+	public boolean auto_terminate_when_TLE() {
 		return auto_terminate_when_TLE;
 	}
 

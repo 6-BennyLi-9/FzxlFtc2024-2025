@@ -221,11 +221,11 @@ public class DashTelemetry implements Telemetry {
 //		telemetries.addLine(line);
 //	}
 
-	public void addSmartLine(final String capital,final Object value){
-		if(value!=null){
-			telemetries.addData(capital,value);
-			packet.put(capital,value);
-		}else{
+	public void addSmartLine(final String capital, final Object value) {
+		if (value != null) {
+			telemetries.addData(capital, value);
+			packet.put(capital, value);
+		} else {
 			telemetries.addLine(capital);
 			packet.addLine(capital);
 		}

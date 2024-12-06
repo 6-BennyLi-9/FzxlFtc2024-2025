@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 public enum PlaceOp {
@@ -23,8 +23,8 @@ public enum PlaceOp {
 		placeController.setTag("place");
 	}
 
-	public static boolean decanting(){
-		return PlacePositionTypes.decant==recent;
+	public static boolean decanting() {
+		return PlacePositionTypes.decant == recent;
 	}
 
 	public static void init() {
