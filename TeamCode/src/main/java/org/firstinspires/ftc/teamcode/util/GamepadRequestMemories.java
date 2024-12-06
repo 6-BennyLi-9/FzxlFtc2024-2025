@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
-import static org.firstinspires.ftc.teamcode.util.RobotMng.gamepad1;
-import static org.firstinspires.ftc.teamcode.util.RobotMng.gamepad2;
+import static org.firstinspires.ftc.teamcode.util.mng.RobotMng.gamepad1;
+import static org.firstinspires.ftc.teamcode.util.mng.RobotMng.gamepad2;
 import static org.firstinspires.ftc.teamcode.util.UtilButtonControlSystem.ButtonConfig.SingleWhenPressed;
 
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;

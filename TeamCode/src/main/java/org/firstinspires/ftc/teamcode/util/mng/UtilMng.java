@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util.mng;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;

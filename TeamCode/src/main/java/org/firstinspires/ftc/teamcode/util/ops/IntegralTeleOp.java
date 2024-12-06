@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.client.Client;
 import org.firstinspires.ftc.teamcode.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.util.RobotMng;
+import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 import org.firstinspires.ftc.teamcode.util.Timer;
 
 public abstract class IntegralTeleOp extends OverSpeedOpMode {

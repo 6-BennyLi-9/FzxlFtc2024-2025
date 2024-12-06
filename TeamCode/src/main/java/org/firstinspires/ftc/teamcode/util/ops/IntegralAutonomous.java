@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySe
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
-import org.firstinspires.ftc.teamcode.util.UtilMng;
+import org.firstinspires.ftc.teamcode.util.mng.UtilMng;
 
 import java.util.HashMap;
 import java.util.Map;

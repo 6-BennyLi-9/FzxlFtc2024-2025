@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util.mng;
 
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
