@@ -38,7 +38,7 @@ public class Client extends TelemetryClient {
 		updateThread = new Thread(() -> Actions.runAction(new InfinityLoopAction(() -> Actions.runAction(new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)), new StatementAction(super::update))))));
 		try {
 //			telemetry.setAutoClear(false);
-			autoUpdate = false;
+			autoUpdate = true;
 		} catch (final UnsupportedOperationException ignore) {
 		}
 	}

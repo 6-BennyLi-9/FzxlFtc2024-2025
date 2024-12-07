@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.application.action.Action;
 
+import java.util.Locale;
+
 public class ChassisCtrl implements Action {
 	private double pX, pY, pTurn;
 	public final DcMotorEx leftFront, leftRear, rightFront, rightRear;
@@ -27,7 +29,7 @@ public class ChassisCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return tag + ":" + "x:" + pX + ",y" + pY + ",heading:" + pTurn;
+		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:{x:%.4f,y%.4f,heading:%.4f}", tag, pX, pY, pTurn);
 	}
 
 	public void setPowers(final double x, final double y, final double turn) {
