@@ -3,10 +3,14 @@ package org.firstinspires.ftc.teamcode.util.mng;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftFront;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftRear;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftScale;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.lift;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.place;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightFront;
+import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightRear;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rotate;
 
@@ -53,6 +57,13 @@ public class UtilMng {
 	public UtilMng addAction(final Action action) {
 		actions.add(action);
 		return this;
+	}
+
+	public void rstMotors(){
+		leftFront.setPower(0);
+		leftRear.setPower(0);
+		rightFront.setPower(0);
+		rightRear.setPower(0);
 	}
 
 	//rotate

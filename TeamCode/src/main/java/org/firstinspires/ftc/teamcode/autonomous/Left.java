@@ -35,7 +35,7 @@ public class Left extends IntegralAutonomous {
 		registerTrajectory("park", generateSequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build());
 	}
 
-	public static double scaleGetPosition1 = 0.85, scaleGetPosition2 = 0.92, scaleGetPosition3 = 0.87;
+	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.87;
 
 	@Override
 	public void linear() {
@@ -61,7 +61,7 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 2");
 
-		sleep(600);
+		sleep(1000);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.11).displayArms().scaleOperate(scaleGetPosition3).runAsThread();
 		sleep(1500);
 		runTrajectory("to sample 2");
