@@ -16,35 +16,35 @@ public enum GamepadRequestMemories {
 	/**
 	 * 输入样本
 	 */
-	public static UtilButtonControlSystem sampleIO;
+	public static final UtilButtonControlSystem sampleIO;
 	/**
 	 * 电梯上筐
 	 */
-	public static UtilButtonControlSystem liftDecantUpping;
+	public static final UtilButtonControlSystem liftDecantUpping;
 	/**
 	 * 电梯闲置（下）
 	 */
-	public static UtilButtonControlSystem liftIDLE;
+	public static final UtilButtonControlSystem liftIDLE;
 	/**
 	 * 电梯挂样本准备
 	 */
-	public static UtilButtonControlSystem liftHighSuspendPrepare;
+	public static final UtilButtonControlSystem liftHighSuspendPrepare;
 	/**
 	 * 倒筐与挂样本
 	 */
-	public static UtilButtonControlSystem decantOrSuspend;
+	public static final UtilButtonControlSystem decantOrSuspend;
 	/**
 	 * 打开/关闭样本夹
 	 */
-	public static UtilButtonControlSystem clipOption;
+	public static final UtilButtonControlSystem clipOption;
 	/**
 	 * 吸取滑轨与收取杆操作
 	 */
-	public static UtilButtonControlSystem armScaleOperate;
+	public static final UtilButtonControlSystem armScaleOperate;
 	/**
 	 * 快慢速切换
 	 */
-	public static UtilButtonControlSystem highLowSpeedConfigChange;
+	public static final UtilButtonControlSystem highLowSpeedConfigChange;
 
 	static {
 		sampleIO = new UtilButtonControlSystem(SingleWhenPressed);
