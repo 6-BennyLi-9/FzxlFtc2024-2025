@@ -50,7 +50,7 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 1");
 
-		sleep(600);
+		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2).runAsThread();
 		sleep(1000);
 		runTrajectory("to sample 1");
@@ -61,7 +61,7 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 2");
 
-		sleep(1000);
+		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.11).displayArms().scaleOperate(scaleGetPosition3).runAsThread();
 		sleep(1500);
 		runTrajectory("to sample 2");
@@ -72,7 +72,7 @@ public class Left extends IntegralAutonomous {
 		sleep(1000);
 		runTrajectory("decant 3");
 
-		sleep(600);
+		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().liftSuspendLv1().runAsThread();
 
 		sleep(1000);
