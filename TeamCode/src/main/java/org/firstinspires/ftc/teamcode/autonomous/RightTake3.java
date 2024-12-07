@@ -14,7 +14,7 @@ public class RightTake3 extends RightTake2 {
 
 		//override
 		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
-				.lineToLinearHeading(GetSample.plus(new Pose2d(0, 0, toRadians(- 90))))
+				.lineToLinearHeading(GetSample.plus(new Pose2d(-10, 0, toRadians(90))))
 				.build());
 	}
 
@@ -39,6 +39,9 @@ public class RightTake3 extends RightTake2 {
 		sleep(900);
 
 		runTrajectory("park");
+		sleep(1000);
+
+		utils.boxRst().runCached();
 
 		flagging_op_complete();
 	}
