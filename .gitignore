@@ -4,6 +4,9 @@
 *.ap_
 *.aab
 
+!FtcDriverStation-release10.1.apk
+!FtcRobotController-release10.1.apk
+
 !libs/*.aar
 
 # Files for the ART/Dalvik VM
