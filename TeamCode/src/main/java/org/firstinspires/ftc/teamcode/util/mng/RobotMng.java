@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.betastudio.application.action.PriorityAction;
-import org.betastudio.application.action.packages.TaggedActionPackage;
+import org.betastudio.ftc.action.PriorityAction;
+import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.structure.ClawOp;

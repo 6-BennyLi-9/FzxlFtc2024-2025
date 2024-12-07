@@ -1,7 +1,6 @@
-package org.betastudio.application.action.utils;
+package org.betastudio.ftc.action.utils;
 
-import org.betastudio.application.action.Action;
-import org.jetbrains.annotations.NotNull;
+import org.betastudio.ftc.action.Action;
 
 /**
  * 类版本的 {@link RepeatAction} ，但需要提供要执行的 {@code Action} 块

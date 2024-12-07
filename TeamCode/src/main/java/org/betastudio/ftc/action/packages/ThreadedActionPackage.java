@@ -1,7 +1,7 @@
-package org.betastudio.application.action.packages;
+package org.betastudio.ftc.action.packages;
 
-import org.betastudio.application.action.Actions;
-import org.betastudio.application.action.utils.PriorityThreadedAction;
+import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.action.utils.PriorityThreadedAction;
 
 public class ThreadedActionPackage extends ActionPackage {
 	@Override

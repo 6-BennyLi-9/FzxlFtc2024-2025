@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.betastudio.application.action.Action;
+import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 
 public abstract class LiftCtrl implements Action {

@@ -1,6 +1,6 @@
-package org.betastudio.application.action.utils;
+package org.betastudio.ftc.action.utils;
 
-import org.betastudio.application.action.Action;
+import org.betastudio.ftc.action.Action;
 
 /**
  * 自动循环的 {@code Action} 块，重写了部分方法，但是请注意：不要二次重写已经重写了的方法

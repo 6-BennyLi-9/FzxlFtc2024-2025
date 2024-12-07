@@ -14,11 +14,11 @@ import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightRear;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
 import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rotate;
 
-import org.betastudio.application.action.Action;
-import org.betastudio.application.action.Actions;
-import org.betastudio.application.action.utils.LinkedAction;
-import org.betastudio.application.action.utils.StatementAction;
-import org.betastudio.application.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.StatementAction;
+import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;

@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.betastudio.application.action.Actions;
-import org.betastudio.application.action.utils.SleepingAction;
+import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.action.utils.SleepingAction;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;
 
 public enum HardwareConstants {

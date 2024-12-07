@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.application.action.Action;
+import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;

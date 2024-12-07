@@ -6,7 +6,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.application.action.Actions;
+import org.betastudio.ftc.action.Actions;
 import org.firstinspires.ftc.teamcode.client.Client;
 import org.firstinspires.ftc.teamcode.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.client.TelemetryClient;

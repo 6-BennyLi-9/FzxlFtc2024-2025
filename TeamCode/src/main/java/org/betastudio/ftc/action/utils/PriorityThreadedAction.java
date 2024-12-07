@@ -1,9 +1,8 @@
-package org.betastudio.application.action.utils;
+package org.betastudio.ftc.action.utils;
 
 
-import org.betastudio.application.action.Action;
-import org.betastudio.application.action.PriorityAction;
-import org.jetbrains.annotations.NotNull;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.PriorityAction;
 
 import java.util.ArrayList;
 import java.util.Arrays;

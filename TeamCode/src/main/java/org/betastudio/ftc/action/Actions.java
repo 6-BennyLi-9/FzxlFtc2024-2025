@@ -1,4 +1,4 @@
-package org.betastudio.application.action;
+package org.betastudio.ftc.action;
 
 public enum Actions {
 	;

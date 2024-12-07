@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.structure.controllers;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.betastudio.application.action.Action;
+import org.betastudio.ftc.action.Action;
 
 import java.util.Locale;
 

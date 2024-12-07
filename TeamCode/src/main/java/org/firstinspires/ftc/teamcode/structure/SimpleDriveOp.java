@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.application.action.Action;
+import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 

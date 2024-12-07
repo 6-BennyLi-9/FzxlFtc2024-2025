@@ -1,8 +1,7 @@
-package org.betastudio.application.action.utils;
+package org.betastudio.ftc.action.utils;
 
 
-import org.betastudio.application.action.Action;
-import org.jetbrains.annotations.NotNull;
+import org.betastudio.ftc.action.Action;
 
 /**
  * 可以用于各种程序中方便地完成等待操作
