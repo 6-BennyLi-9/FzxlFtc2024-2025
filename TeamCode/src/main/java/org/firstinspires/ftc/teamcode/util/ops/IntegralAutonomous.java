@@ -7,7 +7,7 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.action.Actions;
-import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -25,9 +25,9 @@ import java.util.Map;
 public abstract class IntegralAutonomous extends LinearOpMode {
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
-	public        SampleMecanumDrive               drive;
-	public        Client                           client;
-	public        UtilMng                          utils;
+	public SampleMecanumDrive drive;
+	public BranchThreadClient client;
+	public UtilMng            utils;
 	public        Timer                            timer;
 
 	@Override
@@ -35,7 +35,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
-		client = new Client(telemetry, 30);
+		client = new BranchThreadClient(telemetry, 30);
 		utils = new UtilMng();
 		timer = new Timer();
 		initialize();

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.camera;
 
-import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.client.BranchThreadClient;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -10,8 +10,8 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 public class Webcam extends OpenCvPipeline {
-	protected boolean debugMode = true;
-	protected Client  telemetry;
+	protected boolean            debugMode = true;
+	protected BranchThreadClient telemetry;
 	Mat mat     = new Mat();
 	Mat matRed  = new Mat();
 	Mat matBlue = new Mat();
