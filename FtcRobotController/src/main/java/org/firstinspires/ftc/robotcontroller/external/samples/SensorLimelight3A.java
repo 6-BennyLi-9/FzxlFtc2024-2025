@@ -75,85 +75,85 @@ public class SensorLimelight3A extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException
     {
-	    this.limelight = this.hardwareMap.get(Limelight3A.class, "limelight");
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
-	    this.telemetry.setMsTransmissionInterval(11);
+        telemetry.setMsTransmissionInterval(11);
 
-	    this.limelight.pipelineSwitch(0);
+        limelight.pipelineSwitch(0);
 
         /*
          * Starts polling for data.  If you neglect to call start(), getLatestResult() will return null.
          */
-	    this.limelight.start();
+        limelight.start();
 
-	    this.telemetry.addData(">", "Robot Ready.  Press Play.");
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.addData(">", "Robot Ready.  Press Play.");
+        telemetry.update();
+        waitForStart();
 
-        while (this.opModeIsActive()) {
-            final LLStatus status = this.limelight.getStatus();
-	        this.telemetry.addData("Name", "%s",
+        while (opModeIsActive()) {
+            LLStatus status = limelight.getStatus();
+            telemetry.addData("Name", "%s",
                     status.getName());
-	        this.telemetry.addData("LL", "Temp: %.1fC, CPU: %.1f%%, FPS: %d",
+            telemetry.addData("LL", "Temp: %.1fC, CPU: %.1f%%, FPS: %d",
                     status.getTemp(), status.getCpu(),(int)status.getFps());
-	        this.telemetry.addData("Pipeline", "Index: %d, Type: %s",
+            telemetry.addData("Pipeline", "Index: %d, Type: %s",
                     status.getPipelineIndex(), status.getPipelineType());
 
-            final LLResult result = this.limelight.getLatestResult();
-            if (null != result) {
+            LLResult result = limelight.getLatestResult();
+            if (result != null) {
                 // Access general information
-                final Pose3D botpose        = result.getBotpose();
-                final double captureLatency = result.getCaptureLatency();
-                final double targetingLatency = result.getTargetingLatency();
-                final double parseLatency     = result.getParseLatency();
-	            this.telemetry.addData("LL Latency", captureLatency + targetingLatency);
-	            this.telemetry.addData("Parse Latency", parseLatency);
-	            this.telemetry.addData("PythonOutput", java.util.Arrays.toString(result.getPythonOutput()));
+                Pose3D botpose = result.getBotpose();
+                double captureLatency = result.getCaptureLatency();
+                double targetingLatency = result.getTargetingLatency();
+                double parseLatency = result.getParseLatency();
+                telemetry.addData("LL Latency", captureLatency + targetingLatency);
+                telemetry.addData("Parse Latency", parseLatency);
+                telemetry.addData("PythonOutput", java.util.Arrays.toString(result.getPythonOutput()));
                 
                 if (result.isValid()) {
-	                this.telemetry.addData("tx", result.getTx());
-	                this.telemetry.addData("txnc", result.getTxNC());
-	                this.telemetry.addData("ty", result.getTy());
-	                this.telemetry.addData("tync", result.getTyNC());
+                    telemetry.addData("tx", result.getTx());
+                    telemetry.addData("txnc", result.getTxNC());
+                    telemetry.addData("ty", result.getTy());
+                    telemetry.addData("tync", result.getTyNC());
 
-	                this.telemetry.addData("Botpose", botpose.toString());
+                    telemetry.addData("Botpose", botpose.toString());
 
                     // Access barcode results
-                    final List<LLResultTypes.BarcodeResult> barcodeResults = result.getBarcodeResults();
-                    for (final LLResultTypes.BarcodeResult br : barcodeResults) {
-	                    this.telemetry.addData("Barcode", "Data: %s", br.getData());
+                    List<LLResultTypes.BarcodeResult> barcodeResults = result.getBarcodeResults();
+                    for (LLResultTypes.BarcodeResult br : barcodeResults) {
+                        telemetry.addData("Barcode", "Data: %s", br.getData());
                     }
 
                     // Access classifier results
-                    final List<LLResultTypes.ClassifierResult> classifierResults = result.getClassifierResults();
-                    for (final LLResultTypes.ClassifierResult cr : classifierResults) {
-	                    this.telemetry.addData("Classifier", "Class: %s, Confidence: %.2f", cr.getClassName(), cr.getConfidence());
+                    List<LLResultTypes.ClassifierResult> classifierResults = result.getClassifierResults();
+                    for (LLResultTypes.ClassifierResult cr : classifierResults) {
+                        telemetry.addData("Classifier", "Class: %s, Confidence: %.2f", cr.getClassName(), cr.getConfidence());
                     }
 
                     // Access detector results
-                    final List<LLResultTypes.DetectorResult> detectorResults = result.getDetectorResults();
-                    for (final LLResultTypes.DetectorResult dr : detectorResults) {
-	                    this.telemetry.addData("Detector", "Class: %s, Area: %.2f", dr.getClassName(), dr.getTargetArea());
+                    List<LLResultTypes.DetectorResult> detectorResults = result.getDetectorResults();
+                    for (LLResultTypes.DetectorResult dr : detectorResults) {
+                        telemetry.addData("Detector", "Class: %s, Area: %.2f", dr.getClassName(), dr.getTargetArea());
                     }
 
                     // Access fiducial results
-                    final List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-                    for (final LLResultTypes.FiducialResult fr : fiducialResults) {
-	                    this.telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(),fr.getTargetXDegrees(), fr.getTargetYDegrees());
+                    List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                    for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                        telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(),fr.getTargetXDegrees(), fr.getTargetYDegrees());
                     }
 
                     // Access color results
-                    final List<LLResultTypes.ColorResult> colorResults = result.getColorResults();
-                    for (final LLResultTypes.ColorResult cr : colorResults) {
-	                    this.telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(), cr.getTargetYDegrees());
+                    List<LLResultTypes.ColorResult> colorResults = result.getColorResults();
+                    for (LLResultTypes.ColorResult cr : colorResults) {
+                        telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(), cr.getTargetYDegrees());
                     }
                 }
             } else {
-	            this.telemetry.addData("Limelight", "No data available");
+                telemetry.addData("Limelight", "No data available");
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
-	    this.limelight.stop();
+        limelight.stop();
     }
 }

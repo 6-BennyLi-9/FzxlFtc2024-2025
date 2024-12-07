@@ -26,7 +26,7 @@ public final class RepetitionAction implements Action {
 	}
 
 	@Override
-	@NotNull
+
 	public String paramsString() {
 		return "/" + times + "/" + argument.paramsString();
 	}

@@ -38,7 +38,7 @@ public final class ThreadedAction implements Action {
 		return ! actions.isEmpty();
 	}
 
-	@NotNull
+
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("{");

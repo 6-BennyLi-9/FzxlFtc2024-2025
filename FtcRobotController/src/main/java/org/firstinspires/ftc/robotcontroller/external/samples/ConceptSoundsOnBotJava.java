@@ -65,56 +65,56 @@ import java.io.File;
 public class ConceptSoundsOnBotJava extends LinearOpMode {
 
     // Point to sound files on the phone's drive
-    private final String soundPath = "/FIRST/blocks/sounds";
-    private final File   goldFile  = new File("/sdcard" + this.soundPath + "/gold.wav");
-    private final File   silverFile = new File("/sdcard" + this.soundPath + "/silver.wav");
+    private String soundPath = "/FIRST/blocks/sounds";
+    private File goldFile   = new File("/sdcard" + soundPath + "/gold.wav");
+    private File silverFile = new File("/sdcard" + soundPath + "/silver.wav");
 
     // Declare OpMode members.
-    private boolean isX;    // Gamepad button state variables
-    private boolean isB;
+    private boolean isX = false;    // Gamepad button state variables
+    private boolean isB = false;
 
-    private boolean wasX;   // Gamepad button history variables
-    private boolean WasB;
+    private boolean wasX = false;   // Gamepad button history variables
+    private boolean WasB = false;
 
     @Override
     public void runOpMode() {
 
         // Make sure that the sound files exist on the phone
-        final boolean goldFound   = this.goldFile.exists();
-        final boolean silverFound = this.silverFile.exists();
+        boolean goldFound   = goldFile.exists();
+        boolean silverFound = silverFile.exists();
 
         // Display sound status
-	    this.telemetry.addData("gold sound", goldFound ? "Found" : "NOT Found \nCopy gold.wav to " + this.soundPath);
-	    this.telemetry.addData("silver sound", silverFound ? "Found" : "NOT Found \nCopy silver.wav to " + this.soundPath);
+        telemetry.addData("gold sound",   goldFound ?   "Found" : "NOT Found \nCopy gold.wav to " + soundPath  );
+        telemetry.addData("silver sound", silverFound ? "Found" : "NOT Found \nCopy silver.wav to " + soundPath );
 
         // Wait for the game to start (driver presses PLAY)
-	    this.telemetry.addData(">", "Press Start to continue");
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.addData(">", "Press Start to continue");
+        telemetry.update();
+        waitForStart();
 
-	    this.telemetry.addData(">", "Press X or B to play sounds.");
-	    this.telemetry.update();
+        telemetry.addData(">", "Press X or B to play sounds.");
+        telemetry.update();
 
         // run until the end of the match (driver presses STOP)
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
             // say Silver each time gamepad X is pressed (This sound is a resource)
-            if (silverFound && (this.isX = this.gamepad1.x) && ! this.wasX) {
-                SoundPlayer.getInstance().startPlaying(this.hardwareMap.appContext, this.silverFile);
-	            this.telemetry.addData("Playing", "Silver File");
-	            this.telemetry.update();
+            if (silverFound && (isX = gamepad1.x) && !wasX) {
+                SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, silverFile);
+                telemetry.addData("Playing", "Silver File");
+                telemetry.update();
             }
 
             // say Gold each time gamepad B is pressed  (This sound is a resource)
-            if (goldFound && (this.isB = this.gamepad1.b) && ! this.WasB) {
-                SoundPlayer.getInstance().startPlaying(this.hardwareMap.appContext, this.goldFile);
-	            this.telemetry.addData("Playing", "Gold File");
-	            this.telemetry.update();
+            if (goldFound && (isB = gamepad1.b) && !WasB) {
+                SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, goldFile);
+                telemetry.addData("Playing", "Gold File");
+                telemetry.update();
             }
 
             // Save last button states
-	        this.wasX = this.isX;
-	        this.WasB = this.isB;
+            wasX = isX;
+            WasB = isB;
         }
     }
 }

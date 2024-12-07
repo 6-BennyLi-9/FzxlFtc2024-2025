@@ -53,43 +53,43 @@ import com.qualcomm.robotcore.util.Range;
 public class ConceptRevSPARKMini extends LinearOpMode {
 
     // Declare OpMode members.
-    private final ElapsedTime   runtime   = new ElapsedTime();
-    private       DcMotorSimple leftDrive;
-    private DcMotorSimple rightDrive;
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotorSimple leftDrive = null;
+    private DcMotorSimple rightDrive = null;
 
     @Override
     public void runOpMode() {
-	    this.telemetry.addData("Status", "Initialized");
-	    this.telemetry.update();
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during robot configuration.
-	    this.leftDrive = this.hardwareMap.get(DcMotorSimple.class, "left_drive");
-	    this.rightDrive = this.hardwareMap.get(DcMotorSimple.class, "right_drive");
+        leftDrive  = hardwareMap.get(DcMotorSimple.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotorSimple.class, "right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backward when connected directly to the battery
-	    this.leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-	    this.rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
-	    this.waitForStart();
-	    this.runtime.reset();
+        waitForStart();
+        runtime.reset();
 
         // run until the end of the match (driver presses STOP)
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
-            final double leftPower;
-            final double rightPower;
+            double leftPower;
+            double rightPower;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            final double drive = - this.gamepad1.left_stick_y;
-            final double turn  = this.gamepad1.right_stick_x;
+            double drive = -gamepad1.left_stick_y;
+            double turn  =  gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
@@ -99,13 +99,13 @@ public class ConceptRevSPARKMini extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-	        this.leftDrive.setPower(leftPower);
-	        this.rightDrive.setPower(rightPower);
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
 
             // Show the elapsed game time and wheel power.
-	        this.telemetry.addData("Status", "Run Time: " + this.runtime);
-	        this.telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-	        this.telemetry.update();
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.update();
         }
     }
 }

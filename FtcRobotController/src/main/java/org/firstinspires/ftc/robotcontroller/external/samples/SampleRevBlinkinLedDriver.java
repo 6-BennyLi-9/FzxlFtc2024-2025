@@ -79,26 +79,26 @@ public class SampleRevBlinkinLedDriver extends OpMode {
     @Override
     public void init()
     {
-	    this.displayKind = DisplayKind.AUTO;
+        displayKind = DisplayKind.AUTO;
 
-	    this.blinkinLedDriver = this.hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-	    this.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
-	    this.blinkinLedDriver.setPattern(this.pattern);
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        blinkinLedDriver.setPattern(pattern);
 
-	    this.display = this.telemetry.addData("Display Kind: ", this.displayKind.toString());
-	    this.patternName = this.telemetry.addData("Pattern: ", this.pattern.toString());
+        display = telemetry.addData("Display Kind: ", displayKind.toString());
+        patternName = telemetry.addData("Pattern: ", pattern.toString());
 
-	    this.ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
-	    this.gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
+        ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
+        gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void loop()
     {
-	    this.handleGamepad();
+        handleGamepad();
 
-        if (DisplayKind.AUTO == displayKind) {
-	        this.doAutoDisplay();
+        if (displayKind == DisplayKind.AUTO) {
+            doAutoDisplay();
         } else {
             /*
              * MANUAL mode: Nothing to do, setting the pattern as a result of a gamepad event.
@@ -119,45 +119,45 @@ public class SampleRevBlinkinLedDriver extends OpMode {
      */
     protected void handleGamepad()
     {
-        if (! this.gamepadRateLimit.hasExpired()) {
+        if (!gamepadRateLimit.hasExpired()) {
             return;
         }
 
-        if (this.gamepad1.a) {
-	        this.setDisplayKind(DisplayKind.MANUAL);
-	        this.gamepadRateLimit.reset();
-        } else if (this.gamepad1.b) {
-	        this.setDisplayKind(DisplayKind.AUTO);
-	        this.gamepadRateLimit.reset();
-        } else if ((DisplayKind.MANUAL == displayKind) && (this.gamepad1.left_bumper)) {
-	        this.pattern = this.pattern.previous();
-	        this.displayPattern();
-	        this.gamepadRateLimit.reset();
-        } else if ((DisplayKind.MANUAL == displayKind) && (this.gamepad1.right_bumper)) {
-	        this.pattern = this.pattern.next();
-	        this.displayPattern();
-	        this.gamepadRateLimit.reset();
+        if (gamepad1.a) {
+            setDisplayKind(DisplayKind.MANUAL);
+            gamepadRateLimit.reset();
+        } else if (gamepad1.b) {
+            setDisplayKind(DisplayKind.AUTO);
+            gamepadRateLimit.reset();
+        } else if ((displayKind == DisplayKind.MANUAL) && (gamepad1.left_bumper)) {
+            pattern = pattern.previous();
+            displayPattern();
+            gamepadRateLimit.reset();
+        } else if ((displayKind == DisplayKind.MANUAL) && (gamepad1.right_bumper)) {
+            pattern = pattern.next();
+            displayPattern();
+            gamepadRateLimit.reset();
         }
     }
 
-    protected void setDisplayKind(final DisplayKind displayKind)
+    protected void setDisplayKind(DisplayKind displayKind)
     {
         this.displayKind = displayKind;
-	    this.display.setValue(displayKind.toString());
+        display.setValue(displayKind.toString());
     }
 
     protected void doAutoDisplay()
     {
-        if (this.ledCycleDeadline.hasExpired()) {
-	        this.pattern = this.pattern.next();
-	        this.displayPattern();
-	        this.ledCycleDeadline.reset();
+        if (ledCycleDeadline.hasExpired()) {
+            pattern = pattern.next();
+            displayPattern();
+            ledCycleDeadline.reset();
         }
     }
 
     protected void displayPattern()
     {
-	    this.blinkinLedDriver.setPattern(this.pattern);
-	    this.patternName.setValue(this.pattern.toString());
+        blinkinLedDriver.setPattern(pattern);
+        patternName.setValue(pattern.toString());
     }
 }

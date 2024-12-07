@@ -56,23 +56,23 @@ public class SensorTouch extends LinearOpMode {
     public void runOpMode() {
 
         // get a reference to our touchSensor object.
-	    this.touchSensor = this.hardwareMap.get(TouchSensor.class, "sensor_touch");
+        touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
 
         // wait for the start button to be pressed.
-	    this.waitForStart();
+        waitForStart();
 
         // while the OpMode is active, loop and read whether the sensor is being pressed.
         // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
             // send the info back to driver station using telemetry function.
-            if (this.touchSensor.isPressed()) {
-	            this.telemetry.addData("Touch Sensor", "Is Pressed");
+            if (touchSensor.isPressed()) {
+                telemetry.addData("Touch Sensor", "Is Pressed");
             } else {
-	            this.telemetry.addData("Touch Sensor", "Is Not Pressed");
+                telemetry.addData("Touch Sensor", "Is Not Pressed");
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
     }
 }

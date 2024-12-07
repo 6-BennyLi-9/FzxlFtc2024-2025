@@ -53,7 +53,7 @@ public class TimedAllottedPriorityAction implements Action {
 		return ! actions.isEmpty();
 	}
 
-	@NotNull
+
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("tl:" + allottedMilliseconds + "{");

@@ -94,9 +94,9 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
      * it's pointing straight left, -90 degrees for straight right, etc. You can also set the roll
      * to +/-90 degrees if it's vertical, or 180 degrees if it's upside-down.
      */
-    private final Position           cameraPosition    = new Position(DistanceUnit.INCH,
+    private Position cameraPosition = new Position(DistanceUnit.INCH,
             0, 0, 0, 0);
-    private final YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
+    private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
             0, -90, 0, 0);
 
     /**
@@ -112,34 +112,34 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-	    this.initAprilTag();
+        initAprilTag();
 
         // Wait for the DS start button to be touched.
-	    this.telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
-	    this.telemetry.addData(">", "Touch START to start OpMode");
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
+        telemetry.addData(">", "Touch START to start OpMode");
+        telemetry.update();
+        waitForStart();
 
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
-	        this.telemetryAprilTag();
+            telemetryAprilTag();
 
             // Push telemetry to the Driver Station.
-	        this.telemetry.update();
+            telemetry.update();
 
             // Save CPU resources; can resume streaming when needed.
-            if (this.gamepad1.dpad_down) {
-	            this.visionPortal.stopStreaming();
-            } else if (this.gamepad1.dpad_up) {
-	            this.visionPortal.resumeStreaming();
+            if (gamepad1.dpad_down) {
+                visionPortal.stopStreaming();
+            } else if (gamepad1.dpad_up) {
+                visionPortal.resumeStreaming();
             }
 
             // Share the CPU.
-	        this.sleep(20);
+            sleep(20);
         }
 
         // Save more CPU resources when camera is no longer needed.
-	    this.visionPortal.close();
+        visionPortal.close();
 
     }   // end method runOpMode()
 
@@ -149,7 +149,7 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
     private void initAprilTag() {
 
         // Create the AprilTag processor.
-	    this.aprilTag = new AprilTagProcessor.Builder()
+        aprilTag = new AprilTagProcessor.Builder()
 
                 // The following default settings are available to un-comment and edit as needed.
                 //.setDrawAxes(false)
@@ -158,7 +158,7 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
                 //.setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 //.setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
                 //.setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
-                .setCameraPose(this.cameraPosition, this.cameraOrientation)
+                .setCameraPose(cameraPosition, cameraOrientation)
 
                 // == CAMERA CALIBRATION ==
                 // If you do not manually specify calibration parameters, the SDK will attempt
@@ -178,11 +178,11 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
         //aprilTag.setDecimation(3);
 
         // Create the vision portal by using a builder.
-        final VisionPortal.Builder builder = new VisionPortal.Builder();
+        VisionPortal.Builder builder = new VisionPortal.Builder();
 
         // Set the camera (webcam vs. built-in RC phone camera).
         if (USE_WEBCAM) {
-            builder.setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
+            builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
         } else {
             builder.setCamera(BuiltinCameraDirection.BACK);
         }
@@ -202,10 +202,10 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
         //builder.setAutoStopLiveView(false);
 
         // Set and enable the processor.
-        builder.addProcessor(this.aprilTag);
+        builder.addProcessor(aprilTag);
 
         // Build the Vision Portal, using the above settings.
-	    this.visionPortal = builder.build();
+        visionPortal = builder.build();
 
         // Disable or re-enable the aprilTag processor at any time.
         //visionPortal.setProcessorEnabled(aprilTag, true);
@@ -217,30 +217,30 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
      */
     private void telemetryAprilTag() {
 
-        final List<AprilTagDetection> currentDetections = this.aprilTag.getDetections();
-	    this.telemetry.addData("# AprilTags Detected", currentDetections.size());
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        telemetry.addData("# AprilTags Detected", currentDetections.size());
 
         // Step through the list of detections and display info for each one.
-        for (final AprilTagDetection detection : currentDetections) {
-            if (null != detection.metadata) {
-	            this.telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
-	            this.telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)",
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.metadata != null) {
+                telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
+                telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)",
                         detection.robotPose.getPosition().x,
                         detection.robotPose.getPosition().y,
                         detection.robotPose.getPosition().z));
-	            this.telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)",
+                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)",
                         detection.robotPose.getOrientation().getPitch(AngleUnit.DEGREES),
                         detection.robotPose.getOrientation().getRoll(AngleUnit.DEGREES),
                         detection.robotPose.getOrientation().getYaw(AngleUnit.DEGREES)));
             } else {
-	            this.telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
-	            this.telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+                telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
+                telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
             }
         }   // end for() loop
 
         // Add "key" information to telemetry
-	    this.telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-	    this.telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
+        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
 
     }   // end method telemetryAprilTag()
 

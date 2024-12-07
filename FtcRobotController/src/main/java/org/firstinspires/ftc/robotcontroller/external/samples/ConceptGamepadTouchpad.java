@@ -40,38 +40,38 @@ public class ConceptGamepadTouchpad extends LinearOpMode
     @Override
     public void runOpMode()
     {
-	    this.telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
 
-	    this.telemetry.addData(">", "Press Start");
-	    this.telemetry.update();
+        telemetry.addData(">", "Press Start");
+        telemetry.update();
 
-	    this.waitForStart();
+        waitForStart();
 
-        while (this.opModeIsActive())
+        while (opModeIsActive())
         {
             boolean finger = false;
 
             // Display finger 1 x & y position if finger detected
-            if(this.gamepad1.touchpad_finger_1)
+            if(gamepad1.touchpad_finger_1)
             {
                 finger = true;
-	            this.telemetry.addLine(String.format("Finger 1: x=%5.2f y=%5.2f\n", this.gamepad1.touchpad_finger_1_x, this.gamepad1.touchpad_finger_1_y));
+                telemetry.addLine(String.format("Finger 1: x=%5.2f y=%5.2f\n", gamepad1.touchpad_finger_1_x, gamepad1.touchpad_finger_1_y));
             }
 
             // Display finger 2 x & y position if finger detected
-            if(this.gamepad1.touchpad_finger_2)
+            if(gamepad1.touchpad_finger_2)
             {
                 finger = true;
-	            this.telemetry.addLine(String.format("Finger 2: x=%5.2f y=%5.2f\n", this.gamepad1.touchpad_finger_2_x, this.gamepad1.touchpad_finger_2_y));
+                telemetry.addLine(String.format("Finger 2: x=%5.2f y=%5.2f\n", gamepad1.touchpad_finger_2_x, gamepad1.touchpad_finger_2_y));
             }
 
             if(!finger)
             {
-	            this.telemetry.addLine("No fingers");
+                telemetry.addLine("No fingers");
             }
 
-	        this.telemetry.update();
-	        this.sleep(10);
+            telemetry.update();
+            sleep(10);
         }
     }
 }

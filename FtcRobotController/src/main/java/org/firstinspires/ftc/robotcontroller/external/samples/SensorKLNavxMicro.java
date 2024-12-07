@@ -69,62 +69,60 @@ public class SensorKLNavxMicro extends LinearOpMode {
     @Override public void runOpMode() throws InterruptedException {
         // Get a reference to a Modern Robotics GyroSensor object. We use several interfaces
         // on this object to illustrate which interfaces support which functionality.
-	    this.navxMicro = this.hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
-	    this.gyro = this.navxMicro;
+        navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
+        gyro = (IntegratingGyroscope)navxMicro;
         // If you're only interested int the IntegratingGyroscope interface, the following will suffice.
         // gyro = hardwareMap.get(IntegratingGyroscope.class, "navx");
 
         // The gyro automatically starts calibrating. This takes a few seconds.
-	    this.telemetry.log().add("Gyro Calibrating. Do Not Move!");
+        telemetry.log().add("Gyro Calibrating. Do Not Move!");
 
         // Wait until the gyro calibration is complete
-	    this.timer.reset();
-        while (this.navxMicro.isCalibrating())  {
-	        this.telemetry.addData("calibrating", "%s", 0 == Math.round(timer.seconds()) % 2 ? "|.." : "..|");
-	        this.telemetry.update();
+        timer.reset();
+        while (navxMicro.isCalibrating())  {
+            telemetry.addData("calibrating", "%s", Math.round(timer.seconds())%2==0 ? "|.." : "..|");
+            telemetry.update();
             Thread.sleep(50);
         }
-	    this.telemetry.log().clear();
-	    this.telemetry.log().add("Gyro Calibrated. Press Start.");
-	    this.telemetry.clear();
-	    this.telemetry.update();
+        telemetry.log().clear(); telemetry.log().add("Gyro Calibrated. Press Start.");
+        telemetry.clear(); telemetry.update();
 
         // Wait for the start button to be pressed
-	    this.waitForStart();
-	    this.telemetry.log().clear();
+        waitForStart();
+        telemetry.log().clear();
 
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
             // Read dimensionalized data from the gyro. This gyro can report angular velocities
             // about all three axes. Additionally, it internally integrates the Z axis to
             // be able to report an absolute angular Z orientation.
-            final AngularVelocity rates  = this.gyro.getAngularVelocity(AngleUnit.DEGREES);
-            final Orientation     angles = this.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            AngularVelocity rates = gyro.getAngularVelocity(AngleUnit.DEGREES);
+            Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-	        this.telemetry.addLine()
-                .addData("dx", this.formatRate(rates.xRotationRate))
-                .addData("dy", this.formatRate(rates.yRotationRate))
-                .addData("dz", "%s deg/s", this.formatRate(rates.zRotationRate));
+            telemetry.addLine()
+                .addData("dx", formatRate(rates.xRotationRate))
+                .addData("dy", formatRate(rates.yRotationRate))
+                .addData("dz", "%s deg/s", formatRate(rates.zRotationRate));
 
-	        this.telemetry.addLine()
-                .addData("heading", this.formatAngle(angles.angleUnit, angles.firstAngle))
-                .addData("roll", this.formatAngle(angles.angleUnit, angles.secondAngle))
-                .addData("pitch", "%s deg", this.formatAngle(angles.angleUnit, angles.thirdAngle));
-	        this.telemetry.update();
+            telemetry.addLine()
+                .addData("heading", formatAngle(angles.angleUnit, angles.firstAngle))
+                .addData("roll", formatAngle(angles.angleUnit, angles.secondAngle))
+                .addData("pitch", "%s deg", formatAngle(angles.angleUnit, angles.thirdAngle));
+            telemetry.update();
 
-	        this.idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }
 
-    String formatRate(final float rate) {
+    String formatRate(float rate) {
         return String.format("%.3f", rate);
     }
 
-    String formatAngle(final AngleUnit angleUnit, final double angle) {
-        return this.formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
+    String formatAngle(AngleUnit angleUnit, double angle) {
+        return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
     }
 
-    String formatDegrees(final double degrees){
+    String formatDegrees(double degrees){
         return String.format("%.1f", AngleUnit.DEGREES.normalize(degrees));
     }
 }

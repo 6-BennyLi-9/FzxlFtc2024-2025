@@ -85,100 +85,100 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
     boolean orientationIsValid = true;
 
     @Override public void runOpMode() throws InterruptedException {
-	    this.imu = this.hardwareMap.get(IMU.class, "imu");
-	    this.logoFacingDirectionPosition = 0; // Up
-	    this.usbFacingDirectionPosition = 2; // Forward
+        imu = hardwareMap.get(IMU.class, "imu");
+        logoFacingDirectionPosition = 0; // Up
+        usbFacingDirectionPosition = 2; // Forward
 
-	    this.updateOrientation();
+        updateOrientation();
 
         boolean justChangedLogoDirection = false;
         boolean justChangedUsbDirection = false;
 
         // Loop until stop requested
-        while (! this.isStopRequested()) {
+        while (!isStopRequested()) {
 
             // Check to see if Yaw reset is requested (Y button)
-            if (this.gamepad1.y) {
-	            this.telemetry.addData("Yaw", "Resetting\n");
-	            this.imu.resetYaw();
+            if (gamepad1.y) {
+                telemetry.addData("Yaw", "Resetting\n");
+                imu.resetYaw();
             } else {
-	            this.telemetry.addData("Yaw", "Press Y (triangle) on Gamepad to reset.\n");
+                telemetry.addData("Yaw", "Press Y (triangle) on Gamepad to reset.\n");
             }
 
             // Check to see if new Logo Direction is requested
-            if (this.gamepad1.left_bumper || this.gamepad1.right_bumper) {
+            if (gamepad1.left_bumper || gamepad1.right_bumper) {
                 if (!justChangedLogoDirection) {
                     justChangedLogoDirection = true;
-                    if (this.gamepad1.left_bumper) {
-	                    this.logoFacingDirectionPosition--;
-                        if (0 > logoFacingDirectionPosition) {
-	                        this.logoFacingDirectionPosition = LAST_DIRECTION;
+                    if (gamepad1.left_bumper) {
+                        logoFacingDirectionPosition--;
+                        if (logoFacingDirectionPosition < 0) {
+                            logoFacingDirectionPosition = LAST_DIRECTION;
                         }
                     } else {
-	                    this.logoFacingDirectionPosition++;
-                        if (this.logoFacingDirectionPosition > LAST_DIRECTION) {
-	                        this.logoFacingDirectionPosition = 0;
+                        logoFacingDirectionPosition++;
+                        if (logoFacingDirectionPosition > LAST_DIRECTION) {
+                            logoFacingDirectionPosition = 0;
                         }
                     }
-	                this.updateOrientation();
+                    updateOrientation();
                 }
             } else {
                 justChangedLogoDirection = false;
             }
 
             // Check to see if new USB Direction is requested
-            if (this.gamepad1.left_trigger > TRIGGER_THRESHOLD || this.gamepad1.right_trigger > TRIGGER_THRESHOLD) {
+            if (gamepad1.left_trigger > TRIGGER_THRESHOLD || gamepad1.right_trigger > TRIGGER_THRESHOLD) {
                 if (!justChangedUsbDirection) {
                     justChangedUsbDirection = true;
-                    if (this.gamepad1.left_trigger > TRIGGER_THRESHOLD) {
-	                    this.usbFacingDirectionPosition--;
-                        if (0 > usbFacingDirectionPosition) {
-	                        this.usbFacingDirectionPosition = LAST_DIRECTION;
+                    if (gamepad1.left_trigger > TRIGGER_THRESHOLD) {
+                        usbFacingDirectionPosition--;
+                        if (usbFacingDirectionPosition < 0) {
+                            usbFacingDirectionPosition = LAST_DIRECTION;
                         }
                     } else {
-	                    this.usbFacingDirectionPosition++;
-                        if (this.usbFacingDirectionPosition > LAST_DIRECTION) {
-	                        this.usbFacingDirectionPosition = 0;
+                        usbFacingDirectionPosition++;
+                        if (usbFacingDirectionPosition > LAST_DIRECTION) {
+                            usbFacingDirectionPosition = 0;
                         }
                     }
-	                this.updateOrientation();
+                    updateOrientation();
                 }
             } else {
                 justChangedUsbDirection = false;
             }
 
             // Display User instructions and IMU data
-	        this.telemetry.addData("logo Direction (set with bumpers)", logoFacingDirections[this.logoFacingDirectionPosition]);
-	        this.telemetry.addData("usb Direction (set with triggers)", usbFacingDirections[this.usbFacingDirectionPosition] + "\n");
+            telemetry.addData("logo Direction (set with bumpers)", logoFacingDirections[logoFacingDirectionPosition]);
+            telemetry.addData("usb Direction (set with triggers)", usbFacingDirections[usbFacingDirectionPosition] + "\n");
 
-            if (this.orientationIsValid) {
-                final YawPitchRollAngles orientation     = this.imu.getRobotYawPitchRollAngles();
-                final AngularVelocity    angularVelocity = this.imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+            if (orientationIsValid) {
+                YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+                AngularVelocity angularVelocity = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
 
-	            this.telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-	            this.telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
-	            this.telemetry.addData("Roll (Y)", "%.2f Deg.\n", orientation.getRoll(AngleUnit.DEGREES));
-	            this.telemetry.addData("Yaw (Z) velocity", "%.2f Deg/Sec", angularVelocity.zRotationRate);
-	            this.telemetry.addData("Pitch (X) velocity", "%.2f Deg/Sec", angularVelocity.xRotationRate);
-	            this.telemetry.addData("Roll (Y) velocity", "%.2f Deg/Sec", angularVelocity.yRotationRate);
+                telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+                telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
+                telemetry.addData("Roll (Y)", "%.2f Deg.\n", orientation.getRoll(AngleUnit.DEGREES));
+                telemetry.addData("Yaw (Z) velocity", "%.2f Deg/Sec", angularVelocity.zRotationRate);
+                telemetry.addData("Pitch (X) velocity", "%.2f Deg/Sec", angularVelocity.xRotationRate);
+                telemetry.addData("Roll (Y) velocity", "%.2f Deg/Sec", angularVelocity.yRotationRate);
             } else {
-	            this.telemetry.addData("Error", "Selected orientation on robot is invalid");
+                telemetry.addData("Error", "Selected orientation on robot is invalid");
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
     }
 
     // apply any requested orientation changes.
     void updateOrientation() {
-        final RevHubOrientationOnRobot.LogoFacingDirection logo = logoFacingDirections[this.logoFacingDirectionPosition];
-        final RevHubOrientationOnRobot.UsbFacingDirection  usb  = usbFacingDirections[this.usbFacingDirectionPosition];
+        RevHubOrientationOnRobot.LogoFacingDirection logo = logoFacingDirections[logoFacingDirectionPosition];
+        RevHubOrientationOnRobot.UsbFacingDirection usb = usbFacingDirections[usbFacingDirectionPosition];
         try {
-            final RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logo, usb);
-	        this.imu.initialize(new IMU.Parameters(orientationOnRobot));
-	        this.orientationIsValid = true;
-        } catch (final IllegalArgumentException e) {
-	        this.orientationIsValid = false;
+            RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logo, usb);
+            imu.initialize(new IMU.Parameters(orientationOnRobot));
+            orientationIsValid = true;
+        } catch (IllegalArgumentException e) {
+            orientationIsValid = false;
         }
     }
 }

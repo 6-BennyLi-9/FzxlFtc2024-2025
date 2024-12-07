@@ -41,14 +41,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 public class ConceptNullOp extends OpMode {
 
-  private final ElapsedTime runtime = new ElapsedTime();
+  private ElapsedTime runtime = new ElapsedTime();
 
   /**
    * This method will be called once, when the INIT button is pressed.
    */
   @Override
   public void init() {
-	  this.telemetry.addData("Status", "Initialized");
+    telemetry.addData("Status", "Initialized");
   }
 
   /**
@@ -65,7 +65,7 @@ public class ConceptNullOp extends OpMode {
    */
   @Override
   public void start() {
-	  this.runtime.reset();
+    runtime.reset();
   }
 
   /**
@@ -74,7 +74,7 @@ public class ConceptNullOp extends OpMode {
    */
   @Override
   public void loop() {
-	  this.telemetry.addData("Status", "Run Time: " + this.runtime);
+    telemetry.addData("Status", "Run Time: " + runtime.toString());
   }
 
   /**

@@ -68,48 +68,48 @@ public class ConceptScanServo extends LinearOpMode {
 
         // Connect to servo (Assume Robot Left Hand)
         // Change the text in quotes to match any servo name on your robot.
-	    this.servo = this.hardwareMap.get(Servo.class, "left_hand");
+        servo = hardwareMap.get(Servo.class, "left_hand");
 
         // Wait for the start button
-	    this.telemetry.addData(">", "Press Start to scan Servo." );
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.addData(">", "Press Start to scan Servo." );
+        telemetry.update();
+        waitForStart();
 
 
         // Scan servo till stop pressed.
-        while(this.opModeIsActive()){
+        while(opModeIsActive()){
 
             // slew the servo, according to the rampUp (direction) variable.
-            if (this.rampUp) {
+            if (rampUp) {
                 // Keep stepping up until we hit the max value.
-	            this.position += INCREMENT;
-                if (MAX_POS <= position) {
-	                this.position = MAX_POS;
-	                this.rampUp = ! this.rampUp;   // Switch ramp direction
+                position += INCREMENT ;
+                if (position >= MAX_POS ) {
+                    position = MAX_POS;
+                    rampUp = !rampUp;   // Switch ramp direction
                 }
             }
             else {
                 // Keep stepping down until we hit the min value.
-	            this.position -= INCREMENT;
-                if (MIN_POS >= position) {
-	                this.position = MIN_POS;
-	                this.rampUp = ! this.rampUp;  // Switch ramp direction
+                position -= INCREMENT ;
+                if (position <= MIN_POS ) {
+                    position = MIN_POS;
+                    rampUp = !rampUp;  // Switch ramp direction
                 }
             }
 
             // Display the current value
-	        this.telemetry.addData("Servo Position", "%5.2f", this.position);
-	        this.telemetry.addData(">", "Press Stop to end test." );
-	        this.telemetry.update();
+            telemetry.addData("Servo Position", "%5.2f", position);
+            telemetry.addData(">", "Press Stop to end test." );
+            telemetry.update();
 
             // Set the servo to the new position and pause;
-	        this.servo.setPosition(this.position);
-	        this.sleep(CYCLE_MS);
-	        this.idle();
+            servo.setPosition(position);
+            sleep(CYCLE_MS);
+            idle();
         }
 
         // Signal done;
-	    this.telemetry.addData(">", "Done");
-	    this.telemetry.update();
+        telemetry.addData(">", "Done");
+        telemetry.update();
     }
 }

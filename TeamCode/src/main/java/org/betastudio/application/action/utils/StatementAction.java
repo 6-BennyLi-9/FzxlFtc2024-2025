@@ -22,7 +22,7 @@ public class StatementAction implements Action {
 		return false;
 	}
 
-	@NotNull
+
 	@Override
 	public String paramsString() {
 		return "statement:" + node;

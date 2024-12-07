@@ -70,14 +70,14 @@ public class SensorHuskyLens extends LinearOpMode {
     @Override
     public void runOpMode()
     {
-	    this.huskyLens = this.hardwareMap.get(HuskyLens.class, "huskylens");
+        huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
 
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
          * would not likely rate limit.
          */
-        final Deadline rateLimit = new Deadline(this.READ_PERIOD, TimeUnit.SECONDS);
+        Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.SECONDS);
 
         /*
          * Immediately expire so that the first time through we'll do the read.
@@ -92,10 +92,10 @@ public class SensorHuskyLens extends LinearOpMode {
          * failing on initialization.  In the case of this device, it's because the
          * call to knock() failed.
          */
-        if (! this.huskyLens.knock()) {
-	        this.telemetry.addData(">>", "Problem communicating with " + this.huskyLens.getDeviceName());
+        if (!huskyLens.knock()) {
+            telemetry.addData(">>", "Problem communicating with " + huskyLens.getDeviceName());
         } else {
-	        this.telemetry.addData(">>", "Press start to continue");
+            telemetry.addData(">>", "Press start to continue");
         }
 
         /*
@@ -113,10 +113,10 @@ public class SensorHuskyLens extends LinearOpMode {
          *
          * Other algorithm choices for FTC might be: OBJECT_RECOGNITION, COLOR_RECOGNITION or OBJECT_CLASSIFICATION.
          */
-	    this.huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
+        huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
 
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.update();
+        waitForStart();
 
         /*
          * Looking for AprilTags per the call to selectAlgorithm() above.  A handy grid
@@ -124,7 +124,7 @@ public class SensorHuskyLens extends LinearOpMode {
          *
          * Note again that the device only recognizes the 36h11 family of tags out of the box.
          */
-        while(this.opModeIsActive()) {
+        while(opModeIsActive()) {
             if (!rateLimit.hasExpired()) {
                 continue;
             }
@@ -139,10 +139,10 @@ public class SensorHuskyLens extends LinearOpMode {
              *
              * Returns an empty array if no objects are seen.
              */
-            final HuskyLens.Block[] blocks = this.huskyLens.blocks();
-	        this.telemetry.addData("Block count", blocks.length);
+            HuskyLens.Block[] blocks = huskyLens.blocks();
+            telemetry.addData("Block count", blocks.length);
             for (int i = 0; i < blocks.length; i++) {
-	            this.telemetry.addData("Block", blocks[i].toString());
+                telemetry.addData("Block", blocks[i].toString());
                 /*
                  * Here inside the FOR loop, you could save or evaluate specific info for the currently recognized Bounding Box:
                  * - blocks[i].width and blocks[i].height   (size of box, in pixels)
@@ -154,7 +154,7 @@ public class SensorHuskyLens extends LinearOpMode {
                  */
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
     }
 }

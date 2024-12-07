@@ -34,7 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -94,21 +93,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor         leftDrive;
-    private DcMotor         rightDrive;
-    private IMU             imu;      // Control/Expansion Hub IMU
+    private DcMotor         leftDrive   = null;
+    private DcMotor         rightDrive  = null;
+    private IMU             imu         = null;      // Control/Expansion Hub IMU
 
-    private double          headingError;
+    private double          headingError  = 0;
 
     // These variable are declared here (as class members) so they can be updated in various methods,
     // but still be displayed by sendTelemetry()
-    private double  targetHeading;
-    private double  driveSpeed;
-    private double  turnSpeed;
-    private double  leftSpeed;
-    private double  rightSpeed;
-    private int     leftTarget;
-    private int     rightTarget;
+    private double  targetHeading = 0;
+    private double  driveSpeed    = 0;
+    private double  turnSpeed     = 0;
+    private double  leftSpeed     = 0;
+    private double  rightSpeed    = 0;
+    private int     leftTarget    = 0;
+    private int     rightTarget   = 0;
 
     // Calculate the COUNTS_PER_INCH for your specific drive train.
     // Go to your motor vendor website to determine your motor's COUNTS_PER_MOTOR_REV
@@ -140,68 +139,68 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize the drive system variables.
-	    this.leftDrive = this.hardwareMap.get(DcMotor.class, "left_drive");
-	    this.rightDrive = this.hardwareMap.get(DcMotor.class, "right_drive");
+        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         /* The next two lines define Hub orientation.
          * The Default Orientation (shown) is when a hub is mounted horizontally with the printed logo pointing UP and the USB port pointing FORWARD.
          *
          * To Do:  EDIT these two lines to match YOUR mounting configuration.
          */
-        final RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        final RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
-        final RevHubOrientationOnRobot                    orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
         // Now initialize the IMU with this mounting orientation
         // This sample expects the IMU to be in a REV Hub and named "imu".
-	    this.imu = this.hardwareMap.get(IMU.class, "imu");
-	    this.imu.initialize(new IMU.Parameters(orientationOnRobot));
+        imu = hardwareMap.get(IMU.class, "imu");
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         // Ensure the robot is stationary.  Reset the encoders and set the motors to BRAKE mode
-	    this.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-	    this.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-	    this.leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-	    this.rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Wait for the game to start (Display Gyro value while waiting)
-        while (this.opModeInInit()) {
-	        this.telemetry.addData(">", "Robot Heading = %4.0f", this.getHeading());
-	        this.telemetry.update();
+        while (opModeInInit()) {
+            telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
+            telemetry.update();
         }
 
         // Set the encoders for closed loop speed control, and reset the heading.
-	    this.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-	    this.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-	    this.imu.resetYaw();
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        imu.resetYaw();
 
         // Step through each leg of the path,
         // Notes:   Reverse movement is obtained by setting a negative distance (not speed)
         //          holdHeading() is used after turns to let the heading stabilize
         //          Add a sleep(2000) after any step to keep the telemetry data visible for review
 
-	    this.driveStraight(DRIVE_SPEED, 24.0, 0.0);    // Drive Forward 24"
-	    this.turnToHeading(TURN_SPEED, -45.0);               // Turn  CW to -45 Degrees
-	    this.holdHeading(TURN_SPEED, -45.0, 0.5);   // Hold -45 Deg heading for a 1/2 second
+        driveStraight(DRIVE_SPEED, 24.0, 0.0);    // Drive Forward 24"
+        turnToHeading( TURN_SPEED, -45.0);               // Turn  CW to -45 Degrees
+        holdHeading( TURN_SPEED, -45.0, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
-	    this.driveStraight(DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
-	    this.turnToHeading(TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
-	    this.holdHeading(TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
+        driveStraight(DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
+        turnToHeading( TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
+        holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 
-	    this.driveStraight(DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
-	    this.turnToHeading(TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
-	    this.holdHeading(TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
+        driveStraight(DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
+        turnToHeading( TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
+        holdHeading( TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
 
-	    this.driveStraight(DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
+        driveStraight(DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
 
-	    this.telemetry.addData("Path", "Complete");
-	    this.telemetry.update();
-	    this.sleep(1000);  // Pause to display last telemetry message.
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        sleep(1000);  // Pause to display last telemetry message.
     }
 
     /*
@@ -226,50 +225,51 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
     *                   If a relative angle is required, add/subtract from the current robotHeading.
     */
     public void driveStraight(double maxDriveSpeed,
-                              final double distance,
-                              final double heading) {
+                              double distance,
+                              double heading) {
 
         // Ensure that the OpMode is still active
-        if (this.opModeIsActive()) {
+        if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            final int moveCounts = (int)(distance * COUNTS_PER_INCH);
-	        this.leftTarget = this.leftDrive.getCurrentPosition() + moveCounts;
-	        this.rightTarget = this.rightDrive.getCurrentPosition() + moveCounts;
+            int moveCounts = (int)(distance * COUNTS_PER_INCH);
+            leftTarget = leftDrive.getCurrentPosition() + moveCounts;
+            rightTarget = rightDrive.getCurrentPosition() + moveCounts;
 
             // Set Target FIRST, then turn on RUN_TO_POSITION
-	        this.leftDrive.setTargetPosition(this.leftTarget);
-	        this.rightDrive.setTargetPosition(this.rightTarget);
+            leftDrive.setTargetPosition(leftTarget);
+            rightDrive.setTargetPosition(rightTarget);
 
-	        this.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-	        this.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // Set the required driving speed  (must be positive for RUN_TO_POSITION)
             // Start driving straight, and then enter the control loop
             maxDriveSpeed = Math.abs(maxDriveSpeed);
-	        this.moveRobot(maxDriveSpeed, 0);
+            moveRobot(maxDriveSpeed, 0);
 
             // keep looping while we are still active, and BOTH motors are running.
-            while (this.opModeIsActive() &&
-                   (this.leftDrive.isBusy() && this.rightDrive.isBusy())) {
+            while (opModeIsActive() &&
+                   (leftDrive.isBusy() && rightDrive.isBusy())) {
 
                 // Determine required steering to keep on heading
-	            this.turnSpeed = this.getSteeringCorrection(heading, P_DRIVE_GAIN);
+                turnSpeed = getSteeringCorrection(heading, P_DRIVE_GAIN);
 
                 // if driving in reverse, the motor correction also needs to be reversed
-                if (0 > distance) this.turnSpeed *= -1.0;
+                if (distance < 0)
+                    turnSpeed *= -1.0;
 
                 // Apply the turning correction to the current driving speed.
-	            this.moveRobot(this.driveSpeed, this.turnSpeed);
+                moveRobot(driveSpeed, turnSpeed);
 
                 // Display drive status for the driver.
-	            this.sendTelemetry(true);
+                sendTelemetry(true);
             }
 
             // Stop all motion & Turn off RUN_TO_POSITION
-	        this.moveRobot(0, 0);
-	        this.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-	        this.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            moveRobot(0, 0);
+            leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -287,29 +287,29 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
      *              0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
      *              If a relative angle is required, add/subtract from current heading.
      */
-    public void turnToHeading(final double maxTurnSpeed, final double heading) {
+    public void turnToHeading(double maxTurnSpeed, double heading) {
 
         // Run getSteeringCorrection() once to pre-calculate the current error
-	    this.getSteeringCorrection(heading, P_DRIVE_GAIN);
+        getSteeringCorrection(heading, P_DRIVE_GAIN);
 
         // keep looping while we are still active, and not on heading.
-        while (this.opModeIsActive() && (HEADING_THRESHOLD < Math.abs(headingError))) {
+        while (opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)) {
 
             // Determine required steering to keep on heading
-	        this.turnSpeed = this.getSteeringCorrection(heading, P_TURN_GAIN);
+            turnSpeed = getSteeringCorrection(heading, P_TURN_GAIN);
 
             // Clip the speed to the maximum permitted value.
-	        this.turnSpeed = Range.clip(this.turnSpeed, -maxTurnSpeed, maxTurnSpeed);
+            turnSpeed = Range.clip(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
 
             // Pivot in place by applying the turning correction
-	        this.moveRobot(0, this.turnSpeed);
+            moveRobot(0, turnSpeed);
 
             // Display drive status for the driver.
-	        this.sendTelemetry(false);
+            sendTelemetry(false);
         }
 
         // Stop all motion;
-	    this.moveRobot(0, 0);
+        moveRobot(0, 0);
     }
 
     /**
@@ -325,28 +325,28 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
      *                   If a relative angle is required, add/subtract from current heading.
      * @param holdTime   Length of time (in seconds) to hold the specified heading.
      */
-    public void holdHeading(final double maxTurnSpeed, final double heading, final double holdTime) {
+    public void holdHeading(double maxTurnSpeed, double heading, double holdTime) {
 
-        final ElapsedTime holdTimer = new ElapsedTime();
+        ElapsedTime holdTimer = new ElapsedTime();
         holdTimer.reset();
 
         // keep looping while we have time remaining.
-        while (this.opModeIsActive() && (holdTimer.time() < holdTime)) {
+        while (opModeIsActive() && (holdTimer.time() < holdTime)) {
             // Determine required steering to keep on heading
-	        this.turnSpeed = this.getSteeringCorrection(heading, P_TURN_GAIN);
+            turnSpeed = getSteeringCorrection(heading, P_TURN_GAIN);
 
             // Clip the speed to the maximum permitted value.
-	        this.turnSpeed = Range.clip(this.turnSpeed, -maxTurnSpeed, maxTurnSpeed);
+            turnSpeed = Range.clip(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
 
             // Pivot in place by applying the turning correction
-	        this.moveRobot(0, this.turnSpeed);
+            moveRobot(0, turnSpeed);
 
             // Display drive status for the driver.
-	        this.sendTelemetry(false);
+            sendTelemetry(false);
         }
 
         // Stop all motion;
-	    this.moveRobot(0, 0);
+        moveRobot(0, 0);
     }
 
     // **********  LOW Level driving functions.  ********************
@@ -358,18 +358,18 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
      * @param proportionalGain      Gain factor applied to heading error to obtain turning power.
      * @return                      Turning power needed to get to required heading.
      */
-    public double getSteeringCorrection(final double desiredHeading, final double proportionalGain) {
-	    this.targetHeading = desiredHeading;  // Save for telemetry
+    public double getSteeringCorrection(double desiredHeading, double proportionalGain) {
+        targetHeading = desiredHeading;  // Save for telemetry
 
         // Determine the heading current error
-	    this.headingError = this.targetHeading - this.getHeading();
+        headingError = targetHeading - getHeading();
 
         // Normalize the error to be within +/- 180 degrees
-        while (180 < headingError) this.headingError -= 360;
-        while (- 180 >= headingError) this.headingError += 360;
+        while (headingError > 180)  headingError -= 360;
+        while (headingError <= -180) headingError += 360;
 
         // Multiply the error by the gain to determine the required steering correction/  Limit the result to +/- 1.0
-        return Range.clip(this.headingError * proportionalGain, -1, 1);
+        return Range.clip(headingError * proportionalGain, -1, 1);
     }
 
     /**
@@ -378,23 +378,23 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
      * @param drive forward motor speed
      * @param turn  clockwise turning motor speed.
      */
-    public void moveRobot(final double drive, final double turn) {
-	    this.driveSpeed = drive;     // save this value as a class member so it can be used by telemetry.
-	    this.turnSpeed = turn;      // save this value as a class member so it can be used by telemetry.
+    public void moveRobot(double drive, double turn) {
+        driveSpeed = drive;     // save this value as a class member so it can be used by telemetry.
+        turnSpeed  = turn;      // save this value as a class member so it can be used by telemetry.
 
-	    this.leftSpeed = drive - turn;
-	    this.rightSpeed = drive + turn;
+        leftSpeed  = drive - turn;
+        rightSpeed = drive + turn;
 
         // Scale speeds down if either one exceeds +/- 1.0;
-        final double max = Math.max(Math.abs(this.leftSpeed), Math.abs(this.rightSpeed));
-        if (1.0 < max)
+        double max = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
+        if (max > 1.0)
         {
-	        this.leftSpeed /= max;
-	        this.rightSpeed /= max;
+            leftSpeed /= max;
+            rightSpeed /= max;
         }
 
-	    this.leftDrive.setPower(this.leftSpeed);
-	    this.rightDrive.setPower(this.rightSpeed);
+        leftDrive.setPower(leftSpeed);
+        rightDrive.setPower(rightSpeed);
     }
 
     /**
@@ -402,27 +402,28 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
      *
      * @param straight  Set to true if we are driving straight, and the encoder positions should be included in the telemetry.
      */
-    private void sendTelemetry(final boolean straight) {
+    private void sendTelemetry(boolean straight) {
 
         if (straight) {
-	        this.telemetry.addData("Motion", "Drive Straight");
-	        this.telemetry.addData("Target Pos L:R",  "%7d:%7d", this.leftTarget, this.rightTarget);
-	        this.telemetry.addData("Actual Pos L:R",  "%7d:%7d", this.leftDrive.getCurrentPosition(), this.rightDrive.getCurrentPosition());
+            telemetry.addData("Motion", "Drive Straight");
+            telemetry.addData("Target Pos L:R",  "%7d:%7d",      leftTarget,  rightTarget);
+            telemetry.addData("Actual Pos L:R",  "%7d:%7d",      leftDrive.getCurrentPosition(),
+                    rightDrive.getCurrentPosition());
         } else {
-	        this.telemetry.addData("Motion", "Turning");
+            telemetry.addData("Motion", "Turning");
         }
 
-	    this.telemetry.addData("Heading- Target : Current", "%5.2f : %5.0f", this.targetHeading, this.getHeading());
-	    this.telemetry.addData("Error  : Steer Pwr",  "%5.1f : %5.1f", this.headingError, this.turnSpeed);
-	    this.telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", this.leftSpeed, this.rightSpeed);
-	    this.telemetry.update();
+        telemetry.addData("Heading- Target : Current", "%5.2f : %5.0f", targetHeading, getHeading());
+        telemetry.addData("Error  : Steer Pwr",  "%5.1f : %5.1f", headingError, turnSpeed);
+        telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", leftSpeed, rightSpeed);
+        telemetry.update();
     }
 
     /**
      * read the Robot heading directly from the IMU (in degrees)
      */
     public double getHeading() {
-        final YawPitchRollAngles orientation = this.imu.getRobotYawPitchRollAngles();
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getYaw(AngleUnit.DEGREES);
     }
 }

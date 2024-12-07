@@ -74,88 +74,86 @@ public class SensorMRGyro extends LinearOpMode {
 
     // Get a reference to a Modern Robotics gyro object. We use several interfaces
     // on this object to illustrate which interfaces support which functionality.
-	  this.modernRoboticsI2cGyro = this.hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
-	  this.gyro = this.modernRoboticsI2cGyro;
+    modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+    gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
     // If you're only interested int the IntegratingGyroscope interface, the following will suffice.
     // gyro = hardwareMap.get(IntegratingGyroscope.class, "gyro");
     // A similar approach will work for the Gyroscope interface, if that's all you need.
 
     // Start calibrating the gyro. This takes a few seconds and is worth performing
     // during the initialization phase at the start of each OpMode.
-	  this.telemetry.log().add("Gyro Calibrating. Do Not Move!");
-	  this.modernRoboticsI2cGyro.calibrate();
+    telemetry.log().add("Gyro Calibrating. Do Not Move!");
+    modernRoboticsI2cGyro.calibrate();
 
     // Wait until the gyro calibration is complete
-	  this.timer.reset();
-    while (! this.isStopRequested() && this.modernRoboticsI2cGyro.isCalibrating())  {
-	    this.telemetry.addData("calibrating", "%s", 0 == Math.round(timer.seconds()) % 2 ? "|.." : "..|");
-	    this.telemetry.update();
-	    this.sleep(50);
+    timer.reset();
+    while (!isStopRequested() && modernRoboticsI2cGyro.isCalibrating())  {
+      telemetry.addData("calibrating", "%s", Math.round(timer.seconds())%2==0 ? "|.." : "..|");
+      telemetry.update();
+      sleep(50);
     }
 
-	  this.telemetry.log().clear();
-	  this.telemetry.log().add("Gyro Calibrated. Press Start.");
-	  this.telemetry.clear();
-	  this.telemetry.update();
+    telemetry.log().clear(); telemetry.log().add("Gyro Calibrated. Press Start.");
+    telemetry.clear(); telemetry.update();
 
     // Wait for the start button to be pressed
-	  this.waitForStart();
-	  this.telemetry.log().clear();
-	  this.telemetry.log().add("Press A & B to reset heading");
+    waitForStart();
+    telemetry.log().clear();
+    telemetry.log().add("Press A & B to reset heading");
 
     // Loop until we're asked to stop
-    while (this.opModeIsActive())  {
+    while (opModeIsActive())  {
 
       // If the A and B buttons are pressed just now, reset Z heading.
-      curResetState = (this.gamepad1.a && this.gamepad1.b);
+      curResetState = (gamepad1.a && gamepad1.b);
       if (curResetState && !lastResetState) {
-	      this.modernRoboticsI2cGyro.resetZAxisIntegrator();
+        modernRoboticsI2cGyro.resetZAxisIntegrator();
       }
       lastResetState = curResetState;
 
       // The raw() methods report the angular rate of change about each of the
       // three axes directly as reported by the underlying sensor IC.
-      final int rawX = this.modernRoboticsI2cGyro.rawX();
-      final int rawY = this.modernRoboticsI2cGyro.rawY();
-      final int rawZ = this.modernRoboticsI2cGyro.rawZ();
-      final int heading = this.modernRoboticsI2cGyro.getHeading();
-      final int integratedZ = this.modernRoboticsI2cGyro.getIntegratedZValue();
+      int rawX = modernRoboticsI2cGyro.rawX();
+      int rawY = modernRoboticsI2cGyro.rawY();
+      int rawZ = modernRoboticsI2cGyro.rawZ();
+      int heading = modernRoboticsI2cGyro.getHeading();
+      int integratedZ = modernRoboticsI2cGyro.getIntegratedZValue();
 
       // Read dimensionalized data from the gyro. This gyro can report angular velocities
       // about all three axes. Additionally, it internally integrates the Z axis to
       // be able to report an absolute angular Z orientation.
-      final AngularVelocity rates  = this.gyro.getAngularVelocity(AngleUnit.DEGREES);
-      final float           zAngle = this.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+      AngularVelocity rates = gyro.getAngularVelocity(AngleUnit.DEGREES);
+      float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
       // Read administrative information from the gyro
-      final int zAxisOffset             = this.modernRoboticsI2cGyro.getZAxisOffset();
-      final int zAxisScalingCoefficient = this.modernRoboticsI2cGyro.getZAxisScalingCoefficient();
+      int zAxisOffset = modernRoboticsI2cGyro.getZAxisOffset();
+      int zAxisScalingCoefficient = modernRoboticsI2cGyro.getZAxisScalingCoefficient();
 
-	    this.telemetry.addLine()
-        .addData("dx", this.formatRate(rates.xRotationRate))
-        .addData("dy", this.formatRate(rates.yRotationRate))
-        .addData("dz", "%s deg/s", this.formatRate(rates.zRotationRate));
-	    this.telemetry.addData("angle", "%s deg", this.formatFloat(zAngle));
-	    this.telemetry.addData("heading", "%3d deg", heading);
-	    this.telemetry.addData("integrated Z", "%3d", integratedZ);
-	    this.telemetry.addLine()
-        .addData("rawX", this.formatRaw(rawX))
-        .addData("rawY", this.formatRaw(rawY))
-        .addData("rawZ", this.formatRaw(rawZ));
-	    this.telemetry.addLine().addData("z offset", zAxisOffset).addData("z coeff", zAxisScalingCoefficient);
-	    this.telemetry.update();
+      telemetry.addLine()
+        .addData("dx", formatRate(rates.xRotationRate))
+        .addData("dy", formatRate(rates.yRotationRate))
+        .addData("dz", "%s deg/s", formatRate(rates.zRotationRate));
+      telemetry.addData("angle", "%s deg", formatFloat(zAngle));
+      telemetry.addData("heading", "%3d deg", heading);
+      telemetry.addData("integrated Z", "%3d", integratedZ);
+      telemetry.addLine()
+        .addData("rawX", formatRaw(rawX))
+        .addData("rawY", formatRaw(rawY))
+        .addData("rawZ", formatRaw(rawZ));
+      telemetry.addLine().addData("z offset", zAxisOffset).addData("z coeff", zAxisScalingCoefficient);
+      telemetry.update();
     }
   }
 
-  String formatRaw(final int rawValue) {
+  String formatRaw(int rawValue) {
     return String.format("%d", rawValue);
   }
 
-  String formatRate(final float rate) {
+  String formatRate(float rate) {
     return String.format("%.3f", rate);
   }
 
-  String formatFloat(final float rate) {
+  String formatFloat(float rate) {
     return String.format("%.3f", rate);
   }
 

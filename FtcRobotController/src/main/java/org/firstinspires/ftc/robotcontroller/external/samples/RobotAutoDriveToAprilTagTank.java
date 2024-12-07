@@ -33,7 +33,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -101,14 +100,14 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
     final double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
     final double MAX_AUTO_TURN  = 0.25;  //  Clip the turn speed to this max value (adjust for your robot)
 
-    private DcMotor leftDrive;  //  Used to control the left drive wheel
-    private DcMotor rightDrive;  //  Used to control the right drive wheel
+    private DcMotor leftDrive   = null;  //  Used to control the left drive wheel
+    private DcMotor rightDrive  = null;  //  Used to control the right drive wheel
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
     private static final int DESIRED_TAG_ID = -1;    // Choose the tag you want to approach or set to -1 for ANY tag.
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
-    private AprilTagDetection desiredTag;     // Used to hold the data for a detected AprilTag
+    private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
     @Override public void runOpMode()
     {
@@ -117,88 +116,89 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
         double  turn            = 0;        // Desired turning power/speed (-1 to +1) +ve is CounterClockwise
 
         // Initialize the Apriltag Detection process
-	    this.initAprilTag();
+        initAprilTag();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must match the names assigned during the robot configuration.
         // step (using the FTC Robot Controller app on the phone).
-	    this.leftDrive = this.hardwareMap.get(DcMotor.class, "left_drive");
-	    this.rightDrive = this.hardwareMap.get(DcMotor.class, "right_drive");
+        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Single Gear Reduction or 90 Deg drives may require direction flips
-	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        if (USE_WEBCAM) this.setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
+        if (USE_WEBCAM)
+            setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
 
         // Wait for the driver to press Start
-	    this.telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
-	    this.telemetry.addData(">", "Touch START to start OpMode");
-	    this.telemetry.update();
-	    this.waitForStart();
+        telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
+        telemetry.addData(">", "Touch START to start OpMode");
+        telemetry.update();
+        waitForStart();
 
-        while (this.opModeIsActive())
+        while (opModeIsActive())
         {
             targetFound = false;
-	        this.desiredTag = null;
+            desiredTag  = null;
 
             // Step through the list of detected tags and look for a matching tag
-            final List<AprilTagDetection> currentDetections = this.aprilTag.getDetections();
-            for (final AprilTagDetection detection : currentDetections) {
+            List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+            for (AprilTagDetection detection : currentDetections) {
                 // Look to see if we have size info on this tag.
-                if (null != detection.metadata) {
+                if (detection.metadata != null) {
                     //  Check to see if we want to track towards this tag.
-	                if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == detection.id)) {
+                    if ((DESIRED_TAG_ID < 0) || (detection.id == DESIRED_TAG_ID)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
-	                    this.desiredTag = detection;
+                        desiredTag = detection;
                         break;  // don't look any further.
                     } else {
                         // This tag is in the library, but we do not want to track it right now.
-	                    this.telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
+                        telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
                     }
                 } else {
                     // This tag is NOT in the library, so we don't have enough information to track to it.
-	                this.telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+                    telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
                 }
             }
 
             // Tell the driver what we see, and what to do.
             if (targetFound) {
-	            this.telemetry.addData("\n>","HOLD Left-Bumper to Drive to Target\n");
-	            this.telemetry.addData("Found", "ID %d (%s)", this.desiredTag.id, this.desiredTag.metadata.name);
-	            this.telemetry.addData("Range",  "%5.1f inches", this.desiredTag.ftcPose.range);
-	            this.telemetry.addData("Bearing","%3.0f degrees", this.desiredTag.ftcPose.bearing);
+                telemetry.addData("\n>","HOLD Left-Bumper to Drive to Target\n");
+                telemetry.addData("Found", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
+                telemetry.addData("Range",  "%5.1f inches", desiredTag.ftcPose.range);
+                telemetry.addData("Bearing","%3.0f degrees", desiredTag.ftcPose.bearing);
             } else {
-	            this.telemetry.addData("\n>","Drive using joysticks to find valid target\n");
+                telemetry.addData("\n>","Drive using joysticks to find valid target\n");
             }
 
             // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
-            if (this.gamepad1.left_bumper && targetFound) {
+            if (gamepad1.left_bumper && targetFound) {
 
                 // Determine heading and range error so we can use them to control the robot automatically.
-                final double rangeError   = (this.desiredTag.ftcPose.range - this.DESIRED_DISTANCE);
-                final double headingError = this.desiredTag.ftcPose.bearing;
+                double  rangeError   = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
+                double  headingError = desiredTag.ftcPose.bearing;
 
                 // Use the speed and turn "gains" to calculate how we want the robot to move.  Clip it to the maximum
-                drive = Range.clip(rangeError * this.SPEED_GAIN, - this.MAX_AUTO_SPEED, this.MAX_AUTO_SPEED);
-                turn  = Range.clip(headingError * this.TURN_GAIN, - this.MAX_AUTO_TURN, this.MAX_AUTO_TURN) ;
+                drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+                turn  = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN) ;
 
-	            this.telemetry.addData("Auto","Drive %5.2f, Turn %5.2f", drive, turn);
+                telemetry.addData("Auto","Drive %5.2f, Turn %5.2f", drive, turn);
             } else {
 
                 // drive using manual POV Joystick mode.
-                drive = - this.gamepad1.left_stick_y / 2.0;  // Reduce drive rate to 50%.
-                turn  = - this.gamepad1.right_stick_x / 4.0;  // Reduce turn rate to 25%.
-	            this.telemetry.addData("Manual","Drive %5.2f, Turn %5.2f", drive, turn);
+                drive = -gamepad1.left_stick_y  / 2.0;  // Reduce drive rate to 50%.
+                turn  = -gamepad1.right_stick_x / 4.0;  // Reduce turn rate to 25%.
+                telemetry.addData("Manual","Drive %5.2f, Turn %5.2f", drive, turn);
             }
-	        this.telemetry.update();
+            telemetry.update();
 
             // Apply desired axes motions to the drivetrain.
-	        this.moveRobot(drive, turn);
-	        this.sleep(10);
+            moveRobot(drive, turn);
+            sleep(10);
         }
     }
 
@@ -209,21 +209,21 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
      * <p>
      * Positive Yaw is counter-clockwise
      */
-    public void moveRobot(final double x, final double yaw) {
+    public void moveRobot(double x, double yaw) {
         // Calculate left and right wheel powers.
         double leftPower    = x - yaw;
         double rightPower   = x + yaw;
 
         // Normalize wheel powers to be less than 1.0
-        final double max = Math.max(Math.abs(leftPower), Math.abs(rightPower));
-        if (1.0 < max) {
+        double max = Math.max(Math.abs(leftPower), Math.abs(rightPower));
+        if (max >1.0) {
             leftPower /= max;
             rightPower /= max;
         }
 
         // Send powers to the wheels.
-	    this.leftDrive.setPower(leftPower);
-	    this.rightDrive.setPower(rightPower);
+        leftDrive.setPower(leftPower);
+        rightDrive.setPower(rightPower);
     }
 
     /**
@@ -231,7 +231,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
      */
     private void initAprilTag() {
         // Create the AprilTag processor by using a builder.
-	    this.aprilTag = new AprilTagProcessor.Builder().build();
+        aprilTag = new AprilTagProcessor.Builder().build();
 
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
         // e.g. Some typical detection data using a Logitech C920 WebCam
@@ -240,18 +240,18 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
         // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
         // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
         // Note: Decimation can be changed on-the-fly to adapt during a match.
-	    this.aprilTag.setDecimation(2);
+        aprilTag.setDecimation(2);
 
         // Create the vision portal by using a builder.
         if (USE_WEBCAM) {
-	        this.visionPortal = new VisionPortal.Builder()
-                    .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
-                    .addProcessor(this.aprilTag)
+            visionPortal = new VisionPortal.Builder()
+                    .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                    .addProcessor(aprilTag)
                     .build();
         } else {
-	        this.visionPortal = new VisionPortal.Builder()
+            visionPortal = new VisionPortal.Builder()
                     .setCamera(BuiltinCameraDirection.BACK)
-                    .addProcessor(this.aprilTag)
+                    .addProcessor(aprilTag)
                     .build();
         }
     }
@@ -260,39 +260,39 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
      Manually set the camera gain and exposure.
      This can only be called AFTER calling initAprilTag(), and only works for Webcams;
     */
-    private void    setManualExposure(final int exposureMS, final int gain) {
+    private void    setManualExposure(int exposureMS, int gain) {
         // Wait for the camera to be open, then use the controls
 
-        if (null == visionPortal) {
+        if (visionPortal == null) {
             return;
         }
 
         // Make sure camera is streaming before we try to set the exposure controls
-        if (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState()) {
-	        this.telemetry.addData("Camera", "Waiting");
-	        this.telemetry.update();
-            while (! this.isStopRequested() && (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState())) {
-	            this.sleep(20);
+        if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+            telemetry.addData("Camera", "Waiting");
+            telemetry.update();
+            while (!isStopRequested() && (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING)) {
+                sleep(20);
             }
-	        this.telemetry.addData("Camera", "Ready");
-	        this.telemetry.update();
+            telemetry.addData("Camera", "Ready");
+            telemetry.update();
         }
 
         // Set camera controls unless we are stopping.
-        if (! this.isStopRequested())
+        if (!isStopRequested())
         {
-            final ExposureControl exposureControl = this.visionPortal.getCameraControl(ExposureControl.class);
-            if (ExposureControl.Mode.Manual != exposureControl.getMode()) {
+            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
+            if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
                 exposureControl.setMode(ExposureControl.Mode.Manual);
-	            this.sleep(50);
+                sleep(50);
             }
-            exposureControl.setExposure(exposureMS, TimeUnit.MILLISECONDS);
-	        this.sleep(20);
-            final GainControl gainControl = this.visionPortal.getCameraControl(GainControl.class);
+            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+            sleep(20);
+            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
             gainControl.setGain(gain);
-	        this.sleep(20);
-	        this.telemetry.addData("Camera", "Ready");
-	        this.telemetry.update();
+            sleep(20);
+            telemetry.addData("Camera", "Ready");
+            telemetry.update();
         }
     }
 }

@@ -51,28 +51,28 @@ public class SensorDigitalTouch extends LinearOpMode {
     public void runOpMode() {
 
         // get a reference to our touchSensor object.
-	    this.digitalTouch = this.hardwareMap.get(DigitalChannel.class, "digitalTouch");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
 
-	    this.digitalTouch.setMode(DigitalChannel.Mode.INPUT);
-	    this.telemetry.addData("DigitalTouchSensorExample", "Press start to continue...");
-	    this.telemetry.update();
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+        telemetry.addData("DigitalTouchSensorExample", "Press start to continue...");
+        telemetry.update();
 
         // wait for the start button to be pressed.
-	    this.waitForStart();
+        waitForStart();
 
         // while the OpMode is active, loop and read the digital channel.
         // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-        while (this.opModeIsActive()) {
+        while (opModeIsActive()) {
 
             // button is pressed if value returned is LOW or false.
             // send the info back to driver station using telemetry function.
-            if (! this.digitalTouch.getState()) {
-	            this.telemetry.addData("Button", "PRESSED");
+            if (digitalTouch.getState() == false) {
+                telemetry.addData("Button", "PRESSED");
             } else {
-	            this.telemetry.addData("Button", "NOT PRESSED");
+                telemetry.addData("Button", "NOT PRESSED");
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
     }
 }

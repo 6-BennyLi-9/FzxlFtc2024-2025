@@ -28,7 +28,7 @@ public final class SleepingAction implements Action {
 		return System.nanoTime() / 1.0e6 - startTime < sleepMilliseconds;
 	}
 
-	@NotNull
+
 	@Override
 	public String paramsString() {
 		return "t:" + sleepMilliseconds + "ms";

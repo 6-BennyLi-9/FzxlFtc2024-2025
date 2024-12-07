@@ -33,7 +33,7 @@ public final class LinkedAction implements Action {
 		}
 	}
 
-	@NotNull
+
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("{");

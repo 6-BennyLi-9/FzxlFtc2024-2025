@@ -77,52 +77,51 @@ public class UtilityCameraFrameCapture extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        final VisionPortal portal;
+        VisionPortal portal;
 
-        if (this.USING_WEBCAM)
+        if (USING_WEBCAM)
         {
             portal = new VisionPortal.Builder()
-                    .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
-                    .setCameraResolution(new Size(this.RESOLUTION_WIDTH, this.RESOLUTION_HEIGHT))
+                    .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                    .setCameraResolution(new Size(RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
                     .build();
         }
         else
         {
             portal = new VisionPortal.Builder()
-                    .setCamera(this.INTERNAL_CAM_DIR)
-                    .setCameraResolution(new Size(this.RESOLUTION_WIDTH, this.RESOLUTION_HEIGHT))
+                    .setCamera(INTERNAL_CAM_DIR)
+                    .setCameraResolution(new Size(RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
                     .build();
         }
 
-        while (! this.isStopRequested())
+        while (!isStopRequested())
         {
-            final boolean x = this.gamepad1.x;
+            boolean x = gamepad1.x;
 
-            if (x && ! this.lastX)
+            if (x && !lastX)
             {
-                portal.saveNextFrameRaw(String.format(Locale.US, "CameraFrameCapture-%06d", this.frameCount));
-	            frameCount++;
-	            this.capReqTime = System.currentTimeMillis();
+                portal.saveNextFrameRaw(String.format(Locale.US, "CameraFrameCapture-%06d", frameCount++));
+                capReqTime = System.currentTimeMillis();
             }
 
-	        this.lastX = x;
+            lastX = x;
 
-	        this.telemetry.addLine("######## Camera Capture Utility ########");
-	        this.telemetry.addLine(String.format(Locale.US, " > Resolution: %dx%d", this.RESOLUTION_WIDTH, this.RESOLUTION_HEIGHT));
-	        this.telemetry.addLine(" > Press X (or Square) to capture a frame");
-	        this.telemetry.addData(" > Camera Status", portal.getCameraState());
+            telemetry.addLine("######## Camera Capture Utility ########");
+            telemetry.addLine(String.format(Locale.US, " > Resolution: %dx%d", RESOLUTION_WIDTH, RESOLUTION_HEIGHT));
+            telemetry.addLine(" > Press X (or Square) to capture a frame");
+            telemetry.addData(" > Camera Status", portal.getCameraState());
 
-            if (0 != capReqTime)
+            if (capReqTime != 0)
             {
-	            this.telemetry.addLine("\nCaptured Frame!");
+                telemetry.addLine("\nCaptured Frame!");
             }
 
-            if (0 != capReqTime && 1000 < System.currentTimeMillis() - capReqTime)
+            if (capReqTime != 0 && System.currentTimeMillis() - capReqTime > 1000)
             {
-	            this.capReqTime = 0;
+                capReqTime = 0;
             }
 
-	        this.telemetry.update();
+            telemetry.update();
         }
     }
 }

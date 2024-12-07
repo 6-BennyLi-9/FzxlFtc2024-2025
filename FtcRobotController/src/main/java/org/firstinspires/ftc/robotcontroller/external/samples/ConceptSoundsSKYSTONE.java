@@ -52,10 +52,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class ConceptSoundsSKYSTONE extends LinearOpMode {
 
     // List of available sound resources
-    String[] sounds       =  {"ss_alarm", "ss_bb8_down", "ss_bb8_up", "ss_darth_vader", "ss_fly_by",
-                              "ss_mf_fail", "ss_laser", "ss_laser_burst", "ss_light_saber", "ss_light_saber_long", "ss_light_saber_short",
-                              "ss_light_speed", "ss_mine", "ss_power_up", "ss_r2d2_up", "ss_roger_roger", "ss_siren", "ss_wookie" };
-    boolean  soundPlaying;
+    String  sounds[] =  {"ss_alarm", "ss_bb8_down", "ss_bb8_up", "ss_darth_vader", "ss_fly_by",
+            "ss_mf_fail", "ss_laser", "ss_laser_burst", "ss_light_saber", "ss_light_saber_long", "ss_light_saber_short",
+            "ss_light_speed", "ss_mine", "ss_power_up", "ss_r2d2_up", "ss_roger_roger", "ss_siren", "ss_wookie" };
+    boolean soundPlaying = false;
 
     @Override
     public void runOpMode() {
@@ -66,57 +66,57 @@ public class ConceptSoundsSKYSTONE extends LinearOpMode {
         boolean was_dpad_up     = false;
         boolean was_dpad_down   = false;
 
-        final Context myApp = this.hardwareMap.appContext;
+        Context myApp = hardwareMap.appContext;
 
         // create a sound parameter that holds the desired player parameters.
-        final SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
+        SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
         params.loopControl = 0;
         params.waitForNonLoopingSoundsToFinish = true;
 
         // In this sample, we will skip waiting for the user to press play, and start displaying sound choices right away
-        while (! this.isStopRequested()) {
+        while (!isStopRequested()) {
 
             // Look for DPAD presses to change the selection
-            if (this.gamepad1.dpad_down && !was_dpad_down) {
+            if (gamepad1.dpad_down && !was_dpad_down) {
                 // Go to next sound (with list wrap) and display it
-                soundIndex = (soundIndex + 1) % this.sounds.length;
+                soundIndex = (soundIndex + 1) % sounds.length;
             }
 
-            if (this.gamepad1.dpad_up && !was_dpad_up) {
+            if (gamepad1.dpad_up && !was_dpad_up) {
                 // Go to previous sound (with list wrap) and display it
-                soundIndex = (soundIndex + this.sounds.length - 1) % this.sounds.length;
+                soundIndex = (soundIndex + sounds.length - 1) % sounds.length;
             }
 
             // Look for trigger to see if we should play sound
             // Only start a new sound if we are currently not playing one.
-            if (this.gamepad1.right_bumper && ! this.soundPlaying) {
+            if (gamepad1.right_bumper && !soundPlaying) {
 
                 // Determine Resource IDs for the sounds you want to play, and make sure it's valid.
-                if (0 != (soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName()))){
+                if ((soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName())) != 0){
 
                     // Signal that the sound is now playing.
-	                this.soundPlaying = true;
+                    soundPlaying = true;
 
                     // Start playing, and also Create a callback that will clear the playing flag when the sound is complete.
                     SoundPlayer.getInstance().startPlaying(myApp, soundID, params, null,
                             new Runnable() {
                                 public void run() {
-	                                ConceptSoundsSKYSTONE.this.soundPlaying = false;
+                                    soundPlaying = false;
                                 }} );
                 }
             }
 
             // Remember the last state of the dpad to detect changes.
-            was_dpad_up     = this.gamepad1.dpad_up;
-            was_dpad_down   = this.gamepad1.dpad_down;
+            was_dpad_up     = gamepad1.dpad_up;
+            was_dpad_down   = gamepad1.dpad_down;
 
             // Display the current sound choice, and the playing status.
-	        this.telemetry.addData("", "Use DPAD up/down to choose sound.");
-	        this.telemetry.addData("", "Press Right Bumper to play sound.");
-	        this.telemetry.addData("", "");
-	        this.telemetry.addData("Sound >", this.sounds[soundIndex]);
-	        this.telemetry.addData("Status >", this.soundPlaying ? "Playing" : "Stopped");
-	        this.telemetry.update();
+            telemetry.addData("", "Use DPAD up/down to choose sound.");
+            telemetry.addData("", "Press Right Bumper to play sound.");
+            telemetry.addData("", "");
+            telemetry.addData("Sound >", sounds[soundIndex]);
+            telemetry.addData("Status >", soundPlaying ? "Playing" : "Stopped");
+            telemetry.update();
         }
     }
 }
