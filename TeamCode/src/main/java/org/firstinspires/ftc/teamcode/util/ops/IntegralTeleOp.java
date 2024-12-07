@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
-import org.firstinspires.ftc.teamcode.client.Client;
-import org.firstinspires.ftc.teamcode.client.DashTelemetry;
+import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.mng.RobotMng;

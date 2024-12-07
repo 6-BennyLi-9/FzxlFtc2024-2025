@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.client;
+package org.betastudio.ftc.client;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.betastudio.ftc.action.Action;

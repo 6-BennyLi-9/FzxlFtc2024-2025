@@ -4,7 +4,7 @@ import static org.firstinspires.ftc.teamcode.util.mng.RobotMng.gamepad1;
 import static org.firstinspires.ftc.teamcode.util.mng.RobotMng.gamepad2;
 import static org.firstinspires.ftc.teamcode.util.UtilButtonControlSystem.ButtonConfig.SingleWhenPressed;
 
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.betastudio.ftc.client.TelemetryClient;
 
 /**
  * gamepad 控制请求的数据库

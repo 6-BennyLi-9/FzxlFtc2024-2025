@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;

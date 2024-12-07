@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.betastudio.ftc.client.TelemetryClient;
 
 public enum HardwareConstants {
 	;

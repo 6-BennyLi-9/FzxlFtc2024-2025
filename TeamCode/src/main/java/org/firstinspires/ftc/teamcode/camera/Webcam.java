@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.camera;
 
-import org.firstinspires.ftc.teamcode.client.Client;
+import org.betastudio.ftc.client.Client;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.client;
+package org.betastudio.ftc.client;
 
 import androidx.annotation.NonNull;
 

@@ -7,9 +7,9 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.action.Actions;
-import org.firstinspires.ftc.teamcode.client.Client;
-import org.firstinspires.ftc.teamcode.client.DashTelemetry;
-import org.firstinspires.ftc.teamcode.client.TelemetryClient;
+import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.client.DashTelemetry;
+import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
