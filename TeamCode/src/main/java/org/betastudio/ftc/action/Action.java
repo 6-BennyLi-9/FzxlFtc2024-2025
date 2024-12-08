@@ -11,10 +11,10 @@ public interface Action {
 
 	/**
 	 * @return 定向的下一个 {@code Action} 块，默认为 {@code FinalNodeAction}
-	 * @see Actions.FinalNodeAction
+	 * @see FinalNodeAction
 	 */
 	default Action next() {
-		return new Actions.FinalNodeAction();
+		return new FinalNodeAction();
 	}
 
 	/**

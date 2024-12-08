@@ -4,16 +4,6 @@ public enum Actions {
 	;
 
 	/**
-	 * 标志 {@code Action} 块的最后一个节点
-	 */
-	public static final class FinalNodeAction implements Action {
-		@Override
-		public boolean run() {
-			return false;
-		}
-	}
-
-	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
 	public static void runAction(final Action actionBlock) {
