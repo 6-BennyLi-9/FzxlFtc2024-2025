@@ -9,9 +9,10 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+@Deprecated
 public class Webcam extends OpenCvPipeline {
 	protected boolean            debugMode = true;
-	protected BranchThreadClient telemetry;
+	protected BranchThreadClient client;
 	Mat mat     = new Mat();
 	Mat matRed  = new Mat();
 	Mat matBlue = new Mat();
@@ -69,19 +70,19 @@ public class Webcam extends OpenCvPipeline {
 		//输出roi范围内的概率
 
 		if (debugMode) {
-			telemetry.addData("leftRed roi raw value", (int) Core.sumElems(leftRed).val[0]);
-			telemetry.addData("middleRed roi raw value", (int) Core.sumElems(middleRed).val[0]);
-			telemetry.addData("rightRed roi raw value", (int) Core.sumElems(rightRed).val[0]);
-			telemetry.addData("leftRed roi percentage", Math.round(left_red_Value * 100) + "%");
-			telemetry.addData("middleRed roi percentage", Math.round(middle_red_Value * 100) + "%");
-			telemetry.addData("rightRed roi percentage", Math.round(right_red_Value * 100) + "%");
+			client.addData("leftRed roi raw value", (int) Core.sumElems(leftRed).val[0]);
+			client.addData("middleRed roi raw value", (int) Core.sumElems(middleRed).val[0]);
+			client.addData("rightRed roi raw value", (int) Core.sumElems(rightRed).val[0]);
+			client.addData("leftRed roi percentage", Math.round(left_red_Value * 100) + "%");
+			client.addData("middleRed roi percentage", Math.round(middle_red_Value * 100) + "%");
+			client.addData("rightRed roi percentage", Math.round(right_red_Value * 100) + "%");
 
-			telemetry.addData("leftBlue roi raw value", (int) Core.sumElems(leftBlue).val[0]);
-			telemetry.addData("middleBlue roi raw value", (int) Core.sumElems(middleBlue).val[0]);
-			telemetry.addData("rightBlue roi raw value", (int) Core.sumElems(rightBlue).val[0]);
-			telemetry.addData("leftBlue roi percentage", Math.round(left_blue_Value * 100) + "%");
-			telemetry.addData("middleBlue roi percentage", Math.round(middle_blue_Value * 100) + "%");
-			telemetry.addData("rightBlue roi percentage", Math.round(right_blue_Value * 100) + "%");
+			client.addData("leftBlue roi raw value", (int) Core.sumElems(leftBlue).val[0]);
+			client.addData("middleBlue roi raw value", (int) Core.sumElems(middleBlue).val[0]);
+			client.addData("rightBlue roi raw value", (int) Core.sumElems(rightBlue).val[0]);
+			client.addData("leftBlue roi percentage", Math.round(left_blue_Value * 100) + "%");
+			client.addData("middleBlue roi percentage", Math.round(middle_blue_Value * 100) + "%");
+			client.addData("rightBlue roi percentage", Math.round(right_blue_Value * 100) + "%");
 		}
 		final boolean LeftRed   = left_red_Value > PERCENT_COLOR_THRESHOLD;
 		final boolean MiddleRed = middle_red_Value > PERCENT_COLOR_THRESHOLD;
@@ -94,24 +95,24 @@ public class Webcam extends OpenCvPipeline {
 
 		if (LeftRed) {
 			location = "LEFT";
-			telemetry.addData("Location", "LEFT");
+			client.addData("Location", "LEFT");
 		} else if (MiddleRed) {
 			location = "MIDDLE";
-			telemetry.addData("Location", "MIDDLE");
+			client.addData("Location", "MIDDLE");
 		} else if (RightRed) {
 			location = "RIGHT";
-			telemetry.addData("Location", "RIGHT");
+			client.addData("Location", "RIGHT");
 		} else if (LeftBlue) {
 			location = "LEFT";
-			telemetry.addData("Location", "LEFT");
+			client.addData("Location", "LEFT");
 		} else if (MiddleBlue) {
 			location = "MIDDLE";
-			telemetry.addData("Location", "MIDDLE");
+			client.addData("Location", "MIDDLE");
 		} else if (RightBlue) {
 			location = "RIGHT";
-			telemetry.addData("Location", "RIGHT");
+			client.addData("Location", "RIGHT");
 		}
-		telemetry.update();
+		client.update();
 
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
