@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.DashTelemetry;
-import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
@@ -25,9 +24,9 @@ import java.util.Map;
 public abstract class IntegralAutonomous extends LinearOpMode {
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
-	public SampleMecanumDrive drive;
-	public BranchThreadClient client;
-	public UtilMng            utils;
+	public        SampleMecanumDrive               drive;
+	public        BranchThreadClient               client;
+	public        UtilMng                          utils;
 	public        Timer                            timer;
 
 	@Override
@@ -38,13 +37,15 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		client = new BranchThreadClient(telemetry, 30);
 		utils = new UtilMng();
 		timer = new Timer();
+
+		client.startThread();
 		initialize();
 
-		TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
+		client.addLine(">>>ROBOT READY!");
 
 		waitForStart();
 
-		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
+		client.deleteLine(">>>ROBOT READY!");
 
 		if (! opModeIsActive()) return;
 		timer.restart();
@@ -125,7 +126,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	public void flagging_op_complete() {
 		timer.stop();
-		TelemetryClient.getInstance().changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
+		client.changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
 	}
 
 	public void throwLocalThrowable(Throwable exception) {
