@@ -7,6 +7,7 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 
+@Deprecated
 public class BranchThreadClient extends TelemetryClient {
 	public static class InfinityLoopAction implements Action {
 		private final Runnable runnable;

@@ -2,18 +2,18 @@ package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
-import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.DashTelemetry;
+import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 import org.firstinspires.ftc.teamcode.util.Timer;
+import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 
 public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	public  RobotMng robot;
-	public  Timer              timer;
-	public  BranchThreadClient client;
-	private boolean            auto_terminate_when_TLE = true;
+	public  Timer           timer;
+	public  TelemetryClient client;
+	private boolean         auto_terminate_when_TLE = true;
 
 	@Override
 	public void op_init() {
@@ -26,9 +26,10 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		robot.registerGamepad(gamepad1, gamepad2);
 		robot.initActions();
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
-		client = new BranchThreadClient(telemetry);
+		client = new TelemetryClient(telemetry);
 
 		telemetry.clearAll();
+		client.autoUpdate=false;
 
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 	}
@@ -37,6 +38,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
 		robot.runThread();//防止一些 Action 出现异常表现
+
+		client.update();
 	}
 
 	@Override
@@ -55,6 +58,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 
 	@Override
 	public void op_loop() {
+		client.update();
+
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
 			stop();
 			terminateOpModeNow();
@@ -64,6 +69,6 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 
 	@Override
 	public void op_end() {
-		client.interrupt();
+		client.clear();
 	}
 }

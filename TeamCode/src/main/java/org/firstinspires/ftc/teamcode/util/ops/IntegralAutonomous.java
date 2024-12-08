@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.action.Actions;
-import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -26,7 +25,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
 	public SampleMecanumDrive drive;
-	public BranchThreadClient client;
+	public TelemetryClient client;
 	public UtilMng            utils;
 	public        Timer                            timer;
 
@@ -35,16 +34,17 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
-		client = new BranchThreadClient(telemetry, 30);
+		client = new TelemetryClient(telemetry);
+		client.autoUpdate=true;
 		utils = new UtilMng();
 		timer = new Timer();
 		initialize();
 
-		TelemetryClient.getInstance().addLine(">>>ROBOT READY!");
+		client.addLine(">>>ROBOT READY!");
 
 		waitForStart();
 
-		TelemetryClient.getInstance().deleteLine(">>>ROBOT READY!");
+		client.deleteLine(">>>ROBOT READY!");
 
 		if (! opModeIsActive()) return;
 		timer.restart();
@@ -60,7 +60,6 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 			sleep(10);
 		}
 		linear.interrupt();
-		client.interrupt();
 	}
 
 	public abstract void initialize();
@@ -125,7 +124,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	public void flagging_op_complete() {
 		timer.stop();
-		TelemetryClient.getInstance().changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
+		client.changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
 	}
 
 	public void throwLocalThrowable(Throwable exception) {

@@ -27,7 +27,5 @@ public class TeleOpCore extends IntegralTeleOp {
 //		GamepadRequestMemories.printValues();
 
 		robot.runThread();
-
-		client.update();//更新缓存
 	}
 }
