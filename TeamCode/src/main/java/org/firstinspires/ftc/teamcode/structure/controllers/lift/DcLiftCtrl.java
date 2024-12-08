@@ -25,6 +25,8 @@ public class DcLiftCtrl extends LiftCtrl {
 
 	@Override
 	public boolean run() {
+		currentPosition=targetLift.getCurrentPosition();
+
 		if (0 == getTargetPosition() && using_touch_calibrate) {
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 			targetLift.setPower(! HardwareConstants.liftTouch.isPressed() ? 0 : - 1);

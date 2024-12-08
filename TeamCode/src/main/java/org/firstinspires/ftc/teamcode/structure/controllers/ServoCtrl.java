@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
 
+import java.util.Locale;
+
 public class ServoCtrl implements Action {
 	public final Servo  controlTarget;
 	private      double targetPosition;
@@ -29,7 +31,7 @@ public class ServoCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return tag + ":" + targetPosition;
+		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:%.3f", tag, targetPosition);
 	}
 
 	public void setTargetPosition(final double targetPosition) {

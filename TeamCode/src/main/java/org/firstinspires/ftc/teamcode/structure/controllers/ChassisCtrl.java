@@ -29,7 +29,7 @@ public class ChassisCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:{x:%.4f,y%.4f,heading:%.4f}", tag, pX, pY, pTurn);
+		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:{x:%.3f,y%.4f,heading:%.3f}", tag, pX, pY, pTurn);
 	}
 
 	public void setPowers(final double x, final double y, final double turn) {
