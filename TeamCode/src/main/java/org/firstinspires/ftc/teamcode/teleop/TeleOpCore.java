@@ -28,6 +28,6 @@ public class TeleOpCore extends IntegralTeleOp {
 
 		robot.runThread();
 
-//		client.update();//更新缓存
+		client.update();//更新缓存
 	}
 }

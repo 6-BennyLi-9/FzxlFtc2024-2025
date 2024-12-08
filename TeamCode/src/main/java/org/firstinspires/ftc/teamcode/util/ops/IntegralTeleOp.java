@@ -6,11 +6,11 @@ import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.util.Timer;
 import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
+import org.firstinspires.ftc.teamcode.util.Timer;
 
 public abstract class IntegralTeleOp extends OverSpeedOpMode {
-	public  RobotMng           robot;
+	public  RobotMng robot;
 	public  Timer              timer;
 	public  BranchThreadClient client;
 	private boolean            auto_terminate_when_TLE = true;
@@ -29,7 +29,6 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		client = new BranchThreadClient(telemetry);
 
 		telemetry.clearAll();
-		client.startThread();
 
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 	}
