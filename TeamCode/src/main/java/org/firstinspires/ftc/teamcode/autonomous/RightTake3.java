@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSecondSample;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -13,6 +14,9 @@ public class RightTake3 extends RightTake2 {
 		super.initialize();
 
 		//override
+		registerTrajectory("get sample 2",generateBuilder(UtilPoses.RightGetSecondSample)
+				.lineToLinearHeading(RightGetSecondSample.plus(new Pose2d(2)))
+				.build());
 		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
 				.lineToLinearHeading(GetSample.plus(new Pose2d(-10, 0, toRadians(90))))
 				.build());
