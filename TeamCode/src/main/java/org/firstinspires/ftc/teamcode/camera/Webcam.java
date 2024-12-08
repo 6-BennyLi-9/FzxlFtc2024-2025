@@ -20,24 +20,30 @@ public class Webcam extends OpenCvPipeline {
 	public String location = "";
 
 	//定义三个roi检测物体 1280*720
-	static final Rect   LEFT_ROI                = new Rect(new Point(100, 305),//原x=110,y=305
-			new Point(310, 560));//原x=300，y=560
-	static final Rect   MIDDLE_ROI              = new Rect(new Point(560, 280),//原x=610，y=280
-			new Point(840, 490));//原x=690，y=490
-	static final Rect   RIGHT_ROI               = new Rect(new Point(1050, 295),//原x=1050，y=295
-			new Point(1240, 570));//原x=1240，y=570
-	static       double PERCENT_COLOR_THRESHOLD = 0.20;
+	public static Rect   LEFT_ROI   = new Rect(
+			new Point(100, 305),//原x=110,y=305
+			new Point(310, 560) //原x=300，y=560
+	);
+	public static Rect   MIDDLE_ROI = new Rect(
+			new Point(560, 280),//原x=610，y=280
+			new Point(840, 490) //原x=690，y=490
+	);
+	public static Rect   RIGHT_ROI  = new Rect(
+			new Point(1050, 295),//原x=1050，y=295
+			new Point(1240, 570) //原x=1240，y=570
+	);
+	public static double PERCENT_COLOR_THRESHOLD = 0.20;
+
+	//HSV颜色值 需要根据物体更改
+	public static Scalar redLowHSV  = new Scalar(156, 43, 46);//s越大越黑
+	public static Scalar redHighHSV = new Scalar(180, 255, 255);//v越大越白
+
+	public static Scalar blueLowHSV  = new Scalar(100, 43, 46);//s越大越黑
+	public static Scalar blueHighHSV = new Scalar(124, 255, 255);//v越大越白
 
 	@Override
 	public Mat processFrame(final Mat input) {
 		Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-
-		//HSV颜色值 需要根据物体更改
-		final Scalar redLowHSV  = new Scalar(156, 43, 46);//s越大越黑
-		final Scalar redHighHSV = new Scalar(180, 255, 255);//v越大越白
-
-		final Scalar blueLowHSV  = new Scalar(100, 43, 46);//s越大越黑
-		final Scalar blueHighHSV = new Scalar(124, 255, 255);//v越大越白
 
 		Core.inRange(mat, redLowHSV, redHighHSV, matRed);
 		Core.inRange(mat, blueLowHSV, blueHighHSV, matBlue);
