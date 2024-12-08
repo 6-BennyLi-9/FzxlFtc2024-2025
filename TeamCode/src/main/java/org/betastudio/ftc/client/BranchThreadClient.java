@@ -7,7 +7,7 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 
-public class Client extends TelemetryClient {
+public class BranchThreadClient extends TelemetryClient {
 	public static class InfinityLoopAction implements Action {
 		private final Runnable runnable;
 		private       boolean  interrupted;
@@ -29,11 +29,11 @@ public class Client extends TelemetryClient {
 
 	private final Thread updateThread;
 
-	public Client(final Telemetry telemetry) {
+	public BranchThreadClient(final Telemetry telemetry) {
 		this(telemetry, 1);
 	}
 
-	public Client(final Telemetry telemetry, double targetTPS) {
+	public BranchThreadClient(final Telemetry telemetry, double targetTPS) {
 		super(telemetry);
 		updateThread = new Thread(() -> Actions.runAction(new InfinityLoopAction(() -> Actions.runAction(new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)), new StatementAction(super::update))))));
 		try {
