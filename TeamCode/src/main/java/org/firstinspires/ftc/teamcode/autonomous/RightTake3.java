@@ -7,7 +7,7 @@ import static java.lang.Math.toRadians;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Right(1悬挂+2夹取)", preselectTeleOp = "19419", group = "3_Specials")
+@Autonomous(name = "Right(1悬挂+2夹取)", group = "3_Specials")
 public class RightTake3 extends RightTake2 {
 	@Override
 	public void initialize() {
