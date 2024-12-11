@@ -30,8 +30,8 @@ public class RightTake2 extends IntegralAutonomous {
 		registerTrajectory("get sample suspend 1", generateSequenceBuilder(RightGetSecondSample).lineToSplineHeading(GetSample.plus(new Pose2d(0, - 5))).build());
 		registerTrajectory("get sample suspend 2", generateSequenceBuilder(RightSuspend).lineToSplineHeading(GetSample.plus(new Pose2d(0, - 5))).build());
 
-		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).back(5.1).build());
-		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).back(5).build());
+		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).back(4.9).build());
+		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).back(4.9).build());
 
 		registerTrajectory("park", generateBuilder(RightSuspend.plus(new Pose2d(10, 5)).plus(new Pose2d(0,-5.1))).lineToLinearHeading(GetSample.plus(new Pose2d(0, 0, toRadians(- 90)))).build());
 	}
@@ -60,7 +60,7 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("get sample suspend 1");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(600).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		sleep(1500);
 		utils.rstMotors();
 
@@ -70,7 +70,7 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("get sample suspend 2");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(600).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		sleep(1500);
 		utils.rstMotors();
 
