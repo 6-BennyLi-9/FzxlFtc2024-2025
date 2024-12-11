@@ -6,6 +6,6 @@ package org.betastudio.ftc.action;
 public final class FinalNodeAction implements Action {
 	@Override
 	public boolean run() {
-		throw new FinalNodeActionInUsage("DO NOT RUN OR OVERRIDE THE FinalNodeAction");
+		throw new FinalNodeActionInUsage("DO NOT RUN THE FinalNodeAction !!!");
 	}
 }

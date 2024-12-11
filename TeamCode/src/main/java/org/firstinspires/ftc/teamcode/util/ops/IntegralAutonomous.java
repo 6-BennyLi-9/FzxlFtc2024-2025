@@ -24,9 +24,9 @@ import java.util.Map;
 public abstract class IntegralAutonomous extends LinearOpMode {
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
-	public SampleMecanumDrive drive;
-	public TelemetryClient client;
-	public UtilMng            utils;
+	public        SampleMecanumDrive               drive;
+	public        TelemetryClient                  client;
+	public        UtilMng                          utils;
 	public        Timer                            timer;
 
 	@Override
