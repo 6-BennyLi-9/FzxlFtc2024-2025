@@ -45,6 +45,8 @@ public enum GamepadRequestMemories {
 	 * 快慢速切换
 	 */
 	public static final UtilButtonControlSystem highLowSpeedConfigChange;
+	/**抬降arm*/
+	public static final UtilButtonControlSystem flipArm;
 
 	static {
 		sampleIO = new UtilButtonControlSystem(SingleWhenPressed);
@@ -55,6 +57,7 @@ public enum GamepadRequestMemories {
 		clipOption = new UtilButtonControlSystem(SingleWhenPressed);
 		armScaleOperate = new UtilButtonControlSystem(SingleWhenPressed);
 		highLowSpeedConfigChange = new UtilButtonControlSystem(SingleWhenPressed);
+		flipArm=new UtilButtonControlSystem(SingleWhenPressed);
 	}
 
 	public static void syncRequests() {
@@ -65,6 +68,7 @@ public enum GamepadRequestMemories {
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
 		armScaleOperate.sync(gamepad2.right_bumper);
+		flipArm.sync(gamepad2.y);
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
 	}
@@ -79,5 +83,6 @@ public enum GamepadRequestMemories {
 		instance.changeData("clipOption", clipOption);
 		instance.changeData("armScaleOperate", armScaleOperate);
 		instance.changeData("highLowSpeedConfigChange", highLowSpeedConfigChange);
+		instance.changeData("flipArm", flipArm);
 	}
 }

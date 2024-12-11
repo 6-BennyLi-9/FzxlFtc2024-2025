@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.util.mng;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decantOrSuspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.flipArm;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.highLowSpeedConfigChange;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantUpping;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspendPrepare;
@@ -127,6 +128,7 @@ public class RobotMng {
 					break;
 				case 1:
 					ClawOp.open();
+					ArmOp.intake();
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -139,10 +141,15 @@ public class RobotMng {
 			case 1:
 				RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
 				ScaleOp.operate(- gamepad2.left_stick_y * 0.2 + 0.8);
-				ArmOp.intake();
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+		}
+
+		if(flipArm.getEnabled()){
+			if(ScaleOp.ScalePositionTypes.probe == ScaleOp.recent){
+				ArmOp.flipIO();
+			}
 		}
 	}
 

@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
+import java.util.Objects;
+
 public enum ArmOp {
 	;
 
@@ -63,6 +65,13 @@ public enum ArmOp {
 			default:
 				safe();
 				break;
+		}
+	}
+	public static void flipIO(){
+		if (Objects.requireNonNull(recent) == ArmPositionTypes.intake) {
+			idle();
+		} else {
+			init();
 		}
 	}
 
