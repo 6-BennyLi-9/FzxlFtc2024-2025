@@ -11,7 +11,9 @@ public enum PlaceOp {
 	;
 
 	public enum PlacePositionTypes {
-		idle, decant, unknown
+		idle, decant,
+		prepare,
+		unknown
 	}
 
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
@@ -24,7 +26,7 @@ public enum PlaceOp {
 	}
 
 	public static boolean decanting() {
-		return PlacePositionTypes.decant == recent;
+		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
 	}
 
 	public static void init() {
@@ -39,6 +41,11 @@ public enum PlaceOp {
 	public static void idle() {
 		recent = PlacePositionTypes.idle;
 		placeController.setTargetPosition(0);
+	}
+
+	public static void prepare(){
+		recent = PlacePositionTypes.prepare;
+		placeController.setTargetPosition(0.5);
 	}
 
 	public static void safe() {
