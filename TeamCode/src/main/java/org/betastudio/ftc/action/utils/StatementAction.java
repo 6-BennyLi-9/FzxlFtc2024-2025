@@ -1,6 +1,5 @@
 package org.betastudio.ftc.action.utils;
 
-
 import org.betastudio.ftc.action.Action;
 
 public class StatementAction implements Action {
@@ -20,7 +19,6 @@ public class StatementAction implements Action {
 		node.run();
 		return false;
 	}
-
 
 	@Override
 	public String paramsString() {
