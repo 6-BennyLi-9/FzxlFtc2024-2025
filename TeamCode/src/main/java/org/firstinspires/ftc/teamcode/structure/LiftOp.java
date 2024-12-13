@@ -7,15 +7,13 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp {
-	public enum LiftPositionTypes {
-		idle, decantLow, decantHigh, highSuspend, highSuspendPrepare
-	}
 
 	public static LiftPositionTypes recent = LiftPositionTypes.idle;
 	public static LiftCtrl          liftCtrl;

@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.structure.DriveConfig;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
@@ -17,7 +18,7 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 
 	@Override
 	public void op_init() {
-		DriveOp.config = DriveOp.DriveConfig.StraightLinear;
+		DriveOp.config = DriveConfig.StraightLinear;
 		timer = new Timer();
 
 		HardwareConstants.sync(hardwareMap, true);

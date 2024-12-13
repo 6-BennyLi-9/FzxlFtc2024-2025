@@ -4,17 +4,13 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.PlacePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
 public class PlaceOp {
-	public enum PlacePositionTypes {
-		idle, decant,
-		prepare,
-		unknown
-	}
 
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
 

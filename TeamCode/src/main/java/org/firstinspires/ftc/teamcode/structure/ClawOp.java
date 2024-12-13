@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.ClawPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp {
-	public enum ClawPositionTypes {
-		open, close, unknown
-	}
 
 	public static ClawPositionTypes recent = ClawPositionTypes.unknown;
 	public static ServoCtrl         clawControl;

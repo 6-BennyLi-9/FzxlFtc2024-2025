@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.ClipPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp {
-	public enum ClipPositionTypes {
-		open, close, unknown
-	}
 
 	public static ClipPositionTypes recent = ClipPositionTypes.unknown;
 	public static ServoCtrl         clipControl;

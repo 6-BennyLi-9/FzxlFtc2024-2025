@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.structure.DriveConfig;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
 @Disabled
@@ -12,6 +13,6 @@ public class TeleOpUsingPID extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.init();
-		DriveOp.config = DriveOp.DriveConfig.PID;
+		DriveOp.config = DriveConfig.PID;
 	}
 }

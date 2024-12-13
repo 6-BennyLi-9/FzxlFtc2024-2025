@@ -12,9 +12,6 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp {
-	public enum DriveConfig {
-		StraightLinear, PID, SimpleCalibrate
-	}
 
 	public static DriveConfig config = DriveConfig.StraightLinear;
 	public static ChassisCtrl chassisCtrl;

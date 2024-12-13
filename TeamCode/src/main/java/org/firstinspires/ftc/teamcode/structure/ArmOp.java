@@ -5,15 +5,13 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.ArmPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
 public class ArmOp {
-	public enum ArmPositionTypes {
-		idle, intake, safe, unknown
-	}
 
 	public static ArmPositionTypes recent = ArmPositionTypes.unknown;
 	public static ServoCtrl        leftArmControl, rightArmControl;

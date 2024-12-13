@@ -5,13 +5,11 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp {
-	public enum ScalePositionTypes {
-		back, probe, unknown
-	}
 
 	public static ScalePositionTypes recent = ScalePositionTypes.unknown;
 	public static ServoCtrl          leftScaleController, rightScaleController;

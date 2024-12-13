@@ -23,9 +23,11 @@ import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
+import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
+import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 
 import java.util.Map;
 
@@ -82,20 +84,20 @@ public class RobotMng {
 			if (PlaceOp.decanting()) {
 				PlaceOp.idle();
 			}
-			if (LiftOp.LiftPositionTypes.highSuspend == LiftOp.recent() || LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
+			if (LiftPositionTypes.highSuspend == LiftOp.recent() || LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
 				ClipOp.open();
 			}
 
-			LiftOp.sync(LiftOp.LiftPositionTypes.idle);
+			LiftOp.sync(LiftPositionTypes.idle);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.isNotSafe()) {
 				ArmOp.safe();
 			}
 
-			if (LiftOp.LiftPositionTypes.idle == LiftOp.recent()) {
-				LiftOp.sync(LiftOp.LiftPositionTypes.decantLow);
-			} else if (LiftOp.LiftPositionTypes.decantLow == LiftOp.recent()) {
-				LiftOp.sync(LiftOp.LiftPositionTypes.decantHigh);
+			if (LiftPositionTypes.idle == LiftOp.recent()) {
+				LiftOp.sync(LiftPositionTypes.decantLow);
+			} else if (LiftPositionTypes.decantLow == LiftOp.recent()) {
+				LiftOp.sync(LiftPositionTypes.decantHigh);
 			}
 
 			PlaceOp.prepare();
@@ -104,12 +106,12 @@ public class RobotMng {
 				ArmOp.safe();
 			}
 
-			LiftOp.sync(LiftOp.LiftPositionTypes.highSuspendPrepare);
+			LiftOp.sync(LiftPositionTypes.highSuspendPrepare);
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
-				LiftOp.sync(LiftOp.LiftPositionTypes.highSuspend);
+			if (LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
+				LiftOp.sync(LiftPositionTypes.highSuspend);
 			} else{
 				ArmOp.safe();
 				PlaceOp.flip();
@@ -147,7 +149,7 @@ public class RobotMng {
 		}
 
 		if(flipArm.getEnabled()){
-			if(ScaleOp.ScalePositionTypes.probe == ScaleOp.recent){
+			if(ScalePositionTypes.probe == ScaleOp.recent){
 				ArmOp.flipIO();
 			}
 		}
