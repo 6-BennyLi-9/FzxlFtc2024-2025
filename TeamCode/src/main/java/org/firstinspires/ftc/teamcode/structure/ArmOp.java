@@ -10,9 +10,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public enum ArmOp {
-	;
-
+public class ArmOp {
 	public enum ArmPositionTypes {
 		idle, intake, safe, unknown
 	}

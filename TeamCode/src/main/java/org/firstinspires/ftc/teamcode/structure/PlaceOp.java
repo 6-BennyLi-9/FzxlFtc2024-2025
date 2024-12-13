@@ -9,8 +9,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public enum PlaceOp {
-	;
+public class PlaceOp {
 	public enum PlacePositionTypes {
 		idle, decant,
 		prepare,

@@ -7,8 +7,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum RotateOp {
-	;
+public class RotateOp {
 	public static ServoCtrl rotateController;
 
 	public static void connect() {

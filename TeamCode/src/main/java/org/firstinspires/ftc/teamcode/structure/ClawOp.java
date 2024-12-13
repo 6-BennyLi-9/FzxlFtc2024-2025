@@ -7,9 +7,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum ClawOp {
-	;
-
+public class ClawOp {
 	public enum ClawPositionTypes {
 		open, close, unknown
 	}

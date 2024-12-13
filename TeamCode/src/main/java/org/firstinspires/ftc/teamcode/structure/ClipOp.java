@@ -7,9 +7,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum ClipOp {
-	;
-
+public class ClipOp {
 	public enum ClipPositionTypes {
 		open, close, unknown
 	}

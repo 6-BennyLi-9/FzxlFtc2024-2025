@@ -8,9 +8,7 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum ScaleOp {
-	;
-
+public class ScaleOp {
 	public enum ScalePositionTypes {
 		back, probe, unknown
 	}

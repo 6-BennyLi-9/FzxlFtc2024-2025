@@ -11,9 +11,7 @@ import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public enum DriveOp {
-	;
-
+public class DriveOp {
 	public enum DriveConfig {
 		StraightLinear, PID, SimpleCalibrate
 	}

@@ -6,9 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-public enum SimpleDriveOp {
-	;
-
+public class SimpleDriveOp {
 	private static final class SimpleDriveAction implements Action {
 		private final double x, y, turn;
 
