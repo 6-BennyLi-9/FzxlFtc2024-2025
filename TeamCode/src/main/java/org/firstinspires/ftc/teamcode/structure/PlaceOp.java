@@ -11,14 +11,12 @@ import java.util.Objects;
 
 public enum PlaceOp {
 	;
-
-
-
 	public enum PlacePositionTypes {
 		idle, decant,
 		prepare,
-		unknown;
+		unknown
 	}
+
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
 
 	public static ServoCtrl          placeController;
