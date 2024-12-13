@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSecondSample;
-import static java.lang.Math.toRadians;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightParkPrepare;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -18,7 +17,7 @@ public class RightTake3 extends RightTake2 {
 				.lineToLinearHeading(RightGetSecondSample.plus(new Pose2d(2)))
 				.build());
 		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
-				.lineToLinearHeading(GetSample.plus(new Pose2d(-10, 0, toRadians(90))))
+				.lineToLinearHeading(RightParkPrepare)
 				.build());
 	}
 
@@ -40,12 +39,11 @@ public class RightTake3 extends RightTake2 {
 
 		sleep(900);
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).armsToSafePosition().decant().runAsThread();
-		sleep(900);
-
-		runTrajectory("park");
 		sleep(1000);
 
-		utils.boxRst().runCached();
+		utils.decant().liftSuspendLv1().runAsThread();
+		runTrajectory("park");
+		sleep(1000);
 
 		flagging_op_complete();
 	}

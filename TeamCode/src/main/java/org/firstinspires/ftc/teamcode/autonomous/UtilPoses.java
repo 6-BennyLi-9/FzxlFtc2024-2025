@@ -27,10 +27,11 @@ public enum UtilPoses {
 	RightThirdSample = new Pose2d(- 55.5, RightFirstSample.getY(), RightFirstSample.getHeading()),
 
 	//right take 2
-	RightGetFirstSample = new Pose2d(- 49.5, 48, toRadians(- 90)),
+	RightGetFirstSample = new Pose2d(- 49.5, 45, toRadians(- 90)),
 	RightGetSecondSample = new Pose2d(- 59.5, RightGetFirstSample.getY(), RightGetFirstSample.getHeading()),
 
 	GetSample = new Pose2d(- 50, 61, toRadians(- 90)),
 
-	LeftParkPrepare = new Pose2d(36, 12, toRadians(0));
+	LeftParkPrepare = new Pose2d(36, 12, toRadians(0)),
+	RightParkPrepare = new Pose2d(-40, 12, toRadians(180));
 }
