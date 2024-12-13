@@ -31,10 +31,6 @@ public class LiftOp implements HardwareController {
 
 	public long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
-	public static LiftPositionTypes recent() {
-		return recent;
-	}
-
 	@NonNull
 	@Contract(" -> new")
 	public Action getController() {
