@@ -1,25 +1,43 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.GetSample;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetFirstSample;
 import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightGetSecondSample;
-import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightParkPrepare;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightStart;
+import static org.firstinspires.ftc.teamcode.autonomous.UtilPoses.RightSuspend;
+
+import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
+
 @Autonomous(name = "Right(1悬挂+2夹取)", group = "3_Specials")
-public class RightTake3 extends RightTake2 {
+public class RightTake3 extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		super.initialize();
+		drive.setPoseEstimate(RightStart);
+		client.addData("初始化点位", "_ _ |<");
 
-		//override
-		registerTrajectory("get sample 2",generateBuilder(UtilPoses.RightGetSecondSample)
-				.lineToLinearHeading(RightGetSecondSample.plus(new Pose2d(2)))
+		registerTrajectory("suspend preload", generateBuilder(RightStart)
+				.lineToLinearHeading(RightSuspend)
 				.build());
+
+		registerTrajectory("get sample 1", generateBuilder(RightSuspend)
+				.lineToLinearHeading(RightGetFirstSample)
+				.build());
+		registerTrajectory("get sample 2", generateBuilder(RightGetFirstSample)
+				.lineToLinearHeading(RightGetSecondSample)
+				.build());
+
 		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
-				.lineToLinearHeading(RightParkPrepare)
+				.lineToLinearHeading(GetSample.plus(new Pose2d(0,0, toRadians(180))))
 				.build());
 	}
+
+	public static double scaleGetPosition = 0.82;
 
 	@Override
 	public void linear() {
@@ -44,6 +62,7 @@ public class RightTake3 extends RightTake2 {
 		utils.decant().liftSuspendLv1().runAsThread();
 		runTrajectory("park");
 		sleep(1000);
+		utils.boxRst().addAction(SimpleDriveOp.build(0, - 0.25, 0)).runCached();
 
 		flagging_op_complete();
 	}
