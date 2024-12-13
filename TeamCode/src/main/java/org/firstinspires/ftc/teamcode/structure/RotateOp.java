@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
-import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
-import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
-import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
+import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
+import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class RotateOp implements HardwareController, InitializeRequested , TagRequested {
