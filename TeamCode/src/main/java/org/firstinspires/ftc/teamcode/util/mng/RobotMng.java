@@ -110,11 +110,9 @@ public class RobotMng {
 		if (decantOrSuspend.getEnabled()) {
 			if (LiftOp.LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
 				LiftOp.sync(LiftOp.LiftPositionTypes.highSuspend);
-			} else if (PlaceOp.PlacePositionTypes.prepare == PlaceOp.recent) {
+			} else{
 				ArmOp.safe();
 				PlaceOp.decant();
-			} else {
-				PlaceOp.idle();
 			}
 		}
 
