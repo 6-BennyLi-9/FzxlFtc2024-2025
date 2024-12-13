@@ -112,7 +112,7 @@ public class RobotMng {
 				LiftOp.sync(LiftOp.LiftPositionTypes.highSuspend);
 			} else{
 				ArmOp.safe();
-				PlaceOp.decant();
+				PlaceOp.flip();
 			}
 		}
 

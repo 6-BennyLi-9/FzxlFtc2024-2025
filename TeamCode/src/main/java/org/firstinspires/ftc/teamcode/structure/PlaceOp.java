@@ -7,18 +7,21 @@ import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
+import java.util.Objects;
+
 public enum PlaceOp {
 	;
+
+
 
 	public enum PlacePositionTypes {
 		idle, decant,
 		prepare,
-		unknown
+		unknown;
 	}
-
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
-	public static ServoCtrl          placeController;
 
+	public static ServoCtrl          placeController;
 	public static void connect() {
 		placeController = new ServoCtrl(HardwareConstants.place, 0);
 
@@ -64,5 +67,13 @@ public enum PlaceOp {
 		final Action res = getController();
 		init();
 		return res;
+	}
+
+	public static void flip() {
+		if (Objects.requireNonNull(recent) == PlacePositionTypes.idle) {
+			decant();
+		} else {
+			idle();
+		}
 	}
 }
