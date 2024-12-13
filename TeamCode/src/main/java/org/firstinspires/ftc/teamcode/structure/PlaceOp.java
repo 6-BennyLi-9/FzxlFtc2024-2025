@@ -6,63 +6,69 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.PlacePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp {
-
+public class PlaceOp implements HardwareController, InitializeRequested {
+	private static PlaceOp instance;
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
 
+	public static PlaceOp getInstance(){
+		return instance;
+	}
+
 	public static ServoCtrl          placeController;
-	public static void connect() {
+	public void connect() {
 		placeController = new ServoCtrl(HardwareConstants.place, 0);
 
 		placeController.setTag("place");
 	}
 
-	public static boolean decanting() {
+	public boolean decanting() {
 		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
 	}
 
-	public static void init() {
+	public void init() {
 		idle();
 	}
 
-	public static void decant() {
+	public void decant() {
 		recent = PlacePositionTypes.decant;
 		placeController.setTargetPosition(1);
 	}
 
-	public static void idle() {
+	public void idle() {
 		recent = PlacePositionTypes.idle;
 		placeController.setTargetPosition(0);
 	}
 
-	public static void prepare(){
+	public void prepare(){
 		recent = PlacePositionTypes.prepare;
 		placeController.setTargetPosition(0.5);
 	}
 
-	public static void safe() {
+	public void safe() {
 		placeController.setTargetPosition(0.28);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return placeController;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
 		return res;
 	}
 
-	public static void flip() {
+	public void flip() {
 		if (Objects.requireNonNull(recent) == PlacePositionTypes.idle) {
 			decant();
 		} else {

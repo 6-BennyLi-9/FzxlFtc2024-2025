@@ -23,16 +23,18 @@ import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
+import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 
 import java.util.Map;
 
 /**
- * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} ， {@link #initActions()}
+ * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)}
  */
 public class RobotMng {
 	public static final double  driverTriggerBufFal = 0.5;
@@ -40,6 +42,8 @@ public class RobotMng {
 	public static final double  rotateTriggerBufFal = 0.01;
 	@NonNull
 	public static       Gamepad gamepad1, gamepad2;
+
+	public Map < String , HardwareController > controllers;
 
 	static {
 		gamepad1 = new Gamepad();
@@ -51,6 +55,14 @@ public class RobotMng {
 	public int                 updateTime;
 
 	public RobotMng() {
+		controllers.put("arm", new ArmOp());
+		controllers.put("clip", new ClawOp());
+		controllers.put("claw", new  ClawOp());
+		controllers.put("lift", new  LiftOp());
+		controllers.put("place", new  PlaceOp());
+		controllers.put("rotate", new  RotateOp());
+		controllers.put("scale", new  ScaleOp());
+		controllers.put("drive", new  DriveOp());
 	}
 
 	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
@@ -59,62 +71,63 @@ public class RobotMng {
 	}
 
 	public void initActions() {
-		thread.add("arm", ArmOp.initController());
-		thread.add("clip", ClipOp.initController());
-		thread.add("claw", ClawOp.initController());
-		thread.add("lift", LiftOp.initController());
-		thread.add("place", PlaceOp.initController());
-		thread.add("rotate", RotateOp.initController());
-		thread.add("scale", ScaleOp.initController());
-		thread.add("drive", DriveOp.initController());
+		for (Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
+			String             k = entry.getKey();
+			HardwareController v = entry.getValue();
+
+			v.connect();
+			if(v instanceof InitializeRequested){
+				((InitializeRequested) v).init();
+			}
+		}
 	}
 
 	public final void operateThroughGamepad() {
 		syncRequests();
 
 		if (clipOption.getEnabled()) {
-			ClipOp.change();
+			ClipOp.getInstance().change();
 		}
 
 		if (sampleIO.getEnabled()) {
-			ClawOp.change();
+			ClawOp.getInstance().change();
 		}
 
 		if (liftIDLE.getEnabled()) {
-			if (PlaceOp.decanting()) {
-				PlaceOp.idle();
+			if (PlaceOp.getInstance().decanting()) {
+				PlaceOp.getInstance().idle();
 			}
-			if (LiftPositionTypes.highSuspend == LiftOp.recent() || LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
-				ClipOp.open();
+			if (LiftPositionTypes.highSuspend == LiftOp.getInstance().recent() || LiftPositionTypes.highSuspendPrepare == LiftOp.getInstance().recent()) {
+				ClipOp.getInstance().open();
 			}
 
-			LiftOp.sync(LiftPositionTypes.idle);
+			LiftOp.getInstance().sync(LiftPositionTypes.idle);
 		} else if (liftDecantUpping.getEnabled()) {
-			if (ArmOp.isNotSafe()) {
-				ArmOp.safe();
+			if (ArmOp.getInstance().isNotSafe()) {
+				ArmOp.getInstance().safe();
 			}
 
-			if (LiftPositionTypes.idle == LiftOp.recent()) {
-				LiftOp.sync(LiftPositionTypes.decantLow);
-			} else if (LiftPositionTypes.decantLow == LiftOp.recent()) {
-				LiftOp.sync(LiftPositionTypes.decantHigh);
+			if (LiftPositionTypes.idle == LiftOp.getInstance().recent()) {
+				LiftOp.getInstance().sync(LiftPositionTypes.decantLow);
+			} else if (LiftPositionTypes.decantLow == LiftOp.getInstance().recent()) {
+				LiftOp.getInstance().sync(LiftPositionTypes.decantHigh);
 			}
 
-			PlaceOp.prepare();
+			PlaceOp.getInstance().prepare();
 		} else if (liftHighSuspendPrepare.getEnabled()) {
-			if (ArmOp.isNotSafe()) {
-				ArmOp.safe();
+			if (ArmOp.getInstance().isNotSafe()) {
+				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.sync(LiftPositionTypes.highSuspendPrepare);
+			LiftOp.getInstance().sync(LiftPositionTypes.highSuspendPrepare);
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
-				LiftOp.sync(LiftPositionTypes.highSuspend);
+			if (LiftPositionTypes.highSuspendPrepare == LiftOp.getInstance().recent()) {
+				LiftOp.getInstance().sync(LiftPositionTypes.highSuspend);
 			} else{
-				ArmOp.safe();
-				PlaceOp.flip();
+				ArmOp.getInstance().safe();
+				PlaceOp.getInstance().flip();
 			}
 		}
 
@@ -124,13 +137,13 @@ public class RobotMng {
 			//初始化
 			switch (armScaleOperate.ticker.getTicked()) {
 				case 0:
-					RotateOp.mid();
-					PlaceOp.idle();
-					ArmOp.idle();
+					RotateOp.getInstance().mid();
+					PlaceOp.getInstance().idle();
+					ArmOp.getInstance().idle();
 					break;
 				case 1:
-					ClawOp.open();
-					ArmOp.intake();
+					ClawOp.getInstance().open();
+					ArmOp.getInstance().intake();
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -138,11 +151,11 @@ public class RobotMng {
 		}
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
-				ScaleOp.back();
+				ScaleOp.getInstance().back();
 				break;
 			case 1:
-				RotateOp.turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.operate(- gamepad2.left_stick_y * 0.2 + 0.8);
+				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
+				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -150,7 +163,7 @@ public class RobotMng {
 
 		if(flipArm.getEnabled()){
 			if(ScalePositionTypes.probe == ScaleOp.recent){
-				ArmOp.flipIO();
+				ArmOp.getInstance().flipIO();
 			}
 		}
 	}
@@ -164,19 +177,19 @@ public class RobotMng {
 			}
 		}
 
-		DriveOp.sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, driveBufPower);
+		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, driveBufPower);
 
 		if (gamepad1.left_bumper) {
-			DriveOp.additions(0, 0, - 0.2);
+			DriveOp.getInstance().additions(0, 0, - 0.2);
 		}
 		if (gamepad1.right_bumper) {
-			DriveOp.additions(0, 0, 0.2);
+			DriveOp.getInstance().additions(0, 0, 0.2);
 		}
 
-		DriveOp.additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
+		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
 
 		if (gamepad1.a) {
-			DriveOp.targetAngleRst();
+			DriveOp.getInstance().targetAngleRst();
 		}
 	}
 

@@ -8,15 +8,20 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp {
-
+public class DriveOp implements HardwareController {
+	private static DriveOp instance;
 	public static DriveConfig config = DriveConfig.StraightLinear;
 	public static ChassisCtrl chassisCtrl;
 
-	public static void connect() {
+	public static DriveOp getInstance(){
+		return instance;
+	}
+
+	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareConstants.leftFront, HardwareConstants.leftRear, HardwareConstants.rightFront, HardwareConstants.rightRear);
 
 		chassisCtrl.setTag("chassis");
@@ -28,7 +33,7 @@ public class DriveOp {
 
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
 
-	private static void syncAngle() {
+	private void syncAngle() {
 		final double currentAngle = HardwareConstants.imu.getAngularOrientation().firstAngle;
 		final double angleErr     = targetAngle - currentAngle;
 
@@ -49,11 +54,11 @@ public class DriveOp {
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return chassisCtrl;
 	}
 
-	public static void sync(final double x, final double y, final double turn, final double bufPower) {
+	public void sync(final double x, final double y, final double turn, final double bufPower) {
 		DriveOp.x = x * bufPower;
 		DriveOp.y = y * bufPower;
 		DriveOp.turn = turn * bufPower;
@@ -64,20 +69,20 @@ public class DriveOp {
 		chassisCtrl.setPowers(x, y, output);
 	}
 
-	public static void additions(final double x, final double y, final double turn) {
+	public void additions(final double x, final double y, final double turn) {
 		additions(x, y, turn, 1);
 	}
 
-	public static void additions(final double x, final double y, final double turn, final double bufPower) {
+	public void additions(final double x, final double y, final double turn, final double bufPower) {
 		sync(DriveOp.x + x, DriveOp.y + y, DriveOp.turn + turn, bufPower);
 	}
 
-	public static void targetAngleRst() {
+	public void targetAngleRst() {
 		targetAngle = 0;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		return getController();
 	}

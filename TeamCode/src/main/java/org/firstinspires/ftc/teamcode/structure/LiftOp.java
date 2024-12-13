@@ -9,34 +9,39 @@ import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp {
-
+public class LiftOp implements HardwareController {
+	private static LiftOp instance;
 	public static LiftPositionTypes recent = LiftPositionTypes.idle;
 	public static LiftCtrl          liftCtrl;
 
-	public static void connect() {
+	public static LiftOp getInstance(){
+		return instance;
+	}
+
+	public void connect() {
 		liftCtrl = new DcLiftCtrl(HardwareConstants.lift);
 
 		liftCtrl.setTag("lift");
 	}
 
-	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
+	public long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
-	public static LiftPositionTypes recent() {
+	public LiftPositionTypes recent() {
 		return recent;
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return liftCtrl;
 	}
 
-	public static void sync(@NonNull final LiftPositionTypes option) {
+	public void sync(@NonNull final LiftPositionTypes option) {
 		recent = option;
 		switch (option) {
 			case idle:
@@ -60,12 +65,12 @@ public class LiftOp {
 	/**
 	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
 	 */
-	public static boolean decanting() {
+	public boolean decanting() {
 		return LiftPositionTypes.decantHigh == recent || LiftPositionTypes.decantLow == recent;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		return getController();
 	}

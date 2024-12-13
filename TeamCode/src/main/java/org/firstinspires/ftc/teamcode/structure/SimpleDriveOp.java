@@ -5,8 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.jetbrains.annotations.Contract;
 
-public class SimpleDriveOp {
-
+public final class SimpleDriveOp {
 	@NonNull
 	@Contract("_, _, _ -> new")
 	public static Action build(final double x, final double y, final double turn) {

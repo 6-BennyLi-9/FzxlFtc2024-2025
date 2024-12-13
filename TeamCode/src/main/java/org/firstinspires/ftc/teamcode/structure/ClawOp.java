@@ -6,24 +6,32 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ClawPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ClawOp {
-
+public class ClawOp implements HardwareController , InitializeRequested {
+	private static ClawOp instance;
 	public static ClawPositionTypes recent = ClawPositionTypes.unknown;
 	public static ServoCtrl         clawControl;
 
-	public static void connect() {
+	public static ClawOp getInstance(){
+		return instance;
+	}
+
+	@Override
+	public void connect() {
 		clawControl = new ServoCtrl(HardwareConstants.claw, 0);
 
 		clawControl.setTag("claw");
 	}
 
-	public static void init() {
+	@Override
+	public void init() {
 		open();
 	}
 
-	public static void change() {
+	public void change() {
 		switch (recent) {
 			case close:
 				open();
@@ -35,24 +43,24 @@ public class ClawOp {
 		}
 	}
 
-	public static void open() {
+	public void open() {
 		recent = ClawPositionTypes.open;
 		clawControl.setTargetPosition(0.65);
 	}
 
-	public static void close() {
+	public void close() {
 		recent = ClawPositionTypes.close;
 		clawControl.setTargetPosition(0.45);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return clawControl;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();

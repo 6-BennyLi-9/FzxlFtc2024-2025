@@ -7,14 +7,20 @@ import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp {
-
+public class ScaleOp implements HardwareController, InitializeRequested {
+	private static ScaleOp instance;
 	public static ScalePositionTypes recent = ScalePositionTypes.unknown;
 	public static ServoCtrl          leftScaleController, rightScaleController;
 
-	public static void connect() {
+	public static ScaleOp getInstance(){
+		return instance;
+	}
+
+	public void connect() {
 		leftScaleController = new ServoCtrl(HardwareConstants.leftScale, 1);
 		rightScaleController = new ServoCtrl(HardwareConstants.rightScale, 0.5);
 
@@ -24,23 +30,23 @@ public class ScaleOp {
 
 	public static double smooth = 0.2;
 
-	public static void manage(double position) {
+	public void manage(double position) {
 		position = Math.max(position, 0.5);
 		leftScaleController.setTargetPosition(1.5 - position);
 		rightScaleController.setTargetPosition(position);
 	}
 
-	public static void manageSmooth(double position) {
+	public void manageSmooth(double position) {
 		position = Math.min(Math.max(position, 0.5), 1);
 		leftScaleController.setTargetPositionTolerance(1.5 - position, smooth);
 		rightScaleController.setTargetPositionTolerance(position, smooth);
 	}
 
-	public static void init() {
+	public void init() {
 		back();
 	}
 
-	public static void flip() {
+	public void flip() {
 		if (ScalePositionTypes.probe == recent) {
 			back();
 		} else {
@@ -48,29 +54,29 @@ public class ScaleOp {
 		}
 	}
 
-	public static void probe() {
+	public void probe() {
 		recent = ScalePositionTypes.probe;
 		manage(1);
 	}
 
-	public static void back() {
+	public void back() {
 		recent = ScalePositionTypes.back;
 		manage(0.5);
 	}
 
-	public static void operate(final double position) {
+	public void operate(final double position) {
 		recent = ScalePositionTypes.probe;
 		manageSmooth(position);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return new ThreadedAction(leftScaleController, rightScaleController);
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();

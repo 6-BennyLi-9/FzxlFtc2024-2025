@@ -6,24 +6,31 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ClipPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp {
-
+public class ClipOp implements HardwareController , InitializeRequested {
+	private static ClipOp instance;
 	public static ClipPositionTypes recent = ClipPositionTypes.unknown;
 	public static ServoCtrl         clipControl;
 
-	public static void connect() {
+	public static ClipOp getInstance(){
+		return instance;
+	}
+
+	@Override
+	public void connect() {
 		clipControl = new ServoCtrl(HardwareConstants.clip, 0);
 
 		clipControl.setTag("clip");
 	}
 
-	public static void init() {
+	public void init() {
 		open();
 	}
 
-	public static void change() {
+	public void change() {
 		switch (recent) {
 			case close:
 				open();
@@ -35,24 +42,24 @@ public class ClipOp {
 		}
 	}
 
-	public static void open() {
+	public void open() {
 		recent = ClipPositionTypes.open;
 		clipControl.setTargetPosition(0);
 	}
 
-	public static void close() {
+	public void close() {
 		recent = ClipPositionTypes.close;
 		clipControl.setTargetPosition(0.5);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return clipControl;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();

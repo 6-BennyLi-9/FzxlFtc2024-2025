@@ -7,16 +7,23 @@ import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ArmPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp {
-
+public class ArmOp implements HardwareController, InitializeRequested {
+	private static ArmOp instance;
 	public static ArmPositionTypes recent = ArmPositionTypes.unknown;
 	public static ServoCtrl        leftArmControl, rightArmControl;
 
-	public static void connect() {
+	public static ArmOp getInstance(){
+		return instance;
+	}
+
+	@Override
+	public void connect() {
 		leftArmControl = new ServoCtrl(HardwareConstants.leftArm, 0.7);
 		rightArmControl = new ServoCtrl(HardwareConstants.rightArm, 0.7);
 
@@ -24,32 +31,33 @@ public class ArmOp {
 		rightArmControl.setTag("rightArm");
 	}
 
-	public static void init() {
+	@Override
+	public void init() {
 		safe();
 	}
 
-	public static void manage(double position) {
+	public void manage(double position) {
 		position = Math.min(Math.max(position, 0), 0.92);
 		leftArmControl.setTargetPosition(position + 0.08);
 		rightArmControl.setTargetPosition(position);
 	}
 
-	public static void intake() {
+	public void intake() {
 		recent = ArmPositionTypes.intake;
 		manage(0.11);
 	}
 
-	public static void idle() {
+	public void idle() {
 		recent = ArmPositionTypes.idle;
 		manage(0.79);
 	}
 
-	public static void safe() {
+	public void safe() {
 		recent = ArmPositionTypes.safe;
 		manage(0.61);
 	}
 
-	public static void flip() {
+	public void flip() {
 		switch (recent) {
 			case intake:
 				idle();
@@ -63,7 +71,7 @@ public class ArmOp {
 				break;
 		}
 	}
-	public static void flipIO(){
+	public void flipIO(){
 		if (Objects.requireNonNull(recent) == ArmPositionTypes.intake) {
 			idle();
 		} else {
@@ -71,18 +79,18 @@ public class ArmOp {
 		}
 	}
 
-	public static boolean isNotSafe() {
+	public boolean isNotSafe() {
 		return ArmPositionTypes.safe != recent;
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return new ThreadedAction(leftArmControl, rightArmControl);
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();

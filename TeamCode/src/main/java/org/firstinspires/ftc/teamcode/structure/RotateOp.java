@@ -5,43 +5,44 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
 import org.jetbrains.annotations.Contract;
 
-public class RotateOp {
+public class RotateOp implements HardwareController, InitializeRequested {
+	private static RotateOp instance;
 	public static ServoCtrl rotateController;
 
-	public static void connect() {
+	public static RotateOp getInstance(){
+		return instance;
+	}
+
+	public void connect() {
 		rotateController = new ServoCtrl(HardwareConstants.rotate, 0.79);
 
 		rotateController.setTag("rotate");
 	}
 
-	public static void init() {
+	public void init() {
 		mid();
 	}
 
-	public static void mid() {
+	public void mid() {
 		rotateController.setTargetPosition(0.79);
 	}
 
-	//	public static void turnLeft(){
-//		rotateController.changeTargetPositionBy(0.1);
-//	}
-//	public static void turnRight(){
-//		rotateController.changeTargetPositionBy(-0.1);
-//	}
-	public static void turn(final double position) {
+	public void turn(final double position) {
 		rotateController.changeTargetPositionBy(position);
 	}
 
 	@NonNull
 	@Contract(" -> new")
-	public static Action getController() {
+	public Action getController() {
 		return rotateController;
 	}
 
 	@NonNull
-	public static Action initController() {
+	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
