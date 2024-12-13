@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements HardwareController, InitializeRequested , TagRequested {
-	private static PlaceOp instance;
-	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
+	public static  PlacePositionTypes recent = PlacePositionTypes.unknown;
+	private static PlaceOp            instance;
 
 	public static PlaceOp getInstance(){
 		return instance;
@@ -35,6 +35,11 @@ public class PlaceOp implements HardwareController, InitializeRequested , TagReq
 	@Override
 	public Action getController() {
 		return placeController;
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	@Override

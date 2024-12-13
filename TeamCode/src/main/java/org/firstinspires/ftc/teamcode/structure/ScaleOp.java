@@ -13,9 +13,9 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements HardwareController, InitializeRequested , TagRequested {
-	private static ScaleOp instance;
-	public static ScalePositionTypes recent = ScalePositionTypes.unknown;
-	public static ServoCtrl          leftScaleController, rightScaleController;
+	public static  ScalePositionTypes recent = ScalePositionTypes.unknown;
+	public static  ServoCtrl          leftScaleController, rightScaleController;
+	private static ScaleOp            instance;
 
 	public static ScaleOp getInstance(){
 		return instance;
@@ -35,6 +35,11 @@ public class ScaleOp implements HardwareController, InitializeRequested , TagReq
 	@Override
 	public Action getController() {
 		return new ThreadedAction(leftScaleController, rightScaleController);
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	public static double smooth = 0.2;

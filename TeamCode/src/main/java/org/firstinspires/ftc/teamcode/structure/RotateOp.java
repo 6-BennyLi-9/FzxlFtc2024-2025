@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class RotateOp implements HardwareController, InitializeRequested , TagRequested {
-	private static RotateOp instance;
-	public static ServoCtrl rotateController;
+	public static  ServoCtrl rotateController;
+	private static RotateOp  instance;
 
 	public static RotateOp getInstance(){
 		return instance;
@@ -35,6 +35,11 @@ public class RotateOp implements HardwareController, InitializeRequested , TagRe
 	@Override
 	public Action getController() {
 		return rotateController;
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	public void mid() {

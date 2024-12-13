@@ -15,9 +15,9 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements HardwareController, InitializeRequested , TagRequested {
-	private static ArmOp instance;
-	public static ArmPositionTypes recent = ArmPositionTypes.unknown;
-	public static ServoCtrl        leftArmControl, rightArmControl;
+	public static  ArmPositionTypes recent = ArmPositionTypes.unknown;
+	public static  ServoCtrl        leftArmControl, rightArmControl;
+	private static ArmOp            instance;
 
 	public static ArmOp getInstance(){
 		return instance;
@@ -42,6 +42,11 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 	@Override
 	public Action getController() {
 		return new ThreadedAction(leftArmControl, rightArmControl);
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	public void manage(double position) {

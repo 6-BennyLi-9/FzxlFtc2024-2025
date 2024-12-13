@@ -12,9 +12,9 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements HardwareController , InitializeRequested , TagRequested {
-	private static ClipOp instance;
-	public static ClipPositionTypes recent = ClipPositionTypes.unknown;
-	public static ServoCtrl         clipControl;
+	public static  ClipPositionTypes recent = ClipPositionTypes.unknown;
+	public static  ServoCtrl         clipControl;
+	private static ClipOp            instance;
 
 	public static ClipOp getInstance(){
 		return instance;
@@ -37,6 +37,11 @@ public class ClipOp implements HardwareController , InitializeRequested , TagReq
 	@Override
 	public Action getController() {
 		return clipControl;
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	public void change() {

@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -44,7 +45,7 @@ public class RobotMng {
 	@NonNull
 	public static       Gamepad gamepad1, gamepad2;
 
-	public Map < String , HardwareController > controllers;
+	public Map < String , HardwareController > controllers=new HashMap <>();
 
 	static {
 		gamepad1 = new Gamepad();
@@ -77,6 +78,8 @@ public class RobotMng {
 			HardwareController v = entry.getValue();
 
 			v.connect();
+			v.writeToInstance();
+
 			if(v instanceof InitializeRequested){
 				((InitializeRequested) v).init();
 			}

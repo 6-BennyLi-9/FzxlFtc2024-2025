@@ -14,9 +14,9 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController , TagRequested {
-	private static DriveOp instance;
-	public static DriveConfig config = DriveConfig.StraightLinear;
-	public static ChassisCtrl chassisCtrl;
+	public static  DriveConfig config = DriveConfig.StraightLinear;
+	public static  ChassisCtrl chassisCtrl;
+	private static DriveOp     instance;
 
 	public static DriveOp getInstance(){
 		return instance;
@@ -34,6 +34,11 @@ public class DriveOp implements HardwareController , TagRequested {
 	@Override
 	public Action getController() {
 		return chassisCtrl;
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	public static double kP = 0.0001, kI, kD;

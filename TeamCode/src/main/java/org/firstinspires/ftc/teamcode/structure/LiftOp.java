@@ -16,9 +16,9 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements HardwareController , TagRequested {
-	private static LiftOp instance;
-	public static LiftPositionTypes recent = LiftPositionTypes.idle;
-	public static LiftCtrl          liftCtrl;
+	public static  LiftPositionTypes recent = LiftPositionTypes.idle;
+	public static  LiftCtrl          liftCtrl;
+	private static LiftOp            instance;
 
 	public static LiftOp getInstance(){
 		return instance;
@@ -29,6 +29,11 @@ public class LiftOp implements HardwareController , TagRequested {
 	@Override
 	public Action getController() {
 		return liftCtrl;
+	}
+
+	@Override
+	public void writeToInstance() {
+		instance=this;
 	}
 
 	@Override
