@@ -26,6 +26,7 @@ public class ClipOp implements HardwareController , InitializeRequested {
 		clipControl.setTag("clip");
 	}
 
+	@Override
 	public void init() {
 		open();
 	}

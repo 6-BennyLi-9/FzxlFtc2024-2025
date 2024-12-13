@@ -23,6 +23,7 @@ public class LiftOp implements HardwareController {
 		return instance;
 	}
 
+	@Override
 	public void connect() {
 		liftCtrl = new DcLiftCtrl(HardwareConstants.lift);
 

@@ -17,12 +17,14 @@ public class RotateOp implements HardwareController, InitializeRequested {
 		return instance;
 	}
 
+	@Override
 	public void connect() {
 		rotateController = new ServoCtrl(HardwareConstants.rotate, 0.79);
 
 		rotateController.setTag("rotate");
 	}
 
+	@Override
 	public void init() {
 		mid();
 	}

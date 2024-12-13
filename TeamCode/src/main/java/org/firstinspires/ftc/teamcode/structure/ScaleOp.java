@@ -20,6 +20,7 @@ public class ScaleOp implements HardwareController, InitializeRequested {
 		return instance;
 	}
 
+	@Override
 	public void connect() {
 		leftScaleController = new ServoCtrl(HardwareConstants.leftScale, 1);
 		rightScaleController = new ServoCtrl(HardwareConstants.rightScale, 0.5);
@@ -42,6 +43,7 @@ public class ScaleOp implements HardwareController, InitializeRequested {
 		rightScaleController.setTargetPositionTolerance(position, smooth);
 	}
 
+	@Override
 	public void init() {
 		back();
 	}

@@ -21,6 +21,7 @@ public class DriveOp implements HardwareController {
 		return instance;
 	}
 
+	@Override
 	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareConstants.leftFront, HardwareConstants.leftRear, HardwareConstants.rightFront, HardwareConstants.rightRear);
 

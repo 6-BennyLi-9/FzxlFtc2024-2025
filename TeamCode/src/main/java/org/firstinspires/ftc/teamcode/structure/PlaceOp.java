@@ -21,6 +21,8 @@ public class PlaceOp implements HardwareController, InitializeRequested {
 	}
 
 	public static ServoCtrl          placeController;
+
+	@Override
 	public void connect() {
 		placeController = new ServoCtrl(HardwareConstants.place, 0);
 
@@ -31,6 +33,7 @@ public class PlaceOp implements HardwareController, InitializeRequested {
 		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
 	}
 
+	@Override
 	public void init() {
 		idle();
 	}
