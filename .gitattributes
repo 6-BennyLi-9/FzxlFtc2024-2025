@@ -1,2 +1,2 @@
-doc/legal/rhb/  filter=lfs merge=lfs -text
-/doc/legal/rhb/ filter=lfs merge=lfs -text
+doc/legal/rhb/
+/doc/legal/rhb/
