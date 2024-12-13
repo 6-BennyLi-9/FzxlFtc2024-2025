@@ -97,7 +97,7 @@ public class RobotMng {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftPositionTypes.highSuspend == LiftOp.getInstance().recent() || LiftPositionTypes.highSuspendPrepare == LiftOp.getInstance().recent()) {
+			if (LiftPositionTypes.highSuspend == LiftOp.recent() || LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
 				ClipOp.getInstance().open();
 			}
 
@@ -107,9 +107,9 @@ public class RobotMng {
 				ArmOp.getInstance().safe();
 			}
 
-			if (LiftPositionTypes.idle == LiftOp.getInstance().recent()) {
+			if (LiftPositionTypes.idle == LiftOp.recent()) {
 				LiftOp.getInstance().sync(LiftPositionTypes.decantLow);
-			} else if (LiftPositionTypes.decantLow == LiftOp.getInstance().recent()) {
+			} else if (LiftPositionTypes.decantLow == LiftOp.recent()) {
 				LiftOp.getInstance().sync(LiftPositionTypes.decantHigh);
 			}
 
@@ -123,7 +123,7 @@ public class RobotMng {
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftPositionTypes.highSuspendPrepare == LiftOp.getInstance().recent()) {
+			if (LiftPositionTypes.highSuspendPrepare == LiftOp.recent()) {
 				LiftOp.getInstance().sync(LiftPositionTypes.highSuspend);
 			} else{
 				ArmOp.getInstance().safe();
