@@ -8,9 +8,10 @@ import org.firstinspires.ftc.teamcode.structure.positions.ClipPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp implements HardwareController , InitializeRequested {
+public class ClipOp implements HardwareController , InitializeRequested , TagRequested {
 	private static ClipOp instance;
 	public static ClipPositionTypes recent = ClipPositionTypes.unknown;
 	public static ServoCtrl         clipControl;
@@ -29,6 +30,13 @@ public class ClipOp implements HardwareController , InitializeRequested {
 	@Override
 	public void init() {
 		open();
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return clipControl;
 	}
 
 	public void change() {
@@ -54,16 +62,20 @@ public class ClipOp implements HardwareController , InitializeRequested {
 	}
 
 	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return clipControl;
-	}
-
-	@NonNull
 	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
 		return res;
+	}
+
+	@Override
+	public void setTag(String tag) {
+		clipControl.setTag(tag);
+	}
+
+	@Override
+	public String getTag() {
+		return clipControl.getTag();
 	}
 }

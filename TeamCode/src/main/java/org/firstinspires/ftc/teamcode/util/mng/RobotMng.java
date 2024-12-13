@@ -30,11 +30,12 @@ import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 
 import java.util.Map;
 
 /**
- * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)}
+ * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} , {@link #initControllers()}
  */
 public class RobotMng {
 	public static final double  driverTriggerBufFal = 0.5;
@@ -70,7 +71,7 @@ public class RobotMng {
 		RobotMng.gamepad2 = gamepad2;
 	}
 
-	public void initActions() {
+	public void initControllers() {
 		for (Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			String             k = entry.getKey();
 			HardwareController v = entry.getValue();
@@ -79,6 +80,11 @@ public class RobotMng {
 			if(v instanceof InitializeRequested){
 				((InitializeRequested) v).init();
 			}
+			if(v instanceof TagRequested){
+				((TagRequested) v).setTag(k+":ctrl");
+			}
+
+			thread.add(k,v.getController());
 		}
 	}
 
@@ -206,7 +212,7 @@ public class RobotMng {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			TelemetryClient.getInstance().changeData(s + "-action", updateCode + a.getClass().getSimpleName() + ":" + a.paramsString());
+			TelemetryClient.getInstance().changeData(s + updateCode,  a.paramsString());
 		}
 	}
 }

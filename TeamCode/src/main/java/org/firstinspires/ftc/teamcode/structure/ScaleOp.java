@@ -9,9 +9,10 @@ import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements HardwareController, InitializeRequested {
+public class ScaleOp implements HardwareController, InitializeRequested , TagRequested {
 	private static ScaleOp instance;
 	public static ScalePositionTypes recent = ScalePositionTypes.unknown;
 	public static ServoCtrl          leftScaleController, rightScaleController;
@@ -27,6 +28,13 @@ public class ScaleOp implements HardwareController, InitializeRequested {
 
 		leftScaleController.setTag("leftScale");
 		rightScaleController.setTag("rightScale");
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return new ThreadedAction(leftScaleController, rightScaleController);
 	}
 
 	public static double smooth = 0.2;
@@ -72,16 +80,21 @@ public class ScaleOp implements HardwareController, InitializeRequested {
 	}
 
 	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return new ThreadedAction(leftScaleController, rightScaleController);
-	}
-
-	@NonNull
 	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
 		return res;
+	}
+
+	@Override
+	public void setTag(String tag) {
+		leftScaleController.setTag("left "+tag);
+		rightScaleController.setTag("right "+tag);
+	}
+
+	@Override
+	public String getTag() {
+		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
 	}
 }

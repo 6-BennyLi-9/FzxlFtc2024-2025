@@ -60,6 +60,9 @@ public abstract class LiftCtrl implements Action {
 	public void setTag(final String tag) {
 		this.tag = tag;
 	}
+	public String getTag(){
+		return this.tag;
+	}
 
 	public long getTargetPosition() {
 		return targetPosition;

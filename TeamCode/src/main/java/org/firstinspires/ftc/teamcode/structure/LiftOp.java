@@ -10,17 +10,25 @@ import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController {
+public class LiftOp implements HardwareController , TagRequested {
 	private static LiftOp instance;
 	public static LiftPositionTypes recent = LiftPositionTypes.idle;
 	public static LiftCtrl          liftCtrl;
 
 	public static LiftOp getInstance(){
 		return instance;
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return liftCtrl;
 	}
 
 	@Override
@@ -31,12 +39,6 @@ public class LiftOp implements HardwareController {
 	}
 
 	public long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
-
-	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return liftCtrl;
-	}
 
 	public void sync(@NonNull final LiftPositionTypes option) {
 		recent = option;
@@ -70,5 +72,15 @@ public class LiftOp implements HardwareController {
 	public Action initController() {
 		connect();
 		return getController();
+	}
+
+	@Override
+	public void setTag(String tag) {
+		liftCtrl.setTag(tag);
+	}
+
+	@Override
+	public String getTag() {
+		return liftCtrl.getTag();
 	}
 }

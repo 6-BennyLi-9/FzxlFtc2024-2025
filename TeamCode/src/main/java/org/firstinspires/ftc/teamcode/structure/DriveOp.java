@@ -9,10 +9,11 @@ import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp implements HardwareController {
+public class DriveOp implements HardwareController , TagRequested {
 	private static DriveOp instance;
 	public static DriveConfig config = DriveConfig.StraightLinear;
 	public static ChassisCtrl chassisCtrl;
@@ -28,8 +29,16 @@ public class DriveOp implements HardwareController {
 		chassisCtrl.setTag("chassis");
 	}
 
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return chassisCtrl;
+	}
+
 	public static double kP = 0.0001, kI, kD;
 	private static double output, targetAngle, currentPowerAngle;
+
 	private static double x, y, turn;
 
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
@@ -51,12 +60,6 @@ public class DriveOp implements HardwareController {
 				output = turn;
 				break;
 		}
-	}
-
-	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return chassisCtrl;
 	}
 
 	public void sync(final double x, final double y, final double turn, final double bufPower) {
@@ -86,5 +89,15 @@ public class DriveOp implements HardwareController {
 	public Action initController() {
 		connect();
 		return getController();
+	}
+
+	@Override
+	public void setTag(String tag) {
+		chassisCtrl.setTag(tag);
+	}
+
+	@Override
+	public String getTag() {
+		return chassisCtrl.getTag();
 	}
 }

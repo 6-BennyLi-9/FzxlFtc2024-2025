@@ -8,9 +8,10 @@ import org.firstinspires.ftc.teamcode.structure.positions.ClawPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
-public class ClawOp implements HardwareController , InitializeRequested {
+public class ClawOp implements HardwareController , InitializeRequested , TagRequested {
 	private static ClawOp instance;
 	public static ClawPositionTypes recent = ClawPositionTypes.unknown;
 	public static ServoCtrl         clawControl;
@@ -29,6 +30,13 @@ public class ClawOp implements HardwareController , InitializeRequested {
 	@Override
 	public void init() {
 		open();
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return clawControl;
 	}
 
 	public void change() {
@@ -54,16 +62,20 @@ public class ClawOp implements HardwareController , InitializeRequested {
 	}
 
 	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return clawControl;
-	}
-
-	@NonNull
 	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
 		return res;
+	}
+
+	@Override
+	public void setTag(String tag) {
+
+	}
+
+	@Override
+	public String getTag() {
+		return clawControl.getTag();
 	}
 }

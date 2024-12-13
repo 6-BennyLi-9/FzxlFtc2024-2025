@@ -8,11 +8,12 @@ import org.firstinspires.ftc.teamcode.structure.positions.PlacePositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested {
+public class PlaceOp implements HardwareController, InitializeRequested , TagRequested {
 	private static PlaceOp instance;
 	public static PlacePositionTypes recent = PlacePositionTypes.unknown;
 
@@ -29,13 +30,20 @@ public class PlaceOp implements HardwareController, InitializeRequested {
 		placeController.setTag("place");
 	}
 
-	public boolean decanting() {
-		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return placeController;
 	}
 
 	@Override
 	public void init() {
 		idle();
+	}
+
+	public boolean decanting() {
+		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
 	}
 
 	public void decant() {
@@ -58,12 +66,6 @@ public class PlaceOp implements HardwareController, InitializeRequested {
 	}
 
 	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return placeController;
-	}
-
-	@NonNull
 	public Action initController() {
 		connect();
 		final Action res = getController();
@@ -77,5 +79,15 @@ public class PlaceOp implements HardwareController, InitializeRequested {
 		} else {
 			idle();
 		}
+	}
+
+	@Override
+	public void setTag(String tag) {
+		placeController.setTag("tag");
+	}
+
+	@Override
+	public String getTag() {
+		return placeController.getTag();
 	}
 }

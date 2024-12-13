@@ -120,4 +120,7 @@ public class ServoCtrl implements Action {
 	public void setTag(final String tag) {
 		this.tag = tag;
 	}
+	public String getTag(){
+		return this.tag;
+	}
 }

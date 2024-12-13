@@ -9,11 +9,12 @@ import org.firstinspires.ftc.teamcode.structure.positions.ArmPositionTypes;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.implement.HardwareController;
 import org.firstinspires.ftc.teamcode.util.implement.InitializeRequested;
+import org.firstinspires.ftc.teamcode.util.implement.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements HardwareController, InitializeRequested {
+public class ArmOp implements HardwareController, InitializeRequested , TagRequested {
 	private static ArmOp instance;
 	public static ArmPositionTypes recent = ArmPositionTypes.unknown;
 	public static ServoCtrl        leftArmControl, rightArmControl;
@@ -36,6 +37,13 @@ public class ArmOp implements HardwareController, InitializeRequested {
 		safe();
 	}
 
+	@NonNull
+	@Contract(" -> new")
+	@Override
+	public Action getController() {
+		return new ThreadedAction(leftArmControl, rightArmControl);
+	}
+
 	public void manage(double position) {
 		position = Math.min(Math.max(position, 0), 0.92);
 		leftArmControl.setTargetPosition(position + 0.08);
@@ -56,7 +64,6 @@ public class ArmOp implements HardwareController, InitializeRequested {
 		recent = ArmPositionTypes.safe;
 		manage(0.61);
 	}
-
 	public void flip() {
 		switch (recent) {
 			case intake:
@@ -71,6 +78,7 @@ public class ArmOp implements HardwareController, InitializeRequested {
 				break;
 		}
 	}
+
 	public void flipIO(){
 		if (Objects.requireNonNull(recent) == ArmPositionTypes.intake) {
 			idle();
@@ -84,16 +92,21 @@ public class ArmOp implements HardwareController, InitializeRequested {
 	}
 
 	@NonNull
-	@Contract(" -> new")
-	public Action getController() {
-		return new ThreadedAction(leftArmControl, rightArmControl);
-	}
-
-	@NonNull
 	public Action initController() {
 		connect();
 		final Action res = getController();
 		init();
 		return res;
+	}
+
+	@Override
+	public void setTag(String tag) {
+		leftArmControl.setTag("left "+tag);
+		rightArmControl.setTag("right "+tag);
+	}
+
+	@Override
+	public String getTag() {
+		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
 	}
 }
