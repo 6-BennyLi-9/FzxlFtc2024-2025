@@ -6,7 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.jetbrains.annotations.Contract;
 
-final class SimpleDriveAction implements Action {
+public final class SimpleDriveAction implements Action {
 	private final double x, y, turn;
 
 	SimpleDriveAction(final double x, final double y, final double turn) {
