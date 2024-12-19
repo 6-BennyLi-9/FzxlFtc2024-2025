@@ -79,10 +79,10 @@ public class PlaceOp implements HardwareController, InitializeRequested , TagReq
 	}
 
 	public void flip() {
-		if (Objects.requireNonNull(recent) == PlacePositionTypes.idle) {
-			decant();
-		} else {
+		if (Objects.requireNonNull(recent) == PlacePositionTypes.decant) {
 			idle();
+		} else {
+			decant();
 		}
 	}
 
