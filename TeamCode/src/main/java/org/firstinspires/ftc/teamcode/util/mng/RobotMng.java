@@ -58,7 +58,7 @@ public class RobotMng {
 
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
-		controllers.put("clip", new ClawOp());
+		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new  ClawOp());
 		controllers.put("lift", new  LiftOp());
 		controllers.put("place", new  PlaceOp());
@@ -149,10 +149,12 @@ public class RobotMng {
 					RotateOp.getInstance().mid();
 					PlaceOp.getInstance().idle();
 					ArmOp.getInstance().idle();
+					driveBufPower=0.4;
 					break;
 				case 1:
 					ClawOp.getInstance().open();
 					ArmOp.getInstance().intake();
+					driveBufPower=1;
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
