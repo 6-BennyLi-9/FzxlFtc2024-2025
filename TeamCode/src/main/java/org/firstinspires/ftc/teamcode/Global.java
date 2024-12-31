@@ -21,4 +21,23 @@ public final class Global {
 		}
 		coreThreads=new ThreadManager();
 	}
+
+	public static void createMonitor(){
+		coreThreads.add("sys-monitor",
+			new Thread(()->{
+				while (currentMode!=RunMode.Interrupted){
+					sleep(5000);
+				}
+				coreThreads.interruptAll();
+			})
+		);
+	}
+
+	public static void sleep(long mills){
+		try {
+			Thread.sleep(mills);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
