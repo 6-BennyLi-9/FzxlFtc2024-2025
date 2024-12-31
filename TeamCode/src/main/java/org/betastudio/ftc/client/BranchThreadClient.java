@@ -13,9 +13,9 @@ public class BranchThreadClient extends TelemetryClient {
 		this(telemetry, 1);
 	}
 
-	public BranchThreadClient(final Telemetry telemetry, double targetTPS) {
+	public BranchThreadClient(final Telemetry telemetry, final double targetTPS) {
 		super(telemetry);
-		Thread updateThread = new Thread(() -> Actions.runAction(
+		final Thread updateThread = new Thread(() -> Actions.runAction(
 				new InfinityLoopAction(() -> Actions.runAction(
 						new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)),
 						new StatementAction(super::update)

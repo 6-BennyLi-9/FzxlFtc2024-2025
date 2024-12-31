@@ -17,9 +17,6 @@ public class DashTelemetry implements Telemetry {
 	public DashTelemetry(@NonNull final FtcDashboard dashboard, final Telemetry... telemetries) {
 		this.telemetries = new MultipleTelemetry(telemetries);
 		this.dashboard = dashboard;
-//		if (! Arrays.asList(telemetries).contains(dashboard.getTelemetry())) {
-//			this.telemetries.addTelemetry(dashboard.getTelemetry());
-//		}
 		this.telemetries.clearAll();
 	}
 
@@ -210,19 +207,8 @@ public class DashTelemetry implements Telemetry {
 		return telemetries.log();
 	}
 
-//	public void addPacketVal(final String caption,final Object value){
-//		packet.put(caption,value);
-//	}
-//	public void addPacketVal(Map <String,Object> container){
-//		packet.putAll(container);
-//	}
-//
-//	public void addLineToTelemetry(String line){
-//		telemetries.addLine(line);
-//	}
-
 	public void addSmartLine(final String capital, final Object value) {
-		if (value != null) {
+		if (null != value) {
 			telemetries.addData(capital, value);
 			packet.put(capital, value);
 		} else {
