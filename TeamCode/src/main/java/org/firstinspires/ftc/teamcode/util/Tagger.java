@@ -9,6 +9,6 @@ public class Tagger {
 		return ++ID;
 	}
 	public String summonID(@NonNull Object object){
-		return object.getClass().getSimpleName()+summonID();
+		return object.getClass().getSimpleName()+":"+summonID();
 	}
 }
