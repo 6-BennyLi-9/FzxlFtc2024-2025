@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 
 import androidx.annotation.NonNull;
 
-public class Tagger {
+public class Labeler {
 	private long ID;
 
 	public long summonID(){

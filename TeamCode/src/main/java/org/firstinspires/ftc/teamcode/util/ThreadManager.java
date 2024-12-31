@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ThreadManager {
-	private final Map <String,Thread> mem =new HashMap <>();
-	private final Tagger tagger=new Tagger();
+	private final Map <String,Thread> mem     =new HashMap <>();
+	private final Labeler             labeler =new Labeler();
 
 	public ThreadManager() {
 	}
@@ -27,13 +27,13 @@ public class ThreadManager {
 		mem.put(tag,unstartedThread);
 	}
 	public void add(@NonNull Thread unstartedThread){
-		add(tagger.summonID(unstartedThread),unstartedThread);
+		add(labeler.summonID(unstartedThread),unstartedThread);
 	}
 	public void addStarted(String tag,Thread startedThread){
 		mem.put(tag,startedThread);
 	}
 	public void addStarted(Thread startedThread){
-		addStarted(tagger.summonID(startedThread),startedThread);
+		addStarted(labeler.summonID(startedThread),startedThread);
 	}
 
 	public boolean isEmpty(){
