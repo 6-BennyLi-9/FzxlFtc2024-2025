@@ -21,6 +21,7 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	@Override
 	public void op_init() {
 		Global.registerGamepad(gamepad1,gamepad2);
+		Global.prepareCoreThreadPool();
 		Global.currentMode= RunMode.TeleOping;
 		DriveOp.config = DriveConfig.StraightLinear;
 		timer = new Timer();
