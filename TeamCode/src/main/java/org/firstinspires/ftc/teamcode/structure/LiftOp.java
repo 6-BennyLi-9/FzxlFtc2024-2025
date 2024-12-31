@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
+import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -16,9 +16,9 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements HardwareController , TagRequested {
-	public static  LiftPositionTypes recent = LiftPositionTypes.idle;
-	public static  LiftCtrl          liftCtrl;
-	private static LiftOp            instance;
+	public static  LiftMode recent = LiftMode.idle;
+	public static  LiftCtrl liftCtrl;
+	private static LiftOp   instance;
 
 	public static LiftOp getInstance(){
 		return instance;
@@ -45,7 +45,7 @@ public class LiftOp implements HardwareController , TagRequested {
 
 	public long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
-	public void sync(@NonNull final LiftPositionTypes option) {
+	public void sync(@NonNull final LiftMode option) {
 		recent = option;
 		switch (option) {
 			case idle:
@@ -70,7 +70,7 @@ public class LiftOp implements HardwareController , TagRequested {
 	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
 	 */
 	public boolean decanting() {
-		return LiftPositionTypes.decantHigh == recent || LiftPositionTypes.decantLow == recent;
+		return LiftMode.decantHigh == recent || LiftMode.decantLow == recent;
 	}
 
 	@NonNull

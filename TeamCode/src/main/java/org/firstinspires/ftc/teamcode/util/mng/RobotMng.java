@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftPositionTypes;
+import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
@@ -53,7 +53,7 @@ public class RobotMng {
 	}
 
 	public TaggedActionPackage thread        = new TaggedActionPackage();
-	public double              driveBufPower = 1;
+	public static double       driveBufPower = 1;
 	public int                 updateTime;
 
 	public RobotMng() {
@@ -106,34 +106,37 @@ public class RobotMng {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftPositionTypes.highSuspend == LiftOp.recent || LiftPositionTypes.highSuspendPrepare == LiftOp.recent) {
+			if (LiftMode.highSuspend == LiftOp.recent || LiftMode.highSuspendPrepare == LiftOp.recent) {
 				ClipOp.getInstance().open();
 			}
 
-			LiftOp.getInstance().sync(LiftPositionTypes.idle);
+			driveBufPower=1;
+			LiftOp.getInstance().sync(LiftMode.idle);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
-			if (LiftPositionTypes.idle == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftPositionTypes.decantLow);
-			} else if (LiftPositionTypes.decantLow == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftPositionTypes.decantHigh);
+			if (LiftMode.idle == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.decantLow);
+			} else if (LiftMode.decantLow == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.decantHigh);
 			}
 
 			PlaceOp.getInstance().prepare();
+			driveBufPower=0.4;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftPositionTypes.highSuspendPrepare);
+			LiftOp.getInstance().sync(LiftMode.highSuspendPrepare);
+			driveBufPower=0.4;
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftPositionTypes.highSuspendPrepare == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftPositionTypes.highSuspend);
+			if (LiftMode.highSuspendPrepare == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.highSuspend);
 			} else{
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();
@@ -149,12 +152,10 @@ public class RobotMng {
 					RotateOp.getInstance().mid();
 					PlaceOp.getInstance().idle();
 					ArmOp.getInstance().idle();
-					driveBufPower=0.4;
 					break;
 				case 1:
 					ClawOp.getInstance().open();
 					ArmOp.getInstance().intake();
-					driveBufPower=1;
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
