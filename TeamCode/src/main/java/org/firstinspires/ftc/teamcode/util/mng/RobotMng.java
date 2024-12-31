@@ -13,12 +13,9 @@ import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDL
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.sampleIO;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.syncRequests;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.TelemetryClient;
-import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
@@ -37,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 申名时需要初始化{@link #registerGamepad(Gamepad, Gamepad)} , {@link #initControllers()}
+ * 申名时需要初始化 {@link #initControllers()}
  */
 public class RobotMng {
 	public static final double  driverTriggerBufFal = 0.5;
@@ -45,11 +42,6 @@ public class RobotMng {
 	public static final double  rotateTriggerBufFal = 0.01;
 
 	public Map < String , HardwareController > controllers=new HashMap <>();
-
-	static {
-		gamepad1 = new Gamepad();
-		gamepad2 = new Gamepad();
-	}
 
 	public TaggedActionPackage thread        = new TaggedActionPackage();
 	public static double       driveBufPower = 1;
@@ -64,11 +56,6 @@ public class RobotMng {
 		controllers.put("rotate", new  RotateOp());
 		controllers.put("scale", new  ScaleOp());
 		controllers.put("drive", new  DriveOp());
-	}
-
-	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
-		Global.gamepad1 = gamepad1;
-		Global.gamepad2 = gamepad2;
 	}
 
 	public void initControllers() {

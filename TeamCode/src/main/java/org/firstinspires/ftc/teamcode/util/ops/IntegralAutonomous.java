@@ -12,6 +12,8 @@ import org.betastudio.ftc.client.TelemetryClient;
 import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
 import org.firstinspires.ftc.teamcode.util.Timer;
@@ -31,6 +33,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
+		Global.currentMode= RunMode.Autonomous;
 		HardwareConstants.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
@@ -60,6 +63,8 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 			sleep(10);
 		}
 		linear.interrupt();
+
+		Global.currentMode=RunMode.Interrupted;
 	}
 
 	public abstract void initialize();

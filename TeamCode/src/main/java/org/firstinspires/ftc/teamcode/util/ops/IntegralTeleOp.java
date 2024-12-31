@@ -4,6 +4,8 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcode.structure.DriveConfig;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.util.HardwareConstants;
@@ -18,13 +20,14 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 
 	@Override
 	public void op_init() {
+		Global.registerGamepad(gamepad1,gamepad2);
+		Global.currentMode= RunMode.TeleOping;
 		DriveOp.config = DriveConfig.StraightLinear;
 		timer = new Timer();
 
 		HardwareConstants.sync(hardwareMap, true);
 		HardwareConstants.chassisConfig();
 		robot = new RobotMng();
-		robot.registerGamepad(gamepad1, gamepad2);
 		robot.initControllers();
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new TelemetryClient(telemetry);
@@ -71,5 +74,6 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 	@Override
 	public void op_end() {
 		client.clear();
+		Global.currentMode=RunMode.Interrupted;
 	}
 }
