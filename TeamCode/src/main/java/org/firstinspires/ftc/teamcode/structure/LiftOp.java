@@ -63,6 +63,11 @@ public class LiftOp implements HardwareController , TagRequested {
 			case highSuspendPrepare:
 				liftCtrl.setTargetPosition(highSuspendPrepare);
 				break;
+			case suspendLv1:
+				liftCtrl.setTargetPosition(suspendLv1);
+				break;
+			default:
+				throw new IllegalStateException("Unexpected enum state:"+option.name());
 		}
 	}
 
