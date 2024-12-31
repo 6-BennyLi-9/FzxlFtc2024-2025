@@ -11,13 +11,13 @@ public final class UtilButtonControlSystem {
 	}
 
 	public final ButtonConfig config;
-	public final Ticker       ticker;
+	public final SmartCounter smartCounter;
 
 	private boolean lst, now;
 
 	public UtilButtonControlSystem(final ButtonConfig config) {
 		this.config = config;
-		ticker = new Ticker();
+		smartCounter = new SmartCounter();
 	}
 
 	public void sync(final boolean input) {

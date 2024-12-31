@@ -130,10 +130,10 @@ public class RobotMng {
 		}
 
 		if (armScaleOperate.getEnabled()) {
-			armScaleOperate.ticker.tickAndMod(2);
+			armScaleOperate.smartCounter.tickAndMod(2);
 
 			//初始化
-			switch (armScaleOperate.ticker.getTicked()) {
+			switch (armScaleOperate.smartCounter.getTicked()) {
 				case 0:
 					RotateOp.getInstance().mid();
 					PlaceOp.getInstance().idle();
@@ -144,10 +144,10 @@ public class RobotMng {
 					ArmOp.getInstance().intake();
 					break;
 				default:
-					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
 			}
 		}
-		switch (armScaleOperate.ticker.getTicked()) {
+		switch (armScaleOperate.smartCounter.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
 				break;
@@ -156,7 +156,7 @@ public class RobotMng {
 				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 				break;
 			default:
-				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
 		}
 
 		if(flipArm.getEnabled()){
