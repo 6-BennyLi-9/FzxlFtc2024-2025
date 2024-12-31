@@ -7,7 +7,8 @@ import org.firstinspires.ftc.teamcode.util.ThreadManager;
 public final class Global {
 	public static ThreadManager coreThreads;
 	public static Gamepad       gamepad1, gamepad2;
-	public static RunMode       currentMode;
+	public static  RunMode      currentMode;
+	private static boolean      auto_create_monitor = true;
 
 	public static void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		Global.gamepad1=gamepad1;
@@ -20,6 +21,10 @@ public final class Global {
 			}
 		}
 		coreThreads=new ThreadManager();
+
+		if (auto_create_monitor){
+			createMonitor();
+		}
 	}
 
 	public static void createMonitor(){
@@ -39,5 +44,12 @@ public final class Global {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public boolean auto_create_monitor(){
+		return auto_create_monitor;
+	}
+	public void auto_create_monitor(boolean configure){
+		auto_create_monitor=configure;
 	}
 }

@@ -59,7 +59,8 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 				throwLocalThrowable(throwable);
 			}
 		});
-		linear.start();
+		Global.coreThreads.add("linear",linear);
+
 		while (opModeIsActive() && ! linear.isInterrupted()) {
 			sleep(10);
 		}

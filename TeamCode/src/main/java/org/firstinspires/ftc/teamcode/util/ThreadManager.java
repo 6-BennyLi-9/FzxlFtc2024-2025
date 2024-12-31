@@ -22,10 +22,16 @@ public class ThreadManager {
 		mem.remove(tag);
 	}
 
+	/**
+	 * 会自动运行
+	 * */
 	public void add(String tag, @NonNull Thread unstartedThread){
 		unstartedThread.start();
 		mem.put(tag,unstartedThread);
 	}
+	/**
+	 * 会自动运行
+	 * */
 	public void add(@NonNull Thread unstartedThread){
 		add(labeler.summonID(unstartedThread),unstartedThread);
 	}

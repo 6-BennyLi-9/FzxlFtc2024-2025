@@ -6,6 +6,7 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.Global;
 
 @Deprecated
 public class BranchThreadClient extends TelemetryClient {
@@ -28,24 +29,21 @@ public class BranchThreadClient extends TelemetryClient {
 		}
 	}
 
-	private final Thread updateThread;
-
 	public BranchThreadClient(final Telemetry telemetry) {
 		this(telemetry, 1);
 	}
 
 	public BranchThreadClient(final Telemetry telemetry, double targetTPS) {
 		super(telemetry);
-		updateThread = new Thread(() -> Actions.runAction(new InfinityLoopAction(() -> Actions.runAction(new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)), new StatementAction(super::update))))));
-		try {
-//			telemetry.setAutoClear(false);
-			autoUpdate = true;
-		} catch (final UnsupportedOperationException ignore) {
-		}
-	}
+		Thread updateThread = new Thread(() -> Actions.runAction(
+				new InfinityLoopAction(() -> Actions.runAction(
+						new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)),
+						new StatementAction(super::update)
+				)))
+		));
 
-	public void interrupt() {
-		updateThread.interrupt();
-		clear();
+		autoUpdate = true;
+
+		Global.coreThreads.add("client-updater", updateThread);
 	}
 }
