@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.util.ops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-public abstract class OverSpeedOpMode extends LinearOpMode {
+public abstract class OverclockOpMode extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		op_init();
