@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 /**
  * 用于控制按键布尔状态，更加轻量化
  */
-public final class UtilButtonControlSystem {
+public final class ButtonProcessor {
 	public enum ButtonConfig {
 		WhilePressing, SingleWhenPressed
 	}
@@ -15,7 +15,7 @@ public final class UtilButtonControlSystem {
 
 	private boolean lst, now;
 
-	public UtilButtonControlSystem(final ButtonConfig config) {
+	public ButtonProcessor(final ButtonConfig config) {
 		this.config = config;
 		smartCounter = new SmartCounter();
 	}

@@ -2,61 +2,61 @@ package org.firstinspires.ftc.teamcode.util;
 
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.util.UtilButtonControlSystem.ButtonConfig.SingleWhenPressed;
+import static org.firstinspires.ftc.teamcode.util.ButtonProcessor.ButtonConfig.SingleWhenPressed;
 
 import org.betastudio.ftc.client.TelemetryClient;
 
 /**
  * gamepad 控制请求的数据库
  *
- * @see UtilButtonControlSystem
+ * @see ButtonProcessor
  */
 public final class GamepadRequests {
 	/**
 	 * 输入样本
 	 */
-	public static final UtilButtonControlSystem sampleIO;
+	public static final ButtonProcessor sampleIO;
 	/**
 	 * 电梯上筐
 	 */
-	public static final UtilButtonControlSystem liftDecantUpping;
+	public static final ButtonProcessor liftDecantUpping;
 	/**
 	 * 电梯闲置（下）
 	 */
-	public static final UtilButtonControlSystem liftIDLE;
+	public static final ButtonProcessor liftIDLE;
 	/**
 	 * 电梯挂样本准备
 	 */
-	public static final UtilButtonControlSystem liftHighSuspendPrepare;
+	public static final ButtonProcessor liftHighSuspendPrepare;
 	/**
 	 * 倒筐与挂样本
 	 */
-	public static final UtilButtonControlSystem decantOrSuspend;
+	public static final ButtonProcessor decantOrSuspend;
 	/**
 	 * 打开/关闭样本夹
 	 */
-	public static final UtilButtonControlSystem clipOption;
+	public static final ButtonProcessor clipOption;
 	/**
 	 * 吸取滑轨与收取杆操作
 	 */
-	public static final UtilButtonControlSystem armScaleOperate;
+	public static final ButtonProcessor armScaleOperate;
 	/**
 	 * 快慢速切换
 	 */
-	public static final UtilButtonControlSystem highLowSpeedConfigChange;
+	public static final ButtonProcessor highLowSpeedConfigChange;
 	/**抬降arm*/
-	public static final UtilButtonControlSystem flipArm;
+	public static final ButtonProcessor flipArm;
 
 	static {
-		sampleIO = new UtilButtonControlSystem(SingleWhenPressed);
-		liftDecantUpping = new UtilButtonControlSystem(SingleWhenPressed);
-		liftHighSuspendPrepare = new UtilButtonControlSystem(SingleWhenPressed);
-		liftIDLE = new UtilButtonControlSystem(SingleWhenPressed);
-		decantOrSuspend = new UtilButtonControlSystem(SingleWhenPressed);
-		clipOption = new UtilButtonControlSystem(SingleWhenPressed);
-		armScaleOperate = new UtilButtonControlSystem(SingleWhenPressed);
-		highLowSpeedConfigChange = new UtilButtonControlSystem(SingleWhenPressed);
-		flipArm=new UtilButtonControlSystem(SingleWhenPressed);
+		sampleIO = new ButtonProcessor(SingleWhenPressed);
+		liftDecantUpping = new ButtonProcessor(SingleWhenPressed);
+		liftHighSuspendPrepare = new ButtonProcessor(SingleWhenPressed);
+		liftIDLE = new ButtonProcessor(SingleWhenPressed);
+		decantOrSuspend = new ButtonProcessor(SingleWhenPressed);
+		clipOption = new ButtonProcessor(SingleWhenPressed);
+		armScaleOperate = new ButtonProcessor(SingleWhenPressed);
+		highLowSpeedConfigChange = new ButtonProcessor(SingleWhenPressed);
+		flipArm=new ButtonProcessor(SingleWhenPressed);
 	}
 
 	public static void syncRequests() {
