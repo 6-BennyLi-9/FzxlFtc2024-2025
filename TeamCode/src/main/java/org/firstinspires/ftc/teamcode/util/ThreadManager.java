@@ -26,15 +26,14 @@ public class ThreadManager {
 		unstartedThread.start();
 		mem.put(tag,unstartedThread);
 	}
+	public void add(@NonNull Thread unstartedThread){
+		add(tagger.summonID(unstartedThread),unstartedThread);
+	}
 	public void addStarted(String tag,Thread startedThread){
 		mem.put(tag,startedThread);
 	}
-	public void add(@NonNull Thread unstartedThread){
-		unstartedThread.start();
-		mem.put(tagger.summonID(unstartedThread),unstartedThread);
-	}
 	public void addStarted(Thread startedThread){
-		mem.put(tagger.summonID(startedThread),startedThread);
+		addStarted(tagger.summonID(startedThread),startedThread);
 	}
 
 	public boolean isEmpty(){
