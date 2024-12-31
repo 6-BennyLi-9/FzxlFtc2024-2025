@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.Timer;
 import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 
 public abstract class IntegralTeleOp extends OverSpeedOpMode {
-	public  RobotMng robot;
+	public  RobotMng        robot;
 	public  Timer           timer;
 	public  TelemetryClient client;
 	private boolean         auto_terminate_when_TLE = true;

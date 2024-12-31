@@ -12,7 +12,7 @@ public abstract class OverSpeedOpMode extends LinearOpMode {
 		}
 
 		if (! opModeIsActive()) {
-			throw new InterruptedException();
+			return;
 		}
 
 		op_start();
