@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.jetbrains.annotations.Contract;
 
 public final class SimpleDriveAction implements Action {
@@ -17,10 +17,10 @@ public final class SimpleDriveAction implements Action {
 
 	@Override
 	public boolean run() {
-		HardwareConstants.leftFront.setPower(y + x - turn);
-		HardwareConstants.leftRear.setPower(y - x - turn);
-		HardwareConstants.rightFront.setPower(y - x + turn);
-		HardwareConstants.rightRear.setPower(y + x + turn);
+		HardwareDatabase.leftFront.setPower(y + x - turn);
+		HardwareDatabase.leftRear.setPower(y - x - turn);
+		HardwareDatabase.rightFront.setPower(y - x + turn);
+		HardwareDatabase.rightRear.setPower(y + x + turn);
 		return false;
 	}
 

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ClipPositionTypes;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -22,7 +22,7 @@ public class ClipOp implements HardwareController , InitializeRequested , TagReq
 
 	@Override
 	public void connect() {
-		clipControl = new ServoCtrl(HardwareConstants.clip, 0);
+		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);
 
 		clipControl.setTag("clip");
 	}

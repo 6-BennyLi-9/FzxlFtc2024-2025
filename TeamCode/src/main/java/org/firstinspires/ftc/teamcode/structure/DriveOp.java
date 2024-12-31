@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.structure.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
@@ -24,7 +24,7 @@ public class DriveOp implements HardwareController , TagRequested {
 
 	@Override
 	public void connect() {
-		chassisCtrl = new ChassisCtrl(HardwareConstants.leftFront, HardwareConstants.leftRear, HardwareConstants.rightFront, HardwareConstants.rightRear);
+		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);
 
 		chassisCtrl.setTag("chassis");
 	}
@@ -49,7 +49,7 @@ public class DriveOp implements HardwareController , TagRequested {
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
 
 	private void syncAngle() {
-		final double currentAngle = HardwareConstants.imu.getAngularOrientation().firstAngle;
+		final double currentAngle = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 		final double angleErr     = targetAngle - currentAngle;
 
 		switch (config) {

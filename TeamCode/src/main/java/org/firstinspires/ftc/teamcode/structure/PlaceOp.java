@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.PlacePositionTypes;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -25,7 +25,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , TagReq
 
 	@Override
 	public void connect() {
-		placeController = new ServoCtrl(HardwareConstants.place, 0);
+		placeController = new ServoCtrl(HardwareDatabase.place, 0);
 
 		placeController.setTag("place");
 	}

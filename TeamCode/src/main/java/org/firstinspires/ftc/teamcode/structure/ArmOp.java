@@ -6,7 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ArmPositionTypes;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -25,8 +25,8 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 
 	@Override
 	public void connect() {
-		leftArmControl = new ServoCtrl(HardwareConstants.leftArm, 0.7);
-		rightArmControl = new ServoCtrl(HardwareConstants.rightArm, 0.7);
+		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);
+		rightArmControl = new ServoCtrl(HardwareDatabase.rightArm, 0.7);
 
 		leftArmControl.setTag("leftArm");
 		rightArmControl.setTag("rightArm");

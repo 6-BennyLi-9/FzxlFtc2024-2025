@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 
 /**
  * 基于一次函数 {@code LinearFunction}
@@ -29,7 +29,7 @@ public class LinFuncLiftCtrl extends LiftCtrl {
 	@Override
 	public void modify() {
 		if (0 == getTargetPosition()) {
-			if (HardwareConstants.liftTouch.isPressed()) {//没到
+			if (HardwareDatabase.liftTouch.isPressed()) {//没到
 				calibrateVal = - 1;
 			} else {
 				calibrateVal = 0;

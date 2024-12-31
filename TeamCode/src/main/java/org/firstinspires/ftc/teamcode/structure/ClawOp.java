@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ClawPositionTypes;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -22,7 +22,7 @@ public class ClawOp implements HardwareController , InitializeRequested , TagReq
 
 	@Override
 	public void connect() {
-		clawControl = new ServoCtrl(HardwareConstants.claw, 0);
+		clawControl = new ServoCtrl(HardwareDatabase.claw, 0);
 
 		clawControl.setTag("claw");
 	}

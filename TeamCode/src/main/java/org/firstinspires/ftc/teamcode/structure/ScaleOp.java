@@ -6,7 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.ScalePositionTypes;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -23,8 +23,8 @@ public class ScaleOp implements HardwareController, InitializeRequested , TagReq
 
 	@Override
 	public void connect() {
-		leftScaleController = new ServoCtrl(HardwareConstants.leftScale, 1);
-		rightScaleController = new ServoCtrl(HardwareConstants.rightScale, 0.5);
+		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);
+		rightScaleController = new ServoCtrl(HardwareDatabase.rightScale, 0.5);
 
 		leftScaleController.setTag("leftScale");
 		rightScaleController.setTag("rightScale");

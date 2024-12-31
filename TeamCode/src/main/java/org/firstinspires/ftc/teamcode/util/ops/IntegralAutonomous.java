@@ -15,7 +15,7 @@ import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.Timer;
 import org.firstinspires.ftc.teamcode.util.mng.UtilMng;
 
@@ -35,7 +35,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	public final void runOpMode() throws InterruptedException {
 		Global.currentMode= RunMode.Autonomous;
 		Global.prepareCoreThreadPool();
-		HardwareConstants.sync(hardwareMap, true);
+		HardwareDatabase.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new TelemetryClient(telemetry);
@@ -104,7 +104,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	public void angleCalibration(final double target, final Pose2d poseEst) {
 		Actions.runAction(() -> {
-			final double allowErr = 5, ang = HardwareConstants.imu.getAngularOrientation().firstAngle;
+			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
 				if (ang > target + allowErr) {
 					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));

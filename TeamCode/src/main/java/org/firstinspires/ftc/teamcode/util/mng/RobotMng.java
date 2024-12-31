@@ -2,16 +2,16 @@ package org.firstinspires.ftc.teamcode.util.mng;
 
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decantOrSuspend;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.flipArm;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.highLowSpeedConfigChange;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftDecantUpping;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftHighSuspendPrepare;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDLE;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.sampleIO;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.syncRequests;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.armScaleOperate;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.clipOption;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.decantOrSuspend;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.flipArm;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.highLowSpeedConfigChange;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftDecantUpping;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftHighSuspendPrepare;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftIDLE;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.sampleIO;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.syncRequests;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;

@@ -15,7 +15,7 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.client.TelemetryClient;
 
-public enum HardwareConstants {
+public enum HardwareDatabase {
 	;
 	public static DcMotorEx   leftFront;
 	public static DcMotorEx   leftRear;
@@ -42,7 +42,7 @@ public enum HardwareConstants {
 	private static HardwareMap hardwareMap;
 
 	public static void sync(@NonNull final HardwareMap hardwareMap, final boolean connectIMU) {
-		HardwareConstants.hardwareMap=hardwareMap;
+		HardwareDatabase.hardwareMap=hardwareMap;
 
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");

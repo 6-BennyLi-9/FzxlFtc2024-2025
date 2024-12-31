@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -20,7 +20,7 @@ public class RotateOp implements HardwareController, InitializeRequested , TagRe
 
 	@Override
 	public void connect() {
-		rotateController = new ServoCtrl(HardwareConstants.rotate, 0.79);
+		rotateController = new ServoCtrl(HardwareDatabase.rotate, 0.79);
 
 		rotateController.setTag("rotate");
 	}

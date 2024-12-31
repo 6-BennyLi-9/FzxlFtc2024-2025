@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 
 /**
  * 经典的电梯控制，人走码还在
@@ -36,7 +36,7 @@ public class ClassicLiftCtrl extends LiftCtrl {
 	@Override
 	public void modify() {
 		if (0 == getTargetPosition()) {
-			calibrateVal = ! HardwareConstants.liftTouch.isPressed() ? 0 : - zeroPoseCalibrationPow;
+			calibrateVal = ! HardwareDatabase.liftTouch.isPressed() ? 0 : - zeroPoseCalibrationPow;
 			return;
 		}
 

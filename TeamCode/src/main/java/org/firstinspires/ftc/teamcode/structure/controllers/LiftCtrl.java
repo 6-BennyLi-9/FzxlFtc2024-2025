@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 
 public abstract class LiftCtrl implements Action {
 	protected long currentPosition, targetPosition;
@@ -28,7 +28,7 @@ public abstract class LiftCtrl implements Action {
 		modify();
 		targetLift.setPower(getCalibrateVal());
 
-		if (! HardwareConstants.liftTouch.isPressed()) {
+		if (! HardwareDatabase.liftTouch.isPressed()) {
 			targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}

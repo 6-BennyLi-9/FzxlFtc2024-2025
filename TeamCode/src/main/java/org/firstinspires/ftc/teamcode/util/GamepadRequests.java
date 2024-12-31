@@ -11,7 +11,7 @@ import org.betastudio.ftc.client.TelemetryClient;
  *
  * @see UtilButtonControlSystem
  */
-public enum GamepadRequestMemories {
+public enum GamepadRequests {
 	;
 	/**
 	 * 输入样本

@@ -1,24 +1,25 @@
 package org.firstinspires.ftc.teamcode.util.mng;
 
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.claw;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.clip;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftArm;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftFront;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftRear;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.leftScale;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.lift;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.place;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightArm;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightFront;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightRear;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rightScale;
-import static org.firstinspires.ftc.teamcode.util.HardwareConstants.rotate;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.claw;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.clip;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftFront;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftRear;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftScale;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.lift;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.place;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightArm;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightFront;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightRear;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightScale;
+import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rotate;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
@@ -46,10 +47,7 @@ public class UtilMng {
 
 	public UtilMng waitMs(final long waitMillis) {
 		actions.add(new StatementAction(() -> {
-			try {
-				Thread.sleep(waitMillis);
-			} catch (final InterruptedException ignore) {
-			}
+			Global.sleep(waitMillis);
 		}));
 		return this;
 	}

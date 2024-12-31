@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcode.structure.DriveConfig;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.Timer;
 import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 
@@ -26,8 +26,8 @@ public abstract class IntegralTeleOp extends OverSpeedOpMode {
 		DriveOp.config = DriveConfig.StraightLinear;
 		timer = new Timer();
 
-		HardwareConstants.sync(hardwareMap, true);
-		HardwareConstants.chassisConfig();
+		HardwareDatabase.sync(hardwareMap, true);
+		HardwareDatabase.chassisConfig();
 		robot = new RobotMng();
 		robot.initControllers();
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);

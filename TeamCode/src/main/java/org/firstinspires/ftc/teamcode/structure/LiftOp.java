@@ -8,7 +8,7 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.structure.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.util.HardwareConstants;
+import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
@@ -38,7 +38,7 @@ public class LiftOp implements HardwareController , TagRequested {
 
 	@Override
 	public void connect() {
-		liftCtrl = new DcLiftCtrl(HardwareConstants.lift);
+		liftCtrl = new DcLiftCtrl(HardwareDatabase.lift);
 
 		liftCtrl.setTag("lift");
 	}
