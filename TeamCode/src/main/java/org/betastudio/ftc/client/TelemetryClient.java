@@ -16,7 +16,7 @@ import java.util.Vector;
  * @noinspection UnusedReturnValue
  */
 @Config
-public class TelemetryClient {
+public class TelemetryClient implements Client {
 	private final   Telemetry                            telemetry;
 	protected final Map <String, Pair <String, Integer>> data;
 	protected       int                                  ID;
@@ -24,23 +24,24 @@ public class TelemetryClient {
 	/**
 	 * 若启用，更改数据后需要执行 {@link #update()} ，关闭时则无需执行
 	 */
-	public          boolean                              autoUpdate;
-	private static  TelemetryClient                      instanceTelemetryClient;
+	public         boolean autoUpdate;
+	private static Client  instanceClient;
 
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
-		instanceTelemetryClient = this;
+		instanceClient = this;
 	}
 
-	public static TelemetryClient getInstance() {
-		return instanceTelemetryClient;
+	public static Client getInstance() {
+		return instanceClient;
 	}
 
 	public static void constructInstance(final Telemetry telemetry) {
-		instanceTelemetryClient = new TelemetryClient(telemetry);
+		instanceClient = new TelemetryClient(telemetry);
 	}
 
+	@Override
 	public void clear() {
 		this.data.clear();
 		if (! autoUpdate) {
@@ -51,7 +52,8 @@ public class TelemetryClient {
 	/**
 	 * 注意：这是新的Data
 	 */
-	public TelemetryClient addData(final String key, final String val) {
+	@Override
+	public Client addData(final String key, final String val) {
 		++ this.ID;
 		this.data.put(key, new Pair <>(val, this.ID));
 		if (! autoUpdate) {
@@ -64,14 +66,16 @@ public class TelemetryClient {
 	/**
 	 * 注意：这是新的Data
 	 */
-	public TelemetryClient addData(final String key, final Object val) {
+	@Override
+	public Client addData(final String key, final Object val) {
 		return addData(key, String.valueOf(val));
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
-	public TelemetryClient deleteData(final String key) {
+	@Override
+	public Client deleteData(final String key) {
 		this.data.remove(key);
 		if (! autoUpdate) {
 			this.update();
@@ -83,7 +87,8 @@ public class TelemetryClient {
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
-	public TelemetryClient changeData(final String key, final String val) {
+	@Override
+	public Client changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
 			this.data.replace(key, new Pair <>(val, (Objects.requireNonNull(this.data.get(key))).second));
 		} else {
@@ -99,11 +104,13 @@ public class TelemetryClient {
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
-	public TelemetryClient changeData(final String key, final Object val) {
+	@Override
+	public Client changeData(final String key, final Object val) {
 		return changeData(key, String.valueOf(val));
 	}
 
-	public TelemetryClient addLine(final String key) {
+	@Override
+	public Client addLine(final String key) {
 		++ this.ID;
 		this.data.put(key, new Pair <>("", this.ID));
 		if (! autoUpdate) {
@@ -113,14 +120,16 @@ public class TelemetryClient {
 		return this;
 	}
 
-	public TelemetryClient addLine(final Object key) {
+	@Override
+	public Client addLine(final Object key) {
 		return addLine(String.valueOf(key));
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
-	public TelemetryClient deleteLine(final String key) {
+	@Override
+	public Client deleteLine(final String key) {
 		this.data.remove(key);
 
 		if (! autoUpdate) {
@@ -135,7 +144,8 @@ public class TelemetryClient {
 	 * @param oldData 目标行
 	 * @param newData 替换行
 	 */
-	public TelemetryClient changeLine(final String oldData, final String newData) {
+	@Override
+	public Client changeLine(final String oldData, final String newData) {
 		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
 		this.data.put(newData, new Pair <>("", cache));
@@ -148,6 +158,7 @@ public class TelemetryClient {
 
 	public static boolean sortDataInTelemetryClientUpdate = true;
 
+	@Override
 	public void update() {
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();

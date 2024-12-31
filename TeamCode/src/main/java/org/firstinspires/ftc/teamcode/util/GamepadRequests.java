@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import static org.firstinspires.ftc.teamcode.util.ButtonProcessor.ButtonConfig.SingleWhenPressed;
 
+import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
 
 /**
@@ -73,7 +74,7 @@ public final class GamepadRequests {
 	}
 
 	public static void printValues() {
-		final TelemetryClient instance = TelemetryClient.getInstance();
+		final Client instance = TelemetryClient.getInstance();
 		instance.changeData("liftDecantUpping", liftDecantUpping);
 		instance.changeData("sampleIO", sampleIO);
 		instance.changeData("liftHighSuspendPrepare", liftHighSuspendPrepare);
