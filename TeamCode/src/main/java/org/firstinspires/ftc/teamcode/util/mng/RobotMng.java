@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.util.mng;
 
+import static org.firstinspires.ftc.teamcode.Global.gamepad1;
+import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.clipOption;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.decantOrSuspend;
@@ -11,13 +13,12 @@ import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.liftIDL
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.sampleIO;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequestMemories.syncRequests;
 
-import androidx.annotation.NonNull;
-
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.structure.ClipOp;
@@ -42,8 +43,6 @@ public class RobotMng {
 	public static final double  driverTriggerBufFal = 0.5;
 	public static final char[]  printCode           = "-\\|/".toCharArray();
 	public static final double  rotateTriggerBufFal = 0.01;
-	@NonNull
-	public static       Gamepad gamepad1, gamepad2;
 
 	public Map < String , HardwareController > controllers=new HashMap <>();
 
@@ -68,8 +67,8 @@ public class RobotMng {
 	}
 
 	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
-		RobotMng.gamepad1 = gamepad1;
-		RobotMng.gamepad2 = gamepad2;
+		Global.gamepad1 = gamepad1;
+		Global.gamepad2 = gamepad2;
 	}
 
 	public void initControllers() {
