@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.util.mng.RobotMng;
 import org.firstinspires.ftc.teamcode.util.ops.IntegralTeleOp;
 
 @TeleOp(name = "19419", group = "0_Main")
@@ -9,6 +10,7 @@ public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void op_init() {
 		super.op_init();
+		client.addData("drive buf","wait For Start.");
 		auto_terminate_when_TLE(false);
 	}
 
@@ -27,5 +29,6 @@ public class TeleOpCore extends IntegralTeleOp {
 //		GamepadRequestMemories.printValues();
 
 		robot.runThread();
+		client.changeData("drive buf", RobotMng.driveBufPower);
 	}
 }
