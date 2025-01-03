@@ -24,7 +24,7 @@ public class TelemetryClient implements Client {
 	/**
 	 * 若启用，更改数据后需要执行 {@link #update()} ，关闭时则无需执行
 	 */
-	public         boolean autoUpdate;
+	public  static boolean autoUpdate;
 	private static Client  instanceClient;
 
 	public TelemetryClient(final Telemetry telemetry) {
@@ -175,13 +175,13 @@ public class TelemetryClient implements Client {
 			outputData.sort(Comparator.comparingInt(x -> x.first));
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
-				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
+				final Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
 				if (showIndex) {
-					String packedID = "[" + outputLine.first + "]";
+					final String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
 					} else {
-						if (outputLine.second.second == null) {
+						if (null == outputLine.second.second) {
 							telemetry.addLine(packedID + outputLine.second.first);
 						} else {
 							telemetry.addData(packedID + outputLine.second.first, outputLine.second.second);
@@ -191,7 +191,7 @@ public class TelemetryClient implements Client {
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first, outputLine.second.second);
 					} else {
-						if (outputLine.second.second == null) {
+						if (null == outputLine.second.second) {
 							telemetry.addLine(outputLine.second.first);
 						} else {
 							telemetry.addData(outputLine.second.first, outputLine.second.second);
