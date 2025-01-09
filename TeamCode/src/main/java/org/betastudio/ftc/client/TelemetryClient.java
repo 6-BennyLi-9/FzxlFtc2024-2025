@@ -161,7 +161,10 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public Client speak(String text) {
-		return speak(text, null, null);
+		try {
+			telemetry.speak(text);
+		}catch (UnsupportedOperationException ignored){}
+		return this;
 	}
 
 	@Override
