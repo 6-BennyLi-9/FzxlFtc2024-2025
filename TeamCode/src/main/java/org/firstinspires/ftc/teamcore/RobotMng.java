@@ -112,14 +112,13 @@ public class RobotMng {
 			}
 
 			PlaceOp.getInstance().prepare();
-			driveBufPower=0.4;
+			driveBufPower=0.5;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
 			LiftOp.getInstance().sync(LiftMode.highSuspendPrepare);
-			driveBufPower=0.4;
 		}
 
 		if (decantOrSuspend.getEnabled()) {
@@ -173,14 +172,14 @@ public class RobotMng {
 			}else {
 				TelemetryClient.getInstance().configViewMode(ViewMode.basicTelemetry);
 			}
-			TelemetryClient.getInstance().speak("The telemetry's ViewMode has recently switched to "+TelemetryClient.getInstance().getCurrentViewMode().name());
+//			TelemetryClient.getInstance().speak("The telemetry's ViewMode has recently switched to "+TelemetryClient.getInstance().getCurrentViewMode().name());
 		}
 	}
 
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
 			if (1 == driveBufPower) {
-				driveBufPower = 0.4;
+				driveBufPower = 0.5;
 			} else {
 				driveBufPower = 1;
 			}
