@@ -69,6 +69,12 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 		recent = ArmPositions.safe;
 		manage(0.61);
 	}
+
+	public void rise(){
+		recent = ArmPositions.rise;
+		manage(0.37);
+	}
+
 	public void flip() {
 		switch (recent) {
 			case intake:
@@ -86,9 +92,9 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 
 	public void flipIO(){
 		if (Objects.requireNonNull(recent) == ArmPositions.intake) {
-			idle();
+			rise();
 		} else {
-			init();
+			intake();
 		}
 	}
 

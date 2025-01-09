@@ -63,7 +63,7 @@ public class ClawOp implements HardwareController , InitializeRequested , TagReq
 
 	public void close() {
 		recent = ClawPositions.close;
-		clawControl.setTargetPosition(0.45);
+		clawControl.setTargetPosition(0.44);
 	}
 
 	@NonNull

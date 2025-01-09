@@ -173,6 +173,7 @@ public class RobotMng {
 			}else {
 				TelemetryClient.getInstance().configViewMode(ViewMode.basicTelemetry);
 			}
+			TelemetryClient.getInstance().speak("The telemetry's ViewMode has recently switched to "+TelemetryClient.getInstance().getCurrentViewMode().name());
 		}
 	}
 
