@@ -19,19 +19,17 @@ public class Local {
 			while (function.call()!=expect){
 				sleep(flashMillis);
 			}
-		}catch (Exception e){
-			throw new RuntimeException(e);
-		}
+		}catch (Exception ignored){}
 	}
 
 	public static void runMultiRunnable(@NonNull Runnable... runnable){
 		for(Runnable current : runnable){
-			Global.coreThreads.add(new Thread(current));
+			Global.threadManager.add(new Thread(current));
 		}
 	}
 	public static void runMultiThreads(@NonNull Thread... threads){
 		for (Thread current : threads){
-			Global.coreThreads.add(current);
+			Global.threadManager.add(current);
 		}
 	}
 }

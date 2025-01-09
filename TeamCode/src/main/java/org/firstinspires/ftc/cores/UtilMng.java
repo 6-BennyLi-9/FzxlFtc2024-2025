@@ -199,7 +199,7 @@ public class UtilMng {
 	}
 
 	public void runAsThread() {
-		Global.coreThreads.add(saveCachedAsThread());
+		Global.threadManager.add(saveCachedAsThread());
 	}
 
 	public Thread saveCachedAsThread() {

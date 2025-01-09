@@ -24,6 +24,6 @@ public class BranchThreadClient extends TelemetryClient {
 
 		setAutoUpdate(false);
 
-		Global.coreThreads.add("client-updater", updateThread);
+		Global.threadManager.add("client-updater", updateThread);
 	}
 }

@@ -23,7 +23,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 	public void op_init() {
 		Global.registerGamepad(gamepad1,gamepad2);
 		Global.prepareCoreThreadPool();
-		Global.currentMode= RunMode.TeleOping;
+		Global.runMode = RunMode.TeleOping;
 		DriveOp.config = DriveMode.StraightLinear;
 		timer = new Timer();
 
@@ -76,6 +76,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 	@Override
 	public void op_end() {
 		client.clear();
-		Global.currentMode=RunMode.Terminated;
+		Global.runMode =RunMode.Terminated;
 	}
 }

@@ -1,7 +1,7 @@
 package org.betastudio.ftc.events;
 
-import static org.firstinspires.ftc.teamcode.Global.coreThreads;
-import static org.firstinspires.ftc.teamcode.Global.currentMode;
+import static org.firstinspires.ftc.teamcode.Global.threadManager;
+import static org.firstinspires.ftc.teamcode.Global.runMode;
 
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.teamcode.Local;
@@ -12,12 +12,12 @@ public final class SystemMonitor extends Thread implements ThreadAdditions {
 
 	@Override
 	public void run() {
-		while (currentMode != RunMode.Terminated && !taskClosed){
+		while (runMode != RunMode.Terminated && !taskClosed){
 			Local.sleep(5000);
 		}
 		//正常退出
 		if(!taskClosed){
-			coreThreads.interruptAll();
+			threadManager.interruptAll();
 		}
 	}
 

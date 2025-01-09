@@ -195,6 +195,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public void update() {
 		telemetry.addData("ViewMode",viewMode.name());
+		telemetry.addData("Status",Global.runMode);
 
 		switch (viewMode){
 			case basicTelemetry:
@@ -209,7 +210,7 @@ public class TelemetryClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines(){
-		for (Map.Entry <String, Thread> entry : Global.coreThreads.getMem().entrySet()) {
+		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
 			String key   = entry.getKey();
 			Thread value = entry.getValue();
 			telemetry.addData(key, value);

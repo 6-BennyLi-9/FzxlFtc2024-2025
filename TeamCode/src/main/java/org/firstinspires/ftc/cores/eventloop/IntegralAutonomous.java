@@ -35,7 +35,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
-		Global.currentMode= RunMode.Autonomous;
+		Global.runMode = RunMode.Autonomous;
 		Global.prepareCoreThreadPool();
 		HardwareDatabase.sync(hardwareMap, true);
 		drive = new SampleMecanumDrive(hardwareMap);
@@ -55,10 +55,10 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		if (! opModeIsActive()) return;
 		timer.restart();
 
-		Global.coreThreads.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
+		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 		linear();
 
-		Global.currentMode=RunMode.Terminated;
+		Global.runMode =RunMode.Terminated;
 	}
 
 	public abstract void initialize();

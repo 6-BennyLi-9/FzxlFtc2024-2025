@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.betastudio.ftc.events.SystemMonitor;
 
 public final class Global {
-	public  static ThreadManager coreThreads;
+	public  static ThreadManager threadManager;
 	public  static Gamepad       gamepad1, gamepad2;
-	public  static RunMode       currentMode;
+	public  static RunMode       runMode;
 	private static boolean       auto_create_monitor = true;
 
 	public static void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
@@ -15,12 +15,12 @@ public final class Global {
 		Global.gamepad2=gamepad2;
 	}
 	public static void prepareCoreThreadPool(){
-		if (coreThreads != null) {
-			if (! coreThreads.isEmpty()) {
-				coreThreads.interruptAll();
+		if (threadManager != null) {
+			if (! threadManager.isEmpty()) {
+				threadManager.interruptAll();
 			}
 		}
-		coreThreads=new ThreadManager();
+		threadManager =new ThreadManager();
 
 		if (auto_create_monitor){
 			createMonitor();
@@ -28,7 +28,7 @@ public final class Global {
 	}
 
 	public static void createMonitor(){
-		coreThreads.add("sys-monitor", new SystemMonitor());
+		threadManager.add("sys-monitor", new SystemMonitor());
 	}
 
 	public boolean auto_create_monitor(){
