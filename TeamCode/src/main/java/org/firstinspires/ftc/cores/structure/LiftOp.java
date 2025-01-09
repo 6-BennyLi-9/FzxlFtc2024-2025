@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.HardwareController;
+import org.betastudio.ftc.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 @Config

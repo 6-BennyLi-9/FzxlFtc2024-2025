@@ -28,9 +28,9 @@ import org.firstinspires.ftc.cores.structure.RotateOp;
 import org.firstinspires.ftc.cores.structure.ScaleOp;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
-import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.interfaces.InitializeRequested;
-import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.HardwareController;
+import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.TagRequested;
 
 import java.util.HashMap;
 import java.util.Map;

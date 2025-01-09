@@ -6,9 +6,9 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.interfaces.InitializeRequested;
-import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.HardwareController;
+import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
