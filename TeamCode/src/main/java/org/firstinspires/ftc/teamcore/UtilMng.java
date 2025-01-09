@@ -17,6 +17,7 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.Global;
@@ -46,7 +47,7 @@ public class UtilMng {
 	}
 
 	public UtilMng waitMs(final long waitMillis) {
-		actions.add(new StatementAction(() -> Global.sleep(waitMillis)));
+		actions.add(new SleepingAction(waitMillis));
 		return this;
 	}
 
