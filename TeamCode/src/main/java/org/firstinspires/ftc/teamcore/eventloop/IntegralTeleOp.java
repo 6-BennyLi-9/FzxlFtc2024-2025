@@ -7,7 +7,7 @@ import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
-import org.firstinspires.ftc.teamcore.structure.DriveConfig;
+import org.firstinspires.ftc.teamcore.structure.DriveMode;
 import org.firstinspires.ftc.teamcore.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Timer;
@@ -24,7 +24,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 		Global.registerGamepad(gamepad1,gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.currentMode= RunMode.TeleOping;
-		DriveOp.config = DriveConfig.StraightLinear;
+		DriveOp.config = DriveMode.StraightLinear;
 		timer = new Timer();
 
 		HardwareDatabase.sync(hardwareMap, true);

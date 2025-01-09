@@ -28,18 +28,10 @@ public final class Global {
 	public static void createMonitor(){
 		coreThreads.add("sys-monitor", new Thread(()->{
 			while (currentMode!=RunMode.Terminated){
-				sleep(5000);
+				Local.sleep(5000);
 			}
 			coreThreads.interruptAll();
 		}));
-	}
-
-	public static void sleep(long mills){
-		try {
-			Thread.sleep(mills);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public boolean auto_create_monitor(){
