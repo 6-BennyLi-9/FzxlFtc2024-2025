@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 public enum RunMode {
-	Interrupted,
+	Terminated,
 	Autonomous,
 	TeleOping
 }

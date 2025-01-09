@@ -75,6 +75,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 	@Override
 	public void op_end() {
 		client.clear();
-		Global.currentMode=RunMode.Interrupted;
+		Global.currentMode=RunMode.Terminated;
 	}
 }

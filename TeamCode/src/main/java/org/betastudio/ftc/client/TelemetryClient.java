@@ -5,6 +5,7 @@ import android.util.Pair;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Global;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,20 +18,20 @@ import java.util.Vector;
  */
 @Config
 public class TelemetryClient implements Client {
-	private final   Telemetry                            telemetry;
+	public static   boolean                              debugMode;
+	private static  Client                               instanceClient;
 	protected final Map <String, Pair <String, Integer>> data;
+	private final   Telemetry                            telemetry;
+	public          boolean                              autoUpdate;
+	public          ViewMode                             viewMode;
 	protected       int                                  ID;
-	public static   boolean                              showIndex;
-	/**
-	 * 若启用，更改数据后需要执行 {@link #update()} ，关闭时则无需执行
-	 */
-	public         boolean autoUpdate;
-	private static Client  instanceClient;
 
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
 		instanceClient = this;
+
+		configViewMode(ViewMode.telemetry);
 	}
 
 	public static Client getInstance() {
@@ -156,10 +157,40 @@ public class TelemetryClient implements Client {
 		return this;
 	}
 
+	@Override
+	public void configViewMode(ViewMode viewMode) {
+		this.viewMode=viewMode;
+	}
+
+	@Override
+	public ViewMode getCurrentViewMode() {
+		return viewMode;
+	}
+
 	public static boolean sortDataInTelemetryClientUpdate = true;
 
 	@Override
 	public void update() {
+		switch (viewMode){
+			case telemetry:
+				updateTelemetryLines();
+				break;
+			case threadManager:
+				updateThreadLines();
+				break;
+			case log:
+				throw new UnsupportedOperationException("TelemetryClient doesn't support log view now!");
+		}
+	}
+
+	protected synchronized void updateThreadLines(){
+		for (Map.Entry <String, Thread> entry : Global.coreThreads.getMem().entrySet()) {
+			String key   = entry.getKey();
+			Thread value = entry.getValue();
+			telemetry.addData(key, value);
+		}
+	}
+	protected synchronized void updateTelemetryLines(){
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
@@ -176,7 +207,7 @@ public class TelemetryClient implements Client {
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
 				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
-				if (showIndex) {
+				if (debugMode) {
 					String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
@@ -207,7 +238,7 @@ public class TelemetryClient implements Client {
 				final String                 key = entry.getKey();
 				final Pair <String, Integer> val = entry.getValue();
 				cache = Objects.equals(val.first, "") ? val.first : key + ":" + val.first;
-				if (showIndex) {
+				if (debugMode) {
 					this.telemetry.addLine("[" + val.second + "]" + cache);
 				} else {
 					this.telemetry.addLine(key + ":" + cache);

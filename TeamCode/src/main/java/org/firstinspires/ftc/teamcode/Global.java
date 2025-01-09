@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.util.ThreadManager;
 
 public final class Global {
-	public static ThreadManager coreThreads;
-	public static Gamepad       gamepad1, gamepad2;
-	public static  RunMode      currentMode;
-	private static boolean      auto_create_monitor = true;
+	public  static ThreadManager coreThreads;
+	public  static Gamepad       gamepad1, gamepad2;
+	public  static RunMode       currentMode;
+	private static boolean       auto_create_monitor = true;
 
 	public static void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		Global.gamepad1=gamepad1;
@@ -30,7 +30,7 @@ public final class Global {
 	public static void createMonitor(){
 		coreThreads.add("sys-monitor",
 			new Thread(()->{
-				while (currentMode!=RunMode.Interrupted){
+				while (currentMode!=RunMode.Terminated){
 					sleep(5000);
 				}
 				coreThreads.interruptAll();

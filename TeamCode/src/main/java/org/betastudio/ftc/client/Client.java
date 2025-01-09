@@ -14,4 +14,7 @@ public interface Client {
 	Client addLine(Object key);
 	Client deleteLine(String key);
 	Client changeLine(String oldData, String newData);
+
+	void configViewMode(ViewMode viewMode);
+	ViewMode getCurrentViewMode();
 }

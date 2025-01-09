@@ -95,6 +95,18 @@ public class MultiTelemetryClient implements Client{
 	}
 
 	@Override
+	public void configViewMode(ViewMode viewMode) {
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			entry.getValue().configViewMode(viewMode);
+		}
+	}
+
+	@Override
+	public ViewMode getCurrentViewMode() {
+		return ((Client) clients.entrySet().toArray()[0]).getCurrentViewMode();
+	}
+
+	@Override
 	public void update() {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().update();

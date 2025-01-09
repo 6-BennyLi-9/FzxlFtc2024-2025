@@ -66,7 +66,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		}
 		linear.interrupt();
 
-		Global.currentMode=RunMode.Interrupted;
+		Global.currentMode=RunMode.Terminated;
 	}
 
 	public abstract void initialize();

@@ -45,4 +45,8 @@ public class ThreadManager {
 	public boolean isEmpty(){
 		return mem.isEmpty();
 	}
+
+	public Map <String,Thread> getMem(){
+		return mem;
+	}
 }
