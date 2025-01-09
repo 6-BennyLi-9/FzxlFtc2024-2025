@@ -205,7 +205,7 @@ public class RobotMng {
 	public void update() {
 		thread.run();
 	}
-	public void printActionsDebugs() {
+	public void printActions() {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode[updateTime % printCode.length] + "]";
@@ -214,7 +214,7 @@ public class RobotMng {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			TelemetryClient.getInstance().changeData(s + updateCode,  a.paramsString());
+			TelemetryClient.getInstance().changeData(s , updateCode + a.paramsString());
 		}
 	}
 }

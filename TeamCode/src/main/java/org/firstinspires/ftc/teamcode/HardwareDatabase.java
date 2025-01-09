@@ -16,7 +16,6 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.client.TelemetryClient;
 
 public final class HardwareDatabase {
-	;
 	public static DcMotorEx   leftFront;
 	public static DcMotorEx   leftRear;
 	public static DcMotorEx   rightFront;
