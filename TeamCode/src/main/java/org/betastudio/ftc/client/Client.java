@@ -14,6 +14,8 @@ public interface Client {
 	Client addLine(Object key);
 	Client deleteLine(String key);
 	Client changeLine(String oldData, String newData);
+	Client speak(String text);
+	Client speak(String text, String languageCode, String countryCode);
 
 	void configViewMode(ViewMode viewMode);
 	ViewMode getCurrentViewMode();

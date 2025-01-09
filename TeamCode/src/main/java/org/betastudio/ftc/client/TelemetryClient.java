@@ -158,6 +158,19 @@ public class TelemetryClient implements Client {
 	}
 
 	@Override
+	public Client speak(String text) {
+		return speak(text, null, null);
+	}
+
+	@Override
+	public Client speak(String text, String languageCode, String countryCode) {
+		try {
+			telemetry.speak(text, languageCode, countryCode);
+		}catch (UnsupportedOperationException ignored){}
+		return this;
+	}
+
+	@Override
 	public void configViewMode(ViewMode viewMode) {
 		this.viewMode=viewMode;
 	}
