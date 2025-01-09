@@ -117,7 +117,11 @@ public class MultiTelemetryClient implements Client{
 	}
 
 	@Override
-	public void setAutoUpdate(boolean autoUpdate) {}
+	public void setAutoUpdate(boolean autoUpdate) {
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			entry.getValue().setAutoUpdate(autoUpdate);
+		}
+	}
 
 	@Override
 	public ViewMode getCurrentViewMode() {
