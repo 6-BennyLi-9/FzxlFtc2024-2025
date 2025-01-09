@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.events.SystemMonitor;
+
 public final class Global {
 	public  static ThreadManager coreThreads;
 	public  static Gamepad       gamepad1, gamepad2;
@@ -26,12 +28,7 @@ public final class Global {
 	}
 
 	public static void createMonitor(){
-		coreThreads.add("sys-monitor", new Thread(()->{
-			while (currentMode!=RunMode.Terminated){
-				Local.sleep(5000);
-			}
-			coreThreads.interruptAll();
-		}));
+		coreThreads.add("sys-monitor", new SystemMonitor());
 	}
 
 	public boolean auto_create_monitor(){
