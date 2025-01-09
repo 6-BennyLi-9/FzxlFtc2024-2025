@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcore.structure.PlaceOp;
 import org.firstinspires.ftc.teamcore.structure.RotateOp;
 import org.firstinspires.ftc.teamcore.structure.ScaleOp;
 import org.firstinspires.ftc.teamcore.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcore.structure.positions.ScalePositionTypes;
+import org.firstinspires.ftc.teamcore.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
 import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
@@ -160,7 +160,7 @@ public class RobotMng {
 		}
 
 		if(flipArm.getEnabled()){
-			if(ScalePositionTypes.probe == ScaleOp.recent){
+			if(ScalePositions.probe == ScaleOp.recent){
 				ArmOp.getInstance().flipIO();
 			}
 		}

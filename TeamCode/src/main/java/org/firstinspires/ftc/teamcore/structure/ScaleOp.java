@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcore.structure.positions.ScalePositionTypes;
+import org.firstinspires.ftc.teamcore.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements HardwareController, InitializeRequested , TagRequested {
-	public static  ScalePositionTypes recent = ScalePositionTypes.unknown;
-	public static  ServoCtrl          leftScaleController, rightScaleController;
+	public static ScalePositions recent = ScalePositions.unknown;
+	public static ServoCtrl      leftScaleController, rightScaleController;
 	private static ScaleOp            instance;
 
 	public static ScaleOp getInstance(){
@@ -62,7 +62,7 @@ public class ScaleOp implements HardwareController, InitializeRequested , TagReq
 	}
 
 	public void flip() {
-		if (ScalePositionTypes.probe == recent) {
+		if (ScalePositions.probe == recent) {
 			back();
 		} else {
 			probe();
@@ -70,17 +70,17 @@ public class ScaleOp implements HardwareController, InitializeRequested , TagReq
 	}
 
 	public void probe() {
-		recent = ScalePositionTypes.probe;
+		recent = ScalePositions.probe;
 		manage(1);
 	}
 
 	public void back() {
-		recent = ScalePositionTypes.back;
+		recent = ScalePositions.back;
 		manage(0.5);
 	}
 
 	public void operate(final double position) {
-		recent = ScalePositionTypes.probe;
+		recent = ScalePositions.probe;
 		manageSmooth(position);
 	}
 

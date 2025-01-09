@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcore.structure.positions.ClawPositionTypes;
+import org.firstinspires.ftc.teamcore.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements HardwareController , InitializeRequested , TagRequested {
-	public static  ClawPositionTypes recent = ClawPositionTypes.unknown;
-	public static  ServoCtrl         clawControl;
+	public static ClawPositions recent = ClawPositions.unknown;
+	public static ServoCtrl     clawControl;
 	private static ClawOp            instance;
 
 	public static ClawOp getInstance(){
@@ -57,12 +57,12 @@ public class ClawOp implements HardwareController , InitializeRequested , TagReq
 	}
 
 	public void open() {
-		recent = ClawPositionTypes.open;
+		recent = ClawPositions.open;
 		clawControl.setTargetPosition(0.65);
 	}
 
 	public void close() {
-		recent = ClawPositionTypes.close;
+		recent = ClawPositions.close;
 		clawControl.setTargetPosition(0.45);
 	}
 

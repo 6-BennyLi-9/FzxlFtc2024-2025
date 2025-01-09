@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcore.structure.positions.PlacePositionTypes;
+import org.firstinspires.ftc.teamcore.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements HardwareController, InitializeRequested , TagRequested {
-	public static  PlacePositionTypes recent = PlacePositionTypes.unknown;
-	private static PlaceOp            instance;
+	public static  PlacePositions recent = PlacePositions.unknown;
+	private static PlaceOp        instance;
 
 	public static PlaceOp getInstance(){
 		return instance;
@@ -48,21 +48,21 @@ public class PlaceOp implements HardwareController, InitializeRequested , TagReq
 	}
 
 	public boolean decanting() {
-		return PlacePositionTypes.decant == recent || PlacePositionTypes.prepare == recent;
+		return PlacePositions.decant == recent || PlacePositions.prepare == recent;
 	}
 
 	public void decant() {
-		recent = PlacePositionTypes.decant;
+		recent = PlacePositions.decant;
 		placeController.setTargetPosition(1);
 	}
 
 	public void idle() {
-		recent = PlacePositionTypes.idle;
+		recent = PlacePositions.idle;
 		placeController.setTargetPosition(0);
 	}
 
 	public void prepare(){
-		recent = PlacePositionTypes.prepare;
+		recent = PlacePositions.prepare;
 		placeController.setTargetPosition(0.5);
 	}
 
@@ -79,7 +79,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , TagReq
 	}
 
 	public void flip() {
-		if (Objects.requireNonNull(recent) == PlacePositionTypes.decant) {
+		if (Objects.requireNonNull(recent) == PlacePositions.decant) {
 			idle();
 		} else {
 			decant();

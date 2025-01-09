@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcore.structure.positions;
 
-public enum ClawPositionTypes {
-	open, close, unknown
+public enum ScalePositions {
+	back, probe, unknown
 }
