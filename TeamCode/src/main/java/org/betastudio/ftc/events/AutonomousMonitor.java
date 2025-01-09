@@ -20,10 +20,8 @@ public final class AutonomousMonitor extends Thread implements ThreadAdditions {
 			while (activeCaller.call() && !taskInterrupted) {
 				Local.sleep(500);
 			}
-			Global.currentMode = RunMode.Terminated;
-		}catch (Exception e){
-			throw new RuntimeException(e);
-		}
+		}catch (Exception ignored){}
+		Global.currentMode = RunMode.Terminated;
 	}
 
 	@Override
