@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 /**
  * 一个非常好用的计数器
  */
-public final class SmartCounter {
+public final class TickEncoder {
 	private int ticked;
 
 	public void tickRst() {

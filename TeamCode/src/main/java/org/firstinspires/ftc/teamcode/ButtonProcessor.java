@@ -11,13 +11,13 @@ public final class ButtonProcessor {
 	}
 
 	public final ButtonConfig config;
-	public final SmartCounter smartCounter;
+	public final TickEncoder smartCounter;
 
 	private boolean lst, now;
 
 	public ButtonProcessor(final ButtonConfig config) {
 		this.config = config;
-		smartCounter = new SmartCounter();
+		smartCounter = new TickEncoder();
 	}
 
 	public void sync(final boolean input) {
