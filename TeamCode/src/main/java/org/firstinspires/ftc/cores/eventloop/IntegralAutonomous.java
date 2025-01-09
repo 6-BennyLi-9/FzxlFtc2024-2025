@@ -37,7 +37,9 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	public final void runOpMode() throws InterruptedException {
 		Global.runMode = RunMode.Autonomous;
 		Global.prepareCoreThreadPool();
+		Global.currentOpmode=this;
 		HardwareDatabase.sync(hardwareMap, true);
+
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new TelemetryClient(telemetry);

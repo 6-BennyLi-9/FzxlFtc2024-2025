@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.events.TaskCloseMonitor;
+import org.betastudio.ftc.events.ThreadExceptionHandler;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 
 import java.util.HashMap;
@@ -33,21 +34,22 @@ public final class ThreadManager {
 		mem.remove(tag);
 	}
 
+	public void addStarted(String tag,Thread startedThread){
+		startedThread.setUncaughtExceptionHandler(new ThreadExceptionHandler());
+		mem.put(tag,startedThread);
+	}
 	/**
 	 * 会自动运行
 	 * */
 	public void add(String tag, @NonNull Thread unstartedThread){
 		unstartedThread.start();
-		mem.put(tag,unstartedThread);
+		addStarted(tag,unstartedThread);
 	}
 	/**
 	 * 会自动运行
 	 * */
 	public void add(@NonNull Thread unstartedThread){
 		add(labeler.summonID(unstartedThread),unstartedThread);
-	}
-	public void addStarted(String tag,Thread startedThread){
-		mem.put(tag,startedThread);
 	}
 	public void addStarted(Thread startedThread){
 		addStarted(labeler.summonID(startedThread),startedThread);

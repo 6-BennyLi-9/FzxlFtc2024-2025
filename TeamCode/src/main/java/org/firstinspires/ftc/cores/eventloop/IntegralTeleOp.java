@@ -21,6 +21,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 
 	@Override
 	public void op_init() {
+		Global.currentOpmode=this;
 		Global.registerGamepad(gamepad1,gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.TeleOping;

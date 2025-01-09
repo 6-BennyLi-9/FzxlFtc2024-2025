@@ -1,7 +1,7 @@
 package org.betastudio.ftc.events;
 
-import static org.firstinspires.ftc.teamcode.Global.threadManager;
 import static org.firstinspires.ftc.teamcode.Global.runMode;
+import static org.firstinspires.ftc.teamcode.Global.threadManager;
 
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.teamcode.Local;
