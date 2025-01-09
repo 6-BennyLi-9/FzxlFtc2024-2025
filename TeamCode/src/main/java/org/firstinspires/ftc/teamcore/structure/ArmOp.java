@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcore.structure.positions.ArmPositionTypes;
+import org.firstinspires.ftc.teamcore.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
 import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements HardwareController, InitializeRequested , TagRequested {
-	public static  ArmPositionTypes recent = ArmPositionTypes.unknown;
+	public static  ArmPositions recent = ArmPositions.unknown;
 	public static  ServoCtrl        leftArmControl, rightArmControl;
 	private static ArmOp            instance;
 
@@ -56,17 +56,17 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 	}
 
 	public void intake() {
-		recent = ArmPositionTypes.intake;
+		recent = ArmPositions.intake;
 		manage(0.11);
 	}
 
 	public void idle() {
-		recent = ArmPositionTypes.idle;
+		recent = ArmPositions.idle;
 		manage(0.79);
 	}
 
 	public void safe() {
-		recent = ArmPositionTypes.safe;
+		recent = ArmPositions.safe;
 		manage(0.61);
 	}
 	public void flip() {
@@ -85,7 +85,7 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 	}
 
 	public void flipIO(){
-		if (Objects.requireNonNull(recent) == ArmPositionTypes.intake) {
+		if (Objects.requireNonNull(recent) == ArmPositions.intake) {
 			idle();
 		} else {
 			init();
@@ -93,7 +93,7 @@ public class ArmOp implements HardwareController, InitializeRequested , TagReque
 	}
 
 	public boolean isNotSafe() {
-		return ArmPositionTypes.safe != recent;
+		return ArmPositions.safe != recent;
 	}
 
 	@NonNull
