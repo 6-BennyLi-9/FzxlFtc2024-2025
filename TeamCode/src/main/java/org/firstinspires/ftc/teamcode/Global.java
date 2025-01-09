@@ -26,14 +26,12 @@ public final class Global {
 	}
 
 	public static void createMonitor(){
-		coreThreads.add("sys-monitor",
-			new Thread(()->{
-				while (currentMode!=RunMode.Terminated){
-					sleep(5000);
-				}
-				coreThreads.interruptAll();
-			})
-		);
+		coreThreads.add("sys-monitor", new Thread(()->{
+			while (currentMode!=RunMode.Terminated){
+				sleep(5000);
+			}
+			coreThreads.interruptAll();
+		}));
 	}
 
 	public static void sleep(long mills){
