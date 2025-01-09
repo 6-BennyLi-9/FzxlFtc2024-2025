@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.events.TaskCloseMonitor;
+import org.betastudio.ftc.interfaces.ThreadAdditions;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ThreadManager {
+public final class ThreadManager {
 	private final Map <String,Thread> mem     =new HashMap <>();
 	private final Labeler             labeler =new Labeler();
 
@@ -14,7 +17,15 @@ public class ThreadManager {
 	}
 
 	public void interruptAll(){
-		mem.forEach((t,e)->e.interrupt());
+		for (Map.Entry <String, Thread> entry : mem.entrySet()) {
+			Thread e = entry.getValue();
+			if(e instanceof ThreadAdditions){
+				((ThreadAdditions) e).closeTask();
+				new TaskCloseMonitor(e).start();
+			}else {
+				e.interrupt();
+			}
+		}
 		mem.clear();
 	}
 	public void interrupt(String tag){

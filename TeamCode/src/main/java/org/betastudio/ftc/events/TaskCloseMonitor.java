@@ -2,8 +2,8 @@ package org.betastudio.ftc.events;
 
 import org.firstinspires.ftc.teamcode.Local;
 
-public class TaskCloseMonitor extends Thread{
-	public Thread argument;
+public final class TaskCloseMonitor extends Thread{
+	private final Thread argument;
 	public TaskCloseMonitor(Thread argument){
 		this.argument=argument;
 	}
