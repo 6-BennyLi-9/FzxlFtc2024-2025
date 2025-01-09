@@ -23,15 +23,17 @@ public class TelemetryClient implements Client {
 	protected final Map <String, Pair <String, Integer>> data;
 	private final   Telemetry                            telemetry;
 	private         boolean                              autoUpdate;
-	public          ViewMode                             viewMode;
+	public static   ViewMode                             viewMode;
 	protected       int                                  ID;
+
+	static {
+		viewMode=ViewMode.basicTelemetry;
+	}
 
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
 		instanceClient = this;
-
-		configViewMode(ViewMode.basicTelemetry);
 	}
 
 	public static Client getInstance() {
@@ -172,7 +174,7 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public void configViewMode(ViewMode viewMode) {
-		this.viewMode=viewMode;
+		TelemetryClient.viewMode =viewMode;
 	}
 
 	@Override
