@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements HardwareController , InitializeRequested , TagRequested {
-	public static ClawPositions recent = ClawPositions.unknown;
+	public static ClawPositions recent = ClawPositions.open;
 	public static ServoCtrl     clawControl;
 	private static ClawOp            instance;
 

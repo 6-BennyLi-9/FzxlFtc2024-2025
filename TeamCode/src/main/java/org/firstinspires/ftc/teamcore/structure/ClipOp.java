@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements HardwareController , InitializeRequested , TagRequested {
-	public static ClipPositions recent = ClipPositions.unknown;
+	public static ClipPositions recent = ClipPositions.open;
 	public static ServoCtrl     clipControl;
 	private static ClipOp            instance;
 

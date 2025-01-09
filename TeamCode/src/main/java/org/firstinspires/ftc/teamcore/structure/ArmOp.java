@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements HardwareController, InitializeRequested , TagRequested {
-	public static  ArmPositions recent = ArmPositions.unknown;
+	public static  ArmPositions recent = ArmPositions.idle;
 	public static  ServoCtrl        leftArmControl, rightArmControl;
 	private static ArmOp            instance;
 

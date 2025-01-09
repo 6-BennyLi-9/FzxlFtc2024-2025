@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements HardwareController, InitializeRequested , TagRequested {
-	public static ScalePositions recent = ScalePositions.unknown;
+	public static ScalePositions recent = ScalePositions.back;
 	public static ServoCtrl      leftScaleController, rightScaleController;
 	private static ScaleOp            instance;
 

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements HardwareController, InitializeRequested , TagRequested {
-	public static  PlacePositions recent = PlacePositions.unknown;
+	public static  PlacePositions recent = PlacePositions.idle;
 	private static PlaceOp        instance;
 
 	public static PlaceOp getInstance(){
