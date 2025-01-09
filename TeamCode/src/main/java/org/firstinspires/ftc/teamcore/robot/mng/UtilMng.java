@@ -151,27 +151,27 @@ public class UtilMng {
 	}
 
 	public UtilMng liftDecantHigh() {
-		actions.add(liftControllerGenerator(LiftOp.getInstance().decantHigh));
+		actions.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
 
 	public UtilMng liftDecantLow() {
-		actions.add(liftControllerGenerator(LiftOp.getInstance().decantLow));
+		actions.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
 
 	public UtilMng liftSuspendHighPrepare() {
-		actions.add(liftControllerGenerator(LiftOp.getInstance().highSuspendPrepare));
+		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
 
 	public UtilMng liftSuspendHigh() {
-		actions.add(liftControllerGenerator(LiftOp.getInstance().highSuspend));
+		actions.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
 
 	public UtilMng liftSuspendLv1() {
-		actions.add(liftControllerGenerator(LiftOp.getInstance().suspendLv1));
+		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
 		return this;
 	}
 

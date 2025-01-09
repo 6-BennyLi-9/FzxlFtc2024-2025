@@ -53,19 +53,14 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 
 		if (! opModeIsActive()) return;
 		timer.restart();
-		final Thread linear = new Thread(() -> {
-			try {
-				linear();
-			} catch (Throwable throwable) {
-				throwLocalThrowable(throwable);
-			}
-		});
-		Global.coreThreads.add("linear",linear);
 
-		while (opModeIsActive() && ! linear.isInterrupted()) {
-			sleep(10);
-		}
-		linear.interrupt();
+		Global.coreThreads.add("autonomous-exception-interrupter",new Thread(()->{
+			while (opModeIsActive()){
+				sleep(500);
+			}
+			Global.currentMode=RunMode.Terminated;
+		}));
+		linear();
 
 		Global.currentMode=RunMode.Terminated;
 	}

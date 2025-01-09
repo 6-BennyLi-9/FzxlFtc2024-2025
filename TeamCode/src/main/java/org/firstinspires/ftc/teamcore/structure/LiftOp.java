@@ -43,7 +43,7 @@ public class LiftOp implements HardwareController , TagRequested {
 		liftCtrl.setTag("lift");
 	}
 
-	public long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
+	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
 	public void sync(@NonNull final LiftMode option) {
 		recent = option;
