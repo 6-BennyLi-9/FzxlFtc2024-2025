@@ -22,7 +22,7 @@ import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcore.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcore.structure.LiftOp;
-import org.betastudio.ftc.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 
 import java.util.LinkedList;
 

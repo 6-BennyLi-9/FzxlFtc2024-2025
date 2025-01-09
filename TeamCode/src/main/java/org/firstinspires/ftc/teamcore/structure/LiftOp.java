@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.controllers.LiftCtrl;
-import org.betastudio.ftc.controllers.lift.DcLiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.teamcore.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.interfaces.HardwareController;

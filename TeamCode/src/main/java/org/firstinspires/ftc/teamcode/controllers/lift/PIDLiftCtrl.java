@@ -1,4 +1,4 @@
-package org.betastudio.ftc.controllers.lift;
+package org.firstinspires.ftc.teamcode.controllers.lift;
 
 import androidx.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcore.pid.PidProcessor;
-import org.betastudio.ftc.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 
 /**
  * 基于 {@code PID}
