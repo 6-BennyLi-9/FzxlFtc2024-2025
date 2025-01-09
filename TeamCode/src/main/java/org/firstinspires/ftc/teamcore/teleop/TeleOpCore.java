@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcore.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcore.robot.mng.RobotMng;
-import org.firstinspires.ftc.teamcore.robot.ops.IntegralTeleOp;
+import org.firstinspires.ftc.teamcore.RobotMng;
+import org.firstinspires.ftc.teamcore.eventloop.IntegralTeleOp;
 
 @TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {

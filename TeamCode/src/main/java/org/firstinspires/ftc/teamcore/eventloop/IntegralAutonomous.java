@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcore.robot.ops;
+package org.firstinspires.ftc.teamcore.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -16,9 +16,9 @@ import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcore.structure.SimpleDriveOp;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.util.Timer;
-import org.firstinspires.ftc.teamcore.robot.mng.UtilMng;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Timer;
+import org.firstinspires.ftc.teamcore.UtilMng;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcore.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.jetbrains.annotations.Contract;
 
 public final class SimpleDriveAction implements Action {

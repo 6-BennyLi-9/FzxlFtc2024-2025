@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 public abstract class LiftCtrl implements Action {
 	protected long currentPosition, targetPosition;

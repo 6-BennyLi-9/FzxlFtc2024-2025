@@ -5,10 +5,10 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcore.structure.positions.PlacePositions;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
-import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
+import org.firstinspires.ftc.teamcode.interfaces.InitializeRequested;
+import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;

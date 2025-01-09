@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcore.robot.ops.IntegralAutonomous;
+import org.firstinspires.ftc.teamcore.eventloop.IntegralAutonomous;
 
 @Disabled
 @Deprecated

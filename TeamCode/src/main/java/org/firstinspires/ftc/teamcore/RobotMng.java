@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcore.robot.mng;
+package org.firstinspires.ftc.teamcore;
 
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.armScaleOperate;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.clipOption;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.decantOrSuspend;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.flipArm;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.highLowSpeedConfigChange;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftDecantUpping;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftHighSuspendPrepare;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftIDLE;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.sampleIO;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.switchViewMode;
-import static org.firstinspires.ftc.teamcode.util.GamepadRequests.syncRequests;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.armScaleOperate;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.clipOption;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.decantOrSuspend;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.flipArm;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.highLowSpeedConfigChange;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftDecantUpping;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftHighSuspendPrepare;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.syncRequests;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
@@ -28,9 +28,9 @@ import org.firstinspires.ftc.teamcore.structure.RotateOp;
 import org.firstinspires.ftc.teamcore.structure.ScaleOp;
 import org.firstinspires.ftc.teamcore.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcore.structure.positions.ScalePositions;
-import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.util.interfaces.InitializeRequested;
-import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
+import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
+import org.firstinspires.ftc.teamcode.interfaces.InitializeRequested;
+import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
 
 import java.util.HashMap;
 import java.util.Map;

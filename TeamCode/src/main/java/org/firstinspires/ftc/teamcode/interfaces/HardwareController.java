@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.interfaces;
+package org.firstinspires.ftc.teamcode.interfaces;
 
 import org.betastudio.ftc.action.Action;
 

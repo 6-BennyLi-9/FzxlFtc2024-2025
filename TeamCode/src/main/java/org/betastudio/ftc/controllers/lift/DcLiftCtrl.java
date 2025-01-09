@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 /**
  * 使用 {@link DcMotorEx} 为基础的控制器

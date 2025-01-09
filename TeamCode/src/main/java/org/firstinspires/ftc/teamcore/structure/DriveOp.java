@@ -7,9 +7,9 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcore.pid.PidProcessor;
 import org.betastudio.ftc.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.util.interfaces.HardwareController;
-import org.firstinspires.ftc.teamcode.util.interfaces.TagRequested;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.interfaces.HardwareController;
+import org.firstinspires.ftc.teamcode.interfaces.TagRequested;
 import org.jetbrains.annotations.Contract;
 
 @Config

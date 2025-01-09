@@ -2,7 +2,7 @@ package org.betastudio.ftc.client;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.Labeler;
+import org.firstinspires.ftc.teamcode.Labeler;
 
 import java.util.HashMap;
 import java.util.Map;

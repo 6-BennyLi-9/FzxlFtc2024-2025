@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.interfaces;
+package org.firstinspires.ftc.teamcode.interfaces;
 
 public interface InitializeRequested {
 	void init();

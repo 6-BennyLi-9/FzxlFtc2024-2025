@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 /**
  * 经典的电梯控制，人走码还在

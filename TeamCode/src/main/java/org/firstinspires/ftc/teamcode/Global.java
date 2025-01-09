@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.util.ThreadManager;
-
 public final class Global {
 	public  static ThreadManager coreThreads;
 	public  static Gamepad       gamepad1, gamepad2;

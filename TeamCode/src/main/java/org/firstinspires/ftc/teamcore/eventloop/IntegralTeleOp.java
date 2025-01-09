@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcore.robot.ops;
+package org.firstinspires.ftc.teamcore.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcore.structure.DriveConfig;
 import org.firstinspires.ftc.teamcore.structure.DriveOp;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.util.Timer;
-import org.firstinspires.ftc.teamcore.robot.mng.RobotMng;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Timer;
+import org.firstinspires.ftc.teamcore.RobotMng;
 
 public abstract class IntegralTeleOp extends OverclockOpMode {
 	public  RobotMng        robot;

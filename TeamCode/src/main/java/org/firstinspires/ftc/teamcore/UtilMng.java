@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcore.robot.mng;
+package org.firstinspires.ftc.teamcore;
 
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.claw;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.clip;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftArm;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftFront;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftRear;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.leftScale;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.lift;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.place;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightArm;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightFront;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightRear;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rightScale;
-import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.rotate;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftScale;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.lift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.place;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightArm;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;

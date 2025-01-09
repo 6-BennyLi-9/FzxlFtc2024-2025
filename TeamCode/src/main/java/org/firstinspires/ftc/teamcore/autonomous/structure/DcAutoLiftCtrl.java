@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.controllers.lift.DcLiftCtrl;
-import org.firstinspires.ftc.teamcode.util.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 public class DcAutoLiftCtrl extends DcLiftCtrl {
 	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {

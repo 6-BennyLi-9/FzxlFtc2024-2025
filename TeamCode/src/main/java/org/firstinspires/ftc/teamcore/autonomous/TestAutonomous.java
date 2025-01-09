@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcore.autonomous;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcore.robot.ops.IntegralAutonomous;
+import org.firstinspires.ftc.teamcore.eventloop.IntegralAutonomous;
 
 @Autonomous(group = "9_Tests")
 @Config

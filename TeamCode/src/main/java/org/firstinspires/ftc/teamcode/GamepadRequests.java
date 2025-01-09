@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.util.ButtonProcessor.ButtonConfig.SingleWhenPressed;
+import static org.firstinspires.ftc.teamcode.ButtonProcessor.ButtonConfig.SingleWhenPressed;
 
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
