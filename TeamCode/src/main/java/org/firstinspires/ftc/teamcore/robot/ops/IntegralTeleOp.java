@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcore.robot.ops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.teamcode.Global;
@@ -14,9 +15,9 @@ import org.firstinspires.ftc.teamcore.robot.mng.RobotMng;
 
 public abstract class IntegralTeleOp extends OverclockOpMode {
 	public  RobotMng        robot;
-	public  Timer           timer;
-	public  TelemetryClient client;
-	private boolean         auto_terminate_when_TLE = true;
+	public  Timer   timer;
+	public  Client  client;
+	private boolean auto_terminate_when_TLE = true;
 
 	@Override
 	public void op_init() {
@@ -34,7 +35,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 		client = new TelemetryClient(telemetry);
 
 		telemetry.clearAll();
-		client.autoUpdate=false;
+		client.setAutoUpdate(false);
 
 		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 	}
@@ -42,7 +43,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 	@Override
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
-		robot.runThread();//防止一些 Action 出现异常表现
+		robot.update();//防止一些 Action 出现异常表现
 
 		client.update();
 	}

@@ -11,11 +11,13 @@ import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftDecantUppi
 import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftHighSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequests.liftIDLE;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequests.sampleIO;
+import static org.firstinspires.ftc.teamcode.util.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.util.GamepadRequests.syncRequests;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.client.ViewMode;
 import org.firstinspires.ftc.teamcore.structure.ArmOp;
 import org.firstinspires.ftc.teamcore.structure.ClawOp;
 import org.firstinspires.ftc.teamcore.structure.ClipOp;
@@ -164,6 +166,14 @@ public class RobotMng {
 				ArmOp.getInstance().flipIO();
 			}
 		}
+
+		if (switchViewMode.getEnabled()){
+			if(TelemetryClient.getInstance().getCurrentViewMode() == ViewMode.basicTelemetry) {
+				TelemetryClient.getInstance().configViewMode(ViewMode.threadManager);
+			}else {
+				TelemetryClient.getInstance().configViewMode(ViewMode.basicTelemetry);
+			}
+		}
 	}
 
 	public final void driveThroughGamepad() {
@@ -191,11 +201,10 @@ public class RobotMng {
 		}
 	}
 
-	public void runThread() {
+	public void update() {
 		thread.run();
 	}
-
-	public void printThreadDebugs() {
+	public void printActionsDebugs() {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode[updateTime % printCode.length] + "]";

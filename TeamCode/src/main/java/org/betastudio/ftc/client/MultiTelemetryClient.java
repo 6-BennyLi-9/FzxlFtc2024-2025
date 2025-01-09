@@ -117,6 +117,9 @@ public class MultiTelemetryClient implements Client{
 	}
 
 	@Override
+	public void setAutoUpdate(boolean autoUpdate) {}
+
+	@Override
 	public ViewMode getCurrentViewMode() {
 		return ((Client) clients.entrySet().toArray()[0]).getCurrentViewMode();
 	}

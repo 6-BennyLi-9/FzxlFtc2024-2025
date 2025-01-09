@@ -18,5 +18,6 @@ public interface Client {
 	Client speak(String text, String languageCode, String countryCode);
 
 	void configViewMode(ViewMode viewMode);
+	void setAutoUpdate(boolean autoUpdate);
 	ViewMode getCurrentViewMode();
 }

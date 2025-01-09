@@ -1,7 +1,7 @@
 package org.betastudio.ftc.client;
 
 public enum ViewMode {
-	telemetry,
+	basicTelemetry,
 	threadManager,
 	log
 }

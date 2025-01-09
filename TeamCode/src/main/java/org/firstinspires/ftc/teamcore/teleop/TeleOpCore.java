@@ -24,11 +24,11 @@ public class TeleOpCore extends IntegralTeleOp {
 
 		//主程序结束
 
-		robot.printThreadDebugs();
+		robot.printActionsDebugs();
 //		HardwareDatabase.printVoltages();
 //		GamepadRequestMemories.printValues();
 
-		robot.runThread();
+		robot.update();
 		client.changeData("drive buf", RobotMng.driveBufPower);
 	}
 }

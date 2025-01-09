@@ -22,7 +22,7 @@ public class TelemetryClient implements Client {
 	private static  Client                               instanceClient;
 	protected final Map <String, Pair <String, Integer>> data;
 	private final   Telemetry                            telemetry;
-	public          boolean                              autoUpdate;
+	private         boolean                              autoUpdate;
 	public          ViewMode                             viewMode;
 	protected       int                                  ID;
 
@@ -31,7 +31,7 @@ public class TelemetryClient implements Client {
 		this.data = new HashMap <>();
 		instanceClient = this;
 
-		configViewMode(ViewMode.telemetry);
+		configViewMode(ViewMode.basicTelemetry);
 	}
 
 	public static Client getInstance() {
@@ -45,7 +45,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public void clear() {
 		this.data.clear();
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 	}
@@ -57,7 +57,7 @@ public class TelemetryClient implements Client {
 	public Client addData(final String key, final String val) {
 		++ this.ID;
 		this.data.put(key, new Pair <>(val, this.ID));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -78,7 +78,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public Client deleteData(final String key) {
 		this.data.remove(key);
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -95,7 +95,7 @@ public class TelemetryClient implements Client {
 		} else {
 			this.addData(key, val);
 		}
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -114,7 +114,7 @@ public class TelemetryClient implements Client {
 	public Client addLine(final String key) {
 		++ this.ID;
 		this.data.put(key, new Pair <>("", this.ID));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -133,7 +133,7 @@ public class TelemetryClient implements Client {
 	public Client deleteLine(final String key) {
 		this.data.remove(key);
 
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 		return this;
@@ -150,7 +150,7 @@ public class TelemetryClient implements Client {
 		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
 		this.data.put(newData, new Pair <>("", cache));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -176,6 +176,11 @@ public class TelemetryClient implements Client {
 	}
 
 	@Override
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate=autoUpdate;
+	}
+
+	@Override
 	public ViewMode getCurrentViewMode() {
 		return viewMode;
 	}
@@ -184,8 +189,10 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public void update() {
+		telemetry.addData("ViewMode",viewMode.name());
+
 		switch (viewMode){
-			case telemetry:
+			case basicTelemetry:
 				updateTelemetryLines();
 				break;
 			case threadManager:
@@ -202,6 +209,7 @@ public class TelemetryClient implements Client {
 			Thread value = entry.getValue();
 			telemetry.addData(key, value);
 		}
+		this.telemetry.update();
 	}
 	protected synchronized void updateTelemetryLines(){
 		if (sortDataInTelemetryClientUpdate) {

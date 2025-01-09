@@ -47,6 +47,7 @@ public final class GamepadRequests {
 	public static final ButtonProcessor highLowSpeedConfigChange;
 	/**抬降arm*/
 	public static final ButtonProcessor flipArm;
+	public static final ButtonProcessor switchViewMode;
 
 	static {
 		sampleIO = new ButtonProcessor(SingleWhenPressed);
@@ -58,6 +59,7 @@ public final class GamepadRequests {
 		armScaleOperate = new ButtonProcessor(SingleWhenPressed);
 		highLowSpeedConfigChange = new ButtonProcessor(SingleWhenPressed);
 		flipArm=new ButtonProcessor(SingleWhenPressed);
+		switchViewMode=new ButtonProcessor(SingleWhenPressed);
 	}
 
 	public static void syncRequests() {
@@ -71,6 +73,8 @@ public final class GamepadRequests {
 		flipArm.sync(gamepad2.y);
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
+
+		switchViewMode.sync(gamepad1.right_stick_y>0.8);
 	}
 
 	public static void printValues() {
