@@ -10,10 +10,13 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 
+@Deprecated
+@Disabled
 @Autonomous(name = "Right(1悬挂+2夹取)", group = "3_Specials")
 public class RightTake3 extends IntegralAutonomous {
 	@Override
