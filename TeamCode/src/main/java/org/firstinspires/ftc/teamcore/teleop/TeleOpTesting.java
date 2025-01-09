@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcore.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcore.structure.DriveConfig;
+import org.firstinspires.ftc.teamcore.structure.DriveMode;
 import org.firstinspires.ftc.teamcore.structure.DriveOp;
 
 @Disabled
@@ -12,7 +12,7 @@ public class TeleOpTesting extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.op_init();
-		DriveOp.config = DriveConfig.SimpleCalibrate;
+		DriveOp.config = DriveMode.SimpleCalibrate;
 	}
 
 	@Override

@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController , TagRequested {
-	public static  DriveConfig config = DriveConfig.StraightLinear;
-	public static  ChassisCtrl chassisCtrl;
+	public static DriveMode   config = DriveMode.StraightLinear;
+	public static ChassisCtrl chassisCtrl;
 	private static DriveOp     instance;
 
 	public static DriveOp getInstance(){
