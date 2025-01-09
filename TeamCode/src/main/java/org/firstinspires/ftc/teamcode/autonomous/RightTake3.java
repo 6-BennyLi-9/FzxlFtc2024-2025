@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
-import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
+import org.firstinspires.ftc.teamcode.robot.ops.IntegralAutonomous;
 
 @Autonomous(name = "Right(1悬挂+2夹取)", group = "3_Specials")
 public class RightTake3 extends IntegralAutonomous {

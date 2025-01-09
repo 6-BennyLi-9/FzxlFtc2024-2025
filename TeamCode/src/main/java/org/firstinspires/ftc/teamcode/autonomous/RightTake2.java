@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.structure.SimpleDriveOp;
-import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
+import org.firstinspires.ftc.teamcode.robot.ops.IntegralAutonomous;
 
 @Config
 @Autonomous(name = "Right(3悬挂+2夹取)", preselectTeleOp = "19419", group = "0_Main")

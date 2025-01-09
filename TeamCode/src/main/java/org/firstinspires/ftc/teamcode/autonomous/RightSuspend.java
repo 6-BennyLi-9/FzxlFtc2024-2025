@@ -8,7 +8,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.util.ops.IntegralAutonomous;
+import org.firstinspires.ftc.teamcode.robot.ops.IntegralAutonomous;
 
 @Disabled
 @Autonomous(name = "Right(3悬挂)", preselectTeleOp = "19419", group = "0_Main")

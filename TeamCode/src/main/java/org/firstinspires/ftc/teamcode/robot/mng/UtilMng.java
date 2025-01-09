@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.mng;
+package org.firstinspires.ftc.teamcode.robot.mng;
 
 import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.claw;
 import static org.firstinspires.ftc.teamcode.util.HardwareDatabase.clip;
