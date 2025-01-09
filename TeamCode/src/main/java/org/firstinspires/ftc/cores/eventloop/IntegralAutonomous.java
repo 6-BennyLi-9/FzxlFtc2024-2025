@@ -6,23 +6,23 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
+import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
+import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
-import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
-import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
-import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
-import org.betastudio.ftc.events.AutonomousMonitor;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.RunMode;
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Timer;
 import org.firstinspires.ftc.cores.UtilMng;
+import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.RunMode;
+import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class IntegralAutonomous extends LinearOpMode {
@@ -32,6 +32,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	public        Client                           client;
 	public        UtilMng                          utils;
 	public        Timer                            timer;
+	private       Exception                        inlineUncaughtException=null;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
@@ -57,8 +58,14 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		if (! opModeIsActive()) return;
 		timer.restart();
 
-		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
-		linear();
+//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
+		Global.threadManager.add("linear",new Thread(this::linear));
+
+		while (opModeIsActive()){
+			if (inlineUncaughtException!=null){
+				throw new RuntimeException(inlineUncaughtException);
+			}
+		}
 
 		Global.runMode =RunMode.Terminated;
 	}
@@ -128,7 +135,14 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		client.changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
 	}
 
-	public void throwLocalThrowable(Throwable exception) {
-		throw new RuntimeException(exception);
+	public void sendTerminateSignal(TerminateReason reason){
+		sendTerminateSignal(reason,new NullPointerException("UnModified"));
+	}
+	public void sendTerminateSignal(TerminateReason reason,Exception e){
+		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
+			inlineUncaughtException = e;
+		} else {
+			terminateOpModeNow();
+		}
 	}
 }

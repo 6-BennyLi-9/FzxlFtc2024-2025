@@ -13,11 +13,14 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Timer;
 import org.firstinspires.ftc.cores.RobotMng;
 
+import java.util.Objects;
+
 public abstract class IntegralTeleOp extends OverclockOpMode {
-	public  RobotMng        robot;
-	public  Timer   timer;
-	public  Client  client;
-	private boolean auto_terminate_when_TLE = true;
+	public  RobotMng  robot;
+	public  Timer     timer;
+	public  Client    client;
+	private boolean   auto_terminate_when_TLE = true;
+	private Exception inlineUncaughtException=null;
 
 	@Override
 	public void op_init() {
@@ -72,11 +75,26 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 			terminateOpModeNow();
 		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
+
+		if (inlineUncaughtException!=null){
+			throw new RuntimeException(inlineUncaughtException);
+		}
 	}
 
 	@Override
 	public void op_end() {
 		client.clear();
 		Global.runMode =RunMode.Terminated;
+	}
+
+	public void sendTerminateSignal(TerminateReason reason){
+		sendTerminateSignal(reason,new NullPointerException("UnModified"));
+	}
+	public void sendTerminateSignal(TerminateReason reason,Exception e){
+		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
+			inlineUncaughtException = e;
+		} else {
+			terminateOpModeNow();
+		}
 	}
 }
