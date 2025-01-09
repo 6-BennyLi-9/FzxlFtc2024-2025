@@ -7,7 +7,7 @@ import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;
 
-public class SystemMonitor extends Thread implements ThreadAdditions {
+public final class SystemMonitor extends Thread implements ThreadAdditions {
 	private boolean taskClosed;
 
 	@Override

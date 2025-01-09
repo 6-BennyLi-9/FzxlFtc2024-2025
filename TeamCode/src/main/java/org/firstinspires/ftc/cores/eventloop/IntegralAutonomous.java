@@ -13,6 +13,7 @@ import org.betastudio.ftc.client.TelemetryClient;
 import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
+import org.betastudio.ftc.events.AutonomousMonitor;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
@@ -54,12 +55,7 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 		if (! opModeIsActive()) return;
 		timer.restart();
 
-		Global.coreThreads.add("autonomous-exception-interrupter",new Thread(()->{
-			while (opModeIsActive()){
-				sleep(500);
-			}
-			Global.currentMode=RunMode.Terminated;
-		}));
+		Global.coreThreads.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 		linear();
 
 		Global.currentMode=RunMode.Terminated;
