@@ -46,9 +46,7 @@ public class UtilMng {
 	}
 
 	public UtilMng waitMs(final long waitMillis) {
-		actions.add(new StatementAction(() -> {
-			Global.sleep(waitMillis);
-		}));
+		actions.add(new StatementAction(() -> Global.sleep(waitMillis)));
 		return this;
 	}
 
