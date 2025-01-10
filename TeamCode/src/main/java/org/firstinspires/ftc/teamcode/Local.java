@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.concurrent.Callable;
 
-public class Local {
+public final class Local {
 	public static void sleep(long millis){
 		try {
 			Thread.sleep(millis);
