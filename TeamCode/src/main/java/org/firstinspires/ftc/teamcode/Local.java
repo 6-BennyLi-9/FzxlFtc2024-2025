@@ -2,13 +2,23 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.interfaces.ThreadAdditions;
+import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
+
 import java.util.concurrent.Callable;
 
 public final class Local {
 	public static void sleep(long millis){
 		try {
 			Thread.sleep(millis);
-		} catch (InterruptedException ignored) {}
+		} catch (InterruptedException ignored) {
+			if (Thread.currentThread() instanceof ThreadAdditions){
+				((ThreadAdditions) Thread.currentThread()).closeTask();
+				new TaskCloseMonitor(Thread.currentThread());
+			}else{
+				Thread.currentThread().interrupt();
+			}
+		}
 	}
 
 	public static <K> void waitForVal(Callable<K> function, K expect){
