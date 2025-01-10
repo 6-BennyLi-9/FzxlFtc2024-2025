@@ -69,6 +69,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		}
 
 		Global.runMode =RunMode.Terminated;
+		sendTerminateSignal(TerminateReason.UserActions);
 	}
 
 	public abstract void initialize();
