@@ -1,4 +1,4 @@
-package org.betastudio.ftc.events;
+package org.firstinspires.ftc.teamcode.events;
 
 import org.firstinspires.ftc.teamcode.Local;
 

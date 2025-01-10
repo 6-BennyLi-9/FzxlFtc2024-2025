@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.betastudio.ftc.events.SystemMonitor;
+import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {
 	public  static ThreadManager           threadManager;

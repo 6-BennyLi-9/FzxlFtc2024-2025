@@ -1,4 +1,4 @@
-package org.betastudio.ftc.events;
+package org.firstinspires.ftc.teamcode.events;
 
 import static org.firstinspires.ftc.teamcode.Global.runMode;
 import static org.firstinspires.ftc.teamcode.Global.threadManager;

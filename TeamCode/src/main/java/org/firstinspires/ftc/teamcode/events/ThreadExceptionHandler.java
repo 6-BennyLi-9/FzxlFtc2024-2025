@@ -1,4 +1,4 @@
-package org.betastudio.ftc.events;
+package org.firstinspires.ftc.teamcode.events;
 
 import android.util.Log;
 

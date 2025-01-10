@@ -1,4 +1,4 @@
-package org.betastudio.ftc.events;
+package org.firstinspires.ftc.teamcode.events;
 
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.teamcode.Global;

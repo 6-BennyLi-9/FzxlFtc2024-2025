@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.events.TaskCloseMonitor;
-import org.betastudio.ftc.events.ThreadExceptionHandler;
+import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
+import org.firstinspires.ftc.teamcode.events.ThreadExceptionHandler;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 
 import java.util.HashMap;
