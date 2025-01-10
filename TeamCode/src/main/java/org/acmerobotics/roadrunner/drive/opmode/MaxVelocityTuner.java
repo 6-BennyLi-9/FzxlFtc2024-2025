@@ -5,7 +5,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -31,10 +30,7 @@ import java.util.Objects;
 public class MaxVelocityTuner extends LinearOpMode {
 	public static double RUNTIME = 2.0;
 
-	private ElapsedTime timer;
 	private double      maxVelocity;
-
-	private VoltageSensor batteryVoltageSensor;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -42,7 +38,7 @@ public class MaxVelocityTuner extends LinearOpMode {
 
 		drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-		batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
+		VoltageSensor batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 		final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -58,7 +54,7 @@ public class MaxVelocityTuner extends LinearOpMode {
 		telemetry.update();
 
 		drive.setDrivePower(new Pose2d(1, 0, 0));
-		timer = new ElapsedTime();
+		ElapsedTime timer = new ElapsedTime();
 
 		while (! isStopRequested() && timer.seconds() < RUNTIME) {
 			drive.updatePoseEstimate();
