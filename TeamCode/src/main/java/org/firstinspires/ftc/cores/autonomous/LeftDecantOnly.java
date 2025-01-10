@@ -15,7 +15,7 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 
 @Config
-@Autonomous(preselectTeleOp = "19419", group = "0_Main")
+@Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
 public class LeftDecantOnly extends IntegralAutonomous {
 	@Override
 	public void initialize() {
