@@ -37,7 +37,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
-		Global.runMode = RunMode.Autonomous;
+		Global.runMode = RunMode.autonomous;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode=this;
 		HardwareDatabase.sync(hardwareMap, true);
