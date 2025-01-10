@@ -34,6 +34,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
 		robot = new RobotMng();
+		robot.fetchClient(client);
 		robot.initControllers();
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		client = new TelemetryClient(telemetry);

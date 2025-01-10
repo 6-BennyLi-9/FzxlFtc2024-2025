@@ -14,8 +14,11 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.syncRequests;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
+import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.betastudio.ftc.client.ViewMode;
 import org.firstinspires.ftc.cores.structure.ArmOp;
@@ -31,23 +34,25 @@ import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.TagRequested;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 申名时需要初始化 {@link #initControllers()}
+ * 申名时需要初始化 {@link #initControllers()} , {@link #fetchClient()}
  */
 public class RobotMng {
-	public static final double  driverTriggerBufFal = 0.5;
-	public static final char[]  printCode           = "-\\|/".toCharArray();
-	public static final double  rotateTriggerBufFal = 0.01;
-
-	public Map < String , HardwareController > controllers=new HashMap <>();
-
-	public TaggedActionPackage thread        = new TaggedActionPackage();
-	public static double       driveBufPower = 1;
-	public int                 updateTime;
+	public static final double                           driverTriggerBufFal = 0.5;
+	public static final char[]                           printCode           = "-\\|/".toCharArray();
+	public static final double                           rotateTriggerBufFal = 0.01;
+	public static       double                           driveBufPower       = 1;
+	public              Map <String, HardwareController> controllers         = new HashMap <>();
+	public              TaggedActionPackage              thread              = new TaggedActionPackage();
+	public              int    updateTime;
+	private             Client client;
 
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
@@ -58,6 +63,13 @@ public class RobotMng {
 		controllers.put("rotate", new  RotateOp());
 		controllers.put("scale", new  ScaleOp());
 		controllers.put("drive", new  DriveOp());
+	}
+
+	public void fetchClient(){
+		fetchClient(TelemetryClient.getInstance());
+	}
+	public void fetchClient(Client client){
+		this.client =client;
 	}
 
 	public void initControllers() {
@@ -167,12 +179,12 @@ public class RobotMng {
 		}
 
 		if (switchViewMode.getEnabled()){
-			if(TelemetryClient.getInstance().getCurrentViewMode() == ViewMode.basicTelemetry) {
-				TelemetryClient.getInstance().configViewMode(ViewMode.threadManager);
+			if(client.getCurrentViewMode() == ViewMode.basicTelemetry) {
+				client.configViewMode(ViewMode.threadManager);
 			}else {
-				TelemetryClient.getInstance().configViewMode(ViewMode.basicTelemetry);
+				client.configViewMode(ViewMode.basicTelemetry);
 			}
-//			TelemetryClient.getInstance().speak("The telemetry's ViewMode has recently switched to "+TelemetryClient.getInstance().getCurrentViewMode().name());
+			client.speak("The telemetry's ViewMode has recently switched to " + client.getCurrentViewMode().name());
 		}
 	}
 
@@ -213,7 +225,18 @@ public class RobotMng {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			TelemetryClient.getInstance().changeData(s , updateCode + a.paramsString());
+			client.changeData(s , updateCode + a.paramsString());
 		}
+	}
+	public void printIMUVariables(){
+		BNO055IMU imu=HardwareDatabase.imu;
+		Orientation orientation=imu.getAngularOrientation();
+		client  .changeData("∠1",orientation.firstAngle)
+				.changeData("∠2",orientation.secondAngle)
+				.changeData("∠3",orientation.thirdAngle);
+		Acceleration acceleration=imu.getAcceleration();
+		client	.changeData("VelΔx",acceleration.xAccel)
+				.changeData("VelΔy",acceleration.yAccel)
+				.changeData("VelΔz",acceleration.zAccel);
 	}
 }

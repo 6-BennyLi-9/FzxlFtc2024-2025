@@ -25,6 +25,7 @@ public class TeleOpCore extends IntegralTeleOp {
 		//主程序结束
 
 		robot.printActions();
+		robot.printIMUVariables();
 //		HardwareDatabase.printVoltages();
 //		GamepadRequestMemories.printValues();
 
