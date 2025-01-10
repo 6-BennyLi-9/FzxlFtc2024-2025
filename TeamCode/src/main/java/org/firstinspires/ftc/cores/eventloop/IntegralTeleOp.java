@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.cores.structure.DriveMode;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.cores.RobotMng;
 
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode{
 	public  RobotMng  robot;
 	public  Timer     timer;
 	public  Client    client;
@@ -87,12 +88,16 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 	public void op_end() {
 		client.clear();
 		Global.runMode =RunMode.Terminated;
+
+		CoreDatabase.writeInVals(this,TerminateReason.UserActions);
 	}
 
+	@Override
 	public void sendTerminateSignal(TerminateReason reason){
 		sendTerminateSignal(reason,new NullPointerException("UnModified"));
 	}
-	public void sendTerminateSignal(TerminateReason reason,Exception e){
+	@Override
+	public void sendTerminateSignal(TerminateReason reason, Exception e){
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

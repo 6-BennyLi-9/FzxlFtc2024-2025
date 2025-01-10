@@ -15,6 +15,7 @@ import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.cores.UtilMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("UnusedReturnValue")
-public abstract class IntegralAutonomous extends LinearOpMode {
+public abstract class IntegralAutonomous extends LinearOpMode implements IntegralOpMode {
 	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
 	public        SampleMecanumDrive               drive;
@@ -131,14 +132,17 @@ public abstract class IntegralAutonomous extends LinearOpMode {
 	}
 
 	public void flagging_op_complete() {
-		timer.stop();
-		client.changeData("time used", timer.getDeltaTime() * 1.0e-3).changeData("time left", 30 - timer.getDeltaTime() * 1.0e-3);
+		sendTerminateSignal(TerminateReason.NaturallyShutDown);
 	}
 
+	@Override
 	public void sendTerminateSignal(TerminateReason reason){
 		sendTerminateSignal(reason,new NullPointerException("UnModified"));
 	}
-	public void sendTerminateSignal(TerminateReason reason,Exception e){
+	@Override
+	public void sendTerminateSignal(TerminateReason reason, Exception e){
+		timer.stop();
+		CoreDatabase.writeInVals(this,reason, timer.getDeltaTime() * 1.0e-3);
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

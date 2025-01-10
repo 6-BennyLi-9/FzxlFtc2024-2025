@@ -64,11 +64,11 @@ public final class HardwareDatabase {
 		clip = hardwareMap.get(Servo.class, "clip");
 		place = hardwareMap.get(Servo.class, "place");
 
-		if (connectIMU) {
-			imu = hardwareMap.get(BNO055IMU.class, "imu");
-		}
 		liftTouch = hardwareMap.get(TouchSensor.class, "liftTouch");
 
+		if (connectIMU) {
+			syncIMU();
+		}
 		config(connectIMU);
 	}
 
@@ -99,6 +99,10 @@ public final class HardwareDatabase {
 			Actions.runAction(new SleepingAction(500));
 			imu.initialize(parameters);
 		}
+	}
+
+	public static void syncIMU(){
+		imu = hardwareMap.get(BNO055IMU.class, "imu");
 	}
 
 	/**
