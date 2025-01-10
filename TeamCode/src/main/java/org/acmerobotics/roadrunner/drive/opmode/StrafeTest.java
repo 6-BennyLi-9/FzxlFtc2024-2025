@@ -15,7 +15,7 @@ import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
 /*
  * This is a simple routine to test translational drive capabilities.
  */
-@Disabled
+//@Disabled
 @Config
 @Autonomous(group = "drive")
 public class StrafeTest extends LinearOpMode {

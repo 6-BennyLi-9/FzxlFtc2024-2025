@@ -3,12 +3,11 @@ package org.acmerobotics.roadrunner.drive.opmode;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * This is a simple teleop routine for debugging your motor configuration.
@@ -38,7 +37,7 @@ import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
  * <p>
  * Uncomment the @Disabled tag below to use this opmode.
  */
-@Disabled
+//@Disabled
 @Config
 @TeleOp(group = "drive")
 public class MotorDirectionDebugger extends LinearOpMode {
