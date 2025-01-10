@@ -20,9 +20,10 @@ import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.cores.autonomous.structure.DcAutoLiftCtrl;
+import org.firstinspires.ftc.opmodes.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.cores.structure.LiftOp;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ import java.util.LinkedList;
  *
  * @see RobotMng
  */
-@SuppressWarnings({"unused", "UnusedReturnValue"})
+@SuppressWarnings({"UnusedReturnValue"})
 public class UtilMng {
 	private final LinkedList <Action> actions;
 
@@ -53,6 +54,14 @@ public class UtilMng {
 
 	public UtilMng addAction(final Action action) {
 		actions.add(action);
+		return this;
+	}
+	public UtilMng addStatement(Runnable r){
+		actions.add(new StatementAction(r));
+		return this;
+	}
+	public UtilMng joinThread(Thread t){
+		actions.add(new StatementAction(()->Local.waitForVal(t::isInterrupted,true)));
 		return this;
 	}
 

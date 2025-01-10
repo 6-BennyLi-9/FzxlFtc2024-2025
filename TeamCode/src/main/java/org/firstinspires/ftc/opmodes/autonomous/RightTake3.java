@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.cores.autonomous;
+package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightGetFirstSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightGetSecondSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightStart;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightSuspend;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.GetSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetFirstSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetSecondSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
 
 import static java.lang.Math.toRadians;
 

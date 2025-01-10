@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.cores.autonomous;
+package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightGetFirstSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightGetSecondSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightStart;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightSuspend;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.GetSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetFirstSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetSecondSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -30,8 +30,8 @@ public class RightTake2 extends IntegralAutonomous {
 		registerTrajectory("get sample suspend 1", generateSequenceBuilder(RightGetSecondSample).lineToSplineHeading(GetSample.plus(new Pose2d(0, - 5))).build());
 		registerTrajectory("get sample suspend 2", generateSequenceBuilder(RightSuspend).lineToSplineHeading(GetSample.plus(new Pose2d(0, - 5))).build());
 
-		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).back(4.9).build());
-		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).back(4.9).build());
+		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).build());
+		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).build());
 
 		registerTrajectory("park", generateBuilder(RightSuspend.plus(new Pose2d(10, 5)).plus(new Pose2d(0,-5.1))).lineToLinearHeading(GetSample.plus(new Pose2d(0, 0, toRadians(- 90)))).build());
 	}
@@ -58,16 +58,23 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).armsToSafePosition().decant().runAsThread();
 		sleep(900);
 
+		/*
+		*
+		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).build());
+		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).build());
+		*
+		* */
+
 		runTrajectory("get sample suspend 1");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.boxRst().addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
 		sleep(1500);
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 1");
-		utils.boxRst().liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
-		sleep(600);
-
+		utils	.addStatement(()->angleCalibration(0,RightSuspend.plus(new Pose2d(5, 0))))
+				.addAction(SimpleDriveOp.build(0, - 0.25, 0)).waitMs(500).liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
+		sleep(500);
 		runTrajectory("get sample suspend 2");
 		sleep(500);
 		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
@@ -75,8 +82,9 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 2");
-		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
-		sleep(600);
+		utils	.addStatement(()->angleCalibration(0,RightSuspend.plus(new Pose2d(10, 0))))
+				.addAction(SimpleDriveOp.build(0, - 0.25, 0)).waitMs(500).liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
+		sleep(500);
 
 		runTrajectory("park");
 

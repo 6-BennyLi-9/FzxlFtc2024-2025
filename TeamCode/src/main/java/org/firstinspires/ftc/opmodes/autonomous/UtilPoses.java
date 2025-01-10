@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.cores.autonomous;
+package org.firstinspires.ftc.opmodes.autonomous;
 
 import static java.lang.Math.toRadians;
 
@@ -26,8 +26,8 @@ public final class UtilPoses {
 	RightThirdSample = new Pose2d(- 55.5, RightFirstSample.getY(), RightFirstSample.getHeading()),
 
 	//right take 2
-	RightGetFirstSample = new Pose2d(- 49.5, 45, toRadians(- 90)),
-	RightGetSecondSample = new Pose2d(- 61, RightGetFirstSample.getY(), RightGetFirstSample.getHeading()),
+	RightGetFirstSample = new Pose2d(- 49.5, 47.5, toRadians(- 90)),
+	RightGetSecondSample = new Pose2d(- 60, RightGetFirstSample.getY(), RightGetFirstSample.getHeading()),
 
 	GetSample = new Pose2d(- 50, 61, toRadians(- 90)),
 

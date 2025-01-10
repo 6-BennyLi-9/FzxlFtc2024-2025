@@ -68,13 +68,18 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 			}
 		}
 
-		Global.runMode =RunMode.Terminated;
+		preTerminate();
 		sendTerminateSignal(TerminateReason.UserActions);
 	}
 
 	public abstract void initialize();
 
 	public abstract void linear();
+
+	/**
+	 * 在用户停止操作时完成
+	 */
+	public void preTerminate(){}
 
 	public Pose2d registerTrajectory(final String tag, final Trajectory argument) {
 		trajectoryMap.put(tag, argument);
@@ -144,6 +149,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	public void sendTerminateSignal(TerminateReason reason, Exception e){
 		timer.stop();
 		CoreDatabase.writeInVals(this,reason, timer.getDeltaTime() * 1.0e-3);
+		Global.runMode=RunMode.terminated;
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

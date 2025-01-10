@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.cores.autonomous;
+package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.LeftParkPrepare;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.LeftSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.LeftStart;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.LeftSuspend;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSuspend;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;

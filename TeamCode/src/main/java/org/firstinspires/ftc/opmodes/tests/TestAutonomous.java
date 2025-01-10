@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.cores.tests;
+package org.firstinspires.ftc.opmodes.tests;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;

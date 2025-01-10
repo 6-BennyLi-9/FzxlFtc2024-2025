@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.cores.autonomous.structure;
+package org.firstinspires.ftc.opmodes.autonomous.structure;
 
 import androidx.annotation.NonNull;
 

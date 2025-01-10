@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.cores.autonomous;
+package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightStart;
-import static org.firstinspires.ftc.cores.autonomous.UtilPoses.RightSuspend;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.GetSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
