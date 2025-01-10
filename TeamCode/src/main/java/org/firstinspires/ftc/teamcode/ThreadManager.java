@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
-import org.firstinspires.ftc.teamcode.events.ThreadExceptionHandler;
+import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public final class ThreadManager {
 	}
 
 	public void addStarted(String tag,Thread startedThread){
-		startedThread.setUncaughtExceptionHandler(new ThreadExceptionHandler());
+		startedThread.setUncaughtExceptionHandler(new IntegralThreadExceptionHandler());
 		mem.put(tag,startedThread);
 	}
 	/**
