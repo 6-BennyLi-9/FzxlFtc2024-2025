@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.cores;
 
-import static org.firstinspires.ftc.teamcode.Global.gamepad1;
-import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.clipOption;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.decantOrSuspend;
@@ -13,6 +11,10 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.syncRequests;
+import static org.firstinspires.ftc.teamcode.Global.gamepad1;
+import static org.firstinspires.ftc.teamcode.Global.gamepad2;
+
+import androidx.annotation.NonNull;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
@@ -21,6 +23,10 @@ import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.betastudio.ftc.client.ViewMode;
+import org.betastudio.ftc.interfaces.HardwareController;
+import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.Taggable;
+import org.betastudio.ftc.interfaces.Updatable;
 import org.firstinspires.ftc.cores.structure.ArmOp;
 import org.firstinspires.ftc.cores.structure.ClawOp;
 import org.firstinspires.ftc.cores.structure.ClipOp;
@@ -31,9 +37,6 @@ import org.firstinspires.ftc.cores.structure.RotateOp;
 import org.firstinspires.ftc.cores.structure.ScaleOp;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
-import org.betastudio.ftc.interfaces.HardwareController;
-import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -44,7 +47,7 @@ import java.util.Map;
 /**
  * 申名时需要初始化 {@link #initControllers()} , {@link #fetchClient()}
  */
-public class RobotMng {
+public class RobotMng implements Updatable {
 	public static final double                           driverTriggerBufFal = 0.5;
 	public static final char[]                           printCode           = "-\\|/".toCharArray();
 	public static final double                           rotateTriggerBufFal = 0.01;
@@ -68,7 +71,7 @@ public class RobotMng {
 	public void fetchClient(){
 		fetchClient(TelemetryClient.getInstance());
 	}
-	public void fetchClient(Client client){
+	public void fetchClient(@NonNull Client client){
 		this.client =client;
 	}
 
@@ -83,8 +86,8 @@ public class RobotMng {
 			if(v instanceof InitializeRequested){
 				((InitializeRequested) v).init();
 			}
-			if(v instanceof TagRequested){
-				((TagRequested) v).setTag(k+":ctrl");
+			if(v instanceof Taggable){
+				((Taggable) v).setTag(k+":ctrl");
 			}
 
 			thread.add(k,v.getController());
@@ -213,6 +216,7 @@ public class RobotMng {
 		}
 	}
 
+	@Override
 	public void update() {
 		thread.run();
 	}
@@ -234,7 +238,8 @@ public class RobotMng {
 		client  .changeData("∠1",orientation.firstAngle)
 				.changeData("∠2",orientation.secondAngle)
 				.changeData("∠3",orientation.thirdAngle);
-		Acceleration acceleration=imu.getAcceleration();
+
+		Acceleration acceleration=imu.getLinearAcceleration();
 		client	.changeData("VelΔx",acceleration.xAccel)
 				.changeData("VelΔy",acceleration.yAccel)
 				.changeData("VelΔz",acceleration.zAccel);

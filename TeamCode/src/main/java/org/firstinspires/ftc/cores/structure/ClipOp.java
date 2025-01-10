@@ -8,10 +8,10 @@ import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp implements HardwareController , InitializeRequested , TagRequested {
+public class ClipOp implements HardwareController , InitializeRequested , Taggable {
 	public static ClipPositions recent = ClipPositions.open;
 	public static ServoCtrl     clipControl;
 	private static ClipOp            instance;

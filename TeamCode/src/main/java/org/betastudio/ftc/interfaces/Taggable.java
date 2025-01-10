@@ -1,6 +1,6 @@
 package org.betastudio.ftc.interfaces;
 
-public interface TagRequested {
+public interface Taggable {
 	void setTag(String tag);
 	String getTag();
 }

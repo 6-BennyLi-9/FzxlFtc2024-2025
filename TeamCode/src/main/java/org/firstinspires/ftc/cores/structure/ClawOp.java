@@ -8,10 +8,10 @@ import org.firstinspires.ftc.cores.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
-public class ClawOp implements HardwareController , InitializeRequested , TagRequested {
+public class ClawOp implements HardwareController , InitializeRequested , Taggable {
 	public static ClawPositions recent = ClawPositions.open;
 	public static ServoCtrl     clawControl;
 	private static ClawOp            instance;

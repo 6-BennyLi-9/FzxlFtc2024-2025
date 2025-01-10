@@ -9,10 +9,10 @@ import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements HardwareController, InitializeRequested , TagRequested {
+public class ScaleOp implements HardwareController, InitializeRequested , Taggable {
 	public static ScalePositions recent = ScalePositions.back;
 	public static ServoCtrl      leftScaleController, rightScaleController;
 	private static ScaleOp            instance;

@@ -9,12 +9,12 @@ import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements HardwareController, InitializeRequested , TagRequested {
+public class ArmOp implements HardwareController, InitializeRequested , Taggable {
 	public static  ArmPositions recent = ArmPositions.idle;
 	public static  ServoCtrl        leftArmControl, rightArmControl;
 	private static ArmOp            instance;

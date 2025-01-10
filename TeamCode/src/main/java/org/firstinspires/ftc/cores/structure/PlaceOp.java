@@ -8,12 +8,12 @@ import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested , TagRequested {
+public class PlaceOp implements HardwareController, InitializeRequested , Taggable {
 	public static  PlacePositions recent = PlacePositions.idle;
 	private static PlaceOp        instance;
 

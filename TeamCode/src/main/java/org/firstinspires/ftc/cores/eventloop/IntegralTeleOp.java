@@ -31,13 +31,14 @@ public abstract class IntegralTeleOp extends OverclockOpMode {
 		DriveOp.config = DriveMode.StraightLinear;
 		timer = new Timer();
 
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		client = new TelemetryClient(telemetry);
+
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
 		robot = new RobotMng();
 		robot.fetchClient(client);
 		robot.initControllers();
-		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
-		client = new TelemetryClient(telemetry);
 
 		telemetry.clearAll();
 		client.setAutoUpdate(false);

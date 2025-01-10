@@ -10,12 +10,12 @@ import org.firstinspires.ftc.teamcode.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController , TagRequested {
+public class LiftOp implements HardwareController , Taggable {
 	public static  LiftMode recent = LiftMode.idle;
 	public static  LiftCtrl liftCtrl;
 	private static LiftOp   instance;

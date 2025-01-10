@@ -1,9 +1,10 @@
 package org.betastudio.ftc.client;
 
+import org.betastudio.ftc.interfaces.Updatable;
+
 /** @noinspection UnusedReturnValue*/
-public interface Client {
+public interface Client extends Updatable {
 	void clear();
-	void update();
 
 	Client addData(String key, String val);
 	Client addData(String key, Object val);

@@ -9,11 +9,11 @@ import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp implements HardwareController , TagRequested {
+public class DriveOp implements HardwareController , Taggable {
 	public static DriveMode   config = DriveMode.StraightLinear;
 	public static ChassisCtrl chassisCtrl;
 	private static DriveOp     instance;

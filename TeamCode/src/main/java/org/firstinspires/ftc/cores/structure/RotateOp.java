@@ -7,10 +7,10 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.TagRequested;
+import org.betastudio.ftc.interfaces.Taggable;
 import org.jetbrains.annotations.Contract;
 
-public class RotateOp implements HardwareController, InitializeRequested , TagRequested {
+public class RotateOp implements HardwareController, InitializeRequested , Taggable {
 	public static  ServoCtrl rotateController;
 	private static RotateOp  instance;
 
