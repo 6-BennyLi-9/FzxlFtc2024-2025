@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
@@ -114,6 +115,12 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	public void angleCalibration(final double target, final Pose2d poseEst) {
 		Actions.runAction(() -> {
 			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
+
+			TelemetryPacket p=new TelemetryPacket();
+			p.put("ang",ang);
+			p.put("err",Math.abs(target - ang));
+			FtcDashboard.getInstance().sendTelemetryPacket(p);
+
 			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
 				if (ang > target + allowErr) {
 					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
