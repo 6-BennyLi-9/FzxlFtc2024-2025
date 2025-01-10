@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.cores.teleop;
+package org.firstinspires.ftc.cores.teleops;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
