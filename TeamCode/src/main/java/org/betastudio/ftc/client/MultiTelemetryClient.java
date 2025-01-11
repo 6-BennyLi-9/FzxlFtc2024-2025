@@ -2,7 +2,7 @@ package org.betastudio.ftc.client;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.util.Labeler;
+import org.firstinspires.ftc.teamcode.Labeler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,6 +92,40 @@ public class MultiTelemetryClient implements Client{
 			entry.getValue().changeLine(oldData,newData);
 		}
 		return this;
+	}
+
+	@Override
+	public Client speak(String text) {
+		return speak(text, null, null);
+	}
+
+	@Override
+	public Client speak(String text, String languageCode, String countryCode) {
+		try {
+			for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+				entry.getValue().speak(text, languageCode, countryCode);
+			}
+		}catch (UnsupportedOperationException ignored){}
+		return this;
+	}
+
+	@Override
+	public void configViewMode(ViewMode viewMode) {
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			entry.getValue().configViewMode(viewMode);
+		}
+	}
+
+	@Override
+	public void setAutoUpdate(boolean autoUpdate) {
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			entry.getValue().setAutoUpdate(autoUpdate);
+		}
+	}
+
+	@Override
+	public ViewMode getCurrentViewMode() {
+		return ((Client) clients.entrySet().toArray()[0]).getCurrentViewMode();
 	}
 
 	@Override

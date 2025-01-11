@@ -5,6 +5,7 @@ import android.util.Pair;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Global;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,15 +18,17 @@ import java.util.Vector;
  */
 @Config
 public class TelemetryClient implements Client {
-	private final   Telemetry                            telemetry;
+	public static   boolean                              debugMode;
+	private static  Client                               instanceClient;
 	protected final Map <String, Pair <String, Integer>> data;
+	private final   Telemetry                            telemetry;
+	private         boolean                              autoUpdate;
+	public static   ViewMode                             viewMode;
 	protected       int                                  ID;
-	public static   boolean                              showIndex;
-	/**
-	 * 若启用，更改数据后需要执行 {@link #update()} ，关闭时则无需执行
-	 */
-	public  static boolean autoUpdate;
-	private static Client  instanceClient;
+
+	static {
+		viewMode=ViewMode.basicTelemetry;
+	}
 
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -44,7 +47,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public void clear() {
 		this.data.clear();
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 	}
@@ -56,7 +59,7 @@ public class TelemetryClient implements Client {
 	public Client addData(final String key, final String val) {
 		++ this.ID;
 		this.data.put(key, new Pair <>(val, this.ID));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -77,7 +80,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public Client deleteData(final String key) {
 		this.data.remove(key);
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -94,7 +97,7 @@ public class TelemetryClient implements Client {
 		} else {
 			this.addData(key, val);
 		}
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -113,7 +116,7 @@ public class TelemetryClient implements Client {
 	public Client addLine(final String key) {
 		++ this.ID;
 		this.data.put(key, new Pair <>("", this.ID));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
@@ -132,7 +135,7 @@ public class TelemetryClient implements Client {
 	public Client deleteLine(final String key) {
 		this.data.remove(key);
 
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 		return this;
@@ -149,17 +152,72 @@ public class TelemetryClient implements Client {
 		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
 		this.data.put(newData, new Pair <>("", cache));
-		if (! autoUpdate) {
+		if (autoUpdate) {
 			this.update();
 		}
 
 		return this;
 	}
 
+	@Override
+	public Client speak(String text) {
+		try {
+			telemetry.speak(text);
+		}catch (UnsupportedOperationException ignored){}
+		return this;
+	}
+
+	@Override
+	public Client speak(String text, String languageCode, String countryCode) {
+		try {
+			telemetry.speak(text, languageCode, countryCode);
+		}catch (UnsupportedOperationException ignored){}
+		return this;
+	}
+
+	@Override
+	public void configViewMode(ViewMode viewMode) {
+		TelemetryClient.viewMode =viewMode;
+	}
+
+	@Override
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate=autoUpdate;
+	}
+
+	@Override
+	public ViewMode getCurrentViewMode() {
+		return viewMode;
+	}
+
 	public static boolean sortDataInTelemetryClientUpdate = true;
 
 	@Override
 	public void update() {
+		telemetry.addData("ViewMode",viewMode.name());
+		telemetry.addData("Status",Global.runMode);
+
+		switch (viewMode){
+			case basicTelemetry:
+				updateTelemetryLines();
+				break;
+			case threadManager:
+				updateThreadLines();
+				break;
+			case log:
+				throw new UnsupportedOperationException("TelemetryClient doesn't support log view now!");
+		}
+	}
+
+	protected synchronized void updateThreadLines(){
+		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
+			String key   = entry.getKey();
+			Thread value = entry.getValue();
+			telemetry.addData(key, value);
+		}
+		this.telemetry.update();
+	}
+	protected synchronized void updateTelemetryLines(){
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
@@ -175,9 +233,9 @@ public class TelemetryClient implements Client {
 			outputData.sort(Comparator.comparingInt(x -> x.first));
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
-				final Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
-				if (showIndex) {
-					final String packedID = "[" + outputLine.first + "]";
+				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
+				if (debugMode) {
+					String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
 					} else {
@@ -207,7 +265,7 @@ public class TelemetryClient implements Client {
 				final String                 key = entry.getKey();
 				final Pair <String, Integer> val = entry.getValue();
 				cache = Objects.equals(val.first, "") ? val.first : key + ":" + val.first;
-				if (showIndex) {
+				if (debugMode) {
 					this.telemetry.addLine("[" + val.second + "]" + cache);
 				} else {
 					this.telemetry.addLine(key + ":" + cache);

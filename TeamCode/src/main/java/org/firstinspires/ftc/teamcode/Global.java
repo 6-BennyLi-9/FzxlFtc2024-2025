@@ -1,26 +1,28 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.util.ThreadManager;
+import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {
-	public static ThreadManager coreThreads;
-	public static Gamepad       gamepad1, gamepad2;
-	public static  RunMode      currentMode;
-	private static boolean      auto_create_monitor = true;
+	public  static ThreadManager           threadManager;
+	public  static Gamepad                 gamepad1, gamepad2;
+	public  static RunMode                 runMode;
+	public  static OpMode                  currentOpmode;
+	private static boolean                 auto_create_monitor = true;
 
 	public static void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		Global.gamepad1=gamepad1;
 		Global.gamepad2=gamepad2;
 	}
 	public static void prepareCoreThreadPool(){
-		if (coreThreads != null) {
-			if (! coreThreads.isEmpty()) {
-				coreThreads.interruptAll();
+		if (threadManager != null) {
+			if (! threadManager.isEmpty()) {
+				threadManager.interruptAll();
 			}
 		}
-		coreThreads=new ThreadManager();
+		threadManager =new ThreadManager();
 
 		if (auto_create_monitor){
 			createMonitor();
@@ -28,22 +30,7 @@ public final class Global {
 	}
 
 	public static void createMonitor(){
-		coreThreads.add("sys-monitor",
-			new Thread(()->{
-				while (currentMode!=RunMode.Interrupted){
-					sleep(5000);
-				}
-				coreThreads.interruptAll();
-			})
-		);
-	}
-
-	public static void sleep(long mills){
-		try {
-			Thread.sleep(mills);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+		threadManager.add("sys-monitor", new SystemMonitor());
 	}
 
 	public boolean auto_create_monitor(){

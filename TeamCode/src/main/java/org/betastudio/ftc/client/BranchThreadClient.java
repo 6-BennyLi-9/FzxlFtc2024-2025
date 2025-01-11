@@ -25,13 +25,12 @@ public class BranchThreadClient extends TelemetryClient {
 				)))
 		));
 
-		autoUpdate = true;
+		setAutoUpdate(false);
 
 		if(auto_start_updater){
-			Global.coreThreads.add("client-updater", updateThread);
+			Global.threadManager.add("client-updater", updateThread);
 		}
 	}
-
 	public static boolean auto_start_updater(){
 		return auto_start_updater;
 	}

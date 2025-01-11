@@ -1,9 +1,10 @@
 package org.betastudio.ftc.client;
 
+import org.betastudio.ftc.interfaces.Updatable;
+
 /** @noinspection UnusedReturnValue*/
-public interface Client {
+public interface Client extends Updatable {
 	void clear();
-	void update();
 
 	Client addData(String key, String val);
 	Client addData(String key, Object val);
@@ -14,4 +15,10 @@ public interface Client {
 	Client addLine(Object key);
 	Client deleteLine(String key);
 	Client changeLine(String oldData, String newData);
+	Client speak(String text);
+	Client speak(String text, String languageCode, String countryCode);
+
+	void configViewMode(ViewMode viewMode);
+	void setAutoUpdate(boolean autoUpdate);
+	ViewMode getCurrentViewMode();
 }

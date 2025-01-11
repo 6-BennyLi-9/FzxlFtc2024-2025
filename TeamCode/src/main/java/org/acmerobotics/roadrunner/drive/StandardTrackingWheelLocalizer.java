@@ -2,7 +2,6 @@ package org.acmerobotics.roadrunner.drive;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -26,17 +25,21 @@ import java.util.List;
  *    \--------------/
  *
  */
-@Config
+//@Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
 	public static double TICKS_PER_REV = 4096;
 	public static double WHEEL_RADIUS  = 0.7480315; // in
 	public static double GEAR_RATIO    = 1; // output (wheel) speed / input (encoder) speed
 
-	public static double LATERAL_DISTANCE = 9.7; // in; distance between the left and right wheels
-	public static double FORWARD_OFFSET   = 0.395; // -0.25 in; offset of the lateral wheel
+	public static double LATERAL_DISTANCE = 9.96696; //9.7
+	//// in; distance between the left and right wheels
+	public static double FORWARD_OFFSET   = 0.314; //0.395
+	//// -0.25 in; offset of the lateral wheel
 
-	public static double X_MULTIPLIER = 1.017335420348886; // Multiplier in the X direction
-	public static double Y_MULTIPLIER = 1.017335420348886; // Multiplier in the Y direction
+	public static double X_MULTIPLIER = 0.979580864; // 1.017335420348886
+	// Multiplier in the X direction
+	public static double Y_MULTIPLIER = 0.987164305; // 1.017335420348886
+	// Multiplier in the Y direction
 
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;
