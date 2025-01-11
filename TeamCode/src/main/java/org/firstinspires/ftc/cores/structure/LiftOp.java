@@ -85,7 +85,7 @@ public class LiftOp implements HardwareController , Taggable {
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		liftCtrl.setTag(tag);
 	}
 

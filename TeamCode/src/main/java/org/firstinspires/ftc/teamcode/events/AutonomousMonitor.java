@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 public final class AutonomousMonitor extends Thread implements ThreadAdditions {
 	private final Callable<Boolean> activeCaller;
 	private boolean taskInterrupted;
-	public AutonomousMonitor(Callable<Boolean> activeCaller){
+	public AutonomousMonitor(final Callable<Boolean> activeCaller){
 		this.activeCaller=activeCaller;
 	}
 

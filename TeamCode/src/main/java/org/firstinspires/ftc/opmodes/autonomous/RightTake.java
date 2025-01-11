@@ -32,7 +32,7 @@ public class RightTake extends IntegralAutonomous {
 		cache = registerTrajectory("turn 2", generateSequenceBuilder(RightSecondSample).turn(toRadians(- 100)).build());
 
 		registerTrajectory("to sample 3", generateBuilder(cache).lineToLinearHeading(RightThirdSample).build());
-		Pose2d afterGet = registerTrajectory("turn 3", generateSequenceBuilder(RightThirdSample).turn(toRadians(- 100)).build());
+		final Pose2d afterGet = registerTrajectory("turn 3", generateSequenceBuilder(RightThirdSample).turn(toRadians(- 100)).build());
 
 		registerTrajectory("place to get", generateBuilder(afterGet).lineToLinearHeading(GetSample).build());
 		registerTrajectory("suspend to get", generateBuilder(RightSuspend).lineToLinearHeading(GetSample).build());
