@@ -10,14 +10,14 @@ import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 public final class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-//		utils = new UtilMng();
+		//		utils = new UtilMng();
 		utils.armsToSafePosition().runCached();
 	}
 
 	@Override
 	public void linear() {
-//		utils.integralIntakes().displayArms().waitMs(5000).integralIntakesEnding().runCached();
-//		utils.scaleOperate(0.85);
+		//		utils.integralIntakes().displayArms().waitMs(5000).integralIntakesEnding().runCached();
+		//		utils.scaleOperate(0.85);
 		angleCalibration(90);
 		angleCalibration(- 90);
 		angleCalibration(0);

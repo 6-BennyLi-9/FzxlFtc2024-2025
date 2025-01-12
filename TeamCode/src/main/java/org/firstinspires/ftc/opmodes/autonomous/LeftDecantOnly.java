@@ -11,12 +11,14 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
+import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
 public class LeftDecantOnly extends IntegralAutonomous {
+	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
+
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(LeftStart);
@@ -34,8 +36,6 @@ public class LeftDecantOnly extends IntegralAutonomous {
 
 		registerTrajectory("park", generateSequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build());
 	}
-
-	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
 
 	@Override
 	public void linear() {

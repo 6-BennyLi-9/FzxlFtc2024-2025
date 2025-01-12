@@ -7,21 +7,22 @@ import org.firstinspires.ftc.teamcode.Labeler;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MultiTelemetryClient implements Client{
-	private final Map < String , Client> clients =new HashMap <>();
-	private final Labeler labeler=new Labeler();
+public class MultiTelemetryClient implements Client {
+	private final Map <String, Client> clients = new HashMap <>();
+	private final Labeler              labeler = new Labeler();
 
 	public MultiTelemetryClient(@NonNull final Client... clients) {
 		for (final Client client : clients) {
-			this.clients.put(labeler.summonID(client),client);
+			this.clients.put(labeler.summonID(client), client);
 		}
 	}
 
-	public void add(final Client client){
-		add(labeler.summonID(client),client);
+	public void add(final Client client) {
+		add(labeler.summonID(client), client);
 	}
-	public void add(final String tag, final Client client){
-		clients.put(tag,client);
+
+	public void add(final String tag, final Client client) {
+		clients.put(tag, client);
 	}
 
 	@Override
@@ -34,14 +35,14 @@ public class MultiTelemetryClient implements Client{
 	@Override
 	public Client addData(final String key, final String val) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().addData(key,val);
+			entry.getValue().addData(key, val);
 		}
 		return this;
 	}
 
 	@Override
 	public Client addData(final String key, final Object val) {
-		return this.addData(key,String.valueOf(val));
+		return this.addData(key, String.valueOf(val));
 	}
 
 	@Override
@@ -55,14 +56,14 @@ public class MultiTelemetryClient implements Client{
 	@Override
 	public Client changeData(final String key, final String val) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().changeData(key,val);
+			entry.getValue().changeData(key, val);
 		}
 		return this;
 	}
 
 	@Override
 	public Client changeData(final String key, final Object val) {
-		return changeData(key,String.valueOf(val));
+		return changeData(key, String.valueOf(val));
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class MultiTelemetryClient implements Client{
 	@Override
 	public Client changeLine(final String oldData, final String newData) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().changeLine(oldData,newData);
+			entry.getValue().changeLine(oldData, newData);
 		}
 		return this;
 	}
@@ -105,7 +106,8 @@ public class MultiTelemetryClient implements Client{
 			for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 				entry.getValue().speak(text, languageCode, countryCode);
 			}
-		}catch (UnsupportedOperationException ignored){}
+		} catch (UnsupportedOperationException ignored) {
+		}
 		return this;
 	}
 

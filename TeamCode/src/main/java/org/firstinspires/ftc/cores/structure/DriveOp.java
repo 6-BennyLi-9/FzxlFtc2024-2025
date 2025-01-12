@@ -5,20 +5,24 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.cores.pid.PidProcessor;
-import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.pid.PidProcessor;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp implements HardwareController , Taggable {
-	public static DriveMode   config = DriveMode.StraightLinear;
-	public static ChassisCtrl chassisCtrl;
+public class DriveOp implements HardwareController, Taggable {
+	public static  DriveMode   config = DriveMode.StraightLinear;
+	public static  ChassisCtrl chassisCtrl;
+	public static double kP = 0.0001, kI, kD;
+	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
 	private static DriveOp     instance;
+	private static double output, targetAngle, currentPowerAngle;
+	private static double x, y, turn;
 
-	public static DriveOp getInstance(){
+	public static DriveOp getInstance() {
 		return instance;
 	}
 
@@ -38,15 +42,8 @@ public class DriveOp implements HardwareController , Taggable {
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
-
-	public static double kP = 0.0001, kI, kD;
-	private static double output, targetAngle, currentPowerAngle;
-
-	private static double x, y, turn;
-
-	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
 
 	private void syncAngle() {
 		final double currentAngle = HardwareDatabase.imu.getAngularOrientation().firstAngle;
@@ -97,12 +94,12 @@ public class DriveOp implements HardwareController , Taggable {
 	}
 
 	@Override
-	public void setTag(String tag) {
-		chassisCtrl.setTag(tag);
+	public String getTag() {
+		return chassisCtrl.getTag();
 	}
 
 	@Override
-	public String getTag() {
-		return chassisCtrl.getTag();
+	public void setTag(String tag) {
+		chassisCtrl.setTag(tag);
 	}
 }

@@ -31,7 +31,7 @@ public class ServoCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:%.3f", tag, targetPosition);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%s:%.3f", tag, targetPosition);
 	}
 
 	public void setTargetPosition(final double targetPosition) {
@@ -117,10 +117,11 @@ public class ServoCtrl implements Action {
 		}
 	}
 
+	public String getTag() {
+		return this.tag;
+	}
+
 	public void setTag(final String tag) {
 		this.tag = tag;
-	}
-	public String getTag(){
-		return this.tag;
 	}
 }

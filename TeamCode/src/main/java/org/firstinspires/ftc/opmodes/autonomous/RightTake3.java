@@ -5,42 +5,33 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetFirstSa
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetSecondSample;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightStart;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
-
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
+import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
 @Deprecated
 @Disabled
 @Autonomous(name = "Right(1悬挂+2夹取)", group = "3_Specials")
 public class RightTake3 extends IntegralAutonomous {
+	public static double scaleGetPosition = 0.82;
+
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(RightStart);
 		client.addData("初始化点位", "_ _ |<");
 
-		registerTrajectory("suspend preload", generateBuilder(RightStart)
-				.lineToLinearHeading(RightSuspend)
-				.build());
+		registerTrajectory("suspend preload", generateBuilder(RightStart).lineToLinearHeading(RightSuspend).build());
 
-		registerTrajectory("get sample 1", generateBuilder(RightSuspend)
-				.lineToLinearHeading(RightGetFirstSample)
-				.build());
-		registerTrajectory("get sample 2", generateBuilder(RightGetFirstSample)
-				.lineToLinearHeading(RightGetSecondSample)
-				.build());
+		registerTrajectory("get sample 1", generateBuilder(RightSuspend).lineToLinearHeading(RightGetFirstSample).build());
+		registerTrajectory("get sample 2", generateBuilder(RightGetFirstSample).lineToLinearHeading(RightGetSecondSample).build());
 
-		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
-				.lineToLinearHeading(GetSample.plus(new Pose2d(0,0, toRadians(180))))
-				.build());
+		registerTrajectory("park", generateBuilder(UtilPoses.RightGetSecondSample).lineToLinearHeading(GetSample.plus(new Pose2d(0, 0, toRadians(180)))).build());
 	}
-
-	public static double scaleGetPosition = 0.82;
 
 	@Override
 	public void linear() {

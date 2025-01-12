@@ -1,7 +1,7 @@
 package org.betastudio.ftc.client;
 
-import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.interfaces.ThreadAdditions;
 
 public class InfinityLoopAction implements Action, ThreadAdditions {
 	private final Runnable runnable;
@@ -19,6 +19,6 @@ public class InfinityLoopAction implements Action, ThreadAdditions {
 
 	@Override
 	public void closeTask() {
-		interrupted=true;
+		interrupted = true;
 	}
 }

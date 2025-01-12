@@ -16,6 +16,8 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
 public class RightTake2 extends IntegralAutonomous {
+	public static double scaleGetPosition = 0.84;
+
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(RightStart);
@@ -32,10 +34,8 @@ public class RightTake2 extends IntegralAutonomous {
 		registerTrajectory("suspend got sample 1", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(5, 5))).build());
 		registerTrajectory("suspend got sample 2", generateSequenceBuilder(GetSample).lineToLinearHeading(RightSuspend.plus(new Pose2d(10, 5))).build());
 
-		registerTrajectory("park", generateBuilder(RightSuspend.plus(new Pose2d(10, 5)).plus(new Pose2d(0,-5.1))).lineToLinearHeading(GetSample).build());
+		registerTrajectory("park", generateBuilder(RightSuspend.plus(new Pose2d(10, 5)).plus(new Pose2d(0, - 5.1))).lineToLinearHeading(GetSample).build());
 	}
-
-	public static double scaleGetPosition = 0.84;
 
 	@Override
 	public void linear() {
@@ -64,7 +64,7 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 1");
-		angleCalibration(0,RightSuspend.plus(new Pose2d(5, 5)));
+		angleCalibration(0, RightSuspend.plus(new Pose2d(5, 5)));
 		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3).build());
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
 		sleep(500);
@@ -75,7 +75,7 @@ public class RightTake2 extends IntegralAutonomous {
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 2");
-		angleCalibration(0,RightSuspend.plus(new Pose2d(10, 5)));
+		angleCalibration(0, RightSuspend.plus(new Pose2d(10, 5)));
 		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(10, 5))).back(3).build());
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
 		sleep(500);

@@ -4,20 +4,21 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements HardwareController, InitializeRequested , Taggable {
+public class ScaleOp implements HardwareController, InitializeRequested, Taggable {
 	public static ScalePositions recent = ScalePositions.back;
 	public static ServoCtrl      leftScaleController, rightScaleController;
-	private static ScaleOp            instance;
+	public static double smooth = 0.2;
+	private static ScaleOp instance;
 
-	public static ScaleOp getInstance(){
+	public static ScaleOp getInstance() {
 		return instance;
 	}
 
@@ -39,10 +40,8 @@ public class ScaleOp implements HardwareController, InitializeRequested , Taggab
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
-
-	public static double smooth = 0.2;
 
 	public void manage(double position) {
 		position = Math.max(position, 0.5);
@@ -93,13 +92,13 @@ public class ScaleOp implements HardwareController, InitializeRequested , Taggab
 	}
 
 	@Override
-	public void setTag(String tag) {
-		leftScaleController.setTag("left "+tag);
-		rightScaleController.setTag("right "+tag);
+	public String getTag() {
+		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
 	}
 
 	@Override
-	public String getTag() {
-		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
+	public void setTag(String tag) {
+		leftScaleController.setTag("left " + tag);
+		rightScaleController.setTag("right " + tag);
 	}
 }

@@ -9,9 +9,8 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 public abstract class LiftCtrl implements Action {
-	protected long currentPosition, targetPosition;
 	protected final DcMotorEx targetLift;
-
+	protected long currentPosition, targetPosition;
 	protected String  tag;
 	private   boolean infinityRun = true;
 
@@ -53,19 +52,20 @@ public abstract class LiftCtrl implements Action {
 		return tag + ":" + currentPosition + "->" + targetPosition;
 	}
 
-	public void setTargetPosition(final long targetPosition) {
-		this.targetPosition = targetPosition;
+	public String getTag() {
+		return this.tag;
 	}
 
 	public void setTag(final String tag) {
 		this.tag = tag;
 	}
-	public String getTag(){
-		return this.tag;
-	}
 
 	public long getTargetPosition() {
 		return targetPosition;
+	}
+
+	public void setTargetPosition(final long targetPosition) {
+		this.targetPosition = targetPosition;
 	}
 
 	public long getCurrentPosition() {

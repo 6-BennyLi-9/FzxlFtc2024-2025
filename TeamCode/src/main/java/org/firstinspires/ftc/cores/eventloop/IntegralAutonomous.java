@@ -28,19 +28,19 @@ import java.util.Objects;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class IntegralAutonomous extends LinearOpMode implements IntegralOpMode {
-	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
-	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
+	private final Map <String, Trajectory>         trajectoryMap           = new HashMap <>();
+	private final Map <String, TrajectorySequence> trajectorySequenceMap   = new HashMap <>();
 	public        SampleMecanumDrive               drive;
 	public        Client                           client;
 	public        UtilMng                          utils;
 	public        Timer                            timer;
-	private       Exception                        inlineUncaughtException=null;
+	private       Exception                        inlineUncaughtException = null;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
 		Global.runMode = RunMode.autonomous;
 		Global.prepareCoreThreadPool();
-		Global.currentOpmode=this;
+		Global.currentOpmode = this;
 		HardwareDatabase.sync(hardwareMap, true);
 
 		drive = new SampleMecanumDrive(hardwareMap);
@@ -60,11 +60,11 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		if (! opModeIsActive()) return;
 		timer.restart();
 
-//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
-		Global.threadManager.add("linear",new Thread(this::linear));
+		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
+		Global.threadManager.add("linear", new Thread(this::linear));
 
-		while (opModeIsActive()){
-			if (inlineUncaughtException!=null){
+		while (opModeIsActive()) {
+			if (inlineUncaughtException != null) {
 				throw new RuntimeException(inlineUncaughtException);
 			}
 		}
@@ -80,7 +80,8 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	/**
 	 * 在用户停止操作时完成
 	 */
-	public void preTerminate(){}
+	public void preTerminate() {
+	}
 
 	public Pose2d registerTrajectory(final String tag, final Trajectory argument) {
 		trajectoryMap.put(tag, argument);
@@ -116,9 +117,9 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		Actions.runAction(() -> {
 			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 
-			TelemetryPacket p=new TelemetryPacket();
-			p.put("ang",ang);
-			p.put("err",Math.abs(target - ang));
+			TelemetryPacket p = new TelemetryPacket();
+			p.put("ang", ang);
+			p.put("err", Math.abs(target - ang));
 			FtcDashboard.getInstance().sendTelemetryPacket(p);
 
 			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
@@ -149,14 +150,15 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason){
-		sendTerminateSignal(reason,new NullPointerException("UnModified"));
+	public void sendTerminateSignal(TerminateReason reason) {
+		sendTerminateSignal(reason, new NullPointerException("UnModified"));
 	}
+
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e){
+	public void sendTerminateSignal(TerminateReason reason, Exception e) {
 		timer.stop();
-		CoreDatabase.writeInVals(this,reason, timer.getDeltaTime() * 1.0e-3);
-		Global.runMode=RunMode.terminated;
+		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
+		Global.runMode = RunMode.terminated;
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

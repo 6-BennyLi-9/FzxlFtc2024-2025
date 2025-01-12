@@ -5,22 +5,23 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
-import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
-import org.firstinspires.ftc.cores.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.structure.positions.LiftMode;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
+import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController , Taggable {
+public class LiftOp implements HardwareController, Taggable {
 	public static  LiftMode recent = LiftMode.idle;
 	public static  LiftCtrl liftCtrl;
+	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 	private static LiftOp   instance;
 
-	public static LiftOp getInstance(){
+	public static LiftOp getInstance() {
 		return instance;
 	}
 
@@ -33,7 +34,7 @@ public class LiftOp implements HardwareController , Taggable {
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
 
 	@Override
@@ -42,8 +43,6 @@ public class LiftOp implements HardwareController , Taggable {
 
 		liftCtrl.setTag("lift");
 	}
-
-	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 
 	public void sync(@NonNull final LiftMode option) {
 		recent = option;
@@ -67,7 +66,7 @@ public class LiftOp implements HardwareController , Taggable {
 				liftCtrl.setTargetPosition(suspendLv1);
 				break;
 			default:
-				throw new IllegalStateException("Unexpected enum state:"+option.name());
+				throw new IllegalStateException("Unexpected enum state:" + option.name());
 		}
 	}
 
@@ -85,12 +84,12 @@ public class LiftOp implements HardwareController , Taggable {
 	}
 
 	@Override
-	public void setTag(String tag) {
-		liftCtrl.setTag(tag);
+	public String getTag() {
+		return liftCtrl.getTag();
 	}
 
 	@Override
-	public String getTag() {
-		return liftCtrl.getTag();
+	public void setTag(String tag) {
+		liftCtrl.setTag(tag);
 	}
 }

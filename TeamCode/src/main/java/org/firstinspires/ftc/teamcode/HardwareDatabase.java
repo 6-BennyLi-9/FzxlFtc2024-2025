@@ -41,7 +41,7 @@ public final class HardwareDatabase {
 	private static HardwareMap hardwareMap;
 
 	public static void sync(@NonNull final HardwareMap hardwareMap, final boolean connectIMU) {
-		HardwareDatabase.hardwareMap=hardwareMap;
+		HardwareDatabase.hardwareMap = hardwareMap;
 
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
@@ -101,7 +101,7 @@ public final class HardwareDatabase {
 		}
 	}
 
-	public static void syncIMU(){
+	public static void syncIMU() {
 		imu = hardwareMap.get(BNO055IMU.class, "imu");
 	}
 
@@ -115,19 +115,11 @@ public final class HardwareDatabase {
 		rightRear.setDirection(DcMotorSimple.Direction.FORWARD);   //R
 	}
 
-	public static void printVoltages(){
-		TelemetryClient.getInstance()
-				.changeData("leftFront voltage",getHardwareVoltage("leftFront"))
-				.changeData("leftRear voltage",getHardwareVoltage("leftRear"))
-				.changeData("rightFront voltage",getHardwareVoltage("rightFront"))
-				.changeData("rightRear voltage",getHardwareVoltage("rightRear"))
-				.changeData("clip voltage", getHardwareVoltage("clip"))
-				.changeData("place voltage",getHardwareVoltage("place"))
-				.changeData("claw voltage", getHardwareVoltage("claw"))
-				.changeData("rotate voltage", getHardwareVoltage("rotate"));
+	public static void printVoltages() {
+		TelemetryClient.getInstance().changeData("leftFront voltage", getHardwareVoltage("leftFront")).changeData("leftRear voltage", getHardwareVoltage("leftRear")).changeData("rightFront voltage", getHardwareVoltage("rightFront")).changeData("rightRear voltage", getHardwareVoltage("rightRear")).changeData("clip voltage", getHardwareVoltage("clip")).changeData("place voltage", getHardwareVoltage("place")).changeData("claw voltage", getHardwareVoltage("claw")).changeData("rotate voltage", getHardwareVoltage("rotate"));
 	}
-	
-	private static double getHardwareVoltage(final String name){
+
+	private static double getHardwareVoltage(final String name) {
 		return hardwareMap.voltageSensor.get(name).getVoltage();
 	}
 }

@@ -6,13 +6,8 @@ import androidx.annotation.NonNull;
  * 用于控制按键布尔状态，更加轻量化
  */
 public final class ButtonProcessor {
-	public enum ButtonConfig {
-		WHILE_PRESSING, SINGLE_WHEN_PRESSED
-	}
-
 	public final ButtonConfig config;
-	public final TickEncoder smartCounter;
-
+	public final TickEncoder  smartCounter;
 	private boolean lst, now;
 
 	public ButtonProcessor(final ButtonConfig config) {
@@ -47,5 +42,9 @@ public final class ButtonProcessor {
 	@Override
 	public String toString() {
 		return "lst:" + lst + ",now:" + now;
+	}
+
+	public enum ButtonConfig {
+		WHILE_PRESSING, SINGLE_WHEN_PRESSED
 	}
 }

@@ -7,8 +7,8 @@ import org.betastudio.ftc.action.Action;
 import java.util.Locale;
 
 public class ChassisCtrl implements Action {
-	private double pX, pY, pTurn;
 	public final DcMotorEx leftFront, leftRear, rightFront, rightRear;
+	private double pX, pY, pTurn;
 	private String tag;
 
 	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear) {
@@ -29,7 +29,7 @@ public class ChassisCtrl implements Action {
 
 	@Override
 	public String paramsString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE,"%s:{x:%.3f,y%.4f,heading:%.3f}", tag, pX, pY, pTurn);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%s:{x:%.3f,y%.4f,heading:%.3f}", tag, pX, pY, pTurn);
 	}
 
 	public void setPowers(final double x, final double y, final double turn) {
@@ -42,10 +42,11 @@ public class ChassisCtrl implements Action {
 		pTurn = turn * bufVal;
 	}
 
+	public String getTag() {
+		return this.tag;
+	}
+
 	public void setTag(final String tag) {
 		this.tag = tag;
-	}
-	public String getTag(){
-		return this.tag;
 	}
 }

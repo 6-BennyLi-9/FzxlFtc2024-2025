@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 
 @Config
 @Disabled
@@ -15,8 +15,6 @@ public class ClassicLiftCtrl extends LiftCtrl {
 	public static long   staticAllowError;
 	public static long   lowerErrorRange;
 	public static double zeroPoseCalibrationPow, lowerCalibrationPow, higherCalibrationPow;
-	private double  calibrateVal;
-	private boolean calibrationDone;
 
 	static {
 		staticAllowError = 20;
@@ -26,6 +24,9 @@ public class ClassicLiftCtrl extends LiftCtrl {
 		lowerCalibrationPow = 0.3;
 		higherCalibrationPow = 0.7;
 	}
+
+	private double  calibrateVal;
+	private boolean calibrationDone;
 
 	public ClassicLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
 		super(target);

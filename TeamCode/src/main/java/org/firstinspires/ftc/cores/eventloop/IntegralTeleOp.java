@@ -5,28 +5,28 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
-import org.firstinspires.ftc.teamcode.CoreDatabase;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.RunMode;
+import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.CoreDatabase;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.RunMode;
 import org.firstinspires.ftc.teamcode.Timer;
-import org.firstinspires.ftc.cores.RobotMng;
 
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode{
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode {
 	public  RobotMng  robot;
 	public  Timer     timer;
 	public  Client    client;
 	private boolean   auto_terminate_when_TLE = true;
-	private Exception inlineUncaughtException=null;
+	private Exception inlineUncaughtException = null;
 
 	@Override
 	public void op_init() {
-		Global.currentOpmode=this;
-		Global.registerGamepad(gamepad1,gamepad2);
+		Global.currentOpmode = this;
+		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.teleOping;
 		DriveOp.config = DriveMode.StraightLinear;
@@ -79,7 +79,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
 
-		if (inlineUncaughtException!=null){
+		if (inlineUncaughtException != null) {
 			throw new RuntimeException(inlineUncaughtException);
 		}
 	}
@@ -87,17 +87,18 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void op_end() {
 		client.clear();
-		Global.runMode =RunMode.terminated;
+		Global.runMode = RunMode.terminated;
 
-		CoreDatabase.writeInVals(this,TerminateReason.UserActions);
+		CoreDatabase.writeInVals(this, TerminateReason.UserActions);
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason){
-		sendTerminateSignal(reason,new NullPointerException("UnModified"));
+	public void sendTerminateSignal(TerminateReason reason) {
+		sendTerminateSignal(reason, new NullPointerException("UnModified"));
 	}
+
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e){
+	public void sendTerminateSignal(TerminateReason reason, Exception e) {
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

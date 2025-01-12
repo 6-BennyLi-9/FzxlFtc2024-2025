@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ import java.util.Objects;
 public class MaxAngularVeloTuner extends LinearOpMode {
 	public static double RUNTIME = 4.0;
 
-	private double      maxAngVelocity;
+	private double maxAngVelocity;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

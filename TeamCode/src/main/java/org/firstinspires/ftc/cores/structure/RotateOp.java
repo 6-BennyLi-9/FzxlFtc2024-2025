@@ -3,18 +3,18 @@ package org.firstinspires.ftc.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class RotateOp implements HardwareController, InitializeRequested , Taggable {
+public class RotateOp implements HardwareController, InitializeRequested, Taggable {
 	public static  ServoCtrl rotateController;
 	private static RotateOp  instance;
 
-	public static RotateOp getInstance(){
+	public static RotateOp getInstance() {
 		return instance;
 	}
 
@@ -39,7 +39,7 @@ public class RotateOp implements HardwareController, InitializeRequested , Tagga
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
 
 	public void mid() {
@@ -59,12 +59,12 @@ public class RotateOp implements HardwareController, InitializeRequested , Tagga
 	}
 
 	@Override
-	public void setTag(String tag) {
-		rotateController.setTag(tag);
+	public String getTag() {
+		return rotateController.getTag();
 	}
 
 	@Override
-	public String getTag() {
-		return rotateController.getTag();
+	public void setTag(String tag) {
+		rotateController.setTag(tag);
 	}
 }

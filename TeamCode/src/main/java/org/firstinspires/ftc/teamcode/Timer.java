@@ -10,10 +10,10 @@ import java.util.Vector;
  * 一个非常好用的计时器
  */
 public final class Timer {
-	public double StartTime, EndTime;
 	public final Map <String, Double>          Tags;
 	public final Map <String, Object>          TagMeaning;
 	public final Map <String, Vector <Double>> MileageTags;
+	public double StartTime, EndTime;
 
 	public Timer() {
 		StartTime = getCurrentTime();

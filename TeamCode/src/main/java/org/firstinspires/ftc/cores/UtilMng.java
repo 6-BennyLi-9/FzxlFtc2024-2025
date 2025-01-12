@@ -20,8 +20,8 @@ import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.firstinspires.ftc.opmodes.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.cores.structure.LiftOp;
+import org.firstinspires.ftc.opmodes.autonomous.structure.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
@@ -56,16 +56,18 @@ public class UtilMng {
 		actions.add(action);
 		return this;
 	}
-	public UtilMng addStatement(Runnable r){
+
+	public UtilMng addStatement(Runnable r) {
 		actions.add(new StatementAction(r));
 		return this;
 	}
-	public UtilMng joinThread(Thread t){
-		actions.add(new StatementAction(()->Local.waitForVal(t::isInterrupted,true)));
+
+	public UtilMng joinThread(Thread t) {
+		actions.add(new StatementAction(() -> Local.waitForVal(t::isInterrupted, true)));
 		return this;
 	}
 
-	public void rstMotors(){
+	public void rstMotors() {
 		leftFront.setPower(0);
 		leftRear.setPower(0);
 		rightFront.setPower(0);

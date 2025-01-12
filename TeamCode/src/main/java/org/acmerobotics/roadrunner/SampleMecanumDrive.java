@@ -52,20 +52,15 @@ import java.util.List;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
+	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT   = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
+	private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
 	public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
 	public static PIDCoefficients HEADING_PID       = new PIDCoefficients(8, 0, 0);
-
 	public static double LATERAL_MULTIPLIER = 1;
-
 	public static double VX_WEIGHT    = 1;
 	public static double VY_WEIGHT    = 1;
 	public static double OMEGA_WEIGHT = 1;
-
 	private final TrajectorySequenceRunner trajectorySequenceRunner;
-
-	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT   = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-	private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
-
 	private final TrajectoryFollower follower;
 
 	private final DcMotorEx        leftFront;
@@ -92,11 +87,11 @@ public class SampleMecanumDrive extends MecanumDrive {
 			module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
 		}
 
-//        // TODO: adjust the names of the following hardware devices to match your configuration
-//	    IMU imu = hardwareMap.get(IMU.class, "imu");
-//          final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-//                LOGO_FACING_DIR, USB_FACING_DIR));
-//          imu.initialize(parameters);
+		//        // TODO: adjust the names of the following hardware devices to match your configuration
+		//	    IMU imu = hardwareMap.get(IMU.class, "imu");
+		//          final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+		//                LOGO_FACING_DIR, USB_FACING_DIR));
+		//          imu.initialize(parameters);
 
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
@@ -134,6 +129,14 @@ public class SampleMecanumDrive extends MecanumDrive {
 		setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
 		trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID, batteryVoltageSensor, lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels);
+	}
+
+	public static TrajectoryVelocityConstraint getVelocityConstraint(final double maxVel, final double maxAngularVel, final double trackWidth) {
+		return new MinVelocityConstraint(Arrays.asList(new AngularVelocityConstraint(maxAngularVel), new MecanumVelocityConstraint(maxVel, trackWidth)));
+	}
+
+	public static TrajectoryAccelerationConstraint getAccelerationConstraint(final double maxAccel) {
+		return new ProfileAccelerationConstraint(maxAccel);
 	}
 
 	public TrajectoryBuilder trajectoryBuilder(final Pose2d startPose) {
@@ -273,13 +276,5 @@ public class SampleMecanumDrive extends MecanumDrive {
 	@Override
 	public Double getExternalHeadingVelocity() {
 		return 0.0;
-	}
-
-	public static TrajectoryVelocityConstraint getVelocityConstraint(final double maxVel, final double maxAngularVel, final double trackWidth) {
-		return new MinVelocityConstraint(Arrays.asList(new AngularVelocityConstraint(maxAngularVel), new MecanumVelocityConstraint(maxVel, trackWidth)));
-	}
-
-	public static TrajectoryAccelerationConstraint getAccelerationConstraint(final double maxAccel) {
-		return new ProfileAccelerationConstraint(maxAccel);
 	}
 }

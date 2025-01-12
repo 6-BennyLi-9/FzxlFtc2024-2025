@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 @Disabled
 @Autonomous(name = "Right(3悬挂+1夹取+1预载)", preselectTeleOp = "19419", group = "0_Main")
 public class RightSuspendAndTake extends RightSuspend {
+	public static double scalePosition = 0.9;
 	Pose2d cache;
 
 	@Override
@@ -20,12 +21,10 @@ public class RightSuspendAndTake extends RightSuspend {
 		registerTrajectory("lst park", generateSequenceBuilder(cache).back(5).build());
 	}
 
-	public static double scalePosition = 0.9;
-
 	@Override
 	public void linear() {
 		super.linear();
-//		angleCalibration(180,cache);
+		//		angleCalibration(180,cache);
 		utils.integralIntakes().scaleOperate(scalePosition).displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().armsToSafePosition().decant().runAsThread();
 		sleep(800);
 		runTrajectory("lst park");

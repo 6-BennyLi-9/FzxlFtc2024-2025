@@ -10,7 +10,7 @@ public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void op_init() {
 		super.op_init();
-		client.addData("drive buf","wait For Start.");
+		client.addData("drive buf", "wait For Start.");
 		auto_terminate_when_TLE(false);
 	}
 
@@ -26,8 +26,8 @@ public class TeleOpCore extends IntegralTeleOp {
 
 		robot.printActions();
 		robot.printIMUVariables();
-//		HardwareDatabase.printVoltages();
-//		GamepadRequestMemories.printValues();
+		//		HardwareDatabase.printVoltages();
+		//		GamepadRequestMemories.printValues();
 
 		robot.update();
 		client.changeData("drive buf", RobotMng.driveBufPower);

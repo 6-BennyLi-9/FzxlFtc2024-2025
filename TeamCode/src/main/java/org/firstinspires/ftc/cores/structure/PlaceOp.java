@@ -3,25 +3,24 @@ package org.firstinspires.ftc.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested , Taggable {
+public class PlaceOp implements HardwareController, InitializeRequested, Taggable {
 	public static  PlacePositions recent = PlacePositions.idle;
+	public static ServoCtrl placeController;
 	private static PlaceOp        instance;
 
-	public static PlaceOp getInstance(){
+	public static PlaceOp getInstance() {
 		return instance;
 	}
-
-	public static ServoCtrl          placeController;
 
 	@Override
 	public void connect() {
@@ -39,7 +38,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , Taggab
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , Taggab
 		placeController.setTargetPosition(0);
 	}
 
-	public void prepare(){
+	public void prepare() {
 		recent = PlacePositions.prepare;
 		placeController.setTargetPosition(0.5);
 	}
@@ -87,12 +86,12 @@ public class PlaceOp implements HardwareController, InitializeRequested , Taggab
 	}
 
 	@Override
-	public void setTag(String tag) {
-		placeController.setTag("tag");
+	public String getTag() {
+		return placeController.getTag();
 	}
 
 	@Override
-	public String getTag() {
-		return placeController.getTag();
+	public void setTag(String tag) {
+		placeController.setTag("tag");
 	}
 }

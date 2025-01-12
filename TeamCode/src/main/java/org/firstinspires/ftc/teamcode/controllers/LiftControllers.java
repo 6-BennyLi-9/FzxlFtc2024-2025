@@ -20,7 +20,6 @@ public class LiftControllers {
 		public static long   staticAllowError;
 		public static long   lowerErrorRange;
 		public static double zeroPoseCalibrationPow, lowerCalibrationPow, higherCalibrationPow;
-		private double calibrateVal;
 
 		static {
 			staticAllowError = 35;
@@ -30,6 +29,8 @@ public class LiftControllers {
 			lowerCalibrationPow = 0.35;
 			higherCalibrationPow = 1;
 		}
+
+		private double calibrateVal;
 
 		public ClassicLiftCtrl(@NonNull final DcMotorEx target) {
 			super(target);
@@ -73,7 +74,7 @@ public class LiftControllers {
 
 		@Override
 		public boolean run() {
-			currentPosition=targetLift.getCurrentPosition();
+			currentPosition = targetLift.getCurrentPosition();
 
 			if (0 == getTargetPosition() && using_touch_calibrate) {
 				targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -84,7 +85,7 @@ public class LiftControllers {
 				return true;
 			}
 
-			if(0 == getTargetPosition() && using_touch_reset_encoders && ! HardwareDatabase.liftTouch.isPressed()){
+			if (0 == getTargetPosition() && using_touch_reset_encoders && ! HardwareDatabase.liftTouch.isPressed()) {
 				targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 				targetLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 				targetLift.setPower(0);
@@ -111,6 +112,7 @@ public class LiftControllers {
 		public void using_touch_calibrate(final boolean using_touch_calibrate) {
 			this.using_touch_calibrate = using_touch_calibrate;
 		}
+
 		public boolean using_touch_calibrate() {
 			return using_touch_calibrate;
 		}
@@ -119,6 +121,7 @@ public class LiftControllers {
 		public void using_touch_reset_encoders(final boolean using_touch_reset_encoders) {
 			this.using_touch_reset_encoders = using_touch_reset_encoders;
 		}
+
 		public boolean using_touch_reset_encoders() {
 			return using_touch_reset_encoders;
 		}
@@ -130,12 +133,13 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class LinFuncLiftCtrl extends LiftCtrl {
-		private       double calibrateVal;
 		public static double vA;
 
 		static {
 			vA = 0.05;
 		}
+
+		private       double calibrateVal;
 
 		public LinFuncLiftCtrl(@NonNull final DcMotorEx target) {
 			super(target);
@@ -166,7 +170,6 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class PIDLiftCtrl extends LiftCtrl {
-		private final PidProcessor processor;
 		public static double       vP, vI, vD, max_I;
 
 		static {
@@ -175,6 +178,8 @@ public class LiftControllers {
 			vD = 0;
 			max_I = 1;
 		}
+
+		private final PidProcessor processor;
 
 		public PIDLiftCtrl(@NonNull final DcMotorEx target) {
 			super(target);
@@ -203,12 +208,13 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class QuadFuncLiftCtrl extends LiftCtrl {
-		private       double calibrateVal;
 		public static double vA;
 
 		static {
 			vA = 0.02;
 		}
+
+		private       double calibrateVal;
 
 		public QuadFuncLiftCtrl(@NonNull final DcMotorEx target) {
 			super(target);

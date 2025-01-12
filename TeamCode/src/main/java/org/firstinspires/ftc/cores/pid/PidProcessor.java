@@ -12,6 +12,7 @@ public class PidProcessor {
 	private double sP, sI, sD, calibrateVal;
 
 	private double lstErr;
+	private boolean initialized;
 
 	public PidProcessor(final double vP, final double vI, final double vD, final double maxVI) {
 		this.maxVI = maxVI;
@@ -20,8 +21,6 @@ public class PidProcessor {
 		this.vD = vD;
 		timer = new Timer();
 	}
-
-	private boolean initialized;
 
 	public void modify(final double err) {
 		if (! initialized) {

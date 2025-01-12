@@ -1,5 +1,4 @@
 package org.acmerobotics.roadrunner.trajectorysequence;
 
 
-public class EmptySequenceException extends RuntimeException {
-}
+public class EmptySequenceException extends RuntimeException {}

@@ -15,12 +15,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerNotifier;
 import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.WebHandlerManager;
 
-import org.firstinspires.ftc.ftccommon.external.WebHandlerRegistrar;
-import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.acmerobotics.roadrunner.DriveConstants;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.SampleTankDrive;
 import org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer;
+import org.firstinspires.ftc.ftccommon.external.WebHandlerRegistrar;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +41,149 @@ public enum LogFiles {
 	private static final File ROOT = new File(AppUtil.ROOT_FOLDER + "/RoadRunner/logs/");
 
 	public static LogFile log = new LogFile("uninitialized");
+	private static final OpModeManagerNotifier.Notifications notifHandler = new OpModeManagerNotifier.Notifications() {
+		@SuppressLint("SimpleDateFormat")
+		final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_SSS");
+
+		final ObjectWriter jsonWriter = new ObjectMapper(new JsonFactory()).writerWithDefaultPrettyPrinter();
+
+		@Override
+		public void onOpModePreInit(final OpMode opMode) {
+			log = new LogFile(opMode.getClass().getCanonicalName());
+
+			// clean up old files
+			final File[] fs = Objects.requireNonNull(ROOT.listFiles());
+			Arrays.sort(fs, Comparator.comparingLong(File::lastModified));
+			long totalSizeBytes = 0;
+			for (final File f : fs) {
+				totalSizeBytes += f.length();
+			}
+
+			int i = 0;
+			while (i < fs.length && 32 * 1000 * 1000 <= totalSizeBytes) {
+				totalSizeBytes -= fs[i].length();
+				if (! fs[i].delete()) {
+					RobotLog.setGlobalErrorMsg("Unable to delete file " + fs[i].getAbsolutePath());
+				}
+				++ i;
+			}
+		}
+
+		@Override
+		public void onOpModePreStart(final OpMode opMode) {
+			log.nsStart = System.nanoTime();
+		}
+
+		@Override
+		public void onOpModePostStop(final OpMode opMode) {
+			log.nsStop = System.nanoTime();
+
+			if (! (opMode instanceof OpModeManagerImpl.DefaultOpMode)) {
+				//noinspection ResultOfMethodCallIgnored
+				ROOT.mkdirs();
+
+				final String filename = dateFormat.format(new Date(log.msInit)) + "__" + opMode.getClass().getSimpleName() + ".json";
+				final File   file     = new File(ROOT, filename);
+				try {
+					jsonWriter.writeValue(file, log);
+				} catch (final IOException e) {
+					RobotLog.setGlobalErrorMsg(new RuntimeException(e), "Unable to write data to " + file.getAbsolutePath());
+				}
+			}
+		}
+	};
+
+	public static void record(final Pose2d targetPose, final Pose2d pose, final double voltage, final List <Integer> lastDriveEncPositions, final List <Integer> lastDriveEncVels, final List <Integer> lastTrackingEncPositions, final List <Integer> lastTrackingEncVels) {
+		final long nsTime = System.nanoTime();
+		if (3 * 60 * 1_000_000_000L < nsTime - log.nsStart) {
+			return;
+		}
+
+		log.nsTimes.add(nsTime);
+
+		log.targetXs.add(targetPose.getX());
+		log.targetYs.add(targetPose.getY());
+		log.targetHeadings.add(targetPose.getHeading());
+
+		log.xs.add(pose.getX());
+		log.ys.add(pose.getY());
+		log.headings.add(pose.getHeading());
+
+		log.voltages.add(voltage);
+
+		while (log.driveEncPositions.size() < lastDriveEncPositions.size()) {
+			log.driveEncPositions.add(new ArrayList <>());
+		}
+		while (log.driveEncVels.size() < lastDriveEncVels.size()) {
+			log.driveEncVels.add(new ArrayList <>());
+		}
+		while (log.trackingEncPositions.size() < lastTrackingEncPositions.size()) {
+			log.trackingEncPositions.add(new ArrayList <>());
+		}
+		while (log.trackingEncVels.size() < lastTrackingEncVels.size()) {
+			log.trackingEncVels.add(new ArrayList <>());
+		}
+
+		for (int i = 0 ; i < lastDriveEncPositions.size() ; i++) {
+			log.driveEncPositions.get(i).add(lastDriveEncPositions.get(i));
+		}
+		for (int i = 0 ; i < lastDriveEncVels.size() ; i++) {
+			log.driveEncVels.get(i).add(lastDriveEncVels.get(i));
+		}
+		for (int i = 0 ; i < lastTrackingEncPositions.size() ; i++) {
+			log.trackingEncPositions.get(i).add(lastTrackingEncPositions.get(i));
+		}
+		for (int i = 0 ; i < lastTrackingEncVels.size() ; i++) {
+			log.trackingEncVels.get(i).add(lastTrackingEncVels.get(i));
+		}
+	}
+
+	@WebHandlerRegistrar
+	public static void registerRoutes(@NonNull final WebHandlerManager manager) {
+		//noinspection ResultOfMethodCallIgnored
+		ROOT.mkdirs();
+
+		// op mode manager only stores a weak reference, so we need to keep notifHandler alive ourselves
+		// don't use @OnCreateEventLoop because it's unreliable
+		OpModeManagerImpl.getOpModeManagerOfActivity(AppUtil.getInstance().getActivity()).registerListener(notifHandler);
+
+		manager.register("/logs", session -> {
+			final StringBuilder sb = new StringBuilder();
+			sb.append("<!doctype html><html><head><title>Logs</title></head><body><ul>");
+			final File[] fs = Objects.requireNonNull(ROOT.listFiles());
+			Arrays.sort(fs, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
+			for (final File f : fs) {
+				sb.append("<li><a href=\"/logs/download?file=");
+				sb.append(f.getName());
+				sb.append("\" download=\"");
+				sb.append(f.getName());
+				sb.append("\">");
+				sb.append(f.getName());
+				sb.append("</a></li>");
+			}
+			sb.append("</ul></body></html>");
+			return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK, NanoHTTPD.MIME_HTML, sb.toString());
+		});
+
+		manager.register("/logs/download", session -> {
+			final String[] pairs = session.getQueryParameterString().split("&");
+			if (1 != pairs.length) {
+				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST, NanoHTTPD.MIME_PLAINTEXT, "expected one query parameter, got " + pairs.length);
+			}
+
+			final String[] parts = pairs[0].split("=");
+			if (! "file".equals(parts[0])) {
+				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST, NanoHTTPD.MIME_PLAINTEXT, "expected file query parameter, got " + parts[0]);
+			}
+
+			final File f = new File(ROOT, parts[1]);
+			if (! f.exists()) {
+				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "file " + f + " doesn't exist");
+			}
+
+			return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "application/json", new FileInputStream(f));
+		});
+	}
 
 	public static class LogFile {
 		public String version = "quickstart1 v2";
@@ -115,149 +258,5 @@ public enum LogFiles {
 		public LogFile(final String opModeName) {
 			this.opModeName = opModeName;
 		}
-	}
-
-	public static void record(final Pose2d targetPose, final Pose2d pose, final double voltage, final List <Integer> lastDriveEncPositions, final List <Integer> lastDriveEncVels, final List <Integer> lastTrackingEncPositions, final List <Integer> lastTrackingEncVels) {
-		final long nsTime = System.nanoTime();
-		if (3 * 60 * 1_000_000_000L < nsTime - log.nsStart) {
-			return;
-		}
-
-		log.nsTimes.add(nsTime);
-
-		log.targetXs.add(targetPose.getX());
-		log.targetYs.add(targetPose.getY());
-		log.targetHeadings.add(targetPose.getHeading());
-
-		log.xs.add(pose.getX());
-		log.ys.add(pose.getY());
-		log.headings.add(pose.getHeading());
-
-		log.voltages.add(voltage);
-
-		while (log.driveEncPositions.size() < lastDriveEncPositions.size()) {
-			log.driveEncPositions.add(new ArrayList <>());
-		}
-		while (log.driveEncVels.size() < lastDriveEncVels.size()) {
-			log.driveEncVels.add(new ArrayList <>());
-		}
-		while (log.trackingEncPositions.size() < lastTrackingEncPositions.size()) {
-			log.trackingEncPositions.add(new ArrayList <>());
-		}
-		while (log.trackingEncVels.size() < lastTrackingEncVels.size()) {
-			log.trackingEncVels.add(new ArrayList <>());
-		}
-
-		for (int i = 0 ; i < lastDriveEncPositions.size() ; i++) {
-			log.driveEncPositions.get(i).add(lastDriveEncPositions.get(i));
-		}
-		for (int i = 0 ; i < lastDriveEncVels.size() ; i++) {
-			log.driveEncVels.get(i).add(lastDriveEncVels.get(i));
-		}
-		for (int i = 0 ; i < lastTrackingEncPositions.size() ; i++) {
-			log.trackingEncPositions.get(i).add(lastTrackingEncPositions.get(i));
-		}
-		for (int i = 0 ; i < lastTrackingEncVels.size() ; i++) {
-			log.trackingEncVels.get(i).add(lastTrackingEncVels.get(i));
-		}
-	}
-
-	private static final OpModeManagerNotifier.Notifications notifHandler = new OpModeManagerNotifier.Notifications() {
-		@SuppressLint("SimpleDateFormat")
-		final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_SSS");
-
-		final ObjectWriter jsonWriter = new ObjectMapper(new JsonFactory()).writerWithDefaultPrettyPrinter();
-
-		@Override
-		public void onOpModePreInit(final OpMode opMode) {
-			log = new LogFile(opMode.getClass().getCanonicalName());
-
-			// clean up old files
-			final File[] fs = Objects.requireNonNull(ROOT.listFiles());
-			Arrays.sort(fs, Comparator.comparingLong(File::lastModified));
-			long totalSizeBytes = 0;
-			for (final File f : fs) {
-				totalSizeBytes += f.length();
-			}
-
-			int i = 0;
-			while (i < fs.length && 32 * 1000 * 1000 <= totalSizeBytes) {
-				totalSizeBytes -= fs[i].length();
-				if (! fs[i].delete()) {
-					RobotLog.setGlobalErrorMsg("Unable to delete file " + fs[i].getAbsolutePath());
-				}
-				++ i;
-			}
-		}
-
-		@Override
-		public void onOpModePreStart(final OpMode opMode) {
-			log.nsStart = System.nanoTime();
-		}
-
-		@Override
-		public void onOpModePostStop(final OpMode opMode) {
-			log.nsStop = System.nanoTime();
-
-			if (! (opMode instanceof OpModeManagerImpl.DefaultOpMode)) {
-				//noinspection ResultOfMethodCallIgnored
-				ROOT.mkdirs();
-
-				final String filename = dateFormat.format(new Date(log.msInit)) + "__" + opMode.getClass().getSimpleName() + ".json";
-				final File   file     = new File(ROOT, filename);
-				try {
-					jsonWriter.writeValue(file, log);
-				} catch (final IOException e) {
-					RobotLog.setGlobalErrorMsg(new RuntimeException(e), "Unable to write data to " + file.getAbsolutePath());
-				}
-			}
-		}
-	};
-
-	@WebHandlerRegistrar
-	public static void registerRoutes(@NonNull final WebHandlerManager manager) {
-		//noinspection ResultOfMethodCallIgnored
-		ROOT.mkdirs();
-
-		// op mode manager only stores a weak reference, so we need to keep notifHandler alive ourselves
-		// don't use @OnCreateEventLoop because it's unreliable
-		OpModeManagerImpl.getOpModeManagerOfActivity(AppUtil.getInstance().getActivity()).registerListener(notifHandler);
-
-		manager.register("/logs", session -> {
-			final StringBuilder sb = new StringBuilder();
-			sb.append("<!doctype html><html><head><title>Logs</title></head><body><ul>");
-			final File[] fs = Objects.requireNonNull(ROOT.listFiles());
-			Arrays.sort(fs, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
-			for (final File f : fs) {
-				sb.append("<li><a href=\"/logs/download?file=");
-				sb.append(f.getName());
-				sb.append("\" download=\"");
-				sb.append(f.getName());
-				sb.append("\">");
-				sb.append(f.getName());
-				sb.append("</a></li>");
-			}
-			sb.append("</ul></body></html>");
-			return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK, NanoHTTPD.MIME_HTML, sb.toString());
-		});
-
-		manager.register("/logs/download", session -> {
-			final String[] pairs = session.getQueryParameterString().split("&");
-			if (1 != pairs.length) {
-				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST, NanoHTTPD.MIME_PLAINTEXT, "expected one query parameter, got " + pairs.length);
-			}
-
-			final String[] parts = pairs[0].split("=");
-			if (! "file".equals(parts[0])) {
-				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST, NanoHTTPD.MIME_PLAINTEXT, "expected file query parameter, got " + parts[0]);
-			}
-
-			final File f = new File(ROOT, parts[1]);
-			if (! f.exists()) {
-				return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT, "file " + f + " doesn't exist");
-			}
-
-			return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "application/json", new FileInputStream(f));
-		});
 	}
 }

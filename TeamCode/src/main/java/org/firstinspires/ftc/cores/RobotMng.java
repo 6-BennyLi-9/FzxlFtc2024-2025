@@ -54,25 +54,26 @@ public class RobotMng implements Updatable {
 	public static       double                           driveBufPower       = 1;
 	public              Map <String, HardwareController> controllers         = new HashMap <>();
 	public              TaggedActionPackage              thread              = new TaggedActionPackage();
-	public              int    updateTime;
-	private             Client client;
+	public              int                              updateTime;
+	private             Client                           client;
 
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
-		controllers.put("claw", new  ClawOp());
-		controllers.put("lift", new  LiftOp());
-		controllers.put("place", new  PlaceOp());
-		controllers.put("rotate", new  RotateOp());
-		controllers.put("scale", new  ScaleOp());
-		controllers.put("drive", new  DriveOp());
+		controllers.put("claw", new ClawOp());
+		controllers.put("lift", new LiftOp());
+		controllers.put("place", new PlaceOp());
+		controllers.put("rotate", new RotateOp());
+		controllers.put("scale", new ScaleOp());
+		controllers.put("drive", new DriveOp());
 	}
 
-	public void fetchClient(){
+	public void fetchClient() {
 		fetchClient(TelemetryClient.getInstance());
 	}
-	public void fetchClient(@NonNull Client client){
-		this.client =client;
+
+	public void fetchClient(@NonNull Client client) {
+		this.client = client;
 	}
 
 	public void initControllers() {
@@ -83,14 +84,14 @@ public class RobotMng implements Updatable {
 			v.connect();
 			v.writeToInstance();
 
-			if(v instanceof InitializeRequested){
+			if (v instanceof InitializeRequested) {
 				((InitializeRequested) v).init();
 			}
-			if(v instanceof Taggable){
-				((Taggable) v).setTag(k+":ctrl");
+			if (v instanceof Taggable) {
+				((Taggable) v).setTag(k + ":ctrl");
 			}
 
-			thread.add(k,v.getController());
+			thread.add(k, v.getController());
 		}
 	}
 
@@ -113,7 +114,7 @@ public class RobotMng implements Updatable {
 				ClipOp.getInstance().open();
 			}
 
-			driveBufPower=1;
+			driveBufPower = 1;
 			LiftOp.getInstance().sync(LiftMode.idle);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
@@ -127,7 +128,7 @@ public class RobotMng implements Updatable {
 			}
 
 			PlaceOp.getInstance().prepare();
-			driveBufPower=0.5;
+			driveBufPower = 0.5;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
@@ -139,7 +140,7 @@ public class RobotMng implements Updatable {
 		if (decantOrSuspend.getEnabled()) {
 			if (LiftMode.highSuspendPrepare == LiftOp.recent) {
 				LiftOp.getInstance().sync(LiftMode.highSuspend);
-			} else{
+			} else {
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();
 			}
@@ -175,16 +176,16 @@ public class RobotMng implements Updatable {
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
 		}
 
-		if(flipArm.getEnabled()){
-			if(ScalePositions.probe == ScaleOp.recent){
+		if (flipArm.getEnabled()) {
+			if (ScalePositions.probe == ScaleOp.recent) {
 				ArmOp.getInstance().flipIO();
 			}
 		}
 
-		if (switchViewMode.getEnabled()){
-			if(client.getCurrentViewMode() == ViewMode.basicTelemetry) {
+		if (switchViewMode.getEnabled()) {
+			if (client.getCurrentViewMode() == ViewMode.basicTelemetry) {
 				client.configViewMode(ViewMode.threadManager);
-			}else {
+			} else {
 				client.configViewMode(ViewMode.basicTelemetry);
 			}
 			client.speak("The telemetry's ViewMode has recently switched to " + client.getCurrentViewMode().name());
@@ -220,6 +221,7 @@ public class RobotMng implements Updatable {
 	public void update() {
 		thread.run();
 	}
+
 	public void printActions() {
 		++ updateTime;
 
@@ -229,19 +231,16 @@ public class RobotMng implements Updatable {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			client.changeData(s , updateCode + a.paramsString());
+			client.changeData(s, updateCode + a.paramsString());
 		}
 	}
-	public void printIMUVariables(){
-		BNO055IMU imu=HardwareDatabase.imu;
-		Orientation orientation=imu.getAngularOrientation();
-		client  .changeData("∠1",orientation.firstAngle)
-				.changeData("∠2",orientation.secondAngle)
-				.changeData("∠3",orientation.thirdAngle);
 
-		Acceleration acceleration=imu.getLinearAcceleration();
-		client	.changeData("VelΔx",acceleration.xAccel)
-				.changeData("VelΔy",acceleration.yAccel)
-				.changeData("VelΔz",acceleration.zAccel);
+	public void printIMUVariables() {
+		BNO055IMU   imu         = HardwareDatabase.imu;
+		Orientation orientation = imu.getAngularOrientation();
+		client.changeData("∠1", orientation.firstAngle).changeData("∠2", orientation.secondAngle).changeData("∠3", orientation.thirdAngle);
+
+		Acceleration acceleration = imu.getLinearAcceleration();
+		client.changeData("VelΔx", acceleration.xAccel).changeData("VelΔy", acceleration.yAccel).changeData("VelΔz", acceleration.zAccel);
 	}
 }

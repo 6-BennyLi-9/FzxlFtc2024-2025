@@ -14,18 +14,18 @@ import org.firstinspires.ftc.teamcode.Global;
 public class IntegralThreadExceptionHandler implements Thread.UncaughtExceptionHandler {
 	@Override
 	public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-		if (e instanceof OpModeManagerImpl.ForceStopException){
+		if (e instanceof OpModeManagerImpl.ForceStopException) {
 			if (Global.currentOpmode instanceof IntegralAutonomous) {
 				((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UserActions);
-			}else{
+			} else {
 				Global.currentOpmode.terminateOpModeNow();
 			}
 		}
 
-		Log.e("Error","OpMode Terminated By Exception",e);
+		Log.e("Error", "OpMode Terminated By Exception", e);
 		if (Global.currentOpmode instanceof IntegralAutonomous) {
 			((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UncaughtException, (Exception) e);
-		}else{
+		} else {
 			Global.currentOpmode.terminateOpModeNow();
 		}
 

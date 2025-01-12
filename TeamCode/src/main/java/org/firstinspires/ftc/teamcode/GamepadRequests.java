@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.ButtonProcessor.ButtonConfig.SINGLE_WHEN_PRESSED;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.ButtonProcessor.ButtonConfig.SINGLE_WHEN_PRESSED;
 
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
@@ -45,7 +45,9 @@ public final class GamepadRequests {
 	 * 快慢速切换
 	 */
 	public static final ButtonProcessor highLowSpeedConfigChange;
-	/**抬降arm*/
+	/**
+	 * 抬降arm
+	 */
 	public static final ButtonProcessor flipArm;
 	public static final ButtonProcessor switchViewMode;
 
@@ -58,8 +60,8 @@ public final class GamepadRequests {
 		clipOption = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		armScaleOperate = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		highLowSpeedConfigChange = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		flipArm=new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		switchViewMode=new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		flipArm = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		switchViewMode = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 	}
 
 	public static void syncRequests() {
@@ -74,7 +76,7 @@ public final class GamepadRequests {
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
 
-		switchViewMode.sync(gamepad1.right_stick_y>0.8);
+		switchViewMode.sync(gamepad1.right_stick_y > 0.8);
 	}
 
 	public static void printValues() {

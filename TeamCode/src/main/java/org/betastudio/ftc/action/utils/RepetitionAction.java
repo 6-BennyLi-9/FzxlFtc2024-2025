@@ -7,8 +7,8 @@ import org.betastudio.ftc.action.Action;
  */
 public final class RepetitionAction implements Action {
 	private final long   times;
-	private       long   ptr;
 	private final Action argument;
+	private       long   ptr;
 
 	public RepetitionAction(final Action repeatArgument, final long times) {
 		this.times = times;

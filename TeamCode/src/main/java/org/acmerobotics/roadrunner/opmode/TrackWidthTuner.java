@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.MovingStatistics;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.internal.system.Misc;
 import org.acmerobotics.roadrunner.DriveConstants;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.internal.system.Misc;
 
 /*
  * This routine determines the effective track width. The procedure works by executing a point turn

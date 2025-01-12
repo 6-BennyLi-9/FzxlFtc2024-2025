@@ -4,22 +4,22 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements HardwareController, InitializeRequested , Taggable {
-	public static  ArmPositions recent = ArmPositions.idle;
-	public static  ServoCtrl        leftArmControl, rightArmControl;
-	private static ArmOp            instance;
+public class ArmOp implements HardwareController, InitializeRequested, Taggable {
+	public static ArmPositions recent = ArmPositions.idle;
+	public static ServoCtrl    leftArmControl, rightArmControl;
+	private static ArmOp instance;
 
-	public static ArmOp getInstance(){
+	public static ArmOp getInstance() {
 		return instance;
 	}
 
@@ -46,7 +46,7 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
 
 	public void manage(double position) {
@@ -70,7 +70,7 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 		manage(0.61);
 	}
 
-	public void rise(){
+	public void rise() {
 		recent = ArmPositions.rise;
 		manage(0.37);
 	}
@@ -90,7 +90,7 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 		}
 	}
 
-	public void flipIO(){
+	public void flipIO() {
 		if (Objects.requireNonNull(recent) == ArmPositions.intake) {
 			rise();
 		} else {
@@ -111,13 +111,13 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 	}
 
 	@Override
-	public void setTag(String tag) {
-		leftArmControl.setTag("left "+tag);
-		rightArmControl.setTag("right "+tag);
+	public String getTag() {
+		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
 	}
 
 	@Override
-	public String getTag() {
-		throw new IllegalStateException("CANNOT GET TAG OF MULTI TAGS");
+	public void setTag(String tag) {
+		leftArmControl.setTag("left " + tag);
+		rightArmControl.setTag("right " + tag);
 	}
 }

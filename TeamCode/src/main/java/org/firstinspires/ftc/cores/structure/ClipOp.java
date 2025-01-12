@@ -3,20 +3,20 @@ package org.firstinspires.ftc.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
+import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp implements HardwareController , InitializeRequested , Taggable {
-	public static ClipPositions recent = ClipPositions.open;
-	public static ServoCtrl     clipControl;
-	private static ClipOp            instance;
+public class ClipOp implements HardwareController, InitializeRequested, Taggable {
+	public static  ClipPositions recent = ClipPositions.open;
+	public static  ServoCtrl     clipControl;
+	private static ClipOp        instance;
 
-	public static ClipOp getInstance(){
+	public static ClipOp getInstance() {
 		return instance;
 	}
 
@@ -41,7 +41,7 @@ public class ClipOp implements HardwareController , InitializeRequested , Taggab
 
 	@Override
 	public void writeToInstance() {
-		instance=this;
+		instance = this;
 	}
 
 	public void change() {
@@ -75,12 +75,12 @@ public class ClipOp implements HardwareController , InitializeRequested , Taggab
 	}
 
 	@Override
-	public void setTag(String tag) {
-		clipControl.setTag(tag);
+	public String getTag() {
+		return clipControl.getTag();
 	}
 
 	@Override
-	public String getTag() {
-		return clipControl.getTag();
+	public void setTag(String tag) {
+		clipControl.setTag(tag);
 	}
 }

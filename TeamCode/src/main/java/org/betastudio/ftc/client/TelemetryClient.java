@@ -19,16 +19,18 @@ import java.util.Vector;
 @Config
 public class TelemetryClient implements Client {
 	public static   boolean                              debugMode;
-	private static  Client                               instanceClient;
-	protected final Map <String, Pair <String, Integer>> data;
-	private final   Telemetry                            telemetry;
-	private         boolean                              autoUpdate;
 	public static   ViewMode                             viewMode;
-	protected       int                                  ID;
+	public static boolean sortDataInTelemetryClientUpdate = true;
+	private static  Client                               instanceClient;
 
 	static {
-		viewMode=ViewMode.basicTelemetry;
+		viewMode = ViewMode.basicTelemetry;
 	}
+
+	protected final Map <String, Pair <String, Integer>> data;
+	private final   Telemetry                            telemetry;
+	protected       int                                  ID;
+	private         boolean                              autoUpdate;
 
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -163,7 +165,8 @@ public class TelemetryClient implements Client {
 	public Client speak(String text) {
 		try {
 			telemetry.speak(text);
-		}catch (UnsupportedOperationException ignored){}
+		} catch (UnsupportedOperationException ignored) {
+		}
 		return this;
 	}
 
@@ -171,18 +174,19 @@ public class TelemetryClient implements Client {
 	public Client speak(String text, String languageCode, String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
-		}catch (UnsupportedOperationException ignored){}
+		} catch (UnsupportedOperationException ignored) {
+		}
 		return this;
 	}
 
 	@Override
 	public void configViewMode(ViewMode viewMode) {
-		TelemetryClient.viewMode =viewMode;
+		TelemetryClient.viewMode = viewMode;
 	}
 
 	@Override
 	public void setAutoUpdate(boolean autoUpdate) {
-		this.autoUpdate=autoUpdate;
+		this.autoUpdate = autoUpdate;
 	}
 
 	@Override
@@ -190,14 +194,12 @@ public class TelemetryClient implements Client {
 		return viewMode;
 	}
 
-	public static boolean sortDataInTelemetryClientUpdate = true;
-
 	@Override
 	public void update() {
-		telemetry.addData("ViewMode",viewMode.name());
-		telemetry.addData("Status",Global.runMode);
+		telemetry.addData("ViewMode", viewMode.name());
+		telemetry.addData("Status", Global.runMode);
 
-		switch (viewMode){
+		switch (viewMode) {
 			case basicTelemetry:
 				updateTelemetryLines();
 				break;
@@ -209,7 +211,7 @@ public class TelemetryClient implements Client {
 		}
 	}
 
-	protected synchronized void updateThreadLines(){
+	protected synchronized void updateThreadLines() {
 		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
 			String key   = entry.getKey();
 			Thread value = entry.getValue();
@@ -217,7 +219,8 @@ public class TelemetryClient implements Client {
 		}
 		this.telemetry.update();
 	}
-	protected synchronized void updateTelemetryLines(){
+
+	protected synchronized void updateTelemetryLines() {
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {

@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.acmerobotics.roadrunner.DriveConstants;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Objects;
 
@@ -30,7 +30,7 @@ import java.util.Objects;
 public class MaxVelocityTuner extends LinearOpMode {
 	public static double RUNTIME = 2.0;
 
-	private double      maxVelocity;
+	private double maxVelocity;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
