@@ -4,11 +4,12 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
 @Deprecated
-public class BranchThreadClient extends TelemetryClient {
+public class BranchThreadClient extends TelemetryClient implements ThreadAdditions {
 	private static boolean auto_start_updater = true;
 	final          Thread  updateThread;
 
@@ -39,5 +40,10 @@ public class BranchThreadClient extends TelemetryClient {
 		if (! updateThread.isAlive()) {
 			updateThread.start();
 		}
+	}
+
+	@Override
+	public void closeTask() {
+		updateThread.interrupt();
 	}
 }
