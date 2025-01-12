@@ -39,6 +39,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		telemetry.setAutoClear(true);
 		client = new TelemetryClient(telemetry);
 		client.setAutoUpdate(true);
 		utils = new UtilMng();

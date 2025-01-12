@@ -33,6 +33,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		telemetry.setAutoClear(true);
 		client = new TelemetryClient(telemetry);
 
 		HardwareDatabase.sync(hardwareMap, true);
