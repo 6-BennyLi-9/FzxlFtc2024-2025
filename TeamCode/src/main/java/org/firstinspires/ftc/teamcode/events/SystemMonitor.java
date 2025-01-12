@@ -12,7 +12,7 @@ public final class SystemMonitor extends Thread implements ThreadAdditions {
 
 	@Override
 	public void run() {
-		while (RunMode.terminated != runMode && !taskClosed){
+		while (runMode != RunMode.terminated && !taskClosed){
 			Local.sleep(5000);
 		}
 		//正常退出

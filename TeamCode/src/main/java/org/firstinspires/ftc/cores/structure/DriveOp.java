@@ -97,7 +97,7 @@ public class DriveOp implements HardwareController , Taggable {
 	}
 
 	@Override
-	public void setTag(final String tag) {
+	public void setTag(String tag) {
 		chassisCtrl.setTag(tag);
 	}
 

@@ -7,13 +7,11 @@ import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;
 
-public enum Local {
-	;
-
-	public static void sleep(final long millis){
+public final class Local {
+	public static void sleep(long millis){
 		try {
 			Thread.sleep(millis);
-		} catch (final InterruptedException ignored) {
+		} catch (InterruptedException ignored) {
 			if (Thread.currentThread() instanceof ThreadAdditions){
 				((ThreadAdditions) Thread.currentThread()).closeTask();
 				new TaskCloseMonitor(Thread.currentThread());
@@ -23,24 +21,24 @@ public enum Local {
 		}
 	}
 
-	public static <K> void waitForVal(final Callable<K> function, final K expect){
+	public static <K> void waitForVal(Callable<K> function, K expect){
 		waitForVal (function,expect,60);
 	}
-	public static <K> void waitForVal(final Callable<K> function, final K expect, final long flashMillis){
+	public static <K> void waitForVal(Callable<K> function, K expect, long flashMillis){
 		try {
 			while (function.call()!=expect){
 				sleep(flashMillis);
 			}
-		}catch (final Exception ignored){}
+		}catch (Exception ignored){}
 	}
 
-	public static void runMultiRunnable(@NonNull final Runnable... runnable){
-		for(final Runnable current : runnable){
+	public static void runMultiRunnable(@NonNull Runnable... runnable){
+		for(Runnable current : runnable){
 			Global.threadManager.add(new Thread(current));
 		}
 	}
-	public static void runMultiThreads(@NonNull final Thread... threads){
-		for (final Thread current : threads){
+	public static void runMultiThreads(@NonNull Thread... threads){
+		for (Thread current : threads){
 			Global.threadManager.add(current);
 		}
 	}

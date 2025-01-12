@@ -12,8 +12,7 @@ import org.firstinspires.ftc.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Config
-public enum CoreDatabase {
-	;
+public final class CoreDatabase {
 	@Nullable
 	public static Pose2d pose;
 	@NonNull
@@ -30,17 +29,17 @@ public enum CoreDatabase {
 		autonomous_time_used=-1;
 	}
 
-	public static void writeInVals(@NonNull final IntegralAutonomous autonomous, final TerminateReason terminateReason, final double autonomous_time_used){
+	public static void writeInVals(@NonNull IntegralAutonomous autonomous, TerminateReason terminateReason, double autonomous_time_used){
 		pose=autonomous.drive.getPoseEstimate();
 		HardwareDatabase.syncIMU();
 		orientation=HardwareDatabase.imu.getAngularOrientation();
-		last_terminateReason=terminateReason;
+		CoreDatabase.last_terminateReason=terminateReason;
 		CoreDatabase.autonomous_time_used=autonomous_time_used;
 	}
-	public static void writeInVals(@NonNull final IntegralTeleOp tele, final TerminateReason terminateReason){
+	public static void writeInVals(@NonNull IntegralTeleOp tele, TerminateReason terminateReason){
 		pose=null;
 		orientation=HardwareDatabase.imu.getAngularOrientation();
-		last_terminateReason=terminateReason;
-		autonomous_time_used=-1;
+		CoreDatabase.last_terminateReason=terminateReason;
+		CoreDatabase.autonomous_time_used=-1;
 	}
 }

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Global;
 
 public class IntegralThreadExceptionHandler implements Thread.UncaughtExceptionHandler {
 	@Override
-	public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
+	public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
 		if (e instanceof OpModeManagerImpl.ForceStopException){
 			if (Global.currentOpmode instanceof IntegralAutonomous) {
 				((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UserActions);

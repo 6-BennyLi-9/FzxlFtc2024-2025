@@ -18,8 +18,8 @@ public final class ThreadManager {
 	}
 
 	public void interruptAll(){
-		for (final Map.Entry <String, Thread> entry : mem.entrySet()) {
-			final Thread e = entry.getValue();
+		for (Map.Entry <String, Thread> entry : mem.entrySet()) {
+			Thread e = entry.getValue();
 			if(e instanceof ThreadAdditions){
 				((ThreadAdditions) e).closeTask();
 				new TaskCloseMonitor(e).start();
@@ -29,29 +29,29 @@ public final class ThreadManager {
 		}
 		mem.clear();
 	}
-	public void interrupt(final String tag){
+	public void interrupt(String tag){
 		Objects.requireNonNull(mem.get(tag)).interrupt();
 		mem.remove(tag);
 	}
 
-	public void addStarted(final String tag, final Thread startedThread){
+	public void addStarted(String tag,Thread startedThread){
 		startedThread.setUncaughtExceptionHandler(new IntegralThreadExceptionHandler());
 		mem.put(tag,startedThread);
 	}
 	/**
 	 * 会自动运行
 	 * */
-	public void add(final String tag, @NonNull final Thread unstartedThread){
+	public void add(String tag, @NonNull Thread unstartedThread){
 		unstartedThread.start();
 		addStarted(tag,unstartedThread);
 	}
 	/**
 	 * 会自动运行
 	 * */
-	public void add(@NonNull final Thread unstartedThread){
+	public void add(@NonNull Thread unstartedThread){
 		add(labeler.summonID(unstartedThread),unstartedThread);
 	}
-	public void addStarted(final Thread startedThread){
+	public void addStarted(Thread startedThread){
 		addStarted(labeler.summonID(startedThread),startedThread);
 	}
 

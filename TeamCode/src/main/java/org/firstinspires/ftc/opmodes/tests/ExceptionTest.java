@@ -18,7 +18,7 @@ public class ExceptionTest extends LinearOpMode implements IntegralOpMode {
 
 		startResolvedThread();
 
-		Local.waitForVal(()-> null == e &&opModeIsActive(),false);
+		Local.waitForVal(()->e==null&&opModeIsActive(),false);
 		throw new RuntimeException(e);
 	}
 
@@ -29,7 +29,7 @@ public class ExceptionTest extends LinearOpMode implements IntegralOpMode {
 		}).start();
 	}
 	public void startResolvedThread(){
-		final Thread t=new Thread(()->{
+		Thread t=new Thread(()->{
 			sleep(5000);
 			throw new RuntimeException();
 		});
@@ -39,12 +39,12 @@ public class ExceptionTest extends LinearOpMode implements IntegralOpMode {
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason) {
+	public void sendTerminateSignal(TerminateReason reason) {
 		sendTerminateSignal(reason,new NullPointerException());
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
+	public void sendTerminateSignal(TerminateReason reason, Exception e) {
 		this.e=e;
 	}
 }

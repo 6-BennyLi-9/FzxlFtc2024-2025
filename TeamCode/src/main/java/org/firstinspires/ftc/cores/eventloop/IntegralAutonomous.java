@@ -34,7 +34,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	public        Client                           client;
 	public        UtilMng                          utils;
 	public        Timer                            timer;
-	private       Exception                        inlineUncaughtException;
+	private       Exception                        inlineUncaughtException=null;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
@@ -64,7 +64,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		Global.threadManager.add("linear",new Thread(this::linear));
 
 		while (opModeIsActive()){
-			if (null != inlineUncaughtException){
+			if (inlineUncaughtException!=null){
 				throw new RuntimeException(inlineUncaughtException);
 			}
 		}
@@ -116,7 +116,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		Actions.runAction(() -> {
 			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 
-			final TelemetryPacket p=new TelemetryPacket();
+			TelemetryPacket p=new TelemetryPacket();
 			p.put("ang",ang);
 			p.put("err",Math.abs(target - ang));
 			FtcDashboard.getInstance().sendTelemetryPacket(p);
@@ -149,15 +149,15 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason){
+	public void sendTerminateSignal(TerminateReason reason){
 		sendTerminateSignal(reason,new NullPointerException("UnModified"));
 	}
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason, final Exception e){
+	public void sendTerminateSignal(TerminateReason reason, Exception e){
 		timer.stop();
 		CoreDatabase.writeInVals(this,reason, timer.getDeltaTime() * 1.0e-3);
 		Global.runMode=RunMode.terminated;
-		if (TerminateReason.UncaughtException == Objects.requireNonNull(reason)) {
+		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {
 			terminateOpModeNow();

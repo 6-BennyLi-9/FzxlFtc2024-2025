@@ -33,7 +33,7 @@ import java.util.LinkedList;
  *
  * @see RobotMng
  */
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue"})
 public class UtilMng {
 	private final LinkedList <Action> actions;
 
@@ -56,11 +56,11 @@ public class UtilMng {
 		actions.add(action);
 		return this;
 	}
-	public UtilMng addStatement(final Runnable r){
+	public UtilMng addStatement(Runnable r){
 		actions.add(new StatementAction(r));
 		return this;
 	}
-	public UtilMng joinThread(final Thread t){
+	public UtilMng joinThread(Thread t){
 		actions.add(new StatementAction(()->Local.waitForVal(t::isInterrupted,true)));
 		return this;
 	}

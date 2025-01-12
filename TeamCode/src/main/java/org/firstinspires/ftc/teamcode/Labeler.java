@@ -6,10 +6,9 @@ public class Labeler {
 	private long ID;
 
 	public long summonID(){
-		++ID;
-		return ID;
+		return ++ID;
 	}
-	public String summonID(@NonNull final Object object){
+	public String summonID(@NonNull Object object){
 		return object.getClass().getSimpleName()+":"+summonID();
 	}
 }

@@ -6,10 +6,10 @@ public final class TaskCloseMonitor extends Thread{
 	public final Thread argument;
 	public final long timeLimit;
 
-	public TaskCloseMonitor(final Thread argument){
+	public TaskCloseMonitor(Thread argument){
 		this(argument,5000);
 	}
-	public TaskCloseMonitor(final Thread argument, final long timeLimit){
+	public TaskCloseMonitor(Thread argument,long timeLimit){
 		this.argument=argument;
 		this.timeLimit=timeLimit;
 	}
@@ -17,7 +17,7 @@ public final class TaskCloseMonitor extends Thread{
 	@Override
 	public void run() {
 		Local.sleep(timeLimit);
-		if(State.TERMINATED != argument.getState()){
+		if(argument.getState()!=State.TERMINATED){
 			argument.interrupt();
 		}
 	}

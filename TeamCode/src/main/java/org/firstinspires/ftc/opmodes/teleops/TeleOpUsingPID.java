@@ -12,7 +12,7 @@ import org.firstinspires.ftc.cores.structure.DriveOp;
 public class TeleOpUsingPID extends TeleOpCore {
 	@Override
 	public void op_init() {
-		init();
+		super.init();
 		DriveOp.config = DriveMode.PID;
 	}
 }

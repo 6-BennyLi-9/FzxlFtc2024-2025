@@ -35,7 +35,7 @@ public class RightTake3 extends IntegralAutonomous {
 				.lineToLinearHeading(RightGetSecondSample)
 				.build());
 
-		registerTrajectory("park",generateBuilder(RightGetSecondSample)
+		registerTrajectory("park",generateBuilder(UtilPoses.RightGetSecondSample)
 				.lineToLinearHeading(GetSample.plus(new Pose2d(0,0, toRadians(180))))
 				.build());
 	}

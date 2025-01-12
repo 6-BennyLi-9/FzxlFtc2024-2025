@@ -75,7 +75,7 @@ public class ClipOp implements HardwareController , InitializeRequested , Taggab
 	}
 
 	@Override
-	public void setTag(final String tag) {
+	public void setTag(String tag) {
 		clipControl.setTag(tag);
 	}
 

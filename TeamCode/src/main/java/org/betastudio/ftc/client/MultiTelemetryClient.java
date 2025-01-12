@@ -95,29 +95,29 @@ public class MultiTelemetryClient implements Client{
 	}
 
 	@Override
-	public Client speak(final String text) {
+	public Client speak(String text) {
 		return speak(text, null, null);
 	}
 
 	@Override
-	public Client speak(final String text, final String languageCode, final String countryCode) {
+	public Client speak(String text, String languageCode, String countryCode) {
 		try {
 			for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 				entry.getValue().speak(text, languageCode, countryCode);
 			}
-		}catch (final UnsupportedOperationException ignored){}
+		}catch (UnsupportedOperationException ignored){}
 		return this;
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
+	public void configViewMode(ViewMode viewMode) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().configViewMode(viewMode);
 		}
 	}
 
 	@Override
-	public void setAutoUpdate(final boolean autoUpdate) {
+	public void setAutoUpdate(boolean autoUpdate) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().setAutoUpdate(autoUpdate);
 		}

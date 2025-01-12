@@ -160,28 +160,28 @@ public class TelemetryClient implements Client {
 	}
 
 	@Override
-	public Client speak(final String text) {
+	public Client speak(String text) {
 		try {
 			telemetry.speak(text);
-		}catch (final UnsupportedOperationException ignored){}
+		}catch (UnsupportedOperationException ignored){}
 		return this;
 	}
 
 	@Override
-	public Client speak(final String text, final String languageCode, final String countryCode) {
+	public Client speak(String text, String languageCode, String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
-		}catch (final UnsupportedOperationException ignored){}
+		}catch (UnsupportedOperationException ignored){}
 		return this;
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
+	public void configViewMode(ViewMode viewMode) {
 		TelemetryClient.viewMode =viewMode;
 	}
 
 	@Override
-	public void setAutoUpdate(final boolean autoUpdate) {
+	public void setAutoUpdate(boolean autoUpdate) {
 		this.autoUpdate=autoUpdate;
 	}
 
@@ -210,9 +210,9 @@ public class TelemetryClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines(){
-		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
-			final String key   = entry.getKey();
-			final Thread value = entry.getValue();
+		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
+			String key   = entry.getKey();
+			Thread value = entry.getValue();
 			telemetry.addData(key, value);
 		}
 		this.telemetry.update();
@@ -233,9 +233,9 @@ public class TelemetryClient implements Client {
 			outputData.sort(Comparator.comparingInt(x -> x.first));
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
-				final Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
+				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
 				if (debugMode) {
-					final String packedID = "[" + outputLine.first + "]";
+					String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
 					} else {
