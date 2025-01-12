@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
  */
 public final class ButtonProcessor {
 	public enum ButtonConfig {
-		WhilePressing, SingleWhenPressed
+		WHILE_PRESSING, SINGLE_WHEN_PRESSED
 	}
 
 	public final ButtonConfig config;
@@ -22,10 +22,10 @@ public final class ButtonProcessor {
 
 	public void sync(final boolean input) {
 		switch (config) {
-			case WhilePressing:
+			case WHILE_PRESSING:
 				now = input;
 				break;
-			case SingleWhenPressed:
+			case SINGLE_WHEN_PRESSED:
 			default:
 				lst = now;
 				now = input;
@@ -35,9 +35,9 @@ public final class ButtonProcessor {
 
 	public boolean getEnabled() {
 		switch (config) {
-			case WhilePressing:
+			case WHILE_PRESSING:
 				return now;
-			case SingleWhenPressed:
+			case SINGLE_WHEN_PRESSED:
 			default:
 				return now && ! lst;
 		}
