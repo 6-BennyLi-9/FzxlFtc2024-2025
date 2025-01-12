@@ -18,7 +18,7 @@ public final class AutonomousMonitor extends Thread implements ThreadAdditions {
 	@Override
 	public void run() {
 		Local.waitForVal(() -> (taskInterrupted || ! activeCaller.call()), true);
-		Global.runMode = RunMode.terminated;
+		Global.runMode = RunMode.TERMINATE;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 package org.betastudio.ftc.client;
 
 public enum ViewMode {
-	basicTelemetry, threadManager, log
+	BASIC_TELEMETRY, THREAD_MANAGER, LOG
 }

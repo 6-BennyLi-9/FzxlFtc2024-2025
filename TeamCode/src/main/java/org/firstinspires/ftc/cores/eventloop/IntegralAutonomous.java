@@ -38,7 +38,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
-		Global.runMode = RunMode.autonomous;
+		Global.runMode = RunMode.AUTONOMOUS;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode = this;
 		HardwareDatabase.sync(hardwareMap, true);
@@ -158,7 +158,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	public void sendTerminateSignal(TerminateReason reason, Exception e) {
 		timer.stop();
 		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
-		Global.runMode = RunMode.terminated;
+		Global.runMode = RunMode.TERMINATE;
 		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
 			inlineUncaughtException = e;
 		} else {

@@ -24,7 +24,7 @@ public class TelemetryClient implements Client {
 	private static  Client                               instanceClient;
 
 	static {
-		viewMode = ViewMode.basicTelemetry;
+		viewMode = ViewMode.BASIC_TELEMETRY;
 	}
 
 	protected final Map <String, Pair <String, Integer>> data;
@@ -200,13 +200,13 @@ public class TelemetryClient implements Client {
 		telemetry.addData("Status", Global.runMode);
 
 		switch (viewMode) {
-			case basicTelemetry:
+			case BASIC_TELEMETRY:
 				updateTelemetryLines();
 				break;
-			case threadManager:
+			case THREAD_MANAGER:
 				updateThreadLines();
 				break;
-			case log:
+			case LOG:
 				throw new UnsupportedOperationException("TelemetryClient doesn't support log view now!");
 		}
 	}
