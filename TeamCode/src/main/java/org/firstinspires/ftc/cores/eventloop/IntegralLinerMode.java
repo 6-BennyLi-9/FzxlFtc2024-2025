@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
@@ -41,7 +42,7 @@ public abstract class IntegralLinerMode extends LinearOpMode implements Integral
 		utils = new UtilMng();
 		timer = new Timer();
 
-		Global.threadManager.add("linear-thread", getLinearThread());
+		Global.threadManager.add("linear", getLinearThread());
 		client.addLine(">>>ROBOT READY!");
 
 		waitForStart();
@@ -55,13 +56,17 @@ public abstract class IntegralLinerMode extends LinearOpMode implements Integral
 
 		while (opModeIsActive()) {
 			if (inlineUncaughtException != null) {
-				Global.threadManager.interrupt("linear-thread");
-				throw new RuntimeException(inlineUncaughtException);
+				Global.threadManager.interrupt("linear");
+				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException){
+					sendTerminateSignal(TerminateReason.NATURALLY_SHUT_DOWN);
+				}else {
+					throw new RuntimeException(inlineUncaughtException);
+				}
 			}
 		}
 
 		preTerminate();
-		Global.threadManager.interrupt("linear-thread");
+		Global.threadManager.interrupt("linear");
 		sendTerminateSignal(TerminateReason.USER_ACTIONS);
 	}
 
