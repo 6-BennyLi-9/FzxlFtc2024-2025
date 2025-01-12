@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -18,10 +19,10 @@ import java.util.Vector;
  */
 @Config
 public class TelemetryClient implements Client {
-	public static   boolean                              debugMode;
-	public static   ViewMode                             viewMode;
-	public static boolean sortDataInTelemetryClientUpdate = true;
-	private static  Client                               instanceClient;
+	public static  ViewMode viewMode;
+	public static  boolean  sortDataInTelemetryClientUpdate = true;
+	public static  boolean  debug_mode;
+	private static Client   instanceClient;
 
 	static {
 		viewMode = ViewMode.BASIC_TELEMETRY;
@@ -29,6 +30,7 @@ public class TelemetryClient implements Client {
 
 	protected final Map <String, Pair <String, Integer>> data;
 	private final   Telemetry                            telemetry;
+	private final   Timer                                lstUpdateTimer = new Timer();
 	protected       int                                  ID;
 	private         boolean                              autoUpdate;
 
@@ -36,6 +38,7 @@ public class TelemetryClient implements Client {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
 		instanceClient = this;
+		lstUpdateTimer.restart();
 	}
 
 	public static Client getInstance() {
@@ -196,6 +199,9 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public void update() {
+		if (debug_mode) {
+			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
+		}
 		telemetry.addData("ViewMode", viewMode.name());
 		telemetry.addData("Status", Global.runMode);
 
@@ -237,7 +243,7 @@ public class TelemetryClient implements Client {
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
 				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
-				if (debugMode) {
+				if (debug_mode) {
 					String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
@@ -268,7 +274,7 @@ public class TelemetryClient implements Client {
 				final String                 key = entry.getKey();
 				final Pair <String, Integer> val = entry.getValue();
 				cache = Objects.equals(val.first, "") ? val.first : key + ":" + val.first;
-				if (debugMode) {
+				if (debug_mode) {
 					this.telemetry.addLine("[" + val.second + "]" + cache);
 				} else {
 					this.telemetry.addLine(key + ":" + cache);
@@ -277,4 +283,12 @@ public class TelemetryClient implements Client {
 			this.telemetry.update();
 		}
 	}
+
+	//	public void debug_mode(final boolean debug_mode) {
+	//		TelemetryClient.debug_mode = debug_mode;
+	//	}
+	//
+	//	public boolean debug_mode() {
+	//		return TelemetryClient.debug_mode;
+	//	}
 }
