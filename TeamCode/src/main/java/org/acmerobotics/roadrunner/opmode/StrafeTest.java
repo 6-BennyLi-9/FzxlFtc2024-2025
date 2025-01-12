@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Local;
 
 /*
  * This is a simple routine to test translational drive capabilities.
@@ -40,6 +41,6 @@ public class StrafeTest extends LinearOpMode {
 		telemetry.addData("finalHeading", poseEstimate.getHeading());
 		telemetry.update();
 
-		while (! isStopRequested() && opModeIsActive()) ;
+		while (! isStopRequested() && opModeIsActive()) Local.sleep(50);
 	}
 }

@@ -25,7 +25,7 @@ import org.acmerobotics.roadrunner.util.DashboardUtil;
 import org.acmerobotics.roadrunner.util.LogFiles;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -124,7 +124,7 @@ public class TrajectorySequenceRunner {
 				remainingMarkers.clear();
 
 				remainingMarkers.addAll(currentSegment.getMarkers());
-				Collections.sort(remainingMarkers, (t1, t2) -> Double.compare(t1.getTime(), t2.getTime()));
+				remainingMarkers.sort(Comparator.comparingDouble(TrajectoryMarker::getTime));
 			}
 
 			final double deltaTime = now - currentSegmentStartTime;
@@ -176,7 +176,7 @@ public class TrajectorySequenceRunner {
 				}
 			}
 
-			while (0 < remainingMarkers.size() && deltaTime > remainingMarkers.get(0).getTime()) {
+			while (! remainingMarkers.isEmpty() && deltaTime > remainingMarkers.get(0).getTime()) {
 				remainingMarkers.get(0).getCallback().onMarkerReached();
 				remainingMarkers.remove(0);
 			}

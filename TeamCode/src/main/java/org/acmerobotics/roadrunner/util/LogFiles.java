@@ -185,6 +185,7 @@ public enum LogFiles {
 		});
 	}
 
+	/** @noinspection deprecation*/
 	public static class LogFile {
 		public String version = "quickstart1 v2";
 
