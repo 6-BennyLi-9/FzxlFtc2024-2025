@@ -44,7 +44,15 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		telemetry.clearAll();
 		client.setAutoUpdate(false);
 
-		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
+		client	.addData("TPS", "wait for start")
+				.addData("time", "wait for start")
+				.addLine("ROBOT INITIALIZE COMPLETE!")
+				.addLine("=======================");
+
+		if (CoreDatabase.autonomous_time_used != -1){
+			client	.addData("上一个 autonomous 用时",CoreDatabase.autonomous_time_used)
+					.addData("终止原因",CoreDatabase.last_terminateReason.name());
+		}
 	}
 
 	@Override
