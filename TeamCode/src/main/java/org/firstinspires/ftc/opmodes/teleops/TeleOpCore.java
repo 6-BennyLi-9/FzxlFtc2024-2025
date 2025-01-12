@@ -11,7 +11,6 @@ public class TeleOpCore extends IntegralTeleOp {
 	public void op_init() {
 		super.op_init();
 		client.addData("drive buf", "wait For Start.");
-		auto_terminate_when_TLE(false);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
+import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
@@ -16,12 +17,13 @@ import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode {
-	public  RobotMng  robot;
-	public  Timer     timer;
-	public  Client    client;
-	private boolean   auto_terminate_when_TLE = true;
-	private Exception inlineUncaughtException = null;
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode , ThreadAdditions {
+	public    RobotMng  robot;
+	public    Timer     timer;
+	public    Client    client;
+	protected boolean   is_terminate_method_called;
+	private   boolean   auto_terminate_when_TLE = false;
+	private   Exception inlineUncaughtException = null;
 
 	@Override
 	public void op_init() {
@@ -88,6 +90,11 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		if (inlineUncaughtException != null) {
 			throw new RuntimeException(inlineUncaughtException);
 		}
+
+		if (is_terminate_method_called){
+			op_end();
+			terminateOpModeNow();
+		}
 	}
 
 	@Override
@@ -112,7 +119,12 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		if (Objects.requireNonNull(reason) == TerminateReason.UNCAUGHT_EXCEPTION) {
 			inlineUncaughtException = e;
 		} else {
-			terminateOpModeNow();
+			is_terminate_method_called=true;
 		}
+	}
+
+	@Override
+	public void closeTask() {
+		is_terminate_method_called=true;
 	}
 }

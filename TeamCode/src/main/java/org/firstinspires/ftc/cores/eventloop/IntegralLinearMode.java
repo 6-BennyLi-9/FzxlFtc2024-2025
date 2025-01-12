@@ -27,7 +27,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	public    Client             client;
 	public    UtilMng            utils;
 	public    Timer              timer;
-	protected boolean            isTerminateMethodCalled;
+	protected boolean            is_terminate_method_called;
 	protected Exception          inlineUncaughtException = null;
 
 	@Override
@@ -57,7 +57,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 
-		while (opModeIsActive() && ! isTerminateMethodCalled) {
+		while (opModeIsActive() && ! is_terminate_method_called) {
 			if (inlineUncaughtException != null) {
 				Global.threadManager.interrupt("linear");
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
@@ -70,7 +70,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		preTerminate();
 		Global.threadManager.interrupt("linear");
-		sendTerminateSignal(isTerminateMethodCalled ? TerminateReason.NATURALLY_SHUT_DOWN : TerminateReason.USER_ACTIONS);
+		sendTerminateSignal(is_terminate_method_called ? TerminateReason.NATURALLY_SHUT_DOWN : TerminateReason.USER_ACTIONS);
 	}
 
 	public abstract Thread getLinearThread();
@@ -140,6 +140,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 	@Override
 	public void closeTask() {
-		isTerminateMethodCalled = true;
+		is_terminate_method_called = true;
 	}
 }
