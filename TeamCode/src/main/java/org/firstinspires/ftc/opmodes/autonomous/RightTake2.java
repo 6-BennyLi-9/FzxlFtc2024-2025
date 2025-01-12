@@ -65,7 +65,7 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("suspend got sample 1");
 		angleCalibration(0, RightSuspend.plus(new Pose2d(5, 5)));
-		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3).build());
+		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3.2).build());
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
 		sleep(500);
 		runTrajectory("get sample suspend 2");
@@ -76,7 +76,7 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("suspend got sample 2");
 		angleCalibration(0, RightSuspend.plus(new Pose2d(10, 5)));
-		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(10, 5))).back(3).build());
+		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(10, 5))).back(3.2).build());
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
 		sleep(500);
 
