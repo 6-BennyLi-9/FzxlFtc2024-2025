@@ -21,6 +21,7 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 public class Left extends IntegralLinearModeImpl {
 	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
 
+	@Override
 	public void linear() {
 		drive.setPoseEstimate(LeftStart);
 		client.addData("初始化点位", ">| _ _");
@@ -77,12 +78,8 @@ public class Left extends IntegralLinearModeImpl {
 
 		sleep(1000);
 		drive.followTrajectorySequence(park);
-		flagging_op_complete();
 		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0)).runCached();
-	}
 
-	@Override
-	public Thread getLinearThread() {
-		return new Thread(this::linear);
+		flagging_op_complete();
 	}
 }
