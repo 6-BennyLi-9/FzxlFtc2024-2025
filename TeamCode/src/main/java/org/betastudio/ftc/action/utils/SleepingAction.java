@@ -1,6 +1,5 @@
 package org.betastudio.ftc.action.utils;
 
-
 import org.betastudio.ftc.action.Action;
 
 /**
