@@ -12,7 +12,8 @@ import org.betastudio.ftc.client.TelemetryClient;
  *
  * @see ButtonProcessor
  */
-public final class GamepadRequests {
+public enum GamepadRequests {
+	;
 	/**
 	 * 输入样本
 	 */
@@ -74,7 +75,7 @@ public final class GamepadRequests {
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
 
-		switchViewMode.sync(gamepad1.right_stick_y>0.8);
+		switchViewMode.sync(0.8 < gamepad1.right_stick_y);
 	}
 
 	public static void printValues() {

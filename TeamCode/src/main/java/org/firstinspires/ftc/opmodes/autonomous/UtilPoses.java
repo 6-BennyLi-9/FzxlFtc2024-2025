@@ -4,7 +4,8 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-public final class UtilPoses {
+public enum UtilPoses {
+	;
 	public static Pose2d
 	//正规：y-0.5
 	LeftStart = new Pose2d(12, 60, toRadians(90)),

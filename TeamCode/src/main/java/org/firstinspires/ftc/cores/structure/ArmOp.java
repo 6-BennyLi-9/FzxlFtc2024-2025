@@ -91,7 +91,7 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 	}
 
 	public void flipIO(){
-		if (Objects.requireNonNull(recent) == ArmPositions.intake) {
+		if (ArmPositions.intake == Objects.requireNonNull(recent)) {
 			rise();
 		} else {
 			intake();
@@ -111,7 +111,7 @@ public class ArmOp implements HardwareController, InitializeRequested , Taggable
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		leftArmControl.setTag("left "+tag);
 		rightArmControl.setTag("right "+tag);
 	}

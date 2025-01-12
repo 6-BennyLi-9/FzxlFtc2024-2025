@@ -71,14 +71,14 @@ public class RobotMng implements Updatable {
 	public void fetchClient(){
 		fetchClient(TelemetryClient.getInstance());
 	}
-	public void fetchClient(@NonNull Client client){
+	public void fetchClient(@NonNull final Client client){
 		this.client =client;
 	}
 
 	public void initControllers() {
-		for (Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
-			String             k = entry.getKey();
-			HardwareController v = entry.getValue();
+		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
+			final String             k = entry.getKey();
+			final HardwareController v = entry.getValue();
 
 			v.connect();
 			v.writeToInstance();
@@ -182,7 +182,7 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()){
-			if(client.getCurrentViewMode() == ViewMode.basicTelemetry) {
+			if(ViewMode.basicTelemetry == client.getCurrentViewMode()) {
 				client.configViewMode(ViewMode.threadManager);
 			}else {
 				client.configViewMode(ViewMode.basicTelemetry);
@@ -233,13 +233,13 @@ public class RobotMng implements Updatable {
 		}
 	}
 	public void printIMUVariables(){
-		BNO055IMU imu=HardwareDatabase.imu;
-		Orientation orientation=imu.getAngularOrientation();
+		final BNO055IMU imu=HardwareDatabase.imu;
+		final Orientation orientation=imu.getAngularOrientation();
 		client  .changeData("∠1",orientation.firstAngle)
 				.changeData("∠2",orientation.secondAngle)
 				.changeData("∠3",orientation.thirdAngle);
 
-		Acceleration acceleration=imu.getLinearAcceleration();
+		final Acceleration acceleration=imu.getLinearAcceleration();
 		client	.changeData("VelΔx",acceleration.xAccel)
 				.changeData("VelΔy",acceleration.yAccel)
 				.changeData("VelΔz",acceleration.zAccel);

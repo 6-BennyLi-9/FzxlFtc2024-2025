@@ -160,28 +160,28 @@ public class TelemetryClient implements Client {
 	}
 
 	@Override
-	public Client speak(String text) {
+	public Client speak(final String text) {
 		try {
 			telemetry.speak(text);
-		}catch (UnsupportedOperationException ignored){}
+		}catch (final UnsupportedOperationException ignored){}
 		return this;
 	}
 
 	@Override
-	public Client speak(String text, String languageCode, String countryCode) {
+	public Client speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
-		}catch (UnsupportedOperationException ignored){}
+		}catch (final UnsupportedOperationException ignored){}
 		return this;
 	}
 
 	@Override
-	public void configViewMode(ViewMode viewMode) {
+	public void configViewMode(final ViewMode viewMode) {
 		TelemetryClient.viewMode =viewMode;
 	}
 
 	@Override
-	public void setAutoUpdate(boolean autoUpdate) {
+	public void setAutoUpdate(final boolean autoUpdate) {
 		this.autoUpdate=autoUpdate;
 	}
 
@@ -210,9 +210,9 @@ public class TelemetryClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines(){
-		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
-			String key   = entry.getKey();
-			Thread value = entry.getValue();
+		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
+			final String key   = entry.getKey();
+			final Thread value = entry.getValue();
 			telemetry.addData(key, value);
 		}
 		this.telemetry.update();
@@ -233,13 +233,13 @@ public class TelemetryClient implements Client {
 			outputData.sort(Comparator.comparingInt(x -> x.first));
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
-				Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
+				final Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
 				if (debugMode) {
-					String packedID = "[" + outputLine.first + "]";
+					final String packedID = "[" + outputLine.first + "]";
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
 					} else {
-						if (outputLine.second.second == null) {
+						if (null == outputLine.second.second) {
 							telemetry.addLine(packedID + outputLine.second.first);
 						} else {
 							telemetry.addData(packedID + outputLine.second.first, outputLine.second.second);
@@ -249,7 +249,7 @@ public class TelemetryClient implements Client {
 					if (telemetry instanceof DashTelemetry) {
 						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first, outputLine.second.second);
 					} else {
-						if (outputLine.second.second == null) {
+						if (null == outputLine.second.second) {
 							telemetry.addLine(outputLine.second.first);
 						} else {
 							telemetry.addData(outputLine.second.first, outputLine.second.second);

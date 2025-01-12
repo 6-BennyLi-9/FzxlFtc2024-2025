@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
+import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
-import org.firstinspires.ftc.teamcode.controllers.lift.DcLiftCtrl;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.interfaces.HardwareController;
@@ -38,7 +38,7 @@ public class LiftOp implements HardwareController , Taggable {
 
 	@Override
 	public void connect() {
-		liftCtrl = new DcLiftCtrl(HardwareDatabase.lift);
+		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.lift);
 
 		liftCtrl.setTag("lift");
 	}
@@ -85,7 +85,7 @@ public class LiftOp implements HardwareController , Taggable {
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		liftCtrl.setTag(tag);
 	}
 

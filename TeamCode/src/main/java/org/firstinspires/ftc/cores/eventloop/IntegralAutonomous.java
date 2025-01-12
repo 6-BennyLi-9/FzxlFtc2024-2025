@@ -7,7 +7,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.betastudio.ftc.action.Actions;
@@ -34,7 +34,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	public        Client                           client;
 	public        UtilMng                          utils;
 	public        Timer                            timer;
-	private       Exception                        inlineUncaughtException=null;
+	private       Exception                        inlineUncaughtException;
 
 	@Override
 	public final void runOpMode() throws InterruptedException {
@@ -64,7 +64,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		Global.threadManager.add("linear",new Thread(this::linear));
 
 		while (opModeIsActive()){
-			if (inlineUncaughtException!=null){
+			if (null != inlineUncaughtException){
 				throw new RuntimeException(inlineUncaughtException);
 			}
 		}
@@ -116,7 +116,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		Actions.runAction(() -> {
 			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 
-			TelemetryPacket p=new TelemetryPacket();
+			final TelemetryPacket p=new TelemetryPacket();
 			p.put("ang",ang);
 			p.put("err",Math.abs(target - ang));
 			FtcDashboard.getInstance().sendTelemetryPacket(p);
@@ -149,15 +149,15 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason){
+	public void sendTerminateSignal(final TerminateReason reason){
 		sendTerminateSignal(reason,new NullPointerException("UnModified"));
 	}
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e){
+	public void sendTerminateSignal(final TerminateReason reason, final Exception e){
 		timer.stop();
 		CoreDatabase.writeInVals(this,reason, timer.getDeltaTime() * 1.0e-3);
 		Global.runMode=RunMode.terminated;
-		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
+		if (TerminateReason.UncaughtException == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
 			terminateOpModeNow();

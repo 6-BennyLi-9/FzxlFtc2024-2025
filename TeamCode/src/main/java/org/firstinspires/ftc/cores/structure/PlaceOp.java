@@ -79,7 +79,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , Taggab
 	}
 
 	public void flip() {
-		if (Objects.requireNonNull(recent) == PlacePositions.decant) {
+		if (PlacePositions.decant == Objects.requireNonNull(recent)) {
 			idle();
 		} else {
 			decant();
@@ -87,7 +87,7 @@ public class PlaceOp implements HardwareController, InitializeRequested , Taggab
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		placeController.setTag("tag");
 	}
 
