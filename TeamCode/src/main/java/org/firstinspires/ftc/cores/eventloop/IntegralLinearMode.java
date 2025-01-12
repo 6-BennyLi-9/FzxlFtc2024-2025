@@ -23,12 +23,12 @@ import org.firstinspires.ftc.teamcode.Timer;
 import java.util.Objects;
 
 public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadAdditions {
-	public        SampleMecanumDrive               drive;
-	public        Client                           client;
-	public        UtilMng                          utils;
-	public        Timer                            timer;
-	public        boolean 						   isTerminateMethodCalled;
-	protected     Exception                        inlineUncaughtException = null;
+	public    SampleMecanumDrive drive;
+	public    Client             client;
+	public    UtilMng            utils;
+	public    Timer              timer;
+	protected boolean            isTerminateMethodCalled;
+	protected Exception          inlineUncaughtException = null;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -57,12 +57,12 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 
-		while (opModeIsActive() && !isTerminateMethodCalled) {
+		while (opModeIsActive() && ! isTerminateMethodCalled) {
 			if (inlineUncaughtException != null) {
 				Global.threadManager.interrupt("linear");
-				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException){
+				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
-				}else {
+				} else {
 					throw new RuntimeException(inlineUncaughtException);
 				}
 			}
@@ -140,6 +140,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 	@Override
 	public void closeTask() {
-
+		isTerminateMethodCalled = true;
 	}
 }

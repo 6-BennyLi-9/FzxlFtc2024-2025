@@ -51,8 +51,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 				.addLine("=======================");
 
 		if (CoreDatabase.autonomous_time_used != -1){
-			client	.addData("上一个 autonomous 用时",CoreDatabase.autonomous_time_used)
-					.addData("终止原因",CoreDatabase.last_terminateReason.name());
+			client	.addData("last autonomous time used",CoreDatabase.autonomous_time_used)
+					.addData("last terminateReason",CoreDatabase.last_terminateReason.name());
 		}
 	}
 
@@ -66,7 +66,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_start() {
-		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
+		client	.deleteLine("ROBOT INITIALIZE COMPLETE!")
+				.deleteData("last autonomous time used")
+				.deleteData("last terminateReason");
 		timer.pushTimeTag("start");
 	}
 
