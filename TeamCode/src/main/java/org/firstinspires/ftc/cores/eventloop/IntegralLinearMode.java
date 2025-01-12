@@ -11,6 +11,7 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.UtilMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
@@ -26,6 +27,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	public        Client                           client;
 	public        UtilMng                          utils;
 	public        Timer                            timer;
+	public        boolean 						   isTerminateMethodCalled;
 	protected     Exception                        inlineUncaughtException = null;
 
 	@Override
@@ -54,11 +56,11 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 
-		while (opModeIsActive()) {
+		while (opModeIsActive() && !isTerminateMethodCalled) {
 			if (inlineUncaughtException != null) {
 				Global.threadManager.interrupt("linear");
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException){
-					sendTerminateSignal(TerminateReason.NATURALLY_SHUT_DOWN);
+					closeTask();
 				}else {
 					throw new RuntimeException(inlineUncaughtException);
 				}
@@ -67,7 +69,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		preTerminate();
 		Global.threadManager.interrupt("linear");
-		sendTerminateSignal(TerminateReason.USER_ACTIONS);
+		sendTerminateSignal(isTerminateMethodCalled ? TerminateReason.NATURALLY_SHUT_DOWN : TerminateReason.USER_ACTIONS);
 	}
 
 	public abstract Thread getLinearThread();
@@ -133,5 +135,10 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		} else {
 			terminateOpModeNow();
 		}
+	}
+
+	@Override
+	public void closeTask() {
+
 	}
 }
