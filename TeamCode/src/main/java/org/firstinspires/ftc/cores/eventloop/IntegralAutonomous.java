@@ -4,12 +4,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 
-import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
-import org.betastudio.ftc.client.Client;
-import org.firstinspires.ftc.cores.UtilMng;
-import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +14,6 @@ import java.util.Map;
 public abstract class IntegralAutonomous extends IntegralLinerMode implements IntegralOpMode {
 	private final Map <String, Trajectory>         trajectoryMap           = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap   = new HashMap <>();
-	public        SampleMecanumDrive               drive;
-	public        Client                           client;
-	public        UtilMng                          utils;
-	public        Timer                            timer;
 
 
 	public abstract void initialize();
