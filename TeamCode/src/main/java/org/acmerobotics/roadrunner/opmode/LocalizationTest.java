@@ -1,11 +1,11 @@
-package org.acmerobotics.roadrunner.drive.opmode;
+package org.acmerobotics.roadrunner.opmode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.acmerobotics.roadrunner.drive.SampleMecanumDrive;
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal

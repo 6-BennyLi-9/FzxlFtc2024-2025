@@ -16,7 +16,7 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryMarker;
 import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.acmerobotics.roadrunner.drive.DriveConstants;
+import org.acmerobotics.roadrunner.DriveConstants;
 import org.acmerobotics.roadrunner.trajectorysequence.sequencesegment.SequenceSegment;
 import org.acmerobotics.roadrunner.trajectorysequence.sequencesegment.TrajectorySegment;
 import org.acmerobotics.roadrunner.trajectorysequence.sequencesegment.TurnSegment;
