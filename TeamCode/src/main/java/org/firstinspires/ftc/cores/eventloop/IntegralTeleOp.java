@@ -2,9 +2,9 @@ package org.firstinspires.ftc.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
-import org.betastudio.ftc.client.TelemetryClient;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
@@ -34,7 +34,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
-		client = new TelemetryClient(telemetry);
+		client = new BranchThreadClient(telemetry);
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
@@ -43,7 +43,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		robot.initControllers();
 
 		telemetry.clearAll();
-		client.setAutoUpdate(false);
 
 		client	.addData("TPS", "wait for start")
 				.addData("time", "wait for start")
@@ -60,8 +59,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
 		robot.update();//防止一些 Action 出现异常表现
-
-		client.update();
 	}
 
 	@Override
@@ -82,8 +79,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_loop() {
-		client.update();
-
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
 			stop();
 			terminateOpModeNow();
@@ -98,6 +93,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void op_end() {
 		client.clear();
+		if (client instanceof BranchThreadClient){
+			((BranchThreadClient) client).closeTask();
+		}
+
 		Global.runMode = RunMode.TERMINATE;
 
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
