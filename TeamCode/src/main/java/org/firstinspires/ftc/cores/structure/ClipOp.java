@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements HardwareController, InitializeRequested, Taggable {
-	public static  ClipPositions recent = ClipPositions.open;
+	public static  ClipPositions recent = ClipPositions.OPEN;
 	public static  ServoCtrl     clipControl;
 	private static ClipOp        instance;
 
@@ -46,10 +46,10 @@ public class ClipOp implements HardwareController, InitializeRequested, Taggable
 
 	public void change() {
 		switch (recent) {
-			case close:
+			case CLOSE:
 				open();
 				break;
-			case open:
+			case OPEN:
 			default:
 				close();
 				break;
@@ -57,12 +57,12 @@ public class ClipOp implements HardwareController, InitializeRequested, Taggable
 	}
 
 	public void open() {
-		recent = ClipPositions.open;
+		recent = ClipPositions.OPEN;
 		clipControl.setTargetPosition(0);
 	}
 
 	public void close() {
-		recent = ClipPositions.close;
+		recent = ClipPositions.CLOSE;
 		clipControl.setTargetPosition(0.5);
 	}
 

@@ -29,7 +29,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.TELEOP;
-		DriveOp.config = DriveMode.StraightLinear;
+		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
@@ -89,7 +89,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client.clear();
 		Global.runMode = RunMode.TERMINATE;
 
-		CoreDatabase.writeInVals(this, TerminateReason.UserActions);
+		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void sendTerminateSignal(TerminateReason reason, Exception e) {
-		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
+		if (Objects.requireNonNull(reason) == TerminateReason.UNCAUGHT_EXCEPTION) {
 			inlineUncaughtException = e;
 		} else {
 			terminateOpModeNow();

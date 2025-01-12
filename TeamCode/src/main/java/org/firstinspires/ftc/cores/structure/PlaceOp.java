@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements HardwareController, InitializeRequested, Taggable {
-	public static  PlacePositions recent = PlacePositions.idle;
+	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static ServoCtrl placeController;
 	private static PlaceOp        instance;
 
@@ -47,21 +47,21 @@ public class PlaceOp implements HardwareController, InitializeRequested, Taggabl
 	}
 
 	public boolean decanting() {
-		return PlacePositions.decant == recent || PlacePositions.prepare == recent;
+		return PlacePositions.DECANT == recent || PlacePositions.PREPARE == recent;
 	}
 
 	public void decant() {
-		recent = PlacePositions.decant;
+		recent = PlacePositions.DECANT;
 		placeController.setTargetPosition(1);
 	}
 
 	public void idle() {
-		recent = PlacePositions.idle;
+		recent = PlacePositions.IDLE;
 		placeController.setTargetPosition(0);
 	}
 
 	public void prepare() {
-		recent = PlacePositions.prepare;
+		recent = PlacePositions.PREPARE;
 		placeController.setTargetPosition(0.5);
 	}
 
@@ -78,7 +78,7 @@ public class PlaceOp implements HardwareController, InitializeRequested, Taggabl
 	}
 
 	public void flip() {
-		if (Objects.requireNonNull(recent) == PlacePositions.decant) {
+		if (Objects.requireNonNull(recent) == PlacePositions.DECANT) {
 			idle();
 		} else {
 			decant();

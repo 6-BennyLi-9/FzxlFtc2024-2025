@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.cores.eventloop;
 
 public enum TerminateReason {
-	UncaughtException, NaturallyShutDown, UserActions
+	UNCAUGHT_EXCEPTION, NATURALLY_SHUT_DOWN, USER_ACTIONS
 }

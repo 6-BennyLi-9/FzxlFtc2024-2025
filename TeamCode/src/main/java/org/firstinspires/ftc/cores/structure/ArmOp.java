@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements HardwareController, InitializeRequested, Taggable {
-	public static ArmPositions recent = ArmPositions.idle;
+	public static ArmPositions recent = ArmPositions.IDLE;
 	public static ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
 
@@ -56,34 +56,34 @@ public class ArmOp implements HardwareController, InitializeRequested, Taggable 
 	}
 
 	public void intake() {
-		recent = ArmPositions.intake;
+		recent = ArmPositions.INTAKE;
 		manage(0.11);
 	}
 
 	public void idle() {
-		recent = ArmPositions.idle;
+		recent = ArmPositions.IDLE;
 		manage(0.79);
 	}
 
 	public void safe() {
-		recent = ArmPositions.safe;
+		recent = ArmPositions.SAFE;
 		manage(0.61);
 	}
 
 	public void rise() {
-		recent = ArmPositions.rise;
+		recent = ArmPositions.RISE;
 		manage(0.37);
 	}
 
 	public void flip() {
 		switch (recent) {
-			case intake:
+			case INTAKE:
 				idle();
 				break;
-			case safe:
+			case SAFE:
 				intake();
 				break;
-			case idle:
+			case IDLE:
 			default:
 				safe();
 				break;
@@ -91,7 +91,7 @@ public class ArmOp implements HardwareController, InitializeRequested, Taggable 
 	}
 
 	public void flipIO() {
-		if (Objects.requireNonNull(recent) == ArmPositions.intake) {
+		if (Objects.requireNonNull(recent) == ArmPositions.INTAKE) {
 			rise();
 		} else {
 			intake();
@@ -99,7 +99,7 @@ public class ArmOp implements HardwareController, InitializeRequested, Taggable 
 	}
 
 	public boolean isNotSafe() {
-		return ArmPositions.safe != recent;
+		return ArmPositions.SAFE != recent;
 	}
 
 	@NonNull

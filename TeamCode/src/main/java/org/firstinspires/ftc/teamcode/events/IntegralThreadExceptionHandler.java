@@ -16,7 +16,7 @@ public class IntegralThreadExceptionHandler implements Thread.UncaughtExceptionH
 	public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
 		if (e instanceof OpModeManagerImpl.ForceStopException) {
 			if (Global.currentOpmode instanceof IntegralAutonomous) {
-				((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UserActions);
+				((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.USER_ACTIONS);
 			} else {
 				Global.currentOpmode.terminateOpModeNow();
 			}
@@ -24,7 +24,7 @@ public class IntegralThreadExceptionHandler implements Thread.UncaughtExceptionH
 
 		Log.e("Error", "OpMode Terminated By Exception", e);
 		if (Global.currentOpmode instanceof IntegralAutonomous) {
-			((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UncaughtException, (Exception) e);
+			((IntegralOpMode) Global.currentOpmode).sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 		} else {
 			Global.currentOpmode.terminateOpModeNow();
 		}

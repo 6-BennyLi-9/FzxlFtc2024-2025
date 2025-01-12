@@ -13,7 +13,7 @@ public class TestTeleOp extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.op_init();
-		DriveOp.config = DriveMode.SimpleCalibrate;
+		DriveOp.config = DriveMode.SIMPLE_CALIBRATE;
 	}
 
 	@Override

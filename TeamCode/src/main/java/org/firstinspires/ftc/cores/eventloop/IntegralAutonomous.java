@@ -70,7 +70,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		}
 
 		preTerminate();
-		sendTerminateSignal(TerminateReason.UserActions);
+		sendTerminateSignal(TerminateReason.USER_ACTIONS);
 	}
 
 	public abstract void initialize();
@@ -146,7 +146,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 	}
 
 	public void flagging_op_complete() {
-		sendTerminateSignal(TerminateReason.NaturallyShutDown);
+		sendTerminateSignal(TerminateReason.NATURALLY_SHUT_DOWN);
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public abstract class IntegralAutonomous extends LinearOpMode implements Integra
 		timer.stop();
 		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
 		Global.runMode = RunMode.TERMINATE;
-		if (Objects.requireNonNull(reason) == TerminateReason.UncaughtException) {
+		if (Objects.requireNonNull(reason) == TerminateReason.UNCAUGHT_EXCEPTION) {
 			inlineUncaughtException = e;
 		} else {
 			terminateOpModeNow();

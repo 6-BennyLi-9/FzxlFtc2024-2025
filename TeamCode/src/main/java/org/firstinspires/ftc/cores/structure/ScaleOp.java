@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements HardwareController, InitializeRequested, Taggable {
-	public static ScalePositions recent = ScalePositions.back;
+	public static ScalePositions recent = ScalePositions.BACK;
 	public static ServoCtrl      leftScaleController, rightScaleController;
 	public static double smooth = 0.2;
 	private static ScaleOp instance;
@@ -61,7 +61,7 @@ public class ScaleOp implements HardwareController, InitializeRequested, Taggabl
 	}
 
 	public void flip() {
-		if (ScalePositions.probe == recent) {
+		if (ScalePositions.PROBE == recent) {
 			back();
 		} else {
 			probe();
@@ -69,17 +69,17 @@ public class ScaleOp implements HardwareController, InitializeRequested, Taggabl
 	}
 
 	public void probe() {
-		recent = ScalePositions.probe;
+		recent = ScalePositions.PROBE;
 		manage(1);
 	}
 
 	public void back() {
-		recent = ScalePositions.back;
+		recent = ScalePositions.BACK;
 		manage(0.5);
 	}
 
 	public void operate(final double position) {
-		recent = ScalePositions.probe;
+		recent = ScalePositions.PROBE;
 		manageSmooth(position);
 	}
 

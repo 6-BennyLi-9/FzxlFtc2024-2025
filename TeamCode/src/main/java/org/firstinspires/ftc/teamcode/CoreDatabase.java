@@ -25,7 +25,7 @@ public final class CoreDatabase {
 	static {
 		pose = null;
 		orientation = new Orientation();
-		last_terminateReason = TerminateReason.NaturallyShutDown;
+		last_terminateReason = TerminateReason.NATURALLY_SHUT_DOWN;
 		autonomous_time_used = - 1;
 	}
 

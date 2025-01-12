@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements HardwareController, Taggable {
-	public static  LiftMode recent = LiftMode.idle;
+	public static  LiftMode recent = LiftMode.IDLE;
 	public static  LiftCtrl liftCtrl;
 	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 	private static LiftOp   instance;
@@ -47,22 +47,22 @@ public class LiftOp implements HardwareController, Taggable {
 	public void sync(@NonNull final LiftMode option) {
 		recent = option;
 		switch (option) {
-			case idle:
+			case IDLE:
 				liftCtrl.setTargetPosition(idlePosition);
 				break;
-			case decantLow:
+			case DECANT_LOW:
 				liftCtrl.setTargetPosition(decantLow);
 				break;
-			case decantHigh:
+			case DECANT_HIGH:
 				liftCtrl.setTargetPosition(decantHigh);
 				break;
-			case highSuspend:
+			case HIGH_SUSPEND:
 				liftCtrl.setTargetPosition(highSuspend);
 				break;
-			case highSuspendPrepare:
+			case HIGH_SUSPEND_PREPARE:
 				liftCtrl.setTargetPosition(highSuspendPrepare);
 				break;
-			case suspendLv1:
+			case SUSPEND_LV1:
 				liftCtrl.setTargetPosition(suspendLv1);
 				break;
 			default:
@@ -74,7 +74,7 @@ public class LiftOp implements HardwareController, Taggable {
 	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
 	 */
 	public boolean decanting() {
-		return LiftMode.decantHigh == recent || LiftMode.decantLow == recent;
+		return LiftMode.DECANT_HIGH == recent || LiftMode.DECANT_LOW == recent;
 	}
 
 	@NonNull

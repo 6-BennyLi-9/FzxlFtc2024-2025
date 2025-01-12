@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController, Taggable {
-	public static  DriveMode   config = DriveMode.StraightLinear;
+	public static  DriveMode   config = DriveMode.STRAIGHT_LINEAR;
 	public static  ChassisCtrl chassisCtrl;
 	public static double kP = 0.0001, kI, kD;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
@@ -54,10 +54,10 @@ public class DriveOp implements HardwareController, Taggable {
 				processor.modify(angleErr);
 				output = processor.getCalibrateVal();
 				break;
-			case SimpleCalibrate:
+			case SIMPLE_CALIBRATE:
 				output = (targetAngle - currentPowerAngle) * 0.8;
 				break;
-			case StraightLinear:
+			case STRAIGHT_LINEAR:
 			default:
 				output = turn;
 				break;
