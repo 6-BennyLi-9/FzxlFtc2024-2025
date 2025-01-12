@@ -21,6 +21,7 @@ public final class CoreDatabase {
 	public static TerminateReason last_terminateReason;
 
 	public static double autonomous_time_used;
+	public static boolean last_is_autonomous;
 
 	static {
 		pose = null;
@@ -31,8 +32,9 @@ public final class CoreDatabase {
 
 	public static void writeInVals(@NonNull IntegralLinearMode autonomous, TerminateReason terminateReason, double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
-		HardwareDatabase.syncIMU();
+		//		HardwareDatabase.syncIMU();
 		orientation = HardwareDatabase.imu.getAngularOrientation();
+		last_is_autonomous=true;
 		CoreDatabase.last_terminateReason = terminateReason;
 		CoreDatabase.autonomous_time_used = autonomous_time_used;
 	}
@@ -41,6 +43,6 @@ public final class CoreDatabase {
 		pose = null;
 		orientation = HardwareDatabase.imu.getAngularOrientation();
 		CoreDatabase.last_terminateReason = terminateReason;
-		CoreDatabase.autonomous_time_used = - 1;
+		last_is_autonomous=false;
 	}
 }
