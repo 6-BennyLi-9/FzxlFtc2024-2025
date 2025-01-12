@@ -2,6 +2,7 @@ package org.acmerobotics.roadrunner.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
@@ -9,7 +10,7 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 /*
  * This is a simple routine to test turning capabilities.
  */
-//@Disabled
+@Disabled
 @Config
 @Autonomous(group = "drive")
 public class TurnTest extends LinearOpMode {
