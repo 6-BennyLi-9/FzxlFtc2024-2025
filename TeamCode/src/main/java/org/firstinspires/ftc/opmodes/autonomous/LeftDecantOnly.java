@@ -4,7 +4,6 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSuspend;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -26,13 +25,13 @@ public class LeftDecantOnly extends IntegralAutonomous {
 
 		registerTrajectory("decant preload", generateBuilder(LeftStart).lineToLinearHeading(Decant).build());
 
-		registerTrajectory("get sample", generateBuilder(LeftSuspend).lineToLinearHeading(LeftSample).build());
+		registerTrajectory("get sample", generateBuilder(Decant).lineToLinearHeading(LeftSample).build());
 		registerTrajectory("to sample 1", generateBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).build());
 		registerTrajectory("to sample 2", generateBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).build());
 
 		registerTrajectory("decant 1", generateBuilder(LeftSample).lineToLinearHeading(Decant).build());
 		registerTrajectory("decant 2", generateBuilder(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).lineToLinearHeading(Decant).build());
-		registerTrajectory("decant 3", generateBuilder(LeftSample.plus(new Pose2d(0, 0, toRadians(21.2)))).lineToLinearHeading(Decant).build());
+		registerTrajectory("decant 3", generateBuilder(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).lineToLinearHeading(Decant).build());
 
 		registerTrajectory("park", generateSequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build());
 	}
