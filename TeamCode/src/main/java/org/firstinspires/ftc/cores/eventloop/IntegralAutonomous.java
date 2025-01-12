@@ -11,10 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("UnusedReturnValue")
-public abstract class IntegralAutonomous extends IntegralLinerMode implements IntegralOpMode {
+public abstract class IntegralAutonomous extends IntegralLinearMode implements IntegralOpMode {
 	private final Map <String, Trajectory>         trajectoryMap           = new HashMap <>();
 	private final Map <String, TrajectorySequence> trajectorySequenceMap   = new HashMap <>();
-
 
 	public abstract void initialize();
 

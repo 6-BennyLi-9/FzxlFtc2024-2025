@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralLinerMode;
+import org.firstinspires.ftc.cores.eventloop.IntegralLinearMode;
 import org.firstinspires.ftc.cores.eventloop.IntegralTeleOp;
 import org.firstinspires.ftc.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -29,7 +29,7 @@ public final class CoreDatabase {
 		autonomous_time_used = - 1;
 	}
 
-	public static void writeInVals(@NonNull IntegralLinerMode autonomous, TerminateReason terminateReason, double autonomous_time_used) {
+	public static void writeInVals(@NonNull IntegralLinearMode autonomous, TerminateReason terminateReason, double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
 		HardwareDatabase.syncIMU();
 		orientation = HardwareDatabase.imu.getAngularOrientation();

@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.Objects;
 
-public abstract class IntegralLinerMode extends LinearOpMode implements IntegralOpMode {
+public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadAdditions {
 	public        SampleMecanumDrive               drive;
 	public        Client                           client;
 	public        UtilMng                          utils;
