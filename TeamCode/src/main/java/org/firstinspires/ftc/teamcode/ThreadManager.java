@@ -31,11 +31,13 @@ public final class ThreadManager {
 	}
 
 	public void interrupt(String tag) {
-		Objects.requireNonNull(mem.get(tag)).interrupt();
-		mem.remove(tag);
+		try {
+			Objects.requireNonNull(mem.get(tag)).interrupt();
+			mem.remove(tag);
+		}catch (NullPointerException ignored){}
 	}
 
-	public void addStarted(String tag, Thread startedThread) {
+	public void addStarted(String tag, @NonNull Thread startedThread) {
 		startedThread.setUncaughtExceptionHandler(new IntegralThreadExceptionHandler());
 		mem.put(tag, startedThread);
 	}
@@ -45,18 +47,18 @@ public final class ThreadManager {
 	 */
 	public void add(String tag, @NonNull Thread unstartedThread) {
 		unstartedThread.start();
-		addStarted(tag, unstartedThread);
+		this.addStarted(tag, unstartedThread);
 	}
 
 	/**
 	 * 会自动运行
 	 */
 	public void add(@NonNull Thread unstartedThread) {
-		add(labeler.summonID(unstartedThread), unstartedThread);
+		this.add(labeler.summonID(unstartedThread), unstartedThread);
 	}
 
 	public void addStarted(Thread startedThread) {
-		addStarted(labeler.summonID(startedThread), startedThread);
+		this.addStarted(labeler.summonID(startedThread), startedThread);
 	}
 
 	public boolean isEmpty() {
