@@ -1,0 +1,66 @@
+package org.betastudio.ftc.action;
+
+public enum Actions {
+	;
+
+	/**
+	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
+	 */
+	public static void runAction(final Action actionBlock) {
+		Action recent = actionBlock;
+		while (true) {
+			if (! recent.run()) {
+				if (recent.next() instanceof FinalNodeAction) {
+					break;
+				}
+				recent = recent.next();
+			}
+		}
+	}
+
+	/**
+	 * 在规定时间内，如果该 {@code Action} 块仍没有结束，将会强制停止
+	 *
+	 * @see #runAction(Action)
+	 */
+	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds) {
+		Action       recent = actionBlock;
+		final double start  = System.nanoTime() / 1.0e6;
+		while (! (System.nanoTime() / 1.0e6 - start >= allottedMilliseconds)) {
+			if (! recent.run()) {
+				if (recent.next() instanceof FinalNodeAction) {
+					break;
+				}
+				recent = recent.next();
+			}
+		}
+	}
+
+	public static PriorityAction asPriority(final Action action) {
+		return asPriority(action, 0);
+	}
+
+	public static PriorityAction asPriority(final Action action, final long priorityGrade) {
+		return new PriorityAction() {
+			@Override
+			public long getPriorityCode() {
+				return priorityGrade;
+			}
+
+			@Override
+			public boolean run() {
+				return action.run();
+			}
+
+			@Override
+			public Action next() {
+				return action.next();
+			}
+
+			@Override
+			public String paramsString() {
+				return action.paramsString();
+			}
+		};
+	}
+}
