@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 
+@Deprecated
 @Disabled
 @Autonomous(name = "Right(3悬挂)", preselectTeleOp = "19419", group = "0_Main")
 public class RightSuspend extends IntegralAutonomous {

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Config
 @Disabled
+@Deprecated
 @Autonomous(name = "Right(3悬挂+1夹取+1预载)", preselectTeleOp = "19419", group = "0_Main")
 public class RightSuspendAndTake extends RightSuspend {
 	public static double scalePosition = 0.9;
