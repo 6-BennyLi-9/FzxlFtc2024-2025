@@ -40,7 +40,7 @@ public class BranchThreadClient extends TelemetryClient implements ThreadAdditio
 
 	public void start_updater() {
 		if (! updateThread.isAlive()) {
-			updateThread.start();
+			Global.threadManager.add("client-updater", updateThread);
 		}
 	}
 

@@ -12,6 +12,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 		}
 
 		if (! opModeIsActive()) {
+			op_end();
 			return;
 		}
 
