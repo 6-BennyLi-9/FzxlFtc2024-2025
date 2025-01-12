@@ -8,73 +8,78 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
+import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.cores.eventloop.IntegralLinearModeImpl;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
+@Deprecated
 @Config
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
-public class LeftDecantOnly extends IntegralAutonomous {
+public class LeftDecantOnly extends IntegralLinearModeImpl {
 	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
 
 	@Override
-	public void initialize() {
+	public void linear() {
 		drive.setPoseEstimate(LeftStart);
 		client.addData("初始化点位", ">| _ _");
 
-		registerTrajectory("decant preload", generateBuilder(LeftStart).lineToLinearHeading(Decant).build());
+		Trajectory decant_preload = drive.trajectoryBuilder(LeftStart).lineToLinearHeading(Decant).build();
 
-		registerTrajectory("get sample", generateBuilder(Decant).lineToLinearHeading(LeftSample).build());
-		registerTrajectory("to sample 1", generateBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).build());
-		registerTrajectory("to sample 2", generateBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).build());
+		Trajectory get_sample  = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample).build();
+		Trajectory to_sample_1 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).build();
+		Trajectory to_sample_2 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).build();
 
-		registerTrajectory("decant 1", generateBuilder(LeftSample).lineToLinearHeading(Decant).build());
-		registerTrajectory("decant 2", generateBuilder(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).lineToLinearHeading(Decant).build());
-		registerTrajectory("decant 3", generateBuilder(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).lineToLinearHeading(Decant).build());
+		Trajectory decant_1 = drive.trajectoryBuilder(LeftSample).lineToLinearHeading(Decant).build();
+		Trajectory decant_2 = drive.trajectoryBuilder(to_sample_1.end()).lineToLinearHeading(Decant).build();
+		Trajectory decant_3 = drive.trajectoryBuilder(to_sample_2.end()).lineToLinearHeading(Decant).build();
 
-		registerTrajectory("park", generateSequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build());
-	}
+		TrajectorySequence park = drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build();
 
-	@Override
-	public void linear() {
-		utils.integralLiftUpPrepare().liftDecantHigh().runAsThread();
-		runTrajectory("decant preload");
-		utils.decant().waitMs(100).liftDown().integralIntakes().scaleOperate(scaleGetPosition1).runAsThread();
+		waitForStart();
 
-		runTrajectory("get sample");
+		utils.integralLiftUpPrepare().runAsThread();
+		drive.followTrajectory(decant_preload);
+		utils.decant().runCached();
+		sleep(600);
+		utils.liftDown().integralIntakes().scaleOperate(scaleGetPosition1).runAsThread();
+
+		drive.followTrajectory(get_sample);
 		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		sleep(1000);
-		runTrajectory("decant 1");
+		drive.followTrajectory(decant_1);
 
 		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2).runAsThread();
 		sleep(1000);
-		runTrajectory("to sample 1");
+		drive.followTrajectory(to_sample_1);
 
 		sleep(1000);
 
 		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		sleep(1000);
-		runTrajectory("decant 2");
+		drive.followTrajectory(decant_2);
 
 		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.1).displayArms().waitMs(200).scaleOperate(scaleGetPosition3).runAsThread();
 		sleep(1500);
-		runTrajectory("to sample 2");
+		drive.followTrajectory(to_sample_2);
 
 		sleep(1000);
 
 		utils.integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
 		sleep(1000);
-		runTrajectory("decant 3");
+		drive.followTrajectory(decant_3);
 
 		sleep(1200);
 		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().liftSuspendLv1().runAsThread();
 
 		sleep(1000);
-		runTrajectory("park");
+		drive.followTrajectorySequence(park);
+		utils.closeClip().addAction(SimpleDriveOp.build(0, - 0.25, 0)).runCached();
+
 		flagging_op_complete();
-		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0)).runCached();
 	}
 }
