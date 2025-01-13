@@ -16,6 +16,9 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.PriorityAction;
@@ -23,6 +26,7 @@ import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.betastudio.ftc.client.ViewMode;
+import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.Taggable;
@@ -47,6 +51,7 @@ import java.util.Map;
 /**
  * 申名时需要初始化 {@link #initControllers()} , {@link #fetchClient()}
  */
+@Config
 public class RobotMng implements Updatable {
 	public static final double                           driverTriggerBufFal = 0.5;
 	public static final char[]                           printCode           = "-\\|/".toCharArray();
@@ -222,8 +227,11 @@ public class RobotMng implements Updatable {
 		thread.run();
 	}
 
+	public static boolean sendTelemetryPackets;
+
 	public void printActions() {
 		++ updateTime;
+		TelemetryPacket packet = new TelemetryPacket();
 
 		final String updateCode = "[" + printCode[updateTime % printCode.length] + "]";
 
@@ -232,7 +240,11 @@ public class RobotMng implements Updatable {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
 			client.changeData(s, updateCode + a.paramsString());
+			if (sendTelemetryPackets && a instanceof DashboardCallable) {
+				((DashboardCallable) a).send(packet);
+			}
 		}
+		FtcDashboard.getInstance().sendTelemetryPacket(packet);
 	}
 
 	public void printIMUVariables() {
@@ -244,3 +256,4 @@ public class RobotMng implements Updatable {
 		client.changeData("VelΔx", acceleration.xAccel).changeData("VelΔy", acceleration.yAccel).changeData("VelΔz", acceleration.zAccel);
 	}
 }
+

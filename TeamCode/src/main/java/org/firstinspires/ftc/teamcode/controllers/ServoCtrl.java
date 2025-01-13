@@ -2,13 +2,15 @@ package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.interfaces.DashboardCallable;
 
 import java.util.Locale;
 
-public class ServoCtrl implements Action {
+public class ServoCtrl implements Action , DashboardCallable {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
@@ -123,5 +125,10 @@ public class ServoCtrl implements Action {
 
 	public void setTag(final String tag) {
 		this.tag = tag;
+	}
+
+	@Override
+	public void send(@NonNull TelemetryPacket packet) {
+		packet.put(tag+"-target", targetPosition);
 	}
 }

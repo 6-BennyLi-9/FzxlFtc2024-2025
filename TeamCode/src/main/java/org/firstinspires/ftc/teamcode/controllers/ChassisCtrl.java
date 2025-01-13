@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.interfaces.DashboardCallable;
 
 import java.util.Locale;
 
-public class ChassisCtrl implements Action {
+public class ChassisCtrl implements Action , DashboardCallable {
 	public final DcMotorEx leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn;
 	private String tag;
@@ -48,5 +52,12 @@ public class ChassisCtrl implements Action {
 
 	public void setTag(final String tag) {
 		this.tag = tag;
+	}
+
+	@Override
+	public void send(@NonNull TelemetryPacket packet) {
+		packet.put("drive-x",pX);
+		packet.put("drive-y",pY);
+		packet.put("drive-turn",pTurn);
 	}
 }

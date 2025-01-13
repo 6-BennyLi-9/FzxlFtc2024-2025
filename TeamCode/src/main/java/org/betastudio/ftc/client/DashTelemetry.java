@@ -10,9 +10,10 @@ import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class DashTelemetry implements Telemetry {
+	public static boolean           sync_with_dashboard = true;
 	private final MultipleTelemetry telemetries;
 	private final FtcDashboard      dashboard;
-	private       TelemetryPacket   packet = new TelemetryPacket();
+	private       TelemetryPacket   packet              = new TelemetryPacket();
 
 	public DashTelemetry(@NonNull final FtcDashboard dashboard, final Telemetry... telemetries) {
 		this.telemetries = new MultipleTelemetry(telemetries);
@@ -22,25 +23,25 @@ public class DashTelemetry implements Telemetry {
 
 	@Override
 	public Item addData(final String caption, final String format, final Object... args) {
-		packet.put(caption, String.format(format, args));
+		if (sync_with_dashboard) packet.put(caption, String.format(format, args));
 		return telemetries.addData(caption, format, args);
 	}
 
 	@Override
 	public Item addData(final String caption, final Object value) {
-		packet.put(caption, value);
+		if (sync_with_dashboard) packet.put(caption, value);
 		return telemetries.addData(caption, value);
 	}
 
 	@Override
 	public <T> Item addData(final String caption, final Func <T> valueProducer) {
-		packet.put(caption, valueProducer);
+		if (sync_with_dashboard) packet.put(caption, valueProducer);
 		return telemetries.addData(caption, valueProducer);
 	}
 
 	@Override
 	public <T> Item addData(final String caption, final String format, final Func <T> valueProducer) {
-		packet.put(caption, String.format(format, valueProducer));
+		if (sync_with_dashboard) packet.put(caption, String.format(format, valueProducer));
 		return telemetries.addData(caption, format, valueProducer);
 	}
 
@@ -101,21 +102,14 @@ public class DashTelemetry implements Telemetry {
 	}
 
 	@Override
-	public boolean update() {
-		dashboard.sendTelemetryPacket(packet);
-		packet = new TelemetryPacket();
-		return telemetries.update();
-	}
-
-	@Override
 	public Line addLine() {
-		packet.addLine("");
+		if (sync_with_dashboard) packet.addLine("");
 		return telemetries.addLine();
 	}
 
 	@Override
 	public Line addLine(final String lineCaption) {
-		packet.addLine(lineCaption);
+		if (sync_with_dashboard) packet.addLine(lineCaption);
 		return telemetries.addLine(lineCaption);
 	}
 
@@ -210,10 +204,17 @@ public class DashTelemetry implements Telemetry {
 	public void addSmartLine(final String capital, final Object value) {
 		if (null != value) {
 			telemetries.addData(capital, value);
-			packet.put(capital, value);
+			if (sync_with_dashboard) packet.put(capital, value);
 		} else {
 			telemetries.addLine(capital);
-			packet.addLine(capital);
+			if (sync_with_dashboard) packet.addLine(capital);
 		}
+	}
+
+	@Override
+	public boolean update() {
+		dashboard.sendTelemetryPacket(packet);
+		packet = new TelemetryPacket();
+		return telemetries.update();
 	}
 }

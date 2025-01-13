@@ -2,13 +2,15 @@ package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
-public abstract class LiftCtrl implements Action {
+public abstract class LiftCtrl implements Action , DashboardCallable {
 	protected final DcMotorEx targetLift;
 	protected long currentPosition, targetPosition;
 	protected String  tag;
@@ -78,5 +80,11 @@ public abstract class LiftCtrl implements Action {
 
 	protected void disableInfinityRun() {
 		this.infinityRun = false;
+	}
+
+	@Override
+	public void send(@NonNull TelemetryPacket packet) {
+		packet.put("lift-current",currentPosition);
+		packet.put("lift-target",targetPosition);
 	}
 }

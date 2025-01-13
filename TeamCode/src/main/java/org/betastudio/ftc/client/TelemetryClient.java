@@ -283,12 +283,4 @@ public class TelemetryClient implements Client {
 			this.telemetry.update();
 		}
 	}
-
-	//	public void debug_mode(final boolean debug_mode) {
-	//		TelemetryClient.debug_mode = debug_mode;
-	//	}
-	//
-	//	public boolean debug_mode() {
-	//		return TelemetryClient.debug_mode;
-	//	}
 }
