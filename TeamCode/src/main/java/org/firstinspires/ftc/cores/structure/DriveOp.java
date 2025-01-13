@@ -106,7 +106,7 @@ public class DriveOp implements HardwareController, Taggable {
 	}
 
 	protected void sendPowerControl() {
-		ChassisCtrlValsMessage message = new ChassisCtrlValsMessage(x, y, output);
+		ChassisCtrlValsMessage message = new ChassisCtrlValsMessage(x, y, currentPowerAngle);
 		message=GamepadDriveProcessor.process(message, driveMode);
 		chassisCtrl.setPowers(message);
 	}
