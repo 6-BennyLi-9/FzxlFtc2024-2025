@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController, Taggable {
-	public static  AngleCalibrateMode   config = AngleCalibrateMode.STRAIGHT_LINEAR;
+	public static  DriveMode   config = DriveMode.STRAIGHT_LINEAR;
 	public static  ChassisCtrl chassisCtrl;
 	public static double kP = 0.0001, kI, kD;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
