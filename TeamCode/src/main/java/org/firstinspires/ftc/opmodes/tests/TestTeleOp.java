@@ -2,7 +2,7 @@ package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.cores.structure.DriveMode;
+import org.firstinspires.ftc.cores.structure.AngleCalibrateMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 import org.firstinspires.ftc.teamcode.Global;
@@ -13,7 +13,7 @@ public class TestTeleOp extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.op_init();
-		DriveOp.config = DriveMode.SIMPLE_CALIBRATE;
+		DriveOp.config = AngleCalibrateMode.SIMPLE_CALIBRATE;
 	}
 
 	@Override

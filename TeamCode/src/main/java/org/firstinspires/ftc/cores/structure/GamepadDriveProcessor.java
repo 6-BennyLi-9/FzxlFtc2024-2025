@@ -5,28 +5,21 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.msg.ChassisCtrlValsMessage;
 
 public class GamepadDriveProcessor {
-	public static double vS,vF;
+	public static double vS=-1,vF=1;
 
-	public static ChassisCtrlValsMessage process(ChassisCtrlValsMessage message, @NonNull GamepadDriveMode mode){
-		switch(mode){
+	public static ChassisCtrlValsMessage process(ChassisCtrlValsMessage message, @NonNull GamepadDriveMode mode) {
+		switch (mode) {
 			case FASTER_POWER:
-				return new ChassisCtrlValsMessage(
-						getFuncResult(vF,message.pX),
-						getFuncResult(vF,message.pY),
-						getFuncResult(vF,message.pAngle)
-				);
+				return new ChassisCtrlValsMessage(getFuncResult(vF, message.pX), getFuncResult(vF, message.pY), getFuncResult(vF, message.pAngle));
 			case SLOWER_POWER:
-				return new ChassisCtrlValsMessage(
-						getFuncResult(vS,message.pX),
-						getFuncResult(vS,message.pY),
-						getFuncResult(vS,message.pAngle)
-				);			case STRAIGHT_LINEAR:
+				return new ChassisCtrlValsMessage(getFuncResult(vS, message.pX), getFuncResult(vS, message.pY), getFuncResult(vS, message.pAngle));
+			case STRAIGHT_LINEAR:
 			default:
 				return message;
 		}
 	}
 
-	private static double getFuncResult(double kA, double argument){
-		return kA * argument * argument + (1 - kA) * argument;
+	private static double getFuncResult(double kA, double argument) {
+		return (kA * argument * argument + (1 - kA) * argument) * Math.signum(argument);
 	}
 }

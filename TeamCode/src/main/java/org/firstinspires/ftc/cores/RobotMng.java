@@ -211,10 +211,6 @@ public class RobotMng implements Updatable {
 		}
 
 		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
-
-		if (gamepad1.a) {
-			DriveOp.getInstance().targetAngleRst();
-		}
 	}
 
 	@Override
