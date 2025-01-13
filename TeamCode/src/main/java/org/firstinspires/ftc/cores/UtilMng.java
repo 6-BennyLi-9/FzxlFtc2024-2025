@@ -109,7 +109,7 @@ public class UtilMng {
 
 	//ClawOp
 	public UtilMng closeClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.45)));
+		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
 		return this;
 	}
 

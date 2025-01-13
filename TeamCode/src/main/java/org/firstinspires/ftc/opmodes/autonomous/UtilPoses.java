@@ -25,5 +25,5 @@ public final class UtilPoses {
 
 	GetSample = new Pose2d(- 50, 61, toRadians(- 90)),
 
-	LeftParkPrepare = new Pose2d(36, 12, toRadians(0)), RightParkPrepare = new Pose2d(- 40, 12, toRadians(180));
+	LeftParkPrepare = new Pose2d(36, 10, toRadians(0)), RightParkPrepare = new Pose2d(- 40, 12, toRadians(180));
 }
