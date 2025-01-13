@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
-import androidx.annotation.NonNull;
-
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.msg.ChassisCtrlValsMessage;
 
 import java.util.Locale;
 
@@ -51,11 +48,5 @@ public class ChassisCtrl implements Action {
 
 	public void setTag(final String tag) {
 		this.tag = tag;
-	}
-
-	public void setPowers(@NonNull ChassisCtrlValsMessage message) {
-		pX = message.pX;
-		pY = message.pY;
-		pTurn = message.pAngle;
 	}
 }

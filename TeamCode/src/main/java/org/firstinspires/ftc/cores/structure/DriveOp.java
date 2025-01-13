@@ -10,18 +10,16 @@ import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.msg.ChassisCtrlValsMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController, Taggable {
-	public static AngleCalibrateMode config = AngleCalibrateMode.STRAIGHT_LINEAR;
-	public static GamepadDriveMode  driveMode = GamepadDriveMode.STRAIGHT_LINEAR;
-	public static ChassisCtrl        chassisCtrl;
-	public static double             kP     = 0.0001, kI, kD;
+	public static  AngleCalibrateMode   config = AngleCalibrateMode.STRAIGHT_LINEAR;
+	public static  ChassisCtrl chassisCtrl;
+	public static double kP = 0.0001, kI, kD;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
-	private static       DriveOp      instance;
-	private static       double       output, targetAngle, currentPowerAngle;
+	private static DriveOp     instance;
+	private static double output, targetAngle, currentPowerAngle;
 	private static double x, y, turn;
 
 	public static DriveOp getInstance() {
@@ -74,7 +72,7 @@ public class DriveOp implements HardwareController, Taggable {
 		targetAngle += turn * bufPower;
 		syncAngle();
 		currentPowerAngle += output;
-		sendPowerControl();
+		chassisCtrl.setPowers(x, y, output);
 	}
 
 	public void additions(final double x, final double y, final double turn) {
@@ -103,11 +101,5 @@ public class DriveOp implements HardwareController, Taggable {
 	@Override
 	public void setTag(String tag) {
 		chassisCtrl.setTag(tag);
-	}
-
-	protected void sendPowerControl() {
-		ChassisCtrlValsMessage message = new ChassisCtrlValsMessage(x, y, currentPowerAngle);
-		message=GamepadDriveProcessor.process(message, driveMode);
-		chassisCtrl.setPowers(message);
 	}
 }
