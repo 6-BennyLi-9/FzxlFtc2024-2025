@@ -5,7 +5,7 @@ git config --global user.name   "MingYuan Li"
 
 git init
 git branch -m main
-git remote add origin git@github.com:6-BennyLi-9/FtcStudio.git
+git remote add origin https://github.com/6-BennyLi-9/FtcStudio.git
 git pull origin
 git add org/betastudio/ftc/.
 git add org/firstinspires/ftc/teamcode/.
