@@ -10,4 +10,4 @@ git pull origin
 git add org/betastudio/ftc/.
 git add org/firstinspires/ftc/teamcode/.
 git commit -m "auto update"
-git push origin
+git push --set-upstream origin HEAD
