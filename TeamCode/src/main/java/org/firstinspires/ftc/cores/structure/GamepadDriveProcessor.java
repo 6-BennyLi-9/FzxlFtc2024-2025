@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.cores.structure;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.msg.ChassisCtrlValsMessage;
 
 public class GamepadDriveProcessor {
 	public static double vS,vF;
 
-	public static ChassisCtrlValsMessage process(ChassisCtrlValsMessage message, GamepadDriveMode mode){
+	public static ChassisCtrlValsMessage process(ChassisCtrlValsMessage message, @NonNull GamepadDriveMode mode){
 		switch(mode){
 			case FASTER_POWER:
 				return new ChassisCtrlValsMessage(
