@@ -35,5 +35,6 @@ jobs:
          cd src
          cd main
          cd java
+         ls
          bash opensource.sh
 
