@@ -7,7 +7,7 @@ import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.DashTelemetry;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.RobotMng;
-import org.firstinspires.ftc.cores.structure.DriveMode;
+import org.firstinspires.ftc.cores.structure.AngleCalibrateMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
@@ -31,7 +31,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.TELEOP;
-		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
+		DriveOp.config = AngleCalibrateMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
