@@ -23,7 +23,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Check
+        run: |
+           ls
+           ps
+
       # Runs a single command using the runners shell
       - name: Run script
-        run: bash TeamCode/src/main/java/opensource.sh
+        run: bash /TeamCode/src/main/java/opensource.sh
 
