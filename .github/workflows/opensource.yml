@@ -30,5 +30,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run script
-        run: bash ./TeamCode/src/main/java/opensource.sh
+        run: |
+         cd TeamCode
+         cd src
+         cd main
+         cd java
+         bash opensource.sh
 
