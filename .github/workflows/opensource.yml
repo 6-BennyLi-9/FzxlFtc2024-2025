@@ -30,6 +30,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run script
+        env:
+         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
          cd TeamCode
          cd src
