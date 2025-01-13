@@ -25,5 +25,5 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run script
-        run: bash TeamCode/src/main/java
+        run: bash TeamCode/src/main/java/opensource.sh
 
