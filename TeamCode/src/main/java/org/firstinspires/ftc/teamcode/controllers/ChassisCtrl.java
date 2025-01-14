@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -10,10 +11,11 @@ import org.betastudio.ftc.interfaces.DashboardCallable;
 
 import java.util.Locale;
 
-public class ChassisCtrl implements Action , DashboardCallable {
-	public static double kS=-1,kF=1;
-	public final DcMotorEx leftFront, leftRear, rightFront, rightRear;
-	public ClassicCtrlMode mode = ClassicCtrlMode.NONE_SPECIFIED;
+@Config
+public class ChassisCtrl implements Action, DashboardCallable {
+	public static double kS = 0.5, kF = - 0.5;
+	public static ClassicCtrlMode mode = ClassicCtrlMode.FASTER_CONTROL;
+	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn;
 	private String tag;
 
@@ -26,16 +28,16 @@ public class ChassisCtrl implements Action , DashboardCallable {
 
 	@Override
 	public boolean run() {
-		switch (mode){
+		switch (mode) {
 			case FASTER_CONTROL:
-				pX=resolveFunc(pX,kF);
-				pY=resolveFunc(pY,kF);
-				pTurn=resolveFunc(pTurn,kF);
+				pX = resolveFunc(pX, kF);
+				pY = resolveFunc(pY, kF);
+				pTurn = resolveFunc(pTurn, kF);
 				break;
 			case SLOWER_CONTROL:
-				pX=resolveFunc(pX,kS);
-				pY=resolveFunc(pY,kS);
-				pTurn=resolveFunc(pTurn,kS);
+				pX = resolveFunc(pX, kS);
+				pY = resolveFunc(pY, kS);
+				pTurn = resolveFunc(pTurn, kS);
 				break;
 			case NONE_SPECIFIED:
 			default:
@@ -74,15 +76,15 @@ public class ChassisCtrl implements Action , DashboardCallable {
 
 	@Override
 	public void send(@NonNull TelemetryPacket packet) {
-		packet.put("drive-x",pX);
-		packet.put("drive-y",pY);
-		packet.put("drive-turn",pTurn);
+		packet.put("drive-x", pX);
+		packet.put("drive-y", pY);
+		packet.put("drive-turn", pTurn);
 	}
 
 	private double resolveFunc(double val, double k) {
 		double result = k * val * val + (1 - k) * val;
-		if (Math.signum(result) != Math.signum(val)){
-			result = -result;
+		if (Math.signum(result) != Math.signum(val)) {
+			result = - result;
 		}
 		return result;
 	}
