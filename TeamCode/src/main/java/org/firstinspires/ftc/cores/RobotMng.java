@@ -49,19 +49,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 申名时需要初始化 {@link #initControllers()} , {@link #fetchClient()}
+ * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
+ * 然后获取客户端 {@link #fetchClient()}。
  */
 @Config
 public class RobotMng implements Updatable {
+	/**
+	 * 驱动杆触发缓冲失败的阈值
+	 */
 	public static final double                           driverTriggerBufFal = 0.5;
+	/**
+	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
+	 */
 	public static final char[]                           printCode           = "-\\|/".toCharArray();
+	/**
+	 * 旋转触发缓冲失败的阈值
+	 */
 	public static final double                           rotateTriggerBufFal = 0.01;
+	/**
+	 * 驱动缓冲功率，用于控制驱动速度
+	 */
 	public static       double                           driveBufPower       = 1;
+	/**
+	 * 硬件控制器的映射表
+	 */
 	public              Map <String, HardwareController> controllers         = new HashMap <>();
+	/**
+	 * 标记的动作包，用于管理不同硬件控制器的动作
+	 */
 	public              TaggedActionPackage              thread              = new TaggedActionPackage();
+	/**
+	 * 更新时间，用于计算 telemetry 的更新状态
+	 */
 	public              int                              updateTime;
+	/**
+	 * 客户端对象，用于与控制台通信
+	 */
 	private             Client                           client;
 
+	/**
+	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
+	 */
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
@@ -73,14 +101,24 @@ public class RobotMng implements Updatable {
 		controllers.put("drive", new DriveOp());
 	}
 
+	/**
+	 * 获取默认的 telemetry 客户端
+	 */
 	public void fetchClient() {
 		fetchClient(TelemetryClient.getInstance());
 	}
 
+	/**
+	 * 设置客户端对象
+	 * @param client 需要设定的客户端对象，不能为空
+	 */
 	public void fetchClient(@NonNull Client client) {
 		this.client = client;
 	}
 
+	/**
+	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
+	 */
 	public void initControllers() {
 		for (Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			String             k = entry.getKey();
@@ -100,6 +138,10 @@ public class RobotMng implements Updatable {
 		}
 	}
 
+	/**
+	 * 根据游戏手柄的操作来控制机器人，包括剪切、采样、提升、放置等动作。
+	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
+	 */
 	public final void operateThroughGamepad() {
 		syncRequests();
 
@@ -197,6 +239,10 @@ public class RobotMng implements Updatable {
 		}
 	}
 
+	/**
+	 * 根据游戏手柄的操作来控制机器人的驱动，包括速度切换、转向和复位操作。
+	 * 该方法会根据不同的游戏手柄输入调整驱动模式。
+	 */
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
 			if (1 == driveBufPower) {
@@ -222,6 +268,10 @@ public class RobotMng implements Updatable {
 		}
 	}
 
+	/**
+	 * 更新方法，执行标记动作包中的所有动作。
+	 * 在机器人的每一周期中调用，用于驱动所有硬件控制器的操作。
+	 */
 	@Override
 	public void update() {
 		thread.run();

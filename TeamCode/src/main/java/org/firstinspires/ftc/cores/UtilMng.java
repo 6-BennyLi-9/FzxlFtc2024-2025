@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import java.util.LinkedList;
 
 /**
- * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}}
+ * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}
  *
  * @see RobotMng
  */
@@ -37,36 +37,69 @@ import java.util.LinkedList;
 public class UtilMng {
 	private final LinkedList <Action> actions;
 
+	/**
+	 * 构造函数，初始化actions列表并调用设备初始化方法。
+	 */
 	public UtilMng() {
 		actions = new LinkedList <>();
 		deviceInit();
 	}
 
+	/**
+	 * 设备初始化方法，将旋转器设置到中间位置，并调用一系列动作重置设备状态。
+	 */
 	public void deviceInit() {
 		actions.add(new StatementAction(() -> rotate.setPosition(0.79)));
 		boxRst().armsToSafePosition().openClaw().scalesBack().closeClip().liftDown().runCached();
 	}
 
+	/**
+	 * 添加一个等待指定时间的动作。
+	 *
+	 * @param waitMillis 等待的毫秒数
+	 * @return 当前对象
+	 */
 	public UtilMng waitMs(final long waitMillis) {
 		actions.add(new SleepingAction(waitMillis));
 		return this;
 	}
 
+	/**
+	 * 添加一个动作到actions列表。
+	 *
+	 * @param action 要添加的动作
+	 * @return 当前对象
+	 */
 	public UtilMng addAction(final Action action) {
 		actions.add(action);
 		return this;
 	}
 
+	/**
+	 * 添加一个StatementAction动作。
+	 *
+	 * @param r Runnable对象，代表要执行的语句
+	 * @return 当前对象
+	 */
 	public UtilMng addStatement(Runnable r) {
 		actions.add(new StatementAction(r));
 		return this;
 	}
 
+	/**
+	 * 添加一个等待线程结束的动作。
+	 *
+	 * @param t 要等待的线程
+	 * @return 当前对象
+	 */
 	public UtilMng joinThread(Thread t) {
 		actions.add(new StatementAction(() -> Local.waitForVal(t::isInterrupted, true)));
 		return this;
 	}
 
+	/**
+	 * 将所有电机的功率设置为0，停止电机。
+	 */
 	public void rstMotors() {
 		leftFront.setPower(0);
 		leftRear.setPower(0);
@@ -74,77 +107,143 @@ public class UtilMng {
 		rightRear.setPower(0);
 	}
 
-	//rotate
+	/**
+	 * 将旋转器设置到中间位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng rotateToMid() {
 		actions.add(new StatementAction(() -> rotate.setPosition(0.79)));
 		return this;
 	}
 
+	/**
+	 * 使旋转器向右转到指定位置。
+	 *
+	 * @param positionVal 要增加的位置值
+	 * @return 当前对象
+	 */
 	public UtilMng rotateRightTurn(final double positionVal) {
 		actions.add(new StatementAction(() -> rotate.setPosition(rotate.getPosition() + positionVal)));
 		return this;
 	}
 
-	//PlaceOp
+	/**
+	 * 将放置机构设置到倾倒位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng decant() {
 		actions.add(new StatementAction(() -> place.setPosition(1)));
 		return this;
 	}
 
+	/**
+	 * 将放置机构重置到初始位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng boxRst() {
 		actions.add(new StatementAction(() -> place.setPosition(0)));
 		return this;
 	}
 
-	//ClipOp
+	/**
+	 * 打开夹具。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng openClip() {
 		actions.add(new StatementAction(() -> clip.setPosition(0)));
 		return this;
 	}
 
+	/**
+	 * 关闭夹具。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng closeClip() {
 		actions.add(new StatementAction(() -> clip.setPosition(0.5)));
 		return this;
 	}
 
-	//ClawOp
+	/**
+	 * 关闭抓取器。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng closeClaw() {
 		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
 		return this;
 	}
 
+	/**
+	 * 打开抓取器。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng openClaw() {
 		actions.add(new StatementAction(() -> claw.setPosition(0.66)));
 		return this;
 	}
 
-	//ArmOp
+	/**
+	 * 显示臂。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng displayArms() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
 		return this;
 	}
 
+	/**
+	 * 将臂设置为待命位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng armsIDLE() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 		return this;
 	}
 
+	/**
+	 * 将臂移动到安全位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng armsToSafePosition() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 		return this;
 	}
 
-	//ScaleOp
+	/**
+	 * 使秤臂探出。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng scalesProbe() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.5)), new StatementAction(() -> rightScale.setPosition(1))));
 		return this;
 	}
 
+	/**
+	 * 使秤臂收回。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng scalesBack() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0.5))));
 		return this;
 	}
 
+	/**
+	 * 操作秤臂到指定位置。
+	 *
+	 * @param rightScalePosition 右侧秤臂的目标位置
+	 * @return 当前对象
+	 */
 	public UtilMng scaleOperate(double rightScalePosition) {
 		rightScalePosition = Math.max(rightScalePosition, 0.58);
 		final double finalRightScalePosition = rightScalePosition;
@@ -152,67 +251,132 @@ public class UtilMng {
 		return this;
 	}
 
-	//lift
+	/**
+	 * 生成一个电梯控制器。
+	 *
+	 * @param target 目标位置
+	 * @return 电梯控制器对象
+	 */
 	protected LiftCtrl liftControllerGenerator(final long target) {
 		return new DcAutoLiftCtrl(lift, target);
 	}
 
+	/**
+	 * 将电梯降到底部。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftDown() {
 		actions.add(liftControllerGenerator(0));
 		return this;
 	}
 
+	/**
+	 * 将电梯升高到倾倒高位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftDecantHigh() {
 		actions.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
 
+	/**
+	 * 将电梯升高到倾倒低位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftDecantLow() {
 		actions.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
 
+	/**
+	 * 准备将电梯升高到高悬停位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftSuspendHighPrepare() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
 
+	/**
+	 * 将电梯升高到高悬停位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftSuspendHigh() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
 
+	/**
+	 * 将电梯升高到一级悬停位置。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng liftSuspendLv1() {
 		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
 		return this;
 	}
 
-	//integral
+	/**
+	 * 集成动作：初始化抓取机构。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng integralIntakes() {
 		return openClaw().rotateToMid();
 	}
 
+	/**
+	 * 集成动作：抓取机构结束动作。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng integralIntakesEnding() {
 		return boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
 	}
 
+	/**
+	 * 集成动作：准备将电梯升高。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng integralLiftUpPrepare() {
 		return armsToSafePosition();
 	}
 
+	/**
+	 * 集成动作：准备将电梯降低。
+	 *
+	 * @return 当前对象
+	 */
 	public UtilMng integralLiftDownPrepare() {
 		return boxRst().armsToSafePosition();
 	}
 
+	/**
+	 * 运行缓存的动作。
+	 */
 	public void runCached() {
 		Actions.runAction(new LinkedAction(actions));
 		actions.clear();
 	}
 
+	/**
+	 * 将缓存的动作作为线程运行。
+	 */
 	public void runAsThread() {
 		Global.threadManager.add(saveCachedAsThread());
 	}
 
+	/**
+	 * 保存缓存的动作到线程。
+	 *
+	 * @return 包含缓存动作的新线程
+	 */
 	public Thread saveCachedAsThread() {
 		return new Thread(this::runCached);
 	}

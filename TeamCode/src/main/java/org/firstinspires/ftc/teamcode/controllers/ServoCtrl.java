@@ -10,6 +10,9 @@ import org.betastudio.ftc.interfaces.DashboardCallable;
 
 import java.util.Locale;
 
+/**
+ * 通用的舵机控制类
+ */
 public class ServoCtrl implements Action , DashboardCallable {
 	public final Servo  controlTarget;
 	private      double targetPosition;
@@ -41,7 +44,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param tolerance      最大更改量
@@ -55,7 +58,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param smoothVal      关于调控量的因数
@@ -65,7 +68,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param smoothVal      关于调控量的因数
@@ -84,7 +87,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param tolerance      最大更改量
@@ -94,7 +97,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param smoothVal      关于调控量的因数
@@ -104,7 +107,7 @@ public class ServoCtrl implements Action , DashboardCallable {
 	}
 
 	/**
-	 * 不能一步到位，需要重复调试
+	 * 不能一步到位，需要重复调用
 	 *
 	 * @param targetPosition 目标点位
 	 * @param smoothVal      关于调控量的因数
