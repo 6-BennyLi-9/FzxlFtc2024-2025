@@ -15,7 +15,7 @@ import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.cores.eventloop.IntegralLinearModeImpl;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
-@Deprecated
+//@Deprecated
 @Config
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
 public class LeftDecantOnly extends IntegralLinearModeImpl {
