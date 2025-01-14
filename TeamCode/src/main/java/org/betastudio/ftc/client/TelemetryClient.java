@@ -204,6 +204,7 @@ public class TelemetryClient implements Client {
 		}
 		telemetry.addData("ViewMode", viewMode.name());
 		telemetry.addData("Status", Global.runMode);
+		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (viewMode) {
 			case BASIC_TELEMETRY:
@@ -217,7 +218,7 @@ public class TelemetryClient implements Client {
 		}
 	}
 
-	protected synchronized void updateThreadLines() {
+	protected void updateThreadLines() {
 		for (Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
 			String key   = entry.getKey();
 			Thread value = entry.getValue();
@@ -226,7 +227,7 @@ public class TelemetryClient implements Client {
 		this.telemetry.update();
 	}
 
-	protected synchronized void updateTelemetryLines() {
+	protected void updateTelemetryLines() {
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
