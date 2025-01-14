@@ -43,7 +43,11 @@ import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Local;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +79,7 @@ public class RobotMng implements Updatable {
 	 */
 	public              Map <String, HardwareController> controllers         = new HashMap <>();
 	/**
-	 * 标记的动作包，用于管理不同硬件控制器的动作
+	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
 	public              TaggedActionPackage              thread              = new TaggedActionPackage();
 	/**
@@ -204,7 +208,10 @@ public class RobotMng implements Updatable {
 					ArmOp.getInstance().idle();
 					break;
 				case 1:
-					ClawOp.getInstance().open();
+					Global.threadManager.add("sleep for open",new Thread(()-> {
+						Local.sleep(1000);
+						ClawOp.getInstance().open();
+					}));
 					ArmOp.getInstance().intake();
 					break;
 				default:
@@ -230,12 +237,9 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()) {
-			if (client.getCurrentViewMode() == ViewMode.BASIC_TELEMETRY) {
-				client.configViewMode(ViewMode.THREAD_MANAGER);
-			} else {
-				client.configViewMode(ViewMode.BASIC_TELEMETRY);
-			}
-			client.speak("The telemetry's ViewMode has recently switched to " + client.getCurrentViewMode().name());
+			ViewMode newViewMode = client.getCurrentViewMode() == ViewMode.BASIC_TELEMETRY ? ViewMode.THREAD_MANAGER : ViewMode.BASIC_TELEMETRY;
+			client.configViewMode(newViewMode);
+			client.speak("The telemetry's ViewMode has recently switched to " + newViewMode.name());
 		}
 	}
 
@@ -247,8 +251,10 @@ public class RobotMng implements Updatable {
 		if (highLowSpeedConfigChange.getEnabled()) {
 			if (1 == driveBufPower) {
 				driveBufPower = 0.5;
+				ChassisCtrl.mode= ChassisCtrlMode.SLOWER_CONTROL;
 			} else {
 				driveBufPower = 1;
+				ChassisCtrl.mode= ChassisCtrlMode.FASTER_CONTROL;
 			}
 		}
 

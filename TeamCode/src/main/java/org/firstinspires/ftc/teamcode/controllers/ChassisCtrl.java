@@ -13,8 +13,8 @@ import java.util.Locale;
 
 @Config
 public class ChassisCtrl implements Action, DashboardCallable {
-	public static double kS = 0.5, kF = - 0.5;
-	public static ClassicCtrlMode mode = ClassicCtrlMode.FASTER_CONTROL;
+	public static double kS = 0.4, kF = - 0.4;
+	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn;
 	private String tag;
