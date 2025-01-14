@@ -11,7 +11,9 @@ import org.betastudio.ftc.interfaces.DashboardCallable;
 import java.util.Locale;
 
 public class ChassisCtrl implements Action , DashboardCallable {
+	public static double kS=-1,kF=1;
 	public final DcMotorEx leftFront, leftRear, rightFront, rightRear;
+	public ClassicCtrlMode mode = ClassicCtrlMode.NONE_SPECIFIED;
 	private double pX, pY, pTurn;
 	private String tag;
 
@@ -24,6 +26,22 @@ public class ChassisCtrl implements Action , DashboardCallable {
 
 	@Override
 	public boolean run() {
+		switch (mode){
+			case FASTER_CONTROL:
+				pX=resolveFunc(pX,kF);
+				pY=resolveFunc(pY,kF);
+				pTurn=resolveFunc(pTurn,kF);
+				break;
+			case SLOWER_CONTROL:
+				pX=resolveFunc(pX,kS);
+				pY=resolveFunc(pY,kS);
+				pTurn=resolveFunc(pTurn,kS);
+				break;
+			case NONE_SPECIFIED:
+			default:
+				break;
+		}
+
 		leftFront.setPower(pY - pX - pTurn);
 		leftRear.setPower(pY + pX - pTurn);
 		rightFront.setPower(pY + pX + pTurn);
@@ -59,5 +77,13 @@ public class ChassisCtrl implements Action , DashboardCallable {
 		packet.put("drive-x",pX);
 		packet.put("drive-y",pY);
 		packet.put("drive-turn",pTurn);
+	}
+
+	private double resolveFunc(double val, double k) {
+		double result = k * val * val + (1 - k) * val;
+		if (Math.signum(result) != Math.signum(val)){
+			result = -result;
+		}
+		return result;
 	}
 }
