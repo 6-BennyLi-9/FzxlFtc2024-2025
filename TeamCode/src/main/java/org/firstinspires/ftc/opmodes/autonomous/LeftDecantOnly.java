@@ -12,13 +12,13 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.cores.eventloop.IntegralLinearModeImpl;
+import org.firstinspires.ftc.cores.eventloop.StructuralLinearMode;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
 //@Deprecated
 @Config
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
-public class LeftDecantOnly extends IntegralLinearModeImpl {
+public class LeftDecantOnly extends StructuralLinearMode {
 	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
 
 	@Override
