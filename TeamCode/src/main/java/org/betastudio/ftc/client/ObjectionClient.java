@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Deprecated
 public class ObjectionClient implements Client {
 	protected final Map <String, Item> data;
 	protected final Map <String, Line> line;
@@ -52,7 +53,11 @@ public class ObjectionClient implements Client {
 
 	@Override
 	public Client changeData(String key, String val) {
-		Objects.requireNonNull(data.get(key)).setValue(val);
+		if (data.containsKey(key)){
+			Objects.requireNonNull(data.get(key)).setValue(val);
+		}else{
+			return addData(key, val);
+		}
 		if (autoUpdate){
 			update();
 		}
