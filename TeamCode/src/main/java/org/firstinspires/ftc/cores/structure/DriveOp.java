@@ -12,7 +12,6 @@ import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
-import org.firstinspires.ftc.teamcode.message.DriveMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -79,14 +78,14 @@ public class DriveOp implements HardwareController, TagOptionsRequired, Instance
 	}
 
 	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
-		DriveOp.x = x * message.valX;
-		DriveOp.y = y * message.valY;
-		DriveOp.turn = turn * message.valTurn;
+		DriveOp.x = x * message.bufX;
+		DriveOp.y = y * message.bufY;
+		DriveOp.turn = turn * message.bufTurn;
 
-		targetAngle += turn * message.valTurn;
+		targetAngle += turn * message.bufTurn;
 		syncAngle();
 		currentPowerAngle += output;
-		chassisCtrl.send(new DriveMessage(DriveOp.x,DriveOp.y,DriveOp.output));
+		chassisCtrl.setPowers(x, y, output);
 	}
 
 	public void additions(final double x, final double y, final double turn) {
