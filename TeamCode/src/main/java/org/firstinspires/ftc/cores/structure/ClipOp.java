@@ -5,18 +5,29 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp implements HardwareController, InitializeRequested, Taggable {
+public class ClipOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired<ClipOp> {
 	public static  ClipPositions recent = ClipPositions.OPEN;
 	public static  ServoCtrl     clipControl;
 	private static ClipOp        instance;
 
-	public static ClipOp getInstance() {
+	@Override
+	public ClipOp getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void setInstance(ClipOp instance) {
+		ClipOp.instance = instance;
+	}
+
+	public static ClipOp getOp() {
 		return instance;
 	}
 

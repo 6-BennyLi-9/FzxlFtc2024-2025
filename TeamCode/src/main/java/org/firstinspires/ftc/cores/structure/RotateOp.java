@@ -5,16 +5,27 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class RotateOp implements HardwareController, InitializeRequested, Taggable {
+public class RotateOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired <RotateOp> {
 	public static  ServoCtrl rotateController;
 	private static RotateOp  instance;
 
-	public static RotateOp getInstance() {
+	@Override
+	public RotateOp getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void setInstance(RotateOp instance) {
+		RotateOp.instance=instance;
+	}
+
+	public static RotateOp getOp() {
 		return instance;
 	}
 

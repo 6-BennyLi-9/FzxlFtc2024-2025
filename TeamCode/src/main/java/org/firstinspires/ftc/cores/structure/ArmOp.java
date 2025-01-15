@@ -6,6 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -14,12 +15,22 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements HardwareController, InitializeRequested, Taggable {
+public class ArmOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired<ArmOp> {
 	public static ArmPositions recent = ArmPositions.IDLE;
 	public static ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
 
-	public static ArmOp getInstance() {
+	@Override
+	public ArmOp getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void setInstance(ArmOp instance) {
+		ArmOp.instance = instance;
+	}
+
+	public static ArmOp getOp() {
 		return instance;
 	}
 

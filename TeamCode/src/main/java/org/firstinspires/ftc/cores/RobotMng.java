@@ -153,50 +153,50 @@ public class RobotMng implements Updatable {
 		syncRequests();
 
 		if (clipOption.getEnabled()) {
-			ClipOp.getInstance().change();
+			ClipOp.getOp().change();
 		}
 
 		if (sampleIO.getEnabled()) {
-			ClawOp.getInstance().change();
+			ClawOp.getOp().change();
 		}
 
 		if (liftIDLE.getEnabled()) {
-			if (PlaceOp.getInstance().decanting()) {
-				PlaceOp.getInstance().idle();
+			if (PlaceOp.getOp().decanting()) {
+				PlaceOp.getOp().idle();
 			}
 			if (LiftMode.HIGH_SUSPEND == LiftOp.recent || LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				ClipOp.getInstance().open();
+				ClipOp.getOp().open();
 			}
 
 			driveBufPower = 1;
-			LiftOp.getInstance().sync(LiftMode.IDLE);
+			LiftOp.getOp().sync(LiftMode.IDLE);
 		} else if (liftDecantUpping.getEnabled()) {
-			if (ArmOp.getInstance().isNotSafe()) {
-				ArmOp.getInstance().safe();
+			if (ArmOp.getOp().isNotSafe()) {
+				ArmOp.getOp().safe();
 			}
 
 			if (LiftMode.IDLE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_LOW);
+				LiftOp.getOp().sync(LiftMode.DECANT_LOW);
 			} else if (LiftMode.DECANT_LOW == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_HIGH);
+				LiftOp.getOp().sync(LiftMode.DECANT_HIGH);
 			}
 
-			PlaceOp.getInstance().prepare();
+			PlaceOp.getOp().prepare();
 			driveBufPower = 0.6;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
-			if (ArmOp.getInstance().isNotSafe()) {
-				ArmOp.getInstance().safe();
+			if (ArmOp.getOp().isNotSafe()) {
+				ArmOp.getOp().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
+			LiftOp.getOp().sync(LiftMode.HIGH_SUSPEND_PREPARE);
 		}
 
 		if (decantOrSuspend.getEnabled()) {
 			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
+				LiftOp.getOp().sync(LiftMode.HIGH_SUSPEND);
 			} else {
-				ArmOp.getInstance().safe();
-				PlaceOp.getInstance().flip();
+				ArmOp.getOp().safe();
+				PlaceOp.getOp().flip();
 			}
 		}
 
@@ -206,16 +206,16 @@ public class RobotMng implements Updatable {
 			//初始化
 			switch (armScaleOperate.smartCounter.getTicked()) {
 				case 0:
-					RotateOp.getInstance().mid();
-					PlaceOp.getInstance().idle();
-					ArmOp.getInstance().idle();
+					RotateOp.getOp().mid();
+					PlaceOp.getOp().idle();
+					ArmOp.getOp().idle();
 					break;
 				case 1:
 					Global.threadManager.add("sleep for open", new Thread(() -> {
 						Local.sleep(1000);
-						ClawOp.getInstance().open();
+						ClawOp.getOp().open();
 					}));
-					ArmOp.getInstance().intake();
+					ArmOp.getOp().intake();
 					break;
 				default:
 					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
@@ -223,11 +223,11 @@ public class RobotMng implements Updatable {
 		}
 		switch (armScaleOperate.smartCounter.getTicked()) {
 			case 0:
-				ScaleOp.getInstance().back();
+				ScaleOp.getOp().back();
 				break;
 			case 1:
-				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
+				RotateOp.getOp().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
+				ScaleOp.getOp().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
@@ -235,7 +235,7 @@ public class RobotMng implements Updatable {
 
 		if (flipArm.getEnabled()) {
 			if (ScalePositions.PROBE == ScaleOp.recent) {
-				ArmOp.getInstance().flipIO();
+				ArmOp.getOp().flipIO();
 			}
 		}
 
@@ -261,19 +261,19 @@ public class RobotMng implements Updatable {
 			}
 		}
 
-		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, new DriveBufMessage(driveBufPower));
+		DriveOp.getOp().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, new DriveBufMessage(driveBufPower));
 
 		if (gamepad1.left_bumper) {
-			DriveOp.getInstance().additions(0, 0, - 0.2);
+			DriveOp.getOp().additions(0, 0, - 0.2);
 		}
 		if (gamepad1.right_bumper) {
-			DriveOp.getInstance().additions(0, 0, 0.2);
+			DriveOp.getOp().additions(0, 0, 0.2);
 		}
 
-		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
+		DriveOp.getOp().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
 
 		if (gamepad1.a) {
-			DriveOp.getInstance().targetAngleRst();
+			DriveOp.getOp().targetAngleRst();
 		}
 	}
 

@@ -5,18 +5,29 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
+import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.cores.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ClawOp implements HardwareController, InitializeRequested, Taggable {
+public class ClawOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired<ClawOp> {
 	public static  ClawPositions recent = ClawPositions.OPEN;
 	public static  ServoCtrl     clawControl;
 	private static ClawOp        instance;
 
-	public static ClawOp getInstance() {
+	@Override
+	public ClawOp getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void setInstance(ClawOp instance) {
+		ClawOp.instance = instance;
+	}
+
+	public static ClawOp getOp() {
 		return instance;
 	}
 
