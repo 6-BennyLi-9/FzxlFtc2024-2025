@@ -201,27 +201,27 @@ public class RobotMng implements Updatable {
 		}
 
 		if (armScaleOperate.getEnabled()) {
-			armScaleOperate.smartCounter.tickAndMod(2);
+			armScaleOperate.ticker.tickAndMod(2);
 
 			//初始化
-			switch (armScaleOperate.smartCounter.getTicked()) {
+			switch (armScaleOperate.ticker.getTicked()) {
 				case 0:
 					RotateOp.getOp().mid();
 					PlaceOp.getOp().idle();
 					ArmOp.getOp().idle();
 					break;
 				case 1:
-					Global.threadManager.add("sleep for open", new Thread(() -> {
+					Global.threadManager.add(new Thread(() -> {
 						Local.sleep(1000);
 						ClawOp.getOp().open();
 					}));
 					ArmOp.getOp().intake();
 					break;
 				default:
-					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 			}
 		}
-		switch (armScaleOperate.smartCounter.getTicked()) {
+		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getOp().back();
 				break;
@@ -230,7 +230,7 @@ public class RobotMng implements Updatable {
 				ScaleOp.getOp().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
 				break;
 			default:
-				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.smartCounter.getTicked());
+				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
 		}
 
 		if (flipArm.getEnabled()) {

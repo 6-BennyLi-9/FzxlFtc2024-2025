@@ -13,11 +13,11 @@ public final class ButtonProcessor {
 	/**
 	 * 智能计数器，用于记录按键状态的变化
 	 */
-	public final TickEncoder  smartCounter;
+	public final TickEncoder  ticker;
 	/**
 	 * 上一个按键状态
 	 */
-	private boolean lst,
+	private boolean           lst,
 	/**
 	 * 当前按键状态
 	 */
@@ -29,7 +29,7 @@ public final class ButtonProcessor {
 	 */
 	public ButtonProcessor(final ButtonConfig config) {
 		this.config = config;
-		smartCounter = new TickEncoder();
+		ticker = new TickEncoder();
 	}
 
 	/**
