@@ -11,7 +11,7 @@ public final class Local {
 	public static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
-		} catch (InterruptedException ignored) {
+		} catch (InterruptedException e) {
 			if (Thread.currentThread() instanceof ThreadAdditions) {
 				((ThreadAdditions) Thread.currentThread()).closeTask();
 				new TaskCloseMonitor(Thread.currentThread());
@@ -30,7 +30,8 @@ public final class Local {
 			while (function.call() != expect) {
 				sleep(flashMillis);
 			}
-		} catch (Exception ignored) {
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
