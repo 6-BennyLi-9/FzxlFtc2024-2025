@@ -7,7 +7,7 @@ public class InfinityLoopAction implements Action, ThreadAdditions {
 	private final Runnable runnable;
 	private       boolean  interrupted;
 
-	InfinityLoopAction(final Runnable runnable) {
+	public InfinityLoopAction(final Runnable runnable) {
 		this.runnable = runnable;
 	}
 
