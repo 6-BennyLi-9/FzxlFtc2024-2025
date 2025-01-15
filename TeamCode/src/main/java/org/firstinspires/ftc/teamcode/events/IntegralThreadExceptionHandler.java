@@ -13,11 +13,13 @@ import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 import org.firstinspires.ftc.cores.eventloop.IntegralOpMode;
 import org.firstinspires.ftc.cores.eventloop.TerminateReason;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 /**
  * 自定义线程异常处理器类，用于处理未捕获的线程异常。
  * 当线程中发生未捕获的异常时，该处理器会被调用以执行相应的处理逻辑。
  */
-public class IntegralThreadExceptionHandler implements Thread.UncaughtExceptionHandler {
+public class IntegralThreadExceptionHandler implements UncaughtExceptionHandler {
 	/**
 	 * 实现Thread.UncaughtExceptionHandler接口的uncaughtException方法。
 	 * 当指定的线程中发生未捕获的异常时，该方法会被调用。
