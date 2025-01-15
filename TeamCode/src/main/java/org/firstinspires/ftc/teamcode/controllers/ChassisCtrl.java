@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
+import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 
 import java.util.Locale;
 
@@ -69,7 +70,7 @@ public class ChassisCtrl implements Action, DashboardCallable {
 	 * @param turn  旋转速度
 	 */
 	public void setPowers(final double x, final double y, final double turn) {
-		setPowers(x, y, turn, 1); // 调用重载方法，缓冲值为 1
+		setPowers(x, y, turn, new DriveBufMessage(1)); // 调用重载方法，缓冲值为 1
 	}
 
 	/**
@@ -80,10 +81,10 @@ public class ChassisCtrl implements Action, DashboardCallable {
 	 * @param turn   旋转速度
 	 * @param bufVal 缓冲值
 	 */
-	public void setPowers(final double x, final double y, final double turn, final double bufVal) {
-		pX = x * bufVal; // 设置 pX 为 x 乘以缓冲值
-		pY = y * bufVal; // 设置 pY 为 y 乘以缓冲值
-		pTurn = turn * bufVal; // 设置 pTurn 为 turn 乘以缓冲值
+	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveBufMessage bufVal) {
+		pX = x * bufVal.bufX; // 设置 pX 为 x 乘以缓冲值
+		pY = y * bufVal.bufY; // 设置 pY 为 y 乘以缓冲值
+		pTurn = turn * bufVal.bufTurn; // 设置 pTurn 为 turn 乘以缓冲值
 	}
 
 	/**

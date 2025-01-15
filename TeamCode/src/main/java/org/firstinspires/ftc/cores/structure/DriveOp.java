@@ -10,6 +10,7 @@ import org.betastudio.ftc.interfaces.Taggable;
 import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
+import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -21,6 +22,7 @@ public class DriveOp implements HardwareController, Taggable {
 	private static DriveOp     instance;
 	private static double output, targetAngle, currentPowerAngle;
 	private static double x, y, turn;
+	public static DriveBufMessage globalMessage=new DriveBufMessage(1,1,1.3);
 
 	public static DriveOp getInstance() {
 		return instance;
@@ -64,23 +66,23 @@ public class DriveOp implements HardwareController, Taggable {
 		}
 	}
 
-	public void sync(final double x, final double y, final double turn, final double bufPower) {
-		DriveOp.x = x * bufPower;
-		DriveOp.y = y * bufPower;
-		DriveOp.turn = turn * bufPower;
+	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
+		DriveOp.x = x * message.bufX;
+		DriveOp.y = y * message.bufY;
+		DriveOp.turn = turn * message.bufTurn;
 
-		targetAngle += turn * bufPower;
+		targetAngle += turn * message.bufTurn;
 		syncAngle();
 		currentPowerAngle += output;
 		chassisCtrl.setPowers(x, y, output);
 	}
 
 	public void additions(final double x, final double y, final double turn) {
-		additions(x, y, turn, 1);
+		additions(x, y, turn, new DriveBufMessage(1));
 	}
 
-	public void additions(final double x, final double y, final double turn, final double bufPower) {
-		sync(DriveOp.x + x, DriveOp.y + y, DriveOp.turn + turn, bufPower);
+	public void additions(final double x, final double y, final double turn, final DriveBufMessage message) {
+		sync(DriveOp.x + x, DriveOp.y + y, DriveOp.turn + turn, message);
 	}
 
 	public void targetAngleRst() {

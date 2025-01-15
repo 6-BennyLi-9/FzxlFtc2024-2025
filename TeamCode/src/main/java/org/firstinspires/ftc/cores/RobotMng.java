@@ -48,6 +48,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
+import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,13 +60,13 @@ import java.util.Map;
 @Config
 public class RobotMng implements Updatable {
 	/**
-	 * 驱动杆触发缓冲失败的阈值
+	 * 驱动杆缓冲阈值
 	 */
 	public static final double                           driverTriggerBufFal = 0.5;
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final char[]                           printCode           = "-\\|/".toCharArray();
+	public static final String                           printCode           = "-\\|/";
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
@@ -74,6 +75,7 @@ public class RobotMng implements Updatable {
 	 * 驱动缓冲功率，用于控制驱动速度
 	 */
 	public static       double                           driveBufPower       = 1;
+	public static       boolean                          sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
 	 */
@@ -114,6 +116,7 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 设置客户端对象
+	 *
 	 * @param client 需要设定的客户端对象，不能为空
 	 */
 	public void fetchClient(@NonNull Client client) {
@@ -179,7 +182,7 @@ public class RobotMng implements Updatable {
 			}
 
 			PlaceOp.getInstance().prepare();
-			driveBufPower = 0.5;
+			driveBufPower = 0.6;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
@@ -208,7 +211,7 @@ public class RobotMng implements Updatable {
 					ArmOp.getInstance().idle();
 					break;
 				case 1:
-					Global.threadManager.add("sleep for open",new Thread(()-> {
+					Global.threadManager.add("sleep for open", new Thread(() -> {
 						Local.sleep(1000);
 						ClawOp.getInstance().open();
 					}));
@@ -250,15 +253,15 @@ public class RobotMng implements Updatable {
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
 			if (1 == driveBufPower) {
-				driveBufPower = 0.5;
-				ChassisCtrl.mode= ChassisCtrlMode.SLOWER_CONTROL;
+				driveBufPower = 0.6;
+				ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
 			} else {
 				driveBufPower = 1;
-				ChassisCtrl.mode= ChassisCtrlMode.FASTER_CONTROL;
+				ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
 			}
 		}
 
-		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, driveBufPower);
+		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, new DriveBufMessage(driveBufPower));
 
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().additions(0, 0, - 0.2);
@@ -267,7 +270,7 @@ public class RobotMng implements Updatable {
 			DriveOp.getInstance().additions(0, 0, 0.2);
 		}
 
-		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
+		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
 
 		if (gamepad1.a) {
 			DriveOp.getInstance().targetAngleRst();
@@ -283,13 +286,11 @@ public class RobotMng implements Updatable {
 		thread.run();
 	}
 
-	public static boolean sendTelemetryPackets;
-
 	public void printActions() {
 		++ updateTime;
 		TelemetryPacket packet = new TelemetryPacket();
 
-		final String updateCode = "[" + printCode[updateTime % printCode.length] + "]";
+		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 
 		final Map <String, PriorityAction> map = thread.getActionMap();
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
