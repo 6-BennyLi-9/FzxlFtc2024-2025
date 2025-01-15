@@ -11,8 +11,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.betastudio.ftc.action.Actions;
-import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.client.Clients;
 
 public final class HardwareDatabase {
@@ -96,7 +94,7 @@ public final class HardwareDatabase {
 			parameters.loggingTag = "IMU";
 			parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 			//延时0.5秒，以确保imu正常工作
-			Actions.runAction(new SleepingAction(500));
+			Local.sleep(500);
 			imu.initialize(parameters);
 		}
 	}
