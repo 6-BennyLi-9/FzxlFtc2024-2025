@@ -198,6 +198,7 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public void update() {
+		telemetry.clearAll();
 		if (debug_mode) {
 			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
 		}
