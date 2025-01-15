@@ -24,7 +24,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.client.Clients;
 import org.betastudio.ftc.client.ViewMode;
 import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.betastudio.ftc.interfaces.HardwareController;
@@ -109,7 +109,7 @@ public class RobotMng implements Updatable {
 	 * 获取默认的 telemetry 客户端
 	 */
 	public void fetchClient() {
-		fetchClient(TelemetryClient.getInstance());
+		fetchClient(Clients.generate());
 	}
 
 	/**

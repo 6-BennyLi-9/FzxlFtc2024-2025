@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
-import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.client.Clients;
 
 public final class HardwareDatabase {
 	public static DcMotorEx   leftFront;
@@ -116,7 +116,7 @@ public final class HardwareDatabase {
 	}
 
 	public static void printVoltages() {
-		TelemetryClient.getInstance().changeData("leftFront voltage", getHardwareVoltage("leftFront")).changeData("leftRear voltage", getHardwareVoltage("leftRear")).changeData("rightFront voltage", getHardwareVoltage("rightFront")).changeData("rightRear voltage", getHardwareVoltage("rightRear")).changeData("clip voltage", getHardwareVoltage("clip")).changeData("place voltage", getHardwareVoltage("place")).changeData("claw voltage", getHardwareVoltage("claw")).changeData("rotate voltage", getHardwareVoltage("rotate"));
+		Clients.generate().changeData("leftFront voltage", getHardwareVoltage("leftFront")).changeData("leftRear voltage", getHardwareVoltage("leftRear")).changeData("rightFront voltage", getHardwareVoltage("rightFront")).changeData("rightRear voltage", getHardwareVoltage("rightRear")).changeData("clip voltage", getHardwareVoltage("clip")).changeData("place voltage", getHardwareVoltage("place")).changeData("claw voltage", getHardwareVoltage("claw")).changeData("rotate voltage", getHardwareVoltage("rotate"));
 	}
 
 	private static double getHardwareVoltage(final String name) {

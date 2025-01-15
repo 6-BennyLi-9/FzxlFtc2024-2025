@@ -22,7 +22,6 @@ public class TelemetryClient implements Client {
 	public static  ViewMode viewMode;
 	public static  boolean  sortDataInTelemetryClientUpdate = true;
 	public static  boolean  debug_mode;
-	private static Client   instanceClient;
 
 	static {
 		viewMode = ViewMode.BASIC_TELEMETRY;
@@ -37,16 +36,7 @@ public class TelemetryClient implements Client {
 	public TelemetryClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
-		instanceClient = this;
 		lstUpdateTimer.restart();
-	}
-
-	public static Client getInstance() {
-		return instanceClient;
-	}
-
-	public static void constructInstance(final Telemetry telemetry) {
-		instanceClient = new TelemetryClient(telemetry);
 	}
 
 	@Override

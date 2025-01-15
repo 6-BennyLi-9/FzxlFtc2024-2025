@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.client.Clients;
 
 /**
  * gamepad 控制请求的数据库
@@ -107,7 +107,7 @@ public final class GamepadRequests {
 	 * 默认使用 TelemetryClient 实例打印值。
 	 */
 	public static void printValues() {
-		printValues(TelemetryClient.getInstance());
+		printValues(Clients.getInstance());
 	}
 	/**
 	 * 打印值
