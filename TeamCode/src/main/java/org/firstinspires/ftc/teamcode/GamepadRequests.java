@@ -107,7 +107,7 @@ public final class GamepadRequests {
 	 * 默认使用 TelemetryClient 实例打印值。
 	 */
 	public static void printValues() {
-		printValues(Clients.getInstance());
+		printValues(Clients.generate());
 	}
 	/**
 	 * 打印值
