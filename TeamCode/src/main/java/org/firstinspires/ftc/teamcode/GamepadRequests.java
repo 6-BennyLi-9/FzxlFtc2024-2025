@@ -4,6 +4,8 @@ import static org.firstinspires.ftc.teamcode.ButtonConfig.SINGLE_WHEN_PRESSED;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.Clients;
 
@@ -79,6 +81,17 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		flipArm = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		switchViewMode = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+
+		sampleIO.sync(false);
+		liftDecantUpping.sync(false);
+		liftHighSuspendPrepare.sync(false);
+		liftIDLE.sync(false);
+		decantOrSuspend.sync(false);
+		clipOption.sync(false);
+		armScaleOperate.sync(false);
+		highLowSpeedConfigChange.sync(false);
+		flipArm.sync(false);
+		switchViewMode.sync(false);
 	}
 
 	/**
@@ -116,7 +129,7 @@ public final class GamepadRequests {
 	 * <p>
 	 * 这有助于调试和监控程序的运行状态。
 	 */
-	public static void printValues(Client client) {
+	public static void printValues(@NonNull Client client) {
 		client.changeData("liftDecantUpping", liftDecantUpping);
 		client.changeData("sampleIO", sampleIO);
 		client.changeData("liftHighSuspendPrepare", liftHighSuspendPrepare);
