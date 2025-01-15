@@ -14,8 +14,7 @@ public class TeleOpCore extends IntegralTeleOp {
 	}
 
 	@Override
-	public void op_loop() {
-		super.op_loop();
+	public void op_loop_entry() {
 		//主程序开始
 
 		robot.operateThroughGamepad();
@@ -24,9 +23,9 @@ public class TeleOpCore extends IntegralTeleOp {
 		//主程序结束
 
 		robot.printActions();
-		//		robot.printIMUVariables();
-		//		HardwareDatabase.printVoltages();
-		//		GamepadRequestMemories.printValues();
+		//robot.printIMUVariables();
+		//HardwareDatabase.printVoltages();
+		//GamepadRequestMemories.printValues();
 
 		robot.update();
 		client.changeData("drive buf", RobotMng.driveBufPower);

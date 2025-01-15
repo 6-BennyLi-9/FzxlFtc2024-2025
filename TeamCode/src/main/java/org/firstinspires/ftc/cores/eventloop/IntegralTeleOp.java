@@ -95,7 +95,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			op_end();
 			terminateOpModeNow();
 		}
+
+		try {
+			op_loop_entry();
+		}catch (UnsupportedOperationException ignored){}
 	}
+
+	public abstract void op_loop_entry();
 
 	@Override
 	public void op_end() {

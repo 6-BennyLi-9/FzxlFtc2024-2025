@@ -10,6 +10,7 @@ import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 @Deprecated
 @Disabled
 public class ObjectionClientTest extends TeleOpCore {
+	@Deprecated
 	@Override
 	public void op_init() {
 		super.op_init();
