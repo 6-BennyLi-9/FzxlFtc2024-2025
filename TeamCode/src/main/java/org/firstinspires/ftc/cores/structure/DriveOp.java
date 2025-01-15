@@ -23,7 +23,7 @@ public class DriveOp implements HardwareController, TagOptionsRequired, Instance
 	private static DriveOp     instance;
 	private static double output, targetAngle, currentPowerAngle;
 	private static double x, y, turn;
-	public static DriveBufMessage globalMessage=new DriveBufMessage(1,1,1.3);
+	public static DriveBufMessage globalMessage=new DriveBufMessage(0.9,0.9,1.3);
 
 	@Override
 	public DriveOp getInstance() {
@@ -85,7 +85,7 @@ public class DriveOp implements HardwareController, TagOptionsRequired, Instance
 		targetAngle += turn * message.bufTurn;
 		syncAngle();
 		currentPowerAngle += output;
-		chassisCtrl.setPowers(x, y, output);
+		chassisCtrl.setPowers(x, y, output,globalMessage);
 	}
 
 	public void additions(final double x, final double y, final double turn) {
