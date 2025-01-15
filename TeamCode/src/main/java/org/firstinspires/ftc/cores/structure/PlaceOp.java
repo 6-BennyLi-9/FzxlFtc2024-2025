@@ -6,7 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.InstanceRequired;
-import org.betastudio.ftc.interfaces.Taggable;
+import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired<PlaceOp> {
+public class PlaceOp implements HardwareController, InitializeRequested, TagOptionsRequired, InstanceRequired<PlaceOp> {
 	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static ServoCtrl placeController;
 	private static PlaceOp        instance;

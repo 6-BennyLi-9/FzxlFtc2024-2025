@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InstanceRequired;
-import org.betastudio.ftc.interfaces.Taggable;
+import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp implements HardwareController, Taggable , InstanceRequired<DriveOp> {
+public class DriveOp implements HardwareController, TagOptionsRequired, InstanceRequired<DriveOp> {
 	public static  DriveMode   config = DriveMode.STRAIGHT_LINEAR;
 	public static  ChassisCtrl chassisCtrl;
 	public static double kP = 0.0001, kI, kD;

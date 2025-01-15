@@ -7,13 +7,13 @@ import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.InstanceRequired;
-import org.betastudio.ftc.interfaces.Taggable;
+import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements HardwareController, InitializeRequested, Taggable , InstanceRequired<ScaleOp> {
+public class ScaleOp implements HardwareController, InitializeRequested, TagOptionsRequired, InstanceRequired<ScaleOp> {
 	public static ScalePositions recent = ScalePositions.BACK;
 	public static ServoCtrl      leftScaleController, rightScaleController;
 	public static double smooth = 0.2;

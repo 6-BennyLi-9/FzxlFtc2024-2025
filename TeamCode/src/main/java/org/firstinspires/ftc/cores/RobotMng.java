@@ -29,7 +29,7 @@ import org.betastudio.ftc.client.ViewMode;
 import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.Taggable;
+import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.betastudio.ftc.interfaces.Updatable;
 import org.firstinspires.ftc.cores.structure.ArmOp;
 import org.firstinspires.ftc.cores.structure.ClawOp;
@@ -137,8 +137,8 @@ public class RobotMng implements Updatable {
 			if (v instanceof InitializeRequested) {
 				((InitializeRequested) v).init();
 			}
-			if (v instanceof Taggable) {
-				((Taggable) v).setTag(k + ":ctrl");
+			if (v instanceof TagOptionsRequired) {
+				((TagOptionsRequired) v).setTag(k + ":ctrl");
 			}
 
 			thread.add(k, v.getController());
