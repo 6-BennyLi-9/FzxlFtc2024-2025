@@ -93,13 +93,6 @@ public class LiftControllers {
 				return true;
 			}
 
-			if (0 == getTargetPosition() && using_touch_reset_encoders && ! HardwareDatabase.liftTouch.isPressed()) {
-				targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-				targetLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-				targetLift.setPower(0);
-				return true;
-			}
-
 			targetLift.setTargetPosition((int) getTargetPosition());
 			targetLift.setTargetPositionTolerance(tolerance);
 			targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
