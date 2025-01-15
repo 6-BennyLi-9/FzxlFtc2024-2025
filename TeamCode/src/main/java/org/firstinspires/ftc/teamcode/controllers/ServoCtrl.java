@@ -13,7 +13,7 @@ import java.util.Locale;
 /**
  * 通用的舵机控制类
  */
-public class ServoCtrl implements Action , DashboardCallable {
+public class ServoCtrl implements Action, DashboardCallable {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
@@ -72,13 +72,13 @@ public class ServoCtrl implements Action , DashboardCallable {
 	 *
 	 * @param targetPosition 目标点位
 	 * @param smoothVal      关于调控量的因数
-	 * @param minControlVal  最小调整数
+	 * @param tolerance      最小调整数
 	 */
-	public void setTargetPositionSmooth(final double targetPosition, final double smoothVal, final double minControlVal) {
-		if (Math.abs(targetPosition - this.targetPosition) <= minControlVal) {
+	public void setTargetPositionSmooth(final double targetPosition, final double smoothVal, final double tolerance) {
+		if (Math.abs(targetPosition - this.targetPosition) <= tolerance) {
 			this.targetPosition = targetPosition;
 		} else {
-			changeTargetPositionBy(Math.max((targetPosition - this.targetPosition) * smoothVal, minControlVal));
+			changeTargetPositionBy(Math.max(Math.abs(targetPosition - this.targetPosition) * smoothVal, tolerance) * Math.signum(targetPosition - this.targetPosition));
 		}
 	}
 
@@ -132,6 +132,6 @@ public class ServoCtrl implements Action , DashboardCallable {
 
 	@Override
 	public void send(@NonNull TelemetryPacket packet) {
-		packet.put(tag+"-target", targetPosition);
+		packet.put(tag + "-target", targetPosition);
 	}
 }
