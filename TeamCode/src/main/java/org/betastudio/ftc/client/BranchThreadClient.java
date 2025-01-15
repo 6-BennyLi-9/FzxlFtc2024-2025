@@ -49,4 +49,9 @@ public class BranchThreadClient extends TelemetryClient implements ThreadAdditio
 		assert updateAction instanceof ThreadAdditions;
 		((ThreadAdditions) updateAction).closeTask();
 	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		return false;
+	}
 }

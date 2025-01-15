@@ -103,4 +103,9 @@ public final class Clients implements Client , InstanceRequired<Client> {
 	public void update() {
 		instance.update();
 	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -14,6 +14,7 @@ public class ObjectionClient implements Client {
 	protected final Map <String, Line> line;
 	private final   Telemetry          telemetry;
 	private boolean autoUpdate = true;
+	private boolean isUpdateRequested = false;
 
 	public ObjectionClient(Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -34,6 +35,8 @@ public class ObjectionClient implements Client {
 		if (autoUpdate){
 			update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -48,6 +51,8 @@ public class ObjectionClient implements Client {
 		if (autoUpdate){
 			update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -61,6 +66,8 @@ public class ObjectionClient implements Client {
 		if (autoUpdate){
 			update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -75,6 +82,8 @@ public class ObjectionClient implements Client {
 		if (autoUpdate){
 			update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -89,6 +98,8 @@ public class ObjectionClient implements Client {
 		if (autoUpdate){
 			update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -129,5 +140,10 @@ public class ObjectionClient implements Client {
 	@Override
 	public void update() {
 		telemetry.update();
+	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		return isUpdateRequested;
 	}
 }

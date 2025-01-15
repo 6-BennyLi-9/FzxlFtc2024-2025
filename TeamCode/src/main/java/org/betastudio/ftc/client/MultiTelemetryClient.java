@@ -136,4 +136,13 @@ public class MultiTelemetryClient implements Client {
 			entry.getValue().update();
 		}
 	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		boolean res = false;
+		for (final Map.Entry <String, Client> entry :clients.entrySet()) {
+			res=res||entry.getValue().isUpdateRequested();
+		}
+		return res;
+	}
 }

@@ -286,6 +286,11 @@ public class RobotMng implements Updatable {
 		thread.run();
 	}
 
+	@Override
+	public boolean isUpdateRequested() {
+		return true;
+	}
+
 	public void printActions() {
 		++ updateTime;
 		TelemetryPacket packet = new TelemetryPacket();

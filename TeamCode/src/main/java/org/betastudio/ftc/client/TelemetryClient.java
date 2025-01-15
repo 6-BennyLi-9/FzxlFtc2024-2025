@@ -22,6 +22,7 @@ public class TelemetryClient implements Client {
 	public static  ViewMode viewMode;
 	public static  boolean  sortDataInTelemetryClientUpdate = true;
 	public static  boolean  debug_mode;
+	private boolean isUpdateRequested;
 
 	static {
 		viewMode = ViewMode.BASIC_TELEMETRY;
@@ -42,6 +43,7 @@ public class TelemetryClient implements Client {
 	@Override
 	public void clear() {
 		this.data.clear();
+		isUpdateRequested=true;
 		if (autoUpdate) {
 			this.update();
 		}
@@ -58,6 +60,7 @@ public class TelemetryClient implements Client {
 			this.update();
 		}
 
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -79,6 +82,7 @@ public class TelemetryClient implements Client {
 			this.update();
 		}
 
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -96,6 +100,7 @@ public class TelemetryClient implements Client {
 			this.update();
 		}
 
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -115,6 +120,7 @@ public class TelemetryClient implements Client {
 			this.update();
 		}
 
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -133,6 +139,8 @@ public class TelemetryClient implements Client {
 		if (autoUpdate) {
 			this.update();
 		}
+
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -151,6 +159,7 @@ public class TelemetryClient implements Client {
 			this.update();
 		}
 
+		isUpdateRequested=true;
 		return this;
 	}
 
@@ -206,6 +215,11 @@ public class TelemetryClient implements Client {
 			case LOG:
 				throw new UnsupportedOperationException("TelemetryClient doesn't support log view now!");
 		}
+	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		return isUpdateRequested;
 	}
 
 	protected void updateThreadLines() {
