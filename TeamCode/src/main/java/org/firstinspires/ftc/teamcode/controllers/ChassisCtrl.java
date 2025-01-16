@@ -8,12 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
+import org.betastudio.ftc.interfaces.MessagesProcessRequired;
 import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
+import org.firstinspires.ftc.teamcode.message.DriveMessage;
 
 import java.util.Locale;
 
 @Config
-public class ChassisCtrl implements Action, DashboardCallable {
+public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
 	public static double kS = 0.4, kF = - 0.4;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
@@ -29,26 +31,27 @@ public class ChassisCtrl implements Action, DashboardCallable {
 
 	@Override
 	public boolean run() {
+		double vX=0,vY=0,vTurn=0;
 		switch (mode) {
 			case FASTER_CONTROL:
-				pX = resolveFunc(pX, kF); // 使用快速控制模式调整 pX
-				pY = resolveFunc(pY, kF); // 使用快速控制模式调整 pY
-				pTurn = resolveFunc(pTurn, kF); // 使用快速控制模式调整 pTurn
+				vX = resolveFunc(pX, kF); // 使用快速控制模式调整 pX
+				vY = resolveFunc(pY, kF); // 使用快速控制模式调整 pY
+				vTurn = resolveFunc(pTurn, kF); // 使用快速控制模式调整 pTurn
 				break;
 			case SLOWER_CONTROL:
-				pX = resolveFunc(pX, kS); // 使用慢速控制模式调整 pX
-				pY = resolveFunc(pY, kS); // 使用慢速控制模式调整 pY
-				pTurn = resolveFunc(pTurn, kS); // 使用慢速控制模式调整 pTurn
+				vX = resolveFunc(pX, kS); // 使用慢速控制模式调整 pX
+				vY = resolveFunc(pY, kS); // 使用慢速控制模式调整 pY
+				vTurn = resolveFunc(pTurn, kS); // 使用慢速控制模式调整 pTurn
 				break;
 			case NONE_SPECIFIED:
 			default:
 				break; // 没有指定模式时不做任何调整
 		}
 
-		leftFront.setPower(pY - pX - pTurn); // 设置左前电机功率
-		leftRear.setPower(pY + pX - pTurn); // 设置左后电机功率
-		rightFront.setPower(pY + pX + pTurn); // 设置右前电机功率
-		rightRear.setPower(pY - pX + pTurn); // 设置右后电机功率
+		leftFront.setPower(vY - vX - vTurn); // 设置左前电机功率
+		leftRear.setPower(vY + vX - vTurn); // 设置左后电机功率
+		rightFront.setPower(vY + vX + vTurn); // 设置右前电机功率
+		rightRear.setPower(vY - vX + vTurn); // 设置右后电机功率
 		return true; // 总是返回 true，表示运行成功
 	}
 
@@ -82,9 +85,9 @@ public class ChassisCtrl implements Action, DashboardCallable {
 	 * @param bufVal 缓冲值
 	 */
 	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveBufMessage bufVal) {
-		pX = x * bufVal.bufX; // 设置 pX 为 x 乘以缓冲值
-		pY = y * bufVal.bufY; // 设置 pY 为 y 乘以缓冲值
-		pTurn = turn * bufVal.bufTurn; // 设置 pTurn 为 turn 乘以缓冲值
+		pX = x * bufVal.valX; // 设置 pX 为 x 乘以缓冲值
+		pY = y * bufVal.valY; // 设置 pY 为 y 乘以缓冲值
+		pTurn = turn * bufVal.valTurn; // 设置 pTurn 为 turn 乘以缓冲值
 	}
 
 	/**
@@ -125,5 +128,15 @@ public class ChassisCtrl implements Action, DashboardCallable {
 			result = - result;
 		}
 		return result;
+	}
+
+	@Override
+	public void send(@NonNull DriveMessage message) {
+		setPowers(message.valX, message.valY, message.valTurn);
+	}
+
+	@Override
+	public DriveMessage send() {
+		return new DriveMessage(pX, pY, pTurn);
 	}
 }
