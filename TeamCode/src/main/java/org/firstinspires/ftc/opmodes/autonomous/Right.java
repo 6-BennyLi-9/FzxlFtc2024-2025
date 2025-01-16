@@ -15,7 +15,7 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
-public class RightTake2 extends IntegralAutonomous {
+public class Right extends IntegralAutonomous {
 	public static double scaleGetPosition = 0.84;
 
 	@Override
@@ -65,7 +65,7 @@ public class RightTake2 extends IntegralAutonomous {
 
 		runTrajectory("suspend got sample 1");
 		angleCalibration(0, RightSuspend.plus(new Pose2d(5, 5)));
-		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3.2).build());
+		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3.5).build());
 		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
 		sleep(500);
 		runTrajectory("get sample suspend 2");
