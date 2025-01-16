@@ -31,7 +31,11 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 
 	@Override
 	public boolean run() {
-		double vX=0,vY=0,vTurn=0;
+		double vX,vY,vTurn;
+		//defaults:
+		vX=pX;
+		vY=pY;
+		vTurn=pTurn;
 		switch (mode) {
 			case FASTER_CONTROL:
 				vX = resolveFunc(pX, kF); // 使用快速控制模式调整 pX
