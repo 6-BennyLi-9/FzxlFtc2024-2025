@@ -10,7 +10,6 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.liftHighSuspendPrep
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
-import static org.firstinspires.ftc.teamcode.GamepadRequests.syncRequests;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
@@ -150,8 +149,6 @@ public class RobotMng implements Updatable {
 	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
 	 */
 	public final void operateThroughGamepad() {
-		syncRequests();
-
 		if (clipOption.getEnabled()) {
 			ClipOp.getOp().change();
 		}
@@ -303,7 +300,7 @@ public class RobotMng implements Updatable {
 			final PriorityAction a = entry.getValue();
 			client.changeData(s, updateCode + a.paramsString());
 			if (sendTelemetryPackets && a instanceof DashboardCallable) {
-				((DashboardCallable) a).send(packet);
+				((DashboardCallable) a).sendToDashboard(packet);
 			}
 		}
 		FtcDashboard.getInstance().sendTelemetryPacket(packet);

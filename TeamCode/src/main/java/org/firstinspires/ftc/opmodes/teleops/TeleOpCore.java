@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.GamepadRequests;
 
 @TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {
@@ -15,6 +16,7 @@ public class TeleOpCore extends IntegralTeleOp {
 
 	@Override
 	public void op_loop_entry() {
+		GamepadRequests.syncRequests();
 		//主程序开始
 
 		robot.operateThroughGamepad();
