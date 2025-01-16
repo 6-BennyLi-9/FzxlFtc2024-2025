@@ -19,8 +19,6 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 @Config
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
 public class LeftDecantOnly extends StructuralLinearMode {
-	public static double scaleGetPosition1 = 0.84, scaleGetPosition2 = 0.915, scaleGetPosition3 = 0.9;
-
 	@Override
 	public void linear() {
 		drive.setPoseEstimate(LeftStart);
@@ -44,7 +42,7 @@ public class LeftDecantOnly extends StructuralLinearMode {
 		drive.followTrajectory(decant_preload);
 		utils.decant().runCached();
 		sleep(600);
-		utils.liftDown().integralIntakes().scaleOperate(scaleGetPosition1).runAsThread();
+		utils.liftDown().integralIntakes().scaleOperate(Left.scaleGetPosition1).runAsThread();
 
 		drive.followTrajectory(get_sample);
 		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
@@ -52,7 +50,7 @@ public class LeftDecantOnly extends StructuralLinearMode {
 		drive.followTrajectory(decant_1);
 
 		sleep(1200);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2).runAsThread();
+		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(Left.scaleGetPosition2).runAsThread();
 		sleep(1000);
 		drive.followTrajectory(to_sample_1);
 
@@ -63,7 +61,7 @@ public class LeftDecantOnly extends StructuralLinearMode {
 		drive.followTrajectory(decant_2);
 
 		sleep(1200);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.1).displayArms().waitMs(200).scaleOperate(scaleGetPosition3).runAsThread();
+		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.1).displayArms().waitMs(200).scaleOperate(Left.scaleGetPosition3).runAsThread();
 		sleep(1500);
 		drive.followTrajectory(to_sample_2);
 
