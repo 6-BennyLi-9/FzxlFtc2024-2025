@@ -31,6 +31,6 @@ public class Labeler {
 	 * @return 生成的唯一字符串形式的标识符，格式为"类名:ID"。
 	 */
 	public String summonID(@NonNull Object object) {
-		return "λ"+object.getClass().getSimpleName() + "@" + summonID();
+		return "<I>"+object.getClass().getSimpleName() + "@" + summonID();
 	}
 }
