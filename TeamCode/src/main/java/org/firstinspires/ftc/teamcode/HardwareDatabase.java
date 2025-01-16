@@ -11,8 +11,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.betastudio.ftc.client.Clients;
-
 public final class HardwareDatabase {
 	public static DcMotorEx   leftFront;
 	public static DcMotorEx   leftRear;
@@ -111,13 +109,5 @@ public final class HardwareDatabase {
 		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
 		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
 		rightRear.setDirection(DcMotorSimple.Direction.FORWARD);   //R
-	}
-
-	public static void printVoltages() {
-		Clients.generate().changeData("leftFront voltage", getHardwareVoltage("leftFront")).changeData("leftRear voltage", getHardwareVoltage("leftRear")).changeData("rightFront voltage", getHardwareVoltage("rightFront")).changeData("rightRear voltage", getHardwareVoltage("rightRear")).changeData("clip voltage", getHardwareVoltage("clip")).changeData("place voltage", getHardwareVoltage("place")).changeData("claw voltage", getHardwareVoltage("claw")).changeData("rotate voltage", getHardwareVoltage("rotate"));
-	}
-
-	private static double getHardwareVoltage(final String name) {
-		return hardwareMap.voltageSensor.get(name).getVoltage();
 	}
 }

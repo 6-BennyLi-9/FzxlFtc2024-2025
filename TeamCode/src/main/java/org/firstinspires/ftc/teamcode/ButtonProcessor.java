@@ -73,5 +73,4 @@ public final class ButtonProcessor {
 	public String toString() {
 		return "lst:" + lst + ",now:" + now;
 	}
-
 }
