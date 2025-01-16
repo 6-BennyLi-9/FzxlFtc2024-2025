@@ -131,7 +131,7 @@ public class ServoCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void send(@NonNull TelemetryPacket packet) {
+	public void sendToDashboard(@NonNull TelemetryPacket packet) {
 		packet.put(tag + "-target", targetPosition);
 	}
 }

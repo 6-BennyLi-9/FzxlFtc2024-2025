@@ -148,7 +148,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	 * @param packet TelemetryPacket 实例
 	 */
 	@Override
-	public void send(@NonNull TelemetryPacket packet) {
+	public void sendToDashboard(@NonNull TelemetryPacket packet) {
 		packet.put("lift-current", currentPosition); // 发送当前电机位置
 		packet.put("lift-target", targetPosition); // 发送目标电机位置
 	}

@@ -114,7 +114,7 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 
 
 	@Override
-	public void send(@NonNull TelemetryPacket packet) {
+	public void sendToDashboard(@NonNull TelemetryPacket packet) {
 		packet.put("drive-x", pX);
 		packet.put("drive-y", pY);
 		packet.put("drive-turn", pTurn);
