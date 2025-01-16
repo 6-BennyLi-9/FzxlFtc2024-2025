@@ -10,6 +10,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -39,8 +40,8 @@ public class ArmOp implements HardwareController, InitializeRequested, TagOption
 		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);
 		rightArmControl = new ServoCtrl(HardwareDatabase.rightArm, 0.7);
 
-		leftArmControl.setTag("leftArm");
-		rightArmControl.setTag("rightArm");
+		leftArmControl.setTag(Labeler.generate().summonID(leftArmControl));
+		rightArmControl.setTag(Labeler.generate().summonID(rightArmControl));
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -37,7 +38,7 @@ public class PlaceOp implements HardwareController, InitializeRequested, TagOpti
 	public void connect() {
 		placeController = new ServoCtrl(HardwareDatabase.place, 0);
 
-		placeController.setTag("place");
+		placeController.setTag(Labeler.generate().summonID(placeController));
 	}
 
 	@NonNull

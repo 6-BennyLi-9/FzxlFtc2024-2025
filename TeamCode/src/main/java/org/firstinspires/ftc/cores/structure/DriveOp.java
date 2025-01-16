@@ -10,6 +10,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 import org.firstinspires.ftc.teamcode.message.DriveMessage;
@@ -44,7 +45,7 @@ public class DriveOp implements HardwareController, TagOptionsRequired, Instance
 	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);
 
-		chassisCtrl.setTag("chassis");
+		chassisCtrl.setTag(Labeler.generate().summonID(chassisCtrl));
 	}
 
 	@NonNull

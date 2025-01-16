@@ -10,6 +10,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;
@@ -59,7 +60,7 @@ public class LiftOp implements HardwareController, TagOptionsRequired, InstanceR
 	public void connect() {
 		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.lift);
 
-		liftCtrl.setTag("lift");
+		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
 	}
 
 	public void sync(@NonNull final LiftMode option) {

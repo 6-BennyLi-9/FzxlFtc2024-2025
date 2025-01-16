@@ -8,6 +8,7 @@ import org.betastudio.ftc.interfaces.InitializeRequested;
 import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -33,7 +34,7 @@ public class RotateOp implements HardwareController, InitializeRequested, TagOpt
 	public void connect() {
 		rotateController = new ServoCtrl(HardwareDatabase.rotate, 0.79);
 
-		rotateController.setTag("rotate");
+		rotateController.setTag(Labeler.generate().summonID(rotateController));
 	}
 
 	@Override

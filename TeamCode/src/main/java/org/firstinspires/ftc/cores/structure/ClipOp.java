@@ -9,6 +9,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -35,7 +36,7 @@ public class ClipOp implements HardwareController, InitializeRequested, TagOptio
 	public void connect() {
 		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);
 
-		clipControl.setTag("clip");
+		clipControl.setTag(Labeler.generate().summonID(clipControl));
 	}
 
 	@Override

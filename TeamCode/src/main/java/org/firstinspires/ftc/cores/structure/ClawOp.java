@@ -9,6 +9,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -35,7 +36,7 @@ public class ClawOp implements HardwareController, InitializeRequested, TagOptio
 	public void connect() {
 		clawControl = new ServoCtrl(HardwareDatabase.claw, 0);
 
-		clawControl.setTag("claw");
+		clawControl.setTag(Labeler.generate().summonID(clawControl));
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -38,8 +39,8 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);
 		rightScaleController = new ServoCtrl(HardwareDatabase.rightScale, 0.5);
 
-		leftScaleController.setTag("leftScale");
-		rightScaleController.setTag("rightScale");
+		leftScaleController.setTag(Labeler.generate().summonID(leftScaleController));
+		rightScaleController.setTag(Labeler.generate().summonID(rightScaleController));
 	}
 
 	@NonNull
