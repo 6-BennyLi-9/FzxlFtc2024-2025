@@ -1,19 +1,17 @@
 package org.betastudio.ftc.action;
 
-public enum Actions {
-	;
+import androidx.annotation.NonNull;
 
+import org.jetbrains.annotations.Contract;
+
+public final class Actions {
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
-	public static void runAction(final Action actionBlock) {
-		Action recent = actionBlock;
+	public static void runAction(@NonNull final Action actionBlock) {
 		while (true) {
-			if (! recent.run()) {
-				if (recent.next() instanceof FinalNodeAction) {
-					break;
-				}
-				recent = recent.next();
+			if (! actionBlock.run()) {
+				break;
 			}
 		}
 	}
@@ -24,22 +22,22 @@ public enum Actions {
 	 * @see #runAction(Action)
 	 */
 	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds) {
-		Action       recent = actionBlock;
 		final double start  = System.nanoTime() / 1.0e6;
 		while (! (System.nanoTime() / 1.0e6 - start >= allottedMilliseconds)) {
-			if (! recent.run()) {
-				if (recent.next() instanceof FinalNodeAction) {
-					break;
-				}
-				recent = recent.next();
+			if (! actionBlock.run()) {
+				break;
 			}
 		}
 	}
 
+	@NonNull
+	@Contract("_ -> new")
 	public static PriorityAction asPriority(final Action action) {
 		return asPriority(action, 0);
 	}
 
+	@NonNull
+	@Contract("_, _ -> new")
 	public static PriorityAction asPriority(final Action action, final long priorityGrade) {
 		return new PriorityAction() {
 			@Override
@@ -50,11 +48,6 @@ public enum Actions {
 			@Override
 			public boolean run() {
 				return action.run();
-			}
-
-			@Override
-			public Action next() {
-				return action.next();
 			}
 
 			@Override
