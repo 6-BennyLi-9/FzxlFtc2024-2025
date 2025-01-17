@@ -118,7 +118,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void sendTerminateSignal(TerminateReason reason) {
-		sendTerminateSignal(reason, new NullPointerException("UnModified"));
+		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 
 	@Override

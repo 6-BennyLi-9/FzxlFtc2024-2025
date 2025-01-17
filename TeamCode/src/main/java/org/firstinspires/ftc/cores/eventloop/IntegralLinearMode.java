@@ -124,7 +124,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 	@Override
 	public void sendTerminateSignal(TerminateReason reason) {
-		sendTerminateSignal(reason, new NullPointerException("UnModified"));
+		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 
 	@Override
