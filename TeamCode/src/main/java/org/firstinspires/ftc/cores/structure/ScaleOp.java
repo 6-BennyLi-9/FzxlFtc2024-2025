@@ -23,10 +23,6 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 		return instance;
 	}
 
-	public static void setInstance(ScaleOp instance) {
-		ScaleOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);

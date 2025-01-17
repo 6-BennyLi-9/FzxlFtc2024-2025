@@ -21,10 +21,6 @@ public class ClipOp implements HardwareController, InitializeRequested, TagOptio
 		return instance;
 	}
 
-	public static void setInstance(ClipOp instance) {
-		ClipOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);

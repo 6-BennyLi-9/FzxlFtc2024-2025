@@ -23,10 +23,6 @@ public class PlaceOp implements HardwareController, InitializeRequested, TagOpti
 		return instance;
 	}
 
-	public static void setInstance(PlaceOp instance) {
-		PlaceOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		placeController = new ServoCtrl(HardwareDatabase.place, 0);

@@ -33,10 +33,6 @@ public class LiftOp implements HardwareController, TagOptionsRequired {
 		return instance;
 	}
 
-	public static void setInstance(LiftOp instance) {
-		LiftOp.instance = instance;
-	}
-
 	@NonNull
 	@Contract(" -> new")
 	@Override

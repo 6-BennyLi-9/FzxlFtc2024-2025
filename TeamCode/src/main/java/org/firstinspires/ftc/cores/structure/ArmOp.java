@@ -24,10 +24,6 @@ public class ArmOp implements HardwareController, InitializeRequested, TagOption
 		return instance;
 	}
 
-	public static void setInstance(ArmOp instance) {
-		ArmOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);

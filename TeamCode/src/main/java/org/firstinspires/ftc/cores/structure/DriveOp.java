@@ -30,10 +30,6 @@ public class DriveOp implements HardwareController, TagOptionsRequired {
 		return instance;
 	}
 
-	public static void setInstance(DriveOp instance) {
-		DriveOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);

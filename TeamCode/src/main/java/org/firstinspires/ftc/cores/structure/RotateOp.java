@@ -19,10 +19,6 @@ public class RotateOp implements HardwareController, InitializeRequested, TagOpt
 		return instance;
 	}
 
-	public static void setInstance(RotateOp instance) {
-		RotateOp.instance=instance;
-	}
-
 	@Override
 	public void connect() {
 		rotateController = new ServoCtrl(HardwareDatabase.rotate, 0.79);

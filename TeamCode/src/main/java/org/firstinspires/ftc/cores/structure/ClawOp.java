@@ -21,10 +21,6 @@ public class ClawOp implements HardwareController, InitializeRequested, TagOptio
 		return instance;
 	}
 
-	public static void setInstance(ClawOp instance) {
-		ClawOp.instance = instance;
-	}
-
 	@Override
 	public void connect() {
 		clawControl = new ServoCtrl(HardwareDatabase.claw, 0);
