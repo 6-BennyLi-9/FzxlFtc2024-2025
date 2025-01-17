@@ -17,14 +17,14 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController, TagOptionsRequired {
-	public static  DriveMode   config = DriveMode.STRAIGHT_LINEAR;
-	public static  ChassisCtrl chassisCtrl;
-	public static double kP = 0.0001, kI, kD;
+	public static DriveMode   config = DriveMode.STRAIGHT_LINEAR;
+	public static ChassisCtrl chassisCtrl;
+	public static double      kP     = 0.0001, kI, kD;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
-	private static DriveOp     instance;
-	private static double output, targetAngle, currentPowerAngle;
+	public static DriveBufMessage globalMessage = new DriveBufMessage(0.9, 0.9, 1.3);
+	private static       DriveOp      instance;
+	private static       double       output, targetAngle, currentPowerAngle;
 	private static double x, y, turn;
-	public static DriveBufMessage globalMessage=new DriveBufMessage(0.9,0.9,1.3);
 
 	public static DriveOp getInstance() {
 		return instance;
@@ -68,6 +68,10 @@ public class DriveOp implements HardwareController, TagOptionsRequired {
 		}
 	}
 
+	public void sync(final double x, final double y, final double turn) {
+		sync(x, y, turn, new DriveBufMessage(1));
+	}
+
 	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
 		DriveOp.x = x * message.valX;
 		DriveOp.y = y * message.valY;
@@ -76,15 +80,23 @@ public class DriveOp implements HardwareController, TagOptionsRequired {
 		targetAngle += turn * message.valTurn;
 		syncAngle();
 		currentPowerAngle += output;
-		chassisCtrl.send(new DriveMessage(DriveOp.x,DriveOp.y,DriveOp.output));
+		chassisCtrl.send(new DriveMessage(DriveOp.x, DriveOp.y, DriveOp.output));
 	}
 
 	public void additions(final double x, final double y, final double turn) {
 		additions(x, y, turn, new DriveBufMessage(1));
 	}
 
-	public void additions(final double x, final double y, final double turn, final DriveBufMessage message) {
-		sync(DriveOp.x + x, DriveOp.y + y, DriveOp.turn + turn, message);
+	public void additions(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
+		sync(DriveOp.x + x * message.valX, DriveOp.y + y * message.valY, DriveOp.turn + turn * message.valTurn);
+	}
+
+	public void turn(final double turn) {
+		additions(0, 0, turn);
+	}
+
+	public void turn(final double turn, final DriveBufMessage message) {
+		additions(0, 0, turn, message);
 	}
 
 	public void targetAngleRst() {

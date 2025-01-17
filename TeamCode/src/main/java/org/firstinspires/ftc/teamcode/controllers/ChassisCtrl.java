@@ -16,10 +16,11 @@ import java.util.Locale;
 
 @Config
 public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
-	public static double kS = 0.4, kF = - 0.3;
+	public static double kS = 1, kF = - 0.3;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn;
+	private double vX,vY,vTurn;
 	private String tag;
 
 	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear) {
@@ -31,7 +32,6 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 
 	@Override
 	public boolean run() {
-		double vX,vY,vTurn;
 		//defaults:
 		vX=pX;
 		vY=pY;
@@ -52,6 +52,14 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 				break; // 没有指定模式时不做任何调整
 		}
 
+		if (vX+vY+vTurn > 1.2){
+			double buf = vX + vY + vTurn; // 计算缓冲值
+
+			vX /= buf; // 调整 vX 使之不超过 1
+			vY /= buf; // 调整 vY 使之不超过 1
+			vTurn /= buf; // 调整 vTurn 使之不超过 1
+		}
+
 		leftFront.setPower(vY - vX - vTurn); // 设置左前电机功率
 		leftRear.setPower(vY + vX - vTurn); // 设置左后电机功率
 		rightFront.setPower(vY + vX + vTurn); // 设置右前电机功率
@@ -66,7 +74,7 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 	 */
 	@Override
 	public String paramsString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE, "%s:{x:%.3f,y%.4f,heading:%.3f}", tag, pX, pY, pTurn);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%s:{x:%.3f,y%.4f,heading:%.3f}", tag, vX, vY, vTurn);
 	}
 
 	/**

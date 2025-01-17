@@ -69,10 +69,6 @@ public class RobotMng implements Updatable {
 	 * 旋转触发缓冲失败的阈值
 	 */
 	public static final double                           rotateTriggerBufFal = 0.01;
-	/**
-	 * 驱动缓冲功率，用于控制驱动速度
-	 */
-	public static       double                           driveBufPower       = 1;
 	public static       boolean                          sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
@@ -164,7 +160,7 @@ public class RobotMng implements Updatable {
 				ClipOp.getInstance().open();
 			}
 
-			driveBufPower = 1;
+			ChassisCtrl.mode=ChassisCtrlMode.FASTER_CONTROL;
 			LiftOp.getInstance().sync(LiftMode.IDLE);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
@@ -177,8 +173,8 @@ public class RobotMng implements Updatable {
 				LiftOp.getInstance().sync(LiftMode.DECANT_HIGH);
 			}
 
+			ChassisCtrl.mode=ChassisCtrlMode.NONE_SPECIFIED;
 			PlaceOp.getInstance().prepare();
-			driveBufPower = 0.6;
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
@@ -208,7 +204,7 @@ public class RobotMng implements Updatable {
 					break;
 				case 1:
 					Global.threadManager.add(new Thread(() -> {
-						Local.sleep(1000);
+						Local.sleep(500);
 						ClawOp.getInstance().open();
 					}));
 					ArmOp.getInstance().intake();
@@ -248,25 +244,28 @@ public class RobotMng implements Updatable {
 	 */
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
-			if (1 == driveBufPower) {
-				driveBufPower = 0.6;
-				ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
-			} else {
-				driveBufPower = 1;
-				ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
+			switch (ChassisCtrl.mode) {
+				case FASTER_CONTROL:
+					ChassisCtrl.mode=ChassisCtrlMode.SLOWER_CONTROL;
+					break;
+				case NONE_SPECIFIED:
+				case SLOWER_CONTROL:
+				default:
+					ChassisCtrl.mode=ChassisCtrlMode.FASTER_CONTROL;
+					break;
 			}
 		}
 
-		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, new DriveBufMessage(driveBufPower));
+		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
 		if (gamepad1.left_bumper) {
-			DriveOp.getInstance().additions(0, 0, - 0.2);
+			DriveOp.getInstance().turn(- 0.2);
 		}
 		if (gamepad1.right_bumper) {
-			DriveOp.getInstance().additions(0, 0, 0.2);
+			DriveOp.getInstance().turn(0.2);
 		}
 
-		DriveOp.getInstance().additions(0, 0, gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
 
 		if (gamepad1.a) {
 			DriveOp.getInstance().targetAngleRst();
