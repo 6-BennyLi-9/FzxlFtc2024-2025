@@ -35,6 +35,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		Global.runMode = RunMode.AUTONOMOUS;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode = this;
+		Global.client=client;
 		HardwareDatabase.sync(hardwareMap, true);
 
 		drive = new SampleMecanumDrive(hardwareMap);

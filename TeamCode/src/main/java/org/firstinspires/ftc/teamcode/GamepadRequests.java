@@ -7,7 +7,6 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.Clients;
 
 /**
  * gamepad 控制请求的数据库
@@ -120,7 +119,7 @@ public final class GamepadRequests {
 	 * 默认使用 TelemetryClient 实例打印值。
 	 */
 	public static void printValues() {
-		printValues(Clients.generate());
+		printValues(Global.client);
 	}
 	/**
 	 * 打印值

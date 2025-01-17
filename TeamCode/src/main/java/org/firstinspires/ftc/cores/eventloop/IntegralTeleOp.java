@@ -31,6 +31,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.TELEOP;
+		Global.client=client;
 		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 

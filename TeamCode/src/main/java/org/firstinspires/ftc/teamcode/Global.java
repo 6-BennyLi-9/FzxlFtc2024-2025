@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.betastudio.ftc.client.Client;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {
@@ -10,6 +11,7 @@ public final class Global {
 	public  static Gamepad       gamepad1, gamepad2;
 	public  static RunMode       runMode;
 	public  static OpMode        currentOpmode;
+	public  static Client        client;
 	private static boolean       auto_create_monitor = true;
 
 	public static void registerGamepad(Gamepad gamepad1, Gamepad gamepad2) {

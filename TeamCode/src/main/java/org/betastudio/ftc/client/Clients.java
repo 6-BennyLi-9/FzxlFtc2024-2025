@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.jetbrains.annotations.Contract;
 
+@Deprecated
 public final class Clients implements Client , InstanceRequired<Client> {
 	private static Client instance;
 
