@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -15,23 +14,17 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested, TagOptionsRequired, InstanceRequired<PlaceOp> {
+public class PlaceOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static ServoCtrl placeController;
 	private static PlaceOp        instance;
 
-	@Override
-	public PlaceOp getInstance() {
+	public static PlaceOp getInstance() {
 		return instance;
 	}
 
-	@Override
-	public void setInstance(PlaceOp instance) {
+	public static void setInstance(PlaceOp instance) {
 		PlaceOp.instance = instance;
-	}
-
-	public static PlaceOp getOp() {
-		return instance;
 	}
 
 	@Override

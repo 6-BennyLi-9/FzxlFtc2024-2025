@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
 import org.betastudio.ftc.interfaces.InitializeRequested;
-import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ClipPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -13,23 +12,17 @@ import org.firstinspires.ftc.teamcode.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ClipOp implements HardwareController, InitializeRequested, TagOptionsRequired, InstanceRequired<ClipOp> {
+public class ClipOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static  ClipPositions recent = ClipPositions.OPEN;
 	public static  ServoCtrl     clipControl;
 	private static ClipOp        instance;
 
-	@Override
-	public ClipOp getInstance() {
+	public static ClipOp getInstance() {
 		return instance;
 	}
 
-	@Override
-	public void setInstance(ClipOp instance) {
+	public static void setInstance(ClipOp instance) {
 		ClipOp.instance = instance;
-	}
-
-	public static ClipOp getOp() {
-		return instance;
 	}
 
 	@Override

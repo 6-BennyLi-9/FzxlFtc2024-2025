@@ -6,7 +6,6 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.HardwareController;
-import org.betastudio.ftc.interfaces.InstanceRequired;
 import org.betastudio.ftc.interfaces.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -21,7 +20,7 @@ import org.jetbrains.annotations.Contract;
  */
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController, TagOptionsRequired, InstanceRequired<LiftOp> {
+public class LiftOp implements HardwareController, TagOptionsRequired {
 	/**当前的电梯状态*/
 	public static  LiftMode recent = LiftMode.IDLE;
 	/**结构控制器*/
@@ -30,18 +29,12 @@ public class LiftOp implements HardwareController, TagOptionsRequired, InstanceR
 	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
 	private static LiftOp   instance;
 
-	@Override
-	public LiftOp getInstance() {
+	public static LiftOp getInstance() {
 		return instance;
 	}
 
-	@Override
-	public void setInstance(LiftOp instance) {
+	public static void setInstance(LiftOp instance) {
 		LiftOp.instance = instance;
-	}
-
-	public static LiftOp getOp() {
-		return instance;
 	}
 
 	@NonNull
