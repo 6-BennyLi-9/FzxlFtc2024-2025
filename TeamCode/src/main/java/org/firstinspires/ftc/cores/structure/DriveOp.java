@@ -17,14 +17,13 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public class DriveOp implements HardwareController, TagOptionsRequired {
-	public static DriveMode   config = DriveMode.STRAIGHT_LINEAR;
-	public static ChassisCtrl chassisCtrl;
-	public static double      kP     = 0.0001, kI, kD;
+	private static double output, targetAngle, currentPowerAngle, x, y, turn;
+	public static final double kP = 0.0001, kI = 0, kD=0;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
+	public static DriveMode config = DriveMode.STRAIGHT_LINEAR;
+	public static ChassisCtrl chassisCtrl;
 	public static DriveBufMessage globalMessage = new DriveBufMessage(0.9, 0.9, 1.3);
-	private static       DriveOp      instance;
-	private static       double       output, targetAngle, currentPowerAngle;
-	private static double x, y, turn;
+	private static DriveOp instance;
 
 	public static DriveOp getInstance() {
 		return instance;
