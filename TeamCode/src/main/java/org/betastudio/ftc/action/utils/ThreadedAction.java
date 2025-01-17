@@ -1,6 +1,8 @@
 package org.betastudio.ftc.action.utils;
 
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public final class ThreadedAction implements Action {
 	}
 
 
+	@NonNull
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("{");
