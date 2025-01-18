@@ -15,6 +15,9 @@ public final class Actions {
 			}
 		}
 	}
+	public static void runThreadingAction(final Action actionBlock) {
+		new Thread(() -> runAction(actionBlock)).start();
+	}
 
 	/**
 	 * 在规定时间内，如果该 {@code Action} 块仍没有结束，将会强制停止

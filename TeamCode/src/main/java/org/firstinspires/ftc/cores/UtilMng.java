@@ -382,4 +382,14 @@ public class UtilMng {
 	public Thread saveCachedAsThread() {
 		return new Thread(this::runCached);
 	}
+
+	/**
+	 * 会自动清除缓存动作
+	 * @return 将缓存动作打包后的 {@link LinkedAction}
+	 */
+	public Action pack(){
+		LinkedAction res=new LinkedAction(new LinkedList <>(actions));
+		actions.clear();
+		return res;
+	}
 }
