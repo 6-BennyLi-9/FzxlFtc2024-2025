@@ -1,8 +1,14 @@
 package org.betastudio.ftc.client;
 
+import androidx.annotation.NonNull;
+
+import org.betastudio.ftc.telemetry.TelemetryElement;
+import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Item;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Line;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -145,5 +151,16 @@ public class ObjectionClient implements Client {
 	@Override
 	public boolean isUpdateRequested() {
 		return isUpdateRequested;
+	}
+
+	@Override
+	public void sendRequest(@NonNull TelemetryMessage message) {
+		for (TelemetryElement element : message.elements) {
+			if (element instanceof TelemetryLine) {
+				addLine(((TelemetryLine) element).line);
+			} else if (element instanceof TelemetryItem) {
+				addData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
+			}
+		}
 	}
 }

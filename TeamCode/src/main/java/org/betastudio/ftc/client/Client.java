@@ -1,11 +1,13 @@
 package org.betastudio.ftc.client;
 
+import org.betastudio.ftc.interfaces.MessagesProcessRequired;
 import org.betastudio.ftc.interfaces.Updatable;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 /**
  * @noinspection UnusedReturnValue
  */
-public interface Client extends Updatable {
+public interface Client extends Updatable , MessagesProcessRequired <TelemetryMessage> {
 	void clear();
 
 	Client addData(String key, String val);

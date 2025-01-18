@@ -2,7 +2,11 @@ package org.betastudio.ftc.client;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.telemetry.TelemetryElement;
+import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.teamcode.Labeler;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -144,5 +148,16 @@ public class MultiTelemetryClient implements Client {
 			res=res||entry.getValue().isUpdateRequested();
 		}
 		return res;
+	}
+
+	@Override
+	public void sendRequest(@NonNull TelemetryMessage message) {
+		for (TelemetryElement element : message.elements) {
+			if (element instanceof TelemetryLine) {
+				addLine(((TelemetryLine) element).line);
+			} else if (element instanceof TelemetryItem) {
+				addData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
+			}
+		}
 	}
 }

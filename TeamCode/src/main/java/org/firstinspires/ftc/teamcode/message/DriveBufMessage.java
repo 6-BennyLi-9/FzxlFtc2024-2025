@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.message;
 
-public class DriveBufMessage {
-	public double valX, valY, valTurn;
+public class DriveBufMessage implements Message {
+	public final double valX, valY, valTurn;
 
 	public DriveBufMessage(double valX, double valY, double valTurn){
 		this.valX = valX;

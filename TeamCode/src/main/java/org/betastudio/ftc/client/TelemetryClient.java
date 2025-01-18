@@ -2,12 +2,18 @@ package org.betastudio.ftc.client;
 
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.client.dashboard.DashTelemetry;
+import org.betastudio.ftc.telemetry.TelemetryElement;
+import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Timer;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -288,6 +294,17 @@ public class TelemetryClient implements Client {
 				}
 			}
 			this.telemetry.update();
+		}
+	}
+
+	@Override
+	public void sendRequest(@NonNull TelemetryMessage message) {
+		for (TelemetryElement element : message.elements) {
+			if (element instanceof TelemetryLine) {
+				addLine(((TelemetryLine) element).line);
+			} else if (element instanceof TelemetryItem) {
+				addData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
+			}
 		}
 	}
 }
