@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.client.dashboard.DashTelemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Timer;
