@@ -16,7 +16,7 @@ import java.util.Locale;
 
 @Config
 public strictfp class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
-	public static double kS = 1, kF = - 0.3,maxControlPower=1.2,smoothConfig=0.8;
+	public static double kS = 1, kF = - 1,maxControlPower=1.3,smoothConfig=0.9;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn, vX, vY, vTurn;
@@ -156,12 +156,12 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	}
 
 	@Override
-	public void send(@NonNull DriveMessage message) {
+	public void sendRequest(@NonNull DriveMessage message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
 	@Override
-	public DriveMessage send() {
+	public DriveMessage call() {
 		return new DriveMessage(pX, pY, pTurn);
 	}
 }
