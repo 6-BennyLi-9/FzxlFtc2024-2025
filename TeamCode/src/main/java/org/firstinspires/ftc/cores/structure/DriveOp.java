@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.message.DriveMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public class DriveOp implements HardwareController, TagOptionsRequired {
+public strictfp class DriveOp implements HardwareController, TagOptionsRequired {
 	private static double output, targetAngle, currentPowerAngle, x, y, turn;
 	public static final double kP = 0.0001, kI = 0, kD=0;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);

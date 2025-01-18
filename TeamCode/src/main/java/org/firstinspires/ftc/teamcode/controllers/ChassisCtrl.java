@@ -15,12 +15,11 @@ import org.firstinspires.ftc.teamcode.message.DriveMessage;
 import java.util.Locale;
 
 @Config
-public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
-	public static double kS = 1, kF = - 0.3;
+public strictfp class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
+	public static double kS = 1, kF = - 0.3,maxControlPower=1.2,smoothConfig=0.8;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
-	private double pX, pY, pTurn;
-	private double vX,vY,vTurn;
+	private double pX, pY, pTurn, vX, vY, vTurn;
 	private String tag;
 
 	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear) {
@@ -52,18 +51,28 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 				break; // 没有指定模式时不做任何调整
 		}
 
-		if (vX+vY+vTurn > 1.2){
-			double buf = vX + vY + vTurn; // 计算缓冲值
+		double pLF=vY-vX-vTurn;
+		double pLR=vY+vX-vTurn;
+		double pRF=vY+vX+vTurn;
+		double pRR=vY-vX+vTurn;
 
-			vX /= buf; // 调整 vX 使之不超过 1
-			vY /= buf; // 调整 vY 使之不超过 1
-			vTurn /= buf; // 调整 vTurn 使之不超过 1
+		if (Math.abs(pLF)>maxControlPower || Math.abs(pLR)>maxControlPower || Math.abs(pRF)>maxControlPower || Math.abs(pRR)>maxControlPower){
+			double buf = Math.max(Math.max(Math.abs(pLF), Math.abs(pLR)), Math.max(Math.abs(pRF), Math.abs(pRR))) / maxControlPower;
+			pLF /= buf;
+			pLR /= buf;
+			pRF /= buf;
+			pRR /= buf;
 		}
+//		leftFront.setPower(pLF); // 设置左前电机功率
+//		leftRear.setPower(pLR); // 设置左后电机功率
+//		rightFront.setPower(pRF); // 设置右前电机功率
+//		rightRear.setPower(pRR); // 设置右后电机功率
 
-		leftFront.setPower(vY - vX - vTurn); // 设置左前电机功率
-		leftRear.setPower(vY + vX - vTurn); // 设置左后电机功率
-		rightFront.setPower(vY + vX + vTurn); // 设置右前电机功率
-		rightRear.setPower(vY - vX + vTurn); // 设置右后电机功率
+		setDcMotorPowerSmooth(leftFront,pLF,smoothConfig);
+		setDcMotorPowerSmooth(leftRear,pLR,smoothConfig);
+		setDcMotorPowerSmooth(rightFront,pRF,smoothConfig);
+		setDcMotorPowerSmooth(rightRear,pRR,smoothConfig);
+
 		return true; // 总是返回 true，表示运行成功
 	}
 
@@ -134,12 +143,16 @@ public class ChassisCtrl implements Action, DashboardCallable , MessagesProcessR
 	 * @param k   a
 	 * @return    处理后的函数值
 	 */
-	private double resolveFunc(double val, double k) {
+	private static double resolveFunc(double val, double k) {
 		double result = k * val * val + (1 - k) * val;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
 		}
 		return result;
+	}
+	public static void setDcMotorPowerSmooth(@NonNull DcMotorEx motor, double power, double smoothConfig){
+		double delta=power-motor.getPower();
+		motor.setPower(motor.getPower()+delta*smoothConfig);
 	}
 
 	@Override
