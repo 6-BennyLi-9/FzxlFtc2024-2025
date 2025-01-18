@@ -34,13 +34,13 @@ import java.util.LinkedList;
  * @see RobotMng
  */
 @SuppressWarnings({"UnusedReturnValue"})
-public class UtilMng {
+public class UtilsMng {
 	private final LinkedList <Action> actions;
 
 	/**
 	 * 构造函数，初始化actions列表并调用设备初始化方法。
 	 */
-	public UtilMng() {
+	public UtilsMng() {
 		actions = new LinkedList <>();
 		deviceInit();
 	}
@@ -59,7 +59,7 @@ public class UtilMng {
 	 * @param waitMillis 等待的毫秒数
 	 * @return 当前对象
 	 */
-	public UtilMng waitMs(final long waitMillis) {
+	public UtilsMng waitMs(final long waitMillis) {
 		actions.add(new SleepingAction(waitMillis));
 		return this;
 	}
@@ -70,7 +70,7 @@ public class UtilMng {
 	 * @param action 要添加的动作
 	 * @return 当前对象
 	 */
-	public UtilMng addAction(final Action action) {
+	public UtilsMng addAction(final Action action) {
 		actions.add(action);
 		return this;
 	}
@@ -81,7 +81,7 @@ public class UtilMng {
 	 * @param r Runnable对象，代表要执行的语句
 	 * @return 当前对象
 	 */
-	public UtilMng addStatement(Runnable r) {
+	public UtilsMng addStatement(Runnable r) {
 		actions.add(new StatementAction(r));
 		return this;
 	}
@@ -92,7 +92,7 @@ public class UtilMng {
 	 * @param t 要等待的线程
 	 * @return 当前对象
 	 */
-	public UtilMng joinThread(Thread t) {
+	public UtilsMng joinThread(Thread t) {
 		actions.add(new StatementAction(() -> Local.waitForVal(t::isInterrupted, true)));
 		return this;
 	}
@@ -112,7 +112,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng rotateToMid() {
+	public UtilsMng rotateToMid() {
 		actions.add(new StatementAction(() -> rotate.setPosition(0.79)));
 		return this;
 	}
@@ -123,7 +123,7 @@ public class UtilMng {
 	 * @param positionVal 要增加的位置值
 	 * @return 当前对象
 	 */
-	public UtilMng rotateRightTurn(final double positionVal) {
+	public UtilsMng rotateRightTurn(final double positionVal) {
 		actions.add(new StatementAction(() -> rotate.setPosition(rotate.getPosition() + positionVal)));
 		return this;
 	}
@@ -133,7 +133,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng decant() {
+	public UtilsMng decant() {
 		actions.add(new StatementAction(() -> place.setPosition(1)));
 		return this;
 	}
@@ -143,7 +143,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng boxRst() {
+	public UtilsMng boxRst() {
 		actions.add(new StatementAction(() -> place.setPosition(0)));
 		return this;
 	}
@@ -153,7 +153,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng openClip() {
+	public UtilsMng openClip() {
 		actions.add(new StatementAction(() -> clip.setPosition(0)));
 		return this;
 	}
@@ -163,7 +163,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng closeClip() {
+	public UtilsMng closeClip() {
 		actions.add(new StatementAction(() -> clip.setPosition(0.5)));
 		return this;
 	}
@@ -173,7 +173,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng closeClaw() {
+	public UtilsMng closeClaw() {
 		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
 		return this;
 	}
@@ -183,7 +183,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng openClaw() {
+	public UtilsMng openClaw() {
 		actions.add(new StatementAction(() -> claw.setPosition(0.66)));
 		return this;
 	}
@@ -193,7 +193,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng displayArms() {
+	public UtilsMng displayArms() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
 		return this;
 	}
@@ -203,7 +203,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng armsIDLE() {
+	public UtilsMng armsIDLE() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 		return this;
 	}
@@ -213,7 +213,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng armsToSafePosition() {
+	public UtilsMng armsToSafePosition() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 		return this;
 	}
@@ -223,7 +223,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng scalesProbe() {
+	public UtilsMng scalesProbe() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.5)), new StatementAction(() -> rightScale.setPosition(1))));
 		return this;
 	}
@@ -233,7 +233,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng scalesBack() {
+	public UtilsMng scalesBack() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0.5))));
 		return this;
 	}
@@ -244,7 +244,7 @@ public class UtilMng {
 	 * @param rightScalePosition 右侧秤臂的目标位置
 	 * @return 当前对象
 	 */
-	public UtilMng scaleOperate(double rightScalePosition) {
+	public UtilsMng scaleOperate(double rightScalePosition) {
 		rightScalePosition = Math.max(rightScalePosition, 0.58);
 		final double finalRightScalePosition = rightScalePosition;
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1.5 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
@@ -266,7 +266,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftDown() {
+	public UtilsMng liftDown() {
 		actions.add(liftControllerGenerator(0));
 		return this;
 	}
@@ -276,7 +276,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftDecantHigh() {
+	public UtilsMng liftDecantHigh() {
 		actions.add(liftControllerGenerator(LiftOp.decantHigh));
 		return this;
 	}
@@ -286,7 +286,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftDecantLow() {
+	public UtilsMng liftDecantLow() {
 		actions.add(liftControllerGenerator(LiftOp.decantLow));
 		return this;
 	}
@@ -296,7 +296,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftSuspendHighPrepare() {
+	public UtilsMng liftSuspendHighPrepare() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
 		return this;
 	}
@@ -306,7 +306,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftSuspendHigh() {
+	public UtilsMng liftSuspendHigh() {
 		actions.add(liftControllerGenerator(LiftOp.highSuspend));
 		return this;
 	}
@@ -316,7 +316,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng liftSuspendLv1() {
+	public UtilsMng liftSuspendLv1() {
 		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
 		return this;
 	}
@@ -326,7 +326,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng integralIntakes() {
+	public UtilsMng integralIntakes() {
 		return openClaw().rotateToMid();
 	}
 
@@ -335,7 +335,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng integralIntakesEnding() {
+	public UtilsMng integralIntakesEnding() {
 		return boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
 	}
 
@@ -344,7 +344,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng integralLiftUpPrepare() {
+	public UtilsMng integralLiftUpPrepare() {
 		return armsToSafePosition();
 	}
 
@@ -353,7 +353,7 @@ public class UtilMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilMng integralLiftDownPrepare() {
+	public UtilsMng integralLiftDownPrepare() {
 		return boxRst().armsToSafePosition();
 	}
 

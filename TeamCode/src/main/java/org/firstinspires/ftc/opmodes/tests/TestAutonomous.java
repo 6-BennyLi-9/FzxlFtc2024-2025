@@ -10,7 +10,7 @@ import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 public final class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		//		utils = new UtilMng();
+		//		utils = new UtilsMng();
 		utils.armsToSafePosition().runCached();
 	}
 

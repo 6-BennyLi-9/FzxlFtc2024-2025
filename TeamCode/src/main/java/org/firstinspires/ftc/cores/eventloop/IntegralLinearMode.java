@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.DashTelemetry;
+import org.betastudio.ftc.client.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
-import org.firstinspires.ftc.cores.UtilMng;
+import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
@@ -25,7 +25,7 @@ import java.util.Objects;
 public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadAdditions {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
-	public    UtilMng            utils;
+	public    UtilsMng           utils;
 	public    Timer              timer;
 	protected boolean            is_terminate_method_called;
 	protected Exception          inlineUncaughtException = null;
@@ -43,7 +43,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		telemetry.setAutoClear(true);
 		client = new TelemetryClient(telemetry);
 		client.setAutoUpdate(true);
-		utils = new UtilMng();
+		utils = new UtilsMng();
 		timer = new Timer();
 
 		Global.threadManager.add("linear", getLinearThread());
