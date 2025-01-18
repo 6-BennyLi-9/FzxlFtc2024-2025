@@ -3,7 +3,7 @@ package org.betastudio.ftc.client;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 
-public class InfinityLoopAction implements Action, ThreadAdditions {
+public final class InfinityLoopAction implements Action, ThreadAdditions {
 	private final Runnable runnable;
 	private       boolean  interrupted;
 
