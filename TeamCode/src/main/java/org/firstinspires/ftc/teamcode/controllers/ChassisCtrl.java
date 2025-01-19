@@ -17,7 +17,7 @@ import java.util.Locale;
 
 @Config
 public strictfp class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
-	public static double kS = 1, kF = - 1,maxControlPower=1.3,smoothConfig=0.9;
+	public static double kS = 1, kF = - 1,maxControlPower=1.3,smoothConfig=0.9,vS=0.4;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
 	private double pX, pY, pTurn, vX, vY, vTurn;
@@ -43,9 +43,9 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 				vTurn = resolveFunc(pTurn, kF); // 使用快速控制模式调整 pTurn
 				break;
 			case SLOWER_CONTROL:
-				vX = resolveFunc(pX, kS); // 使用慢速控制模式调整 pX
-				vY = resolveFunc(pY, kS); // 使用慢速控制模式调整 pY
-				vTurn = resolveFunc(pTurn, kS); // 使用慢速控制模式调整 pTurn
+				vX = resolveFunc(pX, kS) * vS; // 使用慢速控制模式调整 pX
+				vY = resolveFunc(pY, kS) * vS; // 使用慢速控制模式调整 pY
+				vTurn = resolveFunc(pTurn, kS * vS); // 使用慢速控制模式调整 pTurn
 				break;
 			case NONE_SPECIFIED:
 			default:

@@ -57,17 +57,17 @@ import java.util.Map;
 @Config
 public class RobotMng implements Updatable {
 	/**
-	 * 驱动杆缓冲阈值
-	 */
-	public static final double                           driverTriggerBufFal = 0.5;
-	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
 	public static final String                           printCode           = "-\\|/";
 	/**
+	 * 驱动杆缓冲阈值
+	 */
+	public static       double                           driverTriggerBufFal = 0.2;
+	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double                           rotateTriggerBufFal = 0.01;
+	public static       double                           rotateTriggerBufFal = 0.01;
 	public static       boolean                          sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
@@ -159,7 +159,7 @@ public class RobotMng implements Updatable {
 				ClipOp.getInstance().open();
 			}
 
-			ChassisCtrl.mode=ChassisCtrlMode.FASTER_CONTROL;
+			ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
 			LiftOp.getInstance().sync(LiftMode.IDLE);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
@@ -172,7 +172,7 @@ public class RobotMng implements Updatable {
 				LiftOp.getInstance().sync(LiftMode.DECANT_HIGH);
 			}
 
-			ChassisCtrl.mode=ChassisCtrlMode.NONE_SPECIFIED;
+			ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
 			PlaceOp.getInstance().prepare();
 		} else if (liftHighSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
@@ -245,12 +245,12 @@ public class RobotMng implements Updatable {
 		if (highLowSpeedConfigChange.getEnabled()) {
 			switch (ChassisCtrl.mode) {
 				case FASTER_CONTROL:
-					ChassisCtrl.mode=ChassisCtrlMode.SLOWER_CONTROL;
+					ChassisCtrl.mode = ChassisCtrlMode.SLOWER_CONTROL;
 					break;
 				case NONE_SPECIFIED:
 				case SLOWER_CONTROL:
 				default:
-					ChassisCtrl.mode=ChassisCtrlMode.FASTER_CONTROL;
+					ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
 					break;
 			}
 		}
