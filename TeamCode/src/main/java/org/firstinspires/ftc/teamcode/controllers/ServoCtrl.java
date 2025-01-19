@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
+import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.Locale;
 
@@ -131,7 +132,7 @@ public class ServoCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void sendToDashboard(@NonNull TelemetryPacket packet) {
-		packet.put(tag + "-target", targetPosition);
+	public void process(@NonNull TelemetryMessage messageOverride) {
+		messageOverride.add(new TelemetryItem(tag+"-target",targetPosition));
 	}
 }

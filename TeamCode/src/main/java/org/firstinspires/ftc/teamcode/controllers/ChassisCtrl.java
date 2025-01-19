@@ -3,14 +3,15 @@ package org.firstinspires.ftc.teamcode.controllers;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.betastudio.ftc.interfaces.MessagesProcessRequired;
+import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
 import org.firstinspires.ftc.teamcode.message.DriveMessage;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.Locale;
 
@@ -130,13 +131,6 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	}
 
 
-	@Override
-	public void sendToDashboard(@NonNull TelemetryPacket packet) {
-		packet.put("drive-x", pX);
-		packet.put("drive-y", pY);
-		packet.put("drive-turn", pTurn);
-	}
-
 	/**
 	 * 处理二次函数方程，将输入值映射到 [-1, 1] 范围内。
 	 * @param val x
@@ -163,5 +157,12 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	@Override
 	public DriveMessage call() {
 		return new DriveMessage(pX, pY, pTurn);
+	}
+
+	@Override
+	public void process(@NonNull TelemetryMessage messageOverride) {
+		messageOverride.add(new TelemetryItem("vX",vX));
+		messageOverride.add(new TelemetryItem("vY",vY));
+		messageOverride.add(new TelemetryItem("vTurn",vTurn));
 	}
 }

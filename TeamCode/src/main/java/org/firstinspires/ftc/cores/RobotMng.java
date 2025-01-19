@@ -15,9 +15,7 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.PriorityAction;
@@ -47,6 +45,7 @@ import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -288,7 +287,7 @@ public class RobotMng implements Updatable {
 
 	public void printActions() {
 		++ updateTime;
-		TelemetryPacket packet = new TelemetryPacket();
+		TelemetryMessage message = new TelemetryMessage();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 
@@ -298,10 +297,10 @@ public class RobotMng implements Updatable {
 			final PriorityAction a = entry.getValue();
 			client.changeData(s, updateCode + a.paramsString());
 			if (sendTelemetryPackets && a instanceof DashboardCallable) {
-				((DashboardCallable) a).sendToDashboard(packet);
+				((DashboardCallable) a).process(message);
 			}
 		}
-		FtcDashboard.getInstance().sendTelemetryPacket(packet);
+		client.sendRequest(message);
 	}
 
 	public void printIMUVariables() {

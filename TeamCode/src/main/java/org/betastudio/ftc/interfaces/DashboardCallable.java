@@ -2,8 +2,8 @@ package org.betastudio.ftc.interfaces;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 public interface DashboardCallable {
-	void sendToDashboard(@NonNull TelemetryPacket packet);
+	void process(@NonNull TelemetryMessage messageOverride);
 }

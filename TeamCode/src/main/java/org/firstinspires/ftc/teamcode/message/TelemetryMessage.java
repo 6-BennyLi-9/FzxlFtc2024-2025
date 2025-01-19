@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.message;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.telemetry.TelemetryElement;
 
 import java.util.Set;
@@ -17,5 +19,9 @@ public class TelemetryMessage implements Message{
 
 	public void add(TelemetryElement element) {
 		elements.add(element);
+	}
+
+	public void add(@NonNull TelemetryMessage message){
+		elements.addAll(message.elements);
 	}
 }

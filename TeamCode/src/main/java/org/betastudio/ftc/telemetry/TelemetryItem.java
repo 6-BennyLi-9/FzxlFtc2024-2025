@@ -12,6 +12,9 @@ public class TelemetryItem implements TelemetryElement{
 		this.capital = capital;
 		this.value = value;
 	}
+	public TelemetryItem(String capital, @NonNull Object value) {
+		this(capital, value.toString());
+	}
 
 	@Override
 	public void push(@NonNull Telemetry telemetry) {
