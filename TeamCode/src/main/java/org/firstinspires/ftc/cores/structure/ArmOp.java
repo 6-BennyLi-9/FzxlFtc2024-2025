@@ -58,12 +58,12 @@ public class ArmOp implements HardwareController, InitializeRequested, TagOption
 
 	public void intake() {
 		recent = ArmPositions.INTAKE;
-		manage(0.11);
+		manage(0.1);
 	}
 
 	public void idle() {
 		recent = ArmPositions.IDLE;
-		manage(0.79);
+		manage(0.8);
 	}
 
 	public void safe() {
