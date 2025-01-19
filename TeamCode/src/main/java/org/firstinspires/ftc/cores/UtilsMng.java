@@ -14,6 +14,8 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
 
+import static java.lang.Math.*;
+
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.LinkedAction;
@@ -224,7 +226,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng scalesProbe() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.5)), new StatementAction(() -> rightScale.setPosition(1))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.65)), new StatementAction(() -> rightScale.setPosition(0.35))));
 		return this;
 	}
 
@@ -234,7 +236,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng scalesBack() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0.5))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0))));
 		return this;
 	}
 
@@ -245,9 +247,9 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng scaleOperate(double rightScalePosition) {
-		rightScalePosition = Math.max(rightScalePosition, 0.58);
+		rightScalePosition = min(0.35,max(rightScalePosition, 0));
 		final double finalRightScalePosition = rightScalePosition;
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1.5 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 		return this;
 	}
 

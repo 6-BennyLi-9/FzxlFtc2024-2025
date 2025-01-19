@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.cores.structure;
 
+import static java.lang.Math.*;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
@@ -45,14 +47,14 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 	}
 
 	public void manage(double position) {
-		position = Math.max(position, 0.5);
-		leftScaleController.setTargetPosition(1.5 - position);
+		position = min(max(position, 0),0.35);
+		leftScaleController.setTargetPosition(1 - position);
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
-		position = Math.min(Math.max(position, 0.5), 1);
-		leftScaleController.setTargetPositionTolerance(1.5 - position, smooth);
+		position = min(max(position, 0),0.35);
+		leftScaleController.setTargetPositionTolerance(1 - position, smooth);
 		rightScaleController.setTargetPositionTolerance(position, smooth);
 	}
 
@@ -71,12 +73,12 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 
 	public void probe() {
 		recent = ScalePositions.PROBE;
-		manage(1);
+		manage(0.35);
 	}
 
 	public void back() {
 		recent = ScalePositions.BACK;
-		manage(0.5);
+		manage(0);
 	}
 
 	public void operate(final double position) {

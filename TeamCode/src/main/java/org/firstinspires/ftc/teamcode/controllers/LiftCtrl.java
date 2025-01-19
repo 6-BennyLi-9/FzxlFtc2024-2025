@@ -2,13 +2,14 @@ package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
+import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 
 /**
  * LiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
@@ -142,14 +143,9 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 		this.infinityRun = false; // 设置无限运行模式为 false
 	}
 
-	/**
-	 * 将当前控制器的状态发送到 TelemetryPacket。
-	 *
-	 * @param packet TelemetryPacket 实例
-	 */
 	@Override
-	public void sendToDashboard(@NonNull TelemetryPacket packet) {
-		packet.put("lift-current", currentPosition); // 发送当前电机位置
-		packet.put("lift-target", targetPosition); // 发送目标电机位置
+	public void process(@NonNull TelemetryMessage messageOverride) {
+		messageOverride.add(new TelemetryItem("lift-current", currentPosition)); // 发送当前电机位置
+		messageOverride.add(new TelemetryItem("lift-target", targetPosition)); // 发送目标电机位置
 	}
 }

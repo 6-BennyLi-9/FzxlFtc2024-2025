@@ -218,7 +218,7 @@ public class RobotMng implements Updatable {
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + 0.8);
+				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.1 + 0.2);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
