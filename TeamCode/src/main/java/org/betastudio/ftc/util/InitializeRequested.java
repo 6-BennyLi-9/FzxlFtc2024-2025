@@ -1,4 +1,4 @@
-package org.betastudio.ftc.interfaces;
+package org.betastudio.ftc.util;
 
 public interface InitializeRequested {
 	void init();

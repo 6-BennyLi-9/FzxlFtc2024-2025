@@ -2,7 +2,7 @@ package org.betastudio.ftc.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.interfaces.MessagesProcessRequired;
+import org.betastudio.ftc.util.MessagesProcessRequired;
 import org.betastudio.ftc.message.TelemetryMessage;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 

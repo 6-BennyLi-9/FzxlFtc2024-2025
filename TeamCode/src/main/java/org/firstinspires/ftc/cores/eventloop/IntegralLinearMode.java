@@ -11,7 +11,7 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.BaseMapClient;
-import org.betastudio.ftc.interfaces.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadAdditions;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;

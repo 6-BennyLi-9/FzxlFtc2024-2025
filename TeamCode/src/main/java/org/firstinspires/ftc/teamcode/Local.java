@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.interfaces.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadAdditions;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;

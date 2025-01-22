@@ -1,7 +1,7 @@
 package org.betastudio.ftc.client;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.interfaces.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadAdditions;
 
 public final class InfinityLoopAction implements Action, ThreadAdditions {
 	private final Runnable runnable;

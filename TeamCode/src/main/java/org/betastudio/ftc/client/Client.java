@@ -1,7 +1,7 @@
 package org.betastudio.ftc.client;
 
-import org.betastudio.ftc.interfaces.MessagesProcessRequired;
-import org.betastudio.ftc.interfaces.Updatable;
+import org.betastudio.ftc.util.MessagesProcessRequired;
+import org.betastudio.ftc.util.Updatable;
 import org.betastudio.ftc.message.TelemetryMessage;
 
 /**

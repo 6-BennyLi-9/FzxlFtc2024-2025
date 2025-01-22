@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.interfaces.DashboardCallable;
+import org.betastudio.ftc.util.DashboardCallable;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.message.TelemetryMessage;
 
