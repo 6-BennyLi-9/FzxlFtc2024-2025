@@ -12,7 +12,7 @@ import org.betastudio.ftc.interfaces.Updatable;
 import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.telemetry.TelemetryLine;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 import org.jetbrains.annotations.Contract;
 
 import java.util.HashSet;

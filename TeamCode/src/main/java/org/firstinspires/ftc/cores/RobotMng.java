@@ -44,8 +44,8 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
-import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.DriveBufMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;

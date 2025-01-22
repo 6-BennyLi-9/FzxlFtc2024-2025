@@ -8,7 +8,7 @@ import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Item;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Line;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;

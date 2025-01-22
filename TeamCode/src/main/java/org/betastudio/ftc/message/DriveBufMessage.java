@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.message;
+package org.betastudio.ftc.message;
 
 public class DriveBufMessage implements Message {
 	public final double valX, valY, valTurn;

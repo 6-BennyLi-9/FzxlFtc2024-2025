@@ -6,7 +6,7 @@ import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.teamcode.Labeler;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.HashMap;
 import java.util.Map;

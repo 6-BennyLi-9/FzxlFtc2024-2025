@@ -9,9 +9,9 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.interfaces.DashboardCallable;
 import org.betastudio.ftc.interfaces.MessagesProcessRequired;
 import org.betastudio.ftc.telemetry.TelemetryItem;
-import org.firstinspires.ftc.teamcode.message.DriveBufMessage;
-import org.firstinspires.ftc.teamcode.message.DriveMessage;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.DriveBufMessage;
+import org.betastudio.ftc.message.DriveMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.Locale;
 

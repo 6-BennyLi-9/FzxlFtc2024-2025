@@ -13,7 +13,7 @@ import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Timer;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -233,11 +233,6 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	@Override
-	public boolean isUpdateRequested() {
-		return isUpdateRequested;
-	}
-
 	protected synchronized void updateThreadLines() {
 		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
 			final String key   = entry.getKey();
@@ -248,18 +243,19 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateTelemetryLines() {
-		if (sortDataInTelemetryClientUpdate) {
+		if (sortDataInTelemetryClientUpdate) {//Deprecated
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
 				final String  key = i.getKey();
 				final String  val = i.getValue().first;
 				final Integer id  = i.getValue().second;
-				if (! Objects.equals(i.getValue().first, "")) {//line
+				if (! Objects.equals(i.getValue().first, "")) {
 					outputData.add(new Pair <>(id, new Pair <>(key, val)));
 				} else {//line
 					outputData.add(new Pair <>(id, new Pair <>(key, null)));
 				}
 			}
+
 			outputData.sort(Comparator.comparingInt(x -> x.first));
 
 			for (int i = 0 ; i < outputData.size() ; i++) {
@@ -314,5 +310,10 @@ public class BaseMapClient implements Client {
 				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}
 		}
+	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		return isUpdateRequested;
 	}
 }

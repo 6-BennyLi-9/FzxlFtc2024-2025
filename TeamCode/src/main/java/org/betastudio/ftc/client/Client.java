@@ -2,7 +2,7 @@ package org.betastudio.ftc.client;
 
 import org.betastudio.ftc.interfaces.MessagesProcessRequired;
 import org.betastudio.ftc.interfaces.Updatable;
-import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
+import org.betastudio.ftc.message.TelemetryMessage;
 
 /**
  * @noinspection UnusedReturnValue
