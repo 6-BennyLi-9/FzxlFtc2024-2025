@@ -23,6 +23,7 @@ public class Atom<T>{
 		return this.val = val;
 	}
 
+	@Deprecated
 	public T getAndSet(final T val){
 		final T oldVal = this.val;
 		this.val = val;

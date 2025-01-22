@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /** @noinspection deprecation*/
+@Deprecated
 public class MultiMotor implements DcMotorEx {
 	private final Set<DcMotorEx> motors;
 
