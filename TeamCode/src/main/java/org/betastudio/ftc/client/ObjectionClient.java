@@ -30,7 +30,7 @@ public class ObjectionClient implements Client {
 	
 	@Override
 	public void clear() {
-		telemetry.clear();
+		telemetry.clearAll();
 		data.clear();
 		line.clear();
 	}
