@@ -45,10 +45,6 @@ public final class CoreDatabase {
 	 */
 	public static boolean last_is_autonomous;
 
-	/**
-	 * 静态初始化块，用于设置默认值。
-	 * 设置 pose 为 null，orientation 为新的 Orientation 对象，last_terminateReason 为 NATURALLY_SHUT_DOWN，autonomous_time_used 为 -1。
-	 */
 	static {
 		pose = null;
 		orientation = new Orientation();

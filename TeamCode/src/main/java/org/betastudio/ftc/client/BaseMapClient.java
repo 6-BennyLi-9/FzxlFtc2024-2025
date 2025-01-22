@@ -25,7 +25,7 @@ import java.util.Vector;
  * @noinspection UnusedReturnValue
  */
 @Config
-public class TelemetryClient implements Client {
+public class BaseMapClient implements Client {
 	public static  ViewMode viewMode;
 	public static  boolean  sortDataInTelemetryClientUpdate = true;
 	public static  boolean  debug_mode;
@@ -41,7 +41,7 @@ public class TelemetryClient implements Client {
 	protected       int                                  ID;
 	private         boolean                              autoUpdate;
 
-	public TelemetryClient(final Telemetry telemetry) {
+	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
 		lstUpdateTimer.restart();
@@ -190,7 +190,7 @@ public class TelemetryClient implements Client {
 
 	@Override
 	public void configViewMode(final ViewMode viewMode) {
-		TelemetryClient.viewMode = viewMode;
+		BaseMapClient.viewMode = viewMode;
 	}
 
 	@Override
@@ -221,7 +221,7 @@ public class TelemetryClient implements Client {
 				updateThreadLines();
 				break;
 			case LOG:
-				throw new UnsupportedOperationException("TelemetryClient doesn't support log view now!");
+				throw new UnsupportedOperationException("BaseMapClient doesn't support log view now!");
 		}
 	}
 

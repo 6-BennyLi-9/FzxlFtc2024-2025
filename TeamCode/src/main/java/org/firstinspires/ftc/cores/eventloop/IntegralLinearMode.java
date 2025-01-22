@@ -10,7 +10,7 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.dashboard.DashTelemetry;
-import org.betastudio.ftc.client.TelemetryClient;
+import org.betastudio.ftc.client.BaseMapClient;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
@@ -41,7 +41,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		drive = new SampleMecanumDrive(hardwareMap);
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
-		client = new TelemetryClient(telemetry);
+		client = new BaseMapClient(telemetry);
 		client.setAutoUpdate(true);
 		utils = new UtilsMng();
 		timer = new Timer();

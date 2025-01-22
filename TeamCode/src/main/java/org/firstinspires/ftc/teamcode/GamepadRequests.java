@@ -116,7 +116,7 @@ public final class GamepadRequests {
 	/**
 	 * 打印值
 	 * <p>
-	 * 默认使用 TelemetryClient 实例打印值。
+	 * 默认使用 BaseMapClient 实例打印值。
 	 */
 	public static void printValues() {
 		printValues(Global.client);
