@@ -259,6 +259,8 @@ public class BaseMapClient implements Client {
 
 	protected synchronized void updateLogLines(@NonNull final FtcLogTunnel type) {
 		send(type.call());
+
+		this.telemetry.update();
 	}
 
 	@Override
