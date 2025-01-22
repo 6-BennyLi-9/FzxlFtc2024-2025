@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.message.TelemetryMessage;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class MultiTelemetryClient implements Client {
 	private final Map <String, Client> clients = new HashMap <>();
 	private final Labeler              labeler = new Labeler();
