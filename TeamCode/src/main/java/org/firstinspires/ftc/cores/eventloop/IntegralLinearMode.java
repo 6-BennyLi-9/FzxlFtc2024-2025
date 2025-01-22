@@ -11,7 +11,7 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.BaseMapClient;
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.Objects;
 
-public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadAdditions {
+public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
 	public    UtilsMng           utils;

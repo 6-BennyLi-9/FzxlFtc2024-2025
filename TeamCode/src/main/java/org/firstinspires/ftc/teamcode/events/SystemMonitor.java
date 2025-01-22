@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode.events;
 import static org.firstinspires.ftc.teamcode.Global.runMode;
 import static org.firstinspires.ftc.teamcode.Global.threadManager;
 
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;
 
 /**
- * 定义一个名为 SystemMonitor 的最终类，该类继承自 Thread 并实现 ThreadAdditions 接口
+ * 定义一个名为 SystemMonitor 的最终类，该类继承自 Thread 并实现 ThreadEx 接口
  */
-public final class SystemMonitor extends Thread implements ThreadAdditions {
+public final class SystemMonitor extends Thread implements ThreadEx {
 	private boolean taskClosed; // 用于标记任务是否关闭的状态变量
 
 	/**
@@ -29,7 +29,7 @@ public final class SystemMonitor extends Thread implements ThreadAdditions {
 	}
 
 	/**
-	 * 实现 ThreadAdditions 接口的 closeTask 方法，用于关闭任务
+	 * 实现 ThreadEx 接口的 closeTask 方法，用于关闭任务
 	 */
 	@Override
 	public void closeTask() {

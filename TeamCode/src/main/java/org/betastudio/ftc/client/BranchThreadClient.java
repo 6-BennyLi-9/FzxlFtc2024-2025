@@ -5,11 +5,11 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
-public class BranchThreadClient extends BaseMapClient implements ThreadAdditions {
+public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 	private static  boolean auto_start_updater = true;
 	protected final Action  updateAction;
 	protected final Thread  updateThread;
@@ -46,8 +46,8 @@ public class BranchThreadClient extends BaseMapClient implements ThreadAdditions
 
 	@Override
 	public void closeTask() {
-		assert updateAction instanceof ThreadAdditions;
-		((ThreadAdditions) updateAction).closeTask();
+		assert updateAction instanceof ThreadEx;
+		((ThreadEx) updateAction).closeTask();
 	}
 
 	@Override

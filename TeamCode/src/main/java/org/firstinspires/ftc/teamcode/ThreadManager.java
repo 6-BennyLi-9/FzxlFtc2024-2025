@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
@@ -38,8 +38,8 @@ public final class ThreadManager {
 	public void interruptAll() {
 		for (final Map.Entry<String, Thread> entry : mem.entrySet()) {
 			final Thread e = entry.getValue();
-			if (e instanceof ThreadAdditions) {
-				((ThreadAdditions) e).closeTask();
+			if (e instanceof ThreadEx) {
+				((ThreadEx) e).closeTask();
 				new TaskCloseMonitor(e).start();
 			} else {
 				e.interrupt();

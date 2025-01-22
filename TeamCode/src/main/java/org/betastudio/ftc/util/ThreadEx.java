@@ -1,6 +1,6 @@
 package org.betastudio.ftc.util;
 
-public interface ThreadAdditions {
+public interface ThreadEx {
 	/**
 	 * 安全的结束器，例如发送结束信号
 	 */

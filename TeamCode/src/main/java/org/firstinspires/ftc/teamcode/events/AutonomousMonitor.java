@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.events;
 
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;
@@ -10,10 +10,10 @@ import java.util.concurrent.Callable;
 /**
  * 这个类是一个自动监控线程，用于在自动模式下监控任务的状态。
  * 当任务中断或活动调用者返回false时，监控线程会将全局运行模式设置为终止。
- * AutonomousMonitor 类继承自 Thread 并实现了 ThreadAdditions 接口。
+ * AutonomousMonitor 类继承自 Thread 并实现了 ThreadEx 接口。
  * 它的主要功能是在自动模式下监控某个任务的活动状态，并提供关闭任务的方法。
  */
-public final class AutonomousMonitor extends Thread implements ThreadAdditions {
+public final class AutonomousMonitor extends Thread implements ThreadEx {
 	/**
 	 * 一个 Callable 对象，用于检查任务是否处于活动状态。
 	 * 如果该 Callable 返回 false，则表示任务不再处于活动状态。
@@ -47,7 +47,7 @@ public final class AutonomousMonitor extends Thread implements ThreadAdditions {
 	}
 
 	/**
-	 * 实现 ThreadAdditions 接口的 closeTask 方法。
+	 * 实现 ThreadEx 接口的 closeTask 方法。
 	 * 该方法用于中断当前监控的任务。
 	 */
 	@Override

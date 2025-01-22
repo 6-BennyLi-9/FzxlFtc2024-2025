@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 import org.firstinspires.ftc.cores.eventloop.IntegralOpMode;
 import org.firstinspires.ftc.cores.eventloop.TerminateReason;
@@ -32,8 +32,8 @@ public class IntegralThreadExceptionHandler implements UncaughtExceptionHandler 
 		// 检查异常是否为OpModeManagerImpl.ForceStopException类型
 		if (e instanceof OpModeManagerImpl.ForceStopException) {
 			// 如果当前操作模式实现了ThreadAdditions接口，调用其closeTask方法
-			if (currentOpmode instanceof ThreadAdditions) {
-				((ThreadAdditions) currentOpmode).closeTask();
+			if (currentOpmode instanceof ThreadEx) {
+				((ThreadEx) currentOpmode).closeTask();
 			} else {
 				// 否则，直接终止当前操作模式
 				currentOpmode.terminateOpModeNow();

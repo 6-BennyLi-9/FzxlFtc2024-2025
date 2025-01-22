@@ -1,9 +1,9 @@
 package org.betastudio.ftc.client;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 
-public final class InfinityLoopAction implements Action, ThreadAdditions {
+public final class InfinityLoopAction implements Action, ThreadEx {
 	private final Runnable runnable;
 	private       boolean  interrupted;
 

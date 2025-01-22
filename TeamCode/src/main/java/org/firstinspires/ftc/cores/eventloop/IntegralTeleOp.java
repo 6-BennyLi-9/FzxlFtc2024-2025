@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.dashboard.DashTelemetry;
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode , ThreadAdditions {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode , ThreadEx {
 	public    RobotMng  robot;
 	public    Timer     timer;
 	public    Client    client;

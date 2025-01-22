@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.ThreadAdditions;
+import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;
@@ -12,8 +12,8 @@ public final class Local {
 		try {
 			Thread.sleep(millis);
 		} catch (final InterruptedException e) {
-			if (Thread.currentThread() instanceof ThreadAdditions) {
-				((ThreadAdditions) Thread.currentThread()).closeTask();
+			if (Thread.currentThread() instanceof ThreadEx) {
+				((ThreadEx) Thread.currentThread()).closeTask();
 				new TaskCloseMonitor(Thread.currentThread());
 			} else {
 				Thread.currentThread().interrupt();
