@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.betastudio.ftc.client.BranchThreadClient;
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.dashboard.DashTelemetry;
+import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;

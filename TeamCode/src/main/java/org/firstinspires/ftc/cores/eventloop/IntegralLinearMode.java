@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.dashboard.DashTelemetry;
+import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.TelemetryClient;
 import org.betastudio.ftc.interfaces.ThreadAdditions;
 import org.firstinspires.ftc.cores.UtilsMng;

@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.client.dashboard.DashboardUtils;
+import org.betastudio.ftc.dashboard.DashboardUtils;
 
 @Autonomous
 public class DashboardUtilsTest extends LinearOpMode {
