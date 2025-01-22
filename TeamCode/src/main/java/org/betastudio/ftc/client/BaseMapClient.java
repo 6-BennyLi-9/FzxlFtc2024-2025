@@ -6,20 +6,17 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.dashboard.DashTelemetry;
+import org.betastudio.ftc.message.TelemetryMessage;
 import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Timer;
-import org.betastudio.ftc.message.TelemetryMessage;
 
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Vector;
 
 /**
  * @noinspection UnusedReturnValue
@@ -27,7 +24,6 @@ import java.util.Vector;
 @Config
 public class BaseMapClient implements Client {
 	public static  ViewMode viewMode;
-	public static  boolean  sortDataInTelemetryClientUpdate = true;
 	public static  boolean  debug_mode;
 	private boolean isUpdateRequested;
 
@@ -43,7 +39,7 @@ public class BaseMapClient implements Client {
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
-		this.data = new HashMap <>();
+		this.data = new LinkedHashMap <>();
 		lstUpdateTimer.restart();
 	}
 
@@ -243,62 +239,18 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateTelemetryLines() {
-		if (sortDataInTelemetryClientUpdate) {//Deprecated
-			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
-			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
-				final String  key = i.getKey();
-				final String  val = i.getValue().first;
-				final Integer id  = i.getValue().second;
-				if (! Objects.equals(i.getValue().first, "")) {
-					outputData.add(new Pair <>(id, new Pair <>(key, val)));
-				} else {//line
-					outputData.add(new Pair <>(id, new Pair <>(key, null)));
-				}
+		for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
+			final String  key = i.getKey();
+			final String  val = i.getValue().first;
+			final Integer id  = i.getValue().second;
+			if (! Objects.equals(i.getValue().first, "")) {
+				telemetry.addData(key, val);
+			} else {//line
+				telemetry.addLine(key);
 			}
-
-			outputData.sort(Comparator.comparingInt(x -> x.first));
-
-			for (int i = 0 ; i < outputData.size() ; i++) {
-				final Pair <Integer, Pair <String, String>> outputLine = outputData.get(i);
-				if (debug_mode) {
-					final String packedID = "[" + outputLine.first + "]";
-					if (telemetry instanceof DashTelemetry) {
-						((DashTelemetry) telemetry).addSmartLine(packedID + outputLine.second.first, outputLine.second.second);
-					} else {
-						if (null == outputLine.second.second) {
-							telemetry.addLine(packedID + outputLine.second.first);
-						} else {
-							telemetry.addData(packedID + outputLine.second.first, outputLine.second.second);
-						}
-					}
-				} else {
-					if (telemetry instanceof DashTelemetry) {
-						((DashTelemetry) telemetry).addSmartLine(outputLine.second.first, outputLine.second.second);
-					} else {
-						if (null == outputLine.second.second) {
-							telemetry.addLine(outputLine.second.first);
-						} else {
-							telemetry.addData(outputLine.second.first, outputLine.second.second);
-						}
-					}
-				}
-			}
-
-			this.telemetry.update();
-		} else {
-			String cache;
-			for (final Map.Entry <String, Pair <String, Integer>> entry : this.data.entrySet()) {
-				final String                 key = entry.getKey();
-				final Pair <String, Integer> val = entry.getValue();
-				cache = Objects.equals(val.first, "") ? val.first : key + ":" + val.first;
-				if (debug_mode) {
-					this.telemetry.addLine("[" + val.second + "]" + cache);
-				} else {
-					this.telemetry.addLine(key + ":" + cache);
-				}
-			}
-			this.telemetry.update();
 		}
+
+		this.telemetry.update();
 	}
 
 	@Override
