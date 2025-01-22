@@ -28,7 +28,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	public    UtilsMng           utils;
 	public    Timer              timer;
 	protected boolean            is_terminate_method_called;
-	protected Exception          inlineUncaughtException = null;
+	protected Exception          inlineUncaughtException;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -59,7 +59,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 
 		while (opModeIsActive() && ! is_terminate_method_called) {
-			if (inlineUncaughtException != null) {
+			if (null != inlineUncaughtException) {
 				Global.threadManager.interrupt("linear");
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
@@ -90,7 +90,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		Actions.runAction(() -> {
 			final double allowErr = 5, ang = HardwareDatabase.imu.getAngularOrientation().firstAngle;
 
-			TelemetryPacket p = new TelemetryPacket();
+			final TelemetryPacket p = new TelemetryPacket();
 			p.put("ang", ang);
 			p.put("err", Math.abs(target - ang));
 			FtcDashboard.getInstance().sendTelemetryPacket(p);
@@ -123,16 +123,16 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason) {
+	public void sendTerminateSignal(final TerminateReason reason) {
 		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e) {
+	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
 		timer.stop();
 		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
 		Global.runMode = RunMode.TERMINATE;
-		if (Objects.requireNonNull(reason) == TerminateReason.UNCAUGHT_EXCEPTION) {
+		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
 			terminateOpModeNow();

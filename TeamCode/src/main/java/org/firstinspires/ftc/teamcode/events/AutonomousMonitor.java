@@ -31,7 +31,7 @@ public final class AutonomousMonitor extends Thread implements ThreadAdditions {
 	 *
 	 * @param activeCaller 一个 Callable 对象，用于检查任务是否处于活动状态。
 	 */
-	public AutonomousMonitor(Callable <Boolean> activeCaller) {
+	public AutonomousMonitor(final Callable <Boolean> activeCaller) {
 		this.activeCaller = activeCaller;
 	}
 

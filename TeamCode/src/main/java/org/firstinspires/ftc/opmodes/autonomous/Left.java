@@ -26,17 +26,17 @@ public class Left extends StructuralLinearMode {
 		drive.setPoseEstimate(LeftStart);
 		client.addData("初始化点位", ">| _ _");
 
-		Trajectory suspend_preload = drive.trajectoryBuilder(LeftStart).lineToLinearHeading(LeftSuspend).build();
+		final Trajectory suspend_preload = drive.trajectoryBuilder(LeftStart).lineToLinearHeading(LeftSuspend).build();
 
-		Trajectory get_sample  = drive.trajectoryBuilder(LeftSuspend).lineToLinearHeading(LeftSample).build();
-		Trajectory to_sample_1 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).build();
-		Trajectory to_sample_2 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).build();
+		final Trajectory get_sample  = drive.trajectoryBuilder(LeftSuspend).lineToLinearHeading(LeftSample).build();
+		final Trajectory to_sample_1 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23)))).build();
+		final Trajectory to_sample_2 = drive.trajectoryBuilder(Decant).lineToLinearHeading(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7)))).build();
 
-		Trajectory decant_1 = drive.trajectoryBuilder(LeftSample).lineToLinearHeading(Decant).build();
-		Trajectory decant_2 = drive.trajectoryBuilder(to_sample_1.end()).lineToLinearHeading(Decant).build();
-		Trajectory decant_3 = drive.trajectoryBuilder(to_sample_2.end()).lineToLinearHeading(Decant).build();
+		final Trajectory decant_1 = drive.trajectoryBuilder(LeftSample).lineToLinearHeading(Decant).build();
+		final Trajectory decant_2 = drive.trajectoryBuilder(to_sample_1.end()).lineToLinearHeading(Decant).build();
+		final Trajectory decant_3 = drive.trajectoryBuilder(to_sample_2.end()).lineToLinearHeading(Decant).build();
 
-		TrajectorySequence park = drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build();
+		final TrajectorySequence park = drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build();
 
 		waitForStart();
 

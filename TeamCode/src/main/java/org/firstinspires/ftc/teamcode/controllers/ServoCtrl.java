@@ -132,7 +132,7 @@ public class ServoCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void process(@NonNull TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMessage messageOverride) {
 		messageOverride.add(new TelemetryItem(tag+"-target",targetPosition));
 	}
 }

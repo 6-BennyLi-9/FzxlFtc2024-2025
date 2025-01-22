@@ -31,7 +31,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		dashboard = FtcDashboard.getInstance();
 	}
 
-	public static void sendTelemetryPacket(TelemetryPacket packet) {
+	public static void sendTelemetryPacket(final TelemetryPacket packet) {
 		telemetryPackets.add(packet);
 		updateRequested = true;
 	}
@@ -46,7 +46,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	public void update() {
 		updateRequested = false;
 		telemetryPackets.add(currentPacket);
-		for (TelemetryPacket packet : telemetryPackets) {
+		for (final TelemetryPacket packet : telemetryPackets) {
 			dashboard.sendTelemetryPacket(packet);
 		}
 		telemetryPackets.clear();
@@ -54,14 +54,14 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		currentPacket = new TelemetryPacket();
 	}
 
-	public static void addLine(String line) {
+	public static void addLine(final String line) {
 		if (recordElements) {
 			currentMessage.add(new TelemetryLine(line));
 		}
 		currentPacket.addLine(line);
 	}
 
-	public static void put(String capital, String value) {
+	public static void put(final String capital, final String value) {
 		if (recordElements) {
 			currentMessage.add(new TelemetryItem(capital, value));
 		}
@@ -82,9 +82,9 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	}
 
 	@Override
-	public void sendRequest(@NonNull TelemetryMessage message) {
-		TelemetryPacket packet = new TelemetryPacket();
-		for (TelemetryElement element : message.elements) {
+	public void sendRequest(@NonNull final TelemetryMessage message) {
+		final TelemetryPacket packet = new TelemetryPacket();
+		for (final TelemetryElement element : message.elements) {
 			if (element instanceof TelemetryLine) {
 				packet.addLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
@@ -98,7 +98,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		if (! recordElements) {
 			throw new IllegalStateException("Telemetry recording is not enabled");
 		}
-		TelemetryMessage res=new TelemetryMessage(new HashSet <>(currentMessage.elements));
+		final TelemetryMessage res =new TelemetryMessage(new HashSet <>(currentMessage.elements));
 		currentMessage = new TelemetryMessage(new HashSet<>());
 		return res;
 	}

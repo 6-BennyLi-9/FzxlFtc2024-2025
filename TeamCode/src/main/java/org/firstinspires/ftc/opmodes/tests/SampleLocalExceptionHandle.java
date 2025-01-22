@@ -14,14 +14,14 @@ public final class SampleLocalExceptionHandle extends LinearOpMode implements Th
 	@Override
 	public void runOpMode() throws InterruptedException {
 		telemetry.setAutoClear(false);
-		Thread test=new Thread(
+		final Thread test=new Thread(
 				()->{
-					Telemetry.Item item =telemetry.addData("i",0);
-					for (int i = 0 ; i < 100 ; i++) {
+					final Telemetry.Item item =telemetry.addData("i",0);
+					for (int i = 0 ; 100 > i ; i++) {
 						item.setValue(i);
 						telemetry.update();
 						sleep(100);
-						if (i==50){
+						if (50 == i){
 							throw new RuntimeException();
 						}
 					}
@@ -35,14 +35,14 @@ public final class SampleLocalExceptionHandle extends LinearOpMode implements Th
 		waitForStart();
 
 		while (opModeIsActive()){
-			if (e != null){
+			if (null != e){
 				throw new RuntimeException(e);
 			}
 		}
 	}
 
 	@Override
-	public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+	public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
 		this.e=e;
 	}
 }

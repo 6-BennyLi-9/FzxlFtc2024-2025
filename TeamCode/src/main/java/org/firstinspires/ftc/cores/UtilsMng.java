@@ -35,7 +35,7 @@ import java.util.LinkedList;
  *
  * @see RobotMng
  */
-@SuppressWarnings({"UnusedReturnValue"})
+@SuppressWarnings("UnusedReturnValue")
 public class UtilsMng {
 	private final LinkedList <Action> actions;
 
@@ -83,7 +83,7 @@ public class UtilsMng {
 	 * @param r Runnable对象，代表要执行的语句
 	 * @return 当前对象
 	 */
-	public UtilsMng addStatement(Runnable r) {
+	public UtilsMng addStatement(final Runnable r) {
 		actions.add(new StatementAction(r));
 		return this;
 	}
@@ -94,7 +94,7 @@ public class UtilsMng {
 	 * @param t 要等待的线程
 	 * @return 当前对象
 	 */
-	public UtilsMng joinThread(Thread t) {
+	public UtilsMng joinThread(final Thread t) {
 		actions.add(new StatementAction(() -> Local.waitForVal(t::isInterrupted, true)));
 		return this;
 	}
@@ -390,7 +390,7 @@ public class UtilsMng {
 	 * @return 将缓存动作打包后的 {@link LinkedAction}
 	 */
 	public Action pack(){
-		LinkedAction res=new LinkedAction(new LinkedList <>(actions));
+		final LinkedAction res =new LinkedAction(new LinkedList <>(actions));
 		actions.clear();
 		return res;
 	}

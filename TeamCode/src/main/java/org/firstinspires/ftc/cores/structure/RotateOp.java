@@ -65,7 +65,7 @@ public class RotateOp implements HardwareController, InitializeRequested, TagOpt
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		rotateController.setTag(tag);
 	}
 }

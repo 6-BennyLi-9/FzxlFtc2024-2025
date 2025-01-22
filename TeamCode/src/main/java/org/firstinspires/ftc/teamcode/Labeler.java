@@ -23,7 +23,8 @@ public class Labeler {
 	 * @return 生成的唯一long类型的ID。
 	 */
 	public long summonID() {
-		return ++ ID;
+		++ ID;
+		return ID;
 	}
 
 	/**
@@ -32,7 +33,7 @@ public class Labeler {
 	 * @param object 需要生成标识符的对象。
 	 * @return 生成的唯一字符串形式的标识符。
 	 */
-	public String summonID(@NonNull Object object) {
+	public String summonID(@NonNull final Object object) {
 		return "<I>"+object.getClass().getSimpleName() + "@" + summonID();
 	}
 

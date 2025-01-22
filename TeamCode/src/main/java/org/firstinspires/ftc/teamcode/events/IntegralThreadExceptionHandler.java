@@ -28,7 +28,7 @@ public class IntegralThreadExceptionHandler implements UncaughtExceptionHandler 
 	 * @param e 异常对象
 	 */
 	@Override
-	public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+	public void uncaughtException(@NonNull final Thread t, @NonNull final Throwable e) {
 		// 检查异常是否为OpModeManagerImpl.ForceStopException类型
 		if (e instanceof OpModeManagerImpl.ForceStopException) {
 			// 如果当前操作模式实现了ThreadAdditions接口，调用其closeTask方法

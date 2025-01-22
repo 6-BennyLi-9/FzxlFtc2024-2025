@@ -7,11 +7,11 @@ public class Atom<T>{
 
 	public Atom(){
 	}
-	public Atom(T val){
+	public Atom(final T val){
 		this.val = val;
 	}
 
-	public void set(T val) {
+	public void set(final T val) {
 		this.val = val;
 	}
 
@@ -19,18 +19,18 @@ public class Atom<T>{
 		return val;
 	}
 
-	public T setAndGet(T val){
+	public T setAndGet(final T val){
 		return this.val = val;
 	}
 
-	public T getAndSet(T val){
-		T oldVal = this.val;
+	public T getAndSet(final T val){
+		final T oldVal = this.val;
 		this.val = val;
 		return oldVal;
 	}
 
 	@Override
-	public boolean equals(@Nullable Object obj) {
+	public boolean equals(@Nullable final Object obj) {
 		assert obj instanceof Atom;
 		return val.equals(obj);
 	}

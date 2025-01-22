@@ -22,7 +22,7 @@ public final class TaskCloseMonitor extends Thread {
 	 *
 	 * @param argument 需要监控的目标线程。
 	 */
-	public TaskCloseMonitor(Thread argument) {
+	public TaskCloseMonitor(final Thread argument) {
 		this(argument, 5000);
 	}
 
@@ -32,7 +32,7 @@ public final class TaskCloseMonitor extends Thread {
 	 * @param argument  需要监控的目标线程。
 	 * @param timeLimit 线程执行的最长时间限制，以毫秒为单位。
 	 */
-	public TaskCloseMonitor(Thread argument, long timeLimit) {
+	public TaskCloseMonitor(final Thread argument, final long timeLimit) {
 		this.argument = argument;
 		this.timeLimit = timeLimit;
 	}
@@ -44,7 +44,7 @@ public final class TaskCloseMonitor extends Thread {
 	@Override
 	public void run() {
 		Local.sleep(timeLimit);
-		if (argument.getState() != State.TERMINATED) {
+		if (State.TERMINATED != argument.getState()) {
 			argument.interrupt();
 		}
 	}

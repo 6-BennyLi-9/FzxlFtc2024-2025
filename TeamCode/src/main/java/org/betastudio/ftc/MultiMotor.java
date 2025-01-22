@@ -18,15 +18,15 @@ import java.util.Set;
 public class MultiMotor implements DcMotorEx {
 	private final Set<DcMotorEx> motors;
 
-	public MultiMotor(DcMotorEx... motors){
+	public MultiMotor(final DcMotorEx... motors){
 		this.motors=new HashSet <>(Arrays.asList(motors));
 	}
 
-	public void addMotor(DcMotorEx motor){
+	public void addMotor(final DcMotorEx motor){
 		motors.add(motor);
 	}
 
-	public void removeMotor(DcMotorEx motor){
+	public void removeMotor(final DcMotorEx motor){
 		motors.remove(motor);
 	}
 
@@ -46,12 +46,12 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setVelocity(double angularRate) {
+	public void setVelocity(final double angularRate) {
 		motors.forEach(m -> m.setVelocity(angularRate));
 	}
 
 	@Override
-	public void setVelocity(double angularRate, AngleUnit unit) {
+	public void setVelocity(final double angularRate, final AngleUnit unit) {
 		motors.forEach(m -> m.setVelocity(angularRate, unit));
 	}
 
@@ -61,42 +61,42 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public double getVelocity(AngleUnit unit) {
+	public double getVelocity(final AngleUnit unit) {
 		return motors.stream().iterator().next().getVelocity(unit);
 	}
 
 	@Override
-	public void setPIDCoefficients(RunMode mode, PIDCoefficients pidCoefficients) {
+	public void setPIDCoefficients(final RunMode mode, final PIDCoefficients pidCoefficients) {
 		motors.forEach(m -> m.setPIDCoefficients(mode, pidCoefficients));
 	}
 
 	@Override
-	public void setPIDFCoefficients(RunMode mode, PIDFCoefficients pidfCoefficients) throws UnsupportedOperationException {
+	public void setPIDFCoefficients(final RunMode mode, final PIDFCoefficients pidfCoefficients) throws UnsupportedOperationException {
 		motors.forEach(m -> m.setPIDFCoefficients(mode, pidfCoefficients));
 	}
 
 	@Override
-	public void setVelocityPIDFCoefficients(double p, double i, double d, double f) {
+	public void setVelocityPIDFCoefficients(final double p, final double i, final double d, final double f) {
 		motors.forEach(m -> m.setVelocityPIDFCoefficients(p, i, d, f));
 	}
 
 	@Override
-	public void setPositionPIDFCoefficients(double p) {
+	public void setPositionPIDFCoefficients(final double p) {
 		motors.forEach(m -> m.setPositionPIDFCoefficients(p));
 	}
 
 	@Override
-	public PIDCoefficients getPIDCoefficients(RunMode mode) {
+	public PIDCoefficients getPIDCoefficients(final RunMode mode) {
 		return motors.stream().iterator().next().getPIDCoefficients(mode);
 	}
 
 	@Override
-	public PIDFCoefficients getPIDFCoefficients(RunMode mode) {
+	public PIDFCoefficients getPIDFCoefficients(final RunMode mode) {
 		return motors.stream().iterator().next().getPIDFCoefficients(mode);
 	}
 
 	@Override
-	public void setTargetPositionTolerance(int tolerance) {
+	public void setTargetPositionTolerance(final int tolerance) {
 		motors.forEach(m -> m.setTargetPositionTolerance(tolerance));
 	}
 
@@ -106,17 +106,17 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public double getCurrent(CurrentUnit unit) {
+	public double getCurrent(final CurrentUnit unit) {
 		return motors.stream().iterator().next().getCurrent(unit);
 	}
 
 	@Override
-	public double getCurrentAlert(CurrentUnit unit) {
+	public double getCurrentAlert(final CurrentUnit unit) {
 		return motors.stream().iterator().next().getCurrentAlert(unit);
 	}
 
 	@Override
-	public void setCurrentAlert(double current, CurrentUnit unit) {
+	public void setCurrentAlert(final double current, final CurrentUnit unit) {
 		motors.forEach(m -> m.setCurrentAlert(current, unit));
 	}
 
@@ -131,7 +131,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setMotorType(MotorConfigurationType motorType) {
+	public void setMotorType(final MotorConfigurationType motorType) {
 		motors.forEach(m -> m.setMotorType(motorType));
 	}
 
@@ -146,7 +146,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setZeroPowerBehavior(ZeroPowerBehavior zeroPowerBehavior) {
+	public void setZeroPowerBehavior(final ZeroPowerBehavior zeroPowerBehavior) {
 		motors.forEach(m -> m.setZeroPowerBehavior(zeroPowerBehavior));
 	}
 
@@ -166,7 +166,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setTargetPosition(int position) {
+	public void setTargetPosition(final int position) {
 		motors.forEach(m -> m.setTargetPosition(position));
 	}
 
@@ -186,7 +186,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setMode(RunMode mode) {
+	public void setMode(final RunMode mode) {
 		motors.forEach(m -> m.setMode(mode));
 	}
 
@@ -196,7 +196,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setDirection(Direction direction) {
+	public void setDirection(final Direction direction) {
 		motors.forEach(m -> m.setDirection(direction));
 	}
 
@@ -206,7 +206,7 @@ public class MultiMotor implements DcMotorEx {
 	}
 
 	@Override
-	public void setPower(double power) {
+	public void setPower(final double power) {
 		motors.forEach(m -> m.setPower(power));
 	}
 
@@ -227,7 +227,7 @@ public class MultiMotor implements DcMotorEx {
 
 	@Override
 	public String getConnectionInfo() {
-		StringBuilder str=new StringBuilder();
+		final StringBuilder str =new StringBuilder();
 		motors.forEach(m -> str.append(m.getConnectionInfo()));
 		return str.toString();
 	}

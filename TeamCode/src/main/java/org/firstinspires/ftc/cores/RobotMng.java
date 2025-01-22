@@ -112,7 +112,7 @@ public class RobotMng implements Updatable {
 	 *
 	 * @param client 需要设定的客户端对象，不能为空
 	 */
-	public void fetchClient(@NonNull Client client) {
+	public void fetchClient(@NonNull final Client client) {
 		this.client = client;
 	}
 
@@ -120,9 +120,9 @@ public class RobotMng implements Updatable {
 	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
 	 */
 	public void initControllers() {
-		for (Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
-			String             k = entry.getKey();
-			HardwareController v = entry.getValue();
+		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
+			final String             k = entry.getKey();
+			final HardwareController v = entry.getValue();
 
 			v.connect();
 			v.writeToInstance();
@@ -231,7 +231,7 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()) {
-			ViewMode newViewMode = client.getCurrentViewMode() == ViewMode.BASIC_TELEMETRY ? ViewMode.THREAD_MANAGER : ViewMode.BASIC_TELEMETRY;
+			final ViewMode newViewMode = ViewMode.BASIC_TELEMETRY == client.getCurrentViewMode() ? ViewMode.THREAD_MANAGER : ViewMode.BASIC_TELEMETRY;
 			client.configViewMode(newViewMode);
 			client.speak("The telemetry's ViewMode has recently switched to " + newViewMode.name());
 		}
@@ -287,7 +287,7 @@ public class RobotMng implements Updatable {
 
 	public void printActions() {
 		++ updateTime;
-		TelemetryMessage message = new TelemetryMessage();
+		final TelemetryMessage message = new TelemetryMessage();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 
@@ -304,11 +304,11 @@ public class RobotMng implements Updatable {
 	}
 
 	public void printIMUVariables() {
-		BNO055IMU   imu         = HardwareDatabase.imu;
-		Orientation orientation = imu.getAngularOrientation();
+		final BNO055IMU   imu         = HardwareDatabase.imu;
+		final Orientation orientation = imu.getAngularOrientation();
 		client.changeData("∠1", orientation.firstAngle).changeData("∠2", orientation.secondAngle).changeData("∠3", orientation.thirdAngle);
 
-		Acceleration acceleration = imu.getLinearAcceleration();
+		final Acceleration acceleration = imu.getLinearAcceleration();
 		client.changeData("VelΔx", acceleration.xAccel).changeData("VelΔy", acceleration.yAccel).changeData("VelΔz", acceleration.zAccel);
 	}
 }

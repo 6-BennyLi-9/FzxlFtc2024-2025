@@ -14,13 +14,13 @@ public final class Global {
 	public  static Client        client;
 	private static boolean       auto_create_monitor = true;
 
-	public static void registerGamepad(Gamepad gamepad1, Gamepad gamepad2) {
+	public static void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
 		Global.gamepad1 = gamepad1;
 		Global.gamepad2 = gamepad2;
 	}
 
 	public static void prepareCoreThreadPool() {
-		if (threadManager != null) {
+		if (null != threadManager) {
 			if (! threadManager.isEmpty()) {
 				threadManager.interruptAll();
 			}
@@ -40,7 +40,7 @@ public final class Global {
 		return auto_create_monitor;
 	}
 
-	public void auto_create_monitor(boolean configure) {
+	public void auto_create_monitor(final boolean configure) {
 		auto_create_monitor = configure;
 	}
 }

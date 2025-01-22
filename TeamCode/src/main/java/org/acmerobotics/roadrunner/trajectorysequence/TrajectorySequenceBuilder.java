@@ -398,7 +398,7 @@ public class TrajectorySequenceBuilder {
 
 		final double tangent = setAbsoluteTangent ? absoluteTangent : Angle.norm(lastPose.getHeading() + tangentOffset);
 
-		double resolution = 0.25;
+		final double resolution = 0.25;
 		currentTrajectoryBuilder = new TrajectoryBuilder(lastPose, tangent, currentVelConstraint, currentAccelConstraint, resolution);
 	}
 
@@ -552,7 +552,7 @@ public class TrajectorySequenceBuilder {
 				closestPoint = comparingPoint;
 		}
 
-		assert closestPoint != null;
+		assert null != closestPoint;
 		return displacementToTime(sequenceSegments, closestPoint.thisPathDisplacement);
 	}
 

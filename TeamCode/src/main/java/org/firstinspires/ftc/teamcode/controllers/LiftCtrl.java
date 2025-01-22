@@ -144,7 +144,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void process(@NonNull TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMessage messageOverride) {
 		messageOverride.add(new TelemetryItem("lift-current", currentPosition)); // 发送当前电机位置
 		messageOverride.add(new TelemetryItem("lift-target", targetPosition)); // 发送目标电机位置
 	}

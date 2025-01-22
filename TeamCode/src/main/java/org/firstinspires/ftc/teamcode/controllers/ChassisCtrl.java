@@ -58,7 +58,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 		double pRR=vY-vX+vTurn;
 
 		if (Math.abs(pLF)>maxControlPower || Math.abs(pLR)>maxControlPower || Math.abs(pRF)>maxControlPower || Math.abs(pRR)>maxControlPower){
-			double buf = Math.max(Math.max(Math.abs(pLF), Math.abs(pLR)), Math.max(Math.abs(pRF), Math.abs(pRR))) / maxControlPower;
+			final double buf = Math.max(Math.max(Math.abs(pLF), Math.abs(pLR)), Math.max(Math.abs(pRF), Math.abs(pRR))) / maxControlPower;
 			pLF /= buf;
 			pLR /= buf;
 			pRF /= buf;
@@ -137,20 +137,20 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	 * @param k   a
 	 * @return    处理后的函数值
 	 */
-	private static double resolveFunc(double val, double k) {
+	private static double resolveFunc(final double val, final double k) {
 		double result = k * val * val + (1 - k) * val;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
 		}
 		return result;
 	}
-	public static void setDcMotorPowerSmooth(@NonNull DcMotorEx motor, double power, double smoothConfig){
-		double delta=power-motor.getPower();
+	public static void setDcMotorPowerSmooth(@NonNull final DcMotorEx motor, final double power, final double smoothConfig){
+		final double delta = power - motor.getPower();
 		motor.setPower(motor.getPower()+delta*smoothConfig);
 	}
 
 	@Override
-	public void sendRequest(@NonNull DriveMessage message) {
+	public void sendRequest(@NonNull final DriveMessage message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
@@ -160,7 +160,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	}
 
 	@Override
-	public void process(@NonNull TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMessage messageOverride) {
 		messageOverride.add(new TelemetryItem("vX",vX));
 		messageOverride.add(new TelemetryItem("vY",vY));
 		messageOverride.add(new TelemetryItem("vTurn",vTurn));

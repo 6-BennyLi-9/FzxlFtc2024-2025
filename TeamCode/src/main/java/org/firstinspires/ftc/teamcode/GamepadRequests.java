@@ -110,7 +110,7 @@ public final class GamepadRequests {
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
 
-		switchViewMode.sync(gamepad1.right_stick_y > 0.8);
+		switchViewMode.sync(0.8 < gamepad1.right_stick_y);
 	}
 
 	/**
@@ -128,7 +128,7 @@ public final class GamepadRequests {
 	 * <p>
 	 * 这有助于调试和监控程序的运行状态。
 	 */
-	public static void printValues(@NonNull Client client) {
+	public static void printValues(@NonNull final Client client) {
 		client.changeData("liftDecantUpping", liftDecantUpping);
 		client.changeData("sampleIO", sampleIO);
 		client.changeData("liftHighSuspendPrepare", liftHighSuspendPrepare);

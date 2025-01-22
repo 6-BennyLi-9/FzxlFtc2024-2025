@@ -39,7 +39,7 @@ public class MaxVelocityTuner extends LinearOpMode {
 
 		drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-		VoltageSensor batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
+		final VoltageSensor batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 		final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -55,7 +55,7 @@ public class MaxVelocityTuner extends LinearOpMode {
 		telemetry.update();
 
 		drive.setDrivePower(new Pose2d(1, 0, 0));
-		ElapsedTime timer = new ElapsedTime();
+		final ElapsedTime timer = new ElapsedTime();
 
 		while (! isStopRequested() && timer.seconds() < RUNTIME) {
 			drive.updatePoseEstimate();

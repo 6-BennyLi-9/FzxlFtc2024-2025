@@ -63,12 +63,12 @@ public final class CoreDatabase {
 	 * @param terminateReason  操作模式终止的原因。
 	 * @param autonomous_time_used 自动模式下使用的时间，单位为秒。
 	 */
-	public static void writeInVals(@NonNull IntegralLinearMode autonomous, TerminateReason terminateReason, double autonomous_time_used) {
+	public static void writeInVals(@NonNull final IntegralLinearMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
 		//		HardwareDatabase.syncIMU();
 		orientation = HardwareDatabase.imu.getAngularOrientation();
 		last_is_autonomous=true;
-		CoreDatabase.last_terminateReason = terminateReason;
+		last_terminateReason = terminateReason;
 		CoreDatabase.autonomous_time_used = autonomous_time_used;
 	}
 
@@ -78,10 +78,10 @@ public final class CoreDatabase {
 	 * @param tele           正在运行的遥控操作模式实例，不能为 null。
 	 * @param terminateReason 操作模式终止的原因。
 	 */
-	public static void writeInVals(@NonNull IntegralTeleOp tele, TerminateReason terminateReason) {
+	public static void writeInVals(@NonNull final IntegralTeleOp tele, final TerminateReason terminateReason) {
 		pose = null;
 		orientation = HardwareDatabase.imu.getAngularOrientation();
-		CoreDatabase.last_terminateReason = terminateReason;
+		last_terminateReason = terminateReason;
 		last_is_autonomous=false;
 	}
 }

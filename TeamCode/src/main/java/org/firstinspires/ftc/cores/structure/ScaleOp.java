@@ -100,7 +100,7 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		leftScaleController.setTag("left " + tag);
 		rightScaleController.setTag("right " + tag);
 	}

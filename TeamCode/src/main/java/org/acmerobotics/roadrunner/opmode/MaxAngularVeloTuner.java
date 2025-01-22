@@ -50,7 +50,7 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 		telemetry.update();
 
 		drive.setDrivePower(new Pose2d(0, 0, 1));
-		ElapsedTime timer = new ElapsedTime();
+		final ElapsedTime timer = new ElapsedTime();
 
 		while (! isStopRequested() && timer.seconds() < RUNTIME) {
 			drive.updatePoseEstimate();

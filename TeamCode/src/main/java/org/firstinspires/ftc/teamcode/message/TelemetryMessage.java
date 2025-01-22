@@ -9,19 +9,19 @@ import java.util.Set;
 public class TelemetryMessage implements Message{
 	public final Set<TelemetryElement> elements;
 
-	public TelemetryMessage(Set<TelemetryElement> elements) {
+	public TelemetryMessage(final Set<TelemetryElement> elements) {
 		this.elements = elements;
 	}
 
-	public TelemetryMessage(TelemetryElement... elements) {
+	public TelemetryMessage(final TelemetryElement... elements) {
 		this(Set.of(elements));
 	}
 
-	public void add(TelemetryElement element) {
+	public void add(final TelemetryElement element) {
 		elements.add(element);
 	}
 
-	public void add(@NonNull TelemetryMessage message){
+	public void add(@NonNull final TelemetryMessage message){
 		elements.addAll(message.elements);
 	}
 }

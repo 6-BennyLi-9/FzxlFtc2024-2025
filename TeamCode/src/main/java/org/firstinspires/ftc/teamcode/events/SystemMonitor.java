@@ -19,7 +19,7 @@ public final class SystemMonitor extends Thread implements ThreadAdditions {
 	@Override
 	public void run() {
 		// 当 runMode 不等于 RunMode.TERMINATE 且 taskClosed 为 false 时，线程持续运行
-		while (runMode != RunMode.TERMINATE && ! taskClosed) {
+		while (RunMode.TERMINATE != runMode && ! taskClosed) {
 			Local.sleep(5000); // 休眠 5000 毫秒（5 秒）
 		}
 		// 如果 taskClosed 为 false，表示是通过 runMode 为 RunMode.TERMINATE 退出的，此时中断所有线程

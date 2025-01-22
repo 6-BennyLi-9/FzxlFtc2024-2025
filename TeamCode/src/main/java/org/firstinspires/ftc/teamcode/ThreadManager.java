@@ -36,8 +36,8 @@ public final class ThreadManager {
 	 * 最后清空存储线程的映射表。
 	 */
 	public void interruptAll() {
-		for (Map.Entry<String, Thread> entry : mem.entrySet()) {
-			Thread e = entry.getValue();
+		for (final Map.Entry<String, Thread> entry : mem.entrySet()) {
+			final Thread e = entry.getValue();
 			if (e instanceof ThreadAdditions) {
 				((ThreadAdditions) e).closeTask();
 				new TaskCloseMonitor(e).start();
@@ -55,11 +55,11 @@ public final class ThreadManager {
 	 *
 	 * @param tag 线程的标签
 	 */
-	public void interrupt(String tag) {
+	public void interrupt(final String tag) {
 		try {
 			Objects.requireNonNull(mem.get(tag)).interrupt();
 			mem.remove(tag);
-		} catch (NullPointerException ignored) {
+		} catch (final NullPointerException ignored) {
 		}
 	}
 
@@ -69,7 +69,7 @@ public final class ThreadManager {
 	 * @param tag 线程的标签
 	 * @param startedThread 已经启动的线程对象
 	 */
-	public void addStarted(String tag, @NonNull Thread startedThread) {
+	public void addStarted(final String tag, @NonNull final Thread startedThread) {
 		startedThread.setUncaughtExceptionHandler(new IntegralThreadExceptionHandler());
 		mem.put(tag, startedThread);
 	}
@@ -81,7 +81,7 @@ public final class ThreadManager {
 	 * @param tag 线程的标签
 	 * @param unstartedThread 未启动的线程对象
 	 */
-	public void add(String tag, @NonNull Thread unstartedThread) {
+	public void add(final String tag, @NonNull final Thread unstartedThread) {
 		unstartedThread.start();
 		this.addStarted(tag, unstartedThread);
 	}
@@ -92,7 +92,7 @@ public final class ThreadManager {
 	 *
 	 * @param unstartedThread 未启动的线程对象
 	 */
-	public void add(@NonNull Thread unstartedThread) {
+	public void add(@NonNull final Thread unstartedThread) {
 		this.add(labeler.summonID(unstartedThread), unstartedThread);
 	}
 
@@ -101,7 +101,7 @@ public final class ThreadManager {
 	 *
 	 * @param startedThread 已经启动的线程对象
 	 */
-	public void addStarted(Thread startedThread) {
+	public void addStarted(final Thread startedThread) {
 		this.addStarted(labeler.summonID(startedThread), startedThread);
 	}
 

@@ -81,7 +81,7 @@ public class ClawOp implements HardwareController, InitializeRequested, TagOptio
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		clawControl.setTag(tag);
 	}
 }

@@ -103,7 +103,7 @@ public class LiftOp implements HardwareController, TagOptionsRequired {
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		liftCtrl.setTag(tag); // 设置控制器的标签
 	}
 }

@@ -22,8 +22,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public    Timer     timer;
 	public    Client    client;
 	protected boolean   is_terminate_method_called;
-	private   boolean   auto_terminate_when_TLE = false;
-	private   Exception inlineUncaughtException = null;
+	private   boolean   auto_terminate_when_TLE;
+	private   Exception inlineUncaughtException;
 
 	@Override
 	public void op_init() {
@@ -52,7 +52,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 				.addLine("ROBOT INITIALIZE COMPLETE!")
 				.addLine("=======================");
 
-		if (CoreDatabase.autonomous_time_used != -1){
+		if (- 1 != CoreDatabase.autonomous_time_used){
 			client	.addData("last autonomous time used",CoreDatabase.autonomous_time_used)
 					.addData("last terminateReason",CoreDatabase.last_terminateReason.name());
 		}
@@ -88,7 +88,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
 
-		if (inlineUncaughtException != null) {
+		if (null != inlineUncaughtException) {
 			throw new RuntimeException(inlineUncaughtException);
 		}
 
@@ -99,7 +99,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		try {
 			op_loop_entry();
-		}catch (UnsupportedOperationException ignored){}
+		}catch (final UnsupportedOperationException ignored){}
 	}
 
 	public abstract void op_loop_entry();
@@ -117,13 +117,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason) {
+	public void sendTerminateSignal(final TerminateReason reason) {
 		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e) {
-		if (Objects.requireNonNull(reason) == TerminateReason.UNCAUGHT_EXCEPTION) {
+	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
+		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
 			is_terminate_method_called=true;
