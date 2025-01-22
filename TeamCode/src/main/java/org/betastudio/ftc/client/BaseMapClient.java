@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.log.FtcLogTunnel;
 import org.betastudio.ftc.message.TelemetryMessage;
 import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
@@ -36,6 +37,7 @@ public class BaseMapClient implements Client {
 	private final   Timer                                lstUpdateTimer = new Timer();
 	protected       int                                  ID;
 	private         boolean                              autoUpdate;
+	private         FtcLogTunnel                         targetLogTunnel;
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -218,14 +220,16 @@ public class BaseMapClient implements Client {
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (viewMode) {
-			case BASIC_TELEMETRY:
-				updateTelemetryLines();
+			case LOG:
+				updateLogLines(targetLogTunnel);
 				break;
 			case THREAD_MANAGER:
 				updateThreadLines();
 				break;
-			case LOG:
-				throw new UnsupportedOperationException("BaseMapClient doesn't support log view now!");
+			case BASIC_TELEMETRY:
+			default:
+				updateTelemetryLines();
+				break;
 		}
 	}
 
@@ -251,6 +255,10 @@ public class BaseMapClient implements Client {
 		}
 
 		this.telemetry.update();
+	}
+
+	protected synchronized void updateLogLines(@NonNull final FtcLogTunnel type) {
+		sendRequest(type.call());
 	}
 
 	@Override

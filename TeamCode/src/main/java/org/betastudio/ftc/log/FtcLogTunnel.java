@@ -6,7 +6,7 @@ import org.betastudio.ftc.message.StringMessage;
 import org.betastudio.ftc.message.TelemetryMessage;
 
 public enum FtcLogTunnel {
-	MAIN;
+	MAIN,DEBUG;
 	private final FtcLogDatabase log = new FtcLogDatabase();
 
 	public void report(final String s){
