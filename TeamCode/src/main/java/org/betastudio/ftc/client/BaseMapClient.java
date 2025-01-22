@@ -311,7 +311,7 @@ public class BaseMapClient implements Client {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
-				addData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
+				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}
 		}
 	}
