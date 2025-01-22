@@ -82,7 +82,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	}
 
 	@Override
-	public void sendRequest(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMessage message) {
 		final TelemetryPacket packet = new TelemetryPacket();
 		for (final TelemetryElement element : message.elements) {
 			if (element instanceof TelemetryLine) {

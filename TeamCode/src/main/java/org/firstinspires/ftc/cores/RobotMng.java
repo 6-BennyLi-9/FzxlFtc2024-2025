@@ -300,7 +300,7 @@ public class RobotMng implements Updatable {
 				((DashboardCallable) a).process(message);
 			}
 		}
-		client.sendRequest(message);
+		client.send(message);
 	}
 
 	public void printIMUVariables() {

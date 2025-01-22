@@ -22,7 +22,7 @@ public class FtcLogDatabase implements MessagesProcessRequired<TelemetryMessage>
 	}
 
 	@Override
-	public void sendRequest(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMessage message) {
 		throw new UnsupportedOperationException("FtcLogDatabase only can been called for TelemetryMessage");
 	}
 

@@ -152,7 +152,7 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public void sendRequest(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMessage message) {
 		for (final TelemetryElement element : message.elements) {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);

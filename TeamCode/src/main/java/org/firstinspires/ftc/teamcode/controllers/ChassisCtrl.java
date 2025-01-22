@@ -150,7 +150,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	}
 
 	@Override
-	public void sendRequest(@NonNull final DriveMessage message) {
+	public void send(@NonNull final DriveMessage message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
