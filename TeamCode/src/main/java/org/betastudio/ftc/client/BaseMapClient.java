@@ -50,9 +50,11 @@ public class BaseMapClient implements Client {
 	@Override
 	public void clear() {
 		this.data.clear();
-		isUpdateRequested=true;
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
 	}
 
@@ -63,11 +65,12 @@ public class BaseMapClient implements Client {
 	public Client addData(final String key, final String val) {
 		++ this.ID;
 		this.data.put(key, new Pair <>(val, this.ID));
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -85,11 +88,12 @@ public class BaseMapClient implements Client {
 	@Override
 	public Client deleteData(final String key) {
 		this.data.remove(key);
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -103,11 +107,12 @@ public class BaseMapClient implements Client {
 		} else {
 			this.addData(key, val);
 		}
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -123,11 +128,12 @@ public class BaseMapClient implements Client {
 	public Client addLine(final String key) {
 		++ this.ID;
 		this.data.put(key, new Pair <>("", this.ID));
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -143,11 +149,12 @@ public class BaseMapClient implements Client {
 	public Client deleteLine(final String key) {
 		this.data.remove(key);
 
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -162,11 +169,12 @@ public class BaseMapClient implements Client {
 		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
 		this.data.put(newData, new Pair <>("", cache));
+
 		if (autoUpdate) {
 			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
 	}
 
@@ -230,7 +238,7 @@ public class BaseMapClient implements Client {
 		return isUpdateRequested;
 	}
 
-	protected void updateThreadLines() {
+	protected synchronized void updateThreadLines() {
 		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
 			final String key   = entry.getKey();
 			final Thread value = entry.getValue();
@@ -239,7 +247,7 @@ public class BaseMapClient implements Client {
 		this.telemetry.update();
 	}
 
-	protected void updateTelemetryLines() {
+	protected synchronized void updateTelemetryLines() {
 		if (sortDataInTelemetryClientUpdate) {
 			final Vector <Pair <Integer, Pair <String, String>>> outputData = new Vector <>();
 			for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {

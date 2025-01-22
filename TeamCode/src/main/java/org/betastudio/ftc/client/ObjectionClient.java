@@ -38,27 +38,29 @@ public class ObjectionClient implements Client {
 	@Override
 	public Client addData(final String key, final String val) {
 		data.put(key, telemetry.addData(key, val));
-		if (autoUpdate){
-			update();
-		}
 
-		isUpdateRequested=true;
+		if (autoUpdate) {
+			this.update();
+		}else{
+			isUpdateRequested=false;
+		}
 		return this;
 	}
 
 	@Override
-	public Client addData(final String key, final Object val) {
+	public Client addData(final String key, @NonNull final Object val) {
 		return addData(key, val.toString());
 	}
 
 	@Override
 	public Client deleteData(final String key) {
 		telemetry.removeItem(data.get(key));
-		if (autoUpdate){
-			update();
-		}
 
-		isUpdateRequested=true;
+		if (autoUpdate) {
+			this.update();
+		}else{
+			isUpdateRequested=false;
+		}
 		return this;
 	}
 
@@ -69,49 +71,47 @@ public class ObjectionClient implements Client {
 		}else{
 			return addData(key, val);
 		}
-		if (autoUpdate){
-			update();
-		}
 
-		isUpdateRequested=true;
+		if (autoUpdate) {
+			this.update();
+		}else{
+			isUpdateRequested=false;
+		}
 		return this;
 	}
 
 	@Override
-	public Client changeData(final String key, final Object val) {
+	public Client changeData(final String key, @NonNull final Object val) {
 		return changeData(key, val.toString());
 	}
 
 	@Override
 	public Client addLine(final String key) {
 		line.put(key, telemetry.addLine(key));
-		if (autoUpdate){
-			update();
-		}
 
-		isUpdateRequested=true;
+		if (autoUpdate) {
+			this.update();
+		}else{
+			isUpdateRequested=false;
+		}
 		return this;
 	}
 
 	@Override
-	public Client addLine(final Object key) {
+	public Client addLine(@NonNull final Object key) {
 		return addLine(key.toString());
 	}
 
 	@Override
 	public Client deleteLine(final String key) {
 		telemetry.removeLine(line.get(key));
-		if (autoUpdate){
-			update();
+
+		if (autoUpdate) {
+			this.update();
+		}else{
+			isUpdateRequested=false;
 		}
-
-		isUpdateRequested=true;
 		return this;
-	}
-
-	@Override
-	public Client changeLine(final String oldData, final String newData) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -129,18 +129,8 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public void setAutoUpdate(final boolean autoUpdate) {
 		this.autoUpdate = autoUpdate;
-	}
-
-	@Override
-	public ViewMode getCurrentViewMode() {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -162,5 +152,24 @@ public class ObjectionClient implements Client {
 				addData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}
 		}
+	}
+
+//  -----------------------
+//  UNSUPPORTED METHODS
+//  -----------------------
+
+	@Override
+	public ViewMode getCurrentViewMode() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void configViewMode(final ViewMode viewMode) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Client changeLine(final String oldData, final String newData) {
+		throw new UnsupportedOperationException();
 	}
 }
