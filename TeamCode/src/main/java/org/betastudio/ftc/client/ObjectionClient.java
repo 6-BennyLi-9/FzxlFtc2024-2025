@@ -19,15 +19,15 @@ public class ObjectionClient implements Client {
 	protected final Map <String, Item> data;
 	protected final Map <String, Line> line;
 	private final   Telemetry          telemetry;
-	private boolean autoUpdate = true;
-	private boolean isUpdateRequested;
+	private         boolean            autoUpdate = true;
+	private         boolean            isUpdateRequested;
 
 	public ObjectionClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new HashMap <>();
 		this.line = new HashMap <>();
 	}
-	
+
 	@Override
 	public void clear() {
 		telemetry.clearAll();
@@ -41,8 +41,8 @@ public class ObjectionClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -58,24 +58,24 @@ public class ObjectionClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
 
 	@Override
 	public Client changeData(final String key, final String val) {
-		if (data.containsKey(key)){
+		if (data.containsKey(key)) {
 			Objects.requireNonNull(data.get(key)).setValue(val);
-		}else{
+		} else {
 			return addData(key, val);
 		}
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -91,8 +91,8 @@ public class ObjectionClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -108,21 +108,21 @@ public class ObjectionClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
 
 	@Override
 	public Client speak(final String text) {
-		return speak(text, null,null);
+		return speak(text, null, null);
 	}
 
 	@Override
 	public Client speak(final String text, final String languageCode, final String countryCode) {
-		telemetry.speak(text,languageCode,countryCode);
-		if (autoUpdate){
+		telemetry.speak(text, languageCode, countryCode);
+		if (autoUpdate) {
 			update();
 		}
 		return this;
@@ -154,9 +154,28 @@ public class ObjectionClient implements Client {
 		}
 	}
 
-//  -----------------------
-//  UNSUPPORTED METHODS
-//  -----------------------
+	@Override
+	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
+		switch (updateConfig) {
+			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
+				autoUpdate = true;
+				break;
+			case MANUAL_UPDATE_REQUESTED:
+				autoUpdate = false;
+				break;
+			case THREAD_REQUIRED:
+				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
+		}
+	}
+
+	@Override
+	public UpdateConfig getUpdateConfig() {
+		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+	}
+
+	//  -----------------------
+	//  UNSUPPORTED METHODS
+	//  -----------------------
 
 	@Override
 	public ViewMode getCurrentViewMode() {

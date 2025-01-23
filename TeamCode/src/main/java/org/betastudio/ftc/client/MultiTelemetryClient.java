@@ -123,11 +123,24 @@ public class MultiTelemetryClient implements Client {
 		}
 	}
 
+	/** @noinspection deprecation*/
 	@Override
 	public void setAutoUpdate(final boolean autoUpdate) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().setAutoUpdate(autoUpdate);
 		}
+	}
+
+	@Override
+	public void setUpdateConfig(final UpdateConfig updateConfig) {
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			entry.getValue().setUpdateConfig(updateConfig);
+		}
+	}
+
+	@Override
+	public UpdateConfig getUpdateConfig() {
+		return ((Client) clients.entrySet().toArray()[0]).getUpdateConfig();
 	}
 
 	@Override

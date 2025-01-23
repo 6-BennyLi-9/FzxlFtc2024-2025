@@ -278,4 +278,23 @@ public class BaseMapClient implements Client {
 	public boolean isUpdateRequested() {
 		return isUpdateRequested;
 	}
+
+	@Override
+	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
+		switch (updateConfig) {
+			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
+				autoUpdate=true;
+				break;
+			case MANUAL_UPDATE_REQUESTED:
+				autoUpdate=false;
+				break;
+			case THREAD_REQUIRED:
+				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
+		}
+	}
+
+	@Override
+	public UpdateConfig getUpdateConfig() {
+		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+	}
 }

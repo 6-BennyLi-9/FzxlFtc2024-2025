@@ -34,7 +34,12 @@ public interface Client extends Updatable , MessagesProcessRequired <TelemetryMe
 
 	void configViewMode(ViewMode viewMode);
 
+	@Deprecated
 	void setAutoUpdate(boolean autoUpdate);
+
+	void setUpdateConfig(UpdateConfig updateConfig);
+
+	UpdateConfig getUpdateConfig();
 
 	ViewMode getCurrentViewMode();
 }

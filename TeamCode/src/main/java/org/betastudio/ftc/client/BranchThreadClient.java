@@ -1,5 +1,7 @@
 package org.betastudio.ftc.client;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
@@ -23,7 +25,7 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 		updateAction = new InfinityLoopAction(() -> Actions.runAction(new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)), new StatementAction(super::update))));
 		updateThread = new Thread(() -> Actions.runAction(updateAction));
 
-		setAutoUpdate(false);
+		super.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
 		if (auto_start_updater) {
 			Global.threadManager.add("client-updater", updateThread);
@@ -53,5 +55,15 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 	@Override
 	public boolean isUpdateRequested() {
 		return false;
+	}
+
+	@Override
+	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
+		throw new IllegalStateException("Cannot set update config for BranchThreadClient");
+	}
+
+	@Override
+	public UpdateConfig getUpdateConfig() {
+		return UpdateConfig.THREAD_REQUIRED;
 	}
 }
