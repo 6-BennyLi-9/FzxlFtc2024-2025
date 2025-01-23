@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.client.UpdateConfig;
 import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.BaseMapClient;
 import org.betastudio.ftc.util.ThreadEx;
@@ -42,7 +43,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
-		client.setAutoUpdate(true);
+		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
 		utils = new UtilsMng();
 		timer = new Timer();
 
