@@ -2,6 +2,7 @@ package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.ui.telemetry.IntegralSelectElement;
 import org.betastudio.ftc.ui.telemetry.SelectionTeleElement;
 
 import java.util.ArrayList;
@@ -27,12 +28,17 @@ public class SelectionTelemetryMsg implements Message {
 		elements.addAll(message.elements);
 	}
 
-	public List <SelectionTeleElement> getSelectionElements() {
+	public List <SelectionTeleElement> getElements() {
 		return elements;
 	}
 
 	public void press(final int index){
 		elements.get(index).press();
+	}
+
+	public void submit(final int index){
+		assert elements.get(index) instanceof IntegralSelectElement;
+		((IntegralSelectElement) elements.get(index)).submit();
 	}
 
 	public TelemetryMsg convertToTelemetryMsg(){

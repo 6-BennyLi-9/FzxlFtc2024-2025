@@ -15,4 +15,8 @@ public class SelectionTeleElement extends TelemetryItem{
 	public String getTitle() {
 		return value;
 	}
+
+	public boolean isSelected() {
+		return selected;
+	}
 }
