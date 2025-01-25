@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.specification;
 
 import org.betastudio.ftc.action.Action;
 

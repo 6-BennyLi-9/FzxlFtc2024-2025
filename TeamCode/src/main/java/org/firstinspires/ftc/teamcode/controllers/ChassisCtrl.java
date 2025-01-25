@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.DashboardCallable;
-import org.betastudio.ftc.util.MessagesProcessRequired;
+import org.betastudio.ftc.specification.DashboardCallable;
+import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.message.DriveBufMessage;
 import org.betastudio.ftc.message.DriveMessage;

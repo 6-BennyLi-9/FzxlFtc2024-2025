@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.DashboardCallable;
+import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.message.TelemetryMessage;

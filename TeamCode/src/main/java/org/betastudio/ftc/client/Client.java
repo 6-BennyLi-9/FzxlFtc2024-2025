@@ -2,8 +2,8 @@ package org.betastudio.ftc.client;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.MessagesProcessRequired;
-import org.betastudio.ftc.util.Updatable;
+import org.betastudio.ftc.specification.MessagesProcessRequired;
+import org.betastudio.ftc.specification.Updatable;
 import org.betastudio.ftc.message.TelemetryMessage;
 
 /**

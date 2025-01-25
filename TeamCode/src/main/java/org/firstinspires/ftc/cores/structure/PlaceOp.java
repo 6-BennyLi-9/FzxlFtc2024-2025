@@ -3,9 +3,9 @@ package org.firstinspires.ftc.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.HardwareController;
-import org.betastudio.ftc.util.InitializeRequested;
-import org.betastudio.ftc.util.TagOptionsRequired;
+import org.betastudio.ftc.specification.HardwareController;
+import org.betastudio.ftc.specification.InitializeRequested;
+import org.betastudio.ftc.specification.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.util.Labeler;

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
-import org.betastudio.ftc.util.ThreadEx;
+import org.betastudio.ftc.specification.ThreadEx;
 import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
 import org.firstinspires.ftc.cores.eventloop.IntegralOpMode;
 import org.firstinspires.ftc.cores.eventloop.TerminateReason;

@@ -7,8 +7,8 @@ import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
-import org.betastudio.ftc.util.MessagesProcessRequired;
-import org.betastudio.ftc.util.Updatable;
+import org.betastudio.ftc.specification.MessagesProcessRequired;
+import org.betastudio.ftc.specification.Updatable;
 import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.telemetry.TelemetryLine;

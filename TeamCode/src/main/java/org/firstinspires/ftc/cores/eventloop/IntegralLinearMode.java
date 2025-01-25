@@ -12,7 +12,7 @@ import org.betastudio.ftc.client.Client;
 import org.betastudio.ftc.client.UpdateConfig;
 import org.betastudio.ftc.dashboard.DashTelemetry;
 import org.betastudio.ftc.client.BaseMapClient;
-import org.betastudio.ftc.util.ThreadEx;
+import org.betastudio.ftc.specification.ThreadEx;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;

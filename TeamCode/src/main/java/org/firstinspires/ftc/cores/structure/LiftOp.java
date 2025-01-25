@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.HardwareController;
-import org.betastudio.ftc.util.TagOptionsRequired;
+import org.betastudio.ftc.specification.HardwareController;
+import org.betastudio.ftc.specification.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.util.Labeler;

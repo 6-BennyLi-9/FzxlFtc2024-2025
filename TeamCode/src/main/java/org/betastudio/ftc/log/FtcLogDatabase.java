@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.message.TelemetryMessage;
 import org.betastudio.ftc.telemetry.TelemetryItem;
-import org.betastudio.ftc.util.MessagesProcessRequired;
+import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.util.Timestamp;
 
 import java.util.Set;
