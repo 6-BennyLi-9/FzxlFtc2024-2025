@@ -79,3 +79,5 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+/~$机器配置.xlsx
+/机器配置.xlsx
