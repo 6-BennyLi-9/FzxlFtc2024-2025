@@ -46,8 +46,8 @@ public class SuperStructures {
     public static double armDown = 0.89;  //翻转去夹0.16 0.89
     public static double armMiddle = 0.83;  //翻转去挂
     public static double armUp = 0.39;  //翻转去挂
-    public static double upTrunUp = 0.24;  //翻转去夹0.16
-    public static double upTrunDown = 0.91;  //翻转去挂
+    public static double upTurnUp = 0.24;  //翻转去夹0.16
+    public static double upTurnDown = 0.91;  //翻转去挂
     List<ButtonLock> buttons = new LinkedList<>();
 
     public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
@@ -128,7 +128,7 @@ public class SuperStructures {
 
     }
 
-    public void LiftEncodertest() {
+    public void LiftEncoderTest() {
         leftLift.setPower(gamepad2.left_stick_y);
         telemetry.addData("lift", leftLift.getCurrentPosition());
         turn.setPosition(gamepad2.right_stick_y);
@@ -189,7 +189,7 @@ public class SuperStructures {
 
     private void armOperation(boolean key) {
         telemetry.addData("arm:", "%d", armPutEvent);
-        telemetry.addData("armPostion:", "%f", arm.getPosition());
+        telemetry.addData("armPosition:", "%f", arm.getPosition());
         if (key) {
             if (!keyFlag_arm) {
                 keyFlag_arm = true;
@@ -280,12 +280,12 @@ public class SuperStructures {
         if (y) {
             clip.setPosition(clipOn);  //夹住
             arm.setPosition(armUp);  //翻转挂矿石
-            upTurn.setPosition(upTrunUp);
+            upTurn.setPosition(upTurnUp);
             claw.setPosition(clawOpen);
         } else {
             clip.setPosition(clipOpen);  //打开
             arm.setPosition(armMiddle);  //中间等待位置
-            upTurn.setPosition(upTrunDown);
+            upTurn.setPosition(upTurnDown);
         }
     }
 

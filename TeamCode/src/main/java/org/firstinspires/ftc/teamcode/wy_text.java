@@ -41,7 +41,7 @@ public class wy_text extends OpMode {
         structures.showEncoder();
         structures.optionThroughGamePad();
         //structures.test(); //测试舵机位置程序
-        //structures.LiftEncodertest();//测试电梯的位置
+        //structures.LiftEncoderTest();//测试电梯的位置
         et=System.currentTimeMillis();
         telemetry.update();
     }
