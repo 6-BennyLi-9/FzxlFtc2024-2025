@@ -1,31 +1,18 @@
 package org.betastudio.ftc.ui.telemetry;
 
-import androidx.annotation.NonNull;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-public class SelectionTeleElement implements TelemetryElement{
-	private final String title;
+public class SelectionTeleElement extends TelemetryItem{
 	private boolean selected;
 
 	public SelectionTeleElement(final String title) {
-		this.title = title;
-	}
-
-	@Override
-	public void push(@NonNull final Telemetry telemetry) {
-		if(selected){
-			telemetry.addData("[ ]", title);
-		}else{
-			telemetry.addData("[X]", title);
-		}
+		super("[ ]",title);
 	}
 
 	public void press(){
 		selected =!selected;
+		capital = selected? "[X]" : "[ ]";
 	}
 
 	public String getTitle() {
-		return title;
+		return value;
 	}
 }

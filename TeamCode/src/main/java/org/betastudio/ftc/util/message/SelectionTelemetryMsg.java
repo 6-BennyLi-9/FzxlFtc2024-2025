@@ -3,46 +3,43 @@ package org.betastudio.ftc.util.message;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.telemetry.SelectionTeleElement;
-import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
-public class SelectionTelemetryMsg extends TelemetryMsg {
-	private final Set <SelectionTeleElement> elements;
+public class SelectionTelemetryMsg implements Message {
+	protected final List <SelectionTeleElement> elements;
 
 	public SelectionTelemetryMsg(@NonNull final Set<SelectionTeleElement> elements) {
-		this.elements = new TreeSet<>(Comparator.comparing(SelectionTeleElement::getTitle));
-		this.elements.addAll(elements);
+		this.elements = new ArrayList <>(elements);
 	}
 
 	public SelectionTelemetryMsg(final SelectionTeleElement... elements) {
 		this(Set.of(elements));
 	}
 
-	@Override
-	public void add(final TelemetryElement element) {
-		assert element instanceof SelectionTeleElement;
-		elements.add((SelectionTeleElement) element);
+	public void add(final SelectionTeleElement element) {
+		elements.add(element);
 	}
 
-	@Override
-	public void add(@NonNull final TelemetryMsg message) {
-		assert message instanceof SelectionTelemetryMsg;
-		elements.addAll(((SelectionTelemetryMsg) message).elements);
+	public void add(@NonNull final SelectionTelemetryMsg message) {
+		elements.addAll(message.elements);
 	}
 
-	public Set <SelectionTeleElement> getSelectionElements() {
+	public List <SelectionTeleElement> getSelectionElements() {
 		return elements;
 	}
 
-//------------------------
-//  UNSUPPORTED METHODS
-//------------------------
+	public void press(final int index){
+		elements.get(index).press();
+	}
 
-	@Override
-	public Set <TelemetryElement> getElements() {
-		throw new UnsupportedOperationException();
+	public TelemetryMsg convertToTelemetryMsg(){
+		final TelemetryMsg telemetryMsg = new TelemetryMsg();
+		for(final SelectionTeleElement element : elements){
+			telemetryMsg.add(element);
+		}
+		return telemetryMsg;
 	}
 }
