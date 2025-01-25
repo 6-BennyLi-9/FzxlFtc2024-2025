@@ -28,4 +28,8 @@ public class TelemetryMsg implements Message{
 	public Set <TelemetryElement> getElements() {
 		return elements;
 	}
+
+	public void merge(@NonNull final TelemetryMsg message){
+		elements.addAll(message.elements);
+	}
 }
