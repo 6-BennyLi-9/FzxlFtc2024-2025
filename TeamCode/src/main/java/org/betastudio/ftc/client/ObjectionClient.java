@@ -48,11 +48,6 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
-	public Client addData(final String key, @NonNull final Object val) {
-		return addData(key, val.toString());
-	}
-
-	@Override
 	public Client deleteData(final String key) {
 		telemetry.removeItem(data.get(key));
 
@@ -81,11 +76,6 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
-	public Client changeData(final String key, @NonNull final Object val) {
-		return changeData(key, val.toString());
-	}
-
-	@Override
 	public Client addLine(final String key) {
 		line.put(key, telemetry.addLine(key));
 
@@ -95,11 +85,6 @@ public class ObjectionClient implements Client {
 			isUpdateRequested = false;
 		}
 		return this;
-	}
-
-	@Override
-	public Client addLine(@NonNull final Object key) {
-		return addLine(key.toString());
 	}
 
 	@Override
@@ -126,11 +111,6 @@ public class ObjectionClient implements Client {
 			update();
 		}
 		return this;
-	}
-
-	@Override
-	public void setAutoUpdate(final boolean autoUpdate) {
-		this.autoUpdate = autoUpdate;
 	}
 
 	@Override

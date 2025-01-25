@@ -73,14 +73,6 @@ public class BaseMapClient implements Client {
 	}
 
 	/**
-	 * 注意：这是新的Data
-	 */
-	@Override
-	public Client addData(final String key, final Object val) {
-		return addData(key, String.valueOf(val));
-	}
-
-	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	@Override
@@ -114,14 +106,6 @@ public class BaseMapClient implements Client {
 		return this;
 	}
 
-	/**
-	 * 自动创建新的行如果key所指向的值不存在
-	 */
-	@Override
-	public Client changeData(final String key, final Object val) {
-		return changeData(key, String.valueOf(val));
-	}
-
 	@Override
 	public Client addLine(final String key) {
 		++ this.ID;
@@ -133,11 +117,6 @@ public class BaseMapClient implements Client {
 			isUpdateRequested=false;
 		}
 		return this;
-	}
-
-	@Override
-	public Client addLine(final Object key) {
-		return addLine(String.valueOf(key));
 	}
 
 	/**
@@ -197,11 +176,6 @@ public class BaseMapClient implements Client {
 	@Override
 	public void configViewMode(final ViewMode viewMode) {
 		BaseMapClient.viewMode = viewMode;
-	}
-
-	@Override
-	public void setAutoUpdate(final boolean autoUpdate) {
-		this.autoUpdate = autoUpdate;
 	}
 
 	@Override

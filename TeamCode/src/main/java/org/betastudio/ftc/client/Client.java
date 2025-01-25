@@ -1,5 +1,7 @@
 package org.betastudio.ftc.client;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.util.MessagesProcessRequired;
 import org.betastudio.ftc.util.Updatable;
 import org.betastudio.ftc.message.TelemetryMessage;
@@ -10,34 +12,37 @@ import org.betastudio.ftc.message.TelemetryMessage;
 public interface Client extends Updatable , MessagesProcessRequired <TelemetryMessage> {
 	void clear();
 
-	Client addData(String key, String val);
+	Client addData(final String key, final String val);
 
-	Client addData(String key, Object val);
+	default Client addData(final String key, @NonNull final Object val){
+		return addData(key, val.toString());
+	}
 
-	Client deleteData(String key);
+	Client deleteData(final String key);
 
-	Client changeData(String key, String val);
+	Client changeData(final String key, final String val);
 
-	Client changeData(String key, Object val);
+	default Client changeData(final String key, @NonNull final Object val){
+		return changeData(key, val.toString());
+	}
 
-	Client addLine(String key);
+	Client addLine(final String key);
 
-	Client addLine(Object key);
+	default Client addLine(@NonNull final Object key){
+		return addLine(key.toString());
+	}
 
-	Client deleteLine(String key);
+	Client deleteLine(final String key);
 
-	Client changeLine(String oldData, String newData);
+	Client changeLine(final String oldData, final String newData);
 
-	Client speak(String text);
+	Client speak(final String text);
 
-	Client speak(String text, String languageCode, String countryCode);
+	Client speak(final String text, final String languageCode, final String countryCode);
 
-	void configViewMode(ViewMode viewMode);
+	void configViewMode(final ViewMode viewMode);
 
-	@Deprecated
-	void setAutoUpdate(boolean autoUpdate);
-
-	void setUpdateConfig(UpdateConfig updateConfig);
+	void setUpdateConfig(final UpdateConfig updateConfig);
 
 	UpdateConfig getUpdateConfig();
 

@@ -46,11 +46,6 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public Client addData(final String key, final Object val) {
-		return this.addData(key, String.valueOf(val));
-	}
-
-	@Override
 	public Client deleteData(final String key) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().deleteData(key);
@@ -67,21 +62,11 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public Client changeData(final String key, final Object val) {
-		return changeData(key, String.valueOf(val));
-	}
-
-	@Override
 	public Client addLine(final String key) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().addLine(key);
 		}
 		return this;
-	}
-
-	@Override
-	public Client addLine(final Object key) {
-		return addLine(String.valueOf(key));
 	}
 
 	@Override
@@ -120,14 +105,6 @@ public class MultiTelemetryClient implements Client {
 	public void configViewMode(final ViewMode viewMode) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().configViewMode(viewMode);
-		}
-	}
-
-	/** @noinspection deprecation*/
-	@Override
-	public void setAutoUpdate(final boolean autoUpdate) {
-		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().setAutoUpdate(autoUpdate);
 		}
 	}
 
