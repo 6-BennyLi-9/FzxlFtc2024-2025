@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -76,14 +78,10 @@ public class WyMoveMethod {
         } catch (Exception ignored) {
         }
         imu.initialize(parameters);
-//        Position p = new Position();
-//        Velocity v = new Velocity();
-        //imu.startAccelerationIntegration(p,v,5);
     }
 
     //获取三个编码轮的函数，将编码轮的值进行初始化
-    public void extraEncoderInit(DcMotor l, DcMotor r, DcMotor m) {//编码器init
-
+    public void extraEncoderInit(@NonNull DcMotor l, @NonNull DcMotor r, @NonNull DcMotor m) {//编码器init
         l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         m.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -114,10 +112,7 @@ public class WyMoveMethod {
         telemetry.addData("第2个角", angle.secondAngle);
         telemetry.addData("第3个角", angle.thirdAngle);
     }
-
-    private double targetAngle = 0;
     public float maxSpeed = 1.0f;
-    private boolean lbFlag = false, rbFlag = false;//左右bumper是否按下标志，以确保每次按下之后只调整一次角度
 
     public void basicMoveThroughGamePad() {
         //根据控制板控制
@@ -140,126 +135,5 @@ public class WyMoveMethod {
         leftRear.setPower(y + x - turn);
         rightFront.setPower(y + x + turn);
         rightRear.setPower(y - x + turn);
-
-       /* final double angleIncreaseCoefficient = 5.5;//用来转弯的参数，0-10
-//        final double angleIncreaseCoefficient = 5.5;
-        targetAngle += angleIncreaseCoefficient * gamepad1.left_trigger;
-        targetAngle -= angleIncreaseCoefficient * gamepad1.right_trigger;
-        targetAngle -= angleIncreaseCoefficient * gamepad1.right_stick_x;
-        if (gamepad1.left_bumper) {
-            if (!lbFlag) {
-                lbFlag = true;
-                targetAngle += 6;//原是6，为天的角度数
-            }
-        } else
-            lbFlag = false;
-        if (gamepad1.right_bumper) {
-            if (!rbFlag) {
-                rbFlag = true;
-                targetAngle -= 6;
-            }
-        } else
-            rbFlag = false;
-        if (gamepad1.b)
-            targetAngle = 0;
-        if (targetAngle > 180)
-            targetAngle -= 360;
-        if (targetAngle < -180)
-            targetAngle += 360;
-    }
-
-    public void showEncoders() {
-        Integer lf, lr, rf, rr, l, m, r;
-
-        //获取底盘四个电机的编码器和给电Power
-        //lf = leftFront.getCurrentPosition();
-        // rf = rightFront.getCurrentPosition();
-        // rr = rightRear.getCurrentPosition();
-        //lr = leftRear.getCurrentPosition();
-
-        //获取底盘四个电机的编码器状态
-        lf = leftFront.getCurrentPosition();
-        rf = rightFront.getCurrentPosition();
-        rr = rightRear.getCurrentPosition();
-        lr = leftRear.getCurrentPosition();
-
-        //获取外接编码器的值
-        l = left.getCurrentPosition();
-        m = mid.getCurrentPosition();
-        r = -right.getCurrentPosition();
-
-        telemetry.addData("左前轮", lf);
-        telemetry.addData("左后轮", lr);
-        telemetry.addData("右前轮", rf);
-        telemetry.addData("右后轮", rr);
-        telemetry.addData("左编码器", l);
-        telemetry.addData("中间编码器", m);
-        telemetry.addData("右编码器", r);
-    }
-
-
-
-    public double position_x, position_y;
-    private void positionUpdate() {
-    }
-
-    public void turnToAngle(float angle) {
-        targetAngle = angle;
-    }
-    public void turnToAngleImmediately(float angle) {
-        targetAngle = angle;
-        waitTillAngle();
-    }
-    public void turnAngle(double angle) {
-        targetAngle += angle;
-        if (targetAngle > 180)
-            targetAngle -= 360;
-        if (targetAngle < -180)
-            targetAngle += 360;
-    }
-    public void turnAngleImmediately(double angle) {
-        turnAngle(angle);
-        waitTillAngle();
-    }
-    private void waitTillAngle() {
-        double speed = gyroModifyPID();
-        while (Math.abs(speed) > 0.05) {
-            leftRear.setPower(-speed);
-            leftFront.setPower(-speed);
-            rightRear.setPower(speed);
-            rightFront.setPower(speed);
-            speed = gyroModifyPID();
-        }
-        speed = 0;
-        leftRear.setPower(-speed);
-        leftFront.setPower(-speed);
-        rightRear.setPower(speed);
-        rightFront.setPower(speed);
-    }
-
-
-    private double integralAngle = 0;//pid变量
-    private double lastAngleErr = 0;
-
-
-    private double gyroModifyPID() {
-        final double Kp = -0.1, Ki = 0, Kd = 0.04;//pid参数-0.145 0  0.04
-        //final double Kp = 0.45, Ki = -0.2, Kd = 0.05;//pid参数
-        double proportionAngle, differentiationAngle;
-        Orientation angle;
-        angle = imu.getAngularOrientation();
-        proportionAngle = targetAngle - angle.firstAngle;//计算角度误差，作为比例误差
-        if(proportionAngle<-180)
-            proportionAngle+=360;
-        else if(proportionAngle>180)
-            proportionAngle-=360;
-        differentiationAngle = proportionAngle - lastAngleErr;//微分
-        integralAngle = integralAngle + proportionAngle;//积分
-        lastAngleErr = proportionAngle;
-        //telemetry.addData("mjj", targetAngle);
-        return (Kp * proportionAngle + Ki * integralAngle + Kd * differentiationAngle) / 15;
-    }
-
-        */
     }
 }

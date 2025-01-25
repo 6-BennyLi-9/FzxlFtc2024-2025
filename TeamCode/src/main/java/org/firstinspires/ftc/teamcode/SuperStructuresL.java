@@ -14,41 +14,41 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SuperStructuresR {
+public class SuperStructuresL {
 	private HardwareMap hardwareMap;
-	private Telemetry   telemetry;
-	private Gamepad     gamepad1, gamepad2;
+	private Telemetry telemetry;
+	private Gamepad gamepad1, gamepad2;
 
 
-	private DcMotorEx leftLift  = null;
+	private DcMotorEx leftLift = null;
 	private DcMotorEx rightLift = null;
 
-	private Servo arm  = null;         //后电梯上摆臂
+	private Servo arm = null;         //后电梯上摆臂
 	private Servo clip = null;        //后电梯上的夹取  前
 	private Servo turn = null;         //前电梯上的翻转舵机
 	private Servo claw = null;   //自动紫色像素释放 左
 
 
-	private Servo       rotate    = null;     //盒子像素卡扣  后
-	private TouchSensor touch     = null;
-	private Servo       upTurn    = null;         //后电梯上摆臂
-	private Servo       leftPush  = null;        //后电梯上的夹取  前
-	private Servo       rightPush = null;         //前电梯上的翻转舵机
+	private Servo rotate = null;     //盒子像素卡扣  后
+	private TouchSensor touch = null;
+	private Servo upTurn = null;         //后电梯上摆臂
+	private Servo leftPush = null;        //后电梯上的夹取  前
+	private Servo rightPush = null;         //前电梯上的翻转舵机
 
-	public static double turnUp     = 0.07; //0.31
-	public static double turnMiddle = 0.76;
-	public static double turnDown   = 0.90;
-	public static double rotateOn   = 0.49;
-	public static double clawOn     = 0.69;
-	public static double clawOpen   = 0.37;
-	public static double clipOn     = 0.76;
-	public static double clipOpen   = 0.49;
-	public static double armDown    = 0.88;  //翻转去夹0.16 0.89
-	public static double armMiddle  = 0.72;  //翻转去挂
-	public static double armGet     = 0.14;  //翻转去挂
-	public static double TrunGet    = 0.7;  //翻转去夹0.16
-	public static double upTrunDown = 0.91;  //翻转去挂
-	List <ButtonLock> buttons = new LinkedList <>();
+	public static double turnUp = 0.06; //0.31
+	public static double turnMiddle = 0.71;
+	public static double turnDown = 0.89;
+	public static double rotateOn = 0.49;
+	public static double clawOn = 0.69;
+	public static double clawOpen = 0.37;
+	public static double clipOn = 0.74;
+	public static double clipOpen = 0.49;
+	public static double armDown = 0.89;  //翻转去夹0.16 0.89
+	public static double armMiddle = 0.83;  //翻转去挂
+	public static double armUp = 0.39;  //翻转去挂
+	public static double upTurnUp = 0.24;  //翻转去夹0.16
+	public static double upTurnDown = 0.91;  //翻转去挂
+	List<ButtonLock> buttons = new LinkedList<>();
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
@@ -74,9 +74,9 @@ public class SuperStructuresR {
 		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-		while (! this.touch.isPressed()) {
-			this.leftLift.setPower(- 0.3);//根据电机的正负设置power
-			this.rightLift.setPower(- 0.3);//根据电机的正负设置power
+		while (!this.touch.isPressed()) {
+			this.leftLift.setPower(-0.3);//根据电机的正负设置power
+			this.rightLift.setPower(-0.3);//根据电机的正负设置power
 		}
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
@@ -106,47 +106,31 @@ public class SuperStructuresR {
 		setPushPose(0.9);
 	}
 
-	//测试舵机精准位置的程序
-	public void test() {
-		arm.setPosition(gamepad2.left_stick_y);
-		telemetry.addData("arm", gamepad2.left_stick_y);
-		turn.setPosition(gamepad2.right_stick_y);
-		telemetry.addData("turn", gamepad2.right_stick_y);
-
-	}
-
-	public void LiftEncodertest() {
-		leftLift.setPower(gamepad2.left_stick_y);
-		telemetry.addData("lift", leftLift.getCurrentPosition());
-		turn.setPosition(gamepad2.right_stick_y);
-		telemetry.addData("turn", gamepad2.right_stick_y);
-
-	}
-
 	public void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.85), 0.1);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
 	}
 
+
 	public void optionThroughGamePad() {
+
 		if (gamepad2.left_bumper) {
 			setLiftPosition(2300);//中间位置
 			arm.setPosition(0.88);
-		}
 
+		}
 		if (gamepad2.dpad_up) {
 			setLiftPosition(180);//中间位置
 			arm.setPosition(0.88);
 		}
-
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);
-			setLiftPosition(931);//挂高杆2195
+			setLiftPosition(2300);//挂高杆2195
 			armOperation1(true);
 		}
 		if (gamepad2.dpad_down) {
-			//clipOperation1(true);
+			clipOperation1(true);
 			armOperation1(false);
 			setLiftPosition(0);//初始位置
 		}
@@ -170,14 +154,14 @@ public class SuperStructuresR {
 	}
 
 	//用一个按键控制不同的状态
-	int     armPutEvent = 0;
+	int armPutEvent = 0;
 	boolean keyFlag_arm = false;
 
 	private void armOperation(boolean key) {
 		telemetry.addData("arm:", "%d", armPutEvent);
-		telemetry.addData("armPostion:", "%f", arm.getPosition());
+		telemetry.addData("armPosition:", "%f", arm.getPosition());
 		if (key) {
-			if (! keyFlag_arm) {
+			if (!keyFlag_arm) {
 				keyFlag_arm = true;
 				if (armPutEvent < 1)  //原来值是3
 					armPutEvent++;
@@ -185,22 +169,25 @@ public class SuperStructuresR {
 			}
 			switch (armPutEvent) {
 				case 0:
-					turn.setPosition(TrunGet);
 					clip.setPosition(clipOn);
 					break;
 				case 1:
-					arm.setPosition(armGet);
+
+					arm.setPosition(armDown);  //打开
+					clip.setPosition(clipOpen);
+
+
 			}
 		} else keyFlag_arm = false;
 	}
 
-	int     clawPutEvent = 0;
+	int clawPutEvent = 0;
 	boolean keyFlag_claw = false;
 
 	private void clawOperation(boolean key) {
 		telemetry.addData("claw:", "%d", clawPutEvent);
 		if (key) {
-			if (! keyFlag_claw) {
+			if (!keyFlag_claw) {
 				keyFlag_claw = true;
 				if (clawPutEvent < 3)  //原来值是3
 					clawPutEvent++;
@@ -232,13 +219,13 @@ public class SuperStructuresR {
 		} else keyFlag_claw = false;
 	}
 
-	int     clipPutEvent = 0;
+	int clipPutEvent = 0;
 	boolean keyFlag_clip = false;
 
 	private void clipOperation(boolean key) {
 		telemetry.addData("clip:", "%d", clipPutEvent);
 		if (key) {
-			if (! keyFlag_clip) {
+			if (!keyFlag_clip) {
 				keyFlag_clip = true;
 				if (clipPutEvent < 1)  //原来值是3
 					clipPutEvent++;
@@ -247,12 +234,12 @@ public class SuperStructuresR {
 			switch (clipPutEvent) {
 				case 0:
 
-					clip.setPosition(clipOn);  //释放
+					clip.setPosition(clipOpen);  //释放
 
 					break;
 				case 1:
-					//夹住
-					clip.setPosition(clipOpen);
+					clip.setPosition(clipOn);  //夹住
+
 					break;
 
 			}
@@ -262,13 +249,13 @@ public class SuperStructuresR {
 	private void armOperation1(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
-			arm.setPosition(armMiddle);  //翻转挂矿石
-			//upTurn.setPosition(upTrunUp);
+			arm.setPosition(armUp);  //翻转挂矿石
+			upTurn.setPosition(upTurnUp);
 			claw.setPosition(clawOpen);
 		} else {
 			clip.setPosition(clipOpen);  //打开
-			arm.setPosition(armGet);  //中间等待位置
-			upTurn.setPosition(TrunGet);
+			arm.setPosition(armMiddle);  //中间等待位置
+			upTurn.setPosition(upTurnDown);
 		}
 	}
 
@@ -294,6 +281,14 @@ public class SuperStructuresR {
 		}
 	}
 
+	public void showEncoder() {
+		telemetry.addData("lift", leftLift.getCurrentPosition());
+
+		telemetry.addData("touch sensor", touch.isPressed() ? "按了" : "没按");
+
+		telemetry.addData("push", rightPush.getPosition());
+	}
+
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
 	// 以匀速低速的形式来实现前抬升的前100转和下降的后100转以低速
 	int right_encoder_value = 0;
@@ -304,7 +299,7 @@ public class SuperStructuresR {
 
 	private void LiftPositionUpdate() {
 		final int max_position = 2500;//原1000
-		final int bufVal       = 10;
+		final int bufVal = 10;
 		if (right_encoder_value < max_position && right_encoder_value > 5) {
 			leftLift.setTargetPosition(right_encoder_value);
 			rightLift.setTargetPosition(right_encoder_value);
@@ -325,9 +320,9 @@ public class SuperStructuresR {
 				leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 				rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 				rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			} else {
-				leftLift.setPower(- 1.0);
-				rightLift.setPower(- 1.0);
+			} else{
+				leftLift.setPower(-1.0);
+				rightLift.setPower(-1.0);
 			}
 
 		}
@@ -350,47 +345,5 @@ public class SuperStructuresR {
 		clipOperation1(true);
 
 	}
-     /*
-        //夹取圆锥的程序
-    int armPutEvent=0;
-    boolean keyFlag_arm=false;
-
-    private void armOperation(boolean k ){
-        if (k)
-            arm.setPosition(0.99);
-        else arm.setPosition(0.11);
-    }
-    //同一个按键，根据按键的次数来执行不同的结果
-    private void armOperation(boolean key) {
-        telemetry.addData("X:","%d",armPutEvent);
-        if (key) {
-            if (!keyFlag_arm) {
-                keyFlag_arm = true;
-                if (armPutEvent < 3)  //原来值是3
-                    armPutEvent++;
-                else armPutEvent = 0;
-            }
-            switch (armPutEvent) {
-                case 0:
-                    arm.setPosition(0.51);//捡标志物的位置
-                    break;
-                case 1:
-                    arm.setPosition(0.5);//瞄准塔
-                    break;
-                case 2:
-                    arm.setPosition(0.61);//放标志物
-                    break;
-                case 3:
-                    arm.setPosition(0);//收回去
-                    break;
-            }
-        }
-        else keyFlag_arm=false;
-    }
-
-
-     */
-
-
 }
 
