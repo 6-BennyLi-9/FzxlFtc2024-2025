@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.util.time;
 
 import java.util.HashMap;
 import java.util.Map;

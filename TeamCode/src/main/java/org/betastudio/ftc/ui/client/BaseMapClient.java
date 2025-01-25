@@ -13,7 +13,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
-import org.betastudio.ftc.util.Timer;
+import org.betastudio.ftc.util.time.Timer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
