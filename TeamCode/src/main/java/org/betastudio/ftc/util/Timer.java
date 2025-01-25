@@ -8,7 +8,7 @@ import java.util.Vector;
 /**
  * 一个非常好用的计时器
  */
-public final class Timer {
+public class Timer {
 	/**
 	 * 存储时间标签及其对应的时间值
 	 */
