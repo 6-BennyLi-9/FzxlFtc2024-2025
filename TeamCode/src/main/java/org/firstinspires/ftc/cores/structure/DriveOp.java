@@ -11,8 +11,8 @@ import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.betastudio.ftc.message.DriveBufMessage;
-import org.betastudio.ftc.message.DriveMessage;
+import org.betastudio.ftc.util.message.DriveBufMessage;
+import org.betastudio.ftc.util.message.DriveMessage;
 import org.jetbrains.annotations.Contract;
 
 @Config

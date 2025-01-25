@@ -1,6 +1,6 @@
 package org.betastudio.ftc.log;
 
-import org.betastudio.ftc.message.Message;
+import org.betastudio.ftc.util.message.Message;
 import org.betastudio.ftc.util.Timestamp;
 
 public interface FtcLogElement {

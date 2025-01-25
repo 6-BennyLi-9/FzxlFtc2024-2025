@@ -2,7 +2,7 @@ package org.betastudio.ftc.specification;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.message.Message;
+import org.betastudio.ftc.util.message.Message;
 
 import java.util.concurrent.Callable;
 

@@ -1,4 +1,4 @@
-package org.betastudio.ftc.message;
+package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
