@@ -9,7 +9,7 @@ import org.betastudio.ftc.util.HardwareController;
 import org.betastudio.ftc.util.TagOptionsRequired;
 import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Labeler;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.betastudio.ftc.message.DriveBufMessage;
 import org.betastudio.ftc.message.DriveMessage;

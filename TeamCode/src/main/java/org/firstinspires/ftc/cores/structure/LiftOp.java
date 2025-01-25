@@ -9,7 +9,7 @@ import org.betastudio.ftc.util.HardwareController;
 import org.betastudio.ftc.util.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Labeler;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;

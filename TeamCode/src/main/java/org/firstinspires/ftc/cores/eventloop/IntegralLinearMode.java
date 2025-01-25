@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
-import org.firstinspires.ftc.teamcode.Timer;
+import org.betastudio.ftc.util.Timer;
 
 import java.util.Objects;
 

@@ -2,8 +2,6 @@ package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Timer;
-
 public class Timestamp {
 	private final String minute;
 	private final String second;

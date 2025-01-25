@@ -1,7 +1,7 @@
 /**
  * 包含一个标签生成器的类，用于为对象或原始ID生成唯一的标识字符串。
  */
-package org.firstinspires.ftc.teamcode;
+package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 

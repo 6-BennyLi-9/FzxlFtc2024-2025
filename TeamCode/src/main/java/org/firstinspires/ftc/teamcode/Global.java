@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.betastudio.ftc.client.Client;
+import org.betastudio.ftc.util.ThreadManager;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {

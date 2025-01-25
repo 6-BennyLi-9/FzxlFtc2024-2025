@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.ThreadEx;
 import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.telemetry.TelemetryElement;
 import org.betastudio.ftc.telemetry.TelemetryItem;
 import org.betastudio.ftc.telemetry.TelemetryLine;
-import org.firstinspires.ftc.teamcode.Labeler;
+import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.message.TelemetryMessage;
 
 import java.util.HashMap;

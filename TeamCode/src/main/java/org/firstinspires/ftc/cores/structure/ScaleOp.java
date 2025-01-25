@@ -11,7 +11,7 @@ import org.betastudio.ftc.util.InitializeRequested;
 import org.betastudio.ftc.util.TagOptionsRequired;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Labeler;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
