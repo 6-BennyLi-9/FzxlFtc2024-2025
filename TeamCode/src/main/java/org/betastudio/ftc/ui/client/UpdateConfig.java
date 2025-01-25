@@ -1,4 +1,4 @@
-package org.betastudio.ftc.client;
+package org.betastudio.ftc.ui.client;
 
 public enum UpdateConfig {
 	/**

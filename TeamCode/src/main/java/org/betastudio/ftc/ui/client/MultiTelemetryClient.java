@@ -1,10 +1,10 @@
-package org.betastudio.ftc.client;
+package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.telemetry.TelemetryElement;
-import org.betastudio.ftc.telemetry.TelemetryItem;
-import org.betastudio.ftc.telemetry.TelemetryLine;
+import org.betastudio.ftc.ui.telemetry.TelemetryElement;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.TelemetryMessage;
 

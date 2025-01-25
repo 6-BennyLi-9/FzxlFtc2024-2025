@@ -1,4 +1,4 @@
-package org.betastudio.ftc.client;
+package org.betastudio.ftc.ui.client;
 
 import android.util.Pair;
 
@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.log.FtcLogTunnel;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.TelemetryMessage;
-import org.betastudio.ftc.telemetry.TelemetryElement;
-import org.betastudio.ftc.telemetry.TelemetryItem;
-import org.betastudio.ftc.telemetry.TelemetryLine;
+import org.betastudio.ftc.ui.telemetry.TelemetryElement;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 import org.betastudio.ftc.util.Timer;

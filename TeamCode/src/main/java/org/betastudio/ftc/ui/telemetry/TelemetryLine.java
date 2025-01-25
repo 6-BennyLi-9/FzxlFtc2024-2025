@@ -1,4 +1,4 @@
-package org.betastudio.ftc.telemetry;
+package org.betastudio.ftc.ui.telemetry;
 
 import androidx.annotation.NonNull;
 

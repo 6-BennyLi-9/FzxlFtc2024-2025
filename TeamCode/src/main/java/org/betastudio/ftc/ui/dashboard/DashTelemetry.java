@@ -1,4 +1,4 @@
-package org.betastudio.ftc.dashboard;
+package org.betastudio.ftc.ui.dashboard;
 
 import androidx.annotation.NonNull;
 

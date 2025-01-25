@@ -2,7 +2,7 @@ package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.client.BranchThreadClient;
+import org.betastudio.ftc.ui.client.BranchThreadClient;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
 @TeleOp(group = "9_Beta")

@@ -1,4 +1,4 @@
-package org.betastudio.ftc.dashboard;
+package org.betastudio.ftc.ui.dashboard;
 
 import androidx.annotation.NonNull;
 
@@ -9,9 +9,9 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.specification.Updatable;
-import org.betastudio.ftc.telemetry.TelemetryElement;
-import org.betastudio.ftc.telemetry.TelemetryItem;
-import org.betastudio.ftc.telemetry.TelemetryLine;
+import org.betastudio.ftc.ui.telemetry.TelemetryElement;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.message.TelemetryMessage;
 import org.jetbrains.annotations.Contract;
 

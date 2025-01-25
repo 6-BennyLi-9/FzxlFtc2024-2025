@@ -1,4 +1,4 @@
-package org.betastudio.ftc.log;
+package org.betastudio.ftc.ui.log;
 
 import org.betastudio.ftc.util.message.Message;
 import org.betastudio.ftc.util.Timestamp;

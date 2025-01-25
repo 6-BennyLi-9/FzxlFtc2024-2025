@@ -2,10 +2,10 @@ package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.client.BranchThreadClient;
-import org.betastudio.ftc.client.Client;
-import org.betastudio.ftc.client.ViewMode;
-import org.betastudio.ftc.log.FtcLogTunnel;
+import org.betastudio.ftc.ui.client.BranchThreadClient;
+import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.ViewMode;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
 public class FtcLogTest extends LinearOpMode {
 	@Override

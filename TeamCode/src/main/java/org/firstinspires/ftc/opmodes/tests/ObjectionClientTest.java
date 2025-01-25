@@ -3,7 +3,7 @@ package org.firstinspires.ftc.opmodes.tests;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.client.ObjectionClient;
+import org.betastudio.ftc.ui.client.ObjectionClient;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
 @TeleOp

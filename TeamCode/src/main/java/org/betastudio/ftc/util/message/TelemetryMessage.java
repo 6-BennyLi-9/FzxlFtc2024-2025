@@ -2,7 +2,7 @@ package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.telemetry.TelemetryElement;
+import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 
 import java.util.Set;
 

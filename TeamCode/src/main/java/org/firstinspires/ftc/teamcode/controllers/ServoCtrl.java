@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.DashboardCallable;
-import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.TelemetryMessage;
 
 import java.util.Locale;

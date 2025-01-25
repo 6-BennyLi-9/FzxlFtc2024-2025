@@ -1,4 +1,4 @@
-package org.betastudio.ftc.client;
+package org.betastudio.ftc.ui.client;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.ThreadEx;

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.specification.MessagesProcessRequired;
-import org.betastudio.ftc.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.DriveBufMessage;
 import org.betastudio.ftc.util.message.DriveMessage;
 import org.betastudio.ftc.util.message.TelemetryMessage;
