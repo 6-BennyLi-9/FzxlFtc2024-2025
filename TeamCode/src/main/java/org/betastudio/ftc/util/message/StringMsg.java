@@ -2,9 +2,9 @@ package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
-public class StringMessage implements Message{
+public class StringMsg implements Message{
 	private final String message;
-	public StringMessage(final String message){
+	public StringMsg(final String message){
 		this.message = message;
 	}
 

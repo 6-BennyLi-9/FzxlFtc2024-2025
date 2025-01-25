@@ -11,8 +11,8 @@ import org.firstinspires.ftc.cores.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.betastudio.ftc.util.message.DriveBufMessage;
-import org.betastudio.ftc.util.message.DriveMessage;
+import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.DriveMsg;
 import org.jetbrains.annotations.Contract;
 
 @Config
@@ -21,9 +21,9 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 	public static final double kP = 0.0001, kI = 0, kD=0;
 	private static final PidProcessor processor = new PidProcessor(kP, kI, kD, 180);
 	public static DriveMode config = DriveMode.STRAIGHT_LINEAR;
-	public static ChassisCtrl chassisCtrl;
-	public static DriveBufMessage globalMessage = new DriveBufMessage(0.9, 0.9, 1.3);
-	private static DriveOp instance;
+	public static  ChassisCtrl chassisCtrl;
+	public static  DriveBufMsg globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
+	private static DriveOp     instance;
 
 	public static DriveOp getInstance() {
 		return instance;
@@ -68,10 +68,10 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 	}
 
 	public void sync(final double x, final double y, final double turn) {
-		sync(x, y, turn, new DriveBufMessage(1));
+		sync(x, y, turn, new DriveBufMsg(1));
 	}
 
-	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
+	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMsg message) {
 		DriveOp.x = x * message.valX;
 		DriveOp.y = y * message.valY;
 		DriveOp.turn = turn * message.valTurn;
@@ -79,14 +79,14 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 		targetAngle += turn * message.valTurn;
 		syncAngle();
 		currentPowerAngle += output;
-		chassisCtrl.send(new DriveMessage(DriveOp.x, DriveOp.y, output));
+		chassisCtrl.send(new DriveMsg(DriveOp.x, DriveOp.y, output));
 	}
 
 	public void additions(final double x, final double y, final double turn) {
-		additions(x, y, turn, new DriveBufMessage(1));
+		additions(x, y, turn, new DriveBufMsg(1));
 	}
 
-	public void additions(final double x, final double y, final double turn, @NonNull final DriveBufMessage message) {
+	public void additions(final double x, final double y, final double turn, @NonNull final DriveBufMsg message) {
 		sync(DriveOp.x + x * message.valX, DriveOp.y + y * message.valY, DriveOp.turn + turn * message.valTurn);
 	}
 
@@ -94,7 +94,7 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 		additions(0, 0, turn);
 	}
 
-	public void turn(final double turn, final DriveBufMessage message) {
+	public void turn(final double turn, final DriveBufMsg message) {
 		additions(0, 0, turn, message);
 	}
 

@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.betastudio.ftc.util.message.TelemetryMessage;
 
 /**
  * LiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
@@ -144,7 +144,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void process(@NonNull final TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMsg messageOverride) {
 		messageOverride.add(new TelemetryItem("lift-current", currentPosition)); // 发送当前电机位置
 		messageOverride.add(new TelemetryItem("lift-target", targetPosition)); // 发送目标电机位置
 	}

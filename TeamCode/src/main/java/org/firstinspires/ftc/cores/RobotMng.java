@@ -44,8 +44,8 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
-import org.betastudio.ftc.util.message.DriveBufMessage;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -264,7 +264,7 @@ public class RobotMng implements Updatable {
 			DriveOp.getInstance().turn(0.2);
 		}
 
-		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMessage(driverTriggerBufFal));
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMsg(driverTriggerBufFal));
 
 		if (gamepad1.a) {
 			DriveOp.getInstance().targetAngleRst();
@@ -287,7 +287,7 @@ public class RobotMng implements Updatable {
 
 	public void printActions() {
 		++ updateTime;
-		final TelemetryMessage message = new TelemetryMessage();
+		final TelemetryMsg message = new TelemetryMsg();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 

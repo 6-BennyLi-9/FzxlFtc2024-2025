@@ -8,7 +8,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Item;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Line;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -124,7 +124,7 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);

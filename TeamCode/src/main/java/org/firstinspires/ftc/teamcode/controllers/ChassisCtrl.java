@@ -9,14 +9,14 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
-import org.betastudio.ftc.util.message.DriveBufMessage;
-import org.betastudio.ftc.util.message.DriveMessage;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.DriveMsg;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMessage> {
+public strictfp class ChassisCtrl implements Action, DashboardCallable , MessagesProcessRequired<DriveMsg> {
 	public static double kS = 1, kF = - 1,maxControlPower=1.3,smoothConfig=0.9,vS=0.4;
 	public static ChassisCtrlMode mode = ChassisCtrlMode.FASTER_CONTROL;
 	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
@@ -95,7 +95,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	 * @param turn  旋转速度
 	 */
 	public void setPowers(final double x, final double y, final double turn) {
-		setPowers(x, y, turn, new DriveBufMessage(1)); // 调用重载方法，缓冲值为 1
+		setPowers(x, y, turn, new DriveBufMsg(1)); // 调用重载方法，缓冲值为 1
 	}
 
 	/**
@@ -106,7 +106,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	 * @param turn   旋转速度
 	 * @param bufVal 缓冲值
 	 */
-	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveBufMessage bufVal) {
+	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveBufMsg bufVal) {
 		pX = x * bufVal.valX; // 设置 pX 为 x 乘以缓冲值
 		pY = y * bufVal.valY; // 设置 pY 为 y 乘以缓冲值
 		pTurn = turn * bufVal.valTurn; // 设置 pTurn 为 turn 乘以缓冲值
@@ -150,17 +150,17 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable , Message
 	}
 
 	@Override
-	public void send(@NonNull final DriveMessage message) {
+	public void send(@NonNull final DriveMsg message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
 	@Override
-	public DriveMessage call() {
-		return new DriveMessage(pX, pY, pTurn);
+	public DriveMsg call() {
+		return new DriveMsg(pX, pY, pTurn);
 	}
 
 	@Override
-	public void process(@NonNull final TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMsg messageOverride) {
 		messageOverride.add(new TelemetryItem("vX",vX));
 		messageOverride.add(new TelemetryItem("vY",vY));
 		messageOverride.add(new TelemetryItem("vTurn",vTurn));

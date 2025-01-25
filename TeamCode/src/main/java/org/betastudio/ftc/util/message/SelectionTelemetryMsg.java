@@ -9,15 +9,15 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class SelectionTeleMessage extends TelemetryMessage{
+public class SelectionTelemetryMsg extends TelemetryMsg {
 	private final Set <SelectionTeleElement> elements;
 
-	public SelectionTeleMessage(@NonNull final Set<SelectionTeleElement> elements) {
+	public SelectionTelemetryMsg(@NonNull final Set<SelectionTeleElement> elements) {
 		this.elements = new TreeSet<>(Comparator.comparing(SelectionTeleElement::getTitle));
 		this.elements.addAll(elements);
 	}
 
-	public SelectionTeleMessage(final SelectionTeleElement... elements) {
+	public SelectionTelemetryMsg(final SelectionTeleElement... elements) {
 		this(Set.of(elements));
 	}
 
@@ -28,9 +28,9 @@ public class SelectionTeleMessage extends TelemetryMessage{
 	}
 
 	@Override
-	public void add(@NonNull final TelemetryMessage message) {
-		assert message instanceof SelectionTeleMessage;
-		elements.addAll(((SelectionTeleMessage) message).elements);
+	public void add(@NonNull final TelemetryMsg message) {
+		assert message instanceof SelectionTelemetryMsg;
+		elements.addAll(((SelectionTelemetryMsg) message).elements);
 	}
 
 	public Set <SelectionTeleElement> getSelectionElements() {

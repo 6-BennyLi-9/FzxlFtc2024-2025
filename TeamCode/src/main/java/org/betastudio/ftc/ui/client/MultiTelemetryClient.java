@@ -6,7 +6,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -142,7 +142,7 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);

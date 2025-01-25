@@ -2,7 +2,7 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.util.time.Timer;
@@ -11,7 +11,7 @@ import org.betastudio.ftc.util.time.Timestamp;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class FtcLogDatabase implements MessagesProcessRequired <TelemetryMessage> {
+public class FtcLogDatabase implements MessagesProcessRequired <TelemetryMsg> {
 	private final Set <FtcLogElement> elements;
 	private double saveTime;
 	private boolean saved;
@@ -37,13 +37,13 @@ public class FtcLogDatabase implements MessagesProcessRequired <TelemetryMessage
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMessage message) {
-		throw new UnsupportedOperationException("FtcLogDatabase only can been called for TelemetryMessage");
+	public void send(@NonNull final TelemetryMsg message) {
+		throw new UnsupportedOperationException("FtcLogDatabase only can been called for TelemetryMsg");
 	}
 
 	@Override
-	public TelemetryMessage call() {
-		final TelemetryMessage result = new TelemetryMessage();
+	public TelemetryMsg call() {
+		final TelemetryMsg result = new TelemetryMsg();
 		for (final FtcLogElement element : elements) {
 			result.add(new TelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString())));
 		}

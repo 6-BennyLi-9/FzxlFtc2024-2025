@@ -6,14 +6,14 @@ import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 
 import java.util.Set;
 
-public class TelemetryMessage implements Message{
+public class TelemetryMsg implements Message{
 	private final Set<TelemetryElement> elements;
 
-	public TelemetryMessage(final Set<TelemetryElement> elements) {
+	public TelemetryMsg(final Set<TelemetryElement> elements) {
 		this.elements = elements;
 	}
 
-	public TelemetryMessage(final TelemetryElement... elements) {
+	public TelemetryMsg(final TelemetryElement... elements) {
 		this(Set.of(elements));
 	}
 
@@ -21,7 +21,7 @@ public class TelemetryMessage implements Message{
 		elements.add(element);
 	}
 
-	public void add(@NonNull final TelemetryMessage message){
+	public void add(@NonNull final TelemetryMsg message){
 		elements.addAll(message.elements);
 	}
 

@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.specification.Updatable;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 /**
  * @noinspection UnusedReturnValue
  */
-public interface Client extends Updatable , MessagesProcessRequired <TelemetryMessage> {
+public interface Client extends Updatable , MessagesProcessRequired <TelemetryMsg> {
 	void clear();
 
 	Client addData(final String key, final String val);

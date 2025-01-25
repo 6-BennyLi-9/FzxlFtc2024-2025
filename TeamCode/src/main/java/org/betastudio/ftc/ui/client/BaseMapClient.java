@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
@@ -238,7 +238,7 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMessage message) {
+	public void send(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);

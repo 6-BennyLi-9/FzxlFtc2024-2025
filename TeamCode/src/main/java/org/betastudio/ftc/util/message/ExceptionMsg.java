@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class ExceptionMessage implements Message{
+public class ExceptionMsg implements Message{
 	private final Throwable exception;
-	public ExceptionMessage(final Throwable exception) {
+	public ExceptionMsg(final Throwable exception) {
 		this.exception = exception;
 	}
 

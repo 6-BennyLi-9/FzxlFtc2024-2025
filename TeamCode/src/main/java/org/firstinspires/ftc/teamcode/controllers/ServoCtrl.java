@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
-import org.betastudio.ftc.util.message.TelemetryMessage;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.Locale;
 
@@ -132,7 +132,7 @@ public class ServoCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public void process(@NonNull final TelemetryMessage messageOverride) {
+	public void process(@NonNull final TelemetryMsg messageOverride) {
 		messageOverride.add(new TelemetryItem(tag+"-target",targetPosition));
 	}
 }
