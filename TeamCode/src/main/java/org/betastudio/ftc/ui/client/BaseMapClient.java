@@ -239,7 +239,7 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public void send(@NonNull final TelemetryMessage message) {
-		for (final TelemetryElement element : message.elements) {
+		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				addLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {

@@ -84,7 +84,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	@Override
 	public void send(@NonNull final TelemetryMessage message) {
 		final TelemetryPacket packet = new TelemetryPacket();
-		for (final TelemetryElement element : message.elements) {
+		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				packet.addLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
@@ -98,7 +98,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		if (! recordElements) {
 			throw new IllegalStateException("Telemetry recording is not enabled");
 		}
-		final TelemetryMessage res =new TelemetryMessage(new HashSet <>(currentMessage.elements));
+		final TelemetryMessage res =new TelemetryMessage(new HashSet <>(currentMessage.getElements()));
 		currentMessage = new TelemetryMessage(new HashSet<>());
 		return res;
 	}
