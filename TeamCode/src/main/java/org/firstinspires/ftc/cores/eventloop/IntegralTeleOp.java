@@ -2,10 +2,12 @@ package org.firstinspires.ftc.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.betastudio.ftc.specification.ThreadEx;
 import org.betastudio.ftc.ui.client.BranchThreadClient;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
-import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.time.Timer;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
@@ -13,7 +15,6 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
-import org.betastudio.ftc.util.time.Timer;
 
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_init() {
+		FtcLogTunnel.saveAndClear();
 		Global.currentOpmode = this;
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
@@ -56,6 +58,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			client	.addData("last autonomous time used",CoreDatabase.autonomous_time_used)
 					.addData("last terminateReason",CoreDatabase.last_terminateReason.name());
 		}
+
+		FtcLogTunnel.MAIN.report("Op inline initialized");
 	}
 
 	@Override
@@ -69,6 +73,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 				.deleteData("last autonomous time used")
 				.deleteData("last terminateReason");
 		timer.pushTimeTag("start");
+
+		FtcLogTunnel.MAIN.report("Op inline started successfully");
 	}
 
 	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
@@ -117,6 +123,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.runMode = RunMode.TERMINATE;
 
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
+
+		FtcLogTunnel.MAIN.report("Op closed safely");
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.client.BaseMapClient;
 import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
@@ -33,6 +34,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 	@Override
 	public void runOpMode() throws InterruptedException {
+		FtcLogTunnel.saveAndClear();
 		Global.runMode = RunMode.AUTONOMOUS;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode = this;
@@ -49,6 +51,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		Global.threadManager.add("linear", getLinearThread());
 		client.addLine(">>>ROBOT READY!");
+		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		waitForStart();
 
@@ -56,6 +59,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		if (! opModeIsActive()) return;
 		timer.restart();
+		FtcLogTunnel.MAIN.report("Op inline started");
 
 		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
 
@@ -65,6 +69,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
 				} else {
+					FtcLogTunnel.MAIN.report(inlineUncaughtException);
 					throw new RuntimeException(inlineUncaughtException);
 				}
 			}
@@ -136,6 +141,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
+			FtcLogTunnel.MAIN.report("Op terminated by " + reason.name());
 			terminateOpModeNow();
 		}
 	}

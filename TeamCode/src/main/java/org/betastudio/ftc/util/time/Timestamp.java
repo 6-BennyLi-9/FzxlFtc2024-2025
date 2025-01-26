@@ -6,13 +6,14 @@ public class Timestamp {
 	private final String minute;
 	private final String second;
 
-	public Timestamp(){
+	public Timestamp() {
 		final double t      = Timer.getCurrentTime();
 		final int    minute = (int) t / 60;
 		final int    second = (int) t % 60;
 		this.minute = String.valueOf(minute);
 		this.second = String.valueOf(second);
 	}
+
 	public Timestamp(final String minute, final String second) {
 		this.minute = minute;
 		this.second = second;
@@ -21,15 +22,19 @@ public class Timestamp {
 	/**
 	 * 需要测试
 	 */
-	protected void checkAccess(){
+	protected void checkAccess() {
 		assert 2 >= second.length();
-		assert Double.valueOf(minute).doubleValue()==Integer.valueOf(minute).intValue();
+		assert Double.valueOf(minute).doubleValue() == Integer.valueOf(minute).intValue();
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
-		return minute + ":" + second;
+		if (minute.length() > 2) {
+			return ".." + minute.substring(minute.length() - 3) + ":" + second;
+		} else {
+			return minute + ":" + second;
+		}
 	}
 
 	public String getMinute() {

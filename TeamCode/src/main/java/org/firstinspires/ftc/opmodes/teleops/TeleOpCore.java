@@ -11,7 +11,7 @@ public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void op_init() {
 		super.op_init();
-		client.addData("DriveCtrlMode", "wait For Start.");
+		client.addData("DriveCtrlMode", "wait for start");
 	}
 
 	@Override
