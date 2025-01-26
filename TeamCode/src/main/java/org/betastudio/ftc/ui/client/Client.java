@@ -47,4 +47,18 @@ public interface Client extends Updatable , MessagesProcessRequired <TelemetryMs
 	UpdateConfig getUpdateConfig();
 
 	ViewMode getCurrentViewMode();
+
+	default void switchViewMode(){
+		switch (getCurrentViewMode()){
+			case BASIC_TELEMETRY:
+				configViewMode(ViewMode.THREAD_MANAGER);
+				break;
+			case THREAD_MANAGER:
+				configViewMode(ViewMode.LOG);
+				break;
+			case LOG:
+				configViewMode(ViewMode.BASIC_TELEMETRY);
+				break;
+		}
+	}
 }

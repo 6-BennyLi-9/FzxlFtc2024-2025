@@ -78,7 +78,7 @@ public class Left extends StructuralLinearMode {
 
 		sleep(1000);
 		drive.followTrajectorySequence(park);
-		utils.closeClip().addAction(SimpleDriveOp.build(0, - 0.25, 0)).runCached();
+		utils.closeClip().addAction(SimpleDriveOp.build(0, - 0.25, 0)).waitMs(1000).runCached();
 
 		flagging_op_complete();
 	}

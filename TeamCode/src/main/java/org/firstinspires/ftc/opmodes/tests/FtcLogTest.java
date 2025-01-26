@@ -1,15 +1,19 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.ui.client.BranchThreadClient;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ViewMode;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.firstinspires.ftc.teamcode.Global;
 
+@Autonomous
 public class FtcLogTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
+		Global.prepareCoreThreadPool();
 		final Client client =new BranchThreadClient(telemetry);
 		client.configViewMode(ViewMode.LOG);
 		FtcLogTunnel.clear();

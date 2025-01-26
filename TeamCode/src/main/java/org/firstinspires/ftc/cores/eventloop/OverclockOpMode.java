@@ -11,7 +11,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 			loop_init();
 		}
 
-		if (! opModeIsActive()) {
+		if (isStopRequested()) {
 			op_end();
 			return;
 		}

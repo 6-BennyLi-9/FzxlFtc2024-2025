@@ -20,13 +20,14 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
-import org.betastudio.ftc.ui.client.Client;
-import org.betastudio.ftc.ui.client.ViewMode;
 import org.betastudio.ftc.specification.DashboardCallable;
 import org.betastudio.ftc.specification.HardwareController;
 import org.betastudio.ftc.specification.InitializeRequested;
 import org.betastudio.ftc.specification.TagOptionsRequired;
 import org.betastudio.ftc.specification.Updatable;
+import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.cores.structure.ArmOp;
 import org.firstinspires.ftc.cores.structure.ClawOp;
 import org.firstinspires.ftc.cores.structure.ClipOp;
@@ -44,8 +45,6 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
-import org.betastudio.ftc.util.message.DriveBufMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -218,7 +217,7 @@ public class RobotMng implements Updatable {
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.1 + 0.2);
+				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.15 + 0.2);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -231,9 +230,8 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()) {
-			final ViewMode newViewMode = ViewMode.BASIC_TELEMETRY == client.getCurrentViewMode() ? ViewMode.THREAD_MANAGER : ViewMode.BASIC_TELEMETRY;
-			client.configViewMode(newViewMode);
-			client.speak("The telemetry's ViewMode has recently switched to " + newViewMode.name());
+			client.switchViewMode();
+			client.speak("The telemetry's ViewMode has recently switched to " + client.getCurrentViewMode());
 		}
 	}
 

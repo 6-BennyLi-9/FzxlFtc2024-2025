@@ -24,9 +24,8 @@ import java.util.Objects;
  */
 @Config
 public class BaseMapClient implements Client {
-	public static  ViewMode viewMode;
-	public static  boolean  debug_mode;
-	private boolean isUpdateRequested;
+	public static ViewMode viewMode;
+	public static boolean  debug_mode;
 
 	static {
 		viewMode = ViewMode.BASIC_TELEMETRY;
@@ -34,10 +33,11 @@ public class BaseMapClient implements Client {
 
 	protected final Map <String, Pair <String, Integer>> data;
 	private final   Telemetry                            telemetry;
-	private final   Timer                                lstUpdateTimer = new Timer();
+	private final   Timer                                lstUpdateTimer  = new Timer();
 	protected       int                                  ID;
+	private         boolean                              isUpdateRequested;
 	private         boolean                              autoUpdate;
-	private         FtcLogTunnel                         targetLogTunnel;
+	private         FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -51,8 +51,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 	}
 
@@ -66,8 +66,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -81,8 +81,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -100,8 +100,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -113,8 +113,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -129,8 +129,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -149,8 +149,8 @@ public class BaseMapClient implements Client {
 
 		if (autoUpdate) {
 			this.update();
-		}else{
-			isUpdateRequested=false;
+		} else {
+			isUpdateRequested = false;
 		}
 		return this;
 	}
@@ -254,21 +254,29 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
+	public UpdateConfig getUpdateConfig() {
+		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+	}
+
+	@Override
 	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
 		switch (updateConfig) {
 			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
-				autoUpdate=true;
+				autoUpdate = true;
 				break;
 			case MANUAL_UPDATE_REQUESTED:
-				autoUpdate=false;
+				autoUpdate = false;
 				break;
 			case THREAD_REQUIRED:
 				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
 		}
 	}
 
-	@Override
-	public UpdateConfig getUpdateConfig() {
-		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+	public void setTargetLogTunnel(FtcLogTunnel targetLogTunnel) {
+		this.targetLogTunnel = targetLogTunnel;
+	}
+
+	public FtcLogTunnel getTargetLogTunnel() {
+		return targetLogTunnel;
 	}
 }

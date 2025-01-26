@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TelemetryMsg implements Message{
@@ -14,15 +17,15 @@ public class TelemetryMsg implements Message{
 	}
 
 	public TelemetryMsg(final TelemetryElement... elements) {
-		this(Set.of(elements));
+		this(new HashSet <>(Arrays.asList(elements)));
 	}
 
 	public void add(final TelemetryElement element) {
 		elements.add(element);
 	}
 
-	public void add(@NonNull final TelemetryMsg message){
-		elements.addAll(message.elements);
+	public void addAll(Collection<TelemetryElement> elements){
+		this.elements.addAll(elements);
 	}
 
 	public Set <TelemetryElement> getElements() {

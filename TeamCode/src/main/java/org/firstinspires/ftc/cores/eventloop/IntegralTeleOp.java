@@ -24,6 +24,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	protected boolean   is_terminate_method_called;
 	private   boolean   auto_terminate_when_TLE;
 	private   Exception inlineUncaughtException;
+	protected boolean   initialized;
 
 	@Override
 	public void op_init() {
@@ -43,7 +44,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		HardwareDatabase.chassisConfig();
 		robot = new RobotMng();
 		robot.fetchClient(client);
-		robot.initControllers();
 
 		telemetry.clearAll();
 
@@ -61,7 +61,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
-		robot.update();//防止一些 Action 出现异常表现
 	}
 
 	@Override
@@ -82,6 +81,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_loop() {
+		if(!initialized){
+			initialized=true;
+			robot.initControllers();
+		}
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
 			stop();
 			terminateOpModeNow();

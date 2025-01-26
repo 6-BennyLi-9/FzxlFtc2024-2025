@@ -4,11 +4,11 @@ import android.util.Range;
 
 import org.betastudio.ftc.ui.telemetry.SelectionTeleElement;
 
-public class IntegralSelectionMsg extends SelectionTelemetryMsg{
+public class IntegralSelectionPackage extends SelectionTelemetryMsg{
 	private int show_lines_count,now_selected_index;
 	private Range <Integer> showRange;
 
-	public IntegralSelectionMsg(final SelectionTeleElement... elements) {
+	public IntegralSelectionPackage(final SelectionTeleElement... elements) {
 		super(elements);
 		show_lines_count = 10;
 		showRange=new Range<>(0, show_lines_count);
