@@ -2,9 +2,9 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.specification.MessagesProcessRequired;
+import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.util.time.Timer;
 import org.betastudio.ftc.util.time.Timestamp;
 
@@ -17,7 +17,7 @@ public class FtcLogDatabase implements MessagesProcessRequired <TelemetryMsg> {
 	private boolean saved;
 
 	public FtcLogDatabase() {
-		elements = new TreeSet <>((o1, o2) -> {
+		elements = new TreeSet <>((o2, o1) -> {
 			final Timestamp t1 = o1.getTimestamp();
 			final Timestamp t2 = o2.getTimestamp();
 			if (t1.getMinute().equals(t2.getMinute())) {
@@ -44,7 +44,7 @@ public class FtcLogDatabase implements MessagesProcessRequired <TelemetryMsg> {
 	@Override
 	public TelemetryMsg call() {
 		final TelemetryMsg result = new TelemetryMsg();
-		for (final FtcLogElement element : elements) {
+		for (FtcLogElement element : elements) {
 			result.add(new TelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString())));
 		}
 		return result;

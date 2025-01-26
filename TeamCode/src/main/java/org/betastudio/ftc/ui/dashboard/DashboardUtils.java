@@ -15,6 +15,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.jetbrains.annotations.Contract;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	public static        boolean               updateRequested  = true;
 	private static       FtcDashboard          dashboard;
 	private static       TelemetryPacket       currentPacket    = new TelemetryPacket();
-	private static       TelemetryMsg          currentMessage   = new TelemetryMsg(new HashSet<>());
+	private static       TelemetryMsg          currentMessage   = new TelemetryMsg();
 
 	public static void fetch() {
 		dashboard = FtcDashboard.getInstance();
@@ -98,8 +99,8 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		if (! recordElements) {
 			throw new IllegalStateException("Telemetry recording is not enabled");
 		}
-		final TelemetryMsg res =new TelemetryMsg(new HashSet <>(currentMessage.getElements()));
-		currentMessage = new TelemetryMsg(new HashSet<>());
+		final TelemetryMsg res =new TelemetryMsg(new ArrayList <>(currentMessage.getElements()));
+		currentMessage = new TelemetryMsg();
 		return res;
 	}
 }
