@@ -10,7 +10,7 @@ import org.betastudio.ftc.util.ButtonProcessor;
 import org.betastudio.ftc.util.message.IntegralSelectionPackage;
 import org.firstinspires.ftc.teamcode.ButtonConfig;
 
-@Autonomous
+@Autonomous(group = "9_Tests")
 public class SelectionTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

@@ -37,11 +37,11 @@ public final class Global {
 		threadManager.add("sys-monitor", new SystemMonitor());
 	}
 
-	public boolean auto_create_monitor() {
+	public static boolean auto_create_monitor() {
 		return auto_create_monitor;
 	}
 
-	public void auto_create_monitor(final boolean configure) {
+	public static void auto_create_monitor(final boolean configure) {
 		auto_create_monitor = configure;
 	}
 }

@@ -25,9 +25,28 @@ public enum FtcLogTunnel {
 		return log.call();
 	}
 
+	public void fresh(){
+		log=new FtcLogDatabase();
+	}
+
 	public static void clear(){
 		for (final FtcLogTunnel tunnel : values()){
 			tunnel.log=new FtcLogDatabase();
 		}
+	}
+
+	public void save(){
+		FtcLogFiles.addFile(log.save());
+	}
+
+	public static void saveFiles(){
+		for (final FtcLogTunnel tunnel : values()){
+			tunnel.save();
+		}
+	}
+
+	public static void saveAndClear(){
+		saveFiles();
+		clear();
 	}
 }

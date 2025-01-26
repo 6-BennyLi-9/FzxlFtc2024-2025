@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.betastudio.ftc.ui.client.ObjectionClient;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
-@TeleOp
+@TeleOp(group = "9_Tests")
 @Deprecated
 @Disabled
 public class ObjectionClientTest extends TeleOpCore {

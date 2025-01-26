@@ -195,7 +195,7 @@ public class BaseMapClient implements Client {
 
 		switch (viewMode) {
 			case LOG:
-				updateLogLines(targetLogTunnel);
+				updateLogLines();
 				break;
 			case THREAD_MANAGER:
 				updateThreadLines();
@@ -231,10 +231,15 @@ public class BaseMapClient implements Client {
 		this.telemetry.update();
 	}
 
-	protected synchronized void updateLogLines(@NonNull final FtcLogTunnel type) {
-		send(type.call());
-
-		this.telemetry.update();
+	protected synchronized void updateLogLines() {
+		for (TelemetryElement e : targetLogTunnel.call().getElements()) {
+			if (e instanceof TelemetryLine) {
+				telemetry.addLine(((TelemetryLine) e).line);
+			} else if (e instanceof TelemetryItem) {
+				telemetry.addData(((TelemetryItem) e).capital,((TelemetryItem) e).value);
+			}
+		}
+		telemetry.update();
 	}
 
 	@Override

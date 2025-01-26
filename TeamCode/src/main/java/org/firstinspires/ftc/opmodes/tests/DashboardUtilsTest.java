@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 
-@Autonomous
+@Autonomous(group = "9_Tests")
 public class DashboardUtilsTest extends LinearOpMode {
 	public DashboardUtils dashboard=DashboardUtils.generateInstance();
 
