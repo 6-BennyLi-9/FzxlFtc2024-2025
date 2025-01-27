@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.betastudio.ftc.ui.client.BaseMapClient;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
-import org.betastudio.ftc.ui.log.FtcLogDatabase;
+import org.betastudio.ftc.ui.log.FtcLogFile;
 import org.betastudio.ftc.ui.log.FtcLogFiles;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
@@ -20,9 +20,9 @@ public class FtcLogFilesInspect extends LinearOpMode {
 	private final ButtonProcessor select_prev        = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 	private final ButtonProcessor select_next        = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 	private final ButtonProcessor chang_message_sent = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private SelectPackage  files_select;
-	private FtcLogDatabase selected_file;
-	private Boolean        is_files_selected = false, show_logs = false;
+	private SelectPackage files_select;
+	private FtcLogFile    selected_file;
+	private Boolean       is_files_selected = false, show_logs = false;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -31,7 +31,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		SelectPackage logs_select = new SelectPackage();
 		BaseMapClient client = new BaseMapClient(telemetry);
 
-		FtcLogFiles.getFiles().forEach(file -> files_select.add(new SelectElement(String.valueOf(file.getSaveTime()), () -> {
+		FtcLogFiles.getFiles().forEach(file -> files_select.add(new SelectElement(String.valueOf(file.getFileName()), () -> {
 			selected_file = file;
 			is_files_selected = true;
 		})));
@@ -60,7 +60,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		for (TelemetryElement element : selected_file.call().getElements()) {
 			logs_select.add(new SelectElement(element.toString(), null));
 		}
-		FtcLogTunnel.MAIN.report("Log selected:" + selected_file.getSaveTime());
+		FtcLogTunnel.MAIN.report("Log selected:" + selected_file.getFileName());
 
 		while (! isStopRequested()) {
 			select_prev.sync(gamepad1.left_bumper);

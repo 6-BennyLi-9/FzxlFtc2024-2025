@@ -7,7 +7,7 @@ import org.betastudio.ftc.util.message.TelemetryMsg;
 
 public enum FtcLogTunnel {
 	MAIN,DEBUG;
-	private FtcLogDatabase log = new FtcLogDatabase();
+	private FtcLogFile log = new FtcLogFile();
 
 	public void report(final String s){
 		log.addElement(new FtcLogElement.ElementImpl(new StringMsg(s)));
@@ -26,12 +26,12 @@ public enum FtcLogTunnel {
 	}
 
 	public void fresh(){
-		log=new FtcLogDatabase();
+		log=new FtcLogFile();
 	}
 
 	public static void clear(){
 		for (final FtcLogTunnel tunnel : values()){
-			tunnel.log=new FtcLogDatabase();
+			tunnel.log=new FtcLogFile();
 		}
 	}
 

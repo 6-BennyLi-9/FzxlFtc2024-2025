@@ -4,17 +4,17 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class FtcLogFiles {
-	private static final Set <FtcLogDatabase> files;
+	private static final Set <FtcLogFile> files;
 
 	static {
-		files = new TreeSet <>((o1, o2) -> (int) (o2.getSaveTime() - o1.getSaveTime()));
+		files = new TreeSet <>((o1, o2) -> (int) (o1.getSaveTime() - o2.getSaveTime()));
 	}
 
-	public static void addFile(final FtcLogDatabase file) {
+	public static void addFile(final FtcLogFile file) {
 		files.add(file);
 	}
 
-	public static Set <FtcLogDatabase> getFiles(){
+	public static Set <FtcLogFile> getFiles(){
 		return files;
 	}
 }
