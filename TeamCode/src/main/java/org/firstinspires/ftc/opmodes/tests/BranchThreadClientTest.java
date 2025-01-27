@@ -8,7 +8,7 @@ import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
 @TeleOp(group = "9_Beta")
 @Disabled
-@TestDone
+@TestDoneSuccessfully
 public class BranchThreadClientTest extends TeleOpCore {
 	@Override
 	public void op_init() {

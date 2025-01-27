@@ -15,4 +15,4 @@ import java.lang.annotation.Target;
 
 @Documented
 @Target({TYPE, METHOD, FIELD, CONSTRUCTOR, LOCAL_VARIABLE, PACKAGE, ANNOTATION_TYPE, TYPE_PARAMETER, TYPE_USE})
-public @interface TestDone {}
+public @interface TestDoneSuccessfully {}

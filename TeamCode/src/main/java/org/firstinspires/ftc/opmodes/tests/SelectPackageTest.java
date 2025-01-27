@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.ButtonConfig;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.RunMode;
 
-@TestDone
+@TestDoneSuccessfully
 @TeleOp(group = "9_Tests")
 @Disabled
 public class SelectPackageTest extends LinearOpMode {

@@ -26,6 +26,7 @@ import org.betastudio.ftc.specification.InitializeRequested;
 import org.betastudio.ftc.specification.TagOptionsRequired;
 import org.betastudio.ftc.specification.Updatable;
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.cores.structure.ArmOp;
@@ -232,6 +233,7 @@ public class RobotMng implements Updatable {
 		if (switchViewMode.getEnabled()) {
 			client.switchViewMode();
 			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
+			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
 		}
 	}
 
