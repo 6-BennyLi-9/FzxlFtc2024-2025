@@ -7,13 +7,13 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
+import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.util.time.Timer;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
-import org.betastudio.ftc.util.time.Timer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -159,7 +159,8 @@ public class BaseMapClient implements Client {
 	public Client speak(final String text) {
 		try {
 			telemetry.speak(text);
-		} catch (final UnsupportedOperationException ignored) {
+		} catch (final UnsupportedOperationException exception) {
+			FtcLogTunnel.MAIN.report(exception);
 		}
 		return this;
 	}
@@ -168,7 +169,8 @@ public class BaseMapClient implements Client {
 	public Client speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
-		} catch (final UnsupportedOperationException ignored) {
+		} catch (final UnsupportedOperationException exception) {
+			FtcLogTunnel.MAIN.report(exception);
 		}
 		return this;
 	}

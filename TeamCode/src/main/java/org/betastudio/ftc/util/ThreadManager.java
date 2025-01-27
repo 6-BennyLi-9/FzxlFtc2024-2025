@@ -3,6 +3,7 @@ package org.betastudio.ftc.util;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
@@ -59,7 +60,8 @@ public class ThreadManager {
 		try {
 			Objects.requireNonNull(mem.get(tag)).interrupt();
 			mem.remove(tag);
-		} catch (final NullPointerException ignored) {
+		} catch (final NullPointerException exception) {
+			FtcLogTunnel.MAIN.report(exception);
 		}
 	}
 

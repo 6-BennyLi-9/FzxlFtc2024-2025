@@ -110,7 +110,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		try {
 			op_loop_entry();
-		}catch (final UnsupportedOperationException ignored){}
+		}catch (final UnsupportedOperationException exception){
+			FtcLogTunnel.MAIN.report(exception);
+		}
 	}
 
 	public abstract void op_loop_entry();

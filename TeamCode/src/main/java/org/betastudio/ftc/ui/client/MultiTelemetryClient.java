@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
@@ -96,7 +97,8 @@ public class MultiTelemetryClient implements Client {
 			for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 				entry.getValue().speak(text, languageCode, countryCode);
 			}
-		} catch (final UnsupportedOperationException ignored) {
+		} catch (final UnsupportedOperationException exception) {
+			FtcLogTunnel.MAIN.report(exception);
 		}
 		return this;
 	}
