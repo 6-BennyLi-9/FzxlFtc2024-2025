@@ -2,7 +2,9 @@ package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
-public class StringMsg implements Message{
+import org.betastudio.ftc.ui.telemetry.TelemetryLine;
+
+public class StringMsg extends LogMessage{
 	private final String message;
 	public StringMsg(final String message){
 		this.message = message;
@@ -12,5 +14,10 @@ public class StringMsg implements Message{
 	@Override
 	public String toString() {
 		return message;
+	}
+
+	@Override
+	public TelemetryMsg buildTelemetryMsg() {
+		return new TelemetryMsg(new TelemetryLine(message));
 	}
 }

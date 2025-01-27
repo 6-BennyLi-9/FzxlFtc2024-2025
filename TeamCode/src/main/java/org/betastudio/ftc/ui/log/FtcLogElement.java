@@ -1,23 +1,23 @@
 package org.betastudio.ftc.ui.log;
 
-import org.betastudio.ftc.util.message.Message;
+import org.betastudio.ftc.util.message.LogMessage;
 import org.betastudio.ftc.util.time.Timestamp;
 
 public interface FtcLogElement {
 	Timestamp getTimestamp();
 	LogElementType getType();
-	Message getMessage();
+	LogMessage getMessage();
 
 	class ElementImpl implements FtcLogElement {
-		private final Message        message;
+		private final LogMessage        message;
 		private final Timestamp      timestamp;
 		private final LogElementType type;
 
-		public ElementImpl(final Message message) {
+		public ElementImpl(final LogMessage message) {
 			this(LogElementType.INFO, message);
 		}
 
-		public ElementImpl(final LogElementType type, final Message message) {
+		public ElementImpl(final LogElementType type, final LogMessage message) {
 			this.message = message;
 			this.timestamp = new Timestamp();
 			this.type = type;
@@ -34,7 +34,7 @@ public interface FtcLogElement {
 		}
 
 		@Override
-		public Message getMessage() {
+		public LogMessage getMessage() {
 			return message;
 		}
 	}
