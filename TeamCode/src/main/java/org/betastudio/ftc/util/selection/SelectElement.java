@@ -1,6 +1,6 @@
 package org.betastudio.ftc.util.selection;
 
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 
 public class SelectElement {
 	private final String name;
@@ -32,7 +32,7 @@ public class SelectElement {
 		is_selected =!is_selected;
 	}
 
-	public TelemetryItem buildTelemetryItem() {
-		return new TelemetryItem(is_selected? "[X]":"[ ]",name);
+	public TelemetryLine buildTelemetryItem() {
+		return new TelemetryLine((is_selected? "[X] ":"[  ] ") + name);
 	}
 }

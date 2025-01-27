@@ -4,13 +4,14 @@ import android.util.Range;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.specification.Updatable;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SelectPackage {
+public class SelectPackage implements Updatable {
 	private final List <SelectElement> elements;
 	private int selected_index,show_lines;
 	private Range<Integer> show_range;
@@ -77,5 +78,21 @@ public class SelectPackage {
 
 	public Range <Integer> getShow_range() {
 		return show_range;
+	}
+
+	public void submit_selected() {
+		elements.get(selected_index).submit();
+	}
+
+	@Override
+	public void update() {
+		for (int i = 0 ; i < elements.size() ; i++) {
+			elements.get(i).setSelected(i == selected_index);
+		}
+	}
+
+	@Override
+	public boolean isUpdateRequested() {
+		return false;
 	}
 }
