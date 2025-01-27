@@ -24,11 +24,11 @@ import java.util.Objects;
  */
 @Config
 public class BaseMapClient implements Client {
-	public static ViewMode viewMode;
-	public static boolean  debug_mode;
+	public static ClientViewMode clientViewMode;
+	public static boolean        debug_mode;
 
 	static {
-		viewMode = ViewMode.BASIC_TELEMETRY;
+		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
 	protected final Map <String, Pair <String, Integer>> data;
@@ -174,13 +174,13 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
-		BaseMapClient.viewMode = viewMode;
+	public void configViewMode(final ClientViewMode clientViewMode) {
+		BaseMapClient.clientViewMode = clientViewMode;
 	}
 
 	@Override
-	public ViewMode getCurrentViewMode() {
-		return viewMode;
+	public ClientViewMode getCurrentViewMode() {
+		return clientViewMode;
 	}
 
 	@Override
@@ -189,18 +189,18 @@ public class BaseMapClient implements Client {
 		if (debug_mode) {
 			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
 		}
-		telemetry.addData("ViewMode", viewMode.name());
+		telemetry.addData("ClientViewMode", clientViewMode.name());
 		telemetry.addData("Status", Global.runMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
-		switch (viewMode) {
-			case LOG:
+		switch (clientViewMode) {
+			case FTC_LOG:
 				updateLogLines();
 				break;
 			case THREAD_MANAGER:
 				updateThreadLines();
 				break;
-			case BASIC_TELEMETRY:
+			case ORIGIN_TELEMETRY:
 			default:
 				updateTelemetryLines();
 				break;

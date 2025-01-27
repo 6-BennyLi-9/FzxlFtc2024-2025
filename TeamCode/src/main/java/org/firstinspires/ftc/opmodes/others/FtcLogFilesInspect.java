@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.betastudio.ftc.ui.client.BaseMapClient;
+import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
-import org.betastudio.ftc.ui.client.ViewMode;
 import org.betastudio.ftc.ui.log.FtcLogDatabase;
 import org.betastudio.ftc.ui.log.FtcLogFiles;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
@@ -36,7 +36,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			is_files_selected = true;
 		})));
 		files_select.update();
-		client.configViewMode(ViewMode.BASIC_TELEMETRY);
+		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
 		while (opModeInInit()) {

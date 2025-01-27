@@ -158,12 +158,12 @@ public class ObjectionClient implements Client {
 	//  -----------------------
 
 	@Override
-	public ViewMode getCurrentViewMode() {
+	public ClientViewMode getCurrentViewMode() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
+	public void configViewMode(final ClientViewMode clientViewMode) {
 		throw new UnsupportedOperationException();
 	}
 

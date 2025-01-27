@@ -231,7 +231,7 @@ public class RobotMng implements Updatable {
 
 		if (switchViewMode.getEnabled()) {
 			client.switchViewMode();
-			client.speak("The telemetry's ViewMode has recently switched to " + client.getCurrentViewMode());
+			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
 		}
 	}
 

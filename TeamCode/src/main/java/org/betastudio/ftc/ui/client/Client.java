@@ -40,24 +40,24 @@ public interface Client extends Updatable , MessagesProcessRequired <TelemetryMs
 
 	Client speak(final String text, final String languageCode, final String countryCode);
 
-	void configViewMode(final ViewMode viewMode);
+	void configViewMode(final ClientViewMode clientViewMode);
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
 	UpdateConfig getUpdateConfig();
 
-	ViewMode getCurrentViewMode();
+	ClientViewMode getCurrentViewMode();
 
 	default void switchViewMode(){
 		switch (getCurrentViewMode()){
-			case BASIC_TELEMETRY:
-				configViewMode(ViewMode.THREAD_MANAGER);
+			case ORIGIN_TELEMETRY:
+				configViewMode(ClientViewMode.THREAD_MANAGER);
 				break;
 			case THREAD_MANAGER:
-				configViewMode(ViewMode.LOG);
+				configViewMode(ClientViewMode.FTC_LOG);
 				break;
-			case LOG:
-				configViewMode(ViewMode.BASIC_TELEMETRY);
+			case FTC_LOG:
+				configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 				break;
 		}
 	}

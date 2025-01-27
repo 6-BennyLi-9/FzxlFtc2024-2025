@@ -102,9 +102,9 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ViewMode viewMode) {
+	public void configViewMode(final ClientViewMode clientViewMode) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().configViewMode(viewMode);
+			entry.getValue().configViewMode(clientViewMode);
 		}
 	}
 
@@ -121,7 +121,7 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public ViewMode getCurrentViewMode() {
+	public ClientViewMode getCurrentViewMode() {
 		return ((Client) clients.entrySet().toArray()[0]).getCurrentViewMode();
 	}
 

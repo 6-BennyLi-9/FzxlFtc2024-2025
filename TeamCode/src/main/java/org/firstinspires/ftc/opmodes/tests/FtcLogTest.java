@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.ui.client.BaseMapClient;
-import org.betastudio.ftc.ui.client.ViewMode;
+import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
@@ -24,7 +24,7 @@ public class FtcLogTest extends LinearOpMode {
 		Global.auto_create_monitor(true);
 		final BaseMapClient client =new BaseMapClient(telemetry);
 
-		client.configViewMode(ViewMode.LOG);
+		client.configViewMode(ClientViewMode.FTC_LOG);
 		client.setTargetLogTunnel(FtcLogTunnel.MAIN);
 
 		FtcLogTunnel.clear();

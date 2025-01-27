@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.betastudio.ftc.ui.client.BaseMapClient;
+import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
-import org.betastudio.ftc.ui.client.ViewMode;
 import org.betastudio.ftc.util.ButtonProcessor;
 import org.betastudio.ftc.util.selection.SelectElement;
 import org.betastudio.ftc.util.selection.SelectPackage;
@@ -17,19 +17,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ViewModeConvertor extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
-		SelectPackage              selections  = new SelectPackage();
-		AtomicReference <ViewMode> target      = new AtomicReference <>(ViewMode.BASIC_TELEMETRY);
-		BaseMapClient              client      = new BaseMapClient(telemetry);
+		SelectPackage                    selections = new SelectPackage();
+		AtomicReference <ClientViewMode> target     = new AtomicReference <>(ClientViewMode.ORIGIN_TELEMETRY);
+		BaseMapClient                    client     = new BaseMapClient(telemetry);
 		ButtonProcessor            select_prev = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 		ButtonProcessor            select_next = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 		ButtonProcessor            submit      = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 
-		for (ViewMode mode : ViewMode.values()) {
+		for (ClientViewMode mode : ClientViewMode.values()) {
 			selections.add(new SelectElement(mode.name(), () -> target.set(mode)));
 		}
 
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
-		client.configViewMode(ViewMode.BASIC_TELEMETRY);
+		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		selections.update();
 		client.send(selections.buildTelemetryMsg());
 		client.update();
