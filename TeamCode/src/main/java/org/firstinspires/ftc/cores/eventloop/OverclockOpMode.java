@@ -5,24 +5,28 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public abstract class OverclockOpMode extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
-		op_init();
+		try {
+			op_init();
 
-		while (opModeInInit()) {
-			loop_init();
+			while (opModeInInit()) {
+				loop_init();
+			}
+
+			if (isStopRequested()) {
+				op_end();
+				return;
+			}
+
+			op_start();
+
+			while (opModeIsActive()) {
+				op_loop();
+			}
+		}catch (Throwable e){
+			exception_entry(e);
+		} finally {
+			op_end();
 		}
-
-		if (isStopRequested()) {
-			new Thread(this::op_end).start();
-			return;
-		}
-
-		op_start();
-
-		while (opModeIsActive()) {
-			op_loop();
-		}
-
-		op_end();
 	}
 
 	public abstract void op_init();
@@ -36,5 +40,8 @@ public abstract class OverclockOpMode extends LinearOpMode {
 	public abstract void op_loop();
 
 	public void op_end() {
+	}
+
+	public void exception_entry(Throwable e) {
 	}
 }

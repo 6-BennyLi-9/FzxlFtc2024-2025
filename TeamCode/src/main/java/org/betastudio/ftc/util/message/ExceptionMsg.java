@@ -13,6 +13,6 @@ public class ExceptionMsg implements Message{
 	@NonNull
 	@Override
 	public String toString() {
-		return Objects.requireNonNull(exception.getMessage());
+		return "error:"+"\""+Objects.requireNonNull(exception.getMessage())+"\"";
 	}
 }

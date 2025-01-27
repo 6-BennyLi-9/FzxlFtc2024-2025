@@ -99,6 +99,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
+			FtcLogTunnel.MAIN.report(inlineUncaughtException);
 			throw new RuntimeException(inlineUncaughtException);
 		}
 
@@ -125,8 +126,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 
-		FtcLogTunnel.MAIN.report("Op closed safely");
+		FtcLogTunnel.MAIN.report("Op inline closed");
 		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
+
+		if (null != inlineUncaughtException) {
+			FtcLogTunnel.MAIN.report(inlineUncaughtException);
+			throw new RuntimeException(inlineUncaughtException);
+		}
 	}
 
 	@Override
@@ -146,5 +152,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void closeTask() {
 		is_terminate_method_called=true;
+	}
+
+	@Override
+	public void exception_entry(Throwable e) {
+		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 }

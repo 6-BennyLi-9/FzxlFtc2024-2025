@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.util.message.ExceptionMsg;
 import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 
@@ -14,7 +15,7 @@ public enum FtcLogTunnel {
 	}
 
 	public void report(@NonNull final Throwable e){
-		log.addElement(new FtcLogElement.ElementImpl(new StringMsg(e.getMessage())));
+		log.addElement(new FtcLogElement.ElementImpl(new ExceptionMsg(e)));
 	}
 
 	public void report(final FtcLogElement element){
