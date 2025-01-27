@@ -19,10 +19,14 @@ public class ExceptionMsg extends LogMessage{
 	}
 
 	public TelemetryMsg buildTelemetryMsg() {
-		final TelemetryMsg result = new TelemetryMsg();
+		final TelemetryMsg result = new TelemetryMsg(),packages = new TelemetryMsg();
 		for (StackTraceElement element : exception.getStackTrace()) {
-			result.add(new TelemetryLine(element.getClassName() + "@" + element.getMethodName() + "():" + element.getLineNumber()));
+			result.add(new TelemetryLine("at:"+element.getFileName()));
+			result.add(new TelemetryLine(" -method:"+element.getMethodName()));
+			result.add(new TelemetryLine(" -line:"+element.getLineNumber()));
+			packages.add(new TelemetryLine("~package class:"+element.getClassName()));
 		}
+		result.merge(packages);
 		return result;
 	}
 }

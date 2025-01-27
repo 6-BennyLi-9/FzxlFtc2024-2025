@@ -3,7 +3,7 @@ package org.betastudio.ftc.ui.log;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.specification.MessagesProcessRequired;
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
@@ -39,7 +39,7 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	public TelemetryMsg call() {
 		final TelemetryMsg result = new TelemetryMsg();
 		for (FtcLogElement element : elements) {
-			result.add(new TelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString())));
+			result.add(new LogTelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString()),element));
 		}
 		return result;
 	}
