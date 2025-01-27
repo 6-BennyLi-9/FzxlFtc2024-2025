@@ -18,6 +18,7 @@ public class DashboardUtilsTest extends LinearOpMode {
 			final TelemetryPacket packet =new TelemetryPacket();
 			packet.put("time",getRuntime());
 			DashboardUtils.sendTelemetryPacket(packet);
+			dashboard.update();
 		}
 	}
 }

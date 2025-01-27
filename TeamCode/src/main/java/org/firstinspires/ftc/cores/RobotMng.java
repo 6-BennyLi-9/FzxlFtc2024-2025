@@ -26,6 +26,7 @@ import org.betastudio.ftc.specification.InitializeRequested;
 import org.betastudio.ftc.specification.TagOptionsRequired;
 import org.betastudio.ftc.specification.Updatable;
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
@@ -68,7 +69,7 @@ public class RobotMng implements Updatable {
 	 * 旋转触发缓冲失败的阈值
 	 */
 	public static       double                           rotateTriggerBufFal = 0.01;
-	public static       boolean                          sendTelemetryPackets;
+	public static       boolean                          sendTelemetryPackets = false;
 	/**
 	 * 硬件控制器的映射表
 	 */
@@ -300,7 +301,11 @@ public class RobotMng implements Updatable {
 				((DashboardCallable) a).process(message);
 			}
 		}
-		client.send(message);
+		if (sendTelemetryPackets) {
+			DashboardUtils.fetch();
+			DashboardUtils.generateInstance().send(message);
+			DashboardUtils.generateInstance().update();
+		}
 	}
 
 	public void printIMUVariables() {
