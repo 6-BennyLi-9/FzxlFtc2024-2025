@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode , ThreadEx {
@@ -125,6 +126,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 
 		FtcLogTunnel.MAIN.report("Op closed safely");
+		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
 	}
 
 	@Override

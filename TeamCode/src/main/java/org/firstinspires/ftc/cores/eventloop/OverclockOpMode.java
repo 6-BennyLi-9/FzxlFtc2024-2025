@@ -12,7 +12,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 		}
 
 		if (isStopRequested()) {
-			op_end();
+			new Thread(this::op_end).start();
 			return;
 		}
 

@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
 import org.betastudio.ftc.util.time.Timer;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadEx {
@@ -70,6 +71,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 					closeTask();
 				} else {
 					FtcLogTunnel.MAIN.report(inlineUncaughtException);
+					FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
 					throw new RuntimeException(inlineUncaughtException);
 				}
 			}
@@ -142,6 +144,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 			inlineUncaughtException = e;
 		} else {
 			FtcLogTunnel.MAIN.report("Op terminated by " + reason.name());
+			FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
 			terminateOpModeNow();
 		}
 	}

@@ -9,32 +9,24 @@ import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.util.time.Timestamp;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
-	private final Set <FtcLogElement> elements;
-	private Timestamp saveTime;
-	private boolean saved;
-	private String fileName;
+	private final List <FtcLogElement> elements;
+	private       Timestamp            saveTime;
+	private       boolean              saved;
+	private       String               fileName;
 
 	public FtcLogFile() {
-		elements = new TreeSet <>((o2, o1) -> {
-			final Timestamp t1 = o1.getTimestamp();
-			final Timestamp t2 = o2.getTimestamp();
-			if (t1.getMinute().equals(t2.getMinute())) {
-				return Integer.compare(Integer.parseInt(t1.getSecond()), Integer.parseInt(t2.getSecond()));
-			} else {
-				return Integer.compare(Integer.parseInt(t1.getMinute()), Integer.parseInt(t2.getMinute()));
-			}
-		});
+		elements = new ArrayList <>();
 	}
 
 	public void addElement(final FtcLogElement element) {
 		elements.add(element);
 	}
 
-	public Set <FtcLogElement> getElements() {
+	public List <FtcLogElement> getElements() {
 		return elements;
 	}
 
@@ -76,5 +68,9 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 
 	public String getFileName() {
 		return fileName;
+	}
+
+	public boolean isUnsaved() {
+		return ! saved;
 	}
 }

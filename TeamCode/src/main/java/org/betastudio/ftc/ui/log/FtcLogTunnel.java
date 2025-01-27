@@ -36,7 +36,16 @@ public enum FtcLogTunnel {
 	}
 
 	public void save(){
-		FtcLogFilesBase.addFile(log.save());
+		if (! log.getElements().isEmpty() && log.isUnsaved()) {
+			FtcLogFilesBase.addFile(log.save());
+		}
+	}
+
+	public void save(String fileName){
+		if (! log.getElements().isEmpty() && log.isUnsaved()) {
+			FtcLogFilesBase.addFile(log.save());
+			log.setFileName(fileName);
+		}
 	}
 
 	public static void saveFiles(){
@@ -48,5 +57,9 @@ public enum FtcLogTunnel {
 	public static void saveAndClear(){
 		saveFiles();
 		clear();
+	}
+
+	public FtcLogFile getLogFile() {
+		return log;
 	}
 }

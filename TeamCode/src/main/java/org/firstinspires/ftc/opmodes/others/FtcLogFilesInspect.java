@@ -22,7 +22,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 	private final ButtonProcessor chang_message_sent = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 	private SelectPackage files_select;
 	private FtcLogFile    selected_file;
-	private Boolean       is_files_selected = false, show_logs = false;
+	private Boolean       is_files_selected = false, show_logs = true;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

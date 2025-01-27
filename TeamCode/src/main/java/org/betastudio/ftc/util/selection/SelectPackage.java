@@ -65,10 +65,9 @@ public class SelectPackage implements Updatable {
 
 	public TelemetryMsg buildTelemetryMsg() {
 		TelemetryMsg msg = new TelemetryMsg();
-//		for (int i = show_range.getLower() ; i < elements.size() && i < show_range.getUpper() ; i++) {
-//			msg.add(elements.get(i).buildTelemetryItem());
-//		}
-		elements.forEach(element -> msg.add(element.buildTelemetryItem()));
+		for (int i = show_range.getLower() ; i < elements.size() && i < show_range.getUpper() ; i++) {
+			msg.add(elements.get(i).buildTelemetryItem());
+		}
 		return msg;
 	}
 
