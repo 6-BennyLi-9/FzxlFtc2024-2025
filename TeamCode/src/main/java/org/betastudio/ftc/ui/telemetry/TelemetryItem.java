@@ -20,4 +20,9 @@ public class TelemetryItem implements TelemetryElement {
 	public void push(@NonNull final Telemetry telemetry) {
 		telemetry.addData(capital, value);
 	}
+
+	@Override
+	public String toString() {
+		return capital + ":" + value;
+	}
 }

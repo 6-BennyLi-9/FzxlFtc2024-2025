@@ -15,4 +15,10 @@ public class TelemetryLine implements TelemetryElement{
 	public void push(@NonNull final Telemetry telemetry) {
 		telemetry.addLine(line);
 	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return line;
+	}
 }

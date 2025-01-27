@@ -233,11 +233,7 @@ public class BaseMapClient implements Client {
 
 	protected synchronized void updateLogLines() {
 		for (TelemetryElement e : targetLogTunnel.call().getElements()) {
-			if (e instanceof TelemetryLine) {
-				telemetry.addLine(((TelemetryLine) e).line);
-			} else if (e instanceof TelemetryItem) {
-				telemetry.addData(((TelemetryItem) e).capital,((TelemetryItem) e).value);
-			}
+			e.push(telemetry);
 		}
 		telemetry.update();
 	}
