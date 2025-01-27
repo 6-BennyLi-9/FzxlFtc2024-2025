@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.Labeler;
+import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.betastudio.ftc.util.time.Timestamp;
 
@@ -55,6 +56,7 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 		if(saved){
 			throw new IllegalLogSaveOptionException("Log has already been saved");
 		}
+		addElement(new FtcLogElement.ElementImpl(new StringMsg("EOF")));
 		saveTime = new Timestamp();
 		saved = true;
 		setFileName(Labeler.generate().summonID(this)+saveTime);
