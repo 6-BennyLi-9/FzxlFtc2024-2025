@@ -3,7 +3,7 @@ package org.betastudio.ftc.ui.log;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class FtcLogFiles {
+public class FtcLogFilesBase {
 	private static final Set <FtcLogFile> files;
 
 	static {

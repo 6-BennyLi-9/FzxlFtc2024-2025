@@ -7,7 +7,7 @@ import org.betastudio.ftc.ui.client.BaseMapClient;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.log.FtcLogFile;
-import org.betastudio.ftc.ui.log.FtcLogFiles;
+import org.betastudio.ftc.ui.log.FtcLogFilesBase;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.util.ButtonProcessor;
@@ -31,7 +31,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		SelectPackage logs_select = new SelectPackage();
 		BaseMapClient client = new BaseMapClient(telemetry);
 
-		FtcLogFiles.getFiles().forEach(file -> files_select.add(new SelectElement(String.valueOf(file.getFileName()), () -> {
+		FtcLogFilesBase.getFiles().forEach(file -> files_select.add(new SelectElement(String.valueOf(file.getFileName()), () -> {
 			selected_file = file;
 			is_files_selected = true;
 		})));

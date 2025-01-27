@@ -36,7 +36,7 @@ public enum FtcLogTunnel {
 	}
 
 	public void save(){
-		FtcLogFiles.addFile(log.save());
+		FtcLogFilesBase.addFile(log.save());
 	}
 
 	public static void saveFiles(){
