@@ -6,7 +6,6 @@ import org.betastudio.ftc.specification.MessagesProcessRequired;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.util.time.Timer;
 import org.betastudio.ftc.util.time.Timestamp;
 
 import java.util.Set;
@@ -14,7 +13,7 @@ import java.util.TreeSet;
 
 public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	private final Set <FtcLogElement> elements;
-	private double saveTime;
+	private Timestamp saveTime;
 	private boolean saved;
 	private String fileName;
 
@@ -56,13 +55,13 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 		if(saved){
 			throw new IllegalLogSaveOptionException("Log has already been saved");
 		}
-		saveTime = Timer.getCurrentTime();
+		saveTime = new Timestamp();
 		saved = true;
 		setFileName(Labeler.generate().summonID(this)+saveTime);
 		return this;
 	}
 
-	public double getSaveTime() {
+	public Timestamp getSaveTime() {
 		if(!saved){
 			throw new IllegalLogSaveOptionException("Log has not been saved yet");
 		}

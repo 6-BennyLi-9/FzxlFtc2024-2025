@@ -1,5 +1,6 @@
 package org.betastudio.ftc.ui.log;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -7,7 +8,7 @@ public class FtcLogFilesBase {
 	private static final Set <FtcLogFile> files;
 
 	static {
-		files = new TreeSet <>((o1, o2) -> (int) (o1.getSaveTime() - o2.getSaveTime()));
+		files = new TreeSet <>(Comparator.comparingInt(o -> o.getSaveTime().toSecondsInt()));
 	}
 
 	public static void addFile(final FtcLogFile file) {

@@ -44,4 +44,8 @@ public class Timestamp {
 	public String getSecond() {
 		return second;
 	}
+
+	public int toSecondsInt() {
+		return Integer.parseInt(minute) * 60 + Integer.parseInt(second);
+	}
 }
