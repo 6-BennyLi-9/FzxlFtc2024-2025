@@ -1,8 +1,8 @@
-package org.betastudio.ftc.action.utils;
+package org.betastudio.ftc.action;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.utils.NullptrAction;
 import org.betastudio.ftc.entry.ThreadEx;
 
 import java.util.concurrent.Callable;
@@ -10,6 +10,10 @@ import java.util.concurrent.Callable;
 public class ActionImpl extends Thread implements Action, ThreadEx {
 	private Callable<Boolean> action;
 	private boolean isStopRequested;
+
+	public ActionImpl() {
+		this(new NullptrAction());
+	}
 
 	public ActionImpl(final Callable<Boolean> action) {
 		this.action = action;
