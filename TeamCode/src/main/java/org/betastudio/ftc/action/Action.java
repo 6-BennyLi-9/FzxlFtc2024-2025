@@ -1,10 +1,12 @@
 package org.betastudio.ftc.action;
 
+import java.util.concurrent.Callable;
+
 /**
  * 基本的模块化程序块，可以应用于多方面的维护需求
  */
 @FunctionalInterface
-public interface Action extends Runnable {
+public interface Action extends Runnable, Callable<Boolean> {
 	/**
 	 * @return 该 {@code Action} 块是否结束. 为真时,该 {@code Action} 未结束,反之亦然.
 	 */
@@ -24,5 +26,10 @@ public interface Action extends Runnable {
 	@Override
 	default void run() {
 		Actions.runAction(this);
+	}
+
+	@Override
+	default Boolean call() throws Exception {
+		return activate();
 	}
 }
