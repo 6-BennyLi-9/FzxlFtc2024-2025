@@ -38,7 +38,7 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	@Override
 	public TelemetryMsg call() {
 		final TelemetryMsg result = new TelemetryMsg();
-		for (FtcLogElement element : elements) {
+		for (final FtcLogElement element : elements) {
 			result.add(new LogTelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString()),element));
 		}
 		return result;
@@ -51,7 +51,7 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 		addElement(new FtcLogElement.ElementImpl(new StringMsg("EOF")));
 		saveTime = new Timestamp();
 		saved = true;
-		setFileName(Labeler.generate().summonID(this)+saveTime);
+		fileName = Labeler.generate().summonID(this) + saveTime;
 		return this;
 	}
 
@@ -62,7 +62,7 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 		return saveTime;
 	}
 
-	public void setFileName(String fileName) {
+	public void setFileName(final String fileName) {
 		this.fileName = fileName;
 	}
 

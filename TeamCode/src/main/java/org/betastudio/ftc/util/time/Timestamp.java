@@ -30,7 +30,7 @@ public class Timestamp {
 	@NonNull
 	@Override
 	public String toString() {
-		if (minute.length() > 2) {
+		if (2 < minute.length()) {
 			return ".." + minute.substring(minute.length() - 3) + ":" + second;
 		} else {
 			return minute + ":" + second;

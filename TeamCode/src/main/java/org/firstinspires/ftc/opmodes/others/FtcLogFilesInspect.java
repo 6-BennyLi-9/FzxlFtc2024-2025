@@ -35,8 +35,8 @@ public class FtcLogFilesInspect extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		FtcLogTunnel.saveAndClear();
 		files_select = new SelectPackage();
-		SelectPackage logs_select = new SelectPackage();
-		BaseMapClient client = new BaseMapClient(telemetry);
+		final SelectPackage logs_select = new SelectPackage();
+		final BaseMapClient client      = new BaseMapClient(telemetry);
 
 		FtcLogFilesBase.getFiles().forEach(file -> files_select.add(new SelectElement(String.valueOf(file.getFileName()), () -> {
 			selected_file = file;
@@ -64,7 +64,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		}
 
 		files_select.submit_selected();
-		for (TelemetryElement element : selected_file.call().getElements()) {
+		for (final TelemetryElement element : selected_file.call().getElements()) {
 			if (element instanceof LogTelemetryItem) {
 				logs_select.add(new SelectElement(element.toString(), () -> log_message= ((LogTelemetryItem) element).getLogElement().getMessage().buildTelemetryMsg()));
 			}else{

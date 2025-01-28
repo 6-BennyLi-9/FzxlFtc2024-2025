@@ -43,9 +43,9 @@ public class FtcLogTest extends LinearOpMode {
 
 		sleep(1000);
 
-		TelemetryMsg msg=FtcLogTunnel.MAIN.call();
+		final TelemetryMsg msg =FtcLogTunnel.MAIN.call();
 
-		for (TelemetryElement s : msg.getElements()) {
+		for (final TelemetryElement s : msg.getElements()) {
 			telemetry.addData("found element", msg.toString());
 			if(s instanceof TelemetryItem){
 				telemetry.addLine("the element is instance of TI");

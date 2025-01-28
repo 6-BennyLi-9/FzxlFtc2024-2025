@@ -17,14 +17,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ViewModeConvertor extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
-		SelectPackage                    selections = new SelectPackage();
-		AtomicReference <ClientViewMode> target     = new AtomicReference <>(ClientViewMode.ORIGIN_TELEMETRY);
-		BaseMapClient                    client     = new BaseMapClient(telemetry);
-		ButtonProcessor            select_prev = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-		ButtonProcessor            select_next = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-		ButtonProcessor            submit      = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final SelectPackage                    selections = new SelectPackage();
+		final AtomicReference <ClientViewMode> target     = new AtomicReference <>(ClientViewMode.ORIGIN_TELEMETRY);
+		final BaseMapClient                    client     = new BaseMapClient(telemetry);
+		final ButtonProcessor            select_prev = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final ButtonProcessor select_next = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final ButtonProcessor submit      = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 
-		for (ClientViewMode mode : ClientViewMode.values()) {
+		for (final ClientViewMode mode : ClientViewMode.values()) {
 			selections.add(new SelectElement(mode.name(), () -> target.set(mode)));
 		}
 

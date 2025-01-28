@@ -22,32 +22,32 @@ public class SelectPackage implements Updatable {
 		show_range = Range.create(0, show_lines);
 	}
 
-	public SelectPackage(@NonNull List <SelectElement> elements) {
+	public SelectPackage(@NonNull final List <SelectElement> elements) {
 		this.elements = elements;
 		if(! elements.isEmpty()) {
 			elements.get(selected_index).setSelected(true);
 		}
 	}
 
-	public SelectPackage(SelectElement... elements) {
+	public SelectPackage(final SelectElement... elements) {
 		this(new ArrayList <>(Arrays.asList(elements)));
 	}
 
-	public void add(SelectElement element) {
+	public void add(final SelectElement element) {
 		elements.add(element);
 	}
 
-	public void set_show_lines(int lines){
+	public void set_show_lines(final int lines){
 		show_lines = lines;
 		show_range = Range.create(0, show_lines);
 	}
 
-	public void set_show_lower(int lower_index){
+	public void set_show_lower(final int lower_index){
 		show_range = Range.create(lower_index, lower_index+show_lines);
 	}
 
-	public void toggleSelected(int index) {
-		assert  index > 0 && index < elements.size();
+	public void toggleSelected(final int index) {
+		assert 0 < index && index < elements.size();
 		elements.get(index).toggleSelected();
 	}
 
@@ -64,7 +64,7 @@ public class SelectPackage implements Updatable {
 	}
 
 	public TelemetryMsg buildTelemetryMsg() {
-		TelemetryMsg msg = new TelemetryMsg();
+		final TelemetryMsg msg = new TelemetryMsg();
 		for (int i = show_range.getLower() ; i < elements.size() && i < show_range.getUpper() ; i++) {
 			msg.add(elements.get(i).buildTelemetryItem());
 		}

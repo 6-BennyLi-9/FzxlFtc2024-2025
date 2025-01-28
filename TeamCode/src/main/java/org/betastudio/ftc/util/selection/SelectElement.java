@@ -7,7 +7,7 @@ public class SelectElement {
 	private final Runnable on_select;
 	private boolean is_selected;
 
-	public SelectElement(String name, Runnable on_select) {
+	public SelectElement(final String name, final Runnable on_select) {
 		this.name = name;
 		this.on_select = on_select;
 	}
@@ -24,7 +24,7 @@ public class SelectElement {
 		return is_selected;
 	}
 
-	public void setSelected(boolean selected) {
+	public void setSelected(final boolean selected) {
 		is_selected = selected;
 	}
 

@@ -24,7 +24,7 @@ public class TelemetryMsg implements Message{
 		elements.add(element);
 	}
 
-	public void addAll(Collection<TelemetryElement> elements){
+	public void addAll(final Collection<TelemetryElement> elements){
 		this.elements.addAll(elements);
 	}
 

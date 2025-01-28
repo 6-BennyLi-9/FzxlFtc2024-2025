@@ -21,8 +21,8 @@ public class SelectPackageTest extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		Global.runMode= RunMode.TELEOP;
 		Global.prepareCoreThreadPool();
-		SelectPackage selections=new SelectPackage();
-		BaseMapClient client=new BaseMapClient(telemetry);
+		final SelectPackage selections =new SelectPackage();
+		final BaseMapClient client     =new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
 		selections.add(new SelectElement("item1",()-> telemetry.speak("item1 selected")));
@@ -38,9 +38,9 @@ public class SelectPackageTest extends LinearOpMode {
 		client.addLine("按下A键确认选择。");
 		client.addLine("等待op开始后，测试也会开始。");
 
-		ButtonProcessor select_prev=new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-		ButtonProcessor select_next=new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-		ButtonProcessor submit=new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final ButtonProcessor select_prev =new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final ButtonProcessor select_next =new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+		final ButtonProcessor submit      =new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 
 		client.update();
 		waitForStart();

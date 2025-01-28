@@ -20,7 +20,7 @@ public class ExceptionMsg extends LogMessage{
 
 	public TelemetryMsg buildTelemetryMsg() {
 		final TelemetryMsg result = new TelemetryMsg(),packages = new TelemetryMsg();
-		for (StackTraceElement element : exception.getStackTrace()) {
+		for (final StackTraceElement element : exception.getStackTrace()) {
 			result.add(new TelemetryLine("at:"+element.getFileName()));
 			result.add(new TelemetryLine(" -method:"+element.getMethodName()));
 			result.add(new TelemetryLine(" -line:"+element.getLineNumber()));

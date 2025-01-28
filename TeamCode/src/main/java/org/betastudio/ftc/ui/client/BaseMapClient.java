@@ -234,7 +234,7 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateLogLines() {
-		for (TelemetryElement e : targetLogTunnel.call().getElements()) {
+		for (final TelemetryElement e : targetLogTunnel.call().getElements()) {
 			e.push(telemetry);
 		}
 		telemetry.update();
@@ -275,7 +275,7 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	public void setTargetLogTunnel(FtcLogTunnel targetLogTunnel) {
+	public void setTargetLogTunnel(final FtcLogTunnel targetLogTunnel) {
 		this.targetLogTunnel = targetLogTunnel;
 	}
 

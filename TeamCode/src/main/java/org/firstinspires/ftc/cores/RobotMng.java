@@ -69,7 +69,7 @@ public class RobotMng implements Updatable {
 	 * 旋转触发缓冲失败的阈值
 	 */
 	public static       double                           rotateTriggerBufFal = 0.01;
-	public static       boolean                          sendTelemetryPackets = false;
+	public static       boolean                          sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
 	 */
