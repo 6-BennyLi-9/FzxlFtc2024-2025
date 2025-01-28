@@ -1,4 +1,4 @@
-package org.betastudio.ftc.specification;
+package org.betastudio.ftc.entry;
 
 public interface Updatable {
 	void update();

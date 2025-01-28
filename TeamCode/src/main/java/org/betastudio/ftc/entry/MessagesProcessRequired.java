@@ -1,4 +1,4 @@
-package org.betastudio.ftc.specification;
+package org.betastudio.ftc.entry;
 
 import androidx.annotation.NonNull;
 

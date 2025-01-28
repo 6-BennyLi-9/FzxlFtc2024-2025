@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.events;
 
-import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.entry.ThreadEx;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;

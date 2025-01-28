@@ -2,7 +2,7 @@ package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.entry.ThreadEx;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;

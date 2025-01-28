@@ -2,7 +2,7 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.specification.MessagesProcessRequired;
+import org.betastudio.ftc.entry.MessagesProcessRequired;
 import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.StringMsg;

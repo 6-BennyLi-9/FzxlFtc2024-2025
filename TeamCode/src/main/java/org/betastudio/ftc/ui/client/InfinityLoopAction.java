@@ -1,7 +1,7 @@
 package org.betastudio.ftc.ui.client;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.specification.ThreadEx;
+import org.betastudio.ftc.entry.ThreadEx;
 
 public final class InfinityLoopAction implements Action, ThreadEx {
 	private final Runnable runnable;

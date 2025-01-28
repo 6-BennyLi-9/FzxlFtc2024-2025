@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.betastudio.ftc.specification.HardwareController;
-import org.betastudio.ftc.specification.InitializeRequested;
-import org.betastudio.ftc.specification.TagOptionsRequired;
+import org.betastudio.ftc.entry.HardwareController;
+import org.betastudio.ftc.entry.InitializeRequested;
+import org.betastudio.ftc.entry.TagOptionsRequired;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;

@@ -20,11 +20,11 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
-import org.betastudio.ftc.specification.DashboardCallable;
-import org.betastudio.ftc.specification.HardwareController;
-import org.betastudio.ftc.specification.InitializeRequested;
-import org.betastudio.ftc.specification.TagOptionsRequired;
-import org.betastudio.ftc.specification.Updatable;
+import org.betastudio.ftc.entry.DashboardCallable;
+import org.betastudio.ftc.entry.HardwareController;
+import org.betastudio.ftc.entry.InitializeRequested;
+import org.betastudio.ftc.entry.TagOptionsRequired;
+import org.betastudio.ftc.entry.Updatable;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
