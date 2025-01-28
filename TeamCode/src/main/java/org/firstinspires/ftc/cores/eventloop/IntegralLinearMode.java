@@ -131,11 +131,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason) {
-		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
-	}
-
-	@Override
 	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
 		timer.stop();
 		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
