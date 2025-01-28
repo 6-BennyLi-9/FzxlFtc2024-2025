@@ -18,11 +18,11 @@ public class ThreadManager {
 	/**
 	 * 用于存储线程的映射表，键为线程的标签，值为线程对象。
 	 */
-	private final Map<String, Thread> mem = new HashMap<>();
+	private final Map <String, Thread> mem     = new HashMap <>();
 	/**
 	 * 用于为未命名的线程生成唯一标签的工具。
 	 */
-	private final Labeler labeler = new Labeler();
+	private final Labeler              labeler = new Labeler();
 
 	/**
 	 * 构造函数，初始化线程管理器。
@@ -37,7 +37,7 @@ public class ThreadManager {
 	 * 最后清空存储线程的映射表。
 	 */
 	public void interruptAll() {
-		for (final Map.Entry<String, Thread> entry : mem.entrySet()) {
+		for (final Map.Entry <String, Thread> entry : mem.entrySet()) {
 			final Thread e = entry.getValue();
 			if (e instanceof ThreadEx) {
 				((ThreadEx) e).closeTask();
@@ -68,7 +68,7 @@ public class ThreadManager {
 	/**
 	 * 添加一个已经启动的线程到管理器中，并设置未捕获异常处理器。
 	 *
-	 * @param tag 线程的标签
+	 * @param tag           线程的标签
 	 * @param startedThread 已经启动的线程对象
 	 */
 	public void addStarted(final String tag, @NonNull final Thread startedThread) {
@@ -80,7 +80,7 @@ public class ThreadManager {
 	 * 添加一个未启动的线程到管理器中，首先启动该线程，然后调用addStarted方法进行管理。
 	 * 会自动运行传入的线程。
 	 *
-	 * @param tag 线程的标签
+	 * @param tag             线程的标签
 	 * @param unstartedThread 未启动的线程对象
 	 */
 	public void add(final String tag, @NonNull final Thread unstartedThread) {
@@ -121,7 +121,7 @@ public class ThreadManager {
 	 *
 	 * @return 线程的映射表
 	 */
-	public Map<String, Thread> getMem() {
+	public Map <String, Thread> getMem() {
 		return mem;
 	}
 }

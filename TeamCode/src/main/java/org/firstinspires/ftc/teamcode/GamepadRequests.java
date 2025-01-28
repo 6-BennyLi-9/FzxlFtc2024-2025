@@ -122,6 +122,7 @@ public final class GamepadRequests {
 	public static void printValues() {
 		printValues(Global.client);
 	}
+
 	/**
 	 * 打印值
 	 * <p>

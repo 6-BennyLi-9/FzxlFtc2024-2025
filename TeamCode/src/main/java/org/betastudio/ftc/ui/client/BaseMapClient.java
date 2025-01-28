@@ -275,11 +275,11 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	public void setTargetLogTunnel(final FtcLogTunnel targetLogTunnel) {
-		this.targetLogTunnel = targetLogTunnel;
-	}
-
 	public FtcLogTunnel getTargetLogTunnel() {
 		return targetLogTunnel;
+	}
+
+	public void setTargetLogTunnel(final FtcLogTunnel targetLogTunnel) {
+		this.targetLogTunnel = targetLogTunnel;
 	}
 }

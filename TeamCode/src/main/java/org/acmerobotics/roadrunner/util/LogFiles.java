@@ -40,7 +40,7 @@ public enum LogFiles {
 	;
 	private static final File ROOT = new File(AppUtil.ROOT_FOLDER + "/RoadRunner/logs/");
 
-	public static LogFile log = new LogFile("uninitialized");
+	public static        LogFile                             log          = new LogFile("uninitialized");
 	private static final OpModeManagerNotifier.Notifications notifHandler = new OpModeManagerNotifier.Notifications() {
 		@SuppressLint("SimpleDateFormat")
 		final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_SSS");
@@ -185,7 +185,9 @@ public enum LogFiles {
 		});
 	}
 
-	/** @noinspection deprecation*/
+	/**
+	 * @noinspection deprecation
+	 */
 	public static class LogFile {
 		public String version = "quickstart1 v2";
 

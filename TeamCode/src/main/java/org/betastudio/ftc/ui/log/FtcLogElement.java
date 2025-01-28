@@ -5,11 +5,13 @@ import org.betastudio.ftc.util.time.Timestamp;
 
 public interface FtcLogElement {
 	Timestamp getTimestamp();
+
 	LogElementType getType();
+
 	LogMessage getMessage();
 
 	class ElementImpl implements FtcLogElement {
-		private final LogMessage        message;
+		private final LogMessage     message;
 		private final Timestamp      timestamp;
 		private final LogElementType type;
 

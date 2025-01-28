@@ -58,12 +58,12 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 	}
 
 	@Override
-	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
-		throw new IllegalStateException("Cannot set update config for BranchThreadClient");
+	public UpdateConfig getUpdateConfig() {
+		return UpdateConfig.THREAD_REQUIRED;
 	}
 
 	@Override
-	public UpdateConfig getUpdateConfig() {
-		return UpdateConfig.THREAD_REQUIRED;
+	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
+		throw new IllegalStateException("Cannot set update config for BranchThreadClient");
 	}
 }

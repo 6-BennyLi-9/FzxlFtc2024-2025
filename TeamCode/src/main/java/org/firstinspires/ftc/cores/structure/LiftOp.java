@@ -7,9 +7,9 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.entry.HardwareController;
 import org.betastudio.ftc.entry.TagOptionsRequired;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;
@@ -21,13 +21,19 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements HardwareController, TagOptionsRequired {
-	/**当前的电梯状态*/
-	public static  LiftMode recent = LiftMode.IDLE;
-	/**结构控制器*/
-	public static  LiftCtrl liftCtrl;
-	/**电梯的具体点位*/
-	public static long idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
-	private static LiftOp   instance;
+	/**
+	 * 当前的电梯状态
+	 */
+	public static LiftMode recent                  = LiftMode.IDLE;
+	/**
+	 * 结构控制器
+	 */
+	public static LiftCtrl liftCtrl;
+	/**
+	 * 电梯的具体点位
+	 */
+	public static long     idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
+	private static LiftOp instance;
 
 	public static LiftOp getInstance() {
 		return instance;

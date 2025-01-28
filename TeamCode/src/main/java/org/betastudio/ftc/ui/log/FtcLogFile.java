@@ -39,13 +39,13 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	public TelemetryMsg call() {
 		final TelemetryMsg result = new TelemetryMsg();
 		for (final FtcLogElement element : elements) {
-			result.add(new LogTelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString()),element));
+			result.add(new LogTelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString()), element));
 		}
 		return result;
 	}
 
-	public FtcLogFile save(){
-		if(saved){
+	public FtcLogFile save() {
+		if (saved) {
 			throw new IllegalLogSaveOptionException("Log has already been saved");
 		}
 		addElement(new FtcLogElement.ElementImpl(new StringMsg("EOF")));
@@ -56,18 +56,18 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	}
 
 	public Timestamp getSaveTime() {
-		if(!saved){
+		if (! saved) {
 			throw new IllegalLogSaveOptionException("Log has not been saved yet");
 		}
 		return saveTime;
 	}
 
-	public void setFileName(final String fileName) {
-		this.fileName = fileName;
-	}
-
 	public String getFileName() {
 		return fileName;
+	}
+
+	public void setFileName(final String fileName) {
+		this.fileName = fileName;
 	}
 
 	public boolean isUnsaved() {

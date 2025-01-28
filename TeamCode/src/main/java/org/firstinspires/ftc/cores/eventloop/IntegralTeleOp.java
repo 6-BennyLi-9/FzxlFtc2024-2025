@@ -19,14 +19,14 @@ import org.firstinspires.ftc.teamcode.RunMode;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode , ThreadEx {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, ThreadEx {
 	public    RobotMng  robot;
 	public    Timer     timer;
 	public    Client    client;
 	protected boolean   is_terminate_method_called;
+	protected boolean   initialized;
 	private   boolean   auto_terminate_when_TLE;
 	private   Exception inlineUncaughtException;
-	protected boolean   initialized;
 
 	@Override
 	public void op_init() {
@@ -35,13 +35,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
 		Global.runMode = RunMode.TELEOP;
-		Global.client=client;
+		Global.client = client;
 		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
-		client = new BranchThreadClient(telemetry,10);
+		client = new BranchThreadClient(telemetry, 10);
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
@@ -50,14 +50,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		telemetry.clearAll();
 
-		client	.addData("TPS", "wait for start")
-				.addData("time", "wait for start")
-				.addLine("ROBOT INITIALIZE COMPLETE!")
-				.addLine("=======================");
+		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
 
-		if (- 1 != CoreDatabase.autonomous_time_used){
-			client	.addData("last autonomous time used",CoreDatabase.autonomous_time_used)
-					.addData("last terminateReason",CoreDatabase.last_terminateReason.name());
+		if (- 1 != CoreDatabase.autonomous_time_used) {
+			client.addData("last autonomous time used", CoreDatabase.autonomous_time_used).addData("last terminateReason", CoreDatabase.last_terminateReason.name());
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -70,9 +66,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_start() {
-		client	.deleteLine("ROBOT INITIALIZE COMPLETE!")
-				.deleteData("last autonomous time used")
-				.deleteData("last terminateReason");
+		client.deleteLine("ROBOT INITIALIZE COMPLETE!").deleteData("last autonomous time used").deleteData("last terminateReason");
 		timer.pushTimeTag("start");
 
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
@@ -88,8 +82,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_loop() {
-		if(!initialized){
-			initialized=true;
+		if (! initialized) {
+			initialized = true;
 			robot.initControllers();
 		}
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
@@ -103,14 +97,14 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			throw new RuntimeException(inlineUncaughtException);
 		}
 
-		if (is_terminate_method_called){
+		if (is_terminate_method_called) {
 			op_end();
 			terminateOpModeNow();
 		}
 
 		try {
 			op_loop_entry();
-		}catch (final UnsupportedOperationException exception){
+		} catch (final UnsupportedOperationException exception) {
 			FtcLogTunnel.MAIN.report(exception);
 		}
 	}
@@ -120,7 +114,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void op_end() {
 		client.clear();
-		if (client instanceof BranchThreadClient){
+		if (client instanceof BranchThreadClient) {
 			((BranchThreadClient) client).closeTask();
 		}
 
@@ -129,7 +123,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 
 		FtcLogTunnel.MAIN.report("Op inline closed");
-		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
+		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
@@ -147,13 +141,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
-			is_terminate_method_called=true;
+			is_terminate_method_called = true;
 		}
 	}
 
 	@Override
 	public void closeTask() {
-		is_terminate_method_called=true;
+		is_terminate_method_called = true;
 	}
 
 	@Override

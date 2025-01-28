@@ -15,6 +15,7 @@ public final class Actions {
 			}
 		}
 	}
+
 	public static void runThreadingAction(final Action actionBlock) {
 		new Thread(() -> runAction(actionBlock)).start();
 	}
@@ -25,7 +26,7 @@ public final class Actions {
 	 * @see #runAction(Action)
 	 */
 	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds) {
-		final double start  = System.nanoTime() / 1.0e6;
+		final double start = System.nanoTime() / 1.0e6;
 		while (! (System.nanoTime() / 1.0e6 - start >= allottedMilliseconds)) {
 			if (! actionBlock.run()) {
 				break;

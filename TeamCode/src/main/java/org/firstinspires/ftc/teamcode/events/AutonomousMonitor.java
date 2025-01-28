@@ -24,7 +24,7 @@ public final class AutonomousMonitor extends Thread implements ThreadEx {
 	 * 一个布尔标志，用于指示任务是否已被中断。
 	 * 当调用 closeTask 方法时，该标志会被设置为 true。
 	 */
-	private       boolean            taskInterrupted;
+	private boolean taskInterrupted;
 
 	/**
 	 * 构造函数，用于创建 AutonomousMonitor 实例。

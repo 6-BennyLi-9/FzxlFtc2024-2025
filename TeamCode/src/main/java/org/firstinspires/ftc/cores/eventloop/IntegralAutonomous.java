@@ -12,8 +12,8 @@ import java.util.Map;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class IntegralAutonomous extends IntegralLinearMode {
-	private final Map <String, Trajectory>         trajectoryMap           = new HashMap <>();
-	private final Map <String, TrajectorySequence> trajectorySequenceMap   = new HashMap <>();
+	private final Map <String, Trajectory>         trajectoryMap         = new HashMap <>();
+	private final Map <String, TrajectorySequence> trajectorySequenceMap = new HashMap <>();
 
 	public abstract void initialize();
 
@@ -21,20 +21,18 @@ public abstract class IntegralAutonomous extends IntegralLinearMode {
 
 	@Override
 	public Thread getLinearThread() {
-		return new Thread(
-				() -> {
-					try {
-						initialize();
-						waitForStart();
-						linear();
-					} catch (final Exception e) {
-						sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, e);
-					} finally {
-						preTerminate();
-						sendTerminateSignal(TerminateReason.NATURALLY_SHUT_DOWN);
-					}
-				}
-		);
+		return new Thread(() -> {
+			try {
+				initialize();
+				waitForStart();
+				linear();
+			} catch (final Exception e) {
+				sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, e);
+			} finally {
+				preTerminate();
+				sendTerminateSignal(TerminateReason.NATURALLY_SHUT_DOWN);
+			}
+		});
 	}
 
 	public Pose2d registerTrajectory(final String tag, final Trajectory argument) {

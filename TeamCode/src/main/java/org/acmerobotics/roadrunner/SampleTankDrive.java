@@ -59,13 +59,13 @@ import java.util.List;
 public class SampleTankDrive extends TankDrive {
 	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT  = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
 	private static final TrajectoryAccelerationConstraint accelConstraint = getAccelerationConstraint(MAX_ACCEL);
-	public static PIDCoefficients AXIAL_PID       = new PIDCoefficients(0, 0, 0);
-	public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
-	public static PIDCoefficients HEADING_PID     = new PIDCoefficients(0, 0, 0);
-	public static double VX_WEIGHT    = 1;
-	public static double OMEGA_WEIGHT = 1;
-	private final TrajectorySequenceRunner trajectorySequenceRunner;
-	private final TrajectoryFollower follower;
+	public static        PIDCoefficients                  AXIAL_PID       = new PIDCoefficients(0, 0, 0);
+	public static        PIDCoefficients                  CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
+	public static        PIDCoefficients                  HEADING_PID     = new PIDCoefficients(0, 0, 0);
+	public static        double                           VX_WEIGHT       = 1;
+	public static        double                           OMEGA_WEIGHT    = 1;
+	private final        TrajectorySequenceRunner         trajectorySequenceRunner;
+	private final        TrajectoryFollower               follower;
 
 	private final List <DcMotorEx> motors;
 	private final List <DcMotorEx> leftMotors;

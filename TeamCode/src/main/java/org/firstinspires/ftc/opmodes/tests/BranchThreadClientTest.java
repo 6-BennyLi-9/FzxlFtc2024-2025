@@ -13,7 +13,7 @@ public class BranchThreadClientTest extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.op_init();
-		client=new BranchThreadClient(telemetry,60);
+		client = new BranchThreadClient(telemetry, 60);
 		robot.fetchClient(client);
 	}
 

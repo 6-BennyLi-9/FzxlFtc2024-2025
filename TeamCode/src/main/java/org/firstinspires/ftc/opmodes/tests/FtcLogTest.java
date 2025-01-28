@@ -22,7 +22,7 @@ public class FtcLogTest extends LinearOpMode {
 		Global.auto_create_monitor(false);
 		Global.prepareCoreThreadPool();
 		Global.auto_create_monitor(true);
-		final BaseMapClient client =new BaseMapClient(telemetry);
+		final BaseMapClient client = new BaseMapClient(telemetry);
 
 		client.configViewMode(ClientViewMode.FTC_LOG);
 		client.setTargetLogTunnel(FtcLogTunnel.MAIN);
@@ -43,13 +43,13 @@ public class FtcLogTest extends LinearOpMode {
 
 		sleep(1000);
 
-		final TelemetryMsg msg =FtcLogTunnel.MAIN.call();
+		final TelemetryMsg msg = FtcLogTunnel.MAIN.call();
 
 		for (final TelemetryElement s : msg.getElements()) {
 			telemetry.addData("found element", msg.toString());
-			if(s instanceof TelemetryItem){
+			if (s instanceof TelemetryItem) {
 				telemetry.addLine("the element is instance of TI");
-				telemetry.addData(((TelemetryItem) s).capital,((TelemetryItem) s).value);
+				telemetry.addData(((TelemetryItem) s).capital, ((TelemetryItem) s).value);
 			} else if (s instanceof TelemetryLine) {
 				telemetry.addLine("the element is instance of TL");
 				telemetry.addLine(((TelemetryLine) s).line);
@@ -60,6 +60,6 @@ public class FtcLogTest extends LinearOpMode {
 		telemetry.update();
 
 		sleep(500000L);
-//		client.closeTask();
+		//		client.closeTask();
 	}
 }

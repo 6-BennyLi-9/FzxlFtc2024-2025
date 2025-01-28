@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Contract;
 public class ScaleOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static ScalePositions recent = ScalePositions.BACK;
 	public static ServoCtrl      leftScaleController, rightScaleController;
-	public static double smooth = 0.2;
+	public static  double  smooth = 0.2;
 	private static ScaleOp instance;
 
 	public static ScaleOp getInstance() {
@@ -48,13 +48,13 @@ public class ScaleOp implements HardwareController, InitializeRequested, TagOpti
 	}
 
 	public void manage(double position) {
-		position = min(max(position, 0),0.35);
+		position = min(max(position, 0), 0.35);
 		leftScaleController.setTargetPosition(1 - position);
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
-		position = min(max(position, 0),0.35);
+		position = min(max(position, 0), 0.35);
 		leftScaleController.setTargetPositionTolerance(1 - position, smooth);
 		rightScaleController.setTargetPositionTolerance(position, smooth);
 	}

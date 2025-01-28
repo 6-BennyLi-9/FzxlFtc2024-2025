@@ -3,9 +3,9 @@ package org.betastudio.ftc.util.selection;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 
 public class SelectElement {
-	private final String name;
+	private final String   name;
 	private final Runnable on_select;
-	private boolean is_selected;
+	private       boolean  is_selected;
 
 	public SelectElement(final String name, final Runnable on_select) {
 		this.name = name;
@@ -16,7 +16,7 @@ public class SelectElement {
 		return name;
 	}
 
-	public void submit(){
+	public void submit() {
 		on_select.run();
 	}
 
@@ -29,10 +29,10 @@ public class SelectElement {
 	}
 
 	public void toggleSelected() {
-		is_selected =!is_selected;
+		is_selected = ! is_selected;
 	}
 
 	public TelemetryLine buildTelemetryItem() {
-		return new TelemetryLine((is_selected? "[X] ":"[  ] ") + name);
+		return new TelemetryLine((is_selected ? "[X] " : "[  ] ") + name);
 	}
 }

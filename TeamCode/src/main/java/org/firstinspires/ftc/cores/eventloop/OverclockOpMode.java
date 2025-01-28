@@ -22,7 +22,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 			while (opModeIsActive()) {
 				op_loop();
 			}
-		}catch (final Throwable e){
+		} catch (final Throwable e) {
 			exception_entry(e);
 		} finally {
 			op_end();

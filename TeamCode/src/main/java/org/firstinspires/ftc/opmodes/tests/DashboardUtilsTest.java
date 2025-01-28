@@ -8,15 +8,15 @@ import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 
 @Autonomous(group = "9_Tests")
 public class DashboardUtilsTest extends LinearOpMode {
-	public DashboardUtils dashboard=DashboardUtils.generateInstance();
+	public DashboardUtils dashboard = DashboardUtils.generateInstance();
 
 	@Override
 	public void runOpMode() throws InterruptedException {
 		DashboardUtils.fetch();
 		waitForStart();
-		while (opModeIsActive()){
-			final TelemetryPacket packet =new TelemetryPacket();
-			packet.put("time",getRuntime());
+		while (opModeIsActive()) {
+			final TelemetryPacket packet = new TelemetryPacket();
+			packet.put("time", getRuntime());
 			DashboardUtils.sendTelemetryPacket(packet);
 			dashboard.update();
 		}

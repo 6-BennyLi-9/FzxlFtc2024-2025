@@ -17,7 +17,7 @@ public class TimedAllottedPriorityAction implements Action {
 	public final  List <PriorityAction> actions;
 	private final long                  allottedMilliseconds;
 	private       boolean               initialized;
-	private double startTime;
+	private       double                startTime;
 
 	public TimedAllottedPriorityAction(final long allottedMilliseconds, final List <PriorityAction> actions) {
 		this.actions = new ArrayList <>();

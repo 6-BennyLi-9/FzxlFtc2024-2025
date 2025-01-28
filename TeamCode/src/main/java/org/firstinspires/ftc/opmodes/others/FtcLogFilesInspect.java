@@ -22,14 +22,14 @@ import org.slf4j.LoggerFactory;
 
 @TeleOp(name = "日志检查", group = "zzz")
 public class FtcLogFilesInspect extends LinearOpMode {
-	private static final Logger log = LoggerFactory.getLogger(FtcLogFilesInspect.class);
-	private final ButtonProcessor select_prev = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private final ButtonProcessor select_next        = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private final ButtonProcessor submit = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private SelectPackage files_select;
-	private FtcLogFile    selected_file;
-	private Boolean       is_files_selected = false;
-	private TelemetryMsg log_message=new TelemetryMsg(new TelemetryLine("**unselected**"));
+	private static final Logger          log               = LoggerFactory.getLogger(FtcLogFilesInspect.class);
+	private final        ButtonProcessor select_prev       = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+	private final        ButtonProcessor select_next       = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+	private final        ButtonProcessor submit            = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+	private              SelectPackage   files_select;
+	private              FtcLogFile      selected_file;
+	private              Boolean         is_files_selected = false;
+	private              TelemetryMsg    log_message       = new TelemetryMsg(new TelemetryLine("**unselected**"));
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -66,8 +66,8 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		files_select.submit_selected();
 		for (final TelemetryElement element : selected_file.call().getElements()) {
 			if (element instanceof LogTelemetryItem) {
-				logs_select.add(new SelectElement(element.toString(), () -> log_message= ((LogTelemetryItem) element).getLogElement().getMessage().buildTelemetryMsg()));
-			}else{
+				logs_select.add(new SelectElement(element.toString(), () -> log_message = ((LogTelemetryItem) element).getLogElement().getMessage().buildTelemetryMsg()));
+			} else {
 				logs_select.add(new SelectElement(element.toString(), () -> {}));
 			}
 		}

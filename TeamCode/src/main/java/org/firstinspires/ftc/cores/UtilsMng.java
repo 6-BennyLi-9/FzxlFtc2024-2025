@@ -13,8 +13,8 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
-
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
@@ -247,7 +247,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng scaleOperate(double rightScalePosition) {
-		rightScalePosition = min(0.35,max(rightScalePosition, 0));
+		rightScalePosition = min(0.35, max(rightScalePosition, 0));
 		final double finalRightScalePosition = rightScalePosition;
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 		return this;
@@ -387,10 +387,11 @@ public class UtilsMng {
 
 	/**
 	 * 会自动清除缓存动作
+	 *
 	 * @return 将缓存动作打包后的 {@link LinkedAction}
 	 */
-	public Action pack(){
-		final LinkedAction res =new LinkedAction(new LinkedList <>(actions));
+	public Action pack() {
+		final LinkedAction res = new LinkedAction(new LinkedList <>(actions));
 		actions.clear();
 		return res;
 	}

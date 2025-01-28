@@ -17,6 +17,12 @@ public class Labeler {
 	 */
 	private static long ID;
 
+	@NonNull
+	@Contract(" -> new")
+	public static Labeler generate() {
+		return new Labeler();
+	}
+
 	/**
 	 * 返回一个递增的ID值。
 	 *
@@ -34,12 +40,6 @@ public class Labeler {
 	 * @return 生成的唯一字符串形式的标识符。
 	 */
 	public String summonID(@NonNull final Object object) {
-		return "<I>"+object.getClass().getSimpleName() + "@" + summonID();
-	}
-
-	@NonNull
-	@Contract(" -> new")
-	public static Labeler generate(){
-		return new Labeler();
+		return "<I>" + object.getClass().getSimpleName() + "@" + summonID();
 	}
 }

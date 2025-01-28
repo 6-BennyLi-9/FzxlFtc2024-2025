@@ -8,24 +8,24 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.entry.ThreadEx;
+import org.betastudio.ftc.ui.client.BaseMapClient;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
-import org.betastudio.ftc.ui.client.BaseMapClient;
-import org.betastudio.ftc.entry.ThreadEx;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.time.Timer;
 import org.firstinspires.ftc.cores.UtilsMng;
 import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.RunMode;
-import org.betastudio.ftc.util.time.Timer;
 
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode , ThreadEx {
+public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode, ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
 	public    UtilsMng           utils;
@@ -39,7 +39,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		Global.runMode = RunMode.AUTONOMOUS;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode = this;
-		Global.client=client;
+		Global.client = client;
 		HardwareDatabase.sync(hardwareMap, true);
 
 		drive = new SampleMecanumDrive(hardwareMap);
@@ -71,7 +71,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 					closeTask();
 				} else {
 					FtcLogTunnel.MAIN.report(inlineUncaughtException);
-					FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
+					FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 					throw new RuntimeException(inlineUncaughtException);
 				}
 			}
@@ -144,7 +144,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 			inlineUncaughtException = e;
 		} else {
 			FtcLogTunnel.MAIN.report("Op terminated by " + reason.name());
-			FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE,"%tc", System.currentTimeMillis()));
+			FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 			terminateOpModeNow();
 		}
 	}

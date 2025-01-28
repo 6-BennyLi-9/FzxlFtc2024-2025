@@ -7,9 +7,9 @@ import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.entry.HardwareController;
 import org.betastudio.ftc.entry.InitializeRequested;
 import org.betastudio.ftc.entry.TagOptionsRequired;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 

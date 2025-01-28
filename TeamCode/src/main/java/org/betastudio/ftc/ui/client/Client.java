@@ -9,12 +9,12 @@ import org.betastudio.ftc.util.message.TelemetryMsg;
 /**
  * @noinspection UnusedReturnValue
  */
-public interface Client extends Updatable , MessagesProcessRequired <TelemetryMsg> {
+public interface Client extends Updatable, MessagesProcessRequired <TelemetryMsg> {
 	void clear();
 
 	Client addData(final String key, final String val);
 
-	default Client addData(final String key, @NonNull final Object val){
+	default Client addData(final String key, @NonNull final Object val) {
 		return addData(key, val.toString());
 	}
 
@@ -22,13 +22,13 @@ public interface Client extends Updatable , MessagesProcessRequired <TelemetryMs
 
 	Client changeData(final String key, final String val);
 
-	default Client changeData(final String key, @NonNull final Object val){
+	default Client changeData(final String key, @NonNull final Object val) {
 		return changeData(key, val.toString());
 	}
 
 	Client addLine(final String key);
 
-	default Client addLine(@NonNull final Object key){
+	default Client addLine(@NonNull final Object key) {
 		return addLine(key.toString());
 	}
 
@@ -42,14 +42,14 @@ public interface Client extends Updatable , MessagesProcessRequired <TelemetryMs
 
 	void configViewMode(final ClientViewMode clientViewMode);
 
-	void setUpdateConfig(final UpdateConfig updateConfig);
-
 	UpdateConfig getUpdateConfig();
+
+	void setUpdateConfig(final UpdateConfig updateConfig);
 
 	ClientViewMode getCurrentViewMode();
 
-	default void switchViewMode(){
-		switch (getCurrentViewMode()){
+	default void switchViewMode() {
+		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
 				configViewMode(ClientViewMode.THREAD_MANAGER);
 				break;

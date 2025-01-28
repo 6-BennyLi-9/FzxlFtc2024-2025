@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Config
-public class DashboardUtils implements Updatable , MessagesProcessRequired<TelemetryMsg> {
+public class DashboardUtils implements Updatable, MessagesProcessRequired <TelemetryMsg> {
 	private static final Set <TelemetryPacket> telemetryPackets = new HashSet <>();
 	public static        boolean               recordElements;
 	public static        boolean               updateRequested  = true;
@@ -43,18 +43,6 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		return new DashboardUtils();
 	}
 
-	@Override
-	public void update() {
-		updateRequested = false;
-		telemetryPackets.add(currentPacket);
-		for (final TelemetryPacket packet : telemetryPackets) {
-			dashboard.sendTelemetryPacket(packet);
-		}
-		telemetryPackets.clear();
-		dashboard.updateConfig();
-		currentPacket = new TelemetryPacket();
-	}
-
 	public static void addLine(final String line) {
 		if (recordElements) {
 			currentMessage.add(new TelemetryLine(line));
@@ -71,6 +59,18 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 
 	public static Canvas getCanvas() {
 		return currentPacket.fieldOverlay();
+	}
+
+	@Override
+	public void update() {
+		updateRequested = false;
+		telemetryPackets.add(currentPacket);
+		for (final TelemetryPacket packet : telemetryPackets) {
+			dashboard.sendTelemetryPacket(packet);
+		}
+		telemetryPackets.clear();
+		dashboard.updateConfig();
+		currentPacket = new TelemetryPacket();
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		if (! recordElements) {
 			throw new IllegalStateException("Telemetry recording is not enabled");
 		}
-		final TelemetryMsg res =new TelemetryMsg(new ArrayList <>(currentMessage.getElements()));
+		final TelemetryMsg res = new TelemetryMsg(new ArrayList <>(currentMessage.getElements()));
 		currentMessage = new TelemetryMsg();
 		return res;
 	}

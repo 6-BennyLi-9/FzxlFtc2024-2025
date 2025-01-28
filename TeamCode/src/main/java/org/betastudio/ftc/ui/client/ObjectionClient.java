@@ -5,10 +5,10 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
+import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Item;
 import org.firstinspires.ftc.robotcore.external.Telemetry.Line;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,6 +135,11 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
+	public UpdateConfig getUpdateConfig() {
+		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+	}
+
+	@Override
 	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
 		switch (updateConfig) {
 			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
@@ -146,11 +151,6 @@ public class ObjectionClient implements Client {
 			case THREAD_REQUIRED:
 				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
 		}
-	}
-
-	@Override
-	public UpdateConfig getUpdateConfig() {
-		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
 	}
 
 	//  -----------------------

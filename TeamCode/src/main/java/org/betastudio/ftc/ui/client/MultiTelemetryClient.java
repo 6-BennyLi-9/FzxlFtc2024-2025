@@ -111,15 +111,15 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
+	public UpdateConfig getUpdateConfig() {
+		return ((Client) clients.entrySet().toArray()[0]).getUpdateConfig();
+	}
+
+	@Override
 	public void setUpdateConfig(final UpdateConfig updateConfig) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 			entry.getValue().setUpdateConfig(updateConfig);
 		}
-	}
-
-	@Override
-	public UpdateConfig getUpdateConfig() {
-		return ((Client) clients.entrySet().toArray()[0]).getUpdateConfig();
 	}
 
 	@Override
@@ -137,8 +137,8 @@ public class MultiTelemetryClient implements Client {
 	@Override
 	public boolean isUpdateRequested() {
 		boolean res = false;
-		for (final Map.Entry <String, Client> entry :clients.entrySet()) {
-			res=res||entry.getValue().isUpdateRequested();
+		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
+			res = res || entry.getValue().isUpdateRequested();
 		}
 		return res;
 	}

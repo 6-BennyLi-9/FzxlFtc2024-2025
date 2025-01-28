@@ -11,7 +11,7 @@ public class PidProcessor {
 
 	private double sP, sI, sD, calibrateVal;
 
-	private double lstErr;
+	private double  lstErr;
 	private boolean initialized;
 
 	public PidProcessor(final double vP, final double vI, final double vD, final double maxVI) {

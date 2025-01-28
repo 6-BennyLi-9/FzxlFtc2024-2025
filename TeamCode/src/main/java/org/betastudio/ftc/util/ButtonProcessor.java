@@ -19,7 +19,7 @@ public final class ButtonProcessor {
 	/**
 	 * 上一个按键状态
 	 */
-	private boolean           lst,
+	private      boolean      lst,
 	/**
 	 * 当前按键状态
 	 */
@@ -27,6 +27,7 @@ public final class ButtonProcessor {
 
 	/**
 	 * 构造函数，初始化按键处理器
+	 *
 	 * @param config 按键配置，定义按键如何响应
 	 */
 	public ButtonProcessor(final ButtonConfig config) {
@@ -36,6 +37,7 @@ public final class ButtonProcessor {
 
 	/**
 	 * 同步输入的状态到处理器内部
+	 *
 	 * @param input 当前按键的实际状态
 	 */
 	public void sync(final boolean input) {
@@ -54,6 +56,7 @@ public final class ButtonProcessor {
 	/**
 	 * 获取按键是否启用的状态
 	 * 根据配置返回不同的启用状态
+	 *
 	 * @return 按键是否启用
 	 */
 	public boolean getEnabled() {
@@ -68,6 +71,7 @@ public final class ButtonProcessor {
 
 	/**
 	 * 重写toString方法，用于返回当前按键状态的字符串表示
+	 *
 	 * @return 当前按键状态的字符串表示
 	 */
 	@NonNull

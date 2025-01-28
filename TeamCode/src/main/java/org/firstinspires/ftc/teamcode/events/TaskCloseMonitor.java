@@ -15,7 +15,7 @@ public final class TaskCloseMonitor extends Thread {
 	/**
 	 * 线程执行的最长时间限制，以毫秒为单位。
 	 */
-	public final long   timeLimit;
+	public final long timeLimit;
 
 	/**
 	 * 构造函数，创建一个新的TaskCloseMonitor实例，使用默认的时间限制5000毫秒。

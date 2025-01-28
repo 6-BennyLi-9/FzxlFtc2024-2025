@@ -10,12 +10,14 @@ import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 @Deprecated
 @Disabled
 public class ObjectionClientTest extends TeleOpCore {
-	/** @noinspection deprecation*/
+	/**
+	 * @noinspection deprecation
+	 */
 	@Deprecated
 	@Override
 	public void op_init() {
 		super.op_init();
-		client=new ObjectionClient(telemetry);
+		client = new ObjectionClient(telemetry);
 		robot.fetchClient(client);
 	}
 }
