@@ -6,22 +6,23 @@ import org.betastudio.ftc.action.ActionImpl;
 import org.betastudio.ftc.util.time.Timer;
 import org.jetbrains.annotations.Contract;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class SleepingAction extends ActionImpl {
-	private final long                               sleepMilliseconds;
-	private final AtomicReference <Double>           startTime   = new AtomicReference<>(0.0);
-	private final AtomicBoolean                      initialized = new AtomicBoolean(false);
+	private final long sleepMilliseconds;
 
 	public SleepingAction(final long sleepMilliseconds) {
-		final AtomicReference <Callable <Boolean>> actionRef = new AtomicReference <>();
-		actionRef.set(() -> Timer.getCurrentTime() - startTime.get() >= sleepMilliseconds);
-		final Callable <Boolean> action = actionRef.get();
+		final AtomicReference <Double> startTime   = new AtomicReference <>(0.0);
+		final AtomicBoolean            initialized = new AtomicBoolean(false);
 		this.sleepMilliseconds = sleepMilliseconds;
-
-		setAction(action);
+		setAction(() -> {
+			if (! initialized.get()) {
+				startTime.set(Timer.getCurrentTime());
+				initialized.set(true);
+			}
+			return Timer.getCurrentTime() - startTime.get() >= sleepMilliseconds;
+		});
 	}
 
 	@NonNull
