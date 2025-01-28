@@ -31,7 +31,7 @@ public class TimedAllottedPriorityAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		if (! initialized) {
 			startTime = System.nanoTime() / 1.0e6;
 			initialized = true;
@@ -39,7 +39,7 @@ public class TimedAllottedPriorityAction implements Action {
 		final Set <PriorityAction> removes = new HashSet <>();
 
 		for (final PriorityAction action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				removes.add(action);
 			}
 			if (System.nanoTime() / 1.0e6 - startTime >= allottedMilliseconds) {

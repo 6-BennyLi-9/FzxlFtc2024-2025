@@ -36,7 +36,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	 * @return 如果无限运行，总是返回 true；否则返回校准是否完成的反值
 	 */
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		currentPosition = targetLift.getCurrentPosition(); // 获取当前电机位置
 
 		modify(); // 调用修改方法
@@ -54,7 +54,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	/**
 	 * 抽象类执行具体操作的方法。
 	 * <p>
-	 * 如果要修改大纲，重写{@link #run()}
+	 * 如果要修改大纲，重写{@link #activate()}
 	 */
 	public abstract void modify();
 

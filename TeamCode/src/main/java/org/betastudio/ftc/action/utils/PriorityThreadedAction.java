@@ -28,10 +28,10 @@ public class PriorityThreadedAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		final Set <PriorityAction> removes = new HashSet <>();
 		for (final PriorityAction action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				removes.add(action);
 			}
 		}

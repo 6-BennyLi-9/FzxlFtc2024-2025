@@ -51,7 +51,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		//defaults:
 		vX = pX;
 		vY = pY;

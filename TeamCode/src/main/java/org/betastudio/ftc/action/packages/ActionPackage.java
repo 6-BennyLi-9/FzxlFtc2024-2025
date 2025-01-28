@@ -36,14 +36,14 @@ public class ActionPackage {
 	/**
 	 * 单次运行 Action
 	 *
-	 * @see Action#run()
+	 * @see Action#activate()
 	 */
 	public boolean run() {
 		sort();
 		final Set <PriorityAction> remove = new HashSet <>();
 
 		for (final PriorityAction action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				remove.add(action);
 			}
 		}

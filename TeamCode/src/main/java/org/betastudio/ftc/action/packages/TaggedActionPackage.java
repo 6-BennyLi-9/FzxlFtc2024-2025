@@ -91,7 +91,7 @@ public class TaggedActionPackage extends ActionPackage {
 		final Set <PriorityAction> remove = new HashSet <>();
 
 		for (final PriorityAction action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				remove.add(action);
 			}
 		}

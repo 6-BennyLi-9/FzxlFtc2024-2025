@@ -27,11 +27,11 @@ public final class ThreadedAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		if (actions.isEmpty()) return false;
 		final Collection <Action> removes = new HashSet <>();
 		for (final Action action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				removes.add(action);
 			}
 		}

@@ -10,7 +10,7 @@ public final class Actions {
 	 */
 	public static void runAction(@NonNull final Action actionBlock) {
 		while (true) {
-			if (! actionBlock.run()) {
+			if (! actionBlock.activate()) {
 				break;
 			}
 		}
@@ -28,7 +28,7 @@ public final class Actions {
 	public static void runTimedAllottedAction(final Action actionBlock, final long allottedMilliseconds) {
 		final double start = System.nanoTime() / 1.0e6;
 		while (! (System.nanoTime() / 1.0e6 - start >= allottedMilliseconds)) {
-			if (! actionBlock.run()) {
+			if (! actionBlock.activate()) {
 				break;
 			}
 		}
@@ -50,8 +50,8 @@ public final class Actions {
 			}
 
 			@Override
-			public boolean run() {
-				return action.run();
+			public boolean activate() {
+				return action.activate();
 			}
 
 			@Override

@@ -15,7 +15,7 @@ public class StatementAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		node.run();
 		return false;
 	}

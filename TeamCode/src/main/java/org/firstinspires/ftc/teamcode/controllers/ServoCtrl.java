@@ -30,7 +30,7 @@ public class ServoCtrl implements Action, DashboardCallable {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		controlTarget.setPosition(targetPosition);
 		return true;
 	}

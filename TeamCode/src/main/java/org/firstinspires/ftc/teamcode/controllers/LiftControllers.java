@@ -80,7 +80,7 @@ public class LiftControllers {
 		}
 
 		@Override
-		public boolean run() {
+		public boolean activate() {
 			currentPosition = targetLift.getCurrentPosition();
 
 			//特殊处理目标值为0的情况

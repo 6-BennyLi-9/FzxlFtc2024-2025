@@ -12,7 +12,7 @@ public final class InfinityLoopAction implements Action, ThreadEx {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		runnable.run();
 		return ! interrupted;
 	}

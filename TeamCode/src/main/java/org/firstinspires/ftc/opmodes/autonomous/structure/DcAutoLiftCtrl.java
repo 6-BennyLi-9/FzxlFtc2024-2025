@@ -19,8 +19,8 @@ public class DcAutoLiftCtrl extends LiftControllers.DcLiftCtrl {
 	}
 
 	@Override
-	public boolean run() {
-		super.run();
+	public boolean activate() {
+		super.activate();
 		return (using_touch_calibrate() && 0 == getTargetPosition() && HardwareDatabase.liftTouch.isPressed());
 	}
 }

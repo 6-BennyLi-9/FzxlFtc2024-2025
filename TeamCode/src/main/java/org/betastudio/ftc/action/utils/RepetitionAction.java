@@ -16,8 +16,8 @@ public final class RepetitionAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
-		final boolean res = argument.run();
+	public boolean activate() {
+		final boolean res = argument.activate();
 		if (! res) return false;
 		final boolean b = ptr < times;
 		ptr++;

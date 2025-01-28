@@ -23,8 +23,8 @@ public final class LinkedAction implements Action {
 
 
 	@Override
-	public boolean run() {
-		if (actions.get(ptr).run()) {
+	public boolean activate() {
+		if (actions.get(ptr).activate()) {
 			return true;
 		} else {
 			ptr++;

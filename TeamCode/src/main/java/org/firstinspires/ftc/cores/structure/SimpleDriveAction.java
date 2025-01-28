@@ -16,7 +16,7 @@ public final class SimpleDriveAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		HardwareDatabase.leftFront.setPower(y + x - turn);
 		HardwareDatabase.leftRear.setPower(y - x - turn);
 		HardwareDatabase.rightFront.setPower(y - x + turn);

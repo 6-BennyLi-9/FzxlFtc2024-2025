@@ -18,7 +18,7 @@ public final class SleepingAction implements Action {
 	}
 
 	@Override
-	public boolean run() {
+	public boolean activate() {
 		if (! initialized) {
 			startTime = System.nanoTime() / 1.0e6;
 			initialized = true;
