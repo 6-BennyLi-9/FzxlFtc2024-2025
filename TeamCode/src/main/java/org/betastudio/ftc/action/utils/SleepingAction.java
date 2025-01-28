@@ -1,32 +1,33 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.Action;
+import androidx.annotation.NonNull;
 
-/**
- * 可以用于各种程序中方便地完成等待操作
- * <p>
- * 例如，你可以直接在代码中写：
- * {@code ... Actions.runAction(new SleepingAction(0.5)); ...}
- */
-public final class SleepingAction implements Action {
-	private final long    sleepMilliseconds;
-	private       double  startTime;
-	private       boolean initialized;
+import org.betastudio.ftc.util.time.Timer;
+import org.jetbrains.annotations.Contract;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
+public final class SleepingAction extends ActionImpl {
+	private final long                               sleepMilliseconds;
+	private final AtomicReference <Double>           startTime   = new AtomicReference<>(0.0);
+	private final AtomicBoolean                      initialized = new AtomicBoolean(false);
 
 	public SleepingAction(final long sleepMilliseconds) {
+		// 先调用父类构造函数，传入默认值 null
+		super(()->true);
+		// 设置 actionRef 的值
+		final AtomicReference <Callable <Boolean>> actionRef = new AtomicReference <>();
+		actionRef.set(() -> Timer.getCurrentTime() - startTime.get() >= sleepMilliseconds);
+		final Callable <Boolean> action = actionRef.get();
 		this.sleepMilliseconds = sleepMilliseconds;
+
+		setAction(action);
 	}
 
-	@Override
-	public boolean activate() {
-		if (! initialized) {
-			startTime = System.nanoTime() / 1.0e6;
-			initialized = true;
-		}
-		return System.nanoTime() / 1.0e6 - startTime < sleepMilliseconds;
-	}
-
-
+	@NonNull
+	@Contract(pure = true)
 	@Override
 	public String paramsString() {
 		return "t:" + sleepMilliseconds + "ms";
