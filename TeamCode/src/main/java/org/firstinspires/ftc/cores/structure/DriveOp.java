@@ -22,8 +22,8 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 	public static        DriveMode    config        = DriveMode.STRAIGHT_LINEAR;
 	public static        ChassisCtrl  chassisCtrl;
 	public static        DriveBufMsg  globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
-	private static double output, targetAngle, currentPowerAngle, x, y, turn;
-	private static       DriveOp      instance;
+	private static       double       output, targetAngle, currentPowerAngle, x, y, turn;
+	private static DriveOp instance;
 
 	public static DriveOp getInstance() {
 		return instance;
