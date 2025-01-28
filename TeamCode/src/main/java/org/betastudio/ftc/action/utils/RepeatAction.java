@@ -7,6 +7,7 @@ import org.betastudio.ftc.action.Action;
  *
  * @implNote 不要重写已经重写了的方法，否则你还不如自己写一个新的接口或者抽象类
  */
+@Deprecated
 public interface RepeatAction extends Action {
 	Ticker ticker = new Ticker();
 

@@ -1,10 +1,9 @@
 package org.betastudio.ftc.action.utils;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
 
-/**
- * 类版本的 {@link RepeatAction} ，但需要提供要执行的 {@code Action} 块
- */
 public final class RepetitionAction implements Action {
 	private final long   times;
 	private final Action argument;
@@ -24,6 +23,7 @@ public final class RepetitionAction implements Action {
 		return b;
 	}
 
+	@NonNull
 	@Override
 
 	public String paramsString() {

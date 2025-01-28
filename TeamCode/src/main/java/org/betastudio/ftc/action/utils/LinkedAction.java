@@ -1,13 +1,15 @@
 package org.betastudio.ftc.action.utils;
 
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 链式的 {@code Action} 块，可以优化代码书写，可悲的是除了这个功能就没啥好处了，毕竟 {@code Action} 块是自带链式功能的
+ * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
 public final class LinkedAction implements Action {
 	private final List <Action> actions;
@@ -33,6 +35,7 @@ public final class LinkedAction implements Action {
 	}
 
 
+	@NonNull
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("{");
