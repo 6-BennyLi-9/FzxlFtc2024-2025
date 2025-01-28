@@ -138,6 +138,7 @@ public enum LogFiles {
 		}
 	}
 
+	/** @noinspection IOStreamConstructor*/
 	@WebHandlerRegistrar
 	public static void registerRoutes(@NonNull final WebHandlerManager manager) {
 		//noinspection ResultOfMethodCallIgnored
