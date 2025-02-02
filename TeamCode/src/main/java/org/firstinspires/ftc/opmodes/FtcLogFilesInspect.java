@@ -58,7 +58,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			}
 
 			client.clear();
-			client.addLine("启动OpMode以进入日志查看模式。");
+			client.putLine("启动OpMode以进入日志查看模式。");
 			client.send(files_select.buildTelemetryMsg());
 			client.update();
 		}
@@ -90,7 +90,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 
 			client.clear();
 			client.send(logs_select.buildTelemetryMsg());
-			client.addLine("===================");
+			client.putLine("===================");
 			client.send(log_message);
 			client.update();
 		}

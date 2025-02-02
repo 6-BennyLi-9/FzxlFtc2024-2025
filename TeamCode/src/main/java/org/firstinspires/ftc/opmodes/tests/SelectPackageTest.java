@@ -33,10 +33,10 @@ public class SelectPackageTest extends LinearOpMode {
 		selections.update();
 
 		client.send(selections.buildTelemetryMsg());
-		client.addData("range", selections.getShow_range());
-		client.addLine("操作方式：按下LEFT_BUMPER键选择上一个选项，按下RIGHT_BUMPER键选择下一个选项。");
-		client.addLine("按下A键确认选择。");
-		client.addLine("等待op开始后，测试也会开始。");
+		client.putData("range", selections.getShow_range());
+		client.putLine("操作方式：按下LEFT_BUMPER键选择上一个选项，按下RIGHT_BUMPER键选择下一个选项。");
+		client.putLine("按下A键确认选择。");
+		client.putLine("等待op开始后，测试也会开始。");
 
 		final ButtonProcessor select_prev = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
 		final ButtonProcessor select_next = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);

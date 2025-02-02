@@ -23,7 +23,7 @@ public class Right2 extends StructuralLinearMode {
 	@Override
 	public void linear() {
 		drive.setPoseEstimate(RightStart);
-		client.addData("初始化点位", "_ _ |<");
+		client.putData("初始化点位", "_ _ |<");
 
 		final Trajectory suspend_preload = drive.trajectoryBuilder(RightStart).lineToLinearHeading(RightSuspend).build();
 

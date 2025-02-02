@@ -24,7 +24,7 @@ public class Left extends StructuralLinearMode {
 	@Override
 	public void linear() {
 		drive.setPoseEstimate(LeftStart);
-		client.addData("初始化点位", ">| _ _");
+		client.putData("初始化点位", ">| _ _");
 
 		final Trajectory suspend_preload = drive.trajectoryBuilder(LeftStart).lineToLinearHeading(LeftSuspend).build();
 

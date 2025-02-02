@@ -50,10 +50,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		telemetry.clearAll();
 
-		client.addData("TPS", "wait for start").addData("time", "wait for start").addLine("ROBOT INITIALIZE COMPLETE!").addLine("=======================");
+		client.putData("TPS", "wait for start").putData("time", "wait for start").putLine("ROBOT INITIALIZE COMPLETE!").putLine("=======================");
 
 		if (- 1 != CoreDatabase.autonomous_time_used) {
-			client.addData("last autonomous time used", CoreDatabase.autonomous_time_used).addData("last terminateReason", CoreDatabase.last_terminateReason.name());
+			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used).putData("last terminateReason", CoreDatabase.last_terminateReason.name());
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");

@@ -50,7 +50,7 @@ public class ViewModeConvertor extends LinearOpMode {
 			}
 
 			client.clear();
-			client.addLine("启动OpMode以保存配置。");
+			client.putLine("启动OpMode以保存配置。");
 			client.send(selections.buildTelemetryMsg());
 			client.update();
 		}

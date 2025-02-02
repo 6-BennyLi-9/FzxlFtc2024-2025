@@ -21,7 +21,7 @@ public class Right extends IntegralAutonomous {
 	@Override
 	public void initialize() {
 		drive.setPoseEstimate(RightStart);
-		client.addData("初始化点位", "_ _ |<");
+		client.putData("初始化点位", "_ _ |<");
 
 		registerTrajectory("suspend preload", generateBuilder(RightStart).lineToLinearHeading(RightSuspend).build());
 

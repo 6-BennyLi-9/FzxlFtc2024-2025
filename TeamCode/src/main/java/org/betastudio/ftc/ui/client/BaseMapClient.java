@@ -57,10 +57,28 @@ public class BaseMapClient implements Client {
 	}
 
 	/**
+	 * @param action    the action to execute before composing the lines telemetry
+	 */
+	@Override
+	public Object addAction(final Runnable action) {
+		// FIXME: 2025/2/2 这里应该返回一个token，用来在removeAction时删除对应的action
+		return null;
+	}
+
+	/**
+	 * @param token the token previously returned from {@link #addAction(Runnable) addAction()}.
+	 */
+	@Override
+	public boolean removeAction(final Object token) {
+		// FIXME: 2025/2/2 这里应该根据token删除对应的action
+		return false;
+	}
+
+	/**
 	 * 注意：这是新的Data
 	 */
 	@Override
-	public Client addData(final String key, final String val) {
+	public Client putData(final String key, final String val) {
 		++ this.ID;
 		this.data.put(key, new Pair <>(val, this.ID));
 
@@ -95,7 +113,7 @@ public class BaseMapClient implements Client {
 		if (this.data.containsKey(key)) {
 			this.data.replace(key, new Pair <>(val, (Objects.requireNonNull(this.data.get(key))).second));
 		} else {
-			this.addData(key, val);
+			this.putData(key, val);
 		}
 
 		if (autoUpdate) {
@@ -107,7 +125,7 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public Client addLine(final String key) {
+	public Client putLine(final String key) {
 		++ this.ID;
 		this.data.put(key, new Pair <>("", this.ID));
 
@@ -156,23 +174,21 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public Client speak(final String text) {
+	public void speak(final String text) {
 		try {
 			telemetry.speak(text);
 		} catch (final UnsupportedOperationException exception) {
 			FtcLogTunnel.MAIN.report(exception);
 		}
-		return this;
 	}
 
 	@Override
-	public Client speak(final String text, final String languageCode, final String countryCode) {
+	public void speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
 		} catch (final UnsupportedOperationException exception) {
 			FtcLogTunnel.MAIN.report(exception);
 		}
-		return this;
 	}
 
 	@Override
@@ -186,7 +202,7 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void update() {
+	public boolean update() {
 		telemetry.clearAll();
 		if (debug_mode) {
 			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
@@ -207,6 +223,9 @@ public class BaseMapClient implements Client {
 				updateTelemetryLines();
 				break;
 		}
+		final boolean old_isUpdateRequested = isUpdateRequested;
+		isUpdateRequested=false;
+		return old_isUpdateRequested;
 	}
 
 	protected synchronized void updateThreadLines() {
@@ -244,7 +263,7 @@ public class BaseMapClient implements Client {
 	public void send(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
-				addLine(((TelemetryLine) element).line);
+				putLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
 				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}

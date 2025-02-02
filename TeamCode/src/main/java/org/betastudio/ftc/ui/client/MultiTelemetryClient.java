@@ -38,10 +38,28 @@ public class MultiTelemetryClient implements Client {
 		}
 	}
 
+	/**
+	 * @param action    the action to execute before composing the lines telemetry
+	 */
 	@Override
-	public Client addData(final String key, final String val) {
+	public Object addAction(final Runnable action) {
+		// FIXME: 2025/2/2 这里应该返回一个token，用来在removeAction时删除对应的action
+		return null;
+	}
+
+	/**
+	 * @param token the token previously returned from {@link #addAction(Runnable) addAction()}.
+	 */
+	@Override
+	public boolean removeAction(final Object token) {
+		// FIXME: 2025/2/2 这里应该根据token删除对应的action
+		return false;
+	}
+
+	@Override
+	public Client putData(final String key, final String val) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().addData(key, val);
+			entry.getValue().putData(key, val);
 		}
 		return this;
 	}
@@ -63,9 +81,9 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public Client addLine(final String key) {
+	public Client putLine(final String key) {
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().addLine(key);
+			entry.getValue().putLine(key);
 		}
 		return this;
 	}
@@ -87,12 +105,12 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public Client speak(final String text) {
-		return speak(text, null, null);
+	public void speak(final String text) {
+		speak(text, null, null);
 	}
 
 	@Override
-	public Client speak(final String text, final String languageCode, final String countryCode) {
+	public void speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			for (final Map.Entry <String, Client> entry : clients.entrySet()) {
 				entry.getValue().speak(text, languageCode, countryCode);
@@ -100,7 +118,6 @@ public class MultiTelemetryClient implements Client {
 		} catch (final UnsupportedOperationException exception) {
 			FtcLogTunnel.MAIN.report(exception);
 		}
-		return this;
 	}
 
 	@Override
@@ -128,10 +145,12 @@ public class MultiTelemetryClient implements Client {
 	}
 
 	@Override
-	public void update() {
+	public boolean update() {
+		boolean res = false;
 		for (final Map.Entry <String, Client> entry : clients.entrySet()) {
-			entry.getValue().update();
+			res|=entry.getValue().update();
 		}
+		return res;
 	}
 
 	@Override
@@ -147,7 +166,7 @@ public class MultiTelemetryClient implements Client {
 	public void send(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
-				addLine(((TelemetryLine) element).line);
+				putLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
 				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}

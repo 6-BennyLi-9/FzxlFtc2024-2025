@@ -51,7 +51,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		timer = new Timer();
 
 		Global.threadManager.add("linear", getLinearThread());
-		client.addLine(">>>ROBOT READY!");
+		client.putLine(">>>ROBOT READY!");
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		waitForStart();
