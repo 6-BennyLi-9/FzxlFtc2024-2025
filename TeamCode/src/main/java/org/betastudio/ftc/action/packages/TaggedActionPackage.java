@@ -100,9 +100,12 @@ public class TaggedActionPackage extends ActionPackage {
 		return ! actions.isEmpty();
 	}
 
+	/**
+	 * 作为本地方法
+	 */
 	@Override
 	public void runTillEnd() {
-		Actions.runAction(new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())));
+		new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
 		priorityActionMap.clear();
 	}
 

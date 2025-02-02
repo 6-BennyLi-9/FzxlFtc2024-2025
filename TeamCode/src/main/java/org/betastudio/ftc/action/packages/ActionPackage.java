@@ -56,7 +56,7 @@ public class ActionPackage {
 	 * 运行所有存储的 {@code Action}, 直到结束, 并清空 {@code Action} 列表
 	 */
 	public void runTillEnd() {
-		Actions.runAction(new PriorityThreadedAction(actions));
+		new PriorityThreadedAction(actions).run();
 		actions.clear();
 	}
 }
