@@ -178,6 +178,11 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
+	public Telemetry getOriginTelemetry() {
+		return telemetry;
+	}
+
+	@Override
 	public void configViewMode(final ClientViewMode clientViewMode) {
 		throw new UnsupportedOperationException();
 	}

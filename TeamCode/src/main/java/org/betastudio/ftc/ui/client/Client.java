@@ -34,6 +34,8 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Telemet
 
 	ClientViewMode getCurrentViewMode();
 
+	Telemetry getOriginTelemetry();
+
 //------------------------
 // DEFAULT IMPLEMENTATION
 //------------------------
@@ -136,9 +138,9 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Telemet
 		return false;
 	}
 
-//------------------------
-// UNSUPPORTED METHODS
-//------------------------
+//-----------------------------
+// DEFAULT UNSUPPORTED METHODS
+//-----------------------------
 
 	/**
 	 * @param item  the item to remove

@@ -30,12 +30,10 @@ public class BaseMapClient implements Client {
 	}
 
 	protected final Map <String, String> data;
-	private final   Telemetry                            telemetry;
-	private final   Timer                                lstUpdateTimer  = new Timer();
-	protected       int                                  ID;
-	private         boolean                              isUpdateRequested;
-	private         boolean                              autoUpdate;
-	private         FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
+	protected       boolean                              autoUpdate, isUpdateRequested;
+	protected       FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
+	protected final Telemetry                            telemetry;
+	protected final Timer                                lstUpdateTimer  = new Timer();
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -77,7 +75,6 @@ public class BaseMapClient implements Client {
 	 */
 	@Override
 	public Client putData(final String key, final String val) {
-		++ this.ID;
 		this.data.put(key, val);
 
 		if (autoUpdate) {
@@ -124,7 +121,6 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public Client putLine(final String key) {
-		++ this.ID;
 		this.data.put(key, "");
 
 		if (autoUpdate) {
@@ -196,6 +192,11 @@ public class BaseMapClient implements Client {
 	@Override
 	public ClientViewMode getCurrentViewMode() {
 		return clientViewMode;
+	}
+
+	@Override
+	public Telemetry getOriginTelemetry() {
+		return telemetry;
 	}
 
 	@Override
