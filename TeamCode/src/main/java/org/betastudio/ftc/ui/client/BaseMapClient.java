@@ -1,7 +1,5 @@
 package org.betastudio.ftc.ui.client;
 
-import android.util.Pair;
-
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -31,7 +29,7 @@ public class BaseMapClient implements Client {
 		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
-	protected final Map <String, Pair <String, Integer>> data;
+	protected final Map <String, String> data;
 	private final   Telemetry                            telemetry;
 	private final   Timer                                lstUpdateTimer  = new Timer();
 	protected       int                                  ID;
@@ -80,7 +78,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public Client putData(final String key, final String val) {
 		++ this.ID;
-		this.data.put(key, new Pair <>(val, this.ID));
+		this.data.put(key, val);
 
 		if (autoUpdate) {
 			this.update();
@@ -111,7 +109,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public Client changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
-			this.data.replace(key, new Pair <>(val, (Objects.requireNonNull(this.data.get(key))).second));
+			this.data.replace(key, val);
 		} else {
 			this.putData(key, val);
 		}
@@ -127,7 +125,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public Client putLine(final String key) {
 		++ this.ID;
-		this.data.put(key, new Pair <>("", this.ID));
+		this.data.put(key, "");
 
 		if (autoUpdate) {
 			this.update();
@@ -161,9 +159,8 @@ public class BaseMapClient implements Client {
 	 */
 	@Override
 	public Client changeLine(final String oldData, final String newData) {
-		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
 		this.data.remove(oldData);
-		this.data.put(newData, new Pair <>("", cache));
+		this.data.put(newData, "");
 
 		if (autoUpdate) {
 			this.update();
@@ -238,13 +235,12 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateTelemetryLines() {
-		for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
+		for (final Map.Entry <String, String> i : this.data.entrySet()) {
 			final String  key = i.getKey();
-			final String  val = i.getValue().first;
-			final Integer id  = i.getValue().second;
-			if (! Objects.equals(i.getValue().first, "")) {
+			final String  val = i.getValue();
+			if (! Objects.equals(val, "")) {
 				telemetry.addData(key, val);
-			} else {//line
+			} else {
 				telemetry.addLine(key);
 			}
 		}
