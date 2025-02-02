@@ -3,9 +3,9 @@ package org.firstinspires.ftc.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.entry.HardwareController;
-import org.betastudio.ftc.entry.InitializeRequested;
-import org.betastudio.ftc.entry.TagOptionsRequired;
+import org.betastudio.ftc.util.entry.HardwareController;
+import org.betastudio.ftc.util.entry.InitializeRequested;
+import org.betastudio.ftc.util.entry.TagOptionsRequired;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;

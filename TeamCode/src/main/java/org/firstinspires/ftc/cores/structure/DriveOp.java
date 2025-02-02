@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.entry.HardwareController;
-import org.betastudio.ftc.entry.TagOptionsRequired;
+import org.betastudio.ftc.util.entry.HardwareController;
+import org.betastudio.ftc.util.entry.TagOptionsRequired;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;

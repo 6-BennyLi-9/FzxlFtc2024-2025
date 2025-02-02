@@ -4,7 +4,7 @@ import android.util.Range;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.entry.Updatable;
+import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.ArrayList;

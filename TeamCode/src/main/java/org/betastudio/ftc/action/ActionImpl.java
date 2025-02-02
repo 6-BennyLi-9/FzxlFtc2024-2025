@@ -3,7 +3,7 @@ package org.betastudio.ftc.action;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.utils.NullptrAction;
-import org.betastudio.ftc.entry.ThreadEx;
+import org.betastudio.ftc.util.entry.ThreadEx;
 
 import java.util.concurrent.Callable;
 

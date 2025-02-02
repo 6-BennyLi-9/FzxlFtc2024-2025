@@ -2,7 +2,7 @@ package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.entry.MessagesProcessRequired;
+import org.betastudio.ftc.util.entry.MessagesProcessRequired;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;

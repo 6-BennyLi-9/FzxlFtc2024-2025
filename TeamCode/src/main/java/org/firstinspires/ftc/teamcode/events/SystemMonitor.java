@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.events;
 import static org.firstinspires.ftc.teamcode.Global.runMode;
 import static org.firstinspires.ftc.teamcode.Global.threadManager;
 
-import org.betastudio.ftc.entry.ThreadEx;
+import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;
 

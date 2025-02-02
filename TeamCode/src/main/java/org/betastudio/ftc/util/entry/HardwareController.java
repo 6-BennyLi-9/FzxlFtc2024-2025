@@ -1,4 +1,4 @@
-package org.betastudio.ftc.entry;
+package org.betastudio.ftc.util.entry;
 
 import org.betastudio.ftc.action.Action;
 
