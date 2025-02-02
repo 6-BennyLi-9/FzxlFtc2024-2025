@@ -1,7 +1,8 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.thread;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.entry.ThreadEx;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.events.IntegralThreadExceptionHandler;
