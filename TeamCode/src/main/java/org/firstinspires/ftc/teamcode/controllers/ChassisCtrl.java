@@ -84,10 +84,6 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 			pRF /= buf;
 			pRR /= buf;
 		}
-		//		leftFront.setPower(pLF); // 设置左前电机功率
-		//		leftRear.setPower(pLR); // 设置左后电机功率
-		//		rightFront.setPower(pRF); // 设置右前电机功率
-		//		rightRear.setPower(pRR); // 设置右后电机功率
 
 		setDcMotorPowerSmooth(leftFront, pLF, smoothConfig);
 		setDcMotorPowerSmooth(leftRear, pLR, smoothConfig);
@@ -151,12 +147,12 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 	}
 
 	@Override
-	public void send(@NonNull final DriveMsg message) {
+	public void sendMsg(@NonNull final DriveMsg message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
 	@Override
-	public DriveMsg call() {
+	public DriveMsg callMsg() {
 		return new DriveMsg(pX, pY, pTurn);
 	}
 

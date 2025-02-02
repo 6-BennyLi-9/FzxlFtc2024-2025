@@ -59,12 +59,12 @@ public class FtcLogFilesInspect extends LinearOpMode {
 
 			client.clear();
 			client.putLine("启动OpMode以进入日志查看模式。");
-			client.send(files_select.buildTelemetryMsg());
+			client.sendMsg(files_select.buildTelemetryMsg());
 			client.update();
 		}
 
 		files_select.submit_selected();
-		for (final TelemetryElement element : selected_file.call().getElements()) {
+		for (final TelemetryElement element : selected_file.callMsg().getElements()) {
 			if (element instanceof LogTelemetryItem) {
 				logs_select.add(new SelectElement(element.toString(), () -> log_message = ((LogTelemetryItem) element).getLogElement().getMessage().buildTelemetryMsg()));
 			} else {
@@ -89,9 +89,9 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			}
 
 			client.clear();
-			client.send(logs_select.buildTelemetryMsg());
+			client.sendMsg(logs_select.buildTelemetryMsg());
 			client.putLine("===================");
-			client.send(log_message);
+			client.sendMsg(log_message);
 			client.update();
 		}
 

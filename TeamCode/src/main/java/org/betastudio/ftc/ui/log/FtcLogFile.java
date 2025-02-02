@@ -31,12 +31,12 @@ public class FtcLogFile implements MessagesProcessRequired <TelemetryMsg> {
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMsg message) {
+	public void sendMsg(@NonNull final TelemetryMsg message) {
 		throw new UnsupportedOperationException("FtcLogFile only can been called for TelemetryMsg");
 	}
 
 	@Override
-	public TelemetryMsg call() {
+	public TelemetryMsg callMsg() {
 		final TelemetryMsg result = new TelemetryMsg();
 		for (final FtcLogElement element : elements) {
 			result.add(new LogTelemetryItem(String.format("[%s]", element.getType().caption), String.format("<%s>%s", element.getTimestamp(), element.getMessage().toString()), element));

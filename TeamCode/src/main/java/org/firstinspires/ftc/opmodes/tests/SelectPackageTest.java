@@ -32,7 +32,7 @@ public class SelectPackageTest extends LinearOpMode {
 		selections.add(new SelectElement("item5", () -> telemetry.speak("item5 selected")));
 		selections.update();
 
-		client.send(selections.buildTelemetryMsg());
+		client.sendMsg(selections.buildTelemetryMsg());
 		client.putData("range", selections.getShow_range());
 		client.putLine("操作方式：按下LEFT_BUMPER键选择上一个选项，按下RIGHT_BUMPER键选择下一个选项。");
 		client.putLine("按下A键确认选择。");
@@ -61,7 +61,7 @@ public class SelectPackageTest extends LinearOpMode {
 			}
 
 			client.clear();
-			client.send(selections.buildTelemetryMsg());
+			client.sendMsg(selections.buildTelemetryMsg());
 			client.update();
 			//			sleep(200);
 		}

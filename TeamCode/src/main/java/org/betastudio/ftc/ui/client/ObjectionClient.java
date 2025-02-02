@@ -139,7 +139,7 @@ public class ObjectionClient implements Client {
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMsg message) {
+	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
 				putLine(((TelemetryLine) element).line);

@@ -303,7 +303,7 @@ public class RobotMng implements Updatable {
 		}
 		if (sendTelemetryPackets) {
 			DashboardUtils.fetch();
-			DashboardUtils.generateInstance().send(message);
+			DashboardUtils.generateInstance().sendMsg(message);
 			DashboardUtils.generateInstance().update();
 		}
 	}

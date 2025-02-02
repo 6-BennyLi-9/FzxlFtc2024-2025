@@ -40,7 +40,7 @@ public enum FtcLogTunnel {
 	}
 
 	public TelemetryMsg call() {
-		return log.call();
+		return log.callMsg();
 	}
 
 	public void fresh() {

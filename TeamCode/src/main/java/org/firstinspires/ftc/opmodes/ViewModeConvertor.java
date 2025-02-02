@@ -31,7 +31,7 @@ public class ViewModeConvertor extends LinearOpMode {
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		selections.update();
-		client.send(selections.buildTelemetryMsg());
+		client.sendMsg(selections.buildTelemetryMsg());
 		client.update();
 
 		while (opModeInInit()) {
@@ -51,7 +51,7 @@ public class ViewModeConvertor extends LinearOpMode {
 
 			client.clear();
 			client.putLine("启动OpMode以保存配置。");
-			client.send(selections.buildTelemetryMsg());
+			client.sendMsg(selections.buildTelemetryMsg());
 			client.update();
 		}
 

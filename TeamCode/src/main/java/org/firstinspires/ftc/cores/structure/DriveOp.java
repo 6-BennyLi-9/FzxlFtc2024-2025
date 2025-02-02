@@ -79,7 +79,7 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 		targetAngle += turn * message.valTurn;
 		syncAngle();
 		currentPowerAngle += output;
-		chassisCtrl.send(new DriveMsg(DriveOp.x, DriveOp.y, output));
+		chassisCtrl.sendMsg(new DriveMsg(DriveOp.x, DriveOp.y, output));
 	}
 
 	public void additions(final double x, final double y, final double turn) {
