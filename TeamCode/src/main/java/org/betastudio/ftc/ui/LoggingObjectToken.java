@@ -4,15 +4,22 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.util.Labeler;
 
-public class LoggingObjectToken {
+public class LoggingObjectToken implements Runnable{
 	public final String token;
-	public LoggingObjectToken(){
+	private final Runnable runnable;
+	public LoggingObjectToken(final Runnable runnable){
 		token = Labeler.generate().summonID(this) + hashCode();
+		this.runnable = runnable;
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
 		return token;
+	}
+
+	@Override
+	public void run() {
+		runnable.run();
 	}
 }
