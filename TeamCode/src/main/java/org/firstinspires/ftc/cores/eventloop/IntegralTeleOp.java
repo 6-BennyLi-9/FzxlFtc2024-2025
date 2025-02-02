@@ -3,7 +3,7 @@ package org.firstinspires.ftc.cores.eventloop;
 import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.betastudio.ftc.util.entry.ThreadEx;
-import org.betastudio.ftc.ui.client.BranchThreadClient;
+import org.betastudio.ftc.ui.client.implementation.BranchThreadClient;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;

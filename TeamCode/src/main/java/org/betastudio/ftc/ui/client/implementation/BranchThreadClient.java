@@ -1,4 +1,4 @@
-package org.betastudio.ftc.ui.client;
+package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
@@ -7,6 +7,8 @@ import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.ui.client.InfinityLoopAction;
+import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;

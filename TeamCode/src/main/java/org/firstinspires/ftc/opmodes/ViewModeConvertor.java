@@ -3,7 +3,7 @@ package org.firstinspires.ftc.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.ui.client.BaseMapClient;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.util.ButtonProcessor;

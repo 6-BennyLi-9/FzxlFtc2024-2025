@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.ui.client.BaseMapClient;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;

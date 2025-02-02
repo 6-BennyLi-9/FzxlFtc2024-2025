@@ -1,9 +1,12 @@
-package org.betastudio.ftc.ui.client;
+package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.ClientViewMode;
+import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
