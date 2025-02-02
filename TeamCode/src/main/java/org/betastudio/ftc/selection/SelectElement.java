@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util.selection;
+package org.betastudio.ftc.selection;
 
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 

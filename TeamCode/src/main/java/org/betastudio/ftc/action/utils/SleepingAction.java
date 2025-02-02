@@ -3,7 +3,7 @@ package org.betastudio.ftc.action.utils;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.ActionImpl;
-import org.betastudio.ftc.util.time.Timer;
+import org.betastudio.ftc.time.Timer;
 import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.atomic.AtomicBoolean;

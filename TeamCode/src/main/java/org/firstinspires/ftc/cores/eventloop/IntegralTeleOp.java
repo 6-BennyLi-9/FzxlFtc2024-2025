@@ -7,7 +7,7 @@ import org.betastudio.ftc.ui.client.implementation.BranchThreadClient;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.time.Timer;
+import org.betastudio.ftc.time.Timer;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;

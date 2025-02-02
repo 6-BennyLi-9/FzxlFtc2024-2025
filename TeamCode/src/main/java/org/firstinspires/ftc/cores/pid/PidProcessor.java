@@ -2,7 +2,7 @@ package org.firstinspires.ftc.cores.pid;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.util.time.Timer;
+import org.betastudio.ftc.time.Timer;
 
 public class PidProcessor {
 	public final double vP, vI, vD;

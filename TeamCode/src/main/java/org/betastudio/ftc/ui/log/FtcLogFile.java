@@ -7,7 +7,7 @@ import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.util.time.Timestamp;
+import org.betastudio.ftc.time.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
