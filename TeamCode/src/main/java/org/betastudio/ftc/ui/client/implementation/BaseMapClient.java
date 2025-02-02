@@ -15,7 +15,9 @@ import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,14 +33,16 @@ public class BaseMapClient implements Client {
 		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
-	protected final Map <String, String>                 data;
-	protected       boolean                              autoUpdate, isUpdateRequested;
-	protected       FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
-	protected final Telemetry                            telemetry;
+	protected final Telemetry            telemetry;
+	protected final Map <String, String> data;
+	protected final List <Runnable>      runnables;
+	protected       boolean              autoUpdate, isUpdateRequested;
+	protected       FtcLogTunnel         targetLogTunnel = FtcLogTunnel.MAIN;
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new LinkedHashMap <>();
+		runnables = new ArrayList <>();
 	}
 
 	@Override
@@ -57,8 +61,8 @@ public class BaseMapClient implements Client {
 	 */
 	@Override
 	public Object addAction(final Runnable action) {
-		// FIXME: 2025/2/2 这里应该返回一个token，用来在removeAction时删除对应的action
-		return null;
+		runnables.add(action);
+		return action;
 	}
 
 	/**
@@ -66,8 +70,7 @@ public class BaseMapClient implements Client {
 	 */
 	@Override
 	public boolean removeAction(final Object token) {
-		// FIXME: 2025/2/2 这里应该根据token删除对应的action
-		return false;
+		return runnables.remove((Runnable) token);
 	}
 
 	/**
