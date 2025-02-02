@@ -4,36 +4,34 @@ package org.betastudio.ftc.action.utils;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.ActionImpl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
-public final class LinkedAction implements Action {
+public final class LinkedAction extends ActionImpl {
 	private final List <Action> actions;
-	private       int           ptr;
+	private final AtomicInteger ptr = new AtomicInteger();
 
 	public LinkedAction(final List <Action> actions) {
 		this.actions = actions;
+		setAction(()->{
+			if (actions.get(ptr.get()).activate()) {
+				return true;
+			} else {
+				ptr.getAndIncrement();
+				return ptr.get() < actions.size();
+			}
+		});
 	}
 
 	public LinkedAction(final Action... actions) {
 		this(Arrays.asList(actions));
 	}
-
-
-	@Override
-	public boolean activate() {
-		if (actions.get(ptr).activate()) {
-			return true;
-		} else {
-			ptr++;
-			return ptr < actions.size();
-		}
-	}
-
 
 	@NonNull
 	@Override
