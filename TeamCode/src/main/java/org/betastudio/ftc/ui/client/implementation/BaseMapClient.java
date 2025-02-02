@@ -12,7 +12,6 @@ import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.util.time.Timer;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
@@ -32,16 +31,14 @@ public class BaseMapClient implements Client {
 		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
-	protected final Map <String, String> data;
+	protected final Map <String, String>                 data;
 	protected       boolean                              autoUpdate, isUpdateRequested;
 	protected       FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
 	protected final Telemetry                            telemetry;
-	protected final Timer                                lstUpdateTimer  = new Timer();
 
 	public BaseMapClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new LinkedHashMap <>();
-		lstUpdateTimer.restart();
 	}
 
 	@Override
@@ -205,9 +202,6 @@ public class BaseMapClient implements Client {
 	@Override
 	public boolean update() {
 		telemetry.clearAll();
-		if (debug_mode) {
-			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
-		}
 		telemetry.addData("ClientViewMode", clientViewMode.name());
 		telemetry.addData("Status", Global.runMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
