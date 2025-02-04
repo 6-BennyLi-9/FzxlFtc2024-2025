@@ -311,10 +311,14 @@ public class RobotMng implements Updatable {
 	public void printIMUVariables() {
 		final BNO055IMU   imu         = HardwareDatabase.imu;
 		final Orientation orientation = imu.getAngularOrientation();
-		client.changeData("∠1", orientation.firstAngle).changeData("∠2", orientation.secondAngle).changeData("∠3", orientation.thirdAngle);
+		client.changeData("∠1", orientation.firstAngle);
+		client.changeData("∠2", orientation.secondAngle);
+		client.changeData("∠3", orientation.thirdAngle);
 
 		final Acceleration acceleration = imu.getLinearAcceleration();
-		client.changeData("VelΔx", acceleration.xAccel).changeData("VelΔy", acceleration.yAccel).changeData("VelΔz", acceleration.zAccel);
+		client.changeData("VelΔx", acceleration.xAccel);
+		client.changeData("VelΔy", acceleration.yAccel);
+		client.changeData("VelΔz", acceleration.zAccel);
 	}
 }
 

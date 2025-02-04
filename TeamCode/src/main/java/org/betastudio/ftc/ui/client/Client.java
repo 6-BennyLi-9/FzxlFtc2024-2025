@@ -11,20 +11,19 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @noinspection UnusedReturnValue
  */
 public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatable {
-
 	void clear();
 
-	Client putData(final String key, final String val);
+	void putData(final String key, final String val);
 
-	Client deleteData(final String key);
+	void deleteData(final String key);
 
-	Client changeData(final String key, final String val);
+	void changeData(final String key, final String val);
 
-	Client putLine(final String key);
+	void putLine(final String key);
 
-	Client deleteLine(final String key);
+	void deleteLine(final String key);
 
-	Client changeLine(final String oldData, final String newData);
+	void changeLine(final String oldData, final String newData);
 
 	void speak(String text, String languageCode, String countryCode);
 
@@ -58,16 +57,16 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatab
 		}
 	}
 
-	default Client putData(final String key, @NonNull final Object val) {
-		return putData(key, val.toString());
+	default void putData(final String key, @NonNull final Object val) {
+		putData(key, val.toString());
 	}
 
-	default Client changeData(final String key, @NonNull final Object val) {
-		return changeData(key, val.toString());
+	default void changeData(final String key, @NonNull final Object val) {
+		changeData(key, val.toString());
 	}
 
-	default Client putLine(@NonNull final Object key) {
-		return putLine(key.toString());
+	default void putLine(@NonNull final Object key) {
+		putLine(key.toString());
 	}
 
 	default void speak(final String text) {

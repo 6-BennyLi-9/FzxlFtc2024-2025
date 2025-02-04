@@ -69,7 +69,7 @@ public class BaseMapClient implements Client {
 	 * 注意：这是新的Data
 	 */
 	@Override
-	public Client putData(final String key, final String val) {
+	public void putData(final String key, final String val) {
 		this.data.put(key, val);
 
 		if (autoUpdate) {
@@ -77,14 +77,13 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	@Override
-	public Client deleteData(final String key) {
+	public void deleteData(final String key) {
 		this.data.remove(key);
 
 		if (autoUpdate) {
@@ -92,14 +91,13 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
 	@Override
-	public Client changeData(final String key, final String val) {
+	public void changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
 			this.data.replace(key, val);
 		} else {
@@ -111,11 +109,10 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	@Override
-	public Client putLine(final String key) {
+	public void putLine(final String key) {
 		this.data.put(key, "");
 
 		if (autoUpdate) {
@@ -123,14 +120,13 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	@Override
-	public Client deleteLine(final String key) {
+	public void deleteLine(final String key) {
 		this.data.remove(key);
 
 
@@ -139,7 +135,6 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
@@ -149,7 +144,7 @@ public class BaseMapClient implements Client {
 	 * @param newData 替换行
 	 */
 	@Override
-	public Client changeLine(final String oldData, final String newData) {
+	public void changeLine(final String oldData, final String newData) {
 		this.data.remove(oldData);
 		this.data.put(newData, "");
 
@@ -158,7 +153,6 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	@Override

@@ -50,10 +50,14 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		telemetry.clearAll();
 
-		client.putData("TPS", "wait for start").putData("time", "wait for start").putLine("ROBOT INITIALIZE COMPLETE!").putLine("=======================");
+		client.putData("TPS", "wait for start");
+		client.putData("time", "wait for start");
+		client.putLine("ROBOT INITIALIZE COMPLETE!");
+		client.putLine("=======================");
 
 		if (- 1 != CoreDatabase.autonomous_time_used) {
-			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used).putData("last terminateReason", CoreDatabase.last_terminateReason.name());
+			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used);
+			client.putData("last terminateReason", CoreDatabase.last_terminateReason.name());
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -66,7 +70,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_start() {
-		client.deleteLine("ROBOT INITIALIZE COMPLETE!").deleteData("last autonomous time used").deleteData("last terminateReason");
+		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
+		client.deleteData("last autonomous time used");
+		client.deleteData("last terminateReason");
 		timer.pushTimeTag("start");
 
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
@@ -90,7 +96,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			stop();
 			terminateOpModeNow();
 		}
-		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime()).changeData("time", getRuntime());
+		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
+		client.changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
