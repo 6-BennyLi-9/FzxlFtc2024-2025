@@ -30,7 +30,7 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 		super.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
 		if (auto_start_updater) {
-			Global.threadManager.add("client-updater", updateThread);
+			start_updater();
 		}
 	}
 

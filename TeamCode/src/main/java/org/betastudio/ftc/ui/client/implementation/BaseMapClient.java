@@ -56,19 +56,11 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	/**
-	 * @param action    the action to execute before composing the lines telemetry
-	 */
-	@Override
 	public Object addAction(final Runnable action) {
 		runnables.add(action);
 		return action;
 	}
 
-	/**
-	 * @param token the token previously returned from {@link #addAction(Runnable) addAction()}.
-	 */
-	@Override
 	public boolean removeAction(final Object token) {
 		return runnables.remove((Runnable) token);
 	}
@@ -170,15 +162,6 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void speak(final String text) {
-		try {
-			telemetry.speak(text);
-		} catch (final UnsupportedOperationException exception) {
-			FtcLogTunnel.MAIN.report(exception);
-		}
-	}
-
-	@Override
 	public void speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
@@ -203,7 +186,7 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public boolean update() {
+	public void update() {
 		telemetry.clearAll();
 		telemetry.addData("ClientViewMode", clientViewMode.name());
 		telemetry.addData("Status", Global.runMode);
@@ -221,9 +204,7 @@ public class BaseMapClient implements Client {
 				updateTelemetryLines();
 				break;
 		}
-		final boolean old_isUpdateRequested = isUpdateRequested;
-		isUpdateRequested=false;
-		return old_isUpdateRequested;
+		isUpdateRequested = false;
 	}
 
 	protected synchronized void updateThreadLines() {
