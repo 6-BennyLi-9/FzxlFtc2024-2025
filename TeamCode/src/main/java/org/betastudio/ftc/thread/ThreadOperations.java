@@ -2,6 +2,10 @@ package org.betastudio.ftc.thread;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.action.utils.SleepingAction;
+import org.betastudio.ftc.action.utils.StatementAction;
+import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.ui.client.InfinityLoopThread;
 import org.jetbrains.annotations.Contract;
 
 public class ThreadOperations {
@@ -40,5 +44,17 @@ public class ThreadOperations {
 	@Contract(value = "_, _ -> new", pure = true)
 	public static ThreadFormatRenamer threadRenameWithSurround(final String prefix, final String suffix) {
 		return new ThreadFormatRenamer(prefix + "%s" + suffix);
+	}
+
+	@NonNull
+	@Contract(value = "_, -> new", pure = true)
+	public static Thread autoFrequencyCaller(final Runnable runnable) {
+		return autoFrequencyCaller(runnable, 60L);
+	}
+
+	@NonNull
+	@Contract(value = "_, _ -> new", pure = true)
+	public static Thread autoFrequencyCaller(final Runnable runnable, final long fps) {
+		return new InfinityLoopThread(new ThreadedAction(new SleepingAction(1000 / fps), new StatementAction(runnable)));
 	}
 }

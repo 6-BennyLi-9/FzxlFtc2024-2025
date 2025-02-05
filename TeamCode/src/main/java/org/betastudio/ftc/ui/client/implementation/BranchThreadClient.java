@@ -25,7 +25,7 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 	public BranchThreadClient(final Telemetry telemetry, final double targetTPS) {
 		super(telemetry);
 		updateAction = new InfinityLoopAction(() -> Actions.runAction(new ThreadedAction(new SleepingAction((long) (1000 / targetTPS)), new StatementAction(super::update))));
-		updateThread = new Thread(() -> Actions.runAction(updateAction));
+		updateThread = new Thread(updateAction);
 
 		super.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
