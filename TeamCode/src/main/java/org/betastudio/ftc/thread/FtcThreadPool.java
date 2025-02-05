@@ -19,7 +19,8 @@ public class FtcThreadPool extends ThreadPoolExecutor implements FtcExecutorServ
 		@Override
 		public Runnable surround(final Runnable runnable) {
 			return () -> {
-				threads.add(Thread.currentThread());
+				final Thread thread = Thread.currentThread();
+				threads.add(thread);
 				runnable.run();
 			};
 		}
@@ -87,4 +88,15 @@ public class FtcThreadPool extends ThreadPoolExecutor implements FtcExecutorServ
 	public Set <Thread> getThreads() {
 		return threads;
 	}
+
+	@Override
+	public void submit(final String name, final Runnable task) {
+		execute(new ThreadOperations.ThreadRenamer(name).surround(task));
+	}
+
+	@Override
+	public void submit(final String prefix, final String suffix, final Runnable task) {
+		execute(ThreadOperations.threadRenameWithSurround(prefix,suffix).surround(task));
+	}
+
 }

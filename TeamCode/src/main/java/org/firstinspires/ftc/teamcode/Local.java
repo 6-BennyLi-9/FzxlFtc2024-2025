@@ -22,7 +22,7 @@ public final class Local {
 	}
 
 	public static <K> void waitForVal(final Callable <K> function, final K expect) {
-		waitForVal(function, expect, 60);
+		waitForVal(function, expect, 60L);
 	}
 
 	public static <K> void waitForVal(final Callable <K> function, final K expect, final long flashMillis) {
@@ -35,6 +35,19 @@ public final class Local {
 		}
 	}
 
+	public static <K> void waifForNotVal(final Callable <K> function, final K expect) {
+		waifForNotVal(function, expect, 60L);
+	}
+
+	public static <K> void waifForNotVal(final Callable <K> function, final K expect, final long flashMillis){
+		try {
+			while (function.call() == expect) {
+				sleep(flashMillis);
+			}
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public static void runMultiThreads(@NonNull final Runnable... threads) {
 		for (final Runnable current : threads) {

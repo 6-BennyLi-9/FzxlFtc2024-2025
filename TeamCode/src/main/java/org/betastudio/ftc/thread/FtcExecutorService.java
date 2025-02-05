@@ -14,6 +14,10 @@ public interface FtcExecutorService extends ExecutorService {
 
 	Set <Thread> getThreads();
 
+	void submit(String name, Runnable task);
+
+	void submit(String prefix, String suffix, Runnable task);
+
 	class ReleaseRejectionPolicy implements RejectedExecutionHandler {
 		@Override
 		public void rejectedExecution(@NonNull final Runnable r, @NonNull final ThreadPoolExecutor executor) {
