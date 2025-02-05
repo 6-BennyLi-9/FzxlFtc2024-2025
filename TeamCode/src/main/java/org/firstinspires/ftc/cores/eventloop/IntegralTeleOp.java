@@ -2,12 +2,13 @@ package org.firstinspires.ftc.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
-import org.betastudio.ftc.util.entry.ThreadEx;
-import org.betastudio.ftc.ui.client.implementation.BranchThreadClient;
+import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.UpdateConfig;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.cores.RobotMng;
 import org.firstinspires.ftc.cores.structure.DriveMode;
 import org.firstinspires.ftc.cores.structure.DriveOp;
@@ -41,7 +42,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
-		client = new BranchThreadClient(telemetry, 10);
+		client = new BaseMapClient(telemetry);
+		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		Global.threadService.submit("client-updater", client::update);
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
@@ -121,21 +124,18 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void op_end() {
 		client.clear();
-		if (client instanceof BranchThreadClient) {
-			((BranchThreadClient) client).closeTask();
-		}
 
 		Global.runMode = RunMode.TERMINATE;
 
 		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 
-		FtcLogTunnel.MAIN.report("Op inline closed");
-		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
-
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
 			throw new RuntimeException(inlineUncaughtException);
 		}
+
+		FtcLogTunnel.MAIN.report("Op inline closed");
+		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 	}
 
 	@Override
