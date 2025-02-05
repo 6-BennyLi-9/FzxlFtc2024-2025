@@ -9,8 +9,4 @@ public enum UpdateConfig {
 	 * 需要手动更新
 	 */
 	MANUAL_UPDATE_REQUESTED,
-	/**
-	 * 在后台执行
-	 */
-	THREAD_REQUIRED,
 }

@@ -259,8 +259,6 @@ public class BaseMapClient implements Client {
 			case MANUAL_UPDATE_REQUESTED:
 				autoUpdate = false;
 				break;
-			case THREAD_REQUIRED:
-				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
 		}
 	}
 
