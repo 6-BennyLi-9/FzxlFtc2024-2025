@@ -8,6 +8,7 @@ import org.betastudio.ftc.thread.ThreadManager;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {
+	@Deprecated
 	public static ThreadManager threadManager;
 	public static Gamepad       gamepad1, gamepad2;
 	public static  RunMode runMode;
@@ -20,6 +21,7 @@ public final class Global {
 		Global.gamepad2 = gamepad2;
 	}
 
+	@Deprecated
 	public static void prepareCoreThreadPool() {
 		if (null != threadManager) {
 			if (! threadManager.isEmpty()) {

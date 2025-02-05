@@ -15,6 +15,7 @@ import java.util.Objects;
 /**
  * 线程管理器类，用于管理多个线程，提供中断、添加线程等功能。
  */
+@Deprecated
 public class ThreadManager {
 	/**
 	 * 用于存储线程的映射表，键为线程的标签，值为线程对象。
