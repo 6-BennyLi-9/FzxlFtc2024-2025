@@ -203,10 +203,10 @@ public class RobotMng implements Updatable {
 					ArmOp.getInstance().idle();
 					break;
 				case 1:
-					Global.threadManager.add(new Thread(() -> {
+					Global.threadService.execute(() -> {
 						Local.sleep(500);
 						ClawOp.getInstance().open();
-					}));
+					});
 					ArmOp.getInstance().intake();
 					break;
 				default:

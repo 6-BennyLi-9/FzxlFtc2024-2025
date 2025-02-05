@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.events;
 
 import static org.firstinspires.ftc.teamcode.Global.runMode;
-import static org.firstinspires.ftc.teamcode.Global.threadManager;
 
 import org.betastudio.ftc.util.entry.ThreadEx;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.RunMode;
 
@@ -24,7 +24,7 @@ public final class SystemMonitor extends Thread implements ThreadEx {
 		}
 		// 如果 taskClosed 为 false，表示是通过 runMode 为 RunMode.TERMINATE 退出的，此时中断所有线程
 		if (! taskClosed) {
-			threadManager.interruptAll();
+			Global.threadService.shutdownNow();
 		}
 	}
 

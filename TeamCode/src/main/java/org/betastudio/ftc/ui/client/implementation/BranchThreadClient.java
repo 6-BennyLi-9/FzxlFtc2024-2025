@@ -44,7 +44,7 @@ public class BranchThreadClient extends BaseMapClient implements ThreadEx {
 
 	public void start_updater() {
 		if (! updateThread.isAlive()) {
-			Global.threadManager.add("client-updater", updateThread);
+			Global.threadService.execute(updateThread);
 		}
 	}
 

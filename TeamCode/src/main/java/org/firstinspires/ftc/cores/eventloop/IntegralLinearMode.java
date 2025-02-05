@@ -50,7 +50,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		utils = new UtilsMng();
 		timer = new Timer();
 
-		Global.threadManager.add("linear", getLinearThread());
+		Global.threadService.execute(getLinearThread());
 		client.putLine(">>>ROBOT READY!");
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
@@ -66,7 +66,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 		while (opModeIsActive() && ! is_terminate_method_called) {
 			if (null != inlineUncaughtException) {
-				Global.threadManager.interrupt("linear");
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
 				} else {
@@ -78,7 +77,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		}
 
 		preTerminate();
-		Global.threadManager.interrupt("linear");
 		sendTerminateSignal(is_terminate_method_called ? TerminateReason.NATURALLY_SHUT_DOWN : TerminateReason.USER_ACTIONS);
 	}
 

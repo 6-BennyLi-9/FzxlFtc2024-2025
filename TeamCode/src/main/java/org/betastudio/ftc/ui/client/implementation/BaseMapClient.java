@@ -202,11 +202,11 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines() {
-		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
-			final String key   = entry.getKey();
-			final Thread value = entry.getValue();
-			telemetry.addData(key, value);
-		}
+//		for (final Map.Entry <String, Thread> entry : Global.threadManager.getMem().entrySet()) {
+//			final String key   = entry.getKey();
+//			final Thread value = entry.getValue();
+//			telemetry.addData(key, value);
+//		}
 		this.telemetry.update();
 	}
 

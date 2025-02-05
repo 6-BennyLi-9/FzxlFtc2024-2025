@@ -35,15 +35,10 @@ public final class Local {
 		}
 	}
 
-	public static void runMultiRunnable(@NonNull final Runnable... runnable) {
-		for (final Runnable current : runnable) {
-			Global.threadManager.add(new Thread(current));
-		}
-	}
 
-	public static void runMultiThreads(@NonNull final Thread... threads) {
-		for (final Thread current : threads) {
-			Global.threadManager.add(current);
+	public static void runMultiThreads(@NonNull final Runnable... threads) {
+		for (final Runnable current : threads) {
+			Global.threadService.execute(current);
 		}
 	}
 }
