@@ -14,19 +14,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public final class Global {
-	public static ExecutorService threadService;
+	public static ExecutorService threadService = new ThreadPoolExecutor(16, 32, 5000L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue <>(1024), Executors.defaultThreadFactory(), (r, executor) -> {
+		r.run();
+		FtcLogTunnel.MAIN.report("Release rejected runnable: "+r);
+	});
 	public static Gamepad       gamepad1, gamepad2;
 	public static  RunMode runMode;
 	public static  OpMode  currentOpmode;
 	public static  Client  client;
 	private static boolean auto_create_monitor = true;
-
-	static {
-		threadService = new ThreadPoolExecutor(16, 32, 5000L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue <>(1024), Executors.defaultThreadFactory(), (r, executor) -> {
-			r.run();
-			FtcLogTunnel.MAIN.report("Release rejected runnable: "+r);
-		});
-	}
 
 	public static void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
 		Global.gamepad1 = gamepad1;
