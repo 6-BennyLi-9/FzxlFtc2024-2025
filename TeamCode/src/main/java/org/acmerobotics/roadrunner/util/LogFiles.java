@@ -17,7 +17,6 @@ import com.qualcomm.robotcore.util.WebHandlerManager;
 
 import org.acmerobotics.roadrunner.DriveConstants;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.acmerobotics.roadrunner.SampleTankDrive;
 import org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.ftccommon.external.WebHandlerRegistrar;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
@@ -36,8 +35,7 @@ import java.util.Objects;
 
 import fi.iki.elonen.NanoHTTPD;
 
-public enum LogFiles {
-	;
+public class LogFiles {
 	private static final File ROOT = new File(AppUtil.ROOT_FOLDER + "/RoadRunner/logs/");
 
 	public static        LogFile                             log          = new LogFile("uninitialized");
@@ -48,7 +46,7 @@ public enum LogFiles {
 		final ObjectWriter jsonWriter = new ObjectMapper(new JsonFactory()).writerWithDefaultPrettyPrinter();
 
 		@Override
-		public void onOpModePreInit(final OpMode opMode) {
+		public void onOpModePreInit(@NonNull final OpMode opMode) {
 			log = new LogFile(opMode.getClass().getCanonicalName());
 
 			// clean up old files
@@ -186,9 +184,6 @@ public enum LogFiles {
 		});
 	}
 
-	/**
-	 * @noinspection deprecation
-	 */
 	public static class LogFile {
 		public String version = "quickstart1 v2";
 
@@ -222,16 +217,6 @@ public enum LogFiles {
 		public double mecHeadingI          = SampleMecanumDrive.HEADING_PID.kI;
 		public double mecHeadingD          = SampleMecanumDrive.HEADING_PID.kD;
 		public double mecLateralMultiplier = SampleMecanumDrive.LATERAL_MULTIPLIER;
-
-		public double tankAxialP      = SampleTankDrive.AXIAL_PID.kP;
-		public double tankAxialI      = SampleTankDrive.AXIAL_PID.kI;
-		public double tankAxialD      = SampleTankDrive.AXIAL_PID.kD;
-		public double tankCrossTrackP = SampleTankDrive.CROSS_TRACK_PID.kP;
-		public double tankCrossTrackI = SampleTankDrive.CROSS_TRACK_PID.kI;
-		public double tankCrossTrackD = SampleTankDrive.CROSS_TRACK_PID.kD;
-		public double tankHeadingP    = SampleTankDrive.HEADING_PID.kP;
-		public double tankHeadingI    = SampleTankDrive.HEADING_PID.kI;
-		public double tankHeadingD    = SampleTankDrive.HEADING_PID.kD;
 
 		public double trackingTicksPerRev     = StandardTrackingWheelLocalizer.TICKS_PER_REV;
 		public double trackingWheelRadius     = StandardTrackingWheelLocalizer.WHEEL_RADIUS;

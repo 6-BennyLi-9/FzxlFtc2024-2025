@@ -42,6 +42,7 @@ import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceRunner;
 import org.acmerobotics.roadrunner.util.LynxModuleUtil;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,11 +87,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 			module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
 		}
 
-		//        // TODO: adjust the names of the following hardware devices to match your configuration
-		//	    IMU imu = hardwareMap.get(IMU.class, "imu");
-		//          final IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-		//                LOGO_FACING_DIR, USB_FACING_DIR));
-		//          imu.initialize(parameters);
+		//DONE_TODO: adjust the names of the following hardware devices to match your configuration
 
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
@@ -115,7 +112,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 			setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
 		}
 
-		// TODO: reverse any motors using DcMotor.setDirection()
+		// DONE_TODO: reverse any motors using DcMotor.setDirection()
 		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);   //F
 		leftRear.setDirection(DcMotorSimple.Direction.FORWARD);    //F
 		rightFront.setDirection(DcMotorSimple.Direction.REVERSE);  //R
@@ -124,16 +121,20 @@ public class SampleMecanumDrive extends MecanumDrive {
 		final List <Integer> lastTrackingEncPositions = new ArrayList <>();
 		final List <Integer> lastTrackingEncVels      = new ArrayList <>();
 
-		// TODO: if desired, use setLocalizer() to change the localization method
+		// DONE_TODO: if desired, use setLocalizer() to change the localization method
 		setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
 
 		trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID, batteryVoltageSensor, lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels);
 	}
 
+	@NonNull
+	@Contract("_, _, _ -> new")
 	public static TrajectoryVelocityConstraint getVelocityConstraint(final double maxVel, final double maxAngularVel, final double trackWidth) {
 		return new MinVelocityConstraint(Arrays.asList(new AngularVelocityConstraint(maxAngularVel), new MecanumVelocityConstraint(maxVel, trackWidth)));
 	}
 
+	@NonNull
+	@Contract(value = "_ -> new", pure = true)
 	public static TrajectoryAccelerationConstraint getAccelerationConstraint(final double maxAccel) {
 		return new ProfileAccelerationConstraint(maxAccel);
 	}
@@ -163,7 +164,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 		waitForIdle();
 	}
 
-	public void followTrajectoryAsync(final Trajectory trajectory) {
+	public void followTrajectoryAsync(@NonNull final Trajectory trajectory) {
 		trajectorySequenceRunner.followTrajectorySequenceAsync(trajectorySequenceBuilder(trajectory.start()).addTrajectory(trajectory).build());
 	}
 
@@ -211,7 +212,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 		}
 	}
 
-	public void setPIDFCoefficients(final DcMotor.RunMode runMode, final PIDFCoefficients coefficients) {
+	public void setPIDFCoefficients(final DcMotor.RunMode runMode, @NonNull final PIDFCoefficients coefficients) {
 		final PIDFCoefficients compensatedCoefficients = new PIDFCoefficients(coefficients.p, coefficients.i, coefficients.d, coefficients.f * 12 / batteryVoltageSensor.getVoltage());
 
 		for (final DcMotorEx motor : motors) {
@@ -219,7 +220,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 		}
 	}
 
-	public void setWeightedDrivePower(final Pose2d drivePower) {
+	public void setWeightedDrivePower(@NonNull final Pose2d drivePower) {
 		Pose2d vel = drivePower;
 
 		if (1 < Math.abs(drivePower.getX()) + Math.abs(drivePower.getY()) + Math.abs(drivePower.getHeading())) {
