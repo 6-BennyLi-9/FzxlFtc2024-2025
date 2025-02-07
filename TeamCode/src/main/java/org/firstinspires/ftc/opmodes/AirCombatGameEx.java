@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.opmodes;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class AirCombatGameEx extends AirCombatGame {
 	// 颜色定义
 	private static final String PLAYER_COLOR = "#00FF00";  // 亮绿色
@@ -12,9 +14,8 @@ public class AirCombatGameEx extends AirCombatGame {
 	private static final String ENEMY_SYMBOL  = "&#9660;";  // ▼
 	private static final String BULLET_SYMBOL = "&#9679;"; // ●
 
-	// 其他成员变量保持不变...
-
 	protected void render() {
+		telemetry.setDisplayFormat(Telemetry.DisplayFormat.HTML);
 		final StringBuilder html = new StringBuilder();
 		html.append("<html>");
 		html.append("<style>");
@@ -23,7 +24,7 @@ public class AirCombatGameEx extends AirCombatGame {
 		html.append(BG_COLOR);
 		html.append("; color: white; }");
 		html.append("</style>");
-		html.append("<div style='font-family: monospace;'>");
+		html.append("<div style='font-family: monospace;'>");//HEAD
 
 		// 构建游戏网格表格
 		html.append("<table class='game-grid'>");

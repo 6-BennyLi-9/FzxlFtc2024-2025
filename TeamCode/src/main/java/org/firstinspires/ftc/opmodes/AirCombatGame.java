@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -35,6 +37,10 @@ public class AirCombatGame extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
+		telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+		telemetry.addLine("Air Combat Game");
+		telemetry.addLine("Press Start to begin.");
+		telemetry.update();
 		waitForStart();
 		gameTimer.reset();
 		enemySpawnTimer.reset();
