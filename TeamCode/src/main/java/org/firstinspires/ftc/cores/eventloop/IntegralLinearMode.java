@@ -20,7 +20,7 @@ import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.RunMode;
+import org.betastudio.ftc.RunMode;
 
 import java.util.Locale;
 import java.util.Objects;

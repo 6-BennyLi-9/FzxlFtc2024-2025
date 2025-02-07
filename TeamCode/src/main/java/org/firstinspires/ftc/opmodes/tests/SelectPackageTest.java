@@ -11,7 +11,7 @@ import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
 import org.betastudio.ftc.util.ButtonConfig;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.RunMode;
+import org.betastudio.ftc.RunMode;
 
 @TestDoneSuccessfully
 @TeleOp(group = "9_Tests")

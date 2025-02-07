@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.betastudio.ftc;
 
 public enum RunMode {
 	TERMINATE, AUTONOMOUS, TELEOP, OTHERS

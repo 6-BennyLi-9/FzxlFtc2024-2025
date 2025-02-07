@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.FtcExecutorService;
 import org.betastudio.ftc.thread.FtcThreadPool;
 import org.betastudio.ftc.ui.client.Client;
@@ -11,9 +12,9 @@ import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 
 public final class Global {
 	public static  Gamepad            gamepad1, gamepad2;
-	public static  FtcExecutorService threadService       = new FtcThreadPool();
-	public static  RunMode            runMode;
-	public static  OpMode             currentOpmode;
+	public static FtcExecutorService threadService       = new FtcThreadPool();
+	public static RunMode            runMode;
+	public static OpMode             currentOpmode;
 	public static  Client             client;
 	private static boolean            auto_create_monitor = true;
 

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.events;
 import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
-import org.firstinspires.ftc.teamcode.RunMode;
+import org.betastudio.ftc.RunMode;
 
 import java.util.concurrent.Callable;
 

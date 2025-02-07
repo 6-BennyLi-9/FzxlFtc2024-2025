@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.Global.runMode;
 import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
-import org.firstinspires.ftc.teamcode.RunMode;
+import org.betastudio.ftc.RunMode;
 
 /**
  * 定义一个名为 SystemMonitor 的最终类，该类继承自 Thread 并实现 ThreadEx 接口
