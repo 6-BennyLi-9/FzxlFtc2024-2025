@@ -11,8 +11,8 @@ import java.util.Iterator;
 @TeleOp(name = "Air Combat Game", group = "Demo")
 public class AirCombatGame extends LinearOpMode {
 	// 游戏区域尺寸
-	private static final int SCREEN_WIDTH  = 20;
-	private static final int SCREEN_HEIGHT = 10;
+	public static final int SCREEN_WIDTH  = 20;
+	public static final int SCREEN_HEIGHT = 10;
 
 	// 游戏元素符号
 	private static final String PLAYER_SYMBOL = "A";
@@ -20,18 +20,18 @@ public class AirCombatGame extends LinearOpMode {
 	private static final String BULLET_SYMBOL = "|";
 
 	// 玩家属性
-	private int playerX = SCREEN_WIDTH / 2;
-	private int playerY = SCREEN_HEIGHT - 1;
-	private int lives   = 3;
-	private int score;
+	protected int playerX = SCREEN_WIDTH / 2;
+	protected int playerY = SCREEN_HEIGHT - 1;
+	protected int lives   = 3;
+	protected int score;
 
 	// 游戏对象列表
-	private final ArrayList <Enemy>  enemies = new ArrayList <>();
-	private final ArrayList <Bullet> bullets = new ArrayList <>();
+	protected final ArrayList <Enemy>  enemies = new ArrayList <>();
+	protected final ArrayList <Bullet> bullets = new ArrayList <>();
 
 	// 计时器
-	private final ElapsedTime enemySpawnTimer = new ElapsedTime();
-	private final ElapsedTime gameTimer       = new ElapsedTime();
+	protected final ElapsedTime enemySpawnTimer = new ElapsedTime();
+	protected final ElapsedTime gameTimer       = new ElapsedTime();
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -54,7 +54,7 @@ public class AirCombatGame extends LinearOpMode {
 		}
 	}
 
-	private void processInput() {
+	protected void processInput() {
 		// 使用左摇杆控制移动
 		final float stickX = gamepad1.left_stick_x;
 		final float stickY = gamepad1.left_stick_y;
@@ -69,7 +69,7 @@ public class AirCombatGame extends LinearOpMode {
 		}
 	}
 
-	private void updateGame() {
+	protected void updateGame() {
 		// 生成敌人（每2秒生成一个）
 		if (2 < enemySpawnTimer.seconds()) {
 			enemies.add(new Enemy(SCREEN_WIDTH - 1, (int) (Math.random() * SCREEN_HEIGHT)));
@@ -120,7 +120,7 @@ public class AirCombatGame extends LinearOpMode {
 		}
 	}
 
-	private void render() {
+	protected void render() {
 		// 初始化屏幕缓冲区
 		final char[][] screen = new char[SCREEN_HEIGHT][SCREEN_WIDTH];
 		for (final char[] row : screen) {
