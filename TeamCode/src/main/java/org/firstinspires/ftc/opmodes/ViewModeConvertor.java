@@ -9,7 +9,7 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.util.ButtonProcessor;
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
-import org.firstinspires.ftc.teamcode.ButtonConfig;
+import org.betastudio.ftc.util.ButtonConfig;
 
 import java.util.concurrent.atomic.AtomicReference;
 

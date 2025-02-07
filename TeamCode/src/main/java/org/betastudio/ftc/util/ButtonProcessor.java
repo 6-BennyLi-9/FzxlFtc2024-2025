@@ -2,8 +2,6 @@ package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.ButtonConfig;
-
 /**
  * 用于控制按键布尔状态，更加轻量化
  */

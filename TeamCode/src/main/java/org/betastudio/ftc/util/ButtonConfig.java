@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.betastudio.ftc.util;
 
 /**
  * 按键配置枚举，定义了按键的响应方式

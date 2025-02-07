@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.util.ButtonConfig;
 import org.betastudio.ftc.util.ButtonProcessor;
 
 /**
