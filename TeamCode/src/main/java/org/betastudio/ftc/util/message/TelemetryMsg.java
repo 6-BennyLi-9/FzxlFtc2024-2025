@@ -12,7 +12,7 @@ import java.util.List;
 public class TelemetryMsg implements Message {
 	private final List <TelemetryElement> elements;
 
-	public TelemetryMsg(final List <TelemetryElement> elements) {
+	public TelemetryMsg(@NonNull final List <TelemetryElement> elements) {
 		this.elements = elements;
 	}
 

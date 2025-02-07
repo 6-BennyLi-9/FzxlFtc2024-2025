@@ -20,6 +20,8 @@ import org.betastudio.ftc.util.ButtonConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 @TeleOp(name = "日志检查", group = "zzz")
 public class FtcLogFilesInspect extends LinearOpMode {
 	private static final Logger          log               = LoggerFactory.getLogger(FtcLogFilesInspect.class);
@@ -64,7 +66,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		}
 
 		files_select.submit_selected();
-		for (final TelemetryElement element : selected_file.callMsg().getElements()) {
+		for (final TelemetryElement element : Objects.requireNonNull(selected_file.callMsg()).getElements()) {
 			if (element instanceof LogTelemetryItem) {
 				logs_select.add(new SelectElement(element.toString(), () -> log_message = ((LogTelemetryItem) element).getLogElement().getMessage().buildTelemetryMsg()));
 			} else {
