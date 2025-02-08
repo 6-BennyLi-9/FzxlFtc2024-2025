@@ -36,7 +36,7 @@ jobs:
         run: |
           git clone https://github.com/newren/git-filter-repo.git
           cd git-filter-repo
-          ./install.sh
+          ./git-filter-repo/install.sh
           cd ..
           rm -rf git-filter-repo
 
