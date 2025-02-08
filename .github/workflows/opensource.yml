@@ -46,7 +46,9 @@ jobs:
          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     #     PATH: $PATH:/home/runner/.local/bin
         run: |
-          git filter-repo --path into-the-deep-modded.pdf --invert-paths --force
-          git commit --allow-empty -m "自动更新"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git filter-repo --path into-the-deep-modded.pdf --invert-paths --force
+            git commit --allow-empty -m "自动更新"
+            git push
+          fi
    #       git push --force --set-upstream origin teamcode-opensource-rr0.5.6
