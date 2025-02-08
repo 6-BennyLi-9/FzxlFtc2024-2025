@@ -35,13 +35,14 @@ jobs:
       - name: Install git-filter-repo
         run: |
           sudo apt-get update
-          sudo apt-get install git-filter-repo
+          sudo apt-get install -y git-filter-repo
 
       # Runs a single command using the runners shell
       - name: Run script
         env:
          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-         PATH: $PATH:/home/runner/git-filter-repo
+         PATH: $PATH:/home/runner/.local/bin
+
         run: |
           git filter-repo --path into-the-deep-modded.pdf --invert-paths --sensitive-data-removal
           git commit --allow-empty -m "自动更新RIC_Upgrade.zip"
