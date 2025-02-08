@@ -45,4 +45,4 @@ jobs:
         run: |
           git filter-repo --path into-the-deep-modded.pdf --invert-paths --force
           git commit --allow-empty -m "自动更新"
-          git push origin --force
+          git push --force --set-upstream origin teamcode-opensource-rr0.5.6
