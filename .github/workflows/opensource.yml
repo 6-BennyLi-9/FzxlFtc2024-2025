@@ -18,6 +18,9 @@ jobs:
       - name: Check Env
         run: |
           pwd
+          ls
+          cd ..
+          ls
 
       - name: Checkout branch
         run: |
