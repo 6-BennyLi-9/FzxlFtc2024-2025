@@ -43,6 +43,6 @@ jobs:
          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     #     PATH: $PATH:/home/runner/.local/bin
         run: |
-          git filter-repo --path into-the-deep-modded.pdf --invert-paths --sensitive-data-removal
+          git filter-repo --path into-the-deep-modded.pdf --invert-paths
           git commit --allow-empty -m "自动更新"
           git push
