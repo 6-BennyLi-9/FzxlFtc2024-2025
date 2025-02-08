@@ -5,6 +5,9 @@ on:
     branches: [ "teamcode-rr0.5.6" ]
   workflow_dispatch:
 
+permissions:
+    contents: write # for git push
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,4 +48,5 @@ jobs:
         run: |
           git filter-repo --path into-the-deep-modded.pdf --invert-paths --force
           git commit --allow-empty -m "自动更新"
-          git push --force --set-upstream origin teamcode-opensource-rr0.5.6
+          git push
+   #       git push --force --set-upstream origin teamcode-opensource-rr0.5.6
