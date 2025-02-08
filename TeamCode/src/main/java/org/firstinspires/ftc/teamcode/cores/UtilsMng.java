@@ -23,7 +23,7 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
-import org.firstinspires.ftc.opmodes.autonomous.structure.DcAutoLiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
