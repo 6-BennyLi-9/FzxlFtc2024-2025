@@ -6,9 +6,9 @@ import androidx.annotation.Nullable;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralLinearMode;
-import org.firstinspires.ftc.cores.eventloop.IntegralTeleOp;
-import org.firstinspires.ftc.cores.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**

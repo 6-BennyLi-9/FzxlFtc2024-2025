@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.cores.eventloop.StructuralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.StructuralLinearMode;
 
 //@Deprecated
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")

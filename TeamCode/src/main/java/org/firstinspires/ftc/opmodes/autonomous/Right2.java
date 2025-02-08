@@ -13,8 +13,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
-import org.firstinspires.ftc.cores.eventloop.StructuralLinearMode;
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.StructuralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right2 extends StructuralLinearMode {

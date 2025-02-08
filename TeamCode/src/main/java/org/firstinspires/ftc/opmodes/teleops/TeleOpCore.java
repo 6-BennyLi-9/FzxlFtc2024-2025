@@ -2,7 +2,7 @@ package org.firstinspires.ftc.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
 import org.firstinspires.ftc.teamcode.GamepadRequests;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.opmodes.tests;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
 
 @TeleOp(group = "zzz")
 @Disabled

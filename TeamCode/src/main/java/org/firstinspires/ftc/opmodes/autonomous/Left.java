@@ -13,8 +13,8 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.cores.eventloop.StructuralLinearMode;
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.StructuralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")

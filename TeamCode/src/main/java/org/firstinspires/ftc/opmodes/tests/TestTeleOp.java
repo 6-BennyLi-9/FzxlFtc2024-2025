@@ -2,8 +2,8 @@ package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.cores.structure.DriveMode;
-import org.firstinspires.ftc.cores.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;

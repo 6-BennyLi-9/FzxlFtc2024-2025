@@ -10,8 +10,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.cores.eventloop.IntegralAutonomous;
-import org.firstinspires.ftc.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralAutonomous;
+import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
