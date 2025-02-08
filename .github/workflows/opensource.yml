@@ -1,4 +1,4 @@
-name: opensource
+name: Opensource
 
 on:
   push:
@@ -14,6 +14,10 @@ jobs:
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
+
+      - name: Check Env
+        run: |
+          ps
 
       - name: Checkout branch
         run: |
