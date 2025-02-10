@@ -2,7 +2,7 @@ package org.acmerobotics.roadrunner.opmode;
 
 import static org.acmerobotics.roadrunner.DriveConstants.MAX_ACCEL;
 import static org.acmerobotics.roadrunner.DriveConstants.MAX_VEL;
-import static org.acmerobotics.roadrunner.DriveConstants.MOTOR_VELO_PID;
+import static org.acmerobotics.roadrunner.DriveConstants.MOTOR_VELOCITY_PID;
 import static org.acmerobotics.roadrunner.DriveConstants.RUN_USING_ENCODER;
 import static org.acmerobotics.roadrunner.DriveConstants.kV;
 
@@ -37,7 +37,7 @@ import java.util.Objects;
  * a motion profile. Your job is to graph the velocity errors over time and adjust the PID
  * coefficients (note: the tuning variable will not appear until the op mode finishes initializing).
  * Once you've found a satisfactory set of gains, add them to the DriveConstants.java file under the
- * MOTOR_VELO_PID field.
+ * MOTOR_VELOCITY_PID field.
  *
  * Recommended tuning process:
  *
@@ -74,12 +74,12 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
 		Mode mode = Mode.TUNING_MODE;
 
-		double lastKp = MOTOR_VELO_PID.p;
-		double lastKi = MOTOR_VELO_PID.i;
-		double lastKd = MOTOR_VELO_PID.d;
-		double lastKf = MOTOR_VELO_PID.f;
+		double lastKp = MOTOR_VELOCITY_PID.p;
+		double lastKi = MOTOR_VELOCITY_PID.i;
+		double lastKd = MOTOR_VELOCITY_PID.d;
+		double lastKf = MOTOR_VELOCITY_PID.f;
 
-		drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+		drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELOCITY_PID);
 
 		final NanoClock clock = NanoClock.system();
 
@@ -143,13 +143,13 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 					break;
 			}
 
-			if (lastKp != MOTOR_VELO_PID.p || lastKd != MOTOR_VELO_PID.d || lastKi != MOTOR_VELO_PID.i || lastKf != MOTOR_VELO_PID.f) {
-				drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+			if (lastKp != MOTOR_VELOCITY_PID.p || lastKd != MOTOR_VELOCITY_PID.d || lastKi != MOTOR_VELOCITY_PID.i || lastKf != MOTOR_VELOCITY_PID.f) {
+				drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELOCITY_PID);
 
-				lastKp = MOTOR_VELO_PID.p;
-				lastKi = MOTOR_VELO_PID.i;
-				lastKd = MOTOR_VELO_PID.d;
-				lastKf = MOTOR_VELO_PID.f;
+				lastKp = MOTOR_VELOCITY_PID.p;
+				lastKi = MOTOR_VELOCITY_PID.i;
+				lastKd = MOTOR_VELOCITY_PID.d;
+				lastKf = MOTOR_VELOCITY_PID.f;
 			}
 
 			telemetry.update();

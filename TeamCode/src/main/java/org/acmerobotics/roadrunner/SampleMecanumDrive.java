@@ -4,7 +4,7 @@ import static org.acmerobotics.roadrunner.DriveConstants.MAX_ACCEL;
 import static org.acmerobotics.roadrunner.DriveConstants.MAX_ANG_ACCEL;
 import static org.acmerobotics.roadrunner.DriveConstants.MAX_ANG_VEL;
 import static org.acmerobotics.roadrunner.DriveConstants.MAX_VEL;
-import static org.acmerobotics.roadrunner.DriveConstants.MOTOR_VELO_PID;
+import static org.acmerobotics.roadrunner.DriveConstants.MOTOR_VELOCITY_PID;
 import static org.acmerobotics.roadrunner.DriveConstants.RUN_USING_ENCODER;
 import static org.acmerobotics.roadrunner.DriveConstants.TRACK_WIDTH;
 import static org.acmerobotics.roadrunner.DriveConstants.encoderTicksToInches;
@@ -108,8 +108,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
 		setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-		if (RUN_USING_ENCODER && null != MOTOR_VELO_PID) {
-			setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+		if (RUN_USING_ENCODER && null != MOTOR_VELOCITY_PID) {
+			setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELOCITY_PID);
 		}
 
 		// DONE_TODO: reverse any motors using DcMotor.setDirection()
