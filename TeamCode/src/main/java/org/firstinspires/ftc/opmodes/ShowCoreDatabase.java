@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 
+@Disabled
 @TeleOp(name = "显示数据库", group = "zzz")
 public class ShowCoreDatabase extends LinearOpMode {
 	@Override
