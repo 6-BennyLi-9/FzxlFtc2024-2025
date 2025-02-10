@@ -1,19 +1,34 @@
-name: opensource
+name: Opensource
 
 on:
   push:
     branches: [ "teamcode-rr0.5.6" ]
   workflow_dispatch:
 
+permissions:
+    contents: write # for git push
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Git user config
         run: |
           git config --global user.name "Github Actions"
           git config --global user.email "actions@github.com"
+
+      - name: Check Env
+        run: |
+          pwd
+          ls
+          cd ..
+          ls
 
       - name: Checkout branch
         run: |
@@ -22,18 +37,18 @@ jobs:
 
       - name: Install git-filter-repo
         run: |
-          git clone https://github.com/newren/git-filter-repo.git
-          cd git-filter-repo
-          ./install.sh
-          cd ..
-          rm -rf git-filter-repo
+          sudo apt-get update
+          sudo apt-get install -y git-filter-repo
 
       # Runs a single command using the runners shell
       - name: Run script
         env:
          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-         PATH: $PATH:/home/runner/git-filter-repo
+    #     PATH: $PATH:/home/runner/.local/bin
         run: |
-          git filter-repo --path into-the-deep-modded.pdf --invert-paths --sensitive-data-removal
-          git commit --allow-empty -m "自动更新RIC_Upgrade.zip"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git filter-repo --path into-the-deep-modded.pdf --invert-paths --force
+            git commit --allow-empty -m "自动更新"
+            git push
+          fi
+   #       git push --force --set-upstream origin teamcode-opensource-rr0.5.6
