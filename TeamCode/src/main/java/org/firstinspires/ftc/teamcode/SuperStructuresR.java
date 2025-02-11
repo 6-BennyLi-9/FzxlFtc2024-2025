@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.LinkedList;
 import java.util.List;
 
+/** @noinspection FieldCanBeLocal*/
 public class SuperStructuresR {
 	private HardwareMap hardwareMap;
 	private Telemetry   telemetry;
@@ -344,13 +345,11 @@ public class SuperStructuresR {
 	//摆臂复位
 	public void arm_clip_Reset() {
 		armOperation1(false);
-
 	}
 
 	//上挂舵机复位
 	public void rotate_claw_Reset() {
 		clawOperation1(false);
-
 	}
 
 	public void clip_Reset() {

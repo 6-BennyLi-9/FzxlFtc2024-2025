@@ -23,48 +23,48 @@ import java.util.concurrent.Callable;
 
 @Config
 public class Utils {
-	public static double turnUp = 0.06; //0.31
-	public static double turnMiddle = 0.71;
-	public static double turnDown = 0.87;
-	public static double rotateOn = 0.49;
-	public static double clawOn = 0.63;
-	public static double clawOpen = 0.32;
-	public static double clipOn = 0.81;
-	public static double clipOpen = 0.49;
-	public static double armUpL= 0.39;   //
-	public static double armDownMiddle= 0.83;
-	public static double armDownL= 0.89;
-	public static double armUpR= 0.86;
-	public static double armDownR= 0.16;
-	public static double upTurnUp = 0.23;  //翻转去夹0.16
-	public static double upTurnDown = 0.91;  //翻转去挂
-	public static double upTurnUpR = 0.05;  //翻转去夹0.16
-	public static double upTurnDownR = 0.92;  //翻转去挂
-	public static double pushOut   = 0.27;   //翻转去夹0.16
-	public static double pushIn    = 0.80;   //翻转去挂
-	public DcMotorEx     leftFront = null;
-	public DcMotorEx leftRear = null;
-	public DcMotorEx rightFront = null;
-	public DcMotorEx rightRear = null;
+	public static double    turnUp        = 0.06; //0.31
+	public static double    turnMiddle    = 0.71;
+	public static double    turnDown      = 0.87;
+	public static double    rotateOn      = 0.49;
+	public static double    clawOn        = 0.63;
+	public static double    clawOpen      = 0.32;
+	public static double    clipOn        = 0.81;
+	public static double    clipOpen      = 0.49;
+	public static double    armUpL        = 0.39;   //
+	public static double    armDownMiddle = 0.83;
+	public static double    armDownL      = 0.89;
+	public static double    armUpR        = 0.86;
+	public static double    armDownR      = 0.16;
+	public static double    upTurnUp      = 0.23;  //翻转去夹0.16
+	public static double    upTurnDown    = 0.91;  //翻转去挂
+	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
+	public static double    upTurnDownR   = 0.92;  //翻转去挂
+	public static double    pushOut       = 0.27;   //翻转去夹0.16
+	public static double    pushIn        = 0.80;   //翻转去挂
+	public        DcMotorEx leftFront;
+	public        DcMotorEx leftRear;
+	public        DcMotorEx rightFront;
+	public        DcMotorEx rightRear;
 
-	public DcMotorEx leftLift = null;
+	public DcMotorEx leftLift;
 
-	public DcMotorEx rightLift = null;
+	public DcMotorEx rightLift;
 
-	public Servo arm = null;         //后电梯摆臂
-	public Servo rotate = null;         //前电梯上旋转舵机
-	public Servo clip = null;   //后电梯夹子
-	public Servo claw = null;  //前电梯夹子
-	public Servo turn = null;     //前电梯上，上下翻转
+	public Servo arm;         //后电梯摆臂
+	public Servo rotate;         //前电梯上旋转舵机
+	public Servo clip;   //后电梯夹子
+	public Servo claw;  //前电梯夹子
+	public Servo turn;     //前电梯上，上下翻转
 
-	private TouchSensor touch = null;
-	private Servo upTurn = null;         //后电梯上摆臂
-	private Servo leftPush = null;        //后电梯上的夹取  前
-	private Servo rightPush = null;
-	public BNO055IMU imu = null;
+	private TouchSensor touch;
+	private Servo       upTurn;         //后电梯上摆臂
+	private Servo       leftPush;        //后电梯上的夹取  前
+	private Servo       rightPush;
+	public  BNO055IMU   imu;
 
-	public HardwareMap hardwareMap = null;
-	public Telemetry telemetry = null;
+	public HardwareMap hardwareMap;
+	public Telemetry   telemetry;
 
 
 	public void init(HardwareMap h, Telemetry t) {
@@ -73,19 +73,21 @@ public class Utils {
 
 		imuInit();
 	}
-	public void imuInit(){
-		imu=hardwareMap.get(BNO055IMU.class,"imu");
+
+	public void imuInit() {
+		imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();//不可更改
-		parameters.angleUnit= BNO055IMU.AngleUnit.DEGREES;
-		parameters.accelUnit= BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-		parameters.calibrationDataFile="BNO055Calibration.json";
-		parameters.loggingEnabled=true;
-		parameters.loggingTag="IMU";
-		parameters.accelerationIntegrationAlgorithm=new JustLoggingAccelerationIntegrator();
+		parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+		parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+		parameters.calibrationDataFile = "BNO055Calibration.json";
+		parameters.loggingEnabled = true;
+		parameters.loggingTag = "IMU";
+		parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 		imu.initialize(parameters);
 	}
-	public double get_imuAngle(){//获得偏转角
+
+	public double get_imuAngle() {//获得偏转角
 		return imu.getAngularOrientation().firstAngle;
 	}
 
@@ -107,9 +109,9 @@ public class Utils {
 		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-		while (!this.touch.isPressed()) {
-			this.leftLift.setPower(-0.3);//根据电机的正负设置power
-			this.rightLift.setPower(-0.3);//根据电机的正负设置power
+		while (! this.touch.isPressed()) {
+			this.leftLift.setPower(- 0.3);//根据电机的正负设置power
+			this.rightLift.setPower(- 0.3);//根据电机的正负设置power
 		}
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
@@ -120,12 +122,11 @@ public class Utils {
 		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 	}
 
-	public void motorInit(){
+	public void motorInit() {
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
 		rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 		rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-
 	}
 
 	public void servoInit(String arm, String clip, String rotate, String turn, String claw, String upTurn, String leftPush, String rightPush) {
@@ -137,8 +138,6 @@ public class Utils {
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
 		this.leftPush = hardwareMap.get(Servo.class, leftPush);
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
-
-
 	}
 
 	public void imuInit(String imu_name) {
@@ -154,7 +153,9 @@ public class Utils {
 		try {
 			Thread.sleep(1000);//单位：毫秒
 		} catch (Exception ignored) {
+			Thread.currentThread().interrupt();
 		}
+		// FIXME: 2025/2/11 错误调用
 		imu.initialize(parameters);
 	}
 
@@ -167,33 +168,25 @@ public class Utils {
 
 
 	//后电梯
-	int rear_encoder_value = 0;
+	public static int rear_encoder_value = 0, bufVal = 10;
+
 	private void setRearLiftPosition(int val) {
 		rear_encoder_value = val;
 	}
+
 	public void rearLiftToPosition(int rear_encoder_value) {
-		final int max_position1 = 2900;
-		final int bufVal1 = 50;
-		final int liftEncoder=(leftLift.getCurrentPosition()+rightLift.getCurrentPosition())/2;
-		if (rear_encoder_value < max_position1 && rear_encoder_value > 5) {
-			if (leftLift.getCurrentPosition() < rear_encoder_value - bufVal1) {
-
-				leftLift.setPower(1.0);
-				rightLift.setPower(1.0);
-				while (leftLift.getCurrentPosition() < rear_encoder_value)
-					;
-			}
-			if (leftLift.getCurrentPosition() > rear_encoder_value + bufVal1) {
-
-				leftLift.setPower(-1.0);
-				rightLift.setPower(-1.0);
-				while (leftLift.getCurrentPosition() > rear_encoder_value)
-					;
-			}
-
-			leftLift.setPower(0);
-			rightLift.setPower(0);
-
+		final int max_position = 2900;
+		final int bufVal1      = 50;
+		final int liftEncoder  = (leftLift.getCurrentPosition() + rightLift.getCurrentPosition()) / 2;
+		if (rear_encoder_value < max_position && rear_encoder_value > 5) {
+			leftLift.setTargetPosition(rear_encoder_value);
+			rightLift.setTargetPosition(rear_encoder_value);
+			leftLift.setTargetPositionTolerance(bufVal);
+			rightLift.setTargetPositionTolerance(bufVal);
+			leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+			rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+			leftLift.setPower(1);
+			rightLift.setPower(1);
 		}
 	}
 
@@ -208,13 +201,13 @@ public class Utils {
 
 
 	public void rearLiftRst() {
-		if(leftLift.getCurrentPosition()>210){
-			leftLift.setPower(-1.0);
-			rightLift.setPower(-1.0);
-		}else  if(leftLift.getCurrentPosition()>20){
-			leftLift.setPower(-0.3);
-			rightLift.setPower(-0.3);
-		}else if (touch.isPressed())//40,210
+		if (leftLift.getCurrentPosition() > 210) {
+			leftLift.setPower(- 1.0);
+			rightLift.setPower(- 1.0);
+		} else if (leftLift.getCurrentPosition() > 20) {
+			leftLift.setPower(- 0.3);
+			rightLift.setPower(- 0.3);
+		} else if (touch.isPressed())//40,210
 		{
 			leftLift.setPower(0);
 			rightLift.setPower(0);
@@ -225,14 +218,12 @@ public class Utils {
 		}
 	}
 
-
-
 	public void rearLiftPosition(RearLiftLocation state) {
 		if (state == RearLiftLocation.down1) {
 			rearLiftRst();
 		} else if (state == RearLiftLocation.up1) {
 			rearLiftToPosition(2300);//放篮子
-		}  else if (state == RearLiftLocation.middle1) {
+		} else if (state == RearLiftLocation.middle1) {
 			rearLiftToPosition(849);//挂样本
 		} else if (state == RearLiftLocation.low1) {
 			rearLiftToPosition(250);//原920
@@ -263,7 +254,8 @@ public class Utils {
 			upTurn.setPosition(upTurnDown);//不翻转0.11
 		}
 	}
-	public  void armOperation1(boolean y) {
+
+	public void armOperation1(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住0.55
 			arm.setPosition(armDownMiddle);  //不翻转
@@ -283,10 +275,11 @@ public class Utils {
 	}
 
 	public void clawOperation(boolean s) {
-		this.claw.setPosition(s ? clawOpen: clawOn); //开/关
+		this.claw.setPosition(s ? clawOpen : clawOn); //开/关
 	}
+
 	public void turnOperation(boolean s) {
-		this.turn.setPosition(s ? turnUp: turnDown);//上下
+		this.turn.setPosition(s ? turnUp : turnDown);//上下
 	}
 
 
@@ -294,7 +287,6 @@ public class Utils {
 		this.rotate.setPosition(s ? 0.47 : 0.83);//垂直/水平
 
 	}
-
 
 
 	public void claw_rotate_rst(boolean x) {
@@ -308,6 +300,7 @@ public class Utils {
 			rotate.setPosition(rotateOn);  //转正
 		}
 	}
+
 	public void claw_rotate_rst1(boolean x) {
 		if (x) {
 			claw.setPosition(clawOpen);  //打开0.26
@@ -320,6 +313,7 @@ public class Utils {
 
 		}
 	}
+
 	public void claw_rotate(boolean m) {
 		if (m) {
 			claw.setPosition(clawOn);  //夹住
@@ -332,12 +326,11 @@ public class Utils {
 			rotate.setPosition(rotateOn);  //旋转90度
 		}
 	}
+
 	//IMU调整
 	public static double allowErr = 5;
 
-	public void angleCalibration(final double target,
-								 @NonNull final Pose2d poseEst,
-								 @NonNull SampleMecanumDrive drive) {
+	public void angleCalibration(final double target, @NonNull final Pose2d poseEst, @NonNull SampleMecanumDrive drive) {
 		runAction(() -> {
 			final double ang = imu.getAngularOrientation().firstAngle;
 
@@ -348,7 +341,7 @@ public class Utils {
 
 			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
 				if (ang > target + allowErr) {
-					simpleDrive(-0.5);
+					simpleDrive(- 0.5);
 					return true;
 				} else if (ang < target - allowErr) {
 					simpleDrive(0.5);
@@ -359,7 +352,7 @@ public class Utils {
 					simpleDrive(0.5);
 					return true;
 				} else if (ang < target - allowErr) {
-					simpleDrive(-0.5);
+					simpleDrive(- 0.5);
 					return true;
 				}
 			}
@@ -369,16 +362,17 @@ public class Utils {
 		drive.setPoseEstimate(poseEst);
 	}
 
-	protected void simpleDrive(double angle){
-		leftFront.setPower(-angle);
-		leftRear.setPower(-angle);
+	protected void simpleDrive(double angle) {
+		leftFront.setPower(- angle);
+		leftRear.setPower(- angle);
 		rightFront.setPower(angle);
 		rightRear.setPower(angle);
 	}
-	protected void runAction(Callable<Boolean> c){
+
+	protected void runAction(Callable <Boolean> c) {
 		while (true) {
 			try {
-				if (!c.call()) break;
+				if (! c.call()) break;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

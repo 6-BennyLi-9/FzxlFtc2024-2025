@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.LinkedList;
 import java.util.List;
 
+/** @noinspection FieldCanBeLocal*/
 public class SuperStructuresL {
 	private HardwareMap hardwareMap;
 	private Telemetry telemetry;

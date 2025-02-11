@@ -57,9 +57,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
         TUNING_MODE
     }
 
-    private Mode mode;
-
-    private static MotionProfile generateProfile(boolean movingForward) {
+	private static MotionProfile generateProfile(boolean movingForward) {
         MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
         MotionState goal = new MotionState(movingForward ? DISTANCE : 0, 0, 0, 0);
         return MotionProfileGenerator.generateSimpleMotionProfile(start, goal, MAX_VEL, MAX_ACCEL);
@@ -78,7 +76,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
         final VoltageSensor voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        mode = Mode.TUNING_MODE;
+		Mode mode = Mode.TUNING_MODE;
 
         NanoClock clock = NanoClock.system();
 
