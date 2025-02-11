@@ -33,6 +33,6 @@ public class SelectElement {
 	}
 
 	public TelemetryLine buildTelemetryItem() {
-		return new TelemetryLine((is_selected ? "[X] " : "[  ] ") + name);
+		return new TelemetryLine((is_selected ? "[X] " : "[ ] ") + name);
 	}
 }

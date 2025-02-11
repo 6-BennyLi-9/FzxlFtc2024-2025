@@ -296,7 +296,7 @@ public class RobotMng implements Updatable {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			client.changeData(s, updateCode + a.paramsString());
+			client.changeData(updateCode + s, a.paramsString());
 			if (sendTelemetryPackets && a instanceof DashboardCallable) {
 				((DashboardCallable) a).process(message);
 			}

@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+@TeleOp(name = "Air Combat Game Ex", group = Character.MAX_VALUE+"DEMO")
 public class AirCombatGameEx extends AirCombatGame {
 	// 颜色定义
 	private static final String PLAYER_COLOR = "#00FF00";  // 亮绿色

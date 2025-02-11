@@ -14,7 +14,7 @@ import java.util.List;
 public class SelectPackage implements Updatable {
 	private final List <SelectElement> elements;
 	private       int                  selected_index, show_lines;
-	private Range <Integer> show_range;
+	private       Range <Integer> show_range;
 
 	{
 		selected_index = 0;

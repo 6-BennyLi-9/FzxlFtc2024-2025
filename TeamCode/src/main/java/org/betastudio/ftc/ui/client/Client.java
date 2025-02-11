@@ -46,9 +46,6 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatab
 	default void switchViewMode() {
 		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
-				configViewMode(ClientViewMode.THREAD_MANAGER);
-				break;
-			case THREAD_MANAGER:
 				configViewMode(ClientViewMode.FTC_LOG);
 				break;
 			case FTC_LOG:

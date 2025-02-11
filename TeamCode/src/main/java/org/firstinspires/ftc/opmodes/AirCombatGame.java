@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-@TeleOp(name = "Air Combat Game", group = "Demo")
+@TeleOp(name = "Air Combat Game", group = Character.MAX_VALUE+"DEMO")
 public class AirCombatGame extends LinearOpMode {
 	// 游戏区域尺寸
 	public static final int SCREEN_WIDTH  = 20;
