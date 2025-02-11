@@ -1,19 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.betastudio.ftc.RunMode;
-import org.betastudio.ftc.thread.EasyThreadService;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
+import org.jetbrains.annotations.Contract;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public final class Global {
-	public static  Gamepad            gamepad1, gamepad2;
-	public static  ExecutorService threadService       = new EasyThreadService();
+	public static  Gamepad         gamepad1, gamepad2;
+	public static  ExecutorService threadService = defaultThreadExecutor();
 	public static  RunMode         runMode;
 	public static  OpMode          currentOpmode;
 	public static  Client          client;
@@ -26,6 +32,8 @@ public final class Global {
 
 	public static void prepareCoreThreadPool() {
 		FtcLogTunnel.MAIN.report("Shutdown tasks of " + threadService.shutdownNow().size());
+
+		threadService = defaultThreadExecutor();
 
 		if (auto_create_monitor) {
 			createMonitor();
@@ -43,5 +51,11 @@ public final class Global {
 
 	public static void auto_create_monitor(final boolean configure) {
 		auto_create_monitor = configure;
+	}
+
+	@NonNull
+	@Contract(" -> new")
+	public static ThreadPoolExecutor defaultThreadExecutor(){
+		return new ThreadPoolExecutor(16, 32, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue <>(1024), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 	}
 }

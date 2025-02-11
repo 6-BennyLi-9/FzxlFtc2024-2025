@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.betastudio.ftc.thread.EasyThreadService;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 
 import java.util.concurrent.ExecutorService;
@@ -28,7 +28,7 @@ public class DcMotorTest extends LinearOpMode {
 		telemetry.setAutoClear(false);
 		telemetry.update();
 		lift =hardwareMap.get(DcMotorEx.class, "lift");
-		service = new EasyThreadService();
+		service = Global.defaultThreadExecutor();
 
 		Telemetry.Item liftPosition = telemetry.addData("lift position", null);
 

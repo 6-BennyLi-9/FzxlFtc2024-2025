@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
-import org.betastudio.ftc.thread.ThreadOperations;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -10,6 +9,7 @@ import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.entry.ThreadEx;
+import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.cores.RobotMng;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
@@ -45,7 +45,14 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
-		Global.threadService.execute(ThreadOperations.autoFrequencyCaller(client::update));
+
+		Global.threadService.execute(()->{
+			FtcLogTunnel.MAIN.report("start client updater successful");
+			while (!isStopRequested()){
+				client.update();
+				Local.sleep(100);
+			}
+		});
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
