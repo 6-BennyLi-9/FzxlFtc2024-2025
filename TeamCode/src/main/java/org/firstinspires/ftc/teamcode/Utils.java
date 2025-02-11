@@ -1,5 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -8,9 +14,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -97,16 +101,16 @@ public class Utils {
 		this.rightLift = hardwareMap.get(DcMotorEx.class, rightLift);
 		this.touch = hardwareMap.get(TouchSensor.class, touch);
 
-		this.leftLift.setDirection(DcMotorSimple.Direction.FORWARD);
-		this.rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
+		this.leftLift.setDirection(FORWARD);
+		this.rightLift.setDirection(FORWARD);
 
-		this.leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		this.rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		this.leftLift.setZeroPowerBehavior(BRAKE);
+		this.rightLift.setZeroPowerBehavior(BRAKE);
 
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		this.leftLift.setMode(STOP_AND_RESET_ENCODER);
+		this.leftLift.setMode(RUN_WITHOUT_ENCODER);
+		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
+		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 
 
 		while (! this.touch.isPressed()) {
@@ -116,10 +120,10 @@ public class Utils {
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
 
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		this.leftLift.setMode(STOP_AND_RESET_ENCODER);
+		this.leftLift.setMode(RUN_WITHOUT_ENCODER);
+		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
+		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 	}
 
 	public void motorInit() {
@@ -183,8 +187,8 @@ public class Utils {
 			rightLift.setTargetPosition(rear_encoder_value);
 			leftLift.setTargetPositionTolerance(bufVal);
 			rightLift.setTargetPositionTolerance(bufVal);
-			leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-			rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+			leftLift.setMode(RUN_TO_POSITION);
+			rightLift.setMode(RUN_TO_POSITION);
 			leftLift.setPower(1);
 			rightLift.setPower(1);
 		}
@@ -193,7 +197,7 @@ public class Utils {
 	/**
 	 * @param position 0.15~0.82
 	 */
-	public void setPushPose(double position) {
+	public void setPushPose(double position) {// FIXME: 2025/2/11 憋
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
@@ -211,10 +215,10 @@ public class Utils {
 		{
 			leftLift.setPower(0);
 			rightLift.setPower(0);
-			leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+			leftLift.setMode(STOP_AND_RESET_ENCODER);
+			leftLift.setMode(RUN_WITHOUT_ENCODER);
+			rightLift.setMode(STOP_AND_RESET_ENCODER);
+			rightLift.setMode(RUN_WITHOUT_ENCODER);
 		}
 	}
 

@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -21,20 +25,20 @@ public class SuperStructuresL {
 	private Gamepad gamepad1, gamepad2;
 
 
-	private DcMotorEx leftLift = null;
-	private DcMotorEx rightLift = null;
+	private DcMotorEx leftLift;
+	private DcMotorEx rightLift;
 
-	private Servo arm = null;         //后电梯上摆臂
-	private Servo clip = null;        //后电梯上的夹取  前
-	private Servo turn = null;         //前电梯上的翻转舵机
-	private Servo claw = null;   //自动紫色像素释放 左
+	private Servo arm;         //后电梯上摆臂
+	private Servo clip;        //后电梯上的夹取  前
+	private Servo turn;         //前电梯上的翻转舵机
+	private Servo claw;   //自动紫色像素释放 左
 
 
-	private Servo rotate = null;     //盒子像素卡扣  后
-	private TouchSensor touch = null;
-	private Servo upTurn = null;         //后电梯上摆臂
-	private Servo leftPush = null;        //后电梯上的夹取  前
-	private Servo rightPush = null;         //前电梯上的翻转舵机
+	private Servo rotate;     //盒子像素卡扣  后
+	private TouchSensor touch;
+	private Servo upTurn;         //后电梯上摆臂
+	private Servo leftPush;        //后电梯上的夹取  前
+	private Servo rightPush;         //前电梯上的翻转舵机
 
 	public static double turnUp = 0.06; //0.31
 	public static double turnMiddle = 0.71;
@@ -49,7 +53,7 @@ public class SuperStructuresL {
 	public static double armUp = 0.43;  //翻转去挂
 	public static double upTurnUp = 0.24;  //翻转去夹0.16
 	public static double upTurnDown = 0.91;  //翻转去挂
-	List<ButtonLock> buttons = new LinkedList<>();
+	public List<ButtonLock> buttons = new LinkedList<>();
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
@@ -61,18 +65,18 @@ public class SuperStructuresL {
 	public void motorInit(String leftLift, String rightLift, String touch) {
 		this.leftLift = hardwareMap.get(DcMotorEx.class, leftLift);
 		this.rightLift = hardwareMap.get(DcMotorEx.class, rightLift);
-		this.touch = hardwareMap.get(TouchSensor.class, touch);
+		this.touch = hardwareMap.touchSensor.get(touch);
 
-		this.leftLift.setDirection(DcMotorSimple.Direction.FORWARD);
-		this.rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
+		this.leftLift.setDirection(FORWARD);
+		this.rightLift.setDirection(FORWARD);
 
-		this.leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		this.rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		this.leftLift.setZeroPowerBehavior(BRAKE);
+		this.rightLift.setZeroPowerBehavior(BRAKE);
 
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		this.leftLift.setMode(STOP_AND_RESET_ENCODER);
+		this.leftLift.setMode(RUN_WITHOUT_ENCODER);
+		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
+		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 
 
 		while (!this.touch.isPressed()) {
@@ -82,12 +86,11 @@ public class SuperStructuresL {
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
 
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		this.leftLift.setMode(STOP_AND_RESET_ENCODER);
+		this.leftLift.setMode(RUN_WITHOUT_ENCODER);
+		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
+		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 	}
-
 
 	public void servoInit(String arm, String turn, String clip, String rotate, String claw, String upTurn, String leftPush, String rightPush) {
 		this.arm = hardwareMap.get(Servo.class, arm);
@@ -98,24 +101,19 @@ public class SuperStructuresL {
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
 		this.leftPush = hardwareMap.get(Servo.class, leftPush);
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
-
-
-
 	}
 
-	public void setPushPose(double position) {
+	public void setPushPose(double position) {// FIXME: 2025/2/11 憋
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
 	}
-
 
 	public void optionThroughGamePad() {
 
 		if (gamepad2.left_bumper) {
 			setLiftPosition(2300);//中间位置
 			arm.setPosition(0.88);
-
 		}
 		if (gamepad2.dpad_up) {
 			setLiftPosition(1620);//中间位置
@@ -149,11 +147,6 @@ public class SuperStructuresL {
 		clipOperation(gamepad2.a);
 		clawOperation(gamepad2.b);
 		armOperation(gamepad2.x);
-
-
-		//下面两行测试数据用
-		//arm.setPosition(Math.abs(gamepad2.right_stick_y));
-		//telemetry.addData("arm", "%f", gamepad2.right_stick_y);
 	}
 
 	//用一个按键控制不同的状态
@@ -315,16 +308,16 @@ public class SuperStructuresL {
 			leftLift.setPower(1);
 			rightLift.setPower(1);
 		} else if (right_encoder_value == 0) {
-			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+			leftLift.setMode(RUN_WITHOUT_ENCODER);
+			rightLift.setMode(RUN_WITHOUT_ENCODER);
 			if (touch.isPressed())//40,210
 			{
 				leftLift.setPower(0);
 				rightLift.setPower(0);
-				leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-				leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-				rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-				rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+				leftLift.setMode(STOP_AND_RESET_ENCODER);
+				leftLift.setMode(RUN_WITHOUT_ENCODER);
+				rightLift.setMode(STOP_AND_RESET_ENCODER);
+				rightLift.setMode(RUN_WITHOUT_ENCODER);
 			} else{
 				leftLift.setPower(-1.0);
 				rightLift.setPower(-1.0);
