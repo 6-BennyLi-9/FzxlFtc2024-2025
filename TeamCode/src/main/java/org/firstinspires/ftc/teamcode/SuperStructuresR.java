@@ -36,18 +36,18 @@ public class SuperStructuresR {
 	private Servo       rightPush = null;         //前电梯上的翻转舵机
 
 	public static double turnUp     = 0.07; //0.31
-	public static double turnMiddle = 0.76;
-	public static double turnDown   = 0.90;
+	public static double turnMiddle = 0.71;
+	public static double turnDown   = 0.87;
 	public static double rotateOn   = 0.49;
-	public static double clawOn     = 0.69;
-	public static double clawOpen   = 0.37;
-	public static double clipOn     = 0.76;
+	public static double clawOn     = 0.64;
+	public static double clawOpen   = 0.32;
+	public static double clipOn     = 0.80;
 	public static double clipOpen   = 0.49;
-	public static double armDown    = 0.88;  //翻转去夹0.16 0.89
+	public static double armPut    = 0.86;  //翻转去夹0.78,0.55
 	public static double armMiddle  = 0.72;  //翻转去挂
-	public static double armGet     = 0.14;  //翻转去挂
-	public static double TrunGet    = 0.7;  //翻转去夹0.16
-	public static double upTrunDown = 0.91;  //翻转去挂
+	public static double armGet     = 0.15;  //0.16,0.14翻转去挂
+	public static double upTurnGet    = 0.91;  //翻转去夹0.91,0.64
+	public static double upTurnPut = 0.05;  //翻转去挂0.05,0.72
 	List <ButtonLock> buttons = new LinkedList <>();
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
@@ -99,11 +99,7 @@ public class SuperStructuresR {
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
 
 
-		this.arm_clip_Reset();
-		this.rotate_claw_Reset();
 
-
-		setPushPose(0.9);
 	}
 
 	//测试舵机精准位置的程序
@@ -115,7 +111,7 @@ public class SuperStructuresR {
 
 	}
 
-	public void LiftEncodertest() {
+	public void LiftEncoderTest() {
 		leftLift.setPower(gamepad2.left_stick_y);
 		telemetry.addData("lift", leftLift.getCurrentPosition());
 		turn.setPosition(gamepad2.right_stick_y);
@@ -124,7 +120,7 @@ public class SuperStructuresR {
 	}
 
 	public void setPushPose(double position) {
-		position = Math.max(Math.min(position, 0.85), 0.1);
+		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
 	}
@@ -136,14 +132,20 @@ public class SuperStructuresR {
 		}
 
 		if (gamepad2.dpad_up) {
-			setLiftPosition(180);//中间位置
+			setLiftPosition(1620);//中间位置
 			arm.setPosition(0.88);
 		}
 
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);
-			setLiftPosition(931);//挂高杆2195
+			setLiftPosition(865);   //挂样本423
 			armOperation1(true);
+		}
+		if (gamepad2.dpad_left) {
+			//clipOperation1(true);
+			armOperation1(false);
+			arm.setPosition(0.88);
+			setLiftPosition(163);//初始位置
 		}
 		if (gamepad2.dpad_down) {
 			//clipOperation1(true);
@@ -156,7 +158,7 @@ public class SuperStructuresR {
 
 		LiftPositionUpdate();
 		if (gamepad2.right_bumper) {
-			rotate.setPosition(rotate.getPosition() - 0.02);
+			rotate.setPosition(rotate.getPosition() + 0.02);
 		}
 
 		clipOperation(gamepad2.a);
@@ -185,11 +187,16 @@ public class SuperStructuresR {
 			}
 			switch (armPutEvent) {
 				case 0:
-					turn.setPosition(TrunGet);
-					clip.setPosition(clipOn);
+					arm.setPosition(armPut);
+					upTurn.setPosition(upTurnGet);
+					clip.setPosition(clipOpen);
 					break;
 				case 1:
-					arm.setPosition(armGet);
+
+					clip.setPosition(clipOn);
+
+
+
 			}
 		} else keyFlag_arm = false;
 	}
@@ -262,13 +269,13 @@ public class SuperStructuresR {
 	private void armOperation1(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
-			arm.setPosition(armMiddle);  //翻转挂矿石
-			//upTurn.setPosition(upTrunUp);
+			arm.setPosition(armPut);  //翻转挂矿石
+			upTurn.setPosition(upTurnPut);
 			claw.setPosition(clawOpen);
 		} else {
 			clip.setPosition(clipOpen);  //打开
 			arm.setPosition(armGet);  //中间等待位置
-			upTurn.setPosition(TrunGet);
+			upTurn.setPosition(upTurnGet);
 		}
 	}
 
@@ -276,7 +283,7 @@ public class SuperStructuresR {
 	private void clawOperation1(boolean y) {
 		if (y) {
 			claw.setPosition(clawOpen);   //打开
-			turn.setPosition(turnMiddle);  //翻转下去
+			turn.setPosition(turnUp);  //翻转下去
 			rotate.setPosition(rotateOn); //保持水平0.1,0.83
 		} else {
 			claw.setPosition(clawOn);  //扣住

@@ -37,15 +37,15 @@ public class SuperStructuresL {
 
 	public static double turnUp = 0.06; //0.31
 	public static double turnMiddle = 0.71;
-	public static double turnDown = 0.89;
+	public static double turnDown = 0.87;
 	public static double rotateOn = 0.49;
-	public static double clawOn = 0.69;
-	public static double clawOpen = 0.37;
-	public static double clipOn = 0.74;
+	public static double clawOn = 0.64;
+	public static double clawOpen = 0.32;
+	public static double clipOn = 0.81;
 	public static double clipOpen = 0.49;
 	public static double armDown = 0.89;  //翻转去夹0.16 0.89
 	public static double armMiddle = 0.83;  //翻转去挂
-	public static double armUp = 0.39;  //翻转去挂
+	public static double armUp = 0.43;  //翻转去挂
 	public static double upTurnUp = 0.24;  //翻转去夹0.16
 	public static double upTurnDown = 0.91;  //翻转去挂
 	List<ButtonLock> buttons = new LinkedList<>();
@@ -99,15 +99,11 @@ public class SuperStructuresL {
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
 
 
-		this.arm_clip_Reset();
-		this.rotate_claw_Reset();
 
-
-		setPushPose(0.9);
 	}
 
 	public void setPushPose(double position) {
-		position = Math.max(Math.min(position, 0.85), 0.1);
+		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
 	}
@@ -121,8 +117,14 @@ public class SuperStructuresL {
 
 		}
 		if (gamepad2.dpad_up) {
-			setLiftPosition(180);//中间位置
+			setLiftPosition(1620);//中间位置
 			arm.setPosition(0.88);
+		}
+		if (gamepad2.dpad_left) {
+			//clipOperation1(true);
+			armOperation1(false);
+			arm.setPosition(0.88);
+			setLiftPosition(0);//初始位置
 		}
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);
@@ -136,11 +138,11 @@ public class SuperStructuresL {
 		}
 
 
-		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.015);
+		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
 		LiftPositionUpdate();
 		if (gamepad2.right_bumper) {
-			rotate.setPosition(rotate.getPosition() - 0.02);
+			rotate.setPosition(rotate.getPosition() + 0.02);
 		}
 
 		clipOperation(gamepad2.a);
@@ -172,11 +174,9 @@ public class SuperStructuresL {
 					clip.setPosition(clipOn);
 					break;
 				case 1:
-
 					arm.setPosition(armDown);  //打开
 					clip.setPosition(clipOpen);
-
-
+					break;
 			}
 		} else keyFlag_arm = false;
 	}
@@ -287,6 +287,10 @@ public class SuperStructuresL {
 		telemetry.addData("touch sensor", touch.isPressed() ? "按了" : "没按");
 
 		telemetry.addData("push", rightPush.getPosition());
+		telemetry.addData("clip", clip.getPosition());
+		telemetry.addData("trun", turn.getPosition());
+		telemetry.addData("claw", claw.getPosition());
+		telemetry.addData("rotate", rotate.getPosition());
 	}
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
