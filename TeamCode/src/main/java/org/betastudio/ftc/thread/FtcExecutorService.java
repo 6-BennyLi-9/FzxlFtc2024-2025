@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
+@Deprecated
 public interface FtcExecutorService extends ExecutorService {
 	Runnable buildTask(Runnable task);
 

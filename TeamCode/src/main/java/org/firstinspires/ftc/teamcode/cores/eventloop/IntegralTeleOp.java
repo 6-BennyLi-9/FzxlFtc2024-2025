@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.betastudio.ftc.thread.ThreadOperations;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -44,7 +45,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
-		Global.threadService.submit("client-updater", client::update);
+		Global.threadService.execute(ThreadOperations.autoFrequencyCaller(client::update));
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();

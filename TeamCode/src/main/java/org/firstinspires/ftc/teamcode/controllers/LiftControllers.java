@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 /**
@@ -161,44 +160,6 @@ public class LiftControllers {
 		@Override
 		public double getCalibrateVal() {
 			return calibrateVal;
-		}
-	}
-
-	/**
-	 * 基于 {@code PID}
-	 */
-	@Config
-	@Disabled
-	public static class PIDLiftCtrl extends LiftCtrl {
-		public static double vP, vI, vD, max_I;
-
-		static {
-			vP = 1;
-			vI = 0;
-			vD = 0;
-			max_I = 1;
-		}
-
-		private final PidProcessor processor;
-
-		public PIDLiftCtrl(@NonNull final DcMotorEx target) {
-			super(target);
-			processor = new PidProcessor(vP, vI, vD, max_I);
-		}
-
-		@Override
-		public void modify() {
-			processor.modify(getErrorPosition());
-		}
-
-		@Override
-		public double getCalibrateVal() {
-			return processor.getCalibrateVal();
-		}
-
-		@Override
-		public String paramsString() {
-			return super.paramsString() + "//" + processor;
 		}
 	}
 
