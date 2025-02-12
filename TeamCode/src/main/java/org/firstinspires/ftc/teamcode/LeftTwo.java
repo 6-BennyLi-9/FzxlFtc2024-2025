@@ -33,8 +33,6 @@ public class LeftTwo extends LinearOpMode {
 		utils.motorInit();
 		utils.imuInit();
 
-
-
 		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 		Pose2d blueLeft = new Pose2d(36, 58, Math.toRadians(-90));
 		Pose2d forward = new Pose2d(55, 54.5, Math.toRadians(-125));
@@ -77,7 +75,7 @@ public class LeftTwo extends LinearOpMode {
 				.build();
 		TrajectorySequence toPark = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
 				.lineToLinearHeading(GoToPark)
-				.forward(15)
+				.forward(20)
 				.build();
 
 
@@ -93,9 +91,11 @@ public class LeftTwo extends LinearOpMode {
 		if (isStopRequested()) return;
 
 
-		utils.rearLiftPosition(RearLiftLocation.up1);
+		utils.rearLiftPosition(RearLiftLocation.up);
+		sleep(100);
 		utils.setPushPose(pushOut); //伸前电梯
 		drive.followTrajectorySequence(left_put); //放预载
+		sleep(500);
 		utils.armOperation1(false);
 		sleep(400);
 		utils.clipOperation(true);
@@ -104,7 +104,7 @@ public class LeftTwo extends LinearOpMode {
 		drive.followTrajectory(toPut);    //去夹第一黄块
 		sleep(100);
 		utils.claw_rotate_rst(true);  //前面夹子翻转下去、打开
-		utils.rearLiftPosition(RearLiftLocation.down1); //回电梯
+		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.armOperationL(true);
 
 		utils.claw_rotate_rst(false);  //前面夹子翻转下去、打开
@@ -120,25 +120,26 @@ public class LeftTwo extends LinearOpMode {
 		utils.clipOperation(false);   //夹住
 		sleep(200);
 		utils.clawOperation(true);   //打开
-		//sleep(150);
+		sleep(150);
 
 		drive.followTrajectory(toPutYellow);  //去放第一个块
 
-		utils.rearLiftPosition(RearLiftLocation.up1);  //后电梯抬
+		utils.rearLiftPosition(RearLiftLocation.up);  //后电梯抬
 
+		sleep(1000);
 		utils.armOperation1(false); //手臂翻转,同时将前夹子放下
 		sleep(400);
 		utils.clipOperation(true);//打开夹子
 		sleep(200);
 		utils.armOperationL(true);   //翻转回来，打开夹子
-		//sleep(100);
+		sleep(100);
 
 		utils.setPushPose(pushOut); //frontLiftPosition(up); //伸前电梯
 
 		drive.followTrajectory(toGetSecondYellow);       //去拿第二个块
 		sleep(100);
-		utils.rearLiftPosition(RearLiftLocation.low1); //回电梯
-		utils.rearLiftPosition(RearLiftLocation.down1); //回电梯//
+//		utils.rearLiftPosition(RearLiftLocation.low); //回电梯
+		utils.rearLiftPosition(RearLiftLocation.down); //回电梯//
 		utils.claw_rotate_rst(false);    //翻转下去，打开
 		sleep(200);   //500
 		utils.clawOperation(false);       //夹住
@@ -154,21 +155,21 @@ public class LeftTwo extends LinearOpMode {
 		sleep(350);
 		utils.clawOperation(true);
 		drive.followTrajectory(toPutSecondYellow);
-		utils.rearLiftPosition(RearLiftLocation.up1);
-		//sleep(250);
+		utils.rearLiftPosition(RearLiftLocation.up);
+		sleep(1000);
 		utils.armOperation1(false); ////手臂翻转,同时将前夹子放下
 		sleep(400);
 		utils.clipOperation(true);
 		sleep(200);
 		utils.armOperationL(true);
-		//sleep(100);
+		sleep(100);
 
 		utils.setPushPose(pushOut); //伸前电梯
 
 		drive.followTrajectorySequence(toGetThirdYellow);       //去拿第三个块
 		sleep(100);
-		utils.rearLiftPosition(RearLiftLocation.low1); //回电梯
-		utils.rearLiftPosition(RearLiftLocation.down1); //回电梯/
+		//utils.rearLiftPosition(RearLiftLocation.low); //回电梯
+		utils.rearLiftPosition(RearLiftLocation.down); //回电梯/
 
 		utils.claw_rotate_rst1(false);    //翻转下去，打开
 		sleep(300);  //500
@@ -185,21 +186,17 @@ public class LeftTwo extends LinearOpMode {
 		sleep(350);
 		utils.clawOperation(true);
 		drive.followTrajectory(toPutThirdYellow);
-		utils.rearLiftPosition(RearLiftLocation.up1);
-
+		utils.rearLiftPosition(RearLiftLocation.up);
+		sleep(1000);
 		utils.armOperation1(false); //
 		sleep(400);
 		utils.clipOperation(true);
 		sleep(200);
 
-
-
-
 		drive.followTrajectorySequence(toPark);//去停靠
-		utils.rearLiftPosition(RearLiftLocation.low1); //回电梯
-		utils.rearLiftPosition(RearLiftLocation.down1);
 
+		utils.rearLiftPosition(RearLiftLocation.down);
 
-
+		sleep(Long.MAX_VALUE);
 	}
 }

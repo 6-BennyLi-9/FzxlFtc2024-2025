@@ -147,7 +147,7 @@ public class SuperStructuresR {
 			setLiftPosition(0);//初始位置
 		}
 
-		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.015);
+		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
 		LiftPositionUpdate();
 		rotate.setPosition(rotate.getPosition()

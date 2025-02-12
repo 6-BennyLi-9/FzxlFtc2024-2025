@@ -6,6 +6,7 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENC
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -16,6 +17,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /** @noinspection FieldCanBeLocal*/
+@Config
 public class SuperStructuresL {
 	private HardwareMap hardwareMap;
 	private Telemetry telemetry;
@@ -49,7 +51,7 @@ public class SuperStructuresL {
 	public static double armMiddle = 0.83;  //翻转去挂
 	public static double armUp = 0.43;  //翻转去挂
 	public static double upTurnUp = 0.24;  //翻转去夹0.16
-	public static double upTurnDown = 0.79;  //翻转去挂
+	public static double upTurnDown = 0.80;  //翻转去挂
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
@@ -119,7 +121,7 @@ public class SuperStructuresL {
 			//clipOperation1(true);
 			armOperation1(false);
 			arm.setPosition(0.88);
-			setLiftPosition(163);//初始位置
+			setLiftPosition(165);//初始位置
 		}
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);

@@ -41,7 +41,7 @@ public class Utils {
 	public static double    armUpR        = 0.86;
 	public static double    armDownR      = 0.16;
 	public static double    upTurnUp      = 0.23;  //翻转去夹0.16
-	public static double    upTurnDown    = 0.91;  //翻转去挂
+	public static double    upTurnDown    = 0.80;  //翻转去挂
 	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
 	public static double    upTurnDownR   = 0.92;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
@@ -179,19 +179,14 @@ public class Utils {
 	}
 
 	public void rearLiftToPosition(int rear_encoder_value) {
-		final int max_position = 2900;
-		final int bufVal1      = 50;
-		final int liftEncoder  = (leftLift.getCurrentPosition() + rightLift.getCurrentPosition()) / 2;
-		if (rear_encoder_value < max_position && rear_encoder_value > 5) {
-			leftLift.setTargetPosition(rear_encoder_value);
-			rightLift.setTargetPosition(rear_encoder_value);
-			leftLift.setTargetPositionTolerance(bufVal);
-			rightLift.setTargetPositionTolerance(bufVal);
-			leftLift.setMode(RUN_TO_POSITION);
-			rightLift.setMode(RUN_TO_POSITION);
-			leftLift.setPower(1);
-			rightLift.setPower(1);
-		}
+		leftLift.setTargetPosition(rear_encoder_value);
+		rightLift.setTargetPosition(rear_encoder_value);
+		leftLift.setTargetPositionTolerance(5);
+		rightLift.setTargetPositionTolerance(5);
+		leftLift.setMode(RUN_TO_POSITION);
+		rightLift.setMode(RUN_TO_POSITION);
+		leftLift.setPower(1);
+		rightLift.setPower(1);
 	}
 
 	/**
@@ -205,6 +200,9 @@ public class Utils {
 
 
 	public void rearLiftRst() {
+		leftLift.setMode(RUN_WITHOUT_ENCODER);
+		rightLift.setMode(RUN_WITHOUT_ENCODER);
+
 		if (leftLift.getCurrentPosition() > 210) {
 			leftLift.setPower(- 1.0);
 			rightLift.setPower(- 1.0);
@@ -223,13 +221,13 @@ public class Utils {
 	}
 
 	public void rearLiftPosition(RearLiftLocation state) {
-		if (state == RearLiftLocation.down1) {
+		if (state == RearLiftLocation.down) {
 			rearLiftRst();
-		} else if (state == RearLiftLocation.up1) {
+		} else if (state == RearLiftLocation.up) {
 			rearLiftToPosition(2300);//放篮子
-		} else if (state == RearLiftLocation.middle1) {
+		} else if (state == RearLiftLocation.middle) {
 			rearLiftToPosition(849);//挂样本
-		} else if (state == RearLiftLocation.low1) {
+		} else if (state == RearLiftLocation.low) {
 			rearLiftToPosition(250);//原920
 		}
 	}
