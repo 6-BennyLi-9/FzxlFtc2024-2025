@@ -38,7 +38,7 @@ public class Left extends LinearOpMode {
 		Pose2d             toPutFirstYellowSample  = new Pose2d(53.9, 53.0, Math.toRadians(- 135));
 		Pose2d             toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
 		Pose2d             toPutSecondYellowSample = new Pose2d(56, 51.5, Math.toRadians(- 135));//150
-		Pose2d             toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 75));//150
+		Pose2d             toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
 		Pose2d             toPutThirdYellowSample  = new Pose2d(55.1, 52.3, Math.toRadians(- 135));//150
 
 		Pose2d GoToPark = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
@@ -66,7 +66,6 @@ public class Left extends LinearOpMode {
 		waitForStart();
 
 		if (isStopRequested()) return;
-
 
 		utils.rearLiftPosition(RearLiftLocation.up);
 		sleep(100);
@@ -148,7 +147,7 @@ public class Left extends LinearOpMode {
 		utils.rearLiftPosition(RearLiftLocation.down); //回电梯/
 
 		utils.claw_rotate_rst1(false);    //翻转下去，打开
-		sleep(300);  //500
+		sleep(500);
 		utils.clawOperation(false);       //夹住
 		sleep(300);
 		utils.claw_rotate(true);         //翻转上去

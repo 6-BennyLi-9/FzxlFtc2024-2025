@@ -108,7 +108,6 @@ public class SuperStructuresL {
 
 	private boolean lift_up_event;
 	public void optionThroughGamePad() {
-
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
 
