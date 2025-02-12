@@ -11,9 +11,6 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @noinspection FieldCanBeLocal
  */
@@ -49,9 +46,8 @@ public class SuperStructuresR {
 	public static double armPut     = 0.86;  //翻转去夹0.78,0.55
 	public static double armMiddle  = 0.72;  //翻转去挂
 	public static double armGet     = 0.15;  //0.16,0.14翻转去挂
-	public static double upTurnGet  = 0.91;  //翻转去夹0.91,0.64
-	public static double upTurnPut  = 0.05;  //翻转去挂0.05,0.72
-	List <ButtonLock> buttons = new LinkedList <>();
+	public static double upTurnGet  = 0.79;  //翻转去夹0.91,0.64
+	public static double upTurnPut  = 0.13;  //翻转去挂0.05,0.72
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
@@ -154,9 +150,8 @@ public class SuperStructuresR {
 		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.015);
 
 		LiftPositionUpdate();
-		if (gamepad2.right_bumper) {
-			rotate.setPosition(rotate.getPosition() + 0.02);
-		}
+		rotate.setPosition(rotate.getPosition()
+						   +0.03*(gamepad2.left_trigger-gamepad2.right_trigger));
 
 		clipOperation(gamepad2.a);
 		clawOperation(gamepad2.b);

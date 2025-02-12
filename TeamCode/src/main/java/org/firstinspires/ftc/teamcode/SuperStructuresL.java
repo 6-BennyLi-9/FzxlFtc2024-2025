@@ -15,9 +15,6 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /** @noinspection FieldCanBeLocal*/
 public class SuperStructuresL {
 	private HardwareMap hardwareMap;
@@ -46,14 +43,13 @@ public class SuperStructuresL {
 	public static double rotateOn = 0.49;
 	public static double clawOn = 0.64;
 	public static double clawOpen = 0.32;
-	public static double clipOn = 0.81;
-	public static double clipOpen = 0.49;
-	public static double armDown = 0.89;  //翻转去夹0.16 0.89
+	public static double clipOn = 0.80;
+	public static double clipOpen = 0.51;
+	public static double armDown = 0.88;  //翻转去夹0.16 0.89
 	public static double armMiddle = 0.83;  //翻转去挂
 	public static double armUp = 0.43;  //翻转去挂
 	public static double upTurnUp = 0.24;  //翻转去夹0.16
-	public static double upTurnDown = 0.91;  //翻转去挂
-	public List<ButtonLock> buttons = new LinkedList<>();
+	public static double upTurnDown = 0.79;  //翻转去挂
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
@@ -111,7 +107,7 @@ public class SuperStructuresL {
 
 	public void optionThroughGamePad() {
 
-		if (gamepad2.left_bumper) {
+		if (gamepad2.right_bumper) {
 			setLiftPosition(2300);//中间位置
 			arm.setPosition(0.88);
 		}
@@ -119,11 +115,11 @@ public class SuperStructuresL {
 			setLiftPosition(1620);//中间位置
 			arm.setPosition(0.88);
 		}
-		if (gamepad2.dpad_left) {
+		if (gamepad2.left_bumper) {
 			//clipOperation1(true);
 			armOperation1(false);
 			arm.setPosition(0.88);
-			setLiftPosition(0);//初始位置
+			setLiftPosition(163);//初始位置
 		}
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);
@@ -140,9 +136,8 @@ public class SuperStructuresL {
 		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
 		LiftPositionUpdate();
-		if (gamepad2.right_bumper) {
-			rotate.setPosition(rotate.getPosition() + 0.02);
-		}
+		rotate.setPosition(rotate.getPosition()
+			+0.03*(gamepad2.left_trigger-gamepad2.right_trigger));
 
 		clipOperation(gamepad2.a);
 		clawOperation(gamepad2.b);
@@ -201,7 +196,7 @@ public class SuperStructuresL {
 				case 2:
 					claw.setPosition(clawOpen);  //打开
 					turn.setPosition(turnDown);  //翻转下去
-					rotate.setPosition(rotateOn); //保持水平0.1,0.83
+					//rotate.setPosition(rotateOn); //保持水平0.1,0.83
 					break;
 				case 3:
 					claw.setPosition(clawOn);  //夹住
@@ -227,15 +222,11 @@ public class SuperStructuresL {
 			}
 			switch (clipPutEvent) {
 				case 0:
-
 					clip.setPosition(clipOpen);  //释放
-
 					break;
 				case 1:
 					clip.setPosition(clipOn);  //夹住
-
 					break;
-
 			}
 		} else keyFlag_clip = false;
 	}
