@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 import static org.firstinspires.ftc.teamcode.Utils.pushOut;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -16,9 +15,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //12.5*17 (in)
 //6*9
 //arm和claw的值需要确定
-@Config
-@Autonomous(name = "Left 左停靠", group = "drive", preselectTeleOp = "放篮子")
-public class LeftTwo extends LinearOpMode {
+@Autonomous(name = "Left", group = "drive", preselectTeleOp = "放篮子")
+public class Left extends LinearOpMode {
 
 	Utils utils = new Utils();
 
@@ -33,47 +31,29 @@ public class LeftTwo extends LinearOpMode {
 		utils.motorInit();
 		utils.imuInit();
 
-		SampleMecanumDrive drive          = new SampleMecanumDrive(hardwareMap);
-		Pose2d             blueLeft       = new Pose2d(36, 58, Math.toRadians(- 90));
-		Pose2d             forward        = new Pose2d(55, 54.5, Math.toRadians(- 125));
-		Pose2d             toYellowSample = new Pose2d(54, 47.1, Math.toRadians(- 90));
-
-		Pose2d toPutYellowSample       = new Pose2d(53.9, 53.0, Math.toRadians(- 125));
-		Pose2d toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
-		Pose2d toPutSecondYellowSample = new Pose2d(56, 51.5, Math.toRadians(- 125));//150
-		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 78));//150
-		Pose2d toPutThirdYellowSample  = new Pose2d(55.1, 52.3, Math.toRadians(- 125));//150
+		SampleMecanumDrive drive                   = new SampleMecanumDrive(hardwareMap);
+		Pose2d             blueLeft                = new Pose2d(36, 58, Math.toRadians(- 90));
+		Pose2d             forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
+		Pose2d             toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
+		Pose2d             toPutFirstYellowSample  = new Pose2d(53.9, 53.0, Math.toRadians(- 135));
+		Pose2d             toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
+		Pose2d             toPutSecondYellowSample = new Pose2d(56, 51.5, Math.toRadians(- 135));//150
+		Pose2d             toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 75));//150
+		Pose2d             toPutThirdYellowSample  = new Pose2d(55.1, 52.3, Math.toRadians(- 135));//150
 
 		Pose2d GoToPark = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
 
 
 		drive.setPoseEstimate(blueLeft);
 
-		TrajectorySequence left_put = drive.trajectorySequenceBuilder(blueLeft)
-				.lineToLinearHeading(forward)
-				.build();
-		Trajectory toPut = drive.trajectoryBuilder(left_put.end())
-				.lineToLinearHeading(toYellowSample)
-				.build();
-		Trajectory toPutYellow = drive.trajectoryBuilder(toPut.end())
-				.lineToLinearHeading(toPutYellowSample)
-				.build();
-		Trajectory toGetSecondYellow = drive.trajectoryBuilder(toPutYellow.end())
-				.lineToLinearHeading(toGetSecondYellowSample)
-				.build();
-		Trajectory toPutSecondYellow = drive.trajectoryBuilder(toGetSecondYellow.end())
-				.lineToLinearHeading(toPutSecondYellowSample)
-				.build();
-		TrajectorySequence toGetThirdYellow = drive.trajectorySequenceBuilder(toPutSecondYellow.end())
-				.lineToLinearHeading(toGetThirdYellowSample)
-				.build();
-		Trajectory toPutThirdYellow = drive.trajectoryBuilder(toGetThirdYellow.end())
-				.lineToLinearHeading(toPutThirdYellowSample)
-				.build();
-		TrajectorySequence toPark = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
-				.lineToLinearHeading(GoToPark)
-				.forward(20)
-				.build();
+		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft).lineToLinearHeading(forward).build();
+		Trajectory         toPut             = drive.trajectoryBuilder(left_put.end()).lineToLinearHeading(toGetFirstYellowSample).build();
+		Trajectory         toPutYellow       = drive.trajectoryBuilder(toPut.end()).lineToLinearHeading(toPutFirstYellowSample).build();
+		Trajectory         toGetSecondYellow = drive.trajectoryBuilder(toPutYellow.end()).lineToLinearHeading(toGetSecondYellowSample).build();
+		Trajectory         toPutSecondYellow = drive.trajectoryBuilder(toGetSecondYellow.end()).lineToLinearHeading(toPutSecondYellowSample).build();
+		TrajectorySequence toGetThirdYellow  = drive.trajectorySequenceBuilder(toPutSecondYellow.end()).lineToLinearHeading(toGetThirdYellowSample).build();
+		Trajectory         toPutThirdYellow  = drive.trajectoryBuilder(toGetThirdYellow.end()).lineToLinearHeading(toPutThirdYellowSample).build();
+		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end()).lineToLinearHeading(GoToPark).forward(20).build();
 
 
 		telemetry.addData(">>>", "Robot Ready");

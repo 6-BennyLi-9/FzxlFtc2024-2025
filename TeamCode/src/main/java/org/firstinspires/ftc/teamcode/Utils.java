@@ -210,15 +210,19 @@ public class Utils {
 		}
 	}
 
-	public void rearLiftPosition(RearLiftLocation state) {
-		if (state == RearLiftLocation.down) {
-			rearLiftRst();
-		} else if (state == RearLiftLocation.up) {
-			rearLiftToPosition(2300);//放篮子
-		} else if (state == RearLiftLocation.middle) {
-			rearLiftToPosition(849);//挂样本
-		} else if (state == RearLiftLocation.low) {
-			rearLiftToPosition(250);//原920
+	public void rearLiftPosition(@NonNull RearLiftLocation state) {
+		switch (state) {
+			case down:
+				rearLiftRst();
+				break;
+			case up:
+				rearLiftToPosition(2350);//放篮子，原2300
+				break;
+			case middle:
+				rearLiftToPosition(849);//挂样本
+				break;
+			default:
+				throw new IllegalStateException(state.name());
 		}
 	}
 

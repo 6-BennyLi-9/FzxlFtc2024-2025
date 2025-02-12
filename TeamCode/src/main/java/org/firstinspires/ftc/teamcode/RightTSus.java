@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,10 +13,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //12.5*17 (in)
 //6*9
 //arm和claw的值需要确定
-@Config
 @Autonomous(name = "Right-2上挂", group = "drive",preselectTeleOp = "挂样本")
 public class RightTSus extends LinearOpMode {
-
     Utils utils = new Utils();
 
     @Override
