@@ -107,21 +107,28 @@ public class SuperStructuresL {
 		rightPush.setPosition(position);
 	}
 
+	private boolean lift_up_event;
 	public void optionThroughGamePad() {
 
 		if (gamepad2.right_bumper) {
-			setLiftPosition(2300);//中间位置
 			arm.setPosition(0.88);
-		}
-		if (gamepad2.dpad_up) {
-			setLiftPosition(1620);//中间位置
-			arm.setPosition(0.88);
+
+			if(!lift_up_event) {
+				if (right_encoder_value == 1620) {
+					setLiftPosition(2300);//中间位置
+				} else {
+					setLiftPosition(1620);//中间位置
+				}
+				lift_up_event=true;
+			}
+		}else{
+			lift_up_event=false;
 		}
 		if (gamepad2.left_bumper) {
 			//clipOperation1(true);
 			armOperation1(false);
 			arm.setPosition(0.88);
-			setLiftPosition(165);//初始位置
+			setLiftPosition(172);//初始位置
 		}
 		if (gamepad2.dpad_right) {
 			clawOperation1(true);

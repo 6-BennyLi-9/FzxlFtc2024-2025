@@ -24,6 +24,7 @@ public class Wy_textR extends OpMode {
 		carChassis.extraEncoderInit(carChassis.get_left_encoder(), carChassis.get_right_encoder(), carChassis.get_mid_encoder());
 
 		telemetry.addData("State", "初始化完毕");
+		telemetry.update();
 	}
 
 	@Override
