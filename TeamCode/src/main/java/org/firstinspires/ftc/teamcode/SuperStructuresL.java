@@ -19,25 +19,24 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 /** @noinspection FieldCanBeLocal*/
 @Config
 public class SuperStructuresL {
-	private HardwareMap hardwareMap;
-	private Telemetry telemetry;
-	private Gamepad gamepad1, gamepad2;
+	public HardwareMap hardwareMap;
+	public Telemetry   telemetry;
+	public Gamepad     gamepad1,gamepad2;
+
+	public DcMotorEx leftLift;
+	public DcMotorEx rightLift;
+
+	public Servo arm;         //后电梯上摆臂
+	public Servo clip;        //后电梯上的夹取  前
+	public Servo turn;         //前电梯上的翻转舵机
+	public Servo claw;   //自动紫色像素释放 左
 
 
-	private DcMotorEx leftLift;
-	private DcMotorEx rightLift;
-
-	private Servo arm;         //后电梯上摆臂
-	private Servo clip;        //后电梯上的夹取  前
-	private Servo turn;         //前电梯上的翻转舵机
-	private Servo claw;   //自动紫色像素释放 左
-
-
-	private Servo rotate;     //盒子像素卡扣  后
-	private TouchSensor touch;
-	private Servo upTurn;         //后电梯上摆臂
-	private Servo leftPush;        //后电梯上的夹取  前
-	private Servo rightPush;         //前电梯上的翻转舵机
+	public Servo       rotate;     //盒子像素卡扣  后
+	public TouchSensor touch;
+	public Servo       upTurn;         //后电梯上摆臂
+	public Servo       leftPush;        //后电梯上的夹取  前
+	public Servo       rightPush;         //前电梯上的翻转舵机
 
 	public static double turnUp = 0.07; //0.31
 	public static double turnMiddle = 0.71;
@@ -322,26 +321,7 @@ public class SuperStructuresL {
 				leftLift.setPower(-1.0);
 				rightLift.setPower(-1.0);
 			}
-
 		}
-
-	}
-
-	//摆臂复位
-	public void arm_clip_Reset() {
-		armOperation1(false);
-
-	}
-
-	//上挂舵机复位
-	public void rotate_claw_Reset() {
-		clawOperation1(false);
-
-	}
-
-	public void clip_Reset() {
-		clipOperation1(true);
-
 	}
 }
 

@@ -15,25 +15,24 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @noinspection FieldCanBeLocal
  */
 public class SuperStructuresR {
-	private HardwareMap hardwareMap;
-	private Telemetry   telemetry;
-	private Gamepad     gamepad1, gamepad2;
+	public HardwareMap hardwareMap;
+	public Telemetry   telemetry;
+	public Gamepad     gamepad2;
+
+	public DcMotorEx leftLift;
+	public DcMotorEx rightLift;
+
+	public Servo arm;         //后电梯上摆臂
+	public Servo clip;        //后电梯上的夹取  前
+	public Servo turn;         //前电梯上的翻转舵机
+	public Servo claw;   //自动紫色像素释放 左
 
 
-	private DcMotorEx leftLift;
-	private DcMotorEx rightLift;
-
-	private Servo arm;         //后电梯上摆臂
-	private Servo clip;        //后电梯上的夹取  前
-	private Servo turn;         //前电梯上的翻转舵机
-	private Servo claw;   //自动紫色像素释放 左
-
-
-	private Servo       rotate;     //盒子像素卡扣  后
-	private TouchSensor touch;
-	private Servo       upTurn;         //后电梯上摆臂
-	private Servo       leftPush;        //后电梯上的夹取  前
-	private Servo       rightPush;         //前电梯上的翻转舵机
+	public Servo       rotate;     //盒子像素卡扣  后
+	public TouchSensor touch;
+	public Servo       upTurn;         //后电梯上摆臂
+	public Servo       leftPush;        //后电梯上的夹取  前
+	public Servo       rightPush;         //前电梯上的翻转舵机
 
 	public static double turnUp     = 0.07; //0.31
 	public static double turnMiddle = 0.71;
@@ -44,6 +43,7 @@ public class SuperStructuresR {
 	public static double clipOn     = 0.80;
 	public static double clipOpen   = 0.49;
 	public static double armPut     = 0.86;  //翻转去夹0.78,0.55
+	@Deprecated
 	public static double armMiddle  = 0.72;  //翻转去挂
 	public static double armGet     = 0.15;  //0.16,0.14翻转去挂
 	public static double upTurnGet  = 0.79;  //翻转去夹0.91,0.64
@@ -52,7 +52,6 @@ public class SuperStructuresR {
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;
 		telemetry = t;
-		gamepad1 = g1;
 		gamepad2 = g2;
 	}
 
@@ -97,22 +96,6 @@ public class SuperStructuresR {
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
 	}
 
-	//测试舵机精准位置的程序
-	public void test() {
-		arm.setPosition(gamepad2.left_stick_y);
-		telemetry.addData("arm", gamepad2.left_stick_y);
-		turn.setPosition(gamepad2.right_stick_y);
-		telemetry.addData("turn", gamepad2.right_stick_y);
-
-	}
-
-	public void liftEncoderTest() {
-		leftLift.setPower(gamepad2.left_stick_y);
-		telemetry.addData("lift", leftLift.getCurrentPosition());
-		turn.setPosition(gamepad2.right_stick_y);
-		telemetry.addData("turn", gamepad2.right_stick_y);
-	}
-
 	public void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
@@ -120,22 +103,22 @@ public class SuperStructuresR {
 	}
 
 	private boolean lift_up_event;
+
 	public void optionThroughGamePad() {
 		if (gamepad2.left_bumper) {
 			arm.setPosition(0.88);
 
-			if(!lift_up_event) {
+			if (! lift_up_event) {
 				if (right_encoder_value == 1620) {
 					setLiftPosition(2300);//中间位置
 				} else {
 					setLiftPosition(1620);//中间位置
 				}
-				lift_up_event=true;
+				lift_up_event = true;
 			}
-		}else{
-			lift_up_event=false;
+		} else {
+			lift_up_event = false;
 		}
-
 
 
 		if (gamepad2.dpad_right) {
@@ -158,8 +141,7 @@ public class SuperStructuresR {
 		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
 		LiftPositionUpdate();
-		rotate.setPosition(rotate.getPosition()
-						   +0.03*(gamepad2.left_trigger-gamepad2.right_trigger));
+		rotate.setPosition(rotate.getPosition() + 0.03 * (gamepad2.left_trigger - gamepad2.right_trigger));
 
 		clipOperation(gamepad2.a);
 		clawOperation(gamepad2.b);
@@ -281,15 +263,6 @@ public class SuperStructuresR {
 		}
 	}
 
-	private void clipOperation1(boolean y) {
-		if (y) {
-			clip.setPosition(clipOpen);  //打开
-		} else {
-			clip.setPosition(clipOn);  //夹住
-			claw.setPosition(clawOn);  //扣住
-		}
-	}
-
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
 	// 以匀速低速的形式来实现前抬升的前100转和下降的后100转以低速
 	int right_encoder_value = 0;
@@ -326,20 +299,6 @@ public class SuperStructuresR {
 				rightLift.setPower(- 1.0);
 			}
 		}
-	}
-
-	//摆臂复位
-	public void arm_clip_Reset() {
-		armOperation1(false);
-	}
-
-	//上挂舵机复位
-	public void rotate_claw_Reset() {
-		clawOperation1(false);
-	}
-
-	public void clip_Reset() {
-		clipOperation1(true);
 	}
 }
 
