@@ -23,7 +23,9 @@ public class Wy_textL extends OpMode {
 		//获取外部三个编码轮的的函数，按次序获取，左、右、中编码器的值，将其初始化
 		carChassis.extraEncoderInit(carChassis.get_left_encoder(), carChassis.get_right_encoder(), carChassis.get_mid_encoder());
 
+		structures.setPushPose(0.2);
 		telemetry.addData("state", "初始化完毕");
+		telemetry.update();
 	}
 
 	@Override
