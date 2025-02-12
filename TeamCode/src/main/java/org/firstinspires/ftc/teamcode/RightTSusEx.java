@@ -10,19 +10,23 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 
 //12.5*17 (in)
 //6*9
 //arm和claw的值需要确定
 @Config
 @Autonomous(name = "Right-2上挂", group = "drive",preselectTeleOp = "挂样本")
-public class RightTT extends LinearOpMode {
-
+public class RightTSusEx extends LinearOpMode {
+    ExecutorService service=new ThreadPoolExecutor(3,5,1, TimeUnit.SECONDS,new ArrayBlockingQueue <>(16));
     Utils utils = new Utils();
 
     @Override
     public void runOpMode() throws InterruptedException {
-
         utils.init(hardwareMap,telemetry);
         utils.liftMotorInit("leftLift","rightLift","touch");
         utils.servoInit("arm","clip","rotate","turn","claw", "upTurn", "leftPush", "rightPush");
@@ -48,8 +52,6 @@ public class RightTT extends LinearOpMode {
 
         Pose2d toTurn = new Pose2d(-12,37.5,Math.toRadians(-90));
         Pose2d toPark = new Pose2d(-49,55,Math.toRadians(-90));
-
-
 
         drive.setPoseEstimate(blueRight);
 
@@ -108,44 +110,56 @@ public class RightTT extends LinearOpMode {
         if (isStopRequested()) return;
 
 
-        utils.rearLiftPosition(RearLiftLocation.middle1);
-        utils.armOperationR(false);
+        service.execute(()->{
+            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.armOperationR(false);
+        });
         drive.followTrajectorySequence(left_put); //去上挂
-        utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down1); //回电梯
-        sleep(50);
-        utils.armOperationR(true);       //翻转手臂
+        service.execute(()->{
+            utils.clipOperation(true);
+            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            sleep(50);
+            utils.armOperationR(true);       //翻转手臂
+        });
+        sleep(100);
         //夹第一个
         drive.followTrajectorySequence(toGetSecondBlue); //去推第一样本
-        sleep(500);
-        utils.clipOperation(false);    //夹住第一个
-        sleep(400);
-        utils.rearLiftPosition(RearLiftLocation.middle1);
-        utils.armOperationR(false);
+        service.execute(()->{
+            sleep(500);
+            utils.clipOperation(false);    //夹住第一个
+            sleep(400);
+            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.armOperationR(false);
+        });
+        sleep(900);
         drive.followTrajectorySequence(toUpSecondBlue);  //上挂第二个样本
         sleep(100);
-        utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down1); //回电梯
-        sleep(50);
-        utils.armOperationR(true);
+        service.execute(()->{
+            utils.clipOperation(true);
+            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            sleep(50);
+            utils.armOperationR(true);
+        });
+        sleep(100);
         //去夹第二个
-        //
         drive.followTrajectorySequence(toPut);
-        sleep(550);
-        utils.clipOperation(false);
-        sleep(400);
-        utils.rearLiftPosition(RearLiftLocation.middle1);
-        utils.armOperationR(false);
+        service.execute(()->{
+            sleep(550);
+            utils.clipOperation(false);
+            sleep(400);
+            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.armOperationR(false);
+        });
+        sleep(1000);
         drive.followTrajectorySequence(ToUpThirdBlue);  //上挂第二个样本
         sleep(100);//150
-        utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down1); //回电梯
-        sleep(50);
-        utils.armOperationR(true);
+        service.execute(()->{
+            utils.clipOperation(true);
+            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            sleep(50);
+            utils.armOperationR(true);
+        });
         //去拿第三个
         drive.followTrajectorySequence(Park);
-
-
-
     }
 }
