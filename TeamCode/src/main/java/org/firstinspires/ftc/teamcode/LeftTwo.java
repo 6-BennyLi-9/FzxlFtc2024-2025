@@ -33,30 +33,28 @@ public class LeftTwo extends LinearOpMode {
 		utils.motorInit();
 		utils.imuInit();
 
-		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-		Pose2d blueLeft = new Pose2d(36, 58, Math.toRadians(-90));
-		Pose2d forward = new Pose2d(55, 54.5, Math.toRadians(-125));
-		Pose2d toYellowSample = new Pose2d(54, 47.1, Math.toRadians(-90));//-90
+		SampleMecanumDrive drive          = new SampleMecanumDrive(hardwareMap);
+		Pose2d             blueLeft       = new Pose2d(36, 58, Math.toRadians(- 90));
+		Pose2d             forward        = new Pose2d(55, 54.5, Math.toRadians(- 125));
+		Pose2d             toYellowSample = new Pose2d(54, 47.1, Math.toRadians(- 90));
 
-		Pose2d toPutYellowSample = new Pose2d(53.9, 53.0, Math.toRadians(-125)); //
-		Pose2d toGetSecondYellowSample = new Pose2d(47, 47, Math.toRadians(-93)); //y49.2x64.2
-		Pose2d toPutSecondYellowSample = new Pose2d(56, 50.9, Math.toRadians(-125));//150
-		Pose2d toGetThirdYellowSample = new Pose2d(58.3, 46.5, Math.toRadians(-78));//150
-		Pose2d toPutThirdYellowSample = new Pose2d(55.1, 51.8, Math.toRadians(-125));//150
+		Pose2d toPutYellowSample       = new Pose2d(53.9, 53.0, Math.toRadians(- 125));
+		Pose2d toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
+		Pose2d toPutSecondYellowSample = new Pose2d(56, 51.5, Math.toRadians(- 125));//150
+		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 78));//150
+		Pose2d toPutThirdYellowSample  = new Pose2d(55.1, 52.3, Math.toRadians(- 125));//150
 
-		Pose2d GoToPark = new Pose2d(34, 4, Math.toRadians(-180));// 40，4
+		Pose2d GoToPark = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
 
 
 		drive.setPoseEstimate(blueLeft);
 
 		TrajectorySequence left_put = drive.trajectorySequenceBuilder(blueLeft)
 				.lineToLinearHeading(forward)
-
 				.build();
 		Trajectory toPut = drive.trajectoryBuilder(left_put.end())
 				.lineToLinearHeading(toYellowSample)
 				.build();
-
 		Trajectory toPutYellow = drive.trajectoryBuilder(toPut.end())
 				.lineToLinearHeading(toPutYellowSample)
 				.build();
@@ -67,7 +65,6 @@ public class LeftTwo extends LinearOpMode {
 				.lineToLinearHeading(toPutSecondYellowSample)
 				.build();
 		TrajectorySequence toGetThirdYellow = drive.trajectorySequenceBuilder(toPutSecondYellow.end())
-
 				.lineToLinearHeading(toGetThirdYellowSample)
 				.build();
 		Trajectory toPutThirdYellow = drive.trajectoryBuilder(toGetThirdYellow.end())
@@ -97,7 +94,7 @@ public class LeftTwo extends LinearOpMode {
 		drive.followTrajectorySequence(left_put); //放预载
 		sleep(500);
 		utils.armOperation1(false);
-		sleep(400);
+		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
 
@@ -116,7 +113,7 @@ public class LeftTwo extends LinearOpMode {
 		utils.setPushPose(pushIn);  //前电梯收回
 		sleep(200);
 		utils.armOperationL(false);     //打开夹子，下降去夹
-		sleep(200);
+		sleep(250);
 		utils.clipOperation(false);   //夹住
 		sleep(200);
 		utils.clawOperation(true);   //打开
@@ -128,7 +125,7 @@ public class LeftTwo extends LinearOpMode {
 
 		sleep(1000);
 		utils.armOperation1(false); //手臂翻转,同时将前夹子放下
-		sleep(400);
+		sleep(450);
 		utils.clipOperation(true);//打开夹子
 		sleep(200);
 		utils.armOperationL(true);   //翻转回来，打开夹子
@@ -138,10 +135,9 @@ public class LeftTwo extends LinearOpMode {
 
 		drive.followTrajectory(toGetSecondYellow);       //去拿第二个块
 		sleep(100);
-//		utils.rearLiftPosition(RearLiftLocation.low); //回电梯
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯//
+		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.claw_rotate_rst(false);    //翻转下去，打开
-		sleep(200);   //500
+		sleep(250);   //500
 		utils.clawOperation(false);       //夹住
 		sleep(300);
 		utils.claw_rotate(true);         //翻转上去
@@ -156,9 +152,9 @@ public class LeftTwo extends LinearOpMode {
 		utils.clawOperation(true);
 		drive.followTrajectory(toPutSecondYellow);
 		utils.rearLiftPosition(RearLiftLocation.up);
-		sleep(1000);
+		sleep(1200);
 		utils.armOperation1(false); ////手臂翻转,同时将前夹子放下
-		sleep(400);
+		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
 		utils.armOperationL(true);
@@ -189,7 +185,7 @@ public class LeftTwo extends LinearOpMode {
 		utils.rearLiftPosition(RearLiftLocation.up);
 		sleep(1000);
 		utils.armOperation1(false); //
-		sleep(400);
+		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
 
