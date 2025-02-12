@@ -46,7 +46,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
-		Global.threadService.execute(()->{
+		Global.service.execute(()->{
 			FtcLogTunnel.MAIN.report("start client updater successful");
 			while (!isStopRequested()){
 				client.update();

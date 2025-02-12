@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.thread.TaskMng;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -191,12 +192,22 @@ public class BaseMapClient implements Client {
 			case FTC_LOG:
 				updateLogLines();
 				break;
+			case THREAD_SERVICE:
+				updateThreadLines();
+				break;
 			case ORIGIN_TELEMETRY:
 			default:
 				updateTelemetryLines();
 				break;
 		}
 		isUpdateRequested = false;
+	}
+
+	protected synchronized void updateThreadLines() {
+		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
+			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
+		}
+		this.telemetry.update();
 	}
 
 	protected synchronized void updateTelemetryLines() {

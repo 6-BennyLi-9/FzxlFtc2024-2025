@@ -19,7 +19,7 @@ public class TestTeleOp extends TeleOpCore {
 	@Override
 	public void op_start() {
 		super.op_start();
-		Global.threadService.execute(() -> {
+		Global.service.execute(() -> {
 			Local.sleep(5000);
 			throw new RuntimeException("test");
 		});

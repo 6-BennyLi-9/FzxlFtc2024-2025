@@ -49,6 +49,10 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatab
 				configViewMode(ClientViewMode.FTC_LOG);
 				break;
 			case FTC_LOG:
+				configViewMode(ClientViewMode.THREAD_SERVICE);
+				break;
+			case THREAD_SERVICE:
+			default:
 				configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 				break;
 		}

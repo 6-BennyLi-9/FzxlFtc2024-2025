@@ -373,7 +373,7 @@ public class UtilsMng {
 	 * 将缓存的动作作为线程运行。
 	 */
 	public void runAsThread() {
-		Global.threadService.execute(saveCachedAsThread());
+		Global.service.execute(saveCachedAsThread());
 	}
 
 	/**

@@ -51,7 +51,7 @@ public final class Local {
 
 	public static void runMultiThreads(@NonNull final Runnable... threads) {
 		for (final Runnable current : threads) {
-			Global.threadService.execute(current);
+			Global.service.execute(current);
 		}
 	}
 }

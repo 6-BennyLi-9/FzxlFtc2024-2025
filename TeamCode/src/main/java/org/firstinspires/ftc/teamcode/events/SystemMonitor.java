@@ -24,7 +24,7 @@ public final class SystemMonitor extends Thread implements ThreadEx {
 		}
 		// 如果 taskClosed 为 false，表示是通过 runMode 为 RunMode.TERMINATE 退出的，此时中断所有线程
 		if (! taskClosed) {
-			Global.threadService.shutdownNow();
+			Global.service.shutdown();
 		}
 	}
 

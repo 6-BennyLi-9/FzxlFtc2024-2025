@@ -6,24 +6,24 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.thread.TaskMng;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public final class Global {
-	public static  Gamepad         gamepad1, gamepad2;
-	public static  ExecutorService threadService = defaultThreadExecutor();
-	public static  RunMode         runMode;
-	public static  OpMode          currentOpmode;
-	public static  Client          client;
-	private static boolean         auto_create_monitor = true;
+	public static  Gamepad gamepad1, gamepad2;
+	public static  TaskMng service = new TaskMng(defaultThreadExecutor());
+	public static  RunMode runMode;
+	public static  OpMode  currentOpmode;
+	public static  Client  client;
+	private static boolean auto_create_monitor = false;
 
 	public static void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
 		Global.gamepad1 = gamepad1;
@@ -31,9 +31,7 @@ public final class Global {
 	}
 
 	public static void prepareCoreThreadPool() {
-		FtcLogTunnel.MAIN.report("Shutdown tasks of " + threadService.shutdownNow().size());
-
-		threadService = defaultThreadExecutor();
+		FtcLogTunnel.MAIN.report("Shutdown tasks of " + service.reboot(defaultThreadExecutor()).size());
 
 		if (auto_create_monitor) {
 			createMonitor();
@@ -41,7 +39,7 @@ public final class Global {
 	}
 
 	public static void createMonitor() {
-		threadService.execute(new SystemMonitor());
+		service.execute(new SystemMonitor());
 		FtcLogTunnel.MAIN.report("System monitor created");
 	}
 

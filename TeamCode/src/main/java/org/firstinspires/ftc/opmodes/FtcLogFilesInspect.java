@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.opmodes;
 
+import static org.betastudio.ftc.ui.client.ClientViewMode.ORIGIN_TELEMETRY;
+import static org.betastudio.ftc.ui.client.UpdateConfig.MANUAL_UPDATE_REQUESTED;
+import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.betastudio.ftc.selection.SelectElement;
+import org.betastudio.ftc.selection.SelectPackage;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
-import org.betastudio.ftc.ui.client.ClientViewMode;
-import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.log.FtcLogFile;
 import org.betastudio.ftc.ui.log.FtcLogFilesBase;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
@@ -14,20 +18,14 @@ import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.ButtonProcessor;
 import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.selection.SelectElement;
-import org.betastudio.ftc.selection.SelectPackage;
-import org.betastudio.ftc.util.ButtonConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 @TeleOp(name = "日志检查", group = "zzz")
 public class FtcLogFilesInspect extends LinearOpMode {
-	private static final Logger          log               = LoggerFactory.getLogger(FtcLogFilesInspect.class);
-	private final        ButtonProcessor select_prev       = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private final        ButtonProcessor select_next       = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
-	private final        ButtonProcessor submit            = new ButtonProcessor(ButtonConfig.SINGLE_WHEN_PRESSED);
+	private final        ButtonProcessor select_prev       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+	private final        ButtonProcessor select_next       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+	private final        ButtonProcessor submit            = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 	private              SelectPackage   files_select;
 	private              FtcLogFile      selected_file;
 	private              Boolean         is_files_selected = false;
@@ -45,8 +43,8 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			is_files_selected = true;
 		})));
 		files_select.update();
-		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
-		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		client.configViewMode(ORIGIN_TELEMETRY);
+		client.setUpdateConfig(MANUAL_UPDATE_REQUESTED);
 
 		while (opModeInInit()) {
 			select_prev.sync(gamepad1.left_bumper);

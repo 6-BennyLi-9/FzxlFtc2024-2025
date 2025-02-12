@@ -5,8 +5,5 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name = "强制重启机器", group = "zzz")
 public final class RobotRestart extends LinearOpMode {
-	@Override
-	public void runOpMode() throws InterruptedException {
-		new Thread(() -> {throw new NullPointerException();}).start();
-	}
+	@Override public void runOpMode() throws InterruptedException {new Thread(() -> {throw new NullPointerException();}).start();}
 }
