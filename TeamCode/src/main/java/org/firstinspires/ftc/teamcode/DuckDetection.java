@@ -9,6 +9,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+@Deprecated
 public class DuckDetection extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();

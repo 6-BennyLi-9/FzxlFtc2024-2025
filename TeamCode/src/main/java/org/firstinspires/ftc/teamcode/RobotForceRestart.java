@@ -9,12 +9,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  */
 @Disabled
 @Autonomous(group = "zzz")
-public class RobotForceRestart extends LinearOpMode {
+public final class RobotForceRestart extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		Thread t=new Thread(()->{
 			throw new IllegalStateException();
 		});
 		waitForStart();
+		t.start();
 	}
 }

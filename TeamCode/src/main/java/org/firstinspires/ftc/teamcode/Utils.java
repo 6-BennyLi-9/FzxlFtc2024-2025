@@ -35,12 +35,12 @@ public class Utils {
 	public static double    clawOpen      = 0.32;
 	public static double    clipOn        = 0.81;
 	public static double    clipOpen      = 0.49;
-	public static double    armUpL        = 0.39;   //
+	public static double    armUpL        = 0.39;
 	public static double    armDownMiddle = 0.83;
 	public static double    armDownL      = 0.88;
 	public static double    armUpR        = 0.86;
 	public static double    armDownR      = 0.16;
-	public static double    upTurnUp      = 0.23;  //翻转去夹0.16
+	public static double    upTurnUpL     = 0.23;  //翻转去夹0.16
 	public static double    upTurnDown    = 0.80;  //翻转去挂
 	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
 	public static double    upTurnDownR   = 0.92;  //翻转去挂
@@ -52,28 +52,26 @@ public class Utils {
 	public        DcMotorEx rightRear;
 
 	public DcMotorEx leftLift;
-
 	public DcMotorEx rightLift;
 
-	public Servo arm;         //后电梯摆臂
-	public Servo rotate;         //前电梯上旋转舵机
-	public Servo clip;   //后电梯夹子
+	public Servo arm;	//后电梯摆臂
+	public Servo rotate;//前电梯上旋转舵机
+	public Servo clip;  //后电梯夹子
 	public Servo claw;  //前电梯夹子
-	public Servo turn;     //前电梯上，上下翻转
+	public Servo turn;  //前电梯上，上下翻转
 
 	private TouchSensor touch;
 	private Servo       upTurn;         //后电梯上摆臂
-	private Servo       leftPush;        //后电梯上的夹取  前
+	private Servo       leftPush;       //后电梯上的夹取  前
 	private Servo       rightPush;
 	public  BNO055IMU   imu;
 
 	public HardwareMap hardwareMap;
 	public Telemetry   telemetry;
 
-
-	public void init(HardwareMap h, Telemetry t) {
-		hardwareMap = h;
-		telemetry = t;
+	public void init(HardwareMap hardwareMap, Telemetry telemetry) {
+		this.hardwareMap = hardwareMap;
+		this.telemetry = telemetry;
 
 		imuInit();
 	}
@@ -91,12 +89,7 @@ public class Utils {
 		imu.initialize(parameters);
 	}
 
-	public double get_imuAngle() {//获得偏转角
-		return imu.getAngularOrientation().firstAngle;
-	}
-
 	public void liftMotorInit(String leftLift, String rightLift, String touch) {
-
 		this.leftLift = hardwareMap.get(DcMotorEx.class, leftLift);
 		this.rightLift = hardwareMap.get(DcMotorEx.class, rightLift);
 		this.touch = hardwareMap.get(TouchSensor.class, touch);
@@ -112,11 +105,11 @@ public class Utils {
 		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
 		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 
-
 		while (! this.touch.isPressed()) {
 			this.leftLift.setPower(- 0.3);//根据电机的正负设置power
 			this.rightLift.setPower(- 0.3);//根据电机的正负设置power
 		}
+
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
 
@@ -154,11 +147,7 @@ public class Utils {
 		parameters.loggingTag = "IMU";
 		parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 		//延时0.5秒，以确保imu正常工作
-		try {
-			Thread.sleep(1000);//单位：毫秒
-		} catch (Exception ignored) {
-			Thread.currentThread().interrupt();
-		}
+		sleepForMS(500);
 		// FIXME: 2025/2/11 错误调用
 		imu.initialize(parameters);
 	}
@@ -166,7 +155,8 @@ public class Utils {
 	public void sleepForMS(int time) {
 		try {
 			Thread.sleep(time);//单位：毫秒
-		} catch (Exception ignored) {
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		}
 	}
 
@@ -192,7 +182,7 @@ public class Utils {
 	/**
 	 * @param position 0.15~0.82
 	 */
-	public void setPushPose(double position) {// FIXME: 2025/2/11 憋
+	public void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
@@ -270,7 +260,7 @@ public class Utils {
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armUpL); //翻转放块
 			turn.setPosition(turnMiddle);
-			upTurn.setPosition(upTurnUp);
+			upTurn.setPosition(upTurnUpL);
 		}
 	}
 

@@ -13,15 +13,13 @@ public class ButtonLock {
         if (this.callback.getButton()) {
             if (!this.flg) {
                 this.flg = true;
-                callback.addButtonState();
+                callback.run();
             }
         } else this.flg = false;
     }
 
 
-    public interface ButtonCallback {
-        void addButtonState();
-
+    public interface ButtonCallback extends Runnable{
         boolean getButton();
     }
 }
