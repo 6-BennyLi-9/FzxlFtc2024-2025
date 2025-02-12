@@ -39,7 +39,7 @@ public class SuperStructuresL {
 	private Servo leftPush;        //后电梯上的夹取  前
 	private Servo rightPush;         //前电梯上的翻转舵机
 
-	public static double turnUp = 0.06; //0.31
+	public static double turnUp = 0.07; //0.31
 	public static double turnMiddle = 0.71;
 	public static double turnDown = 0.87;
 	public static double rotateOn = 0.49;
@@ -51,7 +51,7 @@ public class SuperStructuresL {
 	public static double armMiddle = 0.83;  //翻转去挂
 	public static double armUp = 0.43;  //翻转去挂
 	public static double upTurnUp = 0.24;  //翻转去夹0.16
-	public static double upTurnDown = 0.80;  //翻转去挂
+	public static double upTurnDown = 0.79;  //翻转去挂
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
 		hardwareMap = h;

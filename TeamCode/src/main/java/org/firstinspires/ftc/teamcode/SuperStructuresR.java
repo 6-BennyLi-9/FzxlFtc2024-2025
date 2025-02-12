@@ -113,11 +113,12 @@ public class SuperStructuresR {
 		telemetry.addData("turn", gamepad2.right_stick_y);
 	}
 
-	public void setPushPose(double position) {// FIXME: 2025/2/11 憋
+	public void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		leftPush.setPosition(1 - position);
 		rightPush.setPosition(position);
 	}
+
 	private boolean lift_up_event;
 	public void optionThroughGamePad() {
 		if (gamepad2.left_bumper) {
