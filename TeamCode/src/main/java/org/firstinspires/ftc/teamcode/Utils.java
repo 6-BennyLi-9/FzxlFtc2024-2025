@@ -37,7 +37,7 @@ public class Utils {
 	public static double    clipOpen      = 0.49;
 	public static double    armUpL        = 0.39;   //
 	public static double    armDownMiddle = 0.83;
-	public static double    armDownL      = 0.89;
+	public static double    armDownL      = 0.88;
 	public static double    armUpR        = 0.86;
 	public static double    armDownR      = 0.16;
 	public static double    upTurnUp      = 0.23;  //翻转去夹0.16
@@ -257,6 +257,9 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * @param y 如果为真，是左方。
+	 */
 	public void armOperation1(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住0.55
@@ -264,7 +267,6 @@ public class Utils {
 			upTurn.setPosition(upTurnDown);
 			claw.setPosition(clawOpen);  //前夹子打开
 		} else {
-
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armUpL); //翻转放块
 			turn.setPosition(turnMiddle);
@@ -272,22 +274,25 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * @param s 如果为真，打开
+	 */
 	public void clipOperation(boolean s) {
 		this.clip.setPosition(s ? clipOpen : clipOn); //开/关
 	}
 
+	/**
+	 * @param s 如果为真，打开
+	 */
 	public void clawOperation(boolean s) {
 		this.claw.setPosition(s ? clawOpen : clawOn); //开/关
 	}
 
+	/**
+	 * @param s 如果为真，抬起
+	 */
 	public void turnOperation(boolean s) {
 		this.turn.setPosition(s ? turnUp : turnDown);//上下
-	}
-
-
-	public void rotateOperation(boolean s) {
-		this.rotate.setPosition(s ? 0.47 : 0.83);//垂直/水平
-
 	}
 
 
