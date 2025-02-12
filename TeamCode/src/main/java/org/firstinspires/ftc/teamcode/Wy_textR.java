@@ -27,6 +27,11 @@ public class Wy_textR extends OpMode {
 	}
 
 	@Override
+	public void start() {
+		structures.setPushPose(0.15);
+	}
+
+	@Override
 	public void loop() {
 		telemetry.addData("FPS", 1000.0 / (et - st));
 		st = System.currentTimeMillis();
