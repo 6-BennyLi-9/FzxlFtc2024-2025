@@ -291,12 +291,14 @@ public class RobotMng implements Updatable {
 		final TelemetryMsg message = new TelemetryMsg();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
+//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
 		final Map <String, PriorityAction> map = thread.getActionMap();
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			client.changeData(updateCode + s, a.paramsString());
+			client.changeData(s + "\t", updateCode + a.paramsString());
+//			client.deleteData(lastUpdateCode + s);
 			if (sendTelemetryPackets && a instanceof DashboardCallable) {
 				((DashboardCallable) a).process(message);
 			}
