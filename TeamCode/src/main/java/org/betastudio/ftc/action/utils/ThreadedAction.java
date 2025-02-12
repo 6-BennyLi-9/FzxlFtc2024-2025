@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,8 +20,7 @@ public final class ThreadedAction extends ActionImpl {
 	public final List <Action> actions;
 
 	public ThreadedAction(final List <Action> actions) {
-		this.actions = new ArrayList <>();
-		this.actions.addAll(actions);
+		this.actions = new LinkedList <>(actions);
 		setAction(()->{
 			if (actions.isEmpty()) return false;
 			final Collection <Action> removes = new HashSet <>();
@@ -35,7 +35,7 @@ public final class ThreadedAction extends ActionImpl {
 	}
 
 	public ThreadedAction(final Action... actions) {
-		this(Arrays.asList(actions));
+		this(new ArrayList <>(Arrays.asList(actions)));
 	}
 
 	@NonNull

@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class LinkedAction extends ActionImpl {
 	private final List <Action> actions;
-	private final AtomicInteger ptr = new AtomicInteger();
+	private final AtomicInteger ptr = new AtomicInteger(0);
 
 	public LinkedAction(final List <Action> actions) {
 		this.actions = actions;
@@ -23,7 +23,7 @@ public final class LinkedAction extends ActionImpl {
 			if (actions.get(ptr.get()).activate()) {
 				return true;
 			} else {
-				ptr.getAndIncrement();
+				ptr.getAndAdd(1);
 				return ptr.get() < actions.size();
 			}
 		});
