@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 //6*9
 //arm和claw的值需要确定
 @Config
-@Autonomous(name = "Right-2上挂", group = "drive",preselectTeleOp = "挂样本")
+@Autonomous(name = "Right-2上挂（线程优化）", group = "drive",preselectTeleOp = "挂样本")
 public class RightTSusEx extends LinearOpMode {
     ExecutorService service=new ThreadPoolExecutor(3,5,1, TimeUnit.SECONDS,new ArrayBlockingQueue <>(16));
     Utils utils = new Utils();
