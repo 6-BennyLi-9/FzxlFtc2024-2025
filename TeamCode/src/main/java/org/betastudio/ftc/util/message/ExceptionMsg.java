@@ -16,7 +16,7 @@ public class ExceptionMsg extends LogMessage {
 	@NonNull
 	@Override
 	public String toString() {
-		return "error:" + "\"" + Objects.requireNonNull(exception.getMessage()) + "\"";
+		return "error:" + "\"" + Objects.requireNonNullElse(exception.getMessage(),"*nullptr*") + "\"";
 	}
 
 	public TelemetryMsg buildTelemetryMsg() {
