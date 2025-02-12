@@ -38,7 +38,8 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 	 * @return 处理后的函数值
 	 */
 	private static double resolveFunc(final double val, final double k) {
-		double result = k * val * val + (1 - k) * val;//y=ax^2+(1-a)x
+		double absVal = Math.abs(val);
+		double result = k * absVal * absVal + (1 - k) * absVal;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
 		}
