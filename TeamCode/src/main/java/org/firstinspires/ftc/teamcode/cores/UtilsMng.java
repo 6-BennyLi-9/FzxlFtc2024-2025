@@ -29,6 +29,7 @@ import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}
@@ -37,7 +38,7 @@ import java.util.LinkedList;
  */
 @SuppressWarnings("UnusedReturnValue")
 public class UtilsMng {
-	private final LinkedList <Action> actions;
+	private final List <Action> actions;
 
 	/**
 	 * 构造函数，初始化actions列表并调用设备初始化方法。
@@ -363,10 +364,8 @@ public class UtilsMng {
 	 * 运行缓存的动作。
 	 */
 	public void runCached() {
-		synchronized (actions) {
-			Actions.runAction(new LinkedAction(actions));
-			actions.clear();
-		}
+		Actions.runAction(new LinkedAction(actions));
+		actions.clear();
 	}
 
 	/**
