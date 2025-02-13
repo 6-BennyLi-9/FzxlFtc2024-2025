@@ -74,8 +74,8 @@ public class SuperStructuresR {
 		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 		while (! this.touch.isPressed()) {
-			this.leftLift.setPower(- 0.3);//根据电机的正负设置power
-			this.rightLift.setPower(- 0.3);//根据电机的正负设置power
+			this.leftLift.setPower(- 0.3);
+			this.rightLift.setPower(- 0.3);
 		}
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
@@ -96,6 +96,8 @@ public class SuperStructuresR {
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
 		this.leftPush = hardwareMap.get(Servo.class, leftPush);
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
+
+		setPushPose(0.82);
 	}
 
 	public void setPushPose(double position) {

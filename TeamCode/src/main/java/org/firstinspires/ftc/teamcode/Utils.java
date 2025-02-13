@@ -150,7 +150,7 @@ public class Utils {
 
 
 	//后电梯
-	public static int rear_encoder_value = 0, bufVal = 5;
+	public static int bufVal = 5;
 
 	public void rearLiftToPosition(int rear_encoder_value) {
 		leftLift.setTargetPosition(rear_encoder_value);
@@ -265,14 +265,6 @@ public class Utils {
 	public void clawOperation(boolean s) {
 		this.claw.setPosition(s ? clawOpen : clawOn); //开/关
 	}
-
-	/**
-	 * @param s 如果为真，抬起
-	 */
-	public void turnOperation(boolean s) {
-		this.turn.setPosition(s ? turnUp : turnDown);//上下
-	}
-
 
 	public void claw_rotate_rst(boolean x) {
 		if (x) {

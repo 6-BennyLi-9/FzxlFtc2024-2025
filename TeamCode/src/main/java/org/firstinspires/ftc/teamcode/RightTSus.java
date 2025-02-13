@@ -138,8 +138,8 @@ public class RightTSus extends LinearOpMode {
         utils.armOperationR(true);
         //去拿第三个
         drive.followTrajectorySequence(Park);
+        utils.claw_rotate(true);
 
-
-
+        sleep(Long.MAX_VALUE);
     }
 }

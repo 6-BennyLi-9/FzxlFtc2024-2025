@@ -184,7 +184,7 @@ public class Left extends LinearOpMode {
 		sleep(200);
 
 		drive.followTrajectorySequence(toPark);//去停靠
-
+		utils.claw_rotate(true);
 		utils.setRearLiftPosition(RearLiftLocation.down);
 
 		sleep(Long.MAX_VALUE);

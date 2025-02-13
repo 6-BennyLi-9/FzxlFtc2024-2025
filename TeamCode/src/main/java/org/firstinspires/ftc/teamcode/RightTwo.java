@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //arm和claw的值需要确定
 @Config
 @Disabled
+@Deprecated
 @Autonomous(name = "Right-上挂", group = "drive")
 public class RightTwo extends LinearOpMode {
 	Utils utils = new Utils();

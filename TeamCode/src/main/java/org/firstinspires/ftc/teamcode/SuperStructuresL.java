@@ -75,10 +75,9 @@ public class SuperStructuresL {
 		this.rightLift.setMode(STOP_AND_RESET_ENCODER);
 		this.rightLift.setMode(RUN_WITHOUT_ENCODER);
 
-
 		while (!this.touch.isPressed()) {
-			this.leftLift.setPower(-0.3);//根据电机的正负设置power
-			this.rightLift.setPower(-0.3);//根据电机的正负设置power
+			this.leftLift.setPower(-0.3);
+			this.rightLift.setPower(-0.3);
 		}
 		this.leftLift.setPower(0);
 		this.rightLift.setPower(0);
@@ -98,6 +97,8 @@ public class SuperStructuresL {
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
 		this.leftPush = hardwareMap.get(Servo.class, leftPush);
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
+
+		setPushPose(0.82);
 	}
 
 	public void setPushPose(double position) {// FIXME: 2025/2/11 憋
@@ -276,13 +277,14 @@ public class SuperStructuresL {
 	public void showEncoder() {
 		telemetry.addData("lift", leftLift.getCurrentPosition());
 
-		telemetry.addData("touch sensor", touch.isPressed() ? "按了" : "没按");
+		telemetry.addData("touch sensor", touch.isPressed());
 
 		telemetry.addData("push", rightPush.getPosition());
 		telemetry.addData("clip", clip.getPosition());
-		telemetry.addData("trun", turn.getPosition());
+		telemetry.addData("turn", turn.getPosition());
 		telemetry.addData("claw", claw.getPosition());
 		telemetry.addData("rotate", rotate.getPosition());
+		telemetry.addData("right push", rightPush.getPosition());
 	}
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，

@@ -32,8 +32,11 @@ public class Wy_textR extends OpMode {
 		telemetry.addData("FPS", 1000.0 / (et - st));
 		st = System.currentTimeMillis();
 		telemetry.addLine("dir");
+		telemetry.addData("time",getRuntime());
+
 		carChassis.basicMoveThroughGamePad();
 		structures.optionThroughGamePad();
+
 		et = System.currentTimeMillis();
 		telemetry.update();
 	}
