@@ -102,10 +102,10 @@ public class RightTwo extends LinearOpMode {
 
 		if (isStopRequested()) return;
 
-		utils.rearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(RearLiftLocation.middle);
 		utils.armOperationR(false);
 		drive.followTrajectorySequence(left_put); //去上挂
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.armOperationR(true);       //翻转手臂
 		//夹第一个
 		utils.angleCalibration(0, toPut.start(), drive);  //ium校准方向
@@ -113,12 +113,12 @@ public class RightTwo extends LinearOpMode {
 		sleep(500);
 		utils.clipOperation(false);    //夹住第一个
 		sleep(100);
-		utils.rearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(RearLiftLocation.middle);
 		utils.armOperationR(false);
 		utils.angleCalibration(0, toUpSecondBlue.start(), drive);  //ium校准方向
 		drive.followTrajectorySequence(toUpSecondBlue);  //上挂第二个样本
 		sleep(150);
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.armOperationR(true);
 		//去夹第二个
 		utils.angleCalibration(0, toGetThirdBlue.start(), drive);
@@ -126,12 +126,12 @@ public class RightTwo extends LinearOpMode {
 		sleep(500);
 		utils.clipOperation(false);
 		sleep(100);
-		utils.rearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(RearLiftLocation.middle);
 		utils.armOperationR(false);
 		utils.angleCalibration(0, ToUpThirdBlue.start(), drive); //ium校准方向
 		drive.followTrajectorySequence(ToUpThirdBlue);  //上挂第二个样本
 		sleep(150);
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.armOperationR(true);
 		//去拿第三个
 		utils.angleCalibration(0, toGetThirdBlue.start(), drive); //ium校准方向

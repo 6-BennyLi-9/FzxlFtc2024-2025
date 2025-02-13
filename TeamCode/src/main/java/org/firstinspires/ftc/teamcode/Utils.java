@@ -86,6 +86,9 @@ public class Utils {
 		parameters.loggingEnabled = true;
 		parameters.loggingTag = "IMU";
 		parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+		sleepForMS(500);
+
 		imu.initialize(parameters);
 	}
 
@@ -137,21 +140,6 @@ public class Utils {
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
 	}
 
-	public void imuInit(String imu_name) {
-		imu = hardwareMap.get(BNO055IMU.class, imu_name);
-		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-		parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-		parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-		parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-		parameters.loggingEnabled = true;
-		parameters.loggingTag = "IMU";
-		parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-		//延时0.5秒，以确保imu正常工作
-		sleepForMS(500);
-		// FIXME: 2025/2/11 错误调用
-		imu.initialize(parameters);
-	}
-
 	public void sleepForMS(int time) {
 		try {
 			Thread.sleep(time);//单位：毫秒
@@ -162,17 +150,13 @@ public class Utils {
 
 
 	//后电梯
-	public static int rear_encoder_value = 0, bufVal = 10;
-
-	private void setRearLiftPosition(int val) {
-		rear_encoder_value = val;
-	}
+	public static int rear_encoder_value = 0, bufVal = 5;
 
 	public void rearLiftToPosition(int rear_encoder_value) {
 		leftLift.setTargetPosition(rear_encoder_value);
 		rightLift.setTargetPosition(rear_encoder_value);
-		leftLift.setTargetPositionTolerance(5);
-		rightLift.setTargetPositionTolerance(5);
+		leftLift.setTargetPositionTolerance(bufVal);
+		rightLift.setTargetPositionTolerance(bufVal);
 		leftLift.setMode(RUN_TO_POSITION);
 		rightLift.setMode(RUN_TO_POSITION);
 		leftLift.setPower(1);
@@ -210,7 +194,7 @@ public class Utils {
 		}
 	}
 
-	public void rearLiftPosition(@NonNull RearLiftLocation state) {
+	public void setRearLiftPosition(@NonNull RearLiftLocation state) {
 		switch (state) {
 			case down:
 				rearLiftRst();

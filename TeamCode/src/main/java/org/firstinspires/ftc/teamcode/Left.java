@@ -31,34 +31,49 @@ public class Left extends LinearOpMode {
 		utils.motorInit();
 		utils.imuInit();
 
-		SampleMecanumDrive drive                   = new SampleMecanumDrive(hardwareMap);
-		Pose2d             blueLeft                = new Pose2d(36, 58, Math.toRadians(- 90));
-		Pose2d             forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
-		Pose2d             toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
-		Pose2d             toPutFirstYellowSample  = new Pose2d(53.9, 53.0, Math.toRadians(- 135));
-		Pose2d             toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
-		Pose2d             toPutSecondYellowSample = new Pose2d(56, 51.5, Math.toRadians(- 135));//150
-		Pose2d             toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
-		Pose2d             toPutThirdYellowSample  = new Pose2d(55.1, 52.3, Math.toRadians(- 135));//150
+		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-		Pose2d GoToPark = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
+		Pose2d blueLeft                = new Pose2d(36, 58, Math.toRadians(- 90));
+		Pose2d forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
+		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
+		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, Math.toRadians(- 135));
+		Pose2d toGetSecondYellowSample = new Pose2d(47.5, 47, Math.toRadians(- 93)); //y49.2x64.2
+		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, Math.toRadians(- 135));//150
+		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
+		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, Math.toRadians(- 135));//150
+		Pose2d GoToPark                = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
 
 
 		drive.setPoseEstimate(blueLeft);
 
-		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft).lineToLinearHeading(forward).build();
-		Trajectory         toPut             = drive.trajectoryBuilder(left_put.end()).lineToLinearHeading(toGetFirstYellowSample).build();
-		Trajectory         toPutYellow       = drive.trajectoryBuilder(toPut.end()).lineToLinearHeading(toPutFirstYellowSample).build();
-		Trajectory         toGetSecondYellow = drive.trajectoryBuilder(toPutYellow.end()).lineToLinearHeading(toGetSecondYellowSample).build();
-		Trajectory         toPutSecondYellow = drive.trajectoryBuilder(toGetSecondYellow.end()).lineToLinearHeading(toPutSecondYellowSample).build();
-		TrajectorySequence toGetThirdYellow  = drive.trajectorySequenceBuilder(toPutSecondYellow.end()).lineToLinearHeading(toGetThirdYellowSample).build();
-		Trajectory         toPutThirdYellow  = drive.trajectoryBuilder(toGetThirdYellow.end()).lineToLinearHeading(toPutThirdYellowSample).build();
-		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end()).lineToLinearHeading(GoToPark).forward(20).build();
+		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft)
+				.lineToLinearHeading(forward)
+				.build();
+		Trajectory         toPut             = drive.trajectoryBuilder(left_put.end())
+				.lineToLinearHeading(toGetFirstYellowSample)
+				.build();
+		Trajectory         toPutYellow       = drive.trajectoryBuilder(toPut.end())
+				.lineToLinearHeading(toPutFirstYellowSample)
+				.build();
+		Trajectory         toGetSecondYellow = drive.trajectoryBuilder(toPutYellow.end())
+				.lineToLinearHeading(toGetSecondYellowSample)
+				.build();
+		Trajectory         toPutSecondYellow = drive.trajectoryBuilder(toGetSecondYellow.end())
+				.lineToLinearHeading(toPutSecondYellowSample)
+				.build();
+		TrajectorySequence toGetThirdYellow  = drive.trajectorySequenceBuilder(toPutSecondYellow.end())
+				.lineToLinearHeading(toGetThirdYellowSample)
+				.build();
+		Trajectory         toPutThirdYellow  = drive.trajectoryBuilder(toGetThirdYellow.end())
+				.lineToLinearHeading(toPutThirdYellowSample)
+				.build();
+		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
+				.lineToLinearHeading(GoToPark)
+				.forward(20)
+				.build();
 
 
 		telemetry.addData(">>>", "Robot Ready");
-		telemetry.update();
-
 		telemetry.addLine("Waiting for start");
 
 		telemetry.update();
@@ -67,7 +82,7 @@ public class Left extends LinearOpMode {
 
 		if (isStopRequested()) return;
 
-		utils.rearLiftPosition(RearLiftLocation.up);
+		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(100);
 		utils.setPushPose(pushOut); //伸前电梯
 		drive.followTrajectorySequence(left_put); //放预载
@@ -80,7 +95,7 @@ public class Left extends LinearOpMode {
 		drive.followTrajectory(toPut);    //去夹第一黄块
 		sleep(100);
 		utils.claw_rotate_rst(true);  //前面夹子翻转下去、打开
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.armOperationL(true);
 
 		utils.claw_rotate_rst(false);  //前面夹子翻转下去、打开
@@ -100,7 +115,7 @@ public class Left extends LinearOpMode {
 
 		drive.followTrajectory(toPutYellow);  //去放第一个块
 
-		utils.rearLiftPosition(RearLiftLocation.up);  //后电梯抬
+		utils.setRearLiftPosition(RearLiftLocation.up);  //后电梯抬
 
 		sleep(1000);
 		utils.armOperation1(false); //手臂翻转,同时将前夹子放下
@@ -114,7 +129,7 @@ public class Left extends LinearOpMode {
 
 		drive.followTrajectory(toGetSecondYellow);       //去拿第二个块
 		sleep(100);
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.claw_rotate_rst(false);    //翻转下去，打开
 		sleep(250);   //500
 		utils.clawOperation(false);       //夹住
@@ -130,7 +145,7 @@ public class Left extends LinearOpMode {
 		sleep(350);
 		utils.clawOperation(true);
 		drive.followTrajectory(toPutSecondYellow);
-		utils.rearLiftPosition(RearLiftLocation.up);
+		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(1200);
 		utils.armOperation1(false); ////手臂翻转,同时将前夹子放下
 		sleep(450);
@@ -143,8 +158,8 @@ public class Left extends LinearOpMode {
 
 		drive.followTrajectorySequence(toGetThirdYellow);       //去拿第三个块
 		sleep(100);
-		//utils.rearLiftPosition(RearLiftLocation.low); //回电梯
-		utils.rearLiftPosition(RearLiftLocation.down); //回电梯/
+		//utils.setRearLiftPosition(RearLiftLocation.low); //回电梯
+		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯/
 
 		utils.claw_rotate_rst1(false);    //翻转下去，打开
 		sleep(500);
@@ -161,16 +176,16 @@ public class Left extends LinearOpMode {
 		sleep(350);
 		utils.clawOperation(true);
 		drive.followTrajectory(toPutThirdYellow);
-		utils.rearLiftPosition(RearLiftLocation.up);
+		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(1000);
-		utils.armOperation1(false); //
+		utils.armOperation1(false);
 		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
 
 		drive.followTrajectorySequence(toPark);//去停靠
 
-		utils.rearLiftPosition(RearLiftLocation.down);
+		utils.setRearLiftPosition(RearLiftLocation.down);
 
 		sleep(Long.MAX_VALUE);
 	}

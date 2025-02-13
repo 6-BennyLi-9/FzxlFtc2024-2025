@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -110,13 +109,13 @@ public class RightTSusEx extends LinearOpMode {
 
 
         service.execute(()->{
-            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.setRearLiftPosition(RearLiftLocation.middle);
             utils.armOperationR(false);
         });
         drive.followTrajectorySequence(left_put); //去上挂
         service.execute(()->{
             utils.clipOperation(true);
-            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
             sleep(50);
             utils.armOperationR(true);       //翻转手臂
         });
@@ -127,7 +126,7 @@ public class RightTSusEx extends LinearOpMode {
             sleep(500);
             utils.clipOperation(false);    //夹住第一个
             sleep(400);
-            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.setRearLiftPosition(RearLiftLocation.middle);
             utils.armOperationR(false);
         });
         sleep(900);
@@ -135,7 +134,7 @@ public class RightTSusEx extends LinearOpMode {
         sleep(100);
         service.execute(()->{
             utils.clipOperation(true);
-            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
             sleep(50);
             utils.armOperationR(true);
         });
@@ -146,7 +145,7 @@ public class RightTSusEx extends LinearOpMode {
             sleep(550);
             utils.clipOperation(false);
             sleep(400);
-            utils.rearLiftPosition(RearLiftLocation.middle);
+            utils.setRearLiftPosition(RearLiftLocation.middle);
             utils.armOperationR(false);
         });
         sleep(1000);
@@ -154,7 +153,7 @@ public class RightTSusEx extends LinearOpMode {
         sleep(100);//150
         service.execute(()->{
             utils.clipOperation(true);
-            utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+            utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
             sleep(50);
             utils.armOperationR(true);
         });

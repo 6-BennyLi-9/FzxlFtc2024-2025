@@ -102,11 +102,11 @@ public class RightTSus extends LinearOpMode {
         if (isStopRequested()) return;
 
 
-        utils.rearLiftPosition(RearLiftLocation.middle);
+        utils.setRearLiftPosition(RearLiftLocation.middle);
         utils.armOperationR(false);
         drive.followTrajectorySequence(left_put); //去上挂
         utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+        utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
         sleep(50);
         utils.armOperationR(true);       //翻转手臂
         //夹第一个
@@ -114,12 +114,12 @@ public class RightTSus extends LinearOpMode {
         sleep(500);
         utils.clipOperation(false);    //夹住第一个
         sleep(400);
-        utils.rearLiftPosition(RearLiftLocation.middle);
+        utils.setRearLiftPosition(RearLiftLocation.middle);
         utils.armOperationR(false);
         drive.followTrajectorySequence(toUpSecondBlue);  //上挂第二个样本
         sleep(100);
         utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+        utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
         sleep(50);
         utils.armOperationR(true);
         //去夹第二个
@@ -128,12 +128,12 @@ public class RightTSus extends LinearOpMode {
         sleep(550);
         utils.clipOperation(false);
         sleep(400);
-        utils.rearLiftPosition(RearLiftLocation.middle);
+        utils.setRearLiftPosition(RearLiftLocation.middle);
         utils.armOperationR(false);
         drive.followTrajectorySequence(ToUpThirdBlue);  //上挂第二个样本
         sleep(100);//150
         utils.clipOperation(true);
-        utils.rearLiftPosition(RearLiftLocation.down); //回电梯
+        utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
         sleep(50);
         utils.armOperationR(true);
         //去拿第三个
