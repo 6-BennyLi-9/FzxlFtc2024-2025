@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //12.5*17 (in)
 //6*9
 //arm和claw的值需要确定
-@Autonomous(name = "Right-2上挂", group = "drive",preselectTeleOp = "挂样本")
-public class RightTSus extends LinearOpMode {
+@Autonomous(name = "Right", group = "drive",preselectTeleOp = "挂样本")
+public class Right extends LinearOpMode {
     Utils utils = new Utils();
 
     @Override
