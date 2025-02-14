@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/** @noinspection FieldCanBeLocal*/
 public class TrajectorySequenceBuilder {
     private final double resolution = 0.25;
 
