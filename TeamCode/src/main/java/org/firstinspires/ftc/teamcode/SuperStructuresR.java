@@ -144,7 +144,7 @@ public class SuperStructuresR {
 
 		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
-		LiftPositionUpdate();
+		liftPositionUpdate();
 		rotate.setPosition(rotate.getPosition() + 0.03 * (gamepad2.left_trigger - gamepad2.right_trigger));
 
 		clipOperation(gamepad2.a);
@@ -178,7 +178,9 @@ public class SuperStructuresR {
 					clip.setPosition(clipOn);
 					break;
 			}
-		} else keyFlag_arm = false;
+		} else {
+			keyFlag_arm = false;
+		}
 	}
 
 	int     clawPutEvent = 0;
@@ -190,8 +192,11 @@ public class SuperStructuresR {
 			if (! keyFlag_claw) {
 				keyFlag_claw = true;
 				if (clawPutEvent < 3)  //原来值是3
+				{
 					clawPutEvent++;
-				else clawPutEvent = 0;
+				} else {
+					clawPutEvent = 0;
+				}
 			}
 			switch (clawPutEvent) {
 				case 0:
@@ -214,7 +219,9 @@ public class SuperStructuresR {
 					turn.setPosition(turnDown);  //翻转下去
 					break;
 			}
-		} else keyFlag_claw = false;
+		} else {
+			keyFlag_claw = false;
+		}
 	}
 
 	int     clipPutEvent = 0;
@@ -226,8 +233,11 @@ public class SuperStructuresR {
 			if (! keyFlag_clip) {
 				keyFlag_clip = true;
 				if (clipPutEvent < 1)  //原来值是3
+				{
 					clipPutEvent++;
-				else clipPutEvent = 0;
+				} else {
+					clipPutEvent = 0;
+				}
 			}
 			switch (clipPutEvent) {
 				case 0:
@@ -238,7 +248,9 @@ public class SuperStructuresR {
 					clip.setPosition(clipOpen);
 					break;
 			}
-		} else keyFlag_clip = false;
+		} else {
+			keyFlag_clip = false;
+		}
 	}
 
 	private void armOperation1(boolean y) {
@@ -275,7 +287,7 @@ public class SuperStructuresR {
 		right_encoder_value = val;
 	}
 
-	private void LiftPositionUpdate() {
+	private void liftPositionUpdate() {
 		final int max_position = 2500;//原1000
 		final int bufVal       = 10;
 		if (right_encoder_value < max_position && right_encoder_value > 5) {
