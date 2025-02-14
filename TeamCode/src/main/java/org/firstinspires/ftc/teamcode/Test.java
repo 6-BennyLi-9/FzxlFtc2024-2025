@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Disabled
 @Autonomous(group = "zzz")
 public class Test extends LinearOpMode {
-	Utils utils=new Utils();
+	public Utils utils=new Utils();
 
 	@Override
 	public void runOpMode() throws InterruptedException {

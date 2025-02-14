@@ -10,16 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-
-//12.5*17 (in)
-//6*9
-//arm和claw的值需要确定
 @Config
 @Disabled
 @Deprecated
 @Autonomous(name = "Right-上挂", group = "drive")
 public class RightTwo extends LinearOpMode {
-	Utils utils = new Utils();
+	public Utils utils = new Utils();
+	public SampleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -33,7 +30,7 @@ public class RightTwo extends LinearOpMode {
 		utils.motorInit();
 
 
-		SampleMecanumDrive drive        = new SampleMecanumDrive(hardwareMap);
+		drive = new SampleMecanumDrive(hardwareMap);
 		Pose2d             blueRight    = new Pose2d(- 12, 58, Math.toRadians(90));
 		Pose2d             forward      = new Pose2d(- 8, 33, Math.toRadians(90));
 		Pose2d             toBlueSample = new Pose2d(- 40, 30, Math.toRadians(90));

@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "Left", group = "drive", preselectTeleOp = "TELE_LEFT")
 public class Left extends LinearOpMode {
-
-	Utils utils = new Utils();
+	public Utils utils = new Utils();
+	public SampleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -28,7 +28,7 @@ public class Left extends LinearOpMode {
 		utils.motorInit();
 		utils.imuInit();
 
-		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+		drive = new SampleMecanumDrive(hardwareMap);
 
 		Pose2d blueLeft                = new Pose2d(36, 58, Math.toRadians(- 90));
 		Pose2d forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));

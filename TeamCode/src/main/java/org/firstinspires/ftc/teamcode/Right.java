@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //arm和claw的值需要确定
 @Autonomous(group = "drive",preselectTeleOp = "TELE_RIGHT")
 public class Right extends LinearOpMode {
-	Utils utils = new Utils();
-	SampleMecanumDrive drive;
+	public Utils utils = new Utils();
+	public SampleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
