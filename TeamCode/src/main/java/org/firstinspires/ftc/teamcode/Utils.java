@@ -46,10 +46,10 @@ public class Utils {
 	public static double    upTurnDownR   = 0.92;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
 	public static double    pushIn        = 0.80;   //翻转去挂
-	public        DcMotorEx leftFront;
-	public        DcMotorEx leftRear;
-	public        DcMotorEx rightFront;
-	public        DcMotorEx rightRear;
+	public static DcMotorEx leftFront;
+	public static DcMotorEx leftRear;
+	public static DcMotorEx rightFront;
+	public static DcMotorEx rightRear;
 
 	public DcMotorEx leftLift;
 	public DcMotorEx rightLift;
@@ -238,7 +238,7 @@ public class Utils {
 	/**
 	 * @param y 如果为真，是左方。
 	 */
-	public void armOperation1(boolean y) {
+	public void armOperation(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住0.55
 			arm.setPosition(armDownMiddle);  //不翻转

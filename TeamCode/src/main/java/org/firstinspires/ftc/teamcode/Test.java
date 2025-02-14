@@ -14,7 +14,7 @@ public class Test extends LinearOpMode {
 		utils.init(hardwareMap, telemetry);
 		utils.liftMotorInit("leftLift", "rightLift", "touch");
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");;
-		utils.armOperation1(true);
+		utils.armOperation(true);
 		utils.claw_rotate(false);
 		utils.motorInit();
 		utils.imuInit();

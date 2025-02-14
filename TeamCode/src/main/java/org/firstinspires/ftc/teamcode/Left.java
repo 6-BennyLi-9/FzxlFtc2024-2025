@@ -25,7 +25,7 @@ public class Left extends LinearOpMode {
 		utils.init(hardwareMap, telemetry);
 		utils.liftMotorInit("leftLift", "rightLift", "touch");
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
-		utils.armOperation1(true);
+		utils.armOperation(true);
 		utils.claw_rotate(false);
 		utils.setPushPose(pushIn); //收前电梯
 		utils.motorInit();
@@ -87,7 +87,7 @@ public class Left extends LinearOpMode {
 		utils.setPushPose(pushOut); //伸前电梯
 		drive.followTrajectorySequence(left_put); //放预载
 		sleep(500);
-		utils.armOperation1(false);
+		utils.armOperation(false);
 		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
@@ -118,7 +118,7 @@ public class Left extends LinearOpMode {
 		utils.setRearLiftPosition(RearLiftLocation.up);  //后电梯抬
 
 		sleep(1000);
-		utils.armOperation1(false); //手臂翻转,同时将前夹子放下
+		utils.armOperation(false); //手臂翻转,同时将前夹子放下
 		sleep(450);
 		utils.clipOperation(true);//打开夹子
 		sleep(200);
@@ -147,7 +147,7 @@ public class Left extends LinearOpMode {
 		drive.followTrajectory(toPutSecondYellow);
 		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(1200);
-		utils.armOperation1(false); ////手臂翻转,同时将前夹子放下
+		utils.armOperation(false); ////手臂翻转,同时将前夹子放下
 		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);
@@ -178,7 +178,8 @@ public class Left extends LinearOpMode {
 		drive.followTrajectory(toPutThirdYellow);
 		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(1000);
-		utils.armOperation1(false);
+		utils.armOperation(false);
+		utils.rotate.setPosition(0.7);
 		sleep(450);
 		utils.clipOperation(true);
 		sleep(200);

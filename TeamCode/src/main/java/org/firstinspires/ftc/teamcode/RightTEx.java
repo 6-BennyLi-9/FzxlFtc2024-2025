@@ -29,7 +29,7 @@ public class RightTEx extends LinearOpMode {
         utils.liftMotorInit("leftLift","rightLift","touch");
         utils.servoInit("arm","clip","rotate","turn","claw", "upTurn", "leftPush", "rightPush");
         utils.imuInit();
-        utils.armOperation1(true);
+        utils.armOperation(true);
         utils.claw_rotate(false);
         utils.setPushPose(pushIn); //收前电梯
         utils.motorInit();

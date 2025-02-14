@@ -28,7 +28,7 @@ public class RightTwo extends LinearOpMode {
 		utils.liftMotorInit("frontLift", "lift", "touch");
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
 		utils.imuInit();
-		utils.armOperation1(true);
+		utils.armOperation(true);
 		utils.claw_rotate(false);
 		utils.motorInit();
 
