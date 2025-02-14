@@ -41,7 +41,7 @@ public class Right2 extends LinearOpMode {
 		utils.clawOperation(true);   //打开
 		sleep(150);
 		utils.armOperation(false); //手臂翻转,同时将前夹子放下
-		sleep(350);
+		sleep(400);
 		utils.clipOperation(true);//打开夹子
 		sleep(400);
 		utils.armOperationL(true);   //翻转回来，打开夹子
@@ -65,7 +65,7 @@ public class Right2 extends LinearOpMode {
 		Pose2d forward              = new Pose2d(- 12, 33, toRadians(- 90));
 		Pose2d toGetFirstSample     = new Pose2d(- 50, 34, toRadians(- 90));
 		Pose2d toGetSecondSample    = new Pose2d(- 60, 34, toRadians(- 90));
-		Pose2d toUpSecondBlueSample = new Pose2d(- 8, 30, toRadians(- 90));
+		Pose2d toGetSuspendSample   = new Pose2d(- 50, 55, toRadians(- 90));
 		Pose2d toBlueSample         = new Pose2d(- 40, 30, toRadians(- 90));
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, toRadians(- 90));
 		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, toRadians(- 90));
@@ -83,6 +83,9 @@ public class Right2 extends LinearOpMode {
 		Trajectory		  toGetSecond = drive.trajectoryBuilder(toGetFirst.end())
 				.lineToLinearHeading(toGetSecondSample)
 				.build();
+		Trajectory		  fromSampleToGetSuspend = drive.trajectoryBuilder(toGetSecond.end())
+				.lineToLinearHeading(toGetSuspendSample)
+				.build();
 
 		waitForStart();
 		if (isStopRequested())return;
@@ -93,6 +96,7 @@ public class Right2 extends LinearOpMode {
 		utils.arm.setPosition(armDownR);
 		utils.upTurn.setPosition(upTurnDownR);
 		utils.clip.setPosition(clipOpen);
+		utils.rearLiftToPosition(860);
 		sleep(150);
 		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 
@@ -101,6 +105,7 @@ public class Right2 extends LinearOpMode {
 		workingGetSample();
 		drive.followTrajectory(toGetSecond);
 		workingGetSample();
+		drive.followTrajectory(fromSampleToGetSuspend);
 
 		sleep(Long.MAX_VALUE);
 	}
