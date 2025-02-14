@@ -60,11 +60,11 @@ public class Utils {
 	public Servo claw;  //前电梯夹子
 	public Servo turn;  //前电梯上，上下翻转
 
-	private TouchSensor touch;
-	private Servo       upTurn;         //后电梯上摆臂
-	private Servo       leftPush;       //后电梯上的夹取  前
-	private Servo       rightPush;
-	public  BNO055IMU   imu;
+	public TouchSensor touch;
+	public Servo       upTurn;         //后电梯上摆臂
+	public Servo       leftPush;       //后电梯上的夹取  前
+	public Servo       rightPush;
+	public BNO055IMU   imu;
 
 	public HardwareMap hardwareMap;
 	public Telemetry   telemetry;
