@@ -51,7 +51,7 @@ public class SuperStructuresR {
 	public static double upTurnGet  = 0.79;  //翻转去夹0.91,0.64
 	public static double upTurnPut  = 0.13;  //翻转去挂0.05,0.72
 
-	public void init(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2) {
+	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
 		hardwareMap = h;
 		telemetry = t;
 		gamepad2 = g2;
@@ -126,19 +126,19 @@ public class SuperStructuresR {
 
 
 		if (gamepad2.dpad_right) {
-			clawOperation1(true);
+			inlineClawOpenOperation();
 			setLiftPosition(865);   //挂样本423
-			armOperation1(true);
+			inlineArmOperation(true);
 		}
 		if (gamepad2.dpad_left) {
 			//clipOperation1(true);
-			armOperation1(false);
+			inlineArmOperation(false);
 			arm.setPosition(0.88);
 			setLiftPosition(172);//初始位置
 		}
 		if (gamepad2.dpad_down) {
 			//clipOperation1(true);
-			armOperation1(false);
+			inlineArmOperation(false);
 			setLiftPosition(0);//初始位置
 		}
 
@@ -253,7 +253,7 @@ public class SuperStructuresR {
 		}
 	}
 
-	private void armOperation1(boolean y) {
+	private void inlineArmOperation(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armPut);  //翻转挂矿石
@@ -267,16 +267,10 @@ public class SuperStructuresR {
 	}
 
 
-	private void clawOperation1(boolean y) {
-		if (y) {
-			claw.setPosition(clawOpen);   //打开
-			turn.setPosition(turnUp);  //翻转下去
-			rotate.setPosition(rotateOn); //保持水平0.1,0.83
-		} else {
-			claw.setPosition(clawOn);  //扣住
-			turn.setPosition(0.5);  //翻转上去
-			rotate.setPosition(rotateOn); //保持水平 0.1,0.83
-		}
+	private void inlineClawOpenOperation() {
+		claw.setPosition(clawOpen);   //打开
+		turn.setPosition(turnUp);  //翻转下去
+		rotate.setPosition(rotateOn); //保持水平0.1,0.83
 	}
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，

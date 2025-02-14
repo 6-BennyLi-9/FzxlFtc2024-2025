@@ -125,18 +125,18 @@ public class SuperStructuresL {
 		}
 		if (gamepad2.left_bumper) {
 			//clipOperation1(true);
-			armOperation1(false);
+			inlineArmOperation(false);
 			arm.setPosition(0.88);
 			setLiftPosition(172);//初始位置
 		}
 		if (gamepad2.dpad_right) {
-			clawOperation1(true);
+			inlineClawOpenOperation();
 			setLiftPosition(2300);//挂高杆2195
-			armOperation1(true);
+			inlineArmOperation(true);
 		}
 		if (gamepad2.dpad_down) {
-			clipOperation1(true);
-			armOperation1(false);
+			inlineClipOpenOperation();
+			inlineArmOperation(false);
 			setLiftPosition(0);//初始位置
 		}
 
@@ -147,7 +147,7 @@ public class SuperStructuresL {
 		rotate.setPosition(rotate.getPosition()
 			+0.03*(gamepad2.left_trigger-gamepad2.right_trigger));
 
-		clipOperation(gamepad2.a);
+		inlineClipOperation(gamepad2.a);
 		clawOperation(gamepad2.b);
 		armOperation(gamepad2.x);
 	}
@@ -229,7 +229,7 @@ public class SuperStructuresL {
 	int clipPutEvent = 0;
 	boolean keyFlag_clip = false;
 
-	private void clipOperation(boolean key) {
+	private void inlineClipOperation(boolean key) {
 		telemetry.addData("clip:", "%d", clipPutEvent);
 		if (key) {
 			if (!keyFlag_clip) {
@@ -254,7 +254,7 @@ public class SuperStructuresL {
 		}
 	}
 
-	private void armOperation1(boolean y) {
+	private void inlineArmOperation(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armUp);  //翻转挂矿石
@@ -268,25 +268,14 @@ public class SuperStructuresL {
 	}
 
 
-	private void clawOperation1(boolean y) {
-		if (y) {
-			claw.setPosition(clawOpen);   //打开
-			turn.setPosition(turnMiddle);  //翻转下去
-			rotate.setPosition(rotateOn); //保持水平0.1,0.83
-		} else {
-			claw.setPosition(clawOn);  //扣住
-			turn.setPosition(0.5);  //翻转上去
-			rotate.setPosition(rotateOn); //保持水平 0.1,0.83
-		}
+	private void inlineClawOpenOperation() {
+		claw.setPosition(clawOpen);   //打开
+		turn.setPosition(turnMiddle);  //翻转下去
+		rotate.setPosition(rotateOn); //保持水平0.1,0.83
 	}
 
-	private void clipOperation1(boolean y) {
-		if (y) {
-			clip.setPosition(clipOpen);  //打开
-		} else {
-			clip.setPosition(clipOn);  //夹住
-			claw.setPosition(clawOn);  //扣住
-		}
+	private void inlineClipOpenOperation() {
+		clip.setPosition(clipOpen);  //打开
 	}
 
 	public void showEncoder() {
