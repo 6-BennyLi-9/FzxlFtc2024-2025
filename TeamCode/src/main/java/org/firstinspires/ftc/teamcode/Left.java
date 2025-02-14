@@ -12,10 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-//12.5*17 (in)
-//6*9
-//arm和claw的值需要确定
-@Autonomous(name = "Left", group = "drive", preselectTeleOp = "放篮子")
+@Autonomous(name = "Left", group = "drive", preselectTeleOp = "TELE_LEFT")
 public class Left extends LinearOpMode {
 
 	Utils utils = new Utils();
