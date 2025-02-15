@@ -35,18 +35,15 @@ public class WyMoveMethod {
         rightFront = hardwareMap.get(DcMotor.class, rf);
         rightRear = hardwareMap.get(DcMotor.class, rr);
 
-
         leftFront.setDirection(DcMotor.Direction.REVERSE);//try
         leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         rightRear.setDirection(DcMotor.Direction.FORWARD);
 
-
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);//stop
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//init
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

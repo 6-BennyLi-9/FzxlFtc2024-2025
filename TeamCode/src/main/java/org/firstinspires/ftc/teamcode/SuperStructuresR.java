@@ -40,15 +40,15 @@ public class SuperStructuresR {
 	public static double turnMiddle = 0.71;
 	public static double turnDown   = 0.87;
 	public static double rotateOn   = 0.49;
-	public static double clawOn     = 0.64;
+	public static double clawOn     = 0.63;
 	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.80;
+	public static double clipOn     = 0.79;
 	public static double clipOpen   = 0.49;
 	public static double armPut     = 0.86;  //翻转去夹0.78,0.55
 	@Deprecated
 	public static double armMiddle  = 0.72;  //翻转去挂
 	public static double armGet     = 0.15;  //0.16,0.14翻转去挂
-	public static double upTurnGet  = 0.79;  //翻转去夹0.91,0.64
+	public static double upTurnGet  = 0.78;  //翻转去夹0.91,0.64
 	public static double upTurnPut  = 0.13;  //翻转去挂0.05,0.72
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
@@ -100,9 +100,11 @@ public class SuperStructuresR {
 		setPushPose(0.82);
 	}
 
-	public void setPushPose(double position) {
+	public strictfp void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
-		leftPush.setPosition(1 - position);
+		//0.9684931506849315 0.707/0.73
+		//0.9863013698630137 0.72/0.73
+		leftPush.setPosition(0.9684931506849315 - position * 0.9863013698630137);
 		rightPush.setPosition(position);
 	}
 

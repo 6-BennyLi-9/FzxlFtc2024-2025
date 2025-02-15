@@ -41,7 +41,7 @@ public class Utils {
 	public static double    armUpR        = 0.86;
 	public static double    armDownR      = 0.16;
 	public static double    upTurnUpL     = 0.23;  //翻转去夹0.16
-	public static double    upTurnDown    = 0.80;  //翻转去挂
+	public static double    upTurnDown    = 0.79;  //翻转去挂
 	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
 	public static double    upTurnDownR   = 0.92;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
@@ -166,9 +166,11 @@ public class Utils {
 	/**
 	 * @param position 0.15~0.82
 	 */
-	public void setPushPose(double position) {
+	public strictfp void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
-		leftPush.setPosition(1 - position);
+		//0.9684931506849315 0.707/0.73
+		//0.9863013698630137 0.72/0.73
+		leftPush.setPosition(0.9684931506849315 - position * 0.9863013698630137);
 		rightPush.setPosition(position);
 	}
 
