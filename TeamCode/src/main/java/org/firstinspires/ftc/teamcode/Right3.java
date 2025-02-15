@@ -11,9 +11,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Autonomous(group = "untested", preselectTeleOp = "TELE_RIGHT")
 public class Right3 extends LinearOpMode {
-	public static final int PUSH_LENGTH = 32;
+	public static final int PUSH_LENGTH = 33;
+	public static       int LOOP_SUSPEND_TIME = 3;
+	public static       int DELTA_PLACE_INCH = -2;
 
 	public Utils              utils = new Utils();
 	public SampleMecanumDrive drive;
@@ -57,6 +62,11 @@ public class Right3 extends LinearOpMode {
 		Pose2d blueRight = new Pose2d(- 35, 58, toRadians(- 90));
 		Pose2d toGetSuspendSample   = new Pose2d(- 40, 57, toRadians(- 90));
 		Pose2d toSuspendGottenSample= new Pose2d(- 10, 33, toRadians(- 90));
+		List<Pose2d> toSuspendPoints = new ArrayList <>();
+
+		for (int i = 0 ; i < LOOP_SUSPEND_TIME ; i++) {
+			toSuspendPoints.add(toSuspendGottenSample.plus(new Pose2d(DELTA_PLACE_INCH * i)));
+		}
 
 		drive.setPoseEstimate(blueRight);
 
@@ -68,20 +78,22 @@ public class Right3 extends LinearOpMode {
 				.forward(PUSH_LENGTH)
 				.strafeRight(10)//second
 				.back(PUSH_LENGTH)
-//				.forward(PUSH_LENGTH)
-//				.strafeRight(7)//third
-//				.back(40)
 				.build();
 		Trajectory toGetSuspend = drive.trajectoryBuilder(pushSamples.end())
 				.lineToLinearHeading(toGetSuspendSample)
 				.build();
-		TrajectorySequence toSuspend = drive.trajectorySequenceBuilder(toGetSuspend.end())
-				.lineToLinearHeading(toSuspendGottenSample)
-				.forward(10)
-				.build();
-		Trajectory reloadSuspend = drive.trajectoryBuilder(toSuspend.end())
-				.lineToLinearHeading(toSuspend.start())
-				.build();
+		List<TrajectorySequence> toSuspendTracks = new ArrayList <>();
+		List<Trajectory>		 toReloadTracks  = new ArrayList <>();
+
+		for (int i = 0 ; i < LOOP_SUSPEND_TIME ; i++) {
+			toSuspendTracks.add(drive.trajectorySequenceBuilder(toGetSuspend.end())
+					.lineToLinearHeading(toSuspendPoints.get(i))
+					.forward(10)
+					.build());
+			toReloadTracks.add(drive.trajectoryBuilder(toSuspendTracks.get(i).end())
+					.lineToLinearHeading(toGetSuspend.end())
+					.build());
+		}
 
 		waitForStart();
 		if (isStopRequested())return;
@@ -89,8 +101,10 @@ public class Right3 extends LinearOpMode {
 		drive.followTrajectorySequence(pushSamples);
 		workingGetSuspend(toGetSuspend);
 
-		workingSuspend(toSuspend);
-		workingGetSuspend(reloadSuspend);
+		for (int i = 0 ; i < LOOP_SUSPEND_TIME ; i++) {
+			workingSuspend(toSuspendTracks.get(i));
+			workingGetSuspend(toReloadTracks.get(i));
+		}
 
 		sleep(Long.MAX_VALUE);
 	}
