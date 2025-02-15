@@ -26,26 +26,35 @@ public class Right2 extends LinearOpMode {
 		utils.claw_rotate_rst(true);  //前面夹子翻转下去、打开
 		utils.armOperationL(true);
 
-		utils.claw_rotate_rst(false);  //前面夹子翻转下去、打开
-		sleep(200); //500
-		utils.clawOperation(false);      //夹住
+		utils.claw_rotate_rst(false);//前面夹子翻转下去、打开
 		sleep(200);
-		utils.claw_rotate(true);   //翻转上去
+		utils.clawOperation(false);//夹住
+		sleep(200);
+		utils.claw_rotate(true);//翻转上去
 		//sleep(300);
-		utils.setPushPose(pushIn);  //前电梯收回
+		utils.setPushPose(pushIn);//前电梯收回
 		sleep(200);
-		utils.armOperationL(false);     //打开夹子，下降去夹
+		utils.armOperationL(false);//打开夹子，下降去夹
 		sleep(250);
-		utils.clipOperation(false);   //夹住
+		utils.clipOperation(false);//夹住
 		sleep(200);
-		utils.clawOperation(true);   //打开
+		utils.clawOperation(true);//打开
 		sleep(150);
-		utils.armOperation(false); //手臂翻转,同时将前夹子放下
-		sleep(400);
+		utils.armOperation(false);//手臂翻转,同时将前夹子放下
+		sleep(390);		//这个数值可以控制样本会抛出多远
 		utils.clipOperation(true);//打开夹子
 		sleep(400);
-		utils.armOperationL(true);   //翻转回来，打开夹子
-		sleep(100);
+		utils.armOperationL(true);//翻转回来，打开夹子
+	}
+
+	public void workingGetSuspend(Trajectory toGetSample){
+		utils.armOperationR(true);//翻转手臂
+		utils.clipOperation(true);
+		drive.followTrajectory(toGetSample);
+		utils.clipOperation(false);    //夹住第一个
+		sleep(300);
+		utils.setRearLiftPosition(RearLiftLocation.middle);
+		utils.armOperationR(false);
 	}
 
 	@Override
@@ -62,10 +71,10 @@ public class Right2 extends LinearOpMode {
 		drive = new SampleMecanumDrive(hardwareMap);
 
 		Pose2d blueRight            = new Pose2d(- 12, 58, toRadians(- 90));
-		Pose2d forward              = new Pose2d(- 12, 33, toRadians(- 90));
-		Pose2d toGetFirstSample     = new Pose2d(- 50, 34, toRadians(- 90));
-		Pose2d toGetSecondSample    = new Pose2d(- 60, 34, toRadians(- 90));
-		Pose2d toGetSuspendSample   = new Pose2d(- 50, 55, toRadians(- 90));
+		Pose2d forward              = new Pose2d(- 10, 33, toRadians(- 90));
+		Pose2d toGetFirstSample     = new Pose2d(- 52, 34, toRadians(- 90));
+		Pose2d toGetSecondSample    = new Pose2d(- 61, 34, toRadians(- 90));
+		Pose2d toGetSuspendSample   = new Pose2d(- 48, 57, toRadians(- 90));
 		Pose2d toBlueSample         = new Pose2d(- 40, 30, toRadians(- 90));
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, toRadians(- 90));
 		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, toRadians(- 90));
@@ -105,7 +114,7 @@ public class Right2 extends LinearOpMode {
 		workingGetSample();
 		drive.followTrajectory(toGetSecond);
 		workingGetSample();
-		drive.followTrajectory(fromSampleToGetSuspend);
+		workingGetSuspend(fromSampleToGetSuspend);
 
 		sleep(Long.MAX_VALUE);
 	}
