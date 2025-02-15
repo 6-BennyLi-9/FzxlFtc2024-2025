@@ -21,6 +21,12 @@ import java.util.concurrent.TimeUnit;
 
 @Autonomous(group = "untested", preselectTeleOp = "TELE_RIGHT")
 public class Right3 extends LinearOpMode {
+	public Right3(){
+		super();
+		telemetry.speak("hello");
+		telemetry.update();
+	}
+
 	public static final int PUSH_LENGTH        = 32;
 	public static       int LOOP_SUSPEND_TIMES = 4;
 	public static       int DELTA_PLACE_INCH   = -2;
@@ -30,7 +36,15 @@ public class Right3 extends LinearOpMode {
 	public ExecutorService    service = new ThreadPoolExecutor(5,8,1L, TimeUnit.SECONDS,new ArrayBlockingQueue <>(16), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 
 	public void workingGetSuspend(Trajectory toGetSample) {
-		workingGetSuspend(drive.trajectorySequenceBuilder(drive.getPoseEstimate()).addTrajectory(toGetSample).build());
+		drive.followTrajectory(toGetSample);
+		sleep(150);
+
+		service.execute(()->{
+			utils.clipOperation(false);    //夹住第一个
+			sleep(300);
+			utils.setRearLiftPosition(RearLiftLocation.middle);
+			utils.armOperationR(false);
+		});
 	}
 
 	public void workingGetSuspend(TrajectorySequence toGetSample){
@@ -70,8 +84,11 @@ public class Right3 extends LinearOpMode {
 		drive = new SampleMecanumDrive(hardwareMap);
 
 		Pose2d blueRight = new Pose2d(- 35, 58, toRadians(- 90));
+		Pose2d prePushFirstSample   = new Pose2d(- 45, 8, toRadians(- 90));
+		Pose2d afterPushFirstSample = new Pose2d(- 53, 8+PUSH_LENGTH, toRadians(- 90));
+		Pose2d prePushSecondSample  = new Pose2d(- 50, 8, toRadians(- 90));
 		Pose2d toGetSuspendSample   = new Pose2d(- 44, 57, toRadians(- 90));
-		Pose2d toSuspendGottenSample= new Pose2d(- 10, 33, toRadians(- 90));
+		Pose2d toSuspendGottenSample= new Pose2d(- 6, 33, toRadians(- 90));
 		List<Pose2d> toSuspendPoints = new ArrayList <>();
 
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
@@ -80,39 +97,44 @@ public class Right3 extends LinearOpMode {
 
 		drive.setPoseEstimate(blueRight);
 
+//		lineToSplineHeading
+
 		TrajectorySequence pushSamples = drive.trajectorySequenceBuilder(blueRight)
-				.lineToLinearHeading(blueRight.plus(new Pose2d(- 10, - 50)))
-				.lineToLinearHeading(blueRight.plus(new Pose2d(- 15, - 50 + PUSH_LENGTH)))
-				.lineToLinearHeading(blueRight.plus(new Pose2d(- 22, - 50)))
-				.back(PUSH_LENGTH)
-				.build();
-		Trajectory toGetSuspend = drive.trajectoryBuilder(pushSamples.end())
-				.lineToLinearHeading(toGetSuspendSample)
+				.strafeRight(5)
+				.lineToSplineHeading(prePushFirstSample)
+				.lineToSplineHeading(afterPushFirstSample)
+				.strafeLeft(5)
+				.lineToSplineHeading(prePushSecondSample)
+				.strafeRight(10)
+//				.lineToSplineHeading(afterPushSecondSample)
+				.lineToSplineHeading(toGetSuspendSample)
+//				.splineToLinearHeading(toGetSuspendSample,toGetSuspendSample.getHeading())
 				.build();
 		List<TrajectorySequence> toSuspendTracks = new ArrayList <>();
 		List<Trajectory>		 toReloadTracks  = new ArrayList <>();
 
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
-			toSuspendTracks.add(drive.trajectorySequenceBuilder(toGetSuspend.end())
+			toSuspendTracks.add(drive.trajectorySequenceBuilder(toGetSuspendSample)
 					.lineTo(toSuspendPoints.get(i).vec())
-							.forward(12)
+							.forward(10)
 					.build());
 			toReloadTracks.add(drive.trajectoryBuilder(toSuspendTracks.get(i).end())
-					.lineToLinearHeading(toGetSuspend.end())
+					.lineToLinearHeading(toGetSuspendSample)
 					.build());
 		}
 
+		telemetry.addLine("ROBOT READY");
+		telemetry.update();
+		waitForStart();
+		if (isStopRequested())return;
+
 		service.execute(()->{
-			waitForStart();
 			sleep(1000);
 			utils.armOperationR(true);//翻转手臂
 			utils.clipOperation(true);
 		});
-		waitForStart();
-		if (isStopRequested())return;
 
-		drive.followTrajectorySequence(pushSamples);
-		workingGetSuspend(toGetSuspend);
+		workingGetSuspend(pushSamples);
 
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
 			workingSuspend(toSuspendTracks.get(i));
