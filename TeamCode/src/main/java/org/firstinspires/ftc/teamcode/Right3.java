@@ -29,7 +29,7 @@ public class Right3 extends LinearOpMode {
 
 	public static final int PUSH_LENGTH        = 32;
 	public static       int LOOP_SUSPEND_TIMES = 4;
-	public static       int DELTA_PLACE_INCH   = -2;
+	public static       int DELTA_PLACE_INCH   = -3;
 
 	public Utils              utils = new Utils();
 	public SampleMecanumDrive drive;
@@ -37,7 +37,7 @@ public class Right3 extends LinearOpMode {
 
 	public void workingGetSuspend(Trajectory toGetSample) {
 		drive.followTrajectory(toGetSample);
-		sleep(150);
+		sleep(200);
 
 		service.execute(()->{
 			utils.clipOperation(false);    //夹住第一个
@@ -49,7 +49,7 @@ public class Right3 extends LinearOpMode {
 
 	public void workingGetSuspend(TrajectorySequence toGetSample){
 		drive.followTrajectorySequence(toGetSample);
-		sleep(150);
+		sleep(200);
 
 		service.execute(()->{
 			utils.clipOperation(false);    //夹住第一个
@@ -57,17 +57,6 @@ public class Right3 extends LinearOpMode {
 			utils.setRearLiftPosition(RearLiftLocation.middle);
 			utils.armOperationR(false);
 		});
-	}
-	public void workingSuspend(TrajectorySequence toSuspend){
-		drive.followTrajectorySequence(toSuspend); //去上挂
-		service.execute(()->{
-			utils.clipOperation(true);
-			sleep(150);
-			utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
-			sleep(150);
-			utils.armOperationR(true);       //翻转手臂
-		});
-		sleep(50);
 	}
 
 	@Override
@@ -83,12 +72,13 @@ public class Right3 extends LinearOpMode {
 
 		drive = new SampleMecanumDrive(hardwareMap);
 
-		Pose2d blueRight = new Pose2d(- 35, 58, toRadians(- 90));
-		Pose2d prePushFirstSample   = new Pose2d(- 45, 8, toRadians(- 90));
-		Pose2d afterPushFirstSample = new Pose2d(- 53, 8+PUSH_LENGTH, toRadians(- 90));
-		Pose2d prePushSecondSample  = new Pose2d(- 50, 8, toRadians(- 90));
-		Pose2d toGetSuspendSample   = new Pose2d(- 44, 57, toRadians(- 90));
-		Pose2d toSuspendGottenSample= new Pose2d(- 6, 33, toRadians(- 90));
+		Pose2d blueRight             = new Pose2d(- 35, 58, toRadians(- 90));
+		Pose2d prePushFirstSample    = new Pose2d(- 45, 9, toRadians(- 90));
+		Pose2d afterPushFirstSample  = new Pose2d(- 50, 9 + PUSH_LENGTH, toRadians(- 90));
+		Pose2d prePushSecondSample   = new Pose2d(- 50, 9, toRadians(- 90));
+		Pose2d toGetSuspendSample    = new Pose2d(- 43, 54, toRadians(- 90));
+		Pose2d toSuspendGottenSample = new Pose2d(- 6, 33, toRadians(- 90));
+
 		List<Pose2d> toSuspendPoints = new ArrayList <>();
 
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
@@ -96,19 +86,18 @@ public class Right3 extends LinearOpMode {
 		}
 
 		drive.setPoseEstimate(blueRight);
-
-//		lineToSplineHeading
-
 		TrajectorySequence pushSamples = drive.trajectorySequenceBuilder(blueRight)
 				.strafeRight(5)
+				.addDisplacementMarker(() -> service.execute(()->{
+					utils.armOperationR(true);//翻转手臂
+					utils.clipOperation(true);
+				}))
 				.lineToSplineHeading(prePushFirstSample)
+				.strafeRight(5)
 				.lineToSplineHeading(afterPushFirstSample)
-				.strafeLeft(5)
 				.lineToSplineHeading(prePushSecondSample)
-				.strafeRight(10)
-//				.lineToSplineHeading(afterPushSecondSample)
-				.lineToSplineHeading(toGetSuspendSample)
-//				.splineToLinearHeading(toGetSuspendSample,toGetSuspendSample.getHeading())
+				.strafeRight(9)
+				.lineToSplineHeading(toGetSuspendSample.plus(new Pose2d(- 2)))
 				.build();
 		List<TrajectorySequence> toSuspendTracks = new ArrayList <>();
 		List<Trajectory>		 toReloadTracks  = new ArrayList <>();
@@ -116,7 +105,14 @@ public class Right3 extends LinearOpMode {
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
 			toSuspendTracks.add(drive.trajectorySequenceBuilder(toGetSuspendSample)
 					.lineTo(toSuspendPoints.get(i).vec())
-							.forward(10)
+					.forward(10.2)
+					.addDisplacementMarker(()-> service.execute(()->{
+						utils.clipOperation(true);
+						sleep(150);
+						utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
+						sleep(150);
+						utils.armOperationR(true);       //翻转手臂
+					}))
 					.build());
 			toReloadTracks.add(drive.trajectoryBuilder(toSuspendTracks.get(i).end())
 					.lineToLinearHeading(toGetSuspendSample)
@@ -128,16 +124,10 @@ public class Right3 extends LinearOpMode {
 		waitForStart();
 		if (isStopRequested())return;
 
-		service.execute(()->{
-			sleep(1000);
-			utils.armOperationR(true);//翻转手臂
-			utils.clipOperation(true);
-		});
-
 		workingGetSuspend(pushSamples);
 
 		for (int i = 0 ; i < LOOP_SUSPEND_TIMES ; i++) {
-			workingSuspend(toSuspendTracks.get(i));
+			drive.followTrajectorySequence(toSuspendTracks.get(i));
 			workingGetSuspend(toReloadTracks.get(i));
 		}
 
