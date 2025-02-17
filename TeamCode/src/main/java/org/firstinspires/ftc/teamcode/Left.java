@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name = "Left", group = "drive", preselectTeleOp = "TELE_LEFT")
+@Autonomous(name = "Left", group = "drive", preselectTeleOp = "放篮子")
 public class Left extends LinearOpMode {
 	public Utils utils = new Utils();
 	public SampleMecanumDrive drive;
@@ -66,7 +66,7 @@ public class Left extends LinearOpMode {
 				.build();
 		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
 				.lineToLinearHeading(GoToPark)
-				.forward(20)
+				.forward(18)
 				.build();
 
 
@@ -102,9 +102,9 @@ public class Left extends LinearOpMode {
 		utils.claw_rotate(true);   //翻转上去
 		//sleep(300);
 		utils.setPushPose(pushIn);  //前电梯收回
-		sleep(200);
-		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(250);
+		utils.armOperationL(false);     //打开夹子，下降去夹
+		sleep(300);
 		utils.clipOperation(false);   //夹住
 		sleep(200);
 		utils.clawOperation(true);   //打开
@@ -135,9 +135,9 @@ public class Left extends LinearOpMode {
 		sleep(200);
 
 		utils.setPushPose(pushIn);
-		sleep(200);
+		sleep(250);
 		utils.armOperationL(false);     //打开夹子，下降去夹
-		sleep(200);
+		sleep(300);
 		utils.clipOperation(false);
 		sleep(350);
 		utils.clawOperation(true);
@@ -166,7 +166,7 @@ public class Left extends LinearOpMode {
 		sleep(300);
 
 		utils.setPushPose(pushIn);
-		sleep(200);//前电梯回位
+		sleep(250);//前电梯回位
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);//前电梯回位
 		utils.clipOperation(false);
@@ -184,6 +184,7 @@ public class Left extends LinearOpMode {
 		drive.followTrajectorySequence(toPark);//去停靠
 		utils.claw_rotate(true);
 		utils.setRearLiftPosition(RearLiftLocation.down);
+		utils.arm.setPosition(0.67);
 
 		sleep(Long.MAX_VALUE);
 	}

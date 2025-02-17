@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(group = "untested", preselectTeleOp = "TELE_RIGHT")
+@Autonomous(group = "untested", preselectTeleOp = "挂样本")
 public class Right3 extends LinearOpMode {
 	public Right3(){
 		super();

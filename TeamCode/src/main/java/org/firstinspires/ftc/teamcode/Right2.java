@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(group = "untested", preselectTeleOp = "TELE_RIGHT")
+@Autonomous(name = "", group = "untested", preselectTeleOp = "挂样本")
 public class Right2 extends LinearOpMode {
 	public Utils utils = new Utils();
 	public SampleMecanumDrive drive;

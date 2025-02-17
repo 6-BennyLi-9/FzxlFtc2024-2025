@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //12.5*17 (in)
 //6*9
 //arm和claw的值需要确定
-@Autonomous(group = "drive",preselectTeleOp = "TELE_RIGHT")
+@Autonomous(group = "drive",preselectTeleOp = "挂样本")
 public class Right extends LinearOpMode {
 	public Utils utils = new Utils();
 	public SampleMecanumDrive drive;
@@ -31,14 +31,14 @@ public class Right extends LinearOpMode {
 
 		drive = new SampleMecanumDrive(hardwareMap);
 
-		Pose2d blueRight = new Pose2d(-12,58,Math.toRadians(-90));
-		Pose2d forward = new Pose2d(-6,33,Math.toRadians(-90));
-		Pose2d toGetSecondSample = new Pose2d(-43.1,53,Math.toRadians(-90));
-		Pose2d toUpSecondBlueSample = new Pose2d(-8,30,Math.toRadians(-90));//44
-		Pose2d toBlueSample = new Pose2d(-40,30,Math.toRadians(-90)); //-95
-		Pose2d toGetThirdBlueSample = new Pose2d(-43,55,Math.toRadians(-90));
-		Pose2d toUpThirdSample = new Pose2d(-10.5,33,Math.toRadians(-90));
-		Pose2d toPark = new Pose2d(-49,55,Math.toRadians(-90));
+		Pose2d blueRight            = new Pose2d(- 12, 58, Math.toRadians(- 90));
+		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
+		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, Math.toRadians(- 90));
+		Pose2d toUpSecondBlueSample = new Pose2d(- 8, 30, Math.toRadians(- 90));//44
+		Pose2d toBlueSample         = new Pose2d(- 40, 30, Math.toRadians(- 90)); //-95
+		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, Math.toRadians(- 90));
+		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, Math.toRadians(- 90));
+		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
 
 		drive.setPoseEstimate(blueRight);
 

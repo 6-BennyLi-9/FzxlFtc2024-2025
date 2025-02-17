@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "TELE_LEFT", group = "aba_aba")
+@TeleOp(name = "放篮子", group = "aba_aba")
 public class Wy_textL extends OpMode {
 	private final WyMoveMethod     carChassis = new WyMoveMethod();
 	private final SuperStructuresL structures = new SuperStructuresL();
