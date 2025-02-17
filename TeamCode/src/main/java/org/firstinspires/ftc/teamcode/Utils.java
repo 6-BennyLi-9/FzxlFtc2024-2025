@@ -40,8 +40,8 @@ public class Utils {
 	public static double    armDownL      = 0.88;
 	public static double    armUpR        = 0.86;
 	public static double    armDownR      = 0.16;
-	public static double    upTurnUpL     = 0.23;  //翻转去夹0.16
-	public static double    upTurnDown    = 0.79;  //翻转去挂
+	public static double    upTurnUpL     = 0.24;  //翻转去夹0.23
+	public static double    upTurnDown    = 0.77;  //翻转去挂
 	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
 	public static double    upTurnDownR   = 0.92;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
