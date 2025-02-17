@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.trajectorysequence;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.teamcode.trajectorysequence.sequencesegment.SequenceSegment;
@@ -7,10 +9,11 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.sequencesegment.Sequenc
 import java.util.Collections;
 import java.util.List;
 
+/** @noinspection unused*/
 public class TrajectorySequence {
     private final List<SequenceSegment> sequenceList;
 
-    public TrajectorySequence(List<SequenceSegment> sequenceList) {
+    public TrajectorySequence(@NonNull List<SequenceSegment> sequenceList) {
         if (sequenceList.isEmpty()) throw new EmptySequenceException();
 
         this.sequenceList = Collections.unmodifiableList(sequenceList);
