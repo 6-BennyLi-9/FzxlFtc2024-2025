@@ -28,11 +28,11 @@ public abstract class LinearEventMode extends LinearOpMode {
 		utils.init(hardwareMap, telemetry);
 		utils.liftMotorInit("leftLift", "rightLift", "touch");
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
+		utils.imuInit();
 		utils.armOperation(true);
 		utils.claw_rotate(false);
 		utils.setPushPose(pushIn); //收前电梯
 		utils.motorInit();
-		utils.imuInit();
 		drive.setPoseEstimate(getInitialPoseEstimate());
 		MAIN_BUILDER = drive.trajectorySequenceBuilder(getInitialPoseEstimate());
 

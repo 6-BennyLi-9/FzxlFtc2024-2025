@@ -42,7 +42,7 @@ public class SuperStructuresR {
 	public static double rotateOn   = 0.49;
 	public static double clawOn     = 0.63;
 	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.80;
+	public static double clipOn     = 0.81;
 	public static double clipOpen   = 0.52;
 	public static double armPut     = 0.87;  //翻转去夹上提0.56,0.84
 	@Deprecated
