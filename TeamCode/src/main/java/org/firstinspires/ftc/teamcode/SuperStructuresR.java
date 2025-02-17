@@ -126,7 +126,6 @@ public class SuperStructuresR {
 			lift_up_event = false;
 		}
 
-
 		if (gamepad2.dpad_right) {
 			inlineClawOpenOperation();
 			setLiftPosition(910);   //挂样本883
@@ -256,7 +255,7 @@ public class SuperStructuresR {
 		}
 	}
 
-	private void inlineArmOperation(boolean y) {
+	private void inlineArmOperation(boolean y) {//TODO
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armPut);  //翻转挂矿石
@@ -270,7 +269,7 @@ public class SuperStructuresR {
 	}
 
 
-	private void inlineClawOpenOperation() {
+	private void inlineClawOpenOperation() {//TODO
 		claw.setPosition(clawOpen);   //打开
 		turn.setPosition(turnUp);  //翻转下去
 		rotate.setPosition(rotateOn); //保持水平0.1,0.83
