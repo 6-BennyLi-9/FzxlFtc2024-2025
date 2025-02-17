@@ -38,12 +38,12 @@ public class Utils {
 	public static double    armUpL        = 0.39;
 	public static double    armDownMiddle = 0.83;
 	public static double    armDownL      = 0.88;
-	public static double    armUpR        = 0.86;
+	public static double    armUpR        = 0.87;
 	public static double    armDownR      = 0.16;
 	public static double    upTurnUpL     = 0.24;  //翻转去夹0.23
 	public static double    upTurnDown    = 0.77;  //翻转去挂
-	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
-	public static double    upTurnDownR   = 0.87;  //翻转去挂
+	public static double    upTurnUpR     = 0.16;  //翻转去夹0.16
+	public static double    upTurnDownR   = 0.77;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
 	public static double    pushIn        = 0.80;   //翻转去挂
 	public static DcMotorEx leftFront;
@@ -205,7 +205,7 @@ public class Utils {
 				rearLiftToPosition(2350);//放篮子，原2300
 				break;
 			case middle:
-				rearLiftToPosition(849);//挂样本
+				rearLiftToPosition(910);//挂样本 849
 				break;
 			default:
 				throw new IllegalStateException(state.name());

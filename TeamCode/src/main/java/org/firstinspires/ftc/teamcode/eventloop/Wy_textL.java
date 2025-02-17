@@ -17,7 +17,7 @@ public class Wy_textL extends OpMode {
 		carChassis.init(hardwareMap, telemetry, gamepad1, gamepad2);
 
 		carChassis.motorInit("leftFront", "leftRear", "rightFront", "rightRear");
-		structures.init(hardwareMap, telemetry, gamepad1, gamepad2);
+		structures.init(hardwareMap, telemetry, gamepad2);
 		structures.servoInit("arm", "turn", "clip", "rotate", "claw", "upTurn", "leftPush", "rightPush");
 
 		structures.motorInit("leftLift", "rightLift", "touch");
