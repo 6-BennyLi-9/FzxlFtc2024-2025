@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.eventloop;
 
 import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 
@@ -6,6 +6,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.RearLiftLocation;
+import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
@@ -15,7 +17,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 //arm和claw的值需要确定
 @Autonomous(group = "drive",preselectTeleOp = "挂样本")
 public class Right extends LinearOpMode {
-	public Utils utils = new Utils();
+	public Utils              utils = new Utils();
 	public SampleMecanumDrive drive;
 
 	@Override
