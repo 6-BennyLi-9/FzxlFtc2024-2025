@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -10,11 +12,26 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public abstract class LinearEventMode extends LinearOpMode {
-	public TrajectorySequence 		 MAIN_SEQUENCE;
+	public TrajectorySequence        MAIN_SEQUENCE;
 	public TrajectorySequenceBuilder MAIN_BUILDER;
-	public Utils					 utils;
-	public SampleMecanumDrive		 drive;
+	public Utils                     utils;
+	public SampleMecanumDrive        drive;
+
+	public ExecutorService           service = new ThreadPoolExecutor(
+			5,
+			8,
+			1L,
+			SECONDS,
+			new ArrayBlockingQueue <>(16),
+			Executors.defaultThreadFactory(),
+			new ThreadPoolExecutor.CallerRunsPolicy()
+	);
 
 	@Override
 	public void runOpMode() throws InterruptedException {

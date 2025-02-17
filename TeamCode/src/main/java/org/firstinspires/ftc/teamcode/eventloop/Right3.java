@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
 import static java.lang.Math.toRadians;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -9,34 +8,20 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-
 @Autonomous(group = "untested", preselectTeleOp = "挂样本")
 public class Right3 extends LinearEventMode {
 	public static final int PUSH_LENGTH      = 32;
 	public static       int SUSPEND_TIMES    = 4;
 	public static       int DELTA_PLACE_INCH = -3;
-
-	public ExecutorService  service = new ThreadPoolExecutor(
-			5,
-			8,
-			1L,
-			SECONDS,
-			new ArrayBlockingQueue <>(16),
-			Executors.defaultThreadFactory(),
-			new ThreadPoolExecutor.CallerRunsPolicy()
-	);
+	public static 		int SUSPEND_DIFF	 = 9;
 
 	@Override
 	public void initialize() {
 		Pose2d prePushFirstSample    = new Pose2d(- 45, 9, toRadians(- 90));
 		Pose2d afterPushFirstSample  = new Pose2d(- 50, 9 + PUSH_LENGTH, toRadians(- 90));
 		Pose2d prePushSecondSample   = new Pose2d(- 50, 9, toRadians(- 90));
-		Pose2d toGetSuspendSample    = new Pose2d(- 43, 54, toRadians(- 90));
-		Pose2d toSuspendGottenSample = new Pose2d(- 4, 32, toRadians(- 90));
+		Pose2d toGetSuspendSample    = new Pose2d(- 43, 55, toRadians(- 90));
+		Pose2d toSuspendGottenSample = new Pose2d(- 4, 21 + SUSPEND_DIFF, toRadians(- 80));
 
 		MAIN_BUILDER
 			.strafeRight(5)
@@ -51,7 +36,7 @@ public class Right3 extends LinearEventMode {
 			.strafeRight(9)
 			.lineToSplineHeading(toGetSuspendSample.plus(new Pose2d(- 2)))
 			.addDisplacementMarker(()->{
-				sleep(200);
+				sleep(150);
 
 				service.execute(()->{
 					utils.clipOperation(false);    //夹住第一个
@@ -64,7 +49,7 @@ public class Right3 extends LinearEventMode {
 		for (int i = 0 ; i < SUSPEND_TIMES ; i++) {
 			MAIN_BUILDER
 				.lineTo(toSuspendGottenSample.plus(new Pose2d(DELTA_PLACE_INCH * i)).vec())
-				.forward(10.2)
+				.forward(SUSPEND_DIFF)
 				.addDisplacementMarker(()-> service.execute(()->{
 					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 					sleep(150);
