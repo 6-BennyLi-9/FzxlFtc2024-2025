@@ -26,17 +26,17 @@ public class SuperStructuresL {
 	public DcMotorEx leftLift;
 	public DcMotorEx rightLift;
 
-	public Servo arm;         //后电梯上摆臂
-	public Servo clip;        //后电梯上的夹取  前
-	public Servo turn;         //前电梯上的翻转舵机
-	public Servo claw;   //自动紫色像素释放 左
+	public Servo arm;        				//后电梯上摆臂
+	public Servo clip;        				//后电梯上的夹取  前
+	public Servo turn;         				//前电梯上的翻转舵机
+	public Servo claw;  					//自动紫色像素释放 左
 
 
-	public Servo       rotate;     //盒子像素卡扣  后
+	public Servo       rotate;              //盒子像素卡扣  后
 	public TouchSensor touch;
-	public Servo       upTurn;         //后电梯上摆臂
-	public Servo       leftPush;        //后电梯上的夹取  前
-	public Servo       rightPush;         //前电梯上的翻转舵机
+	public Servo       upTurn;              //后电梯上摆臂
+	public Servo       leftPush;            //后电梯上的夹取  前
+	public Servo       rightPush;           //前电梯上的翻转舵机
 
 	public static double turnUp     = 0.07; //0.31
 	public static double turnMiddle = 0.71;
@@ -44,13 +44,13 @@ public class SuperStructuresL {
 	public static double rotateOn   = 0.49;
 	public static double clawOn     = 0.63;
 	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.80; //0.79
+	public static double clipOn     = 0.80;  //0.79
 	public static double clipOpen   = 0.52;
 	public static double armDown    = 0.88;  //翻转去夹0.16 0.89
-	public static double armMiddle  = 0.83;     //翻转去挂
+	public static double armMiddle  = 0.83;  //翻转去挂
 	public static double armUp      = 0.37;  //翻转去挂0.43
 	public static double upTurnUp   = 0.40;  //翻转去放0.25
-	public static double upTurnDown = 0.75;  //翻转去夹0.77
+	public static double upTurnDown = 0.76;  //翻转去夹0.77
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
 		hardwareMap = h;
