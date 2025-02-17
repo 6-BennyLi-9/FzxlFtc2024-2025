@@ -43,7 +43,7 @@ public class Utils {
 	public static double    upTurnUpL     = 0.24;  //翻转去夹0.23
 	public static double    upTurnDown    = 0.77;  //翻转去挂
 	public static double    upTurnUpR     = 0.05;  //翻转去夹0.16
-	public static double    upTurnDownR   = 0.92;  //翻转去挂
+	public static double    upTurnDownR   = 0.87;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
 	public static double    pushIn        = 0.80;   //翻转去挂
 	public static DcMotorEx leftFront;
