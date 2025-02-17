@@ -21,12 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 @Autonomous(group = "untested", preselectTeleOp = "挂样本")
 public class Right3 extends LinearOpMode {
-	public Right3(){
-		super();
-		telemetry.speak("hello");
-		telemetry.update();
-	}
-
 	public static final int PUSH_LENGTH        = 32;
 	public static       int LOOP_SUSPEND_TIMES = 4;
 	public static       int DELTA_PLACE_INCH   = -3;

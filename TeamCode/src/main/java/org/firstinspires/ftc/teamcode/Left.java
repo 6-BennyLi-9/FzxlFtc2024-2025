@@ -34,7 +34,7 @@ public class Left extends LinearOpMode {
 		Pose2d forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
 		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
 		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, Math.toRadians(- 135));
-		Pose2d toGetSecondYellowSample = new Pose2d(47, 47, Math.toRadians(- 93)); //y49.2x64.2
+		Pose2d toGetSecondYellowSample = new Pose2d(47, 46.8, Math.toRadians(- 93)); //y49.2x64.2
 		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, Math.toRadians(- 135));//150
 		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
 		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, Math.toRadians(- 135));//150
