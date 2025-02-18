@@ -33,7 +33,7 @@ public class Utils {
 	public static double    rotateOn      = 0.49;
 	public static double    clawOn        = 0.63;
 	public static double    clawOpen      = 0.32;
-	public static double    clipOn        = 0.80;
+	public static double    clipOn        = 0.79;
 	public static double    clipOpen      = 0.49;
 	public static double    armUpL        = 0.43;
 	public static double    armDownMiddle = 0.83;
@@ -46,11 +46,11 @@ public class Utils {
 	public static double    upTurnDownR   = 0.77;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
 	public static double    pushIn        = 0.80;   //翻转去挂
-	public static DcMotorEx leftFront;
-	public static DcMotorEx leftRear;
-	public static DcMotorEx rightFront;
-	public static DcMotorEx rightRear;
 
+	public DcMotorEx leftFront;
+	public DcMotorEx leftRear;
+	public DcMotorEx rightFront;
+	public DcMotorEx rightRear;
 	public DcMotorEx leftLift;
 	public DcMotorEx rightLift;
 
