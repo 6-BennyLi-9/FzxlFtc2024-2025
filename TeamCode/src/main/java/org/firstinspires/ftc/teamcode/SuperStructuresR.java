@@ -42,12 +42,12 @@ public class SuperStructuresR {
 	public static double rotateOn   = 0.49;
 	public static double clawOn     = 0.63;
 	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.81;
+	public static double clipOn     = 0.73;
 	public static double clipOpen   = 0.52;
-	public static double armPut     = 0.87;  //翻转去夹上提0.56,0.84
+	public static double armPut     = 0.93;  //翻转去夹上提0.56,0.84
 	@Deprecated
 	public static double armMiddle  = 0.72;  //翻转去挂
-	public static double armGet     = 0.16;  //0.16,挂边框0.14翻转去挂
+	public static double armGet     = 0.20;  //0.16,挂边框0.14翻转去挂
 	public static double upTurnGet  = 0.77;  //翻转去夹0.78,挂边框0.58
 	public static double upTurnPut  = 0.16;  //翻转去挂0.05,上提0.67
 

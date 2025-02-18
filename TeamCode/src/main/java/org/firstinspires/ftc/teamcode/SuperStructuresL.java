@@ -44,11 +44,11 @@ public class SuperStructuresL {
 	public static double rotateOn   = 0.49;
 	public static double clawOn     = 0.63;
 	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.80;  //0.79
+	public static double clipOn     = 0.73;  //0.79
 	public static double clipOpen   = 0.52;
-	public static double armDown    = 0.88;  //翻转去夹0.16 0.89
+	public static double armDown    = 0.92;  //翻转去夹0.16 0.89
 	public static double armMiddle  = 0.83;  //翻转去挂
-	public static double armUp      = 0.37;  //翻转去挂0.43
+	public static double armUp      = 0.41;  //翻转去挂0.43
 	public static double upTurnUp   = 0.40;  //翻转去放0.25
 	public static double upTurnDown = 0.76;  //翻转去夹0.77
 

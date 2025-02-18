@@ -33,11 +33,11 @@ public class Utils {
 	public static double    rotateOn      = 0.49;
 	public static double    clawOn        = 0.63;
 	public static double    clawOpen      = 0.32;
-	public static double    clipOn        = 0.81;
+	public static double    clipOn        = 0.80;
 	public static double    clipOpen      = 0.49;
-	public static double    armUpL        = 0.39;
+	public static double    armUpL        = 0.43;
 	public static double    armDownMiddle = 0.83;
-	public static double    armDownL      = 0.88;
+	public static double    armDownL      = 0.92;
 	public static double    armUpR        = 0.87;
 	public static double    armDownR      = 0.16;
 	public static double    upTurnUpL     = 0.24;  //翻转去夹0.23
