@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name = "Left", group = "drive", preselectTeleOp = "放篮子")
-public class Left extends LinearOpMode {
+@Autonomous(name = "Left", group = "classic", preselectTeleOp = "放篮子")
+public class LeftClassic extends LinearOpMode {
 	public Utils              utils = new Utils();
 	public SampleMecanumDrive drive;
 
