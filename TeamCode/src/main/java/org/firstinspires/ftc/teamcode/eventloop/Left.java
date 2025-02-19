@@ -5,10 +5,12 @@ import static org.firstinspires.ftc.teamcode.Utils.pushOut;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
+@Disabled
 @Autonomous(group = "classic", preselectTeleOp = "放篮子")
 public class Left extends LinearEventMode {
 	@Override

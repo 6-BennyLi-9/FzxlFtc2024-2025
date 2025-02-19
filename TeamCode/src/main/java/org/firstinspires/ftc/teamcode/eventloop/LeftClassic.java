@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(group = "classic", preselectTeleOp = "放篮子")
+@Autonomous(group = "drive", preselectTeleOp = "放篮子")
 public class LeftClassic extends LinearOpMode {
 	public Utils              utils = new Utils();
 	public SampleMecanumDrive drive;
@@ -36,7 +36,7 @@ public class LeftClassic extends LinearOpMode {
 		Pose2d forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
 		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
 		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, Math.toRadians(- 135));
-		Pose2d toGetSecondYellowSample = new Pose2d(47, 46.8, Math.toRadians(- 93)); //y49.2x64.2
+		Pose2d toGetSecondYellowSample = new Pose2d(47, 46.9, Math.toRadians(- 93)); //y49.2x64.2
 		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, Math.toRadians(- 135));//150
 		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
 		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, Math.toRadians(- 135));//150
@@ -68,7 +68,7 @@ public class LeftClassic extends LinearOpMode {
 				.build();
 		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
 				.lineToLinearHeading(GoToPark)
-				.forward(18)
+				.forward(19)
 				.build();
 
 
@@ -104,7 +104,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.claw_rotate(true);   //翻转上去
 		//sleep(300);
 		utils.setPushPose(pushIn);  //前电梯收回
-		sleep(250);
+		sleep(300);
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);
 		utils.clipOperation(false);   //夹住
@@ -130,14 +130,14 @@ public class LeftClassic extends LinearOpMode {
 		sleep(100);
 		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 		utils.claw_rotate_rst(false);    //翻转下去，打开
-		sleep(250);   //500
+		sleep(500);
 		utils.clawOperation(false);       //夹住
 		sleep(300);
 		utils.claw_rotate(true);         //翻转上去
-		sleep(200);
+		sleep(300);
 
 		utils.setPushPose(pushIn);
-		sleep(250);
+		sleep(300);
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);
 		utils.clipOperation(false);
@@ -165,10 +165,10 @@ public class LeftClassic extends LinearOpMode {
 		utils.clawOperation(false);       //夹住
 		sleep(300);
 		utils.claw_rotate(true);         //翻转上去
-		sleep(300);
+		sleep(400);
 
 		utils.setPushPose(pushIn);
-		sleep(250);//前电梯回位
+		sleep(300);//前电梯回位
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);//前电梯回位
 		utils.clipOperation(false);
