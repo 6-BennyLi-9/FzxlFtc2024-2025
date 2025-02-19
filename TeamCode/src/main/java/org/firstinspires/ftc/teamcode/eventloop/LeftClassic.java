@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 import org.firstinspires.ftc.teamcode.Utils;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "放篮子")
 public class LeftClassic extends LinearOpMode {
