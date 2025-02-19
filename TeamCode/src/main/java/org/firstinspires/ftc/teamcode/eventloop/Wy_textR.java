@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.SuperStructuresR;
 import org.firstinspires.ftc.teamcode.WyMoveMethod;
 
-@TeleOp(name = "挂样本", group = "aba_aba")
+@TeleOp(name = "挂样本", group = "team")
 public class Wy_textR extends OpMode {
 	private final WyMoveMethod     carChassis = new WyMoveMethod();
 	private final SuperStructuresR structures = new SuperStructuresR();

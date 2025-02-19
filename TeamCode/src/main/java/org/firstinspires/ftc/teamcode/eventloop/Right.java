@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
-@Autonomous(group = "drive", preselectTeleOp = "挂样本")
+@Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "挂样本")
 public class Right extends LinearEventMode {
 	public static final int PUSH_LENGTH      = 32;
 	public static       int SUSPEND_TIMES    = 4;

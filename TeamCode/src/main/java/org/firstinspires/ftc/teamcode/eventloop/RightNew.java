@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
-@Autonomous(group = "drive", preselectTeleOp = "挂样本")
+@Autonomous(group = Character.MAX_VALUE + "beta", preselectTeleOp = "挂样本")
 public class RightNew extends LinearEventMode {
 	public static final int GET_SAMPLES_TIMES = 3;
 	public static       int DELTA_GET_INCH    = 11;

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
 @Disabled
-@Autonomous(group = "classic", preselectTeleOp = "放篮子")
+@Autonomous(group = Character.MAX_VALUE + "bata", preselectTeleOp = "放篮子")
 public class Left extends LinearEventMode {
 	@Override
 	public void initialize() {
