@@ -205,7 +205,7 @@ public class Utils {
 				rearLiftToPosition(2350);//放篮子，原2300
 				break;
 			case middle:
-				rearLiftToPosition(910);//挂样本 849
+				rearLiftToPosition(900);//挂样本 849
 				break;
 			default:
 				throw new IllegalStateException(state.name());

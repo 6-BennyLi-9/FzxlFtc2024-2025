@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RearLiftLocation;
 @Autonomous(group = Character.MAX_VALUE + "beta", preselectTeleOp = "挂样本")
 public class RightNew extends LinearEventMode {
 	public static final int GET_SAMPLES_TIMES = 3;
-	public static       int DELTA_GET_INCH    = 11;
+	public static       int DELTA_GET_INCH    = -11;
 	public static       int SUSPEND_TIMES     = 4;
 	public static       int DELTA_PLACE_INCH  = -3;
 	public static 		int SUSPEND_DIFF 	  = 9;
@@ -21,7 +21,6 @@ public class RightNew extends LinearEventMode {
 	@Override
 	public void initialize() {
 		Pose2d originGetBlueSample   = new Pose2d(-36, 60, toRadians(- 135));
-		Pose2d originPutBlueSample   = new Pose2d(-36, 60, toRadians(135));
 		Pose2d toGetSuspendSample    = new Pose2d(- 43, 55, toRadians(- 90));
 		Pose2d toSuspendGottenSample = new Pose2d(- 4, 21 + SUSPEND_DIFF, toRadians(- 80));
 
@@ -32,15 +31,15 @@ public class RightNew extends LinearEventMode {
 						utils.setPushPose(pushOut);
 						utils.claw_rotate_rst(false);    //翻转下去，打开
 						sleep(500);
-						utils.clawOperation(false);       //夹住
+						utils.clawOperation(false);      //夹住
 						sleep(200);
 
 						service.execute(()->{
-							sleep(200);
+							Thread.yield();
 							utils.setPushPose(pushIn);
 						});
 					})
-					.lineToLinearHeading(originPutBlueSample.plus(new Pose2d(DELTA_GET_INCH * i)))
+					.turn(Math.toRadians(- 90))
 					.addDisplacementMarker(()-> utils.clawOperation(true));
 		}
 
