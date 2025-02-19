@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.MarkerCallback;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Const;
@@ -71,4 +72,19 @@ public abstract class LinearEventMode extends LinearOpMode {
 	public abstract void initialize();
 	@Const
 	public abstract Pose2d getInitialPoseEstimate();
+
+	/**
+	 * @return 按下 gamepad1.a 来激活断点
+	 */
+	public MarkerCallback newBreakpoint(){
+		return () -> {
+			try {
+				while (! gamepad1.a){
+					sleep(50);
+				}
+			} catch (Exception e) {
+				Thread.currentThread().interrupt();
+			}
+		};
+	}
 }
