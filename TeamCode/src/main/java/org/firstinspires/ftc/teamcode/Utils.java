@@ -38,11 +38,11 @@ public class Utils {
 	public static double    armUpL        = 0.43;
 	public static double    armDownMiddle = 0.85;
 	public static double    armDownL      = 0.92;
-	public static double    armUpR        = 0.89;
+	public static double    armUpR        = 0.90;
 	public static double    armDownR      = 0.20;
 	public static double    upTurnUpL     = 0.34;  //翻转去夹0.23
 	public static double    upTurnDown    = 0.80;  //翻转去挂
-	public static double    upTurnUpR     = 0.08;  //翻转去夹0.16
+	public static double    upTurnUpR     = 0.16;  //翻转去夹0.16
 	public static double    upTurnDownR   = 0.8;  //翻转去挂
 	public static double    pushOut       = 0.27;   //翻转去夹0.16
 	public static double    pushIn        = 0.80;   //翻转去挂
@@ -205,7 +205,7 @@ public class Utils {
 				rearLiftToPosition(2350);//放篮子，原2300
 				break;
 			case middle:
-				rearLiftToPosition(900);//挂样本 849
+				rearLiftToPosition(870);//挂样本 849
 				break;
 			default:
 				throw new IllegalStateException(state.name());
