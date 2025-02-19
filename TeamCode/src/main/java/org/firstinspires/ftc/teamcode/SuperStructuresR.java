@@ -111,7 +111,7 @@ public class SuperStructuresR {
 	private boolean lift_up_event;
 
 	public void optionThroughGamePad() {
-		if (gamepad2.left_bumper) {
+		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
 
 			if (! lift_up_event) {
@@ -124,6 +124,13 @@ public class SuperStructuresR {
 			}
 		} else {
 			lift_up_event = false;
+		}
+
+		if (gamepad2.left_bumper) {
+			//clipOperation1(true);
+			inlineArmOperation(false);
+			arm.setPosition(0.88);
+			setLiftPosition(172);//初始位置
 		}
 
 		if (gamepad2.dpad_right) {
