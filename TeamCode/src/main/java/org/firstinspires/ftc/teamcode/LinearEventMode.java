@@ -5,6 +5,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.MarkerCallback;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Const;
@@ -86,5 +87,9 @@ public abstract class LinearEventMode extends LinearOpMode {
 				Thread.currentThread().interrupt();
 			}
 		};
+	}
+
+	public Trajectory newDisplacementTrajectory(MarkerCallback callback,Pose2d startPose){
+		return drive.trajectoryBuilder(startPose).addDisplacementMarker(callback).build();
 	}
 }
