@@ -13,7 +13,6 @@ public class Right extends LinearEventMode {
 	public static final int PUSH_LENGTH      = 32;
 	public static       int SUSPEND_TIMES    = 4;
 	public static       int DELTA_PLACE_INCH = -3;
-	public static 		int SUSPEND_DIFF	 = 9;
 
 	@Override
 	public void initialize() {
@@ -21,7 +20,7 @@ public class Right extends LinearEventMode {
 		Pose2d afterPushFirstSample  = new Pose2d(- 50, 9 + PUSH_LENGTH, toRadians(- 90));
 		Pose2d prePushSecondSample   = new Pose2d(- 50, 9, toRadians(- 90));
 		Pose2d toGetSuspendSample    = new Pose2d(- 43, 55, toRadians(- 90));
-		Pose2d toSuspendGottenSample = new Pose2d(- 4, 21 + SUSPEND_DIFF, toRadians(- 80));
+		Pose2d toSuspendGottenSample = new Pose2d(- 4, 22, toRadians(- 80));
 
 		MAIN_BUILDER
 			.strafeRight(5)
@@ -33,7 +32,7 @@ public class Right extends LinearEventMode {
 			.strafeRight(5)
 			.lineToSplineHeading(afterPushFirstSample)
 			.lineToSplineHeading(prePushSecondSample)
-			.strafeRight(9)
+			.strafeRight(10)
 			.lineToSplineHeading(toGetSuspendSample.plus(new Pose2d(- 2)))
 			.addDisplacementMarker(()->{
 				sleep(150);
@@ -48,8 +47,7 @@ public class Right extends LinearEventMode {
 
 		for (int i = 0 ; i < SUSPEND_TIMES ; i++) {
 			MAIN_BUILDER
-				.lineTo(toSuspendGottenSample.plus(new Pose2d(DELTA_PLACE_INCH * i)).vec())
-				.forward(SUSPEND_DIFF)
+				.splineToConstantHeading(toSuspendGottenSample.plus(new Pose2d(DELTA_PLACE_INCH * i)).vec(),Math.toRadians(0))
 				.addDisplacementMarker(()-> service.execute(()->{
 					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 					sleep(150);
@@ -58,7 +56,7 @@ public class Right extends LinearEventMode {
 				}))
 				.lineToLinearHeading(toGetSuspendSample)
 				.addDisplacementMarker(()->{
-					sleep(200);
+					sleep(150);
 
 					service.execute(()->{
 						utils.clipOperation(false);    //夹住第一个
