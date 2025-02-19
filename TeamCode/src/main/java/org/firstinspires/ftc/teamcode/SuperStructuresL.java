@@ -31,7 +31,6 @@ public class SuperStructuresL {
 	public Servo turn;         				//前电梯上的翻转舵机
 	public Servo claw;  					//自动紫色像素释放 左
 
-
 	public Servo       rotate;              //盒子像素卡扣  后
 	public TouchSensor touch;
 	public Servo       upTurn;              //后电梯上摆臂

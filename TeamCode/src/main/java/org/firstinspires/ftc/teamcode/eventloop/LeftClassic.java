@@ -42,7 +42,6 @@ public class LeftClassic extends LinearOpMode {
 		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, Math.toRadians(- 135));//150
 		Pose2d GoToPark                = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
 
-
 		drive.setPoseEstimate(blueLeft);
 
 		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft)
