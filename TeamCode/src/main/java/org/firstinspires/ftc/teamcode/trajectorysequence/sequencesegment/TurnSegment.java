@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.trajectorysequence.sequencesegment;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryMarker;
@@ -8,10 +10,9 @@ import com.acmerobotics.roadrunner.util.Angle;
 import java.util.List;
 
 public final class TurnSegment extends SequenceSegment {
-    private final double totalRotation;
-    private final MotionProfile motionProfile;
+	private final MotionProfile motionProfile;
 
-    public TurnSegment(Pose2d startPose, double totalRotation, MotionProfile motionProfile, List<TrajectoryMarker> markers) {
+    public TurnSegment(Pose2d startPose, double totalRotation, @NonNull MotionProfile motionProfile, List<TrajectoryMarker> markers) {
         super(
                 motionProfile.duration(),
                 startPose,
@@ -22,12 +23,7 @@ public final class TurnSegment extends SequenceSegment {
                 markers
         );
 
-        this.totalRotation = totalRotation;
-        this.motionProfile = motionProfile;
-    }
-
-    public double getTotalRotation() {
-        return this.totalRotation;
+		this.motionProfile = motionProfile;
     }
 
     public MotionProfile getMotionProfile() {

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.trajectorysequence;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.path.PathContinuityViolationException;
@@ -506,9 +508,10 @@ public class TrajectorySequenceBuilder {
 		return new TrajectorySequence(sequenceSegments);
 	}
 
+	@NonNull
 	private List<TrajectoryMarker> convertMarkersToGlobal(
 			List<SequenceSegment> sequenceSegments,
-			List<TemporalMarker> temporalMarkers,
+			@NonNull List<TemporalMarker> temporalMarkers,
 			List<DisplacementMarker> displacementMarkers,
 			List<SpatialMarker> spatialMarkers
 	) {
@@ -549,7 +552,7 @@ public class TrajectorySequenceBuilder {
 		return trajectoryMarkers;
 	}
 
-	private void projectGlobalMarkersToLocalSegments(List<TrajectoryMarker> markers, List<SequenceSegment> sequenceSegments) {
+	private void projectGlobalMarkersToLocalSegments(List<TrajectoryMarker> markers, @NonNull List<SequenceSegment> sequenceSegments) {
 		if (sequenceSegments.isEmpty()) return;
 
 		markers.sort(Comparator.comparingDouble(TrajectoryMarker::getTime));
@@ -581,7 +584,8 @@ public class TrajectorySequenceBuilder {
 
 	// Taken from Road Runner's TrajectoryGenerator.displacementToTime() since it's private
 	// note: this assumes that the profile position is monotonic increasing
-	private Double motionProfileDisplacementToTime(MotionProfile profile, double s) {
+	@NonNull
+	private Double motionProfileDisplacementToTime(@NonNull MotionProfile profile, double s) {
 		double tLo = 0.0;
 		double tHi = profile.duration();
 		while (!(Math.abs(tLo - tHi) < 1e-6)) {
@@ -595,7 +599,7 @@ public class TrajectorySequenceBuilder {
 		return 0.5 * (tLo + tHi);
 	}
 
-	private Double displacementToTime(List<SequenceSegment> sequenceSegments, double s) {
+	private Double displacementToTime(@NonNull List<SequenceSegment> sequenceSegments, double s) {
 		double currentTime = 0.0;
 		double currentDisplacement = 0.0;
 
@@ -624,7 +628,7 @@ public class TrajectorySequenceBuilder {
 		return currentTime;
 	}
 
-	private Double pointToTime(List<SequenceSegment> sequenceSegments, Vector2d point) {
+	private Double pointToTime(@NonNull List<SequenceSegment> sequenceSegments, Vector2d point) {
 		class ComparingPoints {
 			private final double distanceToPoint;
 			private final double totalDisplacement;
