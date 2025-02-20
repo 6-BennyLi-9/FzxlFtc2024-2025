@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/** @noinspection FieldCanBeLocal, unused */ /*
+/** @noinspection FieldCanBeLocal, unused
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config

@@ -56,6 +56,7 @@ import java.util.List;
 @Disabled
 @Deprecated
 @Config
+@SuppressWarnings("all")
 public class SampleTankDrive extends TankDrive {
 	public static PIDCoefficients AXIAL_PID = new PIDCoefficients(0, 0, 0);
 	public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
