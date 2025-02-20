@@ -63,16 +63,16 @@ public class RightClassic extends LinearOpMode {
 				.strafeRight(10.8)
 				.back(37)
 				.strafeLeft(10)
-				.back(9.0)
+				.back(8.5)
 				.build();
 		TrajectorySequence toGetThirdBlue = drive.trajectorySequenceBuilder(toUpSecondBlue.end())
 				.lineToLinearHeading(toGetThirdBlueSample)
-				.back(3.1)
+				.back(3)
 				.build();
 
 		TrajectorySequence ToUpThirdBlue = drive.trajectorySequenceBuilder(toGetThirdBlue.end())
 				.lineToLinearHeading(toUpThirdSample)
-				.forward(6.5)
+				.forward(7.0)
 				.build();
 		TrajectorySequence Park= drive.trajectorySequenceBuilder(ToUpThirdBlue.end())
 				.lineToLinearHeading(toPark)
