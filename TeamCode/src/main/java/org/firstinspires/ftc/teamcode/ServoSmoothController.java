@@ -6,8 +6,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class ServoSmoothController {
 	private final Servo  servo;
-	private 	  double target, current;
-	private double SMOOTH_VAL = 0.5;
+	private       double target;
+	private       double current;
+	private       double SMOOTH_VAL = 0.45;
 
 	public ServoSmoothController(@NonNull Servo servo) {
 		this.servo = servo;
@@ -27,11 +28,11 @@ public class ServoSmoothController {
 		return current;
 	}
 
-	public void resolveCurrent(){
-		current=target+(target-current) * SMOOTH_VAL;
+	public strictfp void resolveCurrent(){
+		current = target + (target - current) * SMOOTH_VAL;
 	}
 
-	public void updateSignal(){
+	public strictfp void updateSignal(){
 		servo.setPosition(current);
 	}
 

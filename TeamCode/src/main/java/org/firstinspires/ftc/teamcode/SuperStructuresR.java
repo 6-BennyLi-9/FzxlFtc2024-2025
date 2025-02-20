@@ -33,8 +33,9 @@ public class SuperStructuresR {
 	public Servo       rotate;     //盒子像素卡扣  后
 	public TouchSensor touch;
 	public Servo       upTurn;     //后电梯上摆臂
-	public Servo       leftPush;   //后电梯上的夹取  前
-	public Servo       rightPush;  //前电梯上的翻转舵机
+
+	public ServoSmoothController leftPushController;//后电梯上的夹取  前
+	public ServoSmoothController rightPushController;//前电梯上的翻转舵机
 
 	public static double turnUp     = 0.07; //0.31
 	public static double turnMiddle = 0.71;
@@ -92,8 +93,9 @@ public class SuperStructuresR {
 		this.rotate = hardwareMap.get(Servo.class, rotate);
 		this.claw = hardwareMap.get(Servo.class, claw);
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
-		this.leftPush = hardwareMap.get(Servo.class, leftPush);
-		this.rightPush = hardwareMap.get(Servo.class, rightPush);
+
+		leftPushController = new ServoSmoothController(hardwareMap.get(Servo.class, leftPush));
+		rightPushController = new ServoSmoothController(hardwareMap.get(Servo.class, rightPush));
 
 		setPushPose(0.82);
 	}
@@ -102,8 +104,12 @@ public class SuperStructuresR {
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		//0.9684931506849315 0.707/0.73
 		//0.9863013698630137 0.72/0.73
-		leftPush.setPosition(0.9684931506849315 - position * 0.9863013698630137);
-		rightPush.setPosition(position);
+
+		leftPushController.setTarget(0.9684931506849315 - position * 0.9863013698630137);
+		rightPushController.setTarget(position);
+
+		leftPushController.update();
+		rightPushController.update();
 	}
 
 	private boolean lift_up_event;
@@ -148,7 +154,7 @@ public class SuperStructuresR {
 			setLiftPosition(0);//初始位置
 		}
 
-		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
+		setPushPose(rightPushController.getTarget() + gamepad2.left_stick_y * 0.035);
 
 		liftPositionUpdate();
 		rotate.setPosition(rotate.getPosition() + 0.03 * (gamepad2.left_trigger - gamepad2.right_trigger));
