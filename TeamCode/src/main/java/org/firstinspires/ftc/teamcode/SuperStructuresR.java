@@ -135,7 +135,7 @@ public class SuperStructuresR {
 
 		if (gamepad2.dpad_right) {
 			inlineClawOpenOperation();
-			setLiftPosition(870);   //挂样本883，910, 852, 849, 872
+			setLiftPosition(875);   //挂样本883，910, 852, 849, 872
 			inlineArmOperation(true);
 		}
 		if (gamepad2.dpad_left) {
