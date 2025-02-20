@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
 public class TurnTest extends LinearOpMode {
-    public static double ANGLE = 90; // deg
+    public static final double ANGLE = 90; // deg
 
     @Override
     public void runOpMode() throws InterruptedException {

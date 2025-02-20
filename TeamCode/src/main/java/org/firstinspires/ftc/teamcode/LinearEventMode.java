@@ -24,7 +24,7 @@ public abstract class LinearEventMode extends LinearOpMode {
 	public Utils                     utils;
 	public SampleMecanumDrive        drive;
 
-	public ExecutorService           service = new ThreadPoolExecutor(
+	public final ExecutorService service = new ThreadPoolExecutor(
 			5,
 			8,
 			1L,

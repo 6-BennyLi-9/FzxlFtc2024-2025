@@ -18,7 +18,7 @@ public class Encoder {
         // because the velocity is always a multiple of 20 cps due to Expansion Hub's 50ms measurement window
         real += ((real % 20) / 4) * CPS_STEP;
         // estimate-based correction: it finds the nearest multiple of 5 to correct the upper bits by
-        real += Math.round((estimate - real) / (5 * CPS_STEP)) * 5 * CPS_STEP;
+        real += (int) (Math.round((estimate - real) / (5 * CPS_STEP)) * 5 * CPS_STEP);
         return real;
     }
 

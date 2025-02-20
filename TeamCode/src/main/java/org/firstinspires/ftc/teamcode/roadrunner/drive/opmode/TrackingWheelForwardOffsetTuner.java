@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLoca
  * offset. We can compute this offset by calculating (change in y position) / (change in heading)
  * which returns the radius if the angle (change in heading) is in radians. This is based
  * on the arc length formula of length = theta * radius.
- *
+ * <p>
  * To run this routine, simply adjust the desired angle and specify the number of trials
  * and the desired delay. Then, run the procedure. Once it finishes, it will print the
  * average of all the calculated forward offsets derived from the calculation. This calculated
@@ -39,9 +39,9 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLoca
 @Config
 @Autonomous(group="drive")
 public class TrackingWheelForwardOffsetTuner extends LinearOpMode {
-    public static double ANGLE = 180; // deg
-    public static int NUM_TRIALS = 5;
-    public static int DELAY = 1000; // ms
+    public static final double ANGLE      = 180; // deg
+    public static final int    NUM_TRIALS = 5;
+    public static final int    DELAY      = 1000; // ms
 
     @Override
     public void runOpMode() throws InterruptedException {

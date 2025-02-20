@@ -29,20 +29,17 @@ import java.util.Objects;
 @Config
 @Autonomous(group = "drive")
 public class MaxVelocityTuner extends LinearOpMode {
-    public static double RUNTIME = 2.0;
+    public static final double RUNTIME = 2.0;
 
-    private ElapsedTime timer;
-    private double maxVelocity = 0.0;
+	private double maxVelocity = 0.0;
 
-    private VoltageSensor batteryVoltageSensor;
-
-    @Override
+	@Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
+		VoltageSensor batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -58,7 +55,7 @@ public class MaxVelocityTuner extends LinearOpMode {
         telemetry.update();
 
         drive.setDrivePower(new Pose2d(1, 0, 0));
-        timer = new ElapsedTime();
+		ElapsedTime timer = new ElapsedTime();
 
         while (!isStopRequested() && timer.seconds() < RUNTIME) {
             drive.updatePoseEstimate();

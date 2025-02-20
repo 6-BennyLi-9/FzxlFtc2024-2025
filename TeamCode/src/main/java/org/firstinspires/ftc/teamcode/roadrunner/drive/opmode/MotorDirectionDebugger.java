@@ -13,9 +13,9 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 /**
  * This is a simple teleop routine for debugging your motor configuration.
  * Pressing each of the buttons will power its respective motor.
- *
+ * <p>
  * Button Mappings:
- *
+ * <p>
  * Xbox/PS4 Button - Motor
  *   X / ▢         - Front Left
  *   Y / Δ         - Front Right
@@ -35,14 +35,14 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
  *               '.             /             Wheel       \    Wheel
  *                \.          .'              (A/X)        \   (B/O)
  *                  \________/
- *
+ * <p>
  * Uncomment the @Disabled tag below to use this opmode.
  */
 @Disabled
 @Config
 @TeleOp(group = "drive")
 public class MotorDirectionDebugger extends LinearOpMode {
-    public static double MOTOR_POWER = 0.7;
+    public static final double MOTOR_POWER = 0.7;
 
     @Override
     public void runOpMode() throws InterruptedException {

@@ -14,10 +14,10 @@ import org.firstinspires.ftc.teamcode.LinearEventMode;
 @Autonomous(group = Character.MAX_VALUE + "beta", preselectTeleOp = "挂样本")
 public class RightNew extends LinearEventMode {
 	public static final int GET_SAMPLES_TIMES = 2;
-	public static       int DELTA_GET_INCH    = -11;
-	public static       int SUSPEND_TIMES     = 4;
-	public static       int DELTA_PLACE_INCH  = -3;
-	public static 		int SUSPEND_DIFF 	  = 9;
+	public static final int DELTA_GET_INCH    = -11;
+	public static final int SUSPEND_TIMES     = 4;
+	public static final int DELTA_PLACE_INCH = -3;
+	public static final int SUSPEND_DIFF     = 9;
 
 	@Override
 	public void initialize() {

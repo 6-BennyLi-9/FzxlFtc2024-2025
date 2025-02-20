@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "放篮子")
 public class LeftClassic extends LinearOpMode {
-	public Utils              utils = new Utils();
-	public SampleMecanumDrive drive;
+	public final Utils              utils = new Utils();
+	public       SampleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

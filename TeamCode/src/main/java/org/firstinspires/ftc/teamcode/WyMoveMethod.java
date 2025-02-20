@@ -109,7 +109,7 @@ public class WyMoveMethod {
         telemetry.addData("第2个角", angle.secondAngle);
         telemetry.addData("第3个角", angle.thirdAngle);
     }
-    public float maxSpeed = 1.0f;
+    public final float maxSpeed = 1.0f;
 
     public void basicMoveThroughGamePad() {
         //根据控制板控制

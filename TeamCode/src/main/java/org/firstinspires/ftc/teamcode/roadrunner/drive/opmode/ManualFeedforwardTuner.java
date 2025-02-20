@@ -46,13 +46,11 @@ import java.util.Objects;
 @Config
 @Autonomous(group = "drive")
 public class ManualFeedforwardTuner extends LinearOpMode {
-    public static double DISTANCE = 72; // in
+    public static final double DISTANCE = 72; // in
 
     private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
-    private SampleMecanumDrive drive;
-
-    enum Mode {
+	enum Mode {
         DRIVER_MODE,
         TUNING_MODE
     }
@@ -72,7 +70,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, dashboard.getTelemetry());
 
-        drive = new SampleMecanumDrive(hardwareMap);
+		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         final VoltageSensor voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
@@ -132,7 +130,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                     if (gamepad1.b) {
                         mode = Mode.TUNING_MODE;
                         movingForwards = true;
-                        activeProfile = generateProfile(movingForwards);
+                        activeProfile = generateProfile(true);
                         profileStart = clock.seconds();
                     }
 

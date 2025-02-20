@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = "classic",preselectTeleOp = "挂样本")
 public class RightClassic extends LinearOpMode {
-	public Utils              utils = new Utils();
-	public SampleMecanumDrive drive;
+	public final Utils              utils = new Utils();
+	public       SampleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

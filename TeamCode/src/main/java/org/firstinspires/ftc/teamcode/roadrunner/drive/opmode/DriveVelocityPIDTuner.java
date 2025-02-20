@@ -53,7 +53,7 @@ import java.util.List;
 @Config
 @Autonomous(group = "drive")
 public class DriveVelocityPIDTuner extends LinearOpMode {
-    public static double DISTANCE = 72; // in
+    public static final double DISTANCE = 72; // in
 
     enum Mode {
         DRIVER_MODE,
@@ -129,21 +129,23 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
                     // update telemetry
                     telemetry.addData("targetVelocity", motionState.getV());
-                    for (int i = 0; i < velocities.size(); i++) {
-                        telemetry.addData("measuredVelocity" + i, velocities.get(i));
-                        telemetry.addData(
-                                "error" + i,
-                                motionState.getV() - velocities.get(i)
-                        );
-                    }
-                    break;
+					if (velocities != null) {
+						for (int i = 0; i < velocities.size(); i++) {
+							telemetry.addData("measuredVelocity" + i, velocities.get(i));
+							telemetry.addData(
+									"error" + i,
+									motionState.getV() - velocities.get(i)
+							);
+						}
+					}
+					break;
                 case DRIVER_MODE:
                     if (gamepad1.b) {
                         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
                         mode = Mode.TUNING_MODE;
                         movingForwards = true;
-                        activeProfile = generateProfile(movingForwards);
+                        activeProfile = generateProfile(true);
                         profileStart = clock.seconds();
                     }
 

@@ -27,15 +27,15 @@ import java.util.List;
  */
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-	public static double TICKS_PER_REV = 4096;
-	public static double WHEEL_RADIUS = 0.7480315; // in 编码轮自己的尺寸
-	public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
+	public static final double TICKS_PER_REV = 4096;
+	public static final double WHEEL_RADIUS  = 0.7480315; // in 编码轮自己的尺寸
+	public static final double GEAR_RATIO    = 1; // output (wheel) speed / input (encoder) speed
 
-	public static double LATERAL_DISTANCE = 11.8694; // 12.41编码轮两边的距离尺寸in; distance between the left and right wheels
-	public static double FORWARD_OFFSET = 1.0; // 4.29in; offset of the lateral wheel
+	public static final double LATERAL_DISTANCE = 11.8694; // 12.41编码轮两边的距离尺寸in; distance between the left and right wheels
+	public static final double FORWARD_OFFSET   = 1.0; // 4.29in; offset of the lateral wheel
 
-	public static double X_MULTIPLIER = 0.9977986871456648; // Multiplier in the X direction
-	public static double Y_MULTIPLIER = 1; // Multiplier in the Y direction
+	public static final double X_MULTIPLIER = 0.9977986871456648; // Multiplier in the X direction
+	public static final double Y_MULTIPLIER = 1; // Multiplier in the Y direction
 
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;

@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-/** @noinspection FieldCanBeLocal*/
+/** */
 @Config
 public class SuperStructuresL {
 	public HardwareMap hardwareMap;
@@ -38,19 +38,19 @@ public class SuperStructuresL {
 	public ServoSmoothController leftPushController;//后电梯上的夹取  前
 	public ServoSmoothController rightPushController;//前电梯上的翻转舵机
 
-	public static double turnUp     = 0.07; //0.31
-	public static double turnMiddle = 0.71;
-	public static double turnDown   = 0.87;
-	public static double rotateOn   = 0.49;
-	public static double clawOn     = 0.63;
-	public static double clawOpen   = 0.32;
-	public static double clipOn     = 0.78;  //0.79
-	public static double clipOpen   = 0.52;
-	public static double armDown    = 0.92;  //翻转去夹0.16 0.89
-	public static double armMiddle  = 0.83;  //翻转去挂
-	public static double armUp      = 0.41;  //翻转去挂0.43
-	public static double upTurnUp   = 0.40;  //翻转去放0.25
-	public static double upTurnDown = 0.79;  //翻转去夹0.77
+	public static final double turnUp     = 0.07; //0.31
+	public static final double turnMiddle = 0.71;
+	public static final double turnDown   = 0.87;
+	public static final double rotateOn   = 0.49;
+	public static final double clawOn   = 0.63;
+	public static final double clawOpen = 0.32;
+	public static final double clipOn   = 0.78;  //0.79
+	public static final double clipOpen = 0.52;
+	public static final double armDown  = 0.92;  //翻转去夹0.16 0.89
+	public static final double armMiddle = 0.83;  //翻转去挂
+	public static final double armUp     = 0.41;  //翻转去挂0.43
+	public static final double upTurnUp  = 0.40;  //翻转去放0.25
+	public static final double upTurnDown = 0.79;  //翻转去夹0.77
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
 		hardwareMap = h;

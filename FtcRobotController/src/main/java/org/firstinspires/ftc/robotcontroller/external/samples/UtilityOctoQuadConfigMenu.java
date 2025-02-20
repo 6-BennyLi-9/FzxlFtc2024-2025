@@ -21,6 +21,8 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -443,6 +445,14 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
             // Start building the text display.
             // First, we add the static directions for gamepad operation
+            String menu = getString(children);
+
+            // Add it to telemetry
+            telemetry.addLine(menu);
+        }
+
+        @NonNull
+        private String getString(@NonNull ArrayList <Element> children) {
             StringBuilder builder = new StringBuilder();
             builder.append("<font color='#119af5' face=monospace>");
             builder.append("Navigate items.....dpad up/down\n")
@@ -457,7 +467,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             builder.append("Current Menu: ").append(currentLevel.name).append("\n");
 
             // Now we loop through all the child elements of this level and add them
-            for (int i = 0; i < children.size(); i++)
+            for (int i = 0 ; i < children.size(); i++)
             {
                 // If the selection pointer is at this index, put a green dot in the box :)
                 if (selectedIdx == i)
@@ -492,9 +502,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
             // Build the string!!!! :nerd:
             String menu = builder.toString();
-
-            // Add it to telemetry
-            telemetry.addLine(menu);
+            return menu;
         }
 
         public static class MenuElement extends Element

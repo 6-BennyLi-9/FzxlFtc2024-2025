@@ -63,21 +63,18 @@ import java.util.concurrent.TimeUnit;
 @Disabled
 public class SensorHuskyLens extends LinearOpMode {
 
-    private final int READ_PERIOD = 1;
-
-    private HuskyLens huskyLens;
-
-    @Override
+	@Override
     public void runOpMode()
     {
-        huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
+		HuskyLens huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
 
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
          * would not likely rate limit.
          */
-        Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.SECONDS);
+		int      READ_PERIOD = 1;
+		Deadline rateLimit   = new Deadline(READ_PERIOD, TimeUnit.SECONDS);
 
         /*
          * Immediately expire so that the first time through we'll do the read.
@@ -92,7 +89,7 @@ public class SensorHuskyLens extends LinearOpMode {
          * failing on initialization.  In the case of this device, it's because the
          * call to knock() failed.
          */
-        if (!huskyLens.knock()) {
+        if (! huskyLens.knock()) {
             telemetry.addData(">>", "Problem communicating with " + huskyLens.getDeviceName());
         } else {
             telemetry.addData(">>", "Press start to continue");

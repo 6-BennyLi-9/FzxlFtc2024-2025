@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.roadrunner.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -22,12 +23,13 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.StandardTrackingWheelLocalizer;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -40,12 +42,13 @@ public final class LogFiles {
 
     public static LogFile log = new LogFile("uninitialized");
 
-    public static class LogFile {
+    /** @noinspection deprecation*/
+	public static class LogFile {
         public String version = "quickstart1 v2";
 
-        public String opModeName;
-        public long msInit = System.currentTimeMillis();
-        public long nsInit = System.nanoTime();
+        public final String opModeName;
+        public final long   msInit = System.currentTimeMillis();
+        public       long   nsInit = System.nanoTime();
         public long nsStart, nsStop;
 
         public double ticksPerRev = DriveConstants.TICKS_PER_REV;
@@ -93,22 +96,22 @@ public final class LogFiles {
         public RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = DriveConstants.LOGO_FACING_DIR;
         public RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR = DriveConstants.USB_FACING_DIR;
 
-        public List<Long> nsTimes = new ArrayList<>();
+        public final List<Long> nsTimes = new ArrayList<>();
 
-        public List<Double> targetXs = new ArrayList<>();
-        public List<Double> targetYs = new ArrayList<>();
-        public List<Double> targetHeadings = new ArrayList<>();
+        public final List<Double> targetXs = new ArrayList<>();
+        public final List<Double> targetYs = new ArrayList<>();
+        public final List<Double> targetHeadings = new ArrayList<>();
 
-        public List<Double> xs = new ArrayList<>();
-        public List<Double> ys = new ArrayList<>();
-        public List<Double> headings = new ArrayList<>();
+        public final List<Double> xs = new ArrayList<>();
+        public final List<Double> ys = new ArrayList<>();
+        public final List<Double> headings = new ArrayList<>();
 
-        public List<Double> voltages = new ArrayList<>();
+        public final List<Double> voltages = new ArrayList<>();
 
-        public List<List<Integer>> driveEncPositions = new ArrayList<>();
-        public List<List<Integer>> driveEncVels = new ArrayList<>();
-        public List<List<Integer>> trackingEncPositions = new ArrayList<>();
-        public List<List<Integer>> trackingEncVels = new ArrayList<>();
+        public final List<List<Integer>> driveEncPositions = new ArrayList<>();
+        public final List<List<Integer>> driveEncVels      = new ArrayList<>();
+        public final List<List<Integer>> trackingEncPositions = new ArrayList<>();
+        public final List<List<Integer>> trackingEncVels      = new ArrayList<>();
 
         public LogFile(String opModeName) {
             this.opModeName = opModeName;
@@ -176,7 +179,7 @@ public final class LogFiles {
 
             // clean up old files
             File[] fs = Objects.requireNonNull(ROOT.listFiles());
-            Arrays.sort(fs, (a, b) -> Long.compare(a.lastModified(), b.lastModified()));
+            Arrays.sort(fs, Comparator.comparingLong(File::lastModified));
             long totalSizeBytes = 0;
             for (File f : fs) {
                 totalSizeBytes += f.length();
@@ -266,8 +269,11 @@ public final class LogFiles {
                         NanoHTTPD.MIME_PLAINTEXT, "file " + f + " doesn't exist");
             }
 
-            return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK,
-                    "application/json", new FileInputStream(f));
-        });
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK,
+						"application/json", Files.newInputStream(f.toPath()));
+			}
+			return null;
+		});
     }
 }

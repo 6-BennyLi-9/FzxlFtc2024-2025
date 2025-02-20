@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 @Disabled
 @Autonomous(group = "zzz")
 public class Test extends LinearOpMode {
-	public Utils utils =new Utils();
+	public final Utils utils =new Utils();
 
 	@Override
 	public void runOpMode() throws InterruptedException {

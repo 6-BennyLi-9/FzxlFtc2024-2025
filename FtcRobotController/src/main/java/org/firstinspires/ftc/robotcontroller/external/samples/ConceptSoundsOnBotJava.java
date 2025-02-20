@@ -69,11 +69,7 @@ public class ConceptSoundsOnBotJava extends LinearOpMode {
     private File goldFile   = new File("/sdcard" + soundPath + "/gold.wav");
     private File silverFile = new File("/sdcard" + soundPath + "/silver.wav");
 
-    // Declare OpMode members.
-    private boolean isX = false;    // Gamepad button state variables
-    private boolean isB = false;
-
-    private boolean wasX = false;   // Gamepad button history variables
+	private boolean wasX = false;   // Gamepad button history variables
     private boolean WasB = false;
 
     @Override
@@ -99,14 +95,18 @@ public class ConceptSoundsOnBotJava extends LinearOpMode {
         while (opModeIsActive()) {
 
             // say Silver each time gamepad X is pressed (This sound is a resource)
-            if (silverFound && (isX = gamepad1.x) && !wasX) {
+			// Declare OpMode members.
+			// Gamepad button state variables
+			boolean isX = false;
+			if (silverFound && (isX = gamepad1.x) && !wasX) {
                 SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, silverFile);
                 telemetry.addData("Playing", "Silver File");
                 telemetry.update();
             }
 
             // say Gold each time gamepad B is pressed  (This sound is a resource)
-            if (goldFound && (isB = gamepad1.b) && !WasB) {
+			boolean isB = false;
+			if (goldFound && (isB = gamepad1.b) && !WasB) {
                 SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, goldFile);
                 telemetry.addData("Playing", "Gold File");
                 telemetry.update();
