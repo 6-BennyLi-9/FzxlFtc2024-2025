@@ -15,6 +15,7 @@ public class Right extends LinearEventMode {
 	public int  DELTA_PLACE_INCH      = - 3;
 	public int  SUSPEND_DIFF          = 9;
 	public long SLEEP_WHEN_GET_SAMPLE = 150;
+	public long SLEEP_BUF_VALUE       = 50;
 
 	@Override
 	public void initialize() {
@@ -25,11 +26,11 @@ public class Right extends LinearEventMode {
 		Pose2d toSuspendGottenSample = new Pose2d(- 4, 21 + SUSPEND_DIFF, toRadians(- 80));
 
 		MAIN_BUILDER
-			.strafeRight(5)
-			.addDisplacementMarker(() -> service.execute(()->{
+			.addTemporalMarker(5,() -> service.execute(()->{
 				utils.armOperationR(true);//翻转手臂
 				utils.clipOperation(true);
 			}))
+			.strafeRight(5)
 			.lineToSplineHeading(prePushFirstSample)
 			.strafeRight(5)
 			.lineToSplineHeading(afterPushFirstSample)
@@ -41,10 +42,12 @@ public class Right extends LinearEventMode {
 
 				service.execute(()->{
 					utils.clipOperation(false);    //夹住第一个
-					sleep(300);
+					sleep(SLEEP_BUF_VALUE * 6);
 					utils.setRearLiftPosition(RearLiftLocation.middle);
 					utils.armOperationR(false);
 				});
+
+				sleep(SLEEP_BUF_VALUE);
 			});
 
 		for (int i = 0 ; i < SUSPEND_TIMES ; i++) {
@@ -63,10 +66,12 @@ public class Right extends LinearEventMode {
 
 					service.execute(()->{
 						utils.clipOperation(false);    //夹住第一个
-						sleep(300);
+						sleep(SLEEP_BUF_VALUE * 6);
 						utils.setRearLiftPosition(RearLiftLocation.middle);
 						utils.armOperationR(false);
 					});
+
+					sleep(SLEEP_BUF_VALUE);
 				});
 		}
 	}
@@ -77,11 +82,12 @@ public class Right extends LinearEventMode {
 	}
 
 	@Autonomous(name = "Right（更低效率）", group = Character.MIN_VALUE + "drive", preselectTeleOp = "挂样本")
-	public static final class LowerGetSamples extends Right{
-		public LowerGetSamples(){
+	public static final class LowerGetSamples extends Right {
+		public LowerGetSamples() {
 			SUSPEND_TIMES = 3;
 			SUSPEND_DIFF = 10;
-			SLEEP_WHEN_GET_SAMPLE = 350;
+			SLEEP_WHEN_GET_SAMPLE = 400;
+			SLEEP_BUF_VALUE = 100;
 		}
 	}
 }
