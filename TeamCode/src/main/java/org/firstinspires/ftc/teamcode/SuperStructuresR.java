@@ -45,8 +45,6 @@ public class SuperStructuresR {
 	public static double clipOn     = 0.79; //0.78
 	public static double clipOpen   = 0.52;
 	public static double armPut     = 0.90;  //翻转去夹上提0.56,0.84，0.93
-
-	public static double armMiddle  = 0.76;  //翻转去挂
 	public static double armGet     = 0.20;  //0.16,挂边框0.14翻转去挂0.20
 	public static double upTurnGet  = 0.8;  //翻转去夹0.78,挂边框0.58
 	public static double upTurnPut  = 0.16;  //翻转去挂0.05,上提0.67，0.16
