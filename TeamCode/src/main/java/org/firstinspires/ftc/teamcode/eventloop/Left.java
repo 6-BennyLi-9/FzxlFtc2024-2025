@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
 @Disabled
+@Deprecated
 @Autonomous(group = Character.MAX_VALUE + "bata", preselectTeleOp = "放篮子")
 public class Left extends LinearEventMode {
 	@Override
