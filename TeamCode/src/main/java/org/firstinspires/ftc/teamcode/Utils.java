@@ -36,7 +36,7 @@ public class Utils {
 	public static double    clipOn        = 0.79;
 	public static double    clipOpen      = 0.49;
 	public static double    armUpL        = 0.43;
-	public static double    armDownMiddle = 0.85;
+	public static double    armDownMiddle = 0.87;
 	public static double    armDownL      = 0.92;
 	public static double    armUpR        = 0.90;
 	public static double    armDownR      = 0.20;
