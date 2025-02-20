@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
+import static java.lang.Math.*;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -10,12 +12,12 @@ import org.firstinspires.ftc.teamcode.RearLiftLocation;
 public class RightIntegralClassic extends LinearEventMode {
 	@Override
 	public void initialize() {
-		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
-		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, Math.toRadians(- 90));
-		Pose2d toUpSecondBlueSample = new Pose2d(- 8, 30, Math.toRadians(- 90));//44
-		Pose2d toBlueSample         = new Pose2d(- 40, 30, Math.toRadians(- 90)); //-95
-		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, Math.toRadians(- 90));
-		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
+		Pose2d forward              = new Pose2d(- 6, 33, toRadians(- 90));
+		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, toRadians(- 90));
+		Pose2d toUpSecondBlueSample = new Pose2d(- 8, 30, toRadians(- 90));//44
+		Pose2d toBlueSample         = new Pose2d(- 40, 30, toRadians(- 90)); //-95
+		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, toRadians(- 90));
+		Pose2d toPark               = new Pose2d(- 49, 55, toRadians(- 90));
 
 		MAIN_BUILDER
 				.addTemporalMarker(()->{
@@ -30,7 +32,7 @@ public class RightIntegralClassic extends LinearEventMode {
 					utils.armOperationR(true);       //翻转手臂
 				})
 				.lineToLinearHeading(toGetSecondSample)
-				.back(2.0)
+				.back(1.8)
 				.addTemporalMarker(()->{
 					sleep(550);
 					utils.clipOperation(false);    //夹住第一个
@@ -79,6 +81,6 @@ public class RightIntegralClassic extends LinearEventMode {
 
 	@Override
 	public Pose2d getInitialPoseEstimate() {
-		return new Pose2d(- 12, 58, Math.toRadians(- 90));
+		return new Pose2d(- 12, 58, toRadians(- 90));
 	}
 }

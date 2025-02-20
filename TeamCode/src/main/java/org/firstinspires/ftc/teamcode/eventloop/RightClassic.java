@@ -45,7 +45,7 @@ public class RightClassic extends LinearOpMode {
 				.build();
 		TrajectorySequence toGetSecondBlue = drive.trajectorySequenceBuilder(left_put.end())
 				.lineToLinearHeading(toGetSecondSample)
-				.back(2.0)
+				.back(1.8)
 				.build();
 
 		TrajectorySequence toUpSecondBlue = drive.trajectorySequenceBuilder(toGetSecondBlue.end())
@@ -66,7 +66,7 @@ public class RightClassic extends LinearOpMode {
 				.build();
 		TrajectorySequence toGetThirdBlue = drive.trajectorySequenceBuilder(toUpSecondBlue.end())
 				.lineToLinearHeading(toGetThirdBlueSample)
-				.back(3)
+				.back(2.8)
 				.build();
 
 		TrajectorySequence ToUpThirdBlue = drive.trajectorySequenceBuilder(toGetThirdBlue.end())
