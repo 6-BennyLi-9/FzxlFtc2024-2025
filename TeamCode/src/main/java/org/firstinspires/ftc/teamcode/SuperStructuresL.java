@@ -49,7 +49,7 @@ public class SuperStructuresL {
 	public static final double armDown  = 0.92;  //翻转去夹0.16 0.89
 	public static final double armMiddle = 0.83;  //翻转去挂
 	public static final double armUp     = 0.41;  //翻转去挂0.43
-	public static final double upTurnUp  = 0.40;  //翻转去放0.25
+	public static final double upTurnUp  = 0.41;  //翻转去放0.25
 	public static final double upTurnDown = 0.79;  //翻转去夹0.77
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
