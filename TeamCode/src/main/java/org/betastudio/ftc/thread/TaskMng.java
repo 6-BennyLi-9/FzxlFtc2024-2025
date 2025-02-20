@@ -42,8 +42,6 @@ public class TaskMng {
 		public Future <?> value() {
 			return future;
 		}
-
-
 	}
 	@NonNull
 	@Contract(value = "_ -> new", pure = true)

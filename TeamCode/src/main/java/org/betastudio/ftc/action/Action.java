@@ -29,7 +29,7 @@ public interface Action extends Runnable, Callable<Boolean> {
 	}
 
 	@Override
-	default Boolean call() throws Exception {
+	default Boolean call() {
 		return activate();
 	}
 }
