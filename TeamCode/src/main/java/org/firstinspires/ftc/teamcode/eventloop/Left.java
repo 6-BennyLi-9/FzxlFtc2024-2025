@@ -25,13 +25,13 @@ public class Left extends LinearEventMode {
 		Pose2d GoToPark                = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
 
 		MAIN_BUILDER
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					utils.setRearLiftPosition(RearLiftLocation.up);
 					sleep(100);
 					utils.setPushPose(pushOut); //伸前电梯
 				})
 				.lineToLinearHeading(forward)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					sleep(500);
 					utils.armOperation(false);
 					sleep(450);
@@ -39,7 +39,7 @@ public class Left extends LinearEventMode {
 					sleep(200);
 				})
 				.lineToLinearHeading(toGetFirstYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					sleep(100);
 					utils.claw_rotate_rst(true);  //前面夹子翻转下去、打开
 					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
@@ -61,7 +61,7 @@ public class Left extends LinearEventMode {
 					sleep(150);
 				})
 				.lineToLinearHeading(toPutFirstYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					utils.setRearLiftPosition(RearLiftLocation.up);  //后电梯抬
 
 					sleep(1000);
@@ -75,7 +75,7 @@ public class Left extends LinearEventMode {
 					utils.setPushPose(pushOut); //frontLiftPosition(up); //伸前电梯
 				})
 				.lineToLinearHeading(toGetSecondYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					sleep(100);
 					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
 					utils.claw_rotate_rst(false);    //翻转下去，打开
@@ -94,7 +94,7 @@ public class Left extends LinearEventMode {
 					utils.clawOperation(true);
 				})
 				.lineToLinearHeading(toPutSecondYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					utils.setRearLiftPosition(RearLiftLocation.up);
 					sleep(1200);
 					utils.armOperation(false); ////手臂翻转,同时将前夹子放下
@@ -107,7 +107,7 @@ public class Left extends LinearEventMode {
 					utils.setPushPose(pushOut); //伸前电梯
 				})
 				.lineToLinearHeading(toGetThirdYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					sleep(100);
 					//utils.setRearLiftPosition(RearLiftLocation.low); //回电梯
 					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯/
@@ -128,7 +128,7 @@ public class Left extends LinearEventMode {
 					utils.clawOperation(true);
 				})
 				.lineToLinearHeading(toPutThirdYellowSample)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					utils.setRearLiftPosition(RearLiftLocation.up);
 					sleep(1000);
 					utils.armOperation(false);
@@ -144,7 +144,7 @@ public class Left extends LinearEventMode {
 				})
 				.lineToLinearHeading(GoToPark)
 				.forward(18)
-				.addDisplacementMarker(()->{
+				.addTemporalMarker(()->{
 					utils.claw_rotate(true);
 					utils.arm.setPosition(0.67);
 				});
