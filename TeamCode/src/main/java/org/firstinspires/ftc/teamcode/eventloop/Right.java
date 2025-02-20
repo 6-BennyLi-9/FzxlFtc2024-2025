@@ -10,10 +10,11 @@ import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "挂样本")
 public class Right extends LinearEventMode {
-	public static final int PUSH_LENGTH      = 32;
-	public static       int SUSPEND_TIMES    = 4;
-	public static       int DELTA_PLACE_INCH = -3;
-	public static 		int SUSPEND_DIFF	 = 9;
+	public int  PUSH_LENGTH           = 32;
+	public int  SUSPEND_TIMES         = 4;
+	public int  DELTA_PLACE_INCH      = - 3;
+	public int  SUSPEND_DIFF          = 9;
+	public long SLEEP_WHEN_GET_SAMPLE = 150;
 
 	@Override
 	public void initialize() {
@@ -36,7 +37,7 @@ public class Right extends LinearEventMode {
 			.strafeRight(9)
 			.lineToSplineHeading(toGetSuspendSample.plus(new Pose2d(- 2)))
 			.addDisplacementMarker(()->{
-				sleep(150);
+				sleep(SLEEP_WHEN_GET_SAMPLE);
 
 				service.execute(()->{
 					utils.clipOperation(false);    //夹住第一个
@@ -58,7 +59,7 @@ public class Right extends LinearEventMode {
 				}))
 				.lineToLinearHeading(toGetSuspendSample)
 				.addDisplacementMarker(()->{
-					sleep(200);
+					sleep(SLEEP_WHEN_GET_SAMPLE);
 
 					service.execute(()->{
 						utils.clipOperation(false);    //夹住第一个
@@ -73,5 +74,14 @@ public class Right extends LinearEventMode {
 	@Override
 	public Pose2d getInitialPoseEstimate() {
 		return new Pose2d(- 35, 58, toRadians(- 90));
+	}
+
+	@Autonomous(name = "Right（更低效率）", group = Character.MIN_VALUE + "drive", preselectTeleOp = "挂样本")
+	public static final class LowerGetSamples extends Right{
+		public LowerGetSamples(){
+			SUSPEND_TIMES = 3;
+			SUSPEND_DIFF = 10;
+			SLEEP_WHEN_GET_SAMPLE = 350;
+		}
 	}
 }
