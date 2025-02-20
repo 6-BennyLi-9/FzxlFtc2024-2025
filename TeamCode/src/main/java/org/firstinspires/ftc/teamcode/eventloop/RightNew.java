@@ -8,9 +8,12 @@ import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 
+@Disabled
+@Deprecated
 @Autonomous(group = Character.MAX_VALUE + "beta", preselectTeleOp = "挂样本")
 public class RightNew extends LinearEventMode {
 	public static final int GET_SAMPLES_TIMES = 2;
