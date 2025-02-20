@@ -51,7 +51,7 @@ public class RightClassic extends LinearOpMode {
 
 		TrajectorySequence toUpSecondBlue = drive.trajectorySequenceBuilder(toGetSecondBlue.end())
 				.lineToLinearHeading(toUpSecondBlueSample)
-				.forward(5.0)
+				.forward(6.0)
 				.build();
 
 		TrajectorySequence toPut = drive.trajectorySequenceBuilder(left_put.end())
@@ -72,7 +72,7 @@ public class RightClassic extends LinearOpMode {
 
 		TrajectorySequence ToUpThirdBlue = drive.trajectorySequenceBuilder(toGetThirdBlue.end())
 				.lineToLinearHeading(toUpThirdSample)
-				.forward(7.0)
+				.forward(8.0)
 				.build();
 		TrajectorySequence Park= drive.trajectorySequenceBuilder(ToUpThirdBlue.end())
 				.lineToLinearHeading(toPark)
@@ -99,7 +99,7 @@ public class RightClassic extends LinearOpMode {
 		utils.armOperationR(true);       //翻转手臂
 		//夹第一个
 		drive.followTrajectorySequence(toGetSecondBlue); //去推第一样本
-		sleep(500);
+		sleep(550);
 		utils.clipOperation(false);    //夹住第一个
 		sleep(400);
 		utils.setRearLiftPosition(RearLiftLocation.middle);
@@ -122,10 +122,10 @@ public class RightClassic extends LinearOpMode {
 		sleep(100);//150
 		utils.clipOperation(true);
 		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
-		sleep(50);
-		utils.armOperationR(true);
+
 		//去拿第三个
 		drive.followTrajectorySequence(Park);
+		utils.armOperationR(true);
 		utils.claw_rotate(true);
 
 		sleep(Long.MAX_VALUE);
