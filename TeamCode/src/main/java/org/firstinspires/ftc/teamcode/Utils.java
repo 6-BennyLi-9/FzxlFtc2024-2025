@@ -13,6 +13,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.BNO055IMU.Parameters;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -70,26 +71,30 @@ public class Utils {
 	public Telemetry   telemetry;
 
 	public void init(HardwareMap hardwareMap, Telemetry telemetry) {
+		init(hardwareMap, telemetry, false);
+	}
+
+	public void init(HardwareMap hardwareMap, Telemetry telemetry, boolean initIMU) {
 		this.hardwareMap = hardwareMap;
 		this.telemetry = telemetry;
 
-		imuInit();
+		if(initIMU) {
+			imuInit();
+		}
 	}
 
 	public void imuInit() {
 		imu = hardwareMap.get(BNO055IMU.class, "imu");
 
-		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();//不可更改
-		parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-		parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-		parameters.calibrationDataFile = "BNO055Calibration.json";
-		parameters.loggingEnabled = true;
-		parameters.loggingTag = "IMU";
-		parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+		Parameters param = new Parameters();
+		param.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+		param.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+		param.calibrationDataFile = "BNO055Calibration.json";
+		param.loggingEnabled = true;
+		param.loggingTag = "IMU";
+		param.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-		sleepForMS(500);
-
-		imu.initialize(parameters);
+		imu.initialize(param);
 	}
 
 	public void liftMotorInit(String leftLift, String rightLift, String touch) {

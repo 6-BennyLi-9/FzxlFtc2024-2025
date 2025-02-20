@@ -28,7 +28,6 @@ public class LeftClassic extends LinearOpMode {
 		utils.claw_rotate(false);
 		utils.setPushPose(pushIn); //收前电梯
 		utils.motorInit();
-		utils.imuInit();
 
 		drive = new SampleMecanumDrive(hardwareMap);
 

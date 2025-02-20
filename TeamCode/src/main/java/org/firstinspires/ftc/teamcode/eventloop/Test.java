@@ -21,7 +21,6 @@ public class Test extends LinearOpMode {
 		utils.armOperation(true);
 		utils.claw_rotate(false);
 		utils.motorInit();
-		utils.imuInit();
 
 		waitForStart();
 
