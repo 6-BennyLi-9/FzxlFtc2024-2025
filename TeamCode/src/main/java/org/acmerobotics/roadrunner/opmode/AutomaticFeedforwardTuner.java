@@ -17,7 +17,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.util.LoggingUtil;
 import org.acmerobotics.roadrunner.util.RegressionUtil;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Misc;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 			RobotLog.setGlobalErrorMsg("Feedforward constants usually don't need to be tuned " + "when using the built-in drive motor velocity PID.");
 		}
 
-		final Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+		telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
 		final SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
