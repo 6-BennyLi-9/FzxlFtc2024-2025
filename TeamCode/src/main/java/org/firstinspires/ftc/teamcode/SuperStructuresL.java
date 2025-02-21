@@ -89,9 +89,7 @@ public class SuperStructuresL {
 
 	public strictfp void setPushPose(double position) {
 		position = Math.max(Math.min(position, 0.82), 0.15);
-		//0.9684931506849315 0.707/0.73
-		//0.9863013698630137 0.72/0.73
-		leftPush.setPosition(0.9684931506849315 - position* 0.9863013698630137);
+		leftPush.setPosition(0.8484931506849315 - 0.9863013698630136 * position);
 		rightPush.setPosition(position);
 	}
 
