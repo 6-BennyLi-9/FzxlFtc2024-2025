@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushIn;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushOut;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.down;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.middle;
 import static java.lang.Math.toRadians;
@@ -8,7 +10,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.HardwareDatabase3;
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 
 @Disabled
@@ -32,7 +33,7 @@ public class RightNew extends LinearEventMode {
 			MAIN_BUILDER
 					.lineToLinearHeading(originGetBlueSample.plus(new Pose2d(DELTA_GET_INCH * i)))
 					.addDisplacementMarker(()->{
-						utils.setPushPose(HardwareDatabase3.pushOut);
+						utils.setPushPose(pushOut);
 						utils.claw_rotate_rst(false);    //翻转下去，打开
 						utils.rotate.setPosition(0.8);
 						sleep(500);
@@ -50,7 +51,7 @@ public class RightNew extends LinearEventMode {
 				.lineToLinearHeading(toGetSuspendSample)
 				.addDisplacementMarker(()-> {
 					utils.claw_rotate(true);
-					utils.setPushPose(HardwareDatabase3.pushIn);
+					utils.setPushPose(pushIn);
 
 					sleep(150);
 
