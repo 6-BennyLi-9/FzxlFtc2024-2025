@@ -67,9 +67,6 @@ public class BaseMapClient implements Client {
 		return runnables.remove((Runnable) token);
 	}
 
-	/**
-	 * 注意：这是新的Data
-	 */
 	@Override
 	public void putData(final String key, final String val) {
 		this.data.put(key, val);
@@ -81,10 +78,7 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	/**
-	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
-	 */
-	@Override
+		@Override
 	public void deleteData(final String key) {
 		this.data.remove(key);
 
@@ -95,9 +89,6 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	/**
-	 * 自动创建新的行如果key所指向的值不存在
-	 */
 	@Override
 	public void changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
@@ -124,9 +115,6 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	/**
-	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
-	 */
 	@Override
 	public void deleteLine(final String key) {
 		this.data.remove(key);
@@ -139,12 +127,6 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-	/**
-	 * 将key行替代为val，自动创建新的行如果key所指向的值不存在
-	 *
-	 * @param oldData 目标行
-	 * @param newData 替换行
-	 */
 	@Override
 	public void changeLine(final String oldData, final String newData) {
 		this.data.remove(oldData);
