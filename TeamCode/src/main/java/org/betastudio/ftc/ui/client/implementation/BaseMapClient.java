@@ -208,7 +208,7 @@ public class BaseMapClient implements Client {
 
 	protected synchronized void updateLogLines() {
 		for (final TelemetryElement e : targetLogTunnel.call().getElements()) {
-			e.push(telemetry);
+			e.activateToTelemetry(telemetry);
 		}
 		telemetry.update();
 	}

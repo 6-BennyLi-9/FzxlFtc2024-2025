@@ -17,7 +17,7 @@ public class TelemetryItem implements TelemetryElement {
 	}
 
 	@Override
-	public void push(@NonNull final Telemetry telemetry) {
+	public void activateToTelemetry(@NonNull final Telemetry telemetry) {
 		telemetry.addData(capital, value);
 	}
 
