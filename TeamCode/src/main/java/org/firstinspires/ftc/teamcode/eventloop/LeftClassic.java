@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushIn;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushOut;
+import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.pushOut;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;

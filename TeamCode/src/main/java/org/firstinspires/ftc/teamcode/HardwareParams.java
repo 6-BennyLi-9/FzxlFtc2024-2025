@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-public final class HardwareDatabase {
+public final class HardwareParams {
 	public static final double turnUp     = 0.07; //0.31
 	public static final double turnMiddle = 0.71;
 	public static final double turnDown   = 0.87;
@@ -22,7 +22,6 @@ public final class HardwareDatabase {
 	//==============================
 	//            自动程序
 	//==============================
-
 
 	public static final double armUpL        = 0.43;
 	public static final double armDownMiddle = 0.87;

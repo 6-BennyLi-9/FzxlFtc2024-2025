@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushIn;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushOut;
+import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.pushOut;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.down;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.middle;
 import static java.lang.Math.toRadians;

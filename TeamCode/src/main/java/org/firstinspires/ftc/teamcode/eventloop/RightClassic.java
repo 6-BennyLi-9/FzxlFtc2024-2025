@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.pushIn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
