@@ -39,10 +39,10 @@ public class SuperStructuresL {
 	public Servo       leftPush;            //后电梯上的夹取  前
 	public Servo       rightPush;           //前电梯上的翻转舵机
 
-	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
-		hardwareMap = h;
-		telemetry = t;
-		gamepad2 = g2;
+	public void init(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad2) {
+		this.hardwareMap = hardwareMap;
+		this.telemetry = telemetry;
+		this.gamepad2 = gamepad2;
 	}
 
 	public void motorInit(String leftLift, String rightLift, String touch) {
