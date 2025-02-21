@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.entry.MessagesProcessRequired;
 import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.util.message.TelemetryMsg;
@@ -82,4 +83,6 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatab
 	default void speak(final String text) {
 		speak(text, null, null);
 	}
+
+	FtcLogTunnel getTargetLogTunnel();
 }

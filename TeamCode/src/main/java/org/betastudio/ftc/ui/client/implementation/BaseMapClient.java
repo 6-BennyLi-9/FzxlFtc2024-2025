@@ -12,6 +12,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
+import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
@@ -28,17 +29,17 @@ import java.util.Objects;
 @Config
 public class BaseMapClient implements Client {
 	public static ClientViewMode clientViewMode;
-	public static boolean        debug_mode;
 
 	static {
 		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
-	protected final Telemetry            telemetry;
-	protected final Map <String, String> data;
-	protected final List <Runnable>      runnables;
-	protected       boolean              autoUpdate, isUpdateRequested;
-	protected       FtcLogTunnel         targetLogTunnel = FtcLogTunnel.MAIN;
+	protected final Telemetry                      telemetry;
+	protected final Map <String, TelemetryElement> data;
+	protected final List <Runnable>                runnables;
+	protected       boolean                        autoUpdate;
+	protected       boolean                        isUpdateRequested;
+	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
 	public BaseMapClient(@NonNull final Telemetry telemetry) {
 		this.telemetry = telemetry;
@@ -69,7 +70,7 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public void putData(final String key, final String val) {
-		this.data.put(key, val);
+		this.data.put(key, new TelemetryItem(key, val));
 
 		if (autoUpdate) {
 			this.update();
@@ -92,7 +93,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public void changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
-			this.data.replace(key, val);
+			((TelemetryItem) (Objects.requireNonNull(this.data.get(key)))).setValue(val);
 		} else {
 			this.putData(key, val);
 		}
@@ -106,7 +107,7 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public void putLine(final String key) {
-		this.data.put(key, "");
+		this.data.put(key, new TelemetryLine(key));
 
 		if (autoUpdate) {
 			this.update();
@@ -119,7 +120,6 @@ public class BaseMapClient implements Client {
 	public void deleteLine(final String key) {
 		this.data.remove(key);
 
-
 		if (autoUpdate) {
 			this.update();
 		} else {
@@ -130,7 +130,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public void changeLine(final String oldData, final String newData) {
 		this.data.remove(oldData);
-		this.data.put(newData, "");
+		this.data.put(newData, new TelemetryLine(newData));
 
 		if (autoUpdate) {
 			this.update();
@@ -193,14 +193,8 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateTelemetryLines() {
-		for (final Map.Entry <String, String> i : this.data.entrySet()) {
-			final String  key = i.getKey();
-			final String  val = i.getValue();
-			if (! Objects.equals(val, "")) {
-				telemetry.addData(key, val);
-			} else {
-				telemetry.addLine(key);
-			}
+		for (final Map.Entry <String, TelemetryElement> i : this.data.entrySet()) {
+			i.getValue().activateToTelemetry(telemetry);
 		}
 
 		this.telemetry.update();
@@ -216,11 +210,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
-			if (element instanceof TelemetryLine) {
-				putLine(((TelemetryLine) element).line);
-			} else if (element instanceof TelemetryItem) {
-				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
-			}
+			data.put(Labeler.generate().summonID(element), element);
 		}
 	}
 
@@ -246,6 +236,7 @@ public class BaseMapClient implements Client {
 		}
 	}
 
+	@Override
 	public FtcLogTunnel getTargetLogTunnel() {
 		return targetLogTunnel;
 	}
