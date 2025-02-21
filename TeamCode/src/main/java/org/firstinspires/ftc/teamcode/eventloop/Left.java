@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.Utils.pushIn;
-import static org.firstinspires.ftc.teamcode.Utils.pushOut;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.HardwareDatabase3;
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
@@ -29,7 +27,7 @@ public class Left extends LinearEventMode {
 				.addTemporalMarker(()->{
 					utils.setRearLiftPosition(RearLiftLocation.up);
 					sleep(100);
-					utils.setPushPose(pushOut); //伸前电梯
+					utils.setPushPose(HardwareDatabase3.pushOut); //伸前电梯
 				})
 				.lineToLinearHeading(forward)
 				.addTemporalMarker(()->{
@@ -52,7 +50,7 @@ public class Left extends LinearEventMode {
 					sleep(200);
 					utils.claw_rotate(true);   //翻转上去
 					//sleep(300);
-					utils.setPushPose(pushIn);  //前电梯收回
+					utils.setPushPose(HardwareDatabase3.pushIn);  //前电梯收回
 					sleep(250);
 					utils.armOperationL(false);     //打开夹子，下降去夹
 					sleep(300);
@@ -73,7 +71,7 @@ public class Left extends LinearEventMode {
 					utils.armOperationL(true);   //翻转回来，打开夹子
 					sleep(100);
 
-					utils.setPushPose(pushOut); //frontLiftPosition(up); //伸前电梯
+					utils.setPushPose(HardwareDatabase3.pushOut); //frontLiftPosition(up); //伸前电梯
 				})
 				.lineToLinearHeading(toGetSecondYellowSample)
 				.addTemporalMarker(()->{
@@ -86,7 +84,7 @@ public class Left extends LinearEventMode {
 					utils.claw_rotate(true);         //翻转上去
 					sleep(200);
 
-					utils.setPushPose(pushIn);
+					utils.setPushPose(HardwareDatabase3.pushIn);
 					sleep(250);
 					utils.armOperationL(false);     //打开夹子，下降去夹
 					sleep(300);
@@ -105,7 +103,7 @@ public class Left extends LinearEventMode {
 					utils.armOperationL(true);
 					sleep(100);
 
-					utils.setPushPose(pushOut); //伸前电梯
+					utils.setPushPose(HardwareDatabase3.pushOut); //伸前电梯
 				})
 				.lineToLinearHeading(toGetThirdYellowSample)
 				.addTemporalMarker(()->{
@@ -120,7 +118,7 @@ public class Left extends LinearEventMode {
 					utils.claw_rotate(true);         //翻转上去
 					sleep(300);
 
-					utils.setPushPose(pushIn);
+					utils.setPushPose(HardwareDatabase3.pushIn);
 					sleep(250);//前电梯回位
 					utils.armOperationL(false);     //打开夹子，下降去夹
 					sleep(300);//前电梯回位

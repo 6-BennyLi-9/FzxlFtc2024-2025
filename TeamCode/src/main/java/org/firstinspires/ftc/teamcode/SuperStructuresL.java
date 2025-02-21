@@ -38,20 +38,6 @@ public class SuperStructuresL {
 	public ServoSmoothController leftPushController;//后电梯上的夹取  前
 	public ServoSmoothController rightPushController;//前电梯上的翻转舵机
 
-	public static final double turnUp     = 0.07; //0.31
-	public static final double turnMiddle = 0.71;
-	public static final double turnDown   = 0.87;
-	public static final double rotateOn   = 0.49;
-	public static final double clawOn   = 0.63;
-	public static final double clawOpen = 0.32;
-	public static final double clipOn   = 0.78;  //0.79
-	public static final double clipOpen = 0.52;
-	public static final double armDown  = 0.92;  //翻转去夹0.16 0.89
-	public static final double armMiddle = 0.83;  //翻转去挂
-	public static final double armUp     = 0.41;  //翻转去挂0.43
-	public static final double upTurnUp  = 0.41;  //翻转去放0.25
-	public static final double upTurnDown = 0.79;  //翻转去夹0.77
-
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
 		hardwareMap = h;
 		telemetry = t;
@@ -177,11 +163,11 @@ public class SuperStructuresL {
 			}
 			switch (armPutEvent) {
 				case 0:
-					clip.setPosition(clipOn);
+					clip.setPosition(HardwareDatabase.clipOn);
 					break;
 				case 1:
-					arm.setPosition(armDown);  //打开
-					clip.setPosition(clipOpen);
+					arm.setPosition(HardwareDatabase.armDown);  //打开
+					clip.setPosition(HardwareDatabase.clipOpen);
 					break;
 			}
 		} else {
@@ -206,23 +192,23 @@ public class SuperStructuresL {
 			}
 			switch (clawPutEvent) {
 				case 0:
-					claw.setPosition(clawOn);  //扣住
-					turn.setPosition(turnUp);  //翻转上去
-					rotate.setPosition(rotateOn); //保持水平0.63，0
+					claw.setPosition(HardwareDatabase.clawOn);  //扣住
+					turn.setPosition(HardwareDatabase.turnUp);  //翻转上去
+					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.63，0
 					break;
 				case 1:
-					claw.setPosition(clawOpen);  //打开
-					turn.setPosition(turnMiddle);  //翻转下去
-					rotate.setPosition(rotateOn); //保持水平0.1,0.83
+					claw.setPosition(HardwareDatabase.clawOpen);  //打开
+					turn.setPosition(HardwareDatabase.turnMiddle);  //翻转下去
+					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
 					break;
 				case 2:
-					claw.setPosition(clawOpen);  //打开
-					turn.setPosition(turnDown);  //翻转下去
+					claw.setPosition(HardwareDatabase.clawOpen);  //打开
+					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
 					//rotate.setPosition(rotateOn); //保持水平0.1,0.83
 					break;
 				case 3:
-					claw.setPosition(clawOn);  //夹住
-					turn.setPosition(turnDown);  //翻转下去
+					claw.setPosition(HardwareDatabase.clawOn);  //夹住
+					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
 
 					break;
 
@@ -249,10 +235,10 @@ public class SuperStructuresL {
 			}
 			switch (clipPutEvent) {
 				case 0:
-					clip.setPosition(clipOpen);  //释放
+					clip.setPosition(HardwareDatabase.clipOpen);  //释放
 					break;
 				case 1:
-					clip.setPosition(clipOn);  //夹住
+					clip.setPosition(HardwareDatabase.clipOn);  //夹住
 					break;
 			}
 		} else {
@@ -262,26 +248,26 @@ public class SuperStructuresL {
 
 	private void inlineArmOperation(boolean y) {
 		if (y) {
-			clip.setPosition(clipOn);  //夹住
-			arm.setPosition(armUp);  //翻转挂矿石
-			upTurn.setPosition(upTurnUp);
-			claw.setPosition(clawOpen);
+			clip.setPosition(HardwareDatabase.clipOn);  //夹住
+			arm.setPosition(HardwareDatabase.armUp);  //翻转挂矿石
+			upTurn.setPosition(HardwareDatabase.upTurnUp);
+			claw.setPosition(HardwareDatabase.clawOpen);
 		} else {
-			clip.setPosition(clipOpen);  //打开
-			arm.setPosition(armMiddle);  //中间等待位置
-			upTurn.setPosition(upTurnDown);
+			clip.setPosition(HardwareDatabase.clipOpen);  //打开
+			arm.setPosition(HardwareDatabase.armMiddle);  //中间等待位置
+			upTurn.setPosition(HardwareDatabase.upTurnDown);
 		}
 	}
 
 
 	private void inlineClawOpenOperation() {
-		claw.setPosition(clawOpen);   //打开
-		turn.setPosition(turnMiddle);  //翻转下去
-		rotate.setPosition(rotateOn); //保持水平0.1,0.83
+		claw.setPosition(HardwareDatabase.clawOpen);   //打开
+		turn.setPosition(HardwareDatabase.turnMiddle);  //翻转下去
+		rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
 	}
 
 	private void inlineClipOpenOperation() {
-		clip.setPosition(clipOpen);  //打开
+		clip.setPosition(HardwareDatabase.clipOpen);  //打开
 	}
 
 	public void showEncoder() {

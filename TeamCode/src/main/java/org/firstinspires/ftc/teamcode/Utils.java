@@ -28,25 +28,6 @@ import java.util.concurrent.Callable;
 
 @Config
 public class Utils {
-	public static final double turnUp     = 0.06; //0.31
-	public static final double turnMiddle = 0.71;
-	public static final double turnDown   = 0.87;
-	public static final double rotateOn   = 0.49;
-	public static final double clawOn   = 0.62;
-	public static final double clawOpen = 0.32;
-	public static final double clipOn   = 0.79;
-	public static final double clipOpen = 0.49;
-	public static final double armUpL   = 0.43;
-	public static final double armDownMiddle = 0.87;
-	public static final double armDownL      = 0.92;
-	public static final double armUpR        = 0.90;
-	public static final double armDownR = 0.20;
-	public static final double upTurnUpL = 0.34;  //翻转去夹0.23
-	public static final double upTurnDown = 0.80;  //翻转去挂
-	public static final double upTurnUpR  = 0.16;  //翻转去夹0.16
-	public static final double upTurnDownR = 0.8;  //翻转去挂
-	public static final double pushOut     = 0.27;   //翻转去夹0.16
-	public static final double pushIn      = 0.80;   //翻转去挂
 
 	public DcMotorEx leftFront;
 	public DcMotorEx leftRear;
@@ -93,6 +74,8 @@ public class Utils {
 		param.loggingEnabled = true;
 		param.loggingTag = "IMU";
 		param.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+		sleepForMS(500);
 
 		imu.initialize(param);
 	}
@@ -219,26 +202,26 @@ public class Utils {
 
 	public void armOperationR(boolean y) {
 		if (y) {
-			clip.setPosition(clipOpen);  //打开
-			arm.setPosition(armDownR);  //不翻转0.11
-			upTurn.setPosition(upTurnDownR);
+			clip.setPosition(HardwareDatabase3.clipOpen);  //打开
+			arm.setPosition(HardwareDatabase3.armDownR);  //不翻转0.11
+			upTurn.setPosition(HardwareDatabase3.upTurnDownR);
 		} else {
-			upTurn.setPosition(upTurnUpR);
-			clip.setPosition(clipOn);  //夹住
-			arm.setPosition(armUpR);  //翻转
+			upTurn.setPosition(HardwareDatabase3.upTurnUpR);
+			clip.setPosition(HardwareDatabase3.clipOn);  //夹住
+			arm.setPosition(HardwareDatabase3.armUpR);  //翻转
 		}
 	}
 
 	public void armOperationL(boolean d) {
 		if (d) {
-			clip.setPosition(clipOpen);  //打开
-			arm.setPosition(armDownMiddle);
-			upTurn.setPosition(upTurnDown);//不翻转0.11
+			clip.setPosition(HardwareDatabase3.clipOpen);  //打开
+			arm.setPosition(HardwareDatabase3.armDownMiddle);
+			upTurn.setPosition(HardwareDatabase3.upTurnDown);//不翻转0.11
 
 		} else {
-			clip.setPosition(clipOpen);  //打开
-			arm.setPosition(armDownL);
-			upTurn.setPosition(upTurnDown);//不翻转0.11
+			clip.setPosition(HardwareDatabase3.clipOpen);  //打开
+			arm.setPosition(HardwareDatabase3.armDownL);
+			upTurn.setPosition(HardwareDatabase3.upTurnDown);//不翻转0.11
 		}
 	}
 
@@ -247,15 +230,15 @@ public class Utils {
 	 */
 	public void armOperation(boolean y) {
 		if (y) {
-			clip.setPosition(clipOn);  //夹住0.55
-			arm.setPosition(armDownMiddle);  //不翻转
-			upTurn.setPosition(upTurnDown);
-			claw.setPosition(clawOpen);  //前夹子打开
+			clip.setPosition(HardwareDatabase3.clipOn);  //夹住0.55
+			arm.setPosition(HardwareDatabase3.armDownMiddle);  //不翻转
+			upTurn.setPosition(HardwareDatabase3.upTurnDown);
+			claw.setPosition(HardwareDatabase3.clawOpen);  //前夹子打开
 		} else {
-			clip.setPosition(clipOn);  //夹住
-			arm.setPosition(armUpL); //翻转放块
-			turn.setPosition(turnMiddle);
-			upTurn.setPosition(upTurnUpL);
+			clip.setPosition(HardwareDatabase3.clipOn);  //夹住
+			arm.setPosition(HardwareDatabase3.armUpL); //翻转放块
+			turn.setPosition(HardwareDatabase3.turnMiddle);
+			upTurn.setPosition(HardwareDatabase3.upTurnUpL);
 		}
 	}
 
@@ -263,51 +246,51 @@ public class Utils {
 	 * @param s 如果为真，打开
 	 */
 	public void clipOperation(boolean s) {
-		this.clip.setPosition(s ? clipOpen : clipOn); //开/关
+		this.clip.setPosition(s ? HardwareDatabase3.clipOpen : HardwareDatabase3.clipOn); //开/关
 	}
 
 	/**
 	 * @param s 如果为真，打开
 	 */
 	public void clawOperation(boolean s) {
-		this.claw.setPosition(s ? clawOpen : clawOn); //开/关
+		this.claw.setPosition(s ? HardwareDatabase3.clawOpen : HardwareDatabase3.clawOn); //开/关
 	}
 
 	public void claw_rotate_rst(boolean x) {
 		if (x) {
-			claw.setPosition(clawOpen);  //打开0.26
-			turn.setPosition(turnMiddle);   //翻下去
-			rotate.setPosition(rotateOn);  //转正
+			claw.setPosition(HardwareDatabase3.clawOpen);  //打开0.26
+			turn.setPosition(HardwareDatabase3.turnMiddle);   //翻下去
+			rotate.setPosition(HardwareDatabase3.rotateOn);  //转正
 		} else {
-			claw.setPosition(clawOpen);  //打开0.26
-			turn.setPosition(turnDown);   //翻下去
-			rotate.setPosition(rotateOn);  //转正
+			claw.setPosition(HardwareDatabase3.clawOpen);  //打开0.26
+			turn.setPosition(HardwareDatabase3.turnDown);   //翻下去
+			rotate.setPosition(HardwareDatabase3.rotateOn);  //转正
 		}
 	}
 
 	public void claw_rotate_rst1(boolean x) {
 		if (x) {
-			claw.setPosition(clawOpen);  //打开0.26
-			turn.setPosition(turnMiddle);   //翻下去
-			rotate.setPosition(rotateOn);  //转正
+			claw.setPosition(HardwareDatabase3.clawOpen);  //打开0.26
+			turn.setPosition(HardwareDatabase3.turnMiddle);   //翻下去
+			rotate.setPosition(HardwareDatabase3.rotateOn);  //转正
 		} else {
 			rotate.setPosition(0.51);  //偏转角度
-			claw.setPosition(clawOpen);  //打开0.26
-			turn.setPosition(turnDown);   //翻下去
+			claw.setPosition(HardwareDatabase3.clawOpen);  //打开0.26
+			turn.setPosition(HardwareDatabase3.turnDown);   //翻下去
 
 		}
 	}
 
 	public void claw_rotate(boolean m) {
 		if (m) {
-			claw.setPosition(clawOn);  //夹住
-			turn.setPosition(turnUp);   //翻上去
-			rotate.setPosition(rotateOn); //转正0.1, 0.83
-			clip.setPosition(clipOpen);   //夹子打开
+			claw.setPosition(HardwareDatabase3.clawOn);  //夹住
+			turn.setPosition(HardwareDatabase3.turnUp);   //翻上去
+			rotate.setPosition(HardwareDatabase3.rotateOn); //转正0.1, 0.83
+			clip.setPosition(HardwareDatabase3.clipOpen);   //夹子打开
 		} else {
-			claw.setPosition(clawOpen);  //打开0.26
-			turn.setPosition(turnUp);   //翻上去
-			rotate.setPosition(rotateOn);  //旋转90度
+			claw.setPosition(HardwareDatabase3.clawOpen);  //打开0.26
+			turn.setPosition(HardwareDatabase3.turnUp);   //翻上去
+			rotate.setPosition(HardwareDatabase3.rotateOn);  //旋转90度
 		}
 	}
 

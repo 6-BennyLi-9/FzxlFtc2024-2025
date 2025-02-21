@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.Utils.pushIn;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.HardwareDatabase3;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -23,7 +22,7 @@ public class RightClassic extends LinearOpMode {
 		utils.servoInit("arm","clip","rotate","turn","claw", "upTurn", "leftPush", "rightPush");
 		utils.armOperation(true);
 		utils.claw_rotate(false);
-		utils.setPushPose(pushIn); //收前电梯
+		utils.setPushPose(HardwareDatabase3.pushIn); //收前电梯
 		utils.motorInit();
 
 		drive = new SampleMecanumDrive(hardwareMap);

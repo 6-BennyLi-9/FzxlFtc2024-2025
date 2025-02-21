@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.Utils.pushIn;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -46,7 +45,7 @@ public abstract class LinearEventMode extends LinearOpMode {
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
 		utils.armOperation(true);
 		utils.claw_rotate(false);
-		utils.setPushPose(pushIn); //收前电梯
+		utils.setPushPose(HardwareDatabase3.pushIn); //收前电梯
 		utils.motorInit();
 		drive.setPoseEstimate(getInitialPoseEstimate());
 		MAIN_BUILDER = drive.trajectorySequenceBuilder(getInitialPoseEstimate());

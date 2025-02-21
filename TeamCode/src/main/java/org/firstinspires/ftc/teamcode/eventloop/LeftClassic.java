@@ -1,14 +1,11 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-
-import static org.firstinspires.ftc.teamcode.Utils.pushIn;
-import static org.firstinspires.ftc.teamcode.Utils.pushOut;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.HardwareDatabase3;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
@@ -26,7 +23,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
 		utils.armOperation(true);
 		utils.claw_rotate(false);
-		utils.setPushPose(pushIn); //收前电梯
+		utils.setPushPose(HardwareDatabase3.pushIn); //收前电梯
 		utils.motorInit();
 
 		drive = new SampleMecanumDrive(hardwareMap);
@@ -81,7 +78,7 @@ public class LeftClassic extends LinearOpMode {
 
 		utils.setRearLiftPosition(RearLiftLocation.up);
 		sleep(100);
-		utils.setPushPose(pushOut); //伸前电梯
+		utils.setPushPose(HardwareDatabase3.pushOut); //伸前电梯
 		drive.followTrajectorySequence(left_put); //放预载
 		sleep(500);
 		utils.armOperation(false);
@@ -101,7 +98,7 @@ public class LeftClassic extends LinearOpMode {
 		sleep(200);
 		utils.claw_rotate(true);   //翻转上去
 		//sleep(300);
-		utils.setPushPose(pushIn);  //前电梯收回
+		utils.setPushPose(HardwareDatabase3.pushIn);  //前电梯收回
 		sleep(300);
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);
@@ -122,7 +119,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.armOperationL(true);   //翻转回来，打开夹子
 		sleep(100);
 
-		utils.setPushPose(pushOut); //frontLiftPosition(up); //伸前电梯
+		utils.setPushPose(HardwareDatabase3.pushOut); //frontLiftPosition(up); //伸前电梯
 
 		drive.followTrajectory(toGetSecondYellow);       //去拿第二个块
 		sleep(100);
@@ -134,7 +131,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.claw_rotate(true);         //翻转上去
 		sleep(300);
 
-		utils.setPushPose(pushIn);
+		utils.setPushPose(HardwareDatabase3.pushIn);
 		sleep(300);
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);
@@ -151,7 +148,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.armOperationL(true);
 		sleep(100);
 
-		utils.setPushPose(pushOut); //伸前电梯
+		utils.setPushPose(HardwareDatabase3.pushOut); //伸前电梯
 
 		drive.followTrajectorySequence(toGetThirdYellow);       //去拿第三个块
 		sleep(100);
@@ -165,7 +162,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.claw_rotate(true);         //翻转上去
 		sleep(400);
 
-		utils.setPushPose(pushIn);
+		utils.setPushPose(HardwareDatabase3.pushIn);
 		sleep(300);//前电梯回位
 		utils.armOperationL(false);     //打开夹子，下降去夹
 		sleep(300);//前电梯回位
