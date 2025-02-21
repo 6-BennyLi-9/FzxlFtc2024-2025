@@ -1,38 +1,39 @@
 package org.betastudio.ftc.action.utils;
 
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.ActionImpl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 链式的 {@code Action} 块，可以优化代码书写，可悲的是除了这个功能就没啥好处了，毕竟 {@code Action} 块是自带链式功能的
+ * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
-public final class LinkedAction implements Action {
+public final class LinkedAction extends ActionImpl {
 	private final List <Action> actions;
-	private       int           ptr;
+	private final AtomicInteger ptr = new AtomicInteger(0);
 
 	public LinkedAction(final List <Action> actions) {
 		this.actions = actions;
+		setAction(()->{
+			if (actions.get(ptr.get()).activate()) {
+				return true;
+			} else {
+				ptr.getAndAdd(1);
+				return ptr.get() < actions.size();
+			}
+		});
 	}
 
 	public LinkedAction(final Action... actions) {
 		this(Arrays.asList(actions));
 	}
 
-
-	@Override
-	public boolean run() {
-		if (actions.get(ptr).run()) {
-			return true;
-		} else {
-			ptr++;
-			return ptr < actions.size();
-		}
-	}
-
-
+	@NonNull
 	@Override
 	public String paramsString() {
 		final StringBuilder stringBuilder = new StringBuilder("{");

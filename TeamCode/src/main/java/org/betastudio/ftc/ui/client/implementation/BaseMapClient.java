@@ -1,20 +1,24 @@
-package org.betastudio.ftc.ui.client;
-
-import android.util.Pair;
+package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.thread.TaskMng;
+import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.ClientViewMode;
+import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.message.TelemetryMsg;
-import org.betastudio.ftc.util.time.Timer;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Global;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,18 +34,17 @@ public class BaseMapClient implements Client {
 		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 	}
 
-	protected final Map <String, Pair <String, Integer>> data;
-	private final   Telemetry                            telemetry;
-	private final   Timer                                lstUpdateTimer  = new Timer();
-	protected       int                                  ID;
-	private         boolean                              isUpdateRequested;
-	private         boolean                              autoUpdate;
-	private         FtcLogTunnel                         targetLogTunnel = FtcLogTunnel.MAIN;
+	protected final Telemetry            telemetry;
+	protected final Map <String, String> data;
+	protected final List <Runnable>      runnables;
+	protected       boolean              autoUpdate, isUpdateRequested;
+	protected       FtcLogTunnel         targetLogTunnel = FtcLogTunnel.MAIN;
 
-	public BaseMapClient(final Telemetry telemetry) {
+	public BaseMapClient(@NonNull final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new LinkedHashMap <>();
-		lstUpdateTimer.restart();
+		runnables = new ArrayList <>();
+		telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
 	}
 
 	@Override
@@ -55,27 +58,34 @@ public class BaseMapClient implements Client {
 		}
 	}
 
+	public Object addAction(final Runnable action) {
+		runnables.add(action);
+		return action;
+	}
+
+	public boolean removeAction(final Object token) {
+		return runnables.remove((Runnable) token);
+	}
+
 	/**
 	 * 注意：这是新的Data
 	 */
 	@Override
-	public Client addData(final String key, final String val) {
-		++ this.ID;
-		this.data.put(key, new Pair <>(val, this.ID));
+	public void putData(final String key, final String val) {
+		this.data.put(key, val);
 
 		if (autoUpdate) {
 			this.update();
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	@Override
-	public Client deleteData(final String key) {
+	public void deleteData(final String key) {
 		this.data.remove(key);
 
 		if (autoUpdate) {
@@ -83,18 +93,17 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
 	@Override
-	public Client changeData(final String key, final String val) {
+	public void changeData(final String key, final String val) {
 		if (this.data.containsKey(key)) {
-			this.data.replace(key, new Pair <>(val, (Objects.requireNonNull(this.data.get(key))).second));
+			this.data.replace(key, val);
 		} else {
-			this.addData(key, val);
+			this.putData(key, val);
 		}
 
 		if (autoUpdate) {
@@ -102,27 +111,24 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	@Override
-	public Client addLine(final String key) {
-		++ this.ID;
-		this.data.put(key, new Pair <>("", this.ID));
+	public void putLine(final String key) {
+		this.data.put(key, "");
 
 		if (autoUpdate) {
 			this.update();
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	@Override
-	public Client deleteLine(final String key) {
+	public void deleteLine(final String key) {
 		this.data.remove(key);
 
 
@@ -131,7 +137,6 @@ public class BaseMapClient implements Client {
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	/**
@@ -141,37 +146,24 @@ public class BaseMapClient implements Client {
 	 * @param newData 替换行
 	 */
 	@Override
-	public Client changeLine(final String oldData, final String newData) {
-		final int cache = Objects.requireNonNull(this.data.get(oldData)).second;
+	public void changeLine(final String oldData, final String newData) {
 		this.data.remove(oldData);
-		this.data.put(newData, new Pair <>("", cache));
+		this.data.put(newData, "");
 
 		if (autoUpdate) {
 			this.update();
 		} else {
 			isUpdateRequested = false;
 		}
-		return this;
 	}
 
 	@Override
-	public Client speak(final String text) {
-		try {
-			telemetry.speak(text);
-		} catch (final UnsupportedOperationException exception) {
-			FtcLogTunnel.MAIN.report(exception);
-		}
-		return this;
-	}
-
-	@Override
-	public Client speak(final String text, final String languageCode, final String countryCode) {
+	public void speak(final String text, final String languageCode, final String countryCode) {
 		try {
 			telemetry.speak(text, languageCode, countryCode);
 		} catch (final UnsupportedOperationException exception) {
 			FtcLogTunnel.MAIN.report(exception);
 		}
-		return this;
 	}
 
 	@Override
@@ -185,19 +177,22 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
+	public Telemetry getOriginTelemetry() {
+		return telemetry;
+	}
+
+	@Override
 	public void update() {
 		telemetry.clearAll();
-		if (debug_mode) {
-			telemetry.addData("Update Delta Time", lstUpdateTimer.restartAndGetDeltaTime());
-		}
 		telemetry.addData("ClientViewMode", clientViewMode.name());
+		telemetry.addData("Status", Global.runMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (clientViewMode) {
 			case FTC_LOG:
 				updateLogLines();
 				break;
-			case THREAD_MANAGER:
+			case THREAD_SERVICE:
 				updateThreadLines();
 				break;
 			case ORIGIN_TELEMETRY:
@@ -205,20 +200,23 @@ public class BaseMapClient implements Client {
 				updateTelemetryLines();
 				break;
 		}
+		isUpdateRequested = false;
 	}
 
 	protected synchronized void updateThreadLines() {
+		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
+			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
+		}
 		this.telemetry.update();
 	}
 
 	protected synchronized void updateTelemetryLines() {
-		for (final Map.Entry <String, Pair <String, Integer>> i : this.data.entrySet()) {
+		for (final Map.Entry <String, String> i : this.data.entrySet()) {
 			final String  key = i.getKey();
-			final String  val = i.getValue().first;
-			final Integer id  = i.getValue().second;
-			if (! Objects.equals(i.getValue().first, "")) {
+			final String  val = i.getValue();
+			if (! Objects.equals(val, "")) {
 				telemetry.addData(key, val);
-			} else {//line
+			} else {
 				telemetry.addLine(key);
 			}
 		}
@@ -227,17 +225,17 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateLogLines() {
-		for (TelemetryElement e : targetLogTunnel.call().getElements()) {
+		for (final TelemetryElement e : targetLogTunnel.call().getElements()) {
 			e.push(telemetry);
 		}
 		telemetry.update();
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMsg message) {
+	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
-				addLine(((TelemetryLine) element).line);
+				putLine(((TelemetryLine) element).line);
 			} else if (element instanceof TelemetryItem) {
 				changeData(((TelemetryItem) element).capital, ((TelemetryItem) element).value);
 			}
@@ -263,16 +261,14 @@ public class BaseMapClient implements Client {
 			case MANUAL_UPDATE_REQUESTED:
 				autoUpdate = false;
 				break;
-			case THREAD_REQUIRED:
-				throw new IllegalStateException("Cannot set update config to THREAD_REQUIRED for BaseMapClient");
 		}
-	}
-
-	public void setTargetLogTunnel(FtcLogTunnel targetLogTunnel) {
-		this.targetLogTunnel = targetLogTunnel;
 	}
 
 	public FtcLogTunnel getTargetLogTunnel() {
 		return targetLogTunnel;
+	}
+
+	public void setTargetLogTunnel(final FtcLogTunnel targetLogTunnel) {
+		this.targetLogTunnel = targetLogTunnel;
 	}
 }

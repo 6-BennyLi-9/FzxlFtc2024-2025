@@ -15,7 +15,7 @@ public class FtcLogFilesBase {
 		files.add(file);
 	}
 
-	public static Set <FtcLogFile> getFiles(){
+	public static Set <FtcLogFile> getFiles() {
 		return files;
 	}
 }

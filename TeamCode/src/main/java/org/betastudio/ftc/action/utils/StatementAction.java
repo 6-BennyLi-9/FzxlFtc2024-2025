@@ -1,8 +1,8 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.ActionImpl;
 
-public class StatementAction implements Action {
+public class StatementAction extends ActionImpl {
 	private final Runnable node;
 
 	/**
@@ -12,12 +12,10 @@ public class StatementAction implements Action {
 	 */
 	public StatementAction(final Runnable meaning) {
 		node = meaning;
-	}
-
-	@Override
-	public boolean run() {
-		node.run();
-		return false;
+		setAction(() -> {
+			node.run();
+			return false;
+		});
 	}
 
 	@Override

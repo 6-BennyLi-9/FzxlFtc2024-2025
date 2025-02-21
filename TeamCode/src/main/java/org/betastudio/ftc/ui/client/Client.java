@@ -2,63 +2,75 @@ package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.specification.MessagesProcessRequired;
-import org.betastudio.ftc.specification.Updatable;
+import org.betastudio.ftc.util.entry.MessagesProcessRequired;
+import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * @noinspection UnusedReturnValue
  */
-public interface Client extends Updatable , MessagesProcessRequired <TelemetryMsg> {
+public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatable {
 	void clear();
 
-	Client addData(final String key, final String val);
+	void putData(final String key, final String val);
 
-	default Client addData(final String key, @NonNull final Object val){
-		return addData(key, val.toString());
-	}
+	void deleteData(final String key);
 
-	Client deleteData(final String key);
+	void changeData(final String key, final String val);
 
-	Client changeData(final String key, final String val);
+	void putLine(final String key);
 
-	default Client changeData(final String key, @NonNull final Object val){
-		return changeData(key, val.toString());
-	}
+	void deleteLine(final String key);
 
-	Client addLine(final String key);
+	void changeLine(final String oldData, final String newData);
 
-	default Client addLine(@NonNull final Object key){
-		return addLine(key.toString());
-	}
-
-	Client deleteLine(final String key);
-
-	Client changeLine(final String oldData, final String newData);
-
-	Client speak(final String text);
-
-	Client speak(final String text, final String languageCode, final String countryCode);
+	void speak(String text, String languageCode, String countryCode);
 
 	void configViewMode(final ClientViewMode clientViewMode);
 
-	void setUpdateConfig(final UpdateConfig updateConfig);
+	boolean isUpdateRequested();
 
 	UpdateConfig getUpdateConfig();
 
+	void setUpdateConfig(final UpdateConfig updateConfig);
+
 	ClientViewMode getCurrentViewMode();
 
-	default void switchViewMode(){
-		switch (getCurrentViewMode()){
+	Telemetry getOriginTelemetry();
+
+
+	//------------------------
+	// DEFAULT IMPLEMENTATION
+	//------------------------
+	default void switchViewMode() {
+		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
-				configViewMode(ClientViewMode.THREAD_MANAGER);
-				break;
-			case THREAD_MANAGER:
 				configViewMode(ClientViewMode.FTC_LOG);
 				break;
 			case FTC_LOG:
+				configViewMode(ClientViewMode.THREAD_SERVICE);
+				break;
+			case THREAD_SERVICE:
+			default:
 				configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 				break;
 		}
+	}
+
+	default void putData(final String key, @NonNull final Object val) {
+		putData(key, val.toString());
+	}
+
+	default void changeData(final String key, @NonNull final Object val) {
+		changeData(key, val.toString());
+	}
+
+	default void putLine(@NonNull final Object key) {
+		putLine(key.toString());
+	}
+
+	default void speak(final String text) {
+		speak(text, null, null);
 	}
 }

@@ -4,9 +4,10 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 
-public class StringMsg extends LogMessage{
+public class StringMsg extends LogMessage {
 	private final String message;
-	public StringMsg(final String message){
+
+	public StringMsg(final String message) {
 		this.message = message;
 	}
 

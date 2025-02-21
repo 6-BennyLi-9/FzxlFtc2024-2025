@@ -36,14 +36,14 @@ public class ActionPackage {
 	/**
 	 * 单次运行 Action
 	 *
-	 * @see Action#run()
+	 * @see Action#activate()
 	 */
 	public boolean run() {
 		sort();
 		final Set <PriorityAction> remove = new HashSet <>();
 
 		for (final PriorityAction action : actions) {
-			if (! action.run()) {
+			if (! action.activate()) {
 				remove.add(action);
 			}
 		}
@@ -56,7 +56,7 @@ public class ActionPackage {
 	 * 运行所有存储的 {@code Action}, 直到结束, 并清空 {@code Action} 列表
 	 */
 	public void runTillEnd() {
-		Actions.runAction(new PriorityThreadedAction(actions));
+		new PriorityThreadedAction(actions).run();
 		actions.clear();
 	}
 }

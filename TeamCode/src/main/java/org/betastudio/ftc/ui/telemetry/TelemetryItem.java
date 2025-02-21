@@ -21,7 +21,6 @@ public class TelemetryItem implements TelemetryElement {
 		telemetry.addData(capital, value);
 	}
 
-	@NonNull
 	@Override
 	public String toString() {
 		return capital + ":" + value;

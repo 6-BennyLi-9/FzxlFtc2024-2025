@@ -1,15 +1,17 @@
 package org.betastudio.ftc.ui.log;
 
 import org.betastudio.ftc.util.message.LogMessage;
-import org.betastudio.ftc.util.time.Timestamp;
+import org.betastudio.ftc.time.Timestamp;
 
 public interface FtcLogElement {
 	Timestamp getTimestamp();
+
 	LogElementType getType();
+
 	LogMessage getMessage();
 
 	class ElementImpl implements FtcLogElement {
-		private final LogMessage        message;
+		private final LogMessage     message;
 		private final Timestamp      timestamp;
 		private final LogElementType type;
 

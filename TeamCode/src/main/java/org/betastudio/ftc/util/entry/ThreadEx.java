@@ -1,4 +1,4 @@
-package org.betastudio.ftc.specification;
+package org.betastudio.ftc.util.entry;
 
 public interface ThreadEx {
 	/**

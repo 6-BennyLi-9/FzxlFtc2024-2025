@@ -9,10 +9,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class TelemetryMsg implements Message{
+public class TelemetryMsg implements Message {
 	private final List <TelemetryElement> elements;
 
-	public TelemetryMsg(final List<TelemetryElement> elements) {
+	public TelemetryMsg(@NonNull final List <TelemetryElement> elements) {
 		this.elements = elements;
 	}
 
@@ -24,7 +24,7 @@ public class TelemetryMsg implements Message{
 		elements.add(element);
 	}
 
-	public void addAll(Collection<TelemetryElement> elements){
+	public void addAll(final Collection <TelemetryElement> elements) {
 		this.elements.addAll(elements);
 	}
 
@@ -32,7 +32,7 @@ public class TelemetryMsg implements Message{
 		return elements;
 	}
 
-	public void merge(@NonNull final TelemetryMsg message){
+	public void merge(@NonNull final TelemetryMsg message) {
 		elements.addAll(message.elements);
 	}
 }

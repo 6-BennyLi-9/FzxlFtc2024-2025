@@ -3,6 +3,7 @@ package org.betastudio.ftc.action.packages;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
 
+@Deprecated
 public class ThreadedActionPackage extends ActionPackage {
 	@Override
 	public void runTillEnd() {

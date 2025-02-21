@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TelemetryLine implements TelemetryElement{
+public class TelemetryLine implements TelemetryElement {
 	public final String line;
 
 	public TelemetryLine(final String line) {

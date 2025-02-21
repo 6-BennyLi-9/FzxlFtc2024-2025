@@ -7,6 +7,7 @@ import org.betastudio.ftc.action.Action;
  *
  * @implNote 不要重写已经重写了的方法，否则你还不如自己写一个新的接口或者抽象类
  */
+@Deprecated
 public interface RepeatAction extends Action {
 	Ticker ticker = new Ticker();
 
@@ -15,7 +16,7 @@ public interface RepeatAction extends Action {
 	String integralParamsString();
 
 	/**
-	 * @return 与 {@link  Action#run()} 类似，返回 false 时退出循环
+	 * @return 与 {@link  Action#activate()} 类似，返回 false 时退出循环
 	 */
 	boolean loop();
 
@@ -25,7 +26,7 @@ public interface RepeatAction extends Action {
 	 * @implNote 不要重写该方法
 	 */
 	@Override
-	default boolean run() {
+	default boolean activate() {
 		ticker.tick();
 		return loop() && ticker.getTickedTicks() <= getRepeatTime();
 	}

@@ -7,8 +7,8 @@ import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
-import org.betastudio.ftc.specification.MessagesProcessRequired;
-import org.betastudio.ftc.specification.Updatable;
+import org.betastudio.ftc.util.entry.MessagesProcessRequired;
+import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Config
-public class DashboardUtils implements Updatable , MessagesProcessRequired<TelemetryMsg> {
+public class DashboardUtils implements Updatable, MessagesProcessRequired <TelemetryMsg> {
 	private static final Set <TelemetryPacket> telemetryPackets = new HashSet <>();
 	public static        boolean               recordElements;
 	public static        boolean               updateRequested  = true;
@@ -43,18 +43,6 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 		return new DashboardUtils();
 	}
 
-	@Override
-	public void update() {
-		updateRequested = false;
-		telemetryPackets.add(currentPacket);
-		for (final TelemetryPacket packet : telemetryPackets) {
-			dashboard.sendTelemetryPacket(packet);
-		}
-		telemetryPackets.clear();
-		dashboard.updateConfig();
-		currentPacket = new TelemetryPacket();
-	}
-
 	public static void addLine(final String line) {
 		if (recordElements) {
 			currentMessage.add(new TelemetryLine(line));
@@ -74,6 +62,18 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	}
 
 	@Override
+	public void update() {
+		updateRequested = false;
+		telemetryPackets.add(currentPacket);
+		for (final TelemetryPacket packet : telemetryPackets) {
+			dashboard.sendTelemetryPacket(packet);
+		}
+		telemetryPackets.clear();
+		dashboard.updateConfig();
+		currentPacket = new TelemetryPacket();
+	}
+
+	@Override
 	public boolean isUpdateRequested() {
 		return updateRequested;
 	}
@@ -83,7 +83,7 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	}
 
 	@Override
-	public void send(@NonNull final TelemetryMsg message) {
+	public void sendMsg(@NonNull final TelemetryMsg message) {
 		final TelemetryPacket packet = new TelemetryPacket();
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryLine) {
@@ -95,11 +95,11 @@ public class DashboardUtils implements Updatable , MessagesProcessRequired<Telem
 	}
 
 	@Override
-	public TelemetryMsg call() {
+	public TelemetryMsg callMsg() {
 		if (! recordElements) {
 			throw new IllegalStateException("Telemetry recording is not enabled");
 		}
-		final TelemetryMsg res =new TelemetryMsg(new ArrayList <>(currentMessage.getElements()));
+		final TelemetryMsg res = new TelemetryMsg(new ArrayList <>(currentMessage.getElements()));
 		currentMessage = new TelemetryMsg();
 		return res;
 	}
