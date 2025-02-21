@@ -8,8 +8,6 @@ import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.util.Objects;
-
 public class ExpansionMapClient extends BaseMapClient implements ClientEx {
 	public ExpansionMapClient(@NonNull Telemetry telemetry) {
 		super(telemetry);
@@ -45,10 +43,10 @@ public class ExpansionMapClient extends BaseMapClient implements ClientEx {
 	public void changeByToken(String token, String val) {
 		TelemetryElement element = data.get(token);
 
-		Class <? extends TelemetryElement> clazz = Objects.requireNonNull(element).getClass();
-		if (clazz.equals(TelemetryItem.class)) {
+		//noinspection ChainOfInstanceofChecks
+		if (element instanceof TelemetryItem) {
 			((TelemetryItem) element).setValue(val);
-		} else if (clazz.equals(TelemetryLine.class)) {
+		} else if (element instanceof TelemetryLine) {
 			((TelemetryLine) element).setLine(val);
 		} else {
 			throw new IllegalStateException("Unsupported telemetry element type: " + element.getClass().getSimpleName());
