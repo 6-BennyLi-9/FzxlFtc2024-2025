@@ -170,14 +170,14 @@ public class SuperStructuresR {
 
 				case 0:
 					//夹住
-					arm.setPosition(HardwareDatabase2.armGet);  //翻转挂矿石
-					upTurn.setPosition(HardwareDatabase2.upTurnGet);
+					arm.setPosition(HardwareDatabase.armGet);  //翻转挂矿石
+					upTurn.setPosition(HardwareDatabase.upTurnGet);
 					break;
 				case 1:
 					//夹住
 					//arm.setPosition(armPut);  //翻转挂矿石
-					upTurn.setPosition(HardwareDatabase2.upTurnGet);
-					clip.setPosition(HardwareDatabase2.clipOpen);
+					upTurn.setPosition(HardwareDatabase.upTurnGet);
+					clip.setPosition(HardwareDatabase.clipOpen);
 					break;
 
 			}
@@ -203,23 +203,23 @@ public class SuperStructuresR {
 			}
 			switch (clawPutEvent) {
 				case 0:
-					claw.setPosition(HardwareDatabase2.clawOn);  //扣住
-					turn.setPosition(HardwareDatabase2.turnUp);  //翻转上去
-					rotate.setPosition(HardwareDatabase2.rotateOn); //保持水平0.63，0
+					claw.setPosition(HardwareDatabase.clawOn);  //扣住
+					turn.setPosition(HardwareDatabase.turnUp);  //翻转上去
+					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.63，0
 					break;
 				case 1:
-					claw.setPosition(HardwareDatabase2.clawOpen);  //打开
-					turn.setPosition(HardwareDatabase2.turnMiddle);  //翻转下去
-					rotate.setPosition(HardwareDatabase2.rotateOn); //保持水平0.1,0.83
+					claw.setPosition(HardwareDatabase.clawOpen);  //打开
+					turn.setPosition(HardwareDatabase.turnMiddle);  //翻转下去
+					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
 					break;
 				case 2:
-					claw.setPosition(HardwareDatabase2.clawOpen);  //打开
-					turn.setPosition(HardwareDatabase2.turnDown);  //翻转下去
-					rotate.setPosition(HardwareDatabase2.rotateOn); //保持水平0.1,0.83
+					claw.setPosition(HardwareDatabase.clawOpen);  //打开
+					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
+					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
 					break;
 				case 3:
-					claw.setPosition(HardwareDatabase2.clawOn);  //夹住
-					turn.setPosition(HardwareDatabase2.turnDown);  //翻转下去
+					claw.setPosition(HardwareDatabase.clawOn);  //夹住
+					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
 					break;
 			}
 		} else {
@@ -244,12 +244,12 @@ public class SuperStructuresR {
 			}
 			switch (clipPutEvent) {
 				case 0:
-					clip.setPosition(HardwareDatabase2.clipOpen);  //释放
-					upTurn.setPosition(HardwareDatabase2.upTurnGet);
+					clip.setPosition(HardwareDatabase.clipOpen);  //释放
+					upTurn.setPosition(HardwareDatabase.upTurnGet);
 					break;
 				case 1:
 					//夹住
-					clip.setPosition(HardwareDatabase2.clipOn);
+					clip.setPosition(HardwareDatabase.clipOn);
 					break;
 
 			}
@@ -260,22 +260,22 @@ public class SuperStructuresR {
 
 	private void inlineArmOperation(boolean y) {//TODO
 		if (y) {
-			clip.setPosition(HardwareDatabase2.clipOn);  //夹住
-			arm.setPosition(HardwareDatabase2.armPut);  //翻转挂矿石
-			upTurn.setPosition(HardwareDatabase2.upTurnPut);
-			claw.setPosition(HardwareDatabase2.clawOpen);
+			clip.setPosition(HardwareDatabase.clipOn);  //夹住
+			arm.setPosition(HardwareDatabase.armPut);  //翻转挂矿石
+			upTurn.setPosition(HardwareDatabase.upTurnPut);
+			claw.setPosition(HardwareDatabase.clawOpen);
 		} else {
-			clip.setPosition(HardwareDatabase2.clipOpen);  //打开
-			arm.setPosition(HardwareDatabase2.armGet);  //中间等待位置
-			upTurn.setPosition(HardwareDatabase2.upTurnGet);
+			clip.setPosition(HardwareDatabase.clipOpen);  //打开
+			arm.setPosition(HardwareDatabase.armGet);  //中间等待位置
+			upTurn.setPosition(HardwareDatabase.upTurnGet);
 		}
 	}
 
 
 	private void inlineClawOpenOperation() {//TODO
-		claw.setPosition(HardwareDatabase2.clawOpen);   //打开
-		turn.setPosition(HardwareDatabase2.turnUp);  //翻转下去
-		rotate.setPosition(HardwareDatabase2.rotateOn); //保持水平0.1,0.83
+		claw.setPosition(HardwareDatabase.clawOpen);   //打开
+		turn.setPosition(HardwareDatabase.turnUp);  //翻转下去
+		rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
 	}
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，

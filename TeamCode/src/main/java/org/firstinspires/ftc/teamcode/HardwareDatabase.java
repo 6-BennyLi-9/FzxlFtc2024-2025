@@ -14,4 +14,8 @@ public class HardwareDatabase {
 	public static final double armUp      = 0.41;  //翻转去挂0.43
 	public static final double upTurnUp   = 0.41;  //翻转去放0.25
 	public static final double upTurnDown = 0.79;  //翻转去夹0.77
+	public static final double armPut     = 0.90;  //翻转去夹上提0.56,0.84，0.93
+	public static final double armGet     = 0.20;  //0.16,挂边框0.14翻转去挂0.20
+	public static final double upTurnGet  = 0.8;  //翻转去夹0.78,挂边框0.58
+	public static final double upTurnPut  = 0.16;  //翻转去挂0.05,上提0.67，0.16
 }
