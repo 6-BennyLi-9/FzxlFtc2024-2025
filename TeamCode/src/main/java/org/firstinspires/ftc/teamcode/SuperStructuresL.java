@@ -95,7 +95,7 @@ public class SuperStructuresL {
 		rightPush.setPosition(position);
 	}
 
-	private boolean lift_up_event;
+	protected boolean lift_up_event;
 	public void optionThroughGamePad() {
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
@@ -141,8 +141,8 @@ public class SuperStructuresL {
 	}
 
 	//用一个按键控制不同的状态
-	int armPutEvent = 0;
-	boolean keyFlag_arm = false;
+	protected int armPutEvent = 0;
+	protected boolean keyFlag_arm = false;
 
 	private void armOperation(boolean key) {
 		telemetry.addData("arm:", "%d", armPutEvent);
@@ -171,8 +171,8 @@ public class SuperStructuresL {
 		}
 	}
 
-	int clawPutEvent = 0;
-	boolean keyFlag_claw = false;
+	protected int clawPutEvent = 0;
+	protected boolean keyFlag_claw = false;
 
 	private void clawOperation(boolean key) {
 		telemetry.addData("claw:", "%d", clawPutEvent);
@@ -214,8 +214,8 @@ public class SuperStructuresL {
 		}
 	}
 
-	int clipPutEvent = 0;
-	boolean keyFlag_clip = false;
+	protected int clipPutEvent = 0;
+	protected boolean keyFlag_clip = false;
 
 	private void inlineClipOperation(boolean key) {
 		telemetry.addData("clip:", "%d", clipPutEvent);
@@ -281,7 +281,7 @@ public class SuperStructuresL {
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
 	// 以匀速低速的形式来实现前抬升的前100转和下降的后100转以低速
-	int right_encoder_value = 0;
+	protected int right_encoder_value = 0;
 
 	private void setLiftPosition(int val) {
 		right_encoder_value = val;
