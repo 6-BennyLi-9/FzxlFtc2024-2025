@@ -57,20 +57,20 @@ import java.util.Stack;
 @Disabled
 public class UtilityOctoQuadConfigMenu extends LinearOpMode
 {
-    TelemetryMenu.MenuElement rootMenu = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
-    TelemetryMenu.MenuElement menuHwInfo = new TelemetryMenu.MenuElement("Hardware Information", false);
+	final TelemetryMenu.MenuElement rootMenu   = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
+	final TelemetryMenu.MenuElement menuHwInfo = new TelemetryMenu.MenuElement("Hardware Information", false);
     TelemetryMenu.EnumOption optionI2cResetMode;
     TelemetryMenu.EnumOption optionChannelBankConfig;
 
-    TelemetryMenu.MenuElement menuEncoderDirections = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
-    TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuEncoderDirections    = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
+	final TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
 
-    TelemetryMenu.MenuElement menuVelocityIntervals = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
-    TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuVelocityIntervals    = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
+	final TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
 
-    TelemetryMenu.MenuElement menuAbsParams = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuAbsParams       = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
 
     TelemetryMenu.OptionElement optionProgramToFlash;
     TelemetryMenu.OptionElement optionSendToRAM;
@@ -169,7 +169,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         optionProgramToFlash = new TelemetryMenu.OptionElement()
         {
-            String name = "Program Settings to FLASH";
+			final String name = "Program Settings to FLASH";
             long lastClickTime = 0;
 
             @Override
@@ -204,7 +204,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         optionSendToRAM = new TelemetryMenu.OptionElement()
         {
-            String name = "Send Settings to RAM";
+			final String name = "Send Settings to RAM";
             long lastClickTime = 0;
 
             @Override
@@ -307,8 +307,8 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         private boolean xPrev;
         private boolean lbPrev;
 
-        private int selectedIdx = 0;
-        private Stack<Integer> selectedIdxStack = new Stack<>();
+        private       int            selectedIdx      = 0;
+        private final Stack<Integer> selectedIdxStack = new Stack<>();
 
         private final Telemetry telemetry;
 
@@ -501,14 +501,13 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             builder.append("</font>");
 
             // Build the string!!!! :nerd:
-            String menu = builder.toString();
-            return menu;
+			return builder.toString();
         }
 
         public static class MenuElement extends Element
         {
-            private String name;
-            private ArrayList<Element> children = new ArrayList<>();
+            private final String             name;
+            private final ArrayList<Element> children = new ArrayList<>();
 
             /**
              * Create a new MenuElement; may either be the root menu, or a submenu (set isRoot accordingly)
@@ -530,7 +529,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
              * Add a child element to this menu (may either be an Option or another menu)
              * @param child the child element to add
              */
-            public void addChild(Element child)
+            private void addChild(Element child)
             {
                 child.setParent(this);
                 children.add(child);
@@ -540,7 +539,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
              * Add multiple child elements to this menu (may either be option, or another menu)
              * @param children the children to add
              */
-            public void addChildren(Element[] children)
+            private void addChildren(Element[] children)
             {
                 for (Element e : children)
                 {
@@ -579,11 +578,12 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             protected void onRightInput() {}
         }
 
-        public static class EnumOption extends OptionElement
+        /** @noinspection rawtypes, rawtypes , rawtypes , rawtypes , rawtypes */
+		public static class EnumOption extends OptionElement
         {
-            protected int idx = 0;
-            protected Enum[] e;
-            protected String name;
+            protected       int    idx = 0;
+            protected final Enum[] e;
+            protected final String name;
 
             public EnumOption(String name, Enum[] e)
             {
@@ -639,10 +639,10 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         public static class IntegerOption extends OptionElement
         {
-            protected int i;
-            protected int min;
-            protected int max;
-            protected String name;
+            protected       int i;
+            protected final int min;
+            protected final int max;
+            protected final String name;
 
             public IntegerOption(String name, int min, int max, int def)
             {
@@ -694,8 +694,8 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         static class BooleanOption extends OptionElement
         {
-            private String name;
-            private boolean val = true;
+            private final String  name;
+            private       boolean val = true;
 
             private String customTrue;
             private String customFalse;
@@ -706,7 +706,8 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
                 this.val = def;
             }
 
-            BooleanOption(String name, boolean def, String customTrue, String customFalse)
+            /** @noinspection SameParameterValue, SameParameterValue */
+			BooleanOption(String name, boolean def, String customTrue, String customFalse)
             {
                 this(name, def);
                 this.customTrue = customTrue;
@@ -759,7 +760,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
          */
         public static class StaticItem extends OptionElement
         {
-            private String name;
+            private final String name;
 
             public StaticItem(String name)
             {
@@ -775,7 +776,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         public static abstract class StaticClickableOption extends OptionElement
         {
-            private String name;
+            private final String name;
 
             public StaticClickableOption(String name)
             {

@@ -100,11 +100,7 @@ public class SensorColor extends LinearOpMode {
       // as pure white, but it's too much work to dig out what actually was used, and this is good
       // enough to at least make the screen reasonable again.
       // Set the panel back to the default color
-      relativeLayout.post(new Runnable() {
-        public void run() {
-          relativeLayout.setBackgroundColor(Color.WHITE);
-        }
-      });
+      relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.WHITE));
       }
   }
 
@@ -211,11 +207,7 @@ public class SensorColor extends LinearOpMode {
       telemetry.update();
 
       // Change the Robot Controller's background color to match the color detected by the color sensor.
-      relativeLayout.post(new Runnable() {
-        public void run() {
-          relativeLayout.setBackgroundColor(Color.HSVToColor(hsvValues));
-        }
-      });
+      relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.HSVToColor(hsvValues)));
     }
   }
 }

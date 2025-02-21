@@ -58,7 +58,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 public class RobotAutoDriveByTime_Linear extends LinearOpMode {
 
-	private ElapsedTime     runtime = new ElapsedTime();
+	private final ElapsedTime runtime = new ElapsedTime();
 
 
     static final double     FORWARD_SPEED = 0.6;

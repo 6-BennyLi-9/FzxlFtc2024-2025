@@ -97,7 +97,8 @@ public class SampleRevBlinkinLedDriver extends OpMode {
     {
         handleGamepad();
 
-        if (displayKind == DisplayKind.AUTO) {
+		//noinspection StatementWithEmptyBody
+		if (displayKind == DisplayKind.AUTO) {
             doAutoDisplay();
         } else {
             /*

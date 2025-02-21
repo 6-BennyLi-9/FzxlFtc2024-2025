@@ -256,7 +256,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
         }
     }
 
-    /*
+    /** @noinspection SameParameterValue, SameParameterValue */ /*
      Manually set the camera gain and exposure.
      This can only be called AFTER calling initAprilTag(), and only works for Webcams;
     */
@@ -286,7 +286,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 exposureControl.setMode(ExposureControl.Mode.Manual);
                 sleep(50);
             }
-            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+            exposureControl.setExposure(exposureMS, TimeUnit.MILLISECONDS);
             sleep(20);
             GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
             gainControl.setGain(gain);

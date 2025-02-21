@@ -138,18 +138,18 @@ public class SensorHuskyLens extends LinearOpMode {
              */
             HuskyLens.Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
-            for (int i = 0; i < blocks.length; i++) {
-                telemetry.addData("Block", blocks[i].toString());
-                /*
-                 * Here inside the FOR loop, you could save or evaluate specific info for the currently recognized Bounding Box:
-                 * - blocks[i].width and blocks[i].height   (size of box, in pixels)
-                 * - blocks[i].left and blocks[i].top       (edges of box)
-                 * - blocks[i].x and blocks[i].y            (center location)
-                 * - blocks[i].id                           (Color ID)
-                 *
-                 * These values have Java type int (integer).
-                 */
-            }
+			for (HuskyLens.Block block : blocks) {
+				telemetry.addData("Block", block.toString());
+				/*
+				 * Here inside the FOR loop, you could save or evaluate specific info for the currently recognized Bounding Box:
+				 * - blocks[i].width and blocks[i].height   (size of box, in pixels)
+				 * - blocks[i].left and blocks[i].top       (edges of box)
+				 * - blocks[i].x and blocks[i].y            (center location)
+				 * - blocks[i].id                           (Color ID)
+				 *
+				 * These values have Java type int (integer).
+				 */
+			}
 
             telemetry.update();
         }

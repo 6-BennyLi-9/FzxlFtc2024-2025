@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
 public class ConceptRevSPARKMini extends LinearOpMode {
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
 
 	@Override
     public void runOpMode() {

@@ -113,9 +113,7 @@ public class WyMoveMethod {
 
     public void basicMoveThroughGamePad() {
         //根据控制板控制
-        //if(gamepad1.right_bumper){maxSpeed=0.4f;}
-        //if(gamepad1.left_bumper){maxSpeed=1.0f;}
-        float x = gamepad1.left_stick_x * maxSpeed;   //原值0.6f
+		float x = gamepad1.left_stick_x * maxSpeed;   //原值0.6f
         float y = gamepad1.left_stick_y * maxSpeed;  //原值0.6f
         float turn = gamepad1.right_stick_x * maxSpeed;
 

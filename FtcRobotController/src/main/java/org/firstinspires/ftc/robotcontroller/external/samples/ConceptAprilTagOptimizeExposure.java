@@ -165,7 +165,7 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
                 .build();
     }
 
-    /*
+    /** @noinspection UnusedReturnValue*/ /*
         Manually set the camera gain and exposure.
         Can only be called AFTER calling initAprilTag();
         Returns true if controls are set.
@@ -196,7 +196,7 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
                 exposureControl.setMode(ExposureControl.Mode.Manual);
                 sleep(50);
             }
-            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+            exposureControl.setExposure(exposureMS, TimeUnit.MILLISECONDS);
             sleep(20);
 
             // Set Gain.
