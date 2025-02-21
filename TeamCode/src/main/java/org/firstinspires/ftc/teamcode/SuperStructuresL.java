@@ -36,9 +36,8 @@ public class SuperStructuresL {
 	public Servo       rotate;              //盒子像素卡扣  后
 	public TouchSensor touch;
 	public Servo       upTurn;              //后电梯上摆臂
-
-	public ServoSmoothController leftPushController;//后电梯上的夹取  前
-	public ServoSmoothController rightPushController;//前电梯上的翻转舵机
+	public Servo       leftPush;            //后电梯上的夹取  前
+	public Servo       rightPush;           //前电梯上的翻转舵机
 
 	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
 		hardwareMap = h;
@@ -82,9 +81,8 @@ public class SuperStructuresL {
 		this.rotate = hardwareMap.get(Servo.class, rotate);
 		this.claw = hardwareMap.get(Servo.class, claw);
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
-
-		leftPushController = new ServoSmoothController(hardwareMap.get(Servo.class,leftPush));
-		rightPushController = new ServoSmoothController(hardwareMap.get(Servo.class,rightPush));
+		this.leftPush = hardwareMap.get(Servo.class, leftPush);
+		this.rightPush = hardwareMap.get(Servo.class, rightPush);
 
 		setPushPose(0.82);
 	}
@@ -93,12 +91,8 @@ public class SuperStructuresL {
 		position = Math.max(Math.min(position, 0.82), 0.15);
 		//0.9684931506849315 0.707/0.73
 		//0.9863013698630137 0.72/0.73
-
-		leftPushController.setTarget(0.9684931506849315 - position* 0.9863013698630137);
-		rightPushController.setTarget(position);
-
-		leftPushController.update();
-		rightPushController.update();
+		leftPush.setPosition(0.9684931506849315 - position* 0.9863013698630137);
+		rightPush.setPosition(position);
 	}
 
 	private boolean lift_up_event;
@@ -135,7 +129,7 @@ public class SuperStructuresL {
 		}
 
 
-		setPushPose(rightPushController.getTarget() + gamepad2.left_stick_y * 0.035);
+		setPushPose(rightPush.getPosition() + gamepad2.left_stick_y * 0.035);
 
 		liftPositionUpdate();
 		rotate.setPosition(rotate.getPosition()
@@ -277,11 +271,12 @@ public class SuperStructuresL {
 
 		telemetry.addData("touch sensor", touch.isPressed());
 
-		telemetry.addData("push", rightPushController.getCurrent());
+		telemetry.addData("push", rightPush.getPosition());
 		telemetry.addData("clip", clip.getPosition());
 		telemetry.addData("turn", turn.getPosition());
 		telemetry.addData("claw", claw.getPosition());
 		telemetry.addData("rotate", rotate.getPosition());
+		telemetry.addData("right push", rightPush.getPosition());
 	}
 
 	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
