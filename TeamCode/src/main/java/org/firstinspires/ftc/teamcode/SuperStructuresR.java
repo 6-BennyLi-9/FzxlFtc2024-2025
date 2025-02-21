@@ -1,99 +1,26 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import static org.firstinspires.ftc.teamcode.HardwareParams.*;
+import static org.firstinspires.ftc.teamcode.HardwareParams.armGet;
+import static org.firstinspires.ftc.teamcode.HardwareParams.armPut;
+import static org.firstinspires.ftc.teamcode.HardwareParams.clawOn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.clawOpen;
+import static org.firstinspires.ftc.teamcode.HardwareParams.clipOn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.clipOpen;
+import static org.firstinspires.ftc.teamcode.HardwareParams.rotateOn;
+import static org.firstinspires.ftc.teamcode.HardwareParams.turnDown;
+import static org.firstinspires.ftc.teamcode.HardwareParams.turnMiddle;
+import static org.firstinspires.ftc.teamcode.HardwareParams.turnUp;
+import static org.firstinspires.ftc.teamcode.HardwareParams.upTurnGet;
+import static org.firstinspires.ftc.teamcode.HardwareParams.upTurnPut;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  */
 @Config
-public class SuperStructuresR {
-	public HardwareMap hardwareMap;
-	public Telemetry   telemetry;
-	public Gamepad     gamepad2;
-
-	public DcMotorEx leftLift;
-	public DcMotorEx rightLift;
-
-	public Servo arm;    //后电梯上摆臂
-	public Servo clip;   //后电梯上的夹取  前
-	public Servo turn;   //前电梯上的翻转舵机
-	public Servo claw;   //自动紫色像素释放 左
-
-
-	public Servo       rotate;     //盒子像素卡扣  后
-	public TouchSensor touch;
-	public Servo       upTurn;     //后电梯上摆臂
-	public Servo       leftPush;   //后电梯上的夹取  前
-	public Servo       rightPush;  //前电梯上的翻转舵机
-
-	public void init(HardwareMap h, Telemetry t, Gamepad g2) {
-		hardwareMap = h;
-		telemetry = t;
-		gamepad2 = g2;
-	}
-
-	public void motorInit(String leftLift, String rightLift, String touch) {
-		this.leftLift = hardwareMap.get(DcMotorEx.class, leftLift);
-		this.rightLift = hardwareMap.get(DcMotorEx.class, rightLift);
-		this.touch = hardwareMap.get(TouchSensor.class, touch);
-
-		this.leftLift.setDirection(DcMotorSimple.Direction.FORWARD);
-		this.rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
-
-		this.leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		this.rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-		while (! this.touch.isPressed()) {
-			this.leftLift.setPower(- 0.3);
-			this.rightLift.setPower(- 0.3);
-		}
-		this.leftLift.setPower(0);
-		this.rightLift.setPower(0);
-
-		this.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		this.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-	}
-
-
-	public void servoInit(String arm, String turn, String clip, String rotate, String claw, String upTurn, String leftPush, String rightPush) {
-		this.arm = hardwareMap.get(Servo.class, arm);
-		this.turn = hardwareMap.get(Servo.class, turn);
-		this.clip = hardwareMap.get(Servo.class, clip);
-		this.rotate = hardwareMap.get(Servo.class, rotate);
-		this.claw = hardwareMap.get(Servo.class, claw);
-		this.upTurn = hardwareMap.get(Servo.class, upTurn);
-		this.leftPush = hardwareMap.get(Servo.class, leftPush);
-		this.rightPush = hardwareMap.get(Servo.class, rightPush);
-
-		setPushPose(0.82);
-	}
-
-	public strictfp void setPushPose(double position) {
-		position = Math.max(Math.min(position, 0.82), 0.15);
-		leftPush.setPosition(0.8484931506849315 - 0.9863013698630136 * position);
-		rightPush.setPosition(position);
-	}
-
-	protected boolean lift_up_event;
-
+public class SuperStructuresR extends SuperStructures{
+	@Override
 	public void optionThroughGamePad() {
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
@@ -144,11 +71,8 @@ public class SuperStructuresR {
 		armOperation(gamepad2.x);
 	}
 
-	//用一个按键控制不同的状态
-	protected int     armPutEvent = 0;
-	protected boolean keyFlag_arm = false;
-
-	private void armOperation(boolean key) {
+	@Override
+	protected void armOperation(boolean key) {
 		telemetry.addData("arm:", "%d", armPutEvent);
 		telemetry.addData("armPosition:", "%f", arm.getPosition());
 		if (key) {
@@ -180,10 +104,8 @@ public class SuperStructuresR {
 		}
 	}
 
-	protected int     clawPutEvent = 0;
-	protected boolean keyFlag_claw = false;
-
-	private void clawOperation(boolean key) {
+	@Override
+	protected void clawOperation(boolean key) {
 		telemetry.addData("claw:", "%d", clawPutEvent);
 		if (key) {
 			if (! keyFlag_claw) {
@@ -220,11 +142,7 @@ public class SuperStructuresR {
 			keyFlag_claw = false;
 		}
 	}
-
-	protected int     clipPutEvent = 0;
-	protected boolean keyFlag_clip = false;
-
-	private void clipOperation(boolean key) {
+	protected void clipOperation(boolean key) {
 		telemetry.addData("clip:", "%d", clipPutEvent);
 		if (key) {
 			if (! keyFlag_clip) {
@@ -245,14 +163,14 @@ public class SuperStructuresR {
 					//夹住
 					clip.setPosition(clipOn);
 					break;
-
 			}
 		} else {
 			keyFlag_clip = false;
 		}
 	}
 
-	private void inlineArmOperation(boolean y) {//TODO
+	@Override
+	protected void inlineArmOperation(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住
 			arm.setPosition(armPut);  //翻转挂矿石
@@ -266,48 +184,11 @@ public class SuperStructuresR {
 	}
 
 
-	private void inlineClawOpenOperation() {//TODO
+	@Override
+	protected void inlineClawOpenOperation() {
 		claw.setPosition(clawOpen);   //打开
 		turn.setPosition(turnUp);  //翻转下去
 		rotate.setPosition(rotateOn); //保持水平0.1,0.83
-	}
-
-	//电梯的抬升，为了防止电机高速运转带来的encoder的值的快速变化，当高速抬升到固定的encoder值时，
-	// 以匀速低速的形式来实现前抬升的前100转和下降的后100转以低速
-	protected int right_encoder_value = 0;
-
-	private void setLiftPosition(int val) {
-		right_encoder_value = val;
-	}
-
-	private void liftPositionUpdate() {
-		final int max_position = 2500;//原1000
-		final int bufVal       = 10;
-		if (right_encoder_value < max_position && right_encoder_value > 5) {
-			leftLift.setTargetPosition(right_encoder_value);
-			rightLift.setTargetPosition(right_encoder_value);
-			leftLift.setTargetPositionTolerance(bufVal);
-			rightLift.setTargetPositionTolerance(bufVal);
-			leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-			rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-			leftLift.setPower(1);
-			rightLift.setPower(1);
-		} else if (right_encoder_value == 0) {
-			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			if (touch.isPressed())//40,210
-			{
-				leftLift.setPower(0);
-				rightLift.setPower(0);
-				leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-				leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-				rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-				rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			} else {
-				leftLift.setPower(- 1.0);
-				rightLift.setPower(- 1.0);
-			}
-		}
 	}
 }
 
