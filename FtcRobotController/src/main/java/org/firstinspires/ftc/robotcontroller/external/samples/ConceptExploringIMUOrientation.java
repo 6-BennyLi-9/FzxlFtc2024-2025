@@ -72,12 +72,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 @TeleOp(name="Concept: IMU Orientation", group="Concept")
 @Disabled
 public class ConceptExploringIMUOrientation extends LinearOpMode {
-    static RevHubOrientationOnRobot.LogoFacingDirection[] logoFacingDirections
+    static final RevHubOrientationOnRobot.LogoFacingDirection[] logoFacingDirections
             = RevHubOrientationOnRobot.LogoFacingDirection.values();
-    static RevHubOrientationOnRobot.UsbFacingDirection[] usbFacingDirections
-            = RevHubOrientationOnRobot.UsbFacingDirection.values();
-    static int LAST_DIRECTION = logoFacingDirections.length - 1;
-    static float TRIGGER_THRESHOLD = 0.2f;
+    static final RevHubOrientationOnRobot.UsbFacingDirection[]  usbFacingDirections
+																				 = RevHubOrientationOnRobot.UsbFacingDirection.values();
+    static final int                                            LAST_DIRECTION    = logoFacingDirections.length - 1;
+    static final float                                         TRIGGER_THRESHOLD = 0.2f;
 
     IMU imu;
     int logoFacingDirectionPosition;

@@ -46,20 +46,19 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.google.blocks.ftcrobotcontroller.ProgrammingWebHandlers;
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
@@ -151,18 +150,18 @@ public class FtcRobotControllerActivity extends Activity
 
   protected UpdateUI.Callback callback;
   protected Context context;
-  protected Utility utility;
-  protected StartResult prefRemoterStartResult = new StartResult();
-  protected StartResult deviceNameStartResult = new StartResult();
-  protected PreferencesHelper preferencesHelper;
+  protected       Utility     utility;
+  protected final StartResult prefRemoterStartResult = new StartResult();
+  protected final StartResult deviceNameStartResult  = new StartResult();
+  protected       PreferencesHelper preferencesHelper;
   protected final SharedPreferencesListener sharedPreferencesListener = new SharedPreferencesListener();
 
   protected ImageButton buttonMenu;
   protected TextView textDeviceName;
   protected TextView textNetworkConnectionStatus;
-  protected TextView textRobotStatus;
-  protected TextView[] textGamepad = new TextView[NUM_GAMEPADS];
-  protected TextView textOpMode;
+  protected       TextView   textRobotStatus;
+  protected final TextView[] textGamepad = new TextView[NUM_GAMEPADS];
+  protected       TextView   textOpMode;
   protected TextView textErrorMessage;
   protected ImmersiveMode immersion;
 
@@ -189,8 +188,8 @@ public class FtcRobotControllerActivity extends Activity
 
   }
 
-  protected boolean serviceShouldUnbind = false;
-  protected ServiceConnection connection = new ServiceConnection() {
+  protected       boolean           serviceShouldUnbind = false;
+  protected final ServiceConnection connection          = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
       FtcRobotControllerBinder binder = (FtcRobotControllerBinder) service;
@@ -317,22 +316,16 @@ public class FtcRobotControllerActivity extends Activity
 
     entireScreenLayout = findViewById(R.id.entire_screen);
     buttonMenu = findViewById(R.id.menu_buttons);
-    buttonMenu.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        PopupMenu popupMenu = new PopupMenu(FtcRobotControllerActivity.this, v);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-          @Override
-          public boolean onMenuItemClick(MenuItem item) {
-            return onOptionsItemSelected(item); // Delegate to the handler for the hardware menu button
-          }
-        });
-        popupMenu.inflate(R.menu.ftc_robot_controller);
-        AnnotatedHooksClassFilter.getInstance().callOnCreateMenuMethods(
-            FtcRobotControllerActivity.this, popupMenu.getMenu());
-        popupMenu.show();
-      }
-    });
+    buttonMenu.setOnClickListener(v -> {
+	  PopupMenu popupMenu = new PopupMenu(FtcRobotControllerActivity.this, v);
+	  popupMenu.setOnMenuItemClickListener(item -> {
+		return onOptionsItemSelected(item); // Delegate to the handler for the hardware menu button
+	  });
+	  popupMenu.inflate(R.menu.ftc_robot_controller);
+	  AnnotatedHooksClassFilter.getInstance().callOnCreateMenuMethods(
+		  FtcRobotControllerActivity.this, popupMenu.getMenu());
+	  popupMenu.show();
+	});
 
     updateMonitorLayout(getResources().getConfiguration());
 
@@ -427,13 +420,10 @@ public class FtcRobotControllerActivity extends Activity
     super.onStart();
     RobotLog.vv(TAG, "onStart()");
 
-    entireScreenLayout.setOnTouchListener(new View.OnTouchListener() {
-      @Override
-      public boolean onTouch(View v, MotionEvent event) {
-        dimmer.handleDimTimer();
-        return false;
-      }
-    });
+    entireScreenLayout.setOnTouchListener((v, event) -> {
+	  dimmer.handleDimTimer();
+	  return false;
+	});
   }
 
   @Override
@@ -694,12 +684,7 @@ public class FtcRobotControllerActivity extends Activity
       callback.updateRobotStatus(controllerService.getRobotStatus());
       // Only show this first-time toast on headless systems: what we have now on non-headless suffices
       requestRobotSetup(LynxConstants.isRevControlHub()
-        ? new Runnable() {
-            @Override public void run() {
-              showRestartRobotCompleteToast(R.string.toastRobotSetupComplete);
-            }
-          }
-        : null);
+        ? (Runnable) () -> showRestartRobotCompleteToast(R.string.toastRobotSetupComplete) : null);
     }
   }
 
@@ -748,11 +733,7 @@ public class FtcRobotControllerActivity extends Activity
     RobotLog.clearGlobalErrorMsg();
     RobotLog.clearGlobalWarningMsg();
     shutdownRobot();
-    requestRobotSetup(new Runnable() {
-      @Override public void run() {
-        showRestartRobotCompleteToast(R.string.toastRestartRobotComplete);
-        }
-      });
+    requestRobotSetup(() -> showRestartRobotCompleteToast(R.string.toastRestartRobotComplete));
   }
 
   private void showRestartRobotCompleteToast(@StringRes int resid) {
@@ -780,14 +761,11 @@ public class FtcRobotControllerActivity extends Activity
   protected void hittingMenuButtonBrightensScreen() {
     ActionBar actionBar = getActionBar();
     if (actionBar != null) {
-      actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
-        @Override
-        public void onMenuVisibilityChanged(boolean isVisible) {
-          if (isVisible) {
-            dimmer.handleDimTimer();
-          }
-        }
-      });
+      actionBar.addOnMenuVisibilityListener(isVisible -> {
+		if (isVisible) {
+		  dimmer.handleDimTimer();
+		}
+	  });
     }
   }
 
@@ -809,13 +787,7 @@ public class FtcRobotControllerActivity extends Activity
 
       motionDetection = new MotionDetection(2.0, 10);
       motionDetection.startListening();
-      motionDetection.registerListener(new MotionDetection.MotionDetectionListener() {
-        @Override
-        public void onMotionDetected(double vector)
-        {
-          wifiMuteStateMachine.consumeEvent(WifiMuteEvent.USER_ACTIVITY);
-        }
-      });
+      motionDetection.registerListener(vector -> wifiMuteStateMachine.consumeEvent(WifiMuteEvent.USER_ACTIVITY));
     } else {
       wifiMuteStateMachine.stop();
       wifiMuteStateMachine = null;

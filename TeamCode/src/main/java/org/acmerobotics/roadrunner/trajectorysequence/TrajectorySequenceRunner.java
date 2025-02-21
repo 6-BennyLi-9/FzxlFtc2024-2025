@@ -31,15 +31,15 @@ import java.util.List;
 
 //@Config
 public class TrajectorySequenceRunner {
-	public static String COLOR_INACTIVE_TRAJECTORY = "#4caf507a";
-	public static String COLOR_INACTIVE_TURN       = "#7c4dff7a";
-	public static String COLOR_INACTIVE_WAIT       = "#dd2c007a";
+	public static final String COLOR_INACTIVE_TRAJECTORY = "#4caf507a";
+	public static final String COLOR_INACTIVE_TURN       = "#7c4dff7a";
+	public static final String COLOR_INACTIVE_WAIT       = "#dd2c007a";
 
-	public static String COLOR_ACTIVE_TRAJECTORY = "#4CAF50";
-	public static String COLOR_ACTIVE_TURN       = "#7c4dff";
-	public static String COLOR_ACTIVE_WAIT       = "#dd2c00";
+	public static final String COLOR_ACTIVE_TRAJECTORY = "#4CAF50";
+	public static final String COLOR_ACTIVE_TURN       = "#7c4dff";
+	public static final String COLOR_ACTIVE_WAIT       = "#dd2c00";
 
-	public static int POSE_HISTORY_LIMIT = 100;
+	public static final int POSE_HISTORY_LIMIT = 100;
 
 	private final TrajectoryFollower follower;
 
@@ -52,9 +52,9 @@ public class TrajectorySequenceRunner {
 	private final List <Integer>      lastDriveEncPositions;
 	private final List <Integer>      lastDriveEncVels;
 	private final List <Integer>      lastTrackingEncPositions;
-	private final List <Integer>      lastTrackingEncVels;
-	List <TrajectoryMarker> remainingMarkers = new ArrayList <>();
-	private TrajectorySequence currentTrajectorySequence;
+	private final List <Integer>          lastTrackingEncVels;
+	final         List <TrajectoryMarker> remainingMarkers = new ArrayList <>();
+	private       TrajectorySequence      currentTrajectorySequence;
 	private double             currentSegmentStartTime;
 	private int                currentSegmentIndex;
 	private int                lastSegmentIndex;

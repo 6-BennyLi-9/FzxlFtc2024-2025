@@ -177,43 +177,21 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
 
         // At the beginning of each telemetry update, grab a bunch of data
         // from the IMU that we will then display in separate lines.
-        telemetry.addAction(new Runnable() { @Override public void run()
-                {
-                // Acquiring the angles is relatively expensive; we don't want
-                // to do that in each of the three items that need that info, as that's
-                // three times the necessary expense.
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                }
-            });
+        telemetry.addAction(() -> {
+		// Acquiring the angles is relatively expensive; we don't want
+		// to do that in each of the three items that need that info, as that's
+		// three times the necessary expense.
+		angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+		});
 
         telemetry.addLine()
-            .addData("status", new Func<String>() {
-                @Override public String value() {
-                    return imu.getSystemStatus().toShortString();
-                    }
-                })
-            .addData("calib", new Func<String>() {
-                @Override public String value() {
-                    return imu.getCalibrationStatus().toString();
-                    }
-                });
+            .addData("status", () -> imu.getSystemStatus().toShortString())
+            .addData("calib", () -> imu.getCalibrationStatus().toString());
 
         telemetry.addLine()
-            .addData("heading", new Func<String>() {
-                @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.firstAngle);
-                    }
-                })
-            .addData("roll", new Func<String>() {
-                @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.secondAngle);
-                    }
-                })
-            .addData("pitch", new Func<String>() {
-                @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.thirdAngle);
-                    }
-                });
+            .addData("heading", () -> formatAngle(angles.angleUnit, angles.firstAngle))
+            .addData("roll", () -> formatAngle(angles.angleUnit, angles.secondAngle))
+            .addData("pitch", () -> formatAngle(angles.angleUnit, angles.thirdAngle));
     }
 
     //----------------------------------------------------------------------------------------------

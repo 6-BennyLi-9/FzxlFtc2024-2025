@@ -22,9 +22,6 @@ public class DcMotorTest extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-//		telemetry=new DashTelemetry(FtcDashboard.getInstance(),telemetry);
-//		client=new BaseMapClient(telemetry);
-//		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
 		telemetry.setAutoClear(false);
 		telemetry.update();
 		lift =hardwareMap.get(DcMotorEx.class, "lift");

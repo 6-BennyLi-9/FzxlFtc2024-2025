@@ -23,9 +23,11 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class ClassicLiftCtrl extends LiftCtrl {
-		public static long   staticAllowError;
-		public static long   lowerErrorRange;
-		public static double zeroPoseCalibrationPow, lowerCalibrationPow, higherCalibrationPow;
+		public static final long staticAllowError;
+		public static final long lowerErrorRange;
+		public static final double zeroPoseCalibrationPow;
+		public static final double lowerCalibrationPow;
+		public static final double higherCalibrationPow;
 
 		static {
 			staticAllowError = 35;
@@ -69,9 +71,9 @@ public class LiftControllers {
 	 */
 	@Config
 	public static class DcLiftCtrl extends LiftCtrl {
-		public static double  bufPow                     = 1;
-		public static int     tolerance                  = 10;
-		private       boolean using_touch_calibrate      = true;
+		public static final double bufPow    = 1;
+		public static final int    tolerance = 10;
+		private             boolean using_touch_calibrate = true;
 		private       boolean using_touch_reset_encoders = true;
 
 		public DcLiftCtrl(@NonNull final DcMotorEx target) {
@@ -132,7 +134,7 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class LinFuncLiftCtrl extends LiftCtrl {
-		public static double vA;
+		public static final double vA;
 
 		static {
 			vA = 0.05;
@@ -169,7 +171,7 @@ public class LiftControllers {
 	@Config
 	@Disabled
 	public static class QuadFuncLiftCtrl extends LiftCtrl {
-		public static double vA;
+		public static final double vA;
 
 		static {
 			vA = 0.02;

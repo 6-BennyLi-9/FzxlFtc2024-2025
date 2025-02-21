@@ -42,7 +42,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 @Config
 @TeleOp(group = "drive")
 public class MotorDirectionDebugger extends LinearOpMode {
-	public static double MOTOR_POWER = 0.7;
+	public static final double MOTOR_POWER = 0.7;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

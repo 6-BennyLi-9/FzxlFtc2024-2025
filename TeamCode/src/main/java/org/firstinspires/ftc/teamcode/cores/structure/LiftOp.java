@@ -32,8 +32,13 @@ public class LiftOp implements HardwareController, TagOptionsRequired {
 	/**
 	 * 电梯的具体点位
 	 */
-	public static long     idlePosition, decantLow = 1080, decantHigh = 2000, highSuspend = 740, highSuspendPrepare = 1250, suspendLv1 = 770;
-	private static LiftOp instance;
+	public static       long idlePosition;
+	public static final long decantLow  = 1080;
+	public static final long decantHigh = 2000;
+	public static final long highSuspend = 740;
+	public static final long highSuspendPrepare = 1250;
+	public static final long suspendLv1         = 770;
+	private static      LiftOp instance;
 
 	public static LiftOp getInstance() {
 		return instance;

@@ -10,8 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class DashTelemetry implements Telemetry {
-	public static boolean           sync_with_dashboard = true;
-	private final MultipleTelemetry telemetries;
+	public static final boolean           sync_with_dashboard = true;
+	private final       MultipleTelemetry telemetries;
 	private final FtcDashboard      dashboard;
 	private       TelemetryPacket   packet              = new TelemetryPacket();
 

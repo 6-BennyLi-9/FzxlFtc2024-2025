@@ -64,7 +64,7 @@ public class SensorKLNavxMicro extends LinearOpMode {
     NavxMicroNavigationSensor navxMicro;
 
     // A timer helps provide feedback while calibration is taking place
-    ElapsedTime timer = new ElapsedTime();
+	final ElapsedTime timer = new ElapsedTime();
 
     @Override public void runOpMode() throws InterruptedException {
         // Get a reference to a Modern Robotics GyroSensor object. We use several interfaces

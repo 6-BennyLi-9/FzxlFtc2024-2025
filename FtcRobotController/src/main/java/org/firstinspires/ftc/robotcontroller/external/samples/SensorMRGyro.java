@@ -64,7 +64,7 @@ public class SensorMRGyro extends LinearOpMode {
   ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
   // A timer helps provide feedback while calibration is taking place
-  ElapsedTime timer = new ElapsedTime();
+  final ElapsedTime timer = new ElapsedTime();
 
   @Override
   public void runOpMode() {

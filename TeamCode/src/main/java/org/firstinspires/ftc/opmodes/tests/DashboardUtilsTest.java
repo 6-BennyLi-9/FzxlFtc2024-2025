@@ -9,7 +9,7 @@ import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 @TestShelved
 @Autonomous(group = "9_Tests")
 public class DashboardUtilsTest extends LinearOpMode {
-	public DashboardUtils dashboard = DashboardUtils.generateInstance();
+	public final DashboardUtils dashboard = DashboardUtils.generateInstance();
 
 	@Override
 	public void runOpMode() throws InterruptedException {

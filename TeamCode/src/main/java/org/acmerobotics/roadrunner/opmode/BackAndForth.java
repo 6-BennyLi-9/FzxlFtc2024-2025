@@ -30,7 +30,7 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 @Autonomous(group = "drive")
 public class BackAndForth extends LinearOpMode {
 
-	public static double DISTANCE = 50;
+	public static final double DISTANCE = 50;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

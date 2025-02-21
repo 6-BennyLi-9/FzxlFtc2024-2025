@@ -187,9 +187,9 @@ public class LogFiles {
 	public static class LogFile {
 		public String version = "quickstart1 v2";
 
-		public String opModeName;
-		public long   msInit = System.currentTimeMillis();
-		public long   nsInit = System.nanoTime();
+		public final String opModeName;
+		public final long   msInit = System.currentTimeMillis();
+		public       long   nsInit = System.nanoTime();
 		public long   nsStart, nsStop;
 
 		public double  ticksPerRev     = DriveConstants.TICKS_PER_REV;
@@ -227,22 +227,22 @@ public class LogFiles {
 		public RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = DriveConstants.LOGO_FACING_DIR;
 		public RevHubOrientationOnRobot.UsbFacingDirection  USB_FACING_DIR  = DriveConstants.USB_FACING_DIR;
 
-		public List <Long> nsTimes = new ArrayList <>();
+		public final List <Long> nsTimes = new ArrayList <>();
 
-		public List <Double> targetXs       = new ArrayList <>();
-		public List <Double> targetYs       = new ArrayList <>();
-		public List <Double> targetHeadings = new ArrayList <>();
+		public final List <Double> targetXs = new ArrayList <>();
+		public final List <Double> targetYs = new ArrayList <>();
+		public final List <Double> targetHeadings = new ArrayList <>();
 
-		public List <Double> xs       = new ArrayList <>();
-		public List <Double> ys       = new ArrayList <>();
-		public List <Double> headings = new ArrayList <>();
+		public final List <Double> xs = new ArrayList <>();
+		public final List <Double> ys = new ArrayList <>();
+		public final List <Double> headings = new ArrayList <>();
 
-		public List <Double> voltages = new ArrayList <>();
+		public final List <Double> voltages = new ArrayList <>();
 
-		public List <List <Integer>> driveEncPositions    = new ArrayList <>();
-		public List <List <Integer>> driveEncVels         = new ArrayList <>();
-		public List <List <Integer>> trackingEncPositions = new ArrayList <>();
-		public List <List <Integer>> trackingEncVels      = new ArrayList <>();
+		public final List <List <Integer>> driveEncPositions = new ArrayList <>();
+		public final List <List <Integer>> driveEncVels      = new ArrayList <>();
+		public final List <List <Integer>> trackingEncPositions = new ArrayList <>();
+		public final List <List <Integer>> trackingEncVels      = new ArrayList <>();
 
 		public LogFile(final String opModeName) {
 			this.opModeName = opModeName;

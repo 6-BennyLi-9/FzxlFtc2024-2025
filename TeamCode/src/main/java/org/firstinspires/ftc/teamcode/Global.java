@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public final class Global {
 	public static  Gamepad gamepad1, gamepad2;
-	public static  TaskMng service = new TaskMng(defaultThreadExecutor());
-	public static  RunMode runMode;
+	public static final TaskMng service = new TaskMng(defaultThreadExecutor());
+	public static       RunMode runMode;
 	public static  OpMode  currentOpmode;
 	public static  Client  client;
 	private static boolean auto_create_monitor = false;

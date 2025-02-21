@@ -54,7 +54,7 @@ import java.util.Objects;
 @Config
 @Autonomous(group = "drive")
 public class DriveVelocityPIDTuner extends LinearOpMode {
-	public static double DISTANCE = 72; // in
+	public static final double DISTANCE = 72; // in
 
 	private static MotionProfile generateProfile(final boolean movingForward) {
 		final MotionState start = new MotionState(movingForward ? 0 : DISTANCE, 0, 0, 0);
@@ -135,7 +135,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
 						mode = Mode.TUNING_MODE;
 						movingForwards = true;
-						activeProfile = generateProfile(movingForwards);
+						activeProfile = generateProfile(true);
 						profileStart = clock.seconds();
 					}
 

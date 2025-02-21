@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right2 extends StructuralLinearMode {
-	public static double scaleGetPosition = 0.238;
+	public static final double scaleGetPosition = 0.238;
 
 	@Override
 	public void linear() {

@@ -219,7 +219,9 @@ public class ConceptMotorBulkRead extends LinearOpMode {
         displayCycleTimes("Complete");
 
         // wait until op-mode is stopped by user, before clearing display.
-        while (opModeIsActive()) ;
+        while (opModeIsActive()) {
+            idle();
+        }
     }
 
     // Display three comparison times.

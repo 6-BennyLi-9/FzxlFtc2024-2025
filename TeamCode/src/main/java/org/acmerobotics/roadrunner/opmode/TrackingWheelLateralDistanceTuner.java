@@ -66,7 +66,7 @@ import org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer;
 @Config
 @TeleOp(group = "drive")
 public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
-	public static int NUM_TURNS = 10;
+	public static final int NUM_TURNS = 10;
 
 	@Override
 	public void runOpMode() throws InterruptedException {

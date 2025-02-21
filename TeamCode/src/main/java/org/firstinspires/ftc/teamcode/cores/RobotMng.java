@@ -60,28 +60,28 @@ public class RobotMng implements Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String                           printCode           = "-\\|/";
+	public static final String printCode           = "-\\|/";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
-	public static       double                           driverTriggerBufFal = 0.2;
+	public static final double driverTriggerBufFal = 0.2;
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static       double                           rotateTriggerBufFal = 0.01;
-	public static       boolean                          sendTelemetryPackets;
+	public static final double rotateTriggerBufFal = 0.01;
+	public static       boolean sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public              Map <String, HardwareController> controllers         = new HashMap <>();
+	public final  Map <String, HardwareController> controllers = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public              TaggedActionPackage              thread              = new TaggedActionPackage();
+	public final  TaggedActionPackage              thread      = new TaggedActionPackage();
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public              int                              updateTime;
+	public       int                              updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */

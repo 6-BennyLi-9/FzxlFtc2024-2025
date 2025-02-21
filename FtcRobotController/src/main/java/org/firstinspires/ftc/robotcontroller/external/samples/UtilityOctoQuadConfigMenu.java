@@ -55,20 +55,20 @@ import java.util.Stack;
 @Disabled
 public class UtilityOctoQuadConfigMenu extends LinearOpMode
 {
-    TelemetryMenu.MenuElement rootMenu = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
-    TelemetryMenu.MenuElement menuHwInfo = new TelemetryMenu.MenuElement("Hardware Information", false);
+	final TelemetryMenu.MenuElement rootMenu   = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
+	final TelemetryMenu.MenuElement menuHwInfo = new TelemetryMenu.MenuElement("Hardware Information", false);
     TelemetryMenu.EnumOption optionI2cResetMode;
     TelemetryMenu.EnumOption optionChannelBankConfig;
 
-    TelemetryMenu.MenuElement menuEncoderDirections = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
-    TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuEncoderDirections    = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
+	final TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
 
-    TelemetryMenu.MenuElement menuVelocityIntervals = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
-    TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuVelocityIntervals    = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
+	final TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
 
-    TelemetryMenu.MenuElement menuAbsParams = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.MenuElement     menuAbsParams       = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
 
     TelemetryMenu.OptionElement optionProgramToFlash;
     TelemetryMenu.OptionElement optionSendToRAM;
@@ -573,9 +573,9 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         public static class EnumOption extends OptionElement
         {
-            protected int idx = 0;
-            protected Enum[] e;
-            protected String name;
+            protected       int    idx = 0;
+            protected final Enum[] e;
+            protected final String name;
 
             public EnumOption(String name, Enum[] e)
             {
@@ -631,10 +631,10 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         public static class IntegerOption extends OptionElement
         {
-            protected int i;
-            protected int min;
-            protected int max;
-            protected String name;
+            protected       int i;
+            protected final int min;
+            protected final int max;
+            protected final String name;
 
             public IntegerOption(String name, int min, int max, int def)
             {

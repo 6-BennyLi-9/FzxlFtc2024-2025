@@ -53,7 +53,7 @@ public class ConceptTelemetry extends LinearOpMode  {
     int poemLine = 0;
 
     /** Keeps track of how long it's been since we last emitted a line of poetry */
-    ElapsedTime poemElapsed = new ElapsedTime();
+	final ElapsedTime poemElapsed = new ElapsedTime();
 
     static final String[] poem = new String[] {
 
@@ -115,11 +115,7 @@ public class ConceptTelemetry extends LinearOpMode  {
          *
          * @see Telemetry#getMsTransmissionInterval()
          */
-        telemetry.addData("voltage", "%.1f volts", new Func<Double>() {
-            @Override public Double value() {
-                return getBatteryVoltage();
-            }
-            });
+        telemetry.addData("voltage", "%.1f volts", () -> getBatteryVoltage());
 
         // Reset to keep some timing stats for the post-'start' part of the OpMode
         opmodeRunTime.reset();

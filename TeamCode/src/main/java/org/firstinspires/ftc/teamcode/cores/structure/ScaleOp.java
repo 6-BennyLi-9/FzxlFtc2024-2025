@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Contract;
 public class ScaleOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static ScalePositions recent = ScalePositions.BACK;
 	public static ServoCtrl      leftScaleController, rightScaleController;
-	public static  double  smooth = 0.2;
-	private static ScaleOp instance;
+	public static final double  smooth = 0.2;
+	private static      ScaleOp instance;
 
 	public static ScaleOp getInstance() {
 		return instance;

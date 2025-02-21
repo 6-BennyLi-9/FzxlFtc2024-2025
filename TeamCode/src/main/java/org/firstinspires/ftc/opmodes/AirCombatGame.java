@@ -166,8 +166,8 @@ public class AirCombatGame extends LinearOpMode {
 
 	// 敌人类
 	public static class Enemy {
-		public int x;
-		public int y;
+		public       int x;
+		public final int y;
 
 		Enemy(final int x, final int y) {
 			this.x = x;
@@ -177,8 +177,8 @@ public class AirCombatGame extends LinearOpMode {
 
 	// 子弹类
 	public static class Bullet {
-		public int x;
-		public int y;
+		public final int x;
+		public       int y;
 
 		Bullet(final int x, final int y) {
 			this.x = x;
