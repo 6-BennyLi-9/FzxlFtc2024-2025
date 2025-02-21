@@ -49,6 +49,7 @@ public class ExpansionMapClient extends BaseMapClient implements ClientEx {
 		} else if (element instanceof TelemetryLine) {
 			((TelemetryLine) element).setLine(val);
 		} else {
+			assert element != null;
 			throw new IllegalStateException("Unsupported telemetry element type: " + element.getClass().getSimpleName());
 		}
 	}
