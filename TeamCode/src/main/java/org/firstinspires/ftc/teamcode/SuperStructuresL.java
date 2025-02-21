@@ -6,6 +6,8 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENC
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.*;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -163,11 +165,11 @@ public class SuperStructuresL {
 			}
 			switch (armPutEvent) {
 				case 0:
-					clip.setPosition(HardwareDatabase.clipOn);
+					clip.setPosition(clipOn);
 					break;
 				case 1:
-					arm.setPosition(HardwareDatabase.armDown);  //打开
-					clip.setPosition(HardwareDatabase.clipOpen);
+					arm.setPosition(armDown);  //打开
+					clip.setPosition(clipOpen);
 					break;
 			}
 		} else {
@@ -192,23 +194,23 @@ public class SuperStructuresL {
 			}
 			switch (clawPutEvent) {
 				case 0:
-					claw.setPosition(HardwareDatabase.clawOn);  //扣住
-					turn.setPosition(HardwareDatabase.turnUp);  //翻转上去
-					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.63，0
+					claw.setPosition(clawOn);  //扣住
+					turn.setPosition(turnUp);  //翻转上去
+					rotate.setPosition(rotateOn); //保持水平0.63，0
 					break;
 				case 1:
-					claw.setPosition(HardwareDatabase.clawOpen);  //打开
-					turn.setPosition(HardwareDatabase.turnMiddle);  //翻转下去
-					rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
+					claw.setPosition(clawOpen);  //打开
+					turn.setPosition(turnMiddle);  //翻转下去
+					rotate.setPosition(rotateOn); //保持水平0.1,0.83
 					break;
 				case 2:
-					claw.setPosition(HardwareDatabase.clawOpen);  //打开
-					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
+					claw.setPosition(clawOpen);  //打开
+					turn.setPosition(turnDown);  //翻转下去
 					//rotate.setPosition(rotateOn); //保持水平0.1,0.83
 					break;
 				case 3:
-					claw.setPosition(HardwareDatabase.clawOn);  //夹住
-					turn.setPosition(HardwareDatabase.turnDown);  //翻转下去
+					claw.setPosition(clawOn);  //夹住
+					turn.setPosition(turnDown);  //翻转下去
 
 					break;
 
@@ -235,10 +237,10 @@ public class SuperStructuresL {
 			}
 			switch (clipPutEvent) {
 				case 0:
-					clip.setPosition(HardwareDatabase.clipOpen);  //释放
+					clip.setPosition(clipOpen);  //释放
 					break;
 				case 1:
-					clip.setPosition(HardwareDatabase.clipOn);  //夹住
+					clip.setPosition(clipOn);  //夹住
 					break;
 			}
 		} else {
@@ -248,26 +250,26 @@ public class SuperStructuresL {
 
 	private void inlineArmOperation(boolean y) {
 		if (y) {
-			clip.setPosition(HardwareDatabase.clipOn);  //夹住
-			arm.setPosition(HardwareDatabase.armUp);  //翻转挂矿石
-			upTurn.setPosition(HardwareDatabase.upTurnUp);
-			claw.setPosition(HardwareDatabase.clawOpen);
+			clip.setPosition(clipOn);  //夹住
+			arm.setPosition(armUp);  //翻转挂矿石
+			upTurn.setPosition(upTurnUp);
+			claw.setPosition(clawOpen);
 		} else {
-			clip.setPosition(HardwareDatabase.clipOpen);  //打开
-			arm.setPosition(HardwareDatabase.armMiddle);  //中间等待位置
-			upTurn.setPosition(HardwareDatabase.upTurnDown);
+			clip.setPosition(clipOpen);  //打开
+			arm.setPosition(armMiddle);  //中间等待位置
+			upTurn.setPosition(upTurnDown);
 		}
 	}
 
 
 	private void inlineClawOpenOperation() {
-		claw.setPosition(HardwareDatabase.clawOpen);   //打开
-		turn.setPosition(HardwareDatabase.turnMiddle);  //翻转下去
-		rotate.setPosition(HardwareDatabase.rotateOn); //保持水平0.1,0.83
+		claw.setPosition(clawOpen);   //打开
+		turn.setPosition(turnMiddle);  //翻转下去
+		rotate.setPosition(rotateOn); //保持水平0.1,0.83
 	}
 
 	private void inlineClipOpenOperation() {
-		clip.setPosition(HardwareDatabase.clipOpen);  //打开
+		clip.setPosition(clipOpen);  //打开
 	}
 
 	public void showEncoder() {

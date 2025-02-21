@@ -6,6 +6,8 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENC
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.*;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -202,26 +204,26 @@ public class Utils {
 
 	public void armOperationR(boolean y) {
 		if (y) {
-			clip.setPosition(HardwareDatabase.clipOpen);  //打开
-			arm.setPosition(HardwareDatabase.armDownR);  //不翻转0.11
-			upTurn.setPosition(HardwareDatabase.upTurnDownR);
+			clip.setPosition(clipOpen);  //打开
+			arm.setPosition(armDownR);  //不翻转0.11
+			upTurn.setPosition(upTurnDownR);
 		} else {
-			upTurn.setPosition(HardwareDatabase.upTurnUpR);
-			clip.setPosition(HardwareDatabase.clipOn);  //夹住
-			arm.setPosition(HardwareDatabase.armUpR);  //翻转
+			upTurn.setPosition(upTurnUpR);
+			clip.setPosition(clipOn);  //夹住
+			arm.setPosition(armUpR);  //翻转
 		}
 	}
 
 	public void armOperationL(boolean d) {
 		if (d) {
-			clip.setPosition(HardwareDatabase.clipOpen);  //打开
-			arm.setPosition(HardwareDatabase.armDownMiddle);
-			upTurn.setPosition(HardwareDatabase.upTurnDown);//不翻转0.11
+			clip.setPosition(clipOpen);  //打开
+			arm.setPosition(armDownMiddle);
+			upTurn.setPosition(upTurnDownL);//不翻转0.11
 
 		} else {
-			clip.setPosition(HardwareDatabase.clipOpen);  //打开
-			arm.setPosition(HardwareDatabase.armDownL);
-			upTurn.setPosition(HardwareDatabase.upTurnDown);//不翻转0.11
+			clip.setPosition(clipOpen);  //打开
+			arm.setPosition(armDownL);
+			upTurn.setPosition(upTurnDownL);//不翻转0.11
 		}
 	}
 
@@ -230,15 +232,15 @@ public class Utils {
 	 */
 	public void armOperation(boolean y) {
 		if (y) {
-			clip.setPosition(HardwareDatabase.clipOn);  //夹住0.55
-			arm.setPosition(HardwareDatabase.armDownMiddle);  //不翻转
-			upTurn.setPosition(HardwareDatabase.upTurnDown);
-			claw.setPosition(HardwareDatabase.clawOpen);  //前夹子打开
+			clip.setPosition(clipOn);  //夹住0.55
+			arm.setPosition(armDownMiddle);  //不翻转
+			upTurn.setPosition(upTurnDownL);
+			claw.setPosition(clawOpen);  //前夹子打开
 		} else {
-			clip.setPosition(HardwareDatabase.clipOn);  //夹住
-			arm.setPosition(HardwareDatabase.armUpL); //翻转放块
-			turn.setPosition(HardwareDatabase.turnMiddle);
-			upTurn.setPosition(HardwareDatabase.upTurnUpL);
+			clip.setPosition(clipOn);  //夹住
+			arm.setPosition(armUpL); //翻转放块
+			turn.setPosition(turnMiddle);
+			upTurn.setPosition(upTurnUpL);
 		}
 	}
 
@@ -246,51 +248,51 @@ public class Utils {
 	 * @param s 如果为真，打开
 	 */
 	public void clipOperation(boolean s) {
-		this.clip.setPosition(s ? HardwareDatabase.clipOpen : HardwareDatabase.clipOn); //开/关
+		this.clip.setPosition(s ? clipOpen : clipOn); //开/关
 	}
 
 	/**
 	 * @param s 如果为真，打开
 	 */
 	public void clawOperation(boolean s) {
-		this.claw.setPosition(s ? HardwareDatabase.clawOpen : HardwareDatabase.clawOn); //开/关
+		this.claw.setPosition(s ? clawOpen : clawOn); //开/关
 	}
 
 	public void claw_rotate_rst(boolean x) {
 		if (x) {
-			claw.setPosition(HardwareDatabase.clawOpen);  //打开0.26
-			turn.setPosition(HardwareDatabase.turnMiddle);   //翻下去
-			rotate.setPosition(HardwareDatabase.rotateOn);  //转正
+			claw.setPosition(clawOpen);  //打开0.26
+			turn.setPosition(turnMiddle);   //翻下去
+			rotate.setPosition(rotateOn);  //转正
 		} else {
-			claw.setPosition(HardwareDatabase.clawOpen);  //打开0.26
-			turn.setPosition(HardwareDatabase.turnDown);   //翻下去
-			rotate.setPosition(HardwareDatabase.rotateOn);  //转正
+			claw.setPosition(clawOpen);  //打开0.26
+			turn.setPosition(turnDown);   //翻下去
+			rotate.setPosition(rotateOn);  //转正
 		}
 	}
 
 	public void claw_rotate_rst1(boolean x) {
 		if (x) {
-			claw.setPosition(HardwareDatabase.clawOpen);  //打开0.26
-			turn.setPosition(HardwareDatabase.turnMiddle);   //翻下去
-			rotate.setPosition(HardwareDatabase.rotateOn);  //转正
+			claw.setPosition(clawOpen);  //打开0.26
+			turn.setPosition(turnMiddle);   //翻下去
+			rotate.setPosition(rotateOn);  //转正
 		} else {
 			rotate.setPosition(0.51);  //偏转角度
-			claw.setPosition(HardwareDatabase.clawOpen);  //打开0.26
-			turn.setPosition(HardwareDatabase.turnDown);   //翻下去
+			claw.setPosition(clawOpen);  //打开0.26
+			turn.setPosition(turnDown);   //翻下去
 
 		}
 	}
 
 	public void claw_rotate(boolean m) {
 		if (m) {
-			claw.setPosition(HardwareDatabase.clawOn);  //夹住
-			turn.setPosition(HardwareDatabase.turnUp);   //翻上去
-			rotate.setPosition(HardwareDatabase.rotateOn); //转正0.1, 0.83
-			clip.setPosition(HardwareDatabase.clipOpen);   //夹子打开
+			claw.setPosition(clawOn);  //夹住
+			turn.setPosition(turnUp);   //翻上去
+			rotate.setPosition(rotateOn); //转正0.1, 0.83
+			clip.setPosition(clipOpen);   //夹子打开
 		} else {
-			claw.setPosition(HardwareDatabase.clawOpen);  //打开0.26
-			turn.setPosition(HardwareDatabase.turnUp);   //翻上去
-			rotate.setPosition(HardwareDatabase.rotateOn);  //旋转90度
+			claw.setPosition(clawOpen);  //打开0.26
+			turn.setPosition(turnUp);   //翻上去
+			rotate.setPosition(rotateOn);  //旋转90度
 		}
 	}
 
