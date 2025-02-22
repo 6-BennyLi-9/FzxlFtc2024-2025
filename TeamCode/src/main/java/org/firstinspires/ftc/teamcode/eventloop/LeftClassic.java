@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.eventloop;
 import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
 import static org.firstinspires.ftc.teamcode.HardwareParams.pushOut;
 
+import static java.lang.Math.*;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "放篮子")
 public class LeftClassic extends LinearOpMode {
+	public static double SUSPEND_DELAY = 0.73;
 	public final Utils              utils = new Utils();
 	public       SampleMecanumDrive drive;
 
@@ -30,20 +33,20 @@ public class LeftClassic extends LinearOpMode {
 
 		drive = new SampleMecanumDrive(hardwareMap);
 
-		Pose2d blueLeft                = new Pose2d(36, 58, Math.toRadians(- 90));
-		Pose2d forward                 = new Pose2d(55, 54.5, Math.toRadians(- 135));
-		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, Math.toRadians(- 90));
-		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, Math.toRadians(- 135));
-		Pose2d toGetSecondYellowSample = new Pose2d(47, 46.9, Math.toRadians(- 93)); //y49.2x64.2
-		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, Math.toRadians(- 135));//150
-		Pose2d toGetThirdYellowSample  = new Pose2d(58.3, 46.5, Math.toRadians(- 77));//150
-		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, Math.toRadians(- 135));//150
-		Pose2d GoToPark                = new Pose2d(34, 4, Math.toRadians(- 180));// 40，4
+		Pose2d blueLeft                = new Pose2d(36, 58, toRadians(- 90));
+		Pose2d strafe                  = new Pose2d(53, 53, toRadians(- 125));
+		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, toRadians(- 90));
+		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, toRadians(- 135));
+		Pose2d toGetSecondYellowSample = new Pose2d(49, 47, toRadians(- 93)); //y49.2x64.2
+		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, toRadians(- 135));//150
+		Pose2d toGetThirdYellowSample  = new Pose2d(60, 45.8, toRadians(- 74));//150
+		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, toRadians(- 135));//150
+		Pose2d GoToPark                = new Pose2d(34, 4, toRadians(- 180));// 40，4
 
 		drive.setPoseEstimate(blueLeft);
 
 		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft)
-				.lineToLinearHeading(forward)
+				.lineToLinearHeading(strafe)
 				.build();
 		Trajectory         toPut             = drive.trajectoryBuilder(left_put.end())
 				.lineToLinearHeading(toGetFirstYellowSample)
@@ -186,7 +189,7 @@ public class LeftClassic extends LinearOpMode {
 		}).start();
 		drive.followTrajectorySequence(toPark);//去停靠
 		utils.claw_rotate(true);
-		utils.arm.setPosition(0.67);
+		utils.arm.setPosition(SUSPEND_DELAY);
 
 		sleep(Long.MAX_VALUE);
 	}

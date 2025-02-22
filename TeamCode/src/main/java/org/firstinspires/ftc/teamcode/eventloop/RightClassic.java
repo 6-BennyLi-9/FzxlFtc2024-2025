@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
-@Autonomous(group = "classic",preselectTeleOp = "挂样本")
+@Autonomous(group = Character.MIN_VALUE + "drive",preselectTeleOp = "挂样本")
 public class RightClassic extends LinearOpMode {
 	public final Utils              utils = new Utils();
 	public       SampleMecanumDrive drive;
@@ -31,10 +31,10 @@ public class RightClassic extends LinearOpMode {
 		Pose2d blueRight            = new Pose2d(- 12, 58, Math.toRadians(- 90));
 		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
 		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, Math.toRadians(- 90));
-		Pose2d toUpSecondBlueSample = new Pose2d(- 8, 30, Math.toRadians(- 90));//44
+		Pose2d toUpSecondBlueSample = new Pose2d(- 7.5, 30, Math.toRadians(- 90));//44
 		Pose2d toBlueSample         = new Pose2d(- 40, 30, Math.toRadians(- 90)); //-95
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, Math.toRadians(- 90));
-		Pose2d toUpThirdSample      = new Pose2d(- 10.5, 33, Math.toRadians(- 90));
+		Pose2d toUpThirdSample      = new Pose2d(- 9, 33, Math.toRadians(- 90));
 		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
 
 		drive.setPoseEstimate(blueRight);
@@ -71,7 +71,7 @@ public class RightClassic extends LinearOpMode {
 
 		TrajectorySequence ToUpThirdBlue = drive.trajectorySequenceBuilder(toGetThirdBlue.end())
 				.lineToLinearHeading(toUpThirdSample)
-				.forward(8.0)
+				.forward(9)
 				.build();
 		TrajectorySequence Park= drive.trajectorySequenceBuilder(ToUpThirdBlue.end())
 				.lineToLinearHeading(toPark)

@@ -53,7 +53,7 @@ public class Utils {
 	public Telemetry   telemetry;
 
 	public void init(HardwareMap hardwareMap, Telemetry telemetry) {
-		init(hardwareMap, telemetry, false);
+		init(hardwareMap, telemetry, true);
 	}
 
 	public void init(HardwareMap hardwareMap, Telemetry telemetry, boolean initIMU) {
@@ -230,7 +230,7 @@ public class Utils {
 	public void armOperation(boolean y) {
 		if (y) {
 			clip.setPosition(clipOn);  //夹住0.55
-			arm.setPosition(armDownMiddle);  //不翻转
+			arm.setPosition(armDown);  //不翻转
 			upTurn.setPosition(upTurnDownL);
 			claw.setPosition(clawOpen);  //前夹子打开
 		} else {
