@@ -3,9 +3,10 @@ package org.exboithpath.runner;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.exboithpath.graphics.Pose;
+import org.exboithpath.loclaizer.Localizer;
 
 public class BaseMecanumRunner implements MecanumRunner {
-	private Pose target;
+	private Pose target,current;
 	private final DcMotorEx lf,lr,rf,rr;
 	private Runnable updater;
 
@@ -14,6 +15,10 @@ public class BaseMecanumRunner implements MecanumRunner {
 		this.lr = lr;
 		this.rf = rf;
 		this.rr = rr;
+
+		updater = ()->{
+
+		};
 	}
 
 	public void setPowers(double x,double y,double head){
@@ -31,6 +36,11 @@ public class BaseMecanumRunner implements MecanumRunner {
 	@Override
 	public void shutdown() {
 		setPowers(0,0,0);
+	}
+
+	@Override
+	public void syncPose(Localizer localizer) {
+
 	}
 
 	@Override
