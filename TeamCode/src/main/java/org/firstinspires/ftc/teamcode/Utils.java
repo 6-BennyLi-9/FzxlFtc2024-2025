@@ -37,7 +37,7 @@ public class Utils {
 	public DcMotorEx leftLift;
 	public DcMotorEx rightLift;
 
-	public Servo arm;	//后电梯摆臂
+	public Servo arm;    //后电梯摆臂
 	public Servo rotate;//前电梯上旋转舵机
 	public Servo clip;  //后电梯夹子
 	public Servo claw;  //前电梯夹子
@@ -60,7 +60,7 @@ public class Utils {
 		this.hardwareMap = hardwareMap;
 		this.telemetry = telemetry;
 
-		if(initIMU) {
+		if (initIMU) {
 			imuInit();
 		}
 	}
