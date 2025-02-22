@@ -34,7 +34,7 @@ public class RightClassic extends LinearOpMode {
 		Pose2d toUpSecondBlueSample = new Pose2d(- 7.5, 30, Math.toRadians(- 90));//44
 		Pose2d toBlueSample         = new Pose2d(- 40, 30, Math.toRadians(- 90)); //-95
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, Math.toRadians(- 90));
-		Pose2d toUpThirdSample      = new Pose2d(- 9, 33, Math.toRadians(- 90));
+		Pose2d toUpThirdSample      = new Pose2d(- 5, 33, Math.toRadians(- 90));
 		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
 
 		drive.setPoseEstimate(blueRight);
@@ -71,7 +71,7 @@ public class RightClassic extends LinearOpMode {
 
 		TrajectorySequence ToUpThirdBlue = drive.trajectorySequenceBuilder(toGetThirdBlue.end())
 				.lineToLinearHeading(toUpThirdSample)
-				.forward(9)
+				.forward(10)
 				.build();
 		TrajectorySequence Park= drive.trajectorySequenceBuilder(ToUpThirdBlue.end())
 				.lineToLinearHeading(toPark)
