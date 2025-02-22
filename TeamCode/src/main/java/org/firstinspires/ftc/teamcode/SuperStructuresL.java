@@ -36,7 +36,7 @@ public class SuperStructuresL extends SuperStructures {
 	public void optionThroughGamePad() {
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
-
+            turn.setPosition(turnUp);
 			if (! lift_up_event) {
 				if (right_encoder_value == 1620) {
 					setLiftPosition(2300);//中间位置

@@ -32,7 +32,7 @@ public class RightClassic extends LinearOpMode {
 		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
 		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, Math.toRadians(- 90));
 		Pose2d toUpSecondBlueSample = new Pose2d(- 7.5, 30, Math.toRadians(- 90));//44
-		Pose2d toBlueSample         = new Pose2d(- 40, 30, Math.toRadians(- 90)); //-95
+		Pose2d toBlueSample         = new Pose2d(- 38, 37, Math.toRadians(- 90)); //-95
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, Math.toRadians(- 90));
 		Pose2d toUpThirdSample      = new Pose2d(- 5, 33, Math.toRadians(- 90));
 		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
@@ -53,13 +53,14 @@ public class RightClassic extends LinearOpMode {
 				.forward(6.0)
 				.build();
 
-		TrajectorySequence toPut = drive.trajectorySequenceBuilder(left_put.end())
+		TrajectorySequence toPush = drive.trajectorySequenceBuilder(left_put.end())
+				.back(5)
 				.lineToLinearHeading(toBlueSample)
-				.forward(23)
+				.forward(30)
 				.strafeRight(8)
 				.back(37)
 				.forward(35)
-				.strafeRight(9)
+				.strafeRight(8)
 				.back(37)
 				.strafeLeft(8)
 				.back(8.5)
@@ -111,7 +112,7 @@ public class RightClassic extends LinearOpMode {
 		utils.armOperationR(true);
 		//去夹第二个
 		//
-		drive.followTrajectorySequence(toPut);
+		drive.followTrajectorySequence(toPush);
 		sleep(550);
 		utils.clipOperation(false);
 		sleep(400);

@@ -35,9 +35,9 @@ public class LeftClassic extends LinearOpMode {
 
 		Pose2d blueLeft                = new Pose2d(36, 58, toRadians(- 90));
 		Pose2d strafe                  = new Pose2d(53, 53, toRadians(- 125));
-		Pose2d toGetFirstYellowSample  = new Pose2d(54, 47.1, toRadians(- 90));
+		Pose2d toGetFirstYellowSample  = new Pose2d(55, 47.1, toRadians(- 90));
 		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, toRadians(- 135));
-		Pose2d toGetSecondYellowSample = new Pose2d(48.2, 47, toRadians(- 93)); //y49.2x64.2
+		Pose2d toGetSecondYellowSample = new Pose2d(48.2, 46, toRadians(- 90)); //y49.2x64.2
 		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, toRadians(- 135));//150
 		Pose2d toGetThirdYellowSample  = new Pose2d(60, 45.8, toRadians(- 74));//150
 		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, toRadians(- 135));//150
