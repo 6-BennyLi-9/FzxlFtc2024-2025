@@ -18,6 +18,4 @@ public abstract class AbstractLocalizer implements Localizer {
 		middle.setDirection(DcMotorSimple.Direction.REVERSE);
 		right.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
-
-
 }

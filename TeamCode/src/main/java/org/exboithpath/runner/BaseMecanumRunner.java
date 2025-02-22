@@ -1,14 +1,19 @@
 package org.exboithpath.runner;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.exboithpath.graphics.Pose;
 import org.exboithpath.loclaizer.Localizer;
 
 public class BaseMecanumRunner implements MecanumRunner {
+	protected interface RunnerUpdater {
+		void run(Localizer localizer);
+	}
 	private Pose target,current;
 	private final DcMotorEx lf,lr,rf,rr;
-	private Runnable updater;
+	private RunnerUpdater updater;
 
 	public BaseMecanumRunner(DcMotorEx lf, DcMotorEx lr, DcMotorEx rf, DcMotorEx rr) {
 		this.lf = lf;
@@ -16,12 +21,14 @@ public class BaseMecanumRunner implements MecanumRunner {
 		this.rf = rf;
 		this.rr = rr;
 
-		updater = ()->{
-
-		};
+		start();
 	}
 
-	public void setPowers(double x,double y,double head){
+	public void setPowers(@NonNull Pose powers) {
+		setPowers(powers.x, powers.y, powers.heading);
+	}
+
+	public void setPowers(double x, double y, double head){
 		lf.setPower(y - x - head);
 		lr.setPower(y + x - head);
 		rf.setPower(y + x + head);
@@ -36,20 +43,24 @@ public class BaseMecanumRunner implements MecanumRunner {
 	@Override
 	public void shutdown() {
 		setPowers(0,0,0);
+		updater= localizer ->{};
 	}
 
 	@Override
-	public void syncPose(Localizer localizer) {
-
+	public void start() {
+		updater = localizer -> {
+			syncPose(localizer);
+			setPowers(current.poseTrackTo(target));
+		};
 	}
 
 	@Override
-	public void update() {
-
+	public void syncPose(@NonNull Localizer localizer) {
+		current = localizer.update();
 	}
 
 	@Override
-	public boolean isUpdateRequested() {
-		return false;
+	public void update(Localizer localizer) {
+		updater.run(localizer);
 	}
 }

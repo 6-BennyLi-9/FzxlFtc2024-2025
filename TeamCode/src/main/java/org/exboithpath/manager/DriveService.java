@@ -6,10 +6,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.betastudio.ftc.util.entry.RawUpdatable;
 import org.exboithpath.loclaizer.Localizer;
 import org.exboithpath.loclaizer.MirrorRoadrunnerLocalizer;
+import org.exboithpath.runner.BaseMecanumRunner;
+import org.exboithpath.runner.MecanumRunner;
 
-public class DriveService {
+public class DriveService implements RawUpdatable {
+	private final MecanumRunner runner;
 	private final Localizer localizer;
 	private final DcMotorEx lf,lr,rf,rr;
 
@@ -38,5 +42,12 @@ public class DriveService {
 		this.lr.setDirection(DcMotorSimple.Direction.FORWARD);  //F
 		this.rf.setDirection(DcMotorSimple.Direction.REVERSE);  //R
 		this.rr.setDirection(DcMotorSimple.Direction.REVERSE);  //R
+
+		this.runner = new BaseMecanumRunner(lf, lr, rf, rr);
+	}
+
+	@Override
+	public void update() {
+		runner.update(localizer);
 	}
 }
