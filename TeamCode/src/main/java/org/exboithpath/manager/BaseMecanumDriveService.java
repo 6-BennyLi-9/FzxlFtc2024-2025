@@ -1,6 +1,7 @@
 package org.exboithpath.manager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -28,6 +29,18 @@ public class BaseMecanumDriveService implements DriveService {
 	private final Queue <PathMeta> paths = new ArrayDeque <>();
 	public double DEG_PER_MILLS = 5;
 	public double INCH_PER_MILLS = 0.5;
+
+	@Override
+	@Nullable
+	public RunnerStatus getTargetIDLEStatus() {
+		return targetIDLEStatus;
+	}
+
+	@Override
+	public void setTargetIDLEStatus(RunnerStatus targetIDLEStatus) {
+		this.targetIDLEStatus = targetIDLEStatus;
+	}
+
 	public RunnerStatus targetIDLEStatus;
 
 	public BaseMecanumDriveService(HardwareMap hardwareMap) {
