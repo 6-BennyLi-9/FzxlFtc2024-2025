@@ -4,10 +4,12 @@ import static java.lang.Math.*;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.LinearEventMode;
 import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
+@Disabled
 @Autonomous(group = Character.MIN_VALUE+"beta",preselectTeleOp = "挂样本")
 public class RightIntegralClassic extends LinearEventMode {
 	@Override

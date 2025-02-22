@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * 机器强制重启，可以在 dashboard 中重启机器、重置数据
  */
 @Disabled
-@Autonomous(group = "zzz")
+@Autonomous
 public final class RobotForceRestart extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

@@ -10,12 +10,12 @@ import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "挂样本")
 public class Right extends LinearEventMode {
-	public final int PUSH_LENGTH   = 32;
-	public       int SUSPEND_TIMES = 4;
-	public final int DELTA_PLACE_INCH = - 3;
-	public final int SUSPEND_DIFF     = 10;
+	public final int  PUSH_LENGTH           = 32;
+	public       int  SUSPEND_TIMES         = 4;
+	public final int  DELTA_PLACE_INCH      = - 3;
+	public final int  SUSPEND_DIFF          = 10;
 	public       long SLEEP_WHEN_GET_SAMPLE = 150;
-	public long SLEEP_BUF_VALUE       = 50;
+	public       long SLEEP_BUF_VALUE       = 50;
 
 	@Override
 	public void initialize() {
