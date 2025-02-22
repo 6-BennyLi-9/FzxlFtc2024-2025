@@ -77,4 +77,9 @@ public class BaseMecanumRunner implements MecanumRunner {
 	public RunnerStatus getStatus() {
 		return null;
 	}
+
+	@Override
+	public Pose getPoseTarget() {
+		return target;
+	}
 }

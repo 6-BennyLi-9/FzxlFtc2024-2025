@@ -11,4 +11,6 @@ public interface MecanumRunner {
 	void update(Localizer localizer);
 
 	RunnerStatus getStatus();
+
+	Pose getPoseTarget();
 }
