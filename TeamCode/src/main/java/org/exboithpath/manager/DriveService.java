@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.betastudio.ftc.util.entry.RawUpdatable;
 import org.exboithpath.loclaizer.Localizer;
 import org.exboithpath.loclaizer.MirrorRoadrunnerLocalizer;
-import org.exboithpath.runner.BaseMecanumRunner;
+import org.exboithpath.runner.ExpansionMecanumRunner;
 import org.exboithpath.runner.MecanumRunner;
 
 public class DriveService implements RawUpdatable {
@@ -43,7 +43,7 @@ public class DriveService implements RawUpdatable {
 		this.rf.setDirection(DcMotorSimple.Direction.REVERSE);  //R
 		this.rr.setDirection(DcMotorSimple.Direction.REVERSE);  //R
 
-		this.runner = new BaseMecanumRunner(lf, lr, rf, rr);
+		this.runner = new ExpansionMecanumRunner(lf, lr, rf, rr);
 	}
 
 	@Override
