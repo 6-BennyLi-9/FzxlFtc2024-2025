@@ -22,4 +22,7 @@ public class Vec {
 	public strictfp double dis(){
 		return Math.sqrt(x*x+y*y);
 	}
+	public strictfp double disTo(@NonNull Vec arg) {
+		return Math.sqrt((x - arg.x) * (x - arg.x) + (y - arg.y) * (y - arg.y));
+	}
 }
