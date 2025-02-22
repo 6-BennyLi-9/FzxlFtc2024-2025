@@ -17,7 +17,6 @@ import static org.firstinspires.ftc.teamcode.HardwareParams.upTurnUp;
 
 import com.acmerobotics.dashboard.config.Config;
 
-/** */
 @Config
 public class SuperStructuresL extends SuperStructures {
 	public void showEncoder() {
@@ -36,7 +35,7 @@ public class SuperStructuresL extends SuperStructures {
 	public void optionThroughGamePad() {
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);
-            turn.setPosition(turnUp);
+			turn.setPosition(turnUp);
 			if (! lift_up_event) {
 				if (right_encoder_value == 1620) {
 					setLiftPosition(2300);//中间位置
@@ -77,13 +76,12 @@ public class SuperStructuresL extends SuperStructures {
 	}
 
 	protected void armOperation(boolean key) {
-		telemetry.addData("arm:", "%d", armPutEvent);
-		telemetry.addData("armPosition:", "%f", arm.getPosition());
+		telemetry.addData("arm", "%d", armPutEvent);
+		telemetry.addData("armPosition", "%f", arm.getPosition());
 		if (key) {
 			if (! keyFlag_arm) {
 				keyFlag_arm = true;
-				if (armPutEvent < 1)  //原来值是3
-				{
+				if (armPutEvent < 1) { //原来值是3
 					armPutEvent++;
 				} else {
 					armPutEvent = 0;
@@ -104,12 +102,11 @@ public class SuperStructuresL extends SuperStructures {
 	}
 
 	protected void clawOperation(boolean key) {
-		telemetry.addData("claw:", "%d", clawPutEvent);
+		telemetry.addData("claw", "%d", clawPutEvent);
 		if (key) {
 			if (! keyFlag_claw) {
 				keyFlag_claw = true;
-				if (clawPutEvent < 3)  //原来值是3
-				{
+				if (clawPutEvent < 3) { //原来值是3
 					clawPutEvent++;
 				} else {
 					clawPutEvent = 0;
@@ -155,6 +152,7 @@ public class SuperStructuresL extends SuperStructures {
 			upTurn.setPosition(upTurnDown);
 		}
 	}
+
 	protected void inlineClawOpenOperation() {
 		claw.setPosition(clawOpen);   //打开
 		turn.setPosition(turnMiddle);  //翻转下去

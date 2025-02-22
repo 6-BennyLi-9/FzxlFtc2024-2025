@@ -16,8 +16,6 @@ import static org.firstinspires.ftc.teamcode.HardwareParams.upTurnPut;
 
 import com.acmerobotics.dashboard.config.Config;
 
-/**
- */
 @Config
 public class SuperStructuresR extends SuperStructures{
 	@Override
@@ -73,8 +71,8 @@ public class SuperStructuresR extends SuperStructures{
 
 	@Override
 	protected void armOperation(boolean key) {
-		telemetry.addData("arm:", "%d", armPutEvent);
-		telemetry.addData("armPosition:", "%f", arm.getPosition());
+		telemetry.addData("arm", "%d", armPutEvent);
+		telemetry.addData("armPosition", "%f", arm.getPosition());
 		if (key) {
 			if (! keyFlag_arm) {
 				keyFlag_arm = true;
@@ -106,12 +104,11 @@ public class SuperStructuresR extends SuperStructures{
 
 	@Override
 	protected void clawOperation(boolean key) {
-		telemetry.addData("claw:", "%d", clawPutEvent);
+		telemetry.addData("claw", "%d", clawPutEvent);
 		if (key) {
 			if (! keyFlag_claw) {
 				keyFlag_claw = true;
-				if (clawPutEvent < 3)  //原来值是3
-				{
+				if (clawPutEvent < 3) {
 					clawPutEvent++;
 				} else {
 					clawPutEvent = 0;
@@ -143,12 +140,11 @@ public class SuperStructuresR extends SuperStructures{
 		}
 	}
 	protected void clipOperation(boolean key) {
-		telemetry.addData("clip:", "%d", clipPutEvent);
+		telemetry.addData("clip", "%d", clipPutEvent);
 		if (key) {
 			if (! keyFlag_clip) {
 				keyFlag_clip = true;
-				if (clipPutEvent < 1)  //原来值是3
-				{
+				if (clipPutEvent < 1) {
 					clipPutEvent++;
 				} else {
 					clipPutEvent = 0;
