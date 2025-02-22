@@ -1,7 +1,5 @@
 package org.betastudio.ftc.util.entry;
 
-public interface Updatable {
-	void update();
-
+public interface Updatable extends RawUpdatable {
 	boolean isUpdateRequested();
 }
