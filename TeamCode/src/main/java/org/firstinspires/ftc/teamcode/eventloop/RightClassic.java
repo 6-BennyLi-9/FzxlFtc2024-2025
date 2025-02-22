@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
 import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
+import static org.firstinspires.ftc.teamcode.RearLiftLocation.down;
+import static org.firstinspires.ftc.teamcode.RearLiftLocation.middle;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.RearLiftLocation;
 import org.firstinspires.ftc.teamcode.Utils;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
@@ -90,11 +91,11 @@ public class RightClassic extends LinearOpMode {
 		if (isStopRequested()) return;
 
 
-		utils.setRearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(middle);
 		utils.armOperationR(false);
 		drive.followTrajectorySequence(left_put); //去上挂
 		utils.clipOperation(true);
-		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(down); //回电梯
 		sleep(50);
 		utils.armOperationR(true);       //翻转手臂
 		//夹第一个
@@ -102,12 +103,12 @@ public class RightClassic extends LinearOpMode {
 		sleep(550);
 		utils.clipOperation(false);    //夹住第一个
 		sleep(400);
-		utils.setRearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(middle);
 		utils.armOperationR(false);
 		drive.followTrajectorySequence(toUpSecondBlue);  //上挂第二个样本
 		sleep(100);
 		utils.clipOperation(true);
-		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(down); //回电梯
 		sleep(50);
 		utils.armOperationR(true);
 		//去夹第二个
@@ -116,12 +117,12 @@ public class RightClassic extends LinearOpMode {
 		sleep(550);
 		utils.clipOperation(false);
 		sleep(400);
-		utils.setRearLiftPosition(RearLiftLocation.middle);
+		utils.setRearLiftPosition(middle);
 		utils.armOperationR(false);
 		drive.followTrajectorySequence(ToUpThirdBlue);  //上挂第二个样本
 		sleep(100);//150
 		utils.clipOperation(true);
-		utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
+		utils.setRearLiftPosition(down); //回电梯
 
 		//去拿第三个
 		drive.followTrajectorySequence(Park);

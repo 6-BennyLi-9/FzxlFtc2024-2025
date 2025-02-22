@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
+import static org.firstinspires.ftc.teamcode.RearLiftLocation.down;
+import static org.firstinspires.ftc.teamcode.RearLiftLocation.middle;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.LinearEventMode;
-import org.firstinspires.ftc.teamcode.RearLiftLocation;
 
+@Disabled
 @Autonomous(group = Character.MIN_VALUE + "drive other", preselectTeleOp = "挂样本")
 public class Right extends LinearEventMode {
 	public final int  PUSH_LENGTH           = 32;
@@ -43,7 +46,7 @@ public class Right extends LinearEventMode {
 				service.execute(()->{
 					utils.clipOperation(false);    //夹住第一个
 					sleep(SLEEP_BUF_VALUE * 6);
-					utils.setRearLiftPosition(RearLiftLocation.middle);
+					utils.setRearLiftPosition(middle);
 					utils.armOperationR(false);
 				});
 
@@ -55,7 +58,7 @@ public class Right extends LinearEventMode {
 				.lineTo(toSuspendGottenSample.plus(new Pose2d(DELTA_PLACE_INCH * i)).vec())
 				.forward(SUSPEND_DIFF)
 				.addTemporalMarker(()-> service.execute(()->{
-					utils.setRearLiftPosition(RearLiftLocation.down); //回电梯
+					utils.setRearLiftPosition(down); //回电梯
 					sleep(150);
 					utils.clipOperation(true);
 					utils.armOperationR(true);       //翻转手臂
@@ -67,7 +70,7 @@ public class Right extends LinearEventMode {
 					service.execute(()->{
 						utils.clipOperation(false);    //夹住第一个
 						sleep(SLEEP_BUF_VALUE * 6);
-						utils.setRearLiftPosition(RearLiftLocation.middle);
+						utils.setRearLiftPosition(middle);
 						utils.armOperationR(false);
 					});
 
@@ -81,6 +84,7 @@ public class Right extends LinearEventMode {
 		return new Pose2d(- 35, 58, toRadians(- 90));
 	}
 
+	@Disabled
 	@Autonomous(name = "Right（更低效率）", group = Character.MIN_VALUE + "drive other", preselectTeleOp = "挂样本")
 	public static final class LowerGetSamples extends Right {
 		public LowerGetSamples() {
