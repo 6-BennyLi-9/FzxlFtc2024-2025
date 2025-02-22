@@ -25,9 +25,13 @@ public class Pose extends Vec{
 	}
 	public Pose poseTrackTo(@NonNull Pose target){
 		Pose delta = target.minus(this);
-		double distance = delta.dis();
-		double angle = Math.atan2(delta.y,delta.x);
-		return new Pose(distance*Math.cos(angle),distance*Math.sin(angle),angle);
+		double dx = delta.x;
+		double dy = delta.y;
+		return new Pose(
+				Math.cos(heading) * dx + Math.sin(heading) * dy,
+				-Math.sin(heading) * dx + Math.cos(heading) * dy,
+				target.heading - heading
+		);
 	}
 
 	public Pose2d toPose2d(){
