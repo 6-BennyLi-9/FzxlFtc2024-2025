@@ -11,9 +11,14 @@ public class BaseMecanumRunner implements MecanumRunner {
 	protected interface RunnerUpdater {
 		void run(Localizer localizer);
 	}
-	private Pose target,current;
-	private final DcMotorEx lf,lr,rf,rr;
-	private RunnerUpdater updater;
+
+	protected       Pose          target;
+	protected       Pose          current;
+	protected final DcMotorEx     lf;
+	protected final DcMotorEx     lr;
+	protected final DcMotorEx     rf;
+	protected final DcMotorEx     rr;
+	private         RunnerUpdater updater;
 
 	public BaseMecanumRunner(DcMotorEx lf, DcMotorEx lr, DcMotorEx rf, DcMotorEx rr) {
 		this.lf = lf;
@@ -40,12 +45,14 @@ public class BaseMecanumRunner implements MecanumRunner {
 		this.target=target;
 	}
 
+	///hook
 	@Override
 	public void shutdown() {
 		setPowers(0,0,0);
 		updater= localizer ->{};
 	}
 
+	///hook
 	@Override
 	public void start() {
 		updater = localizer -> {
@@ -59,8 +66,15 @@ public class BaseMecanumRunner implements MecanumRunner {
 		current = localizer.update();
 	}
 
+	///hook
 	@Override
 	public void update(Localizer localizer) {
 		updater.run(localizer);
+	}
+
+	///hook
+	@Override
+	public RunnerStatus getStatus() {
+		return null;
 	}
 }

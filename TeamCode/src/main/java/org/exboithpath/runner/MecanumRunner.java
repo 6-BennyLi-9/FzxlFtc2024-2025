@@ -9,4 +9,6 @@ public interface MecanumRunner {
 	void start();
 	void syncPose(Localizer localizer);
 	void update(Localizer localizer);
+
+	RunnerStatus getStatus();
 }
