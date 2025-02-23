@@ -37,7 +37,7 @@ public class LeftClassic extends LinearOpMode {
 		Pose2d strafe                  = new Pose2d(53, 53, toRadians(- 125));
 		Pose2d toGetFirstYellowSample  = new Pose2d(55, 47.1, toRadians(- 90));
 		Pose2d toPutFirstYellowSample  = new Pose2d(54, 54, toRadians(- 135));
-		Pose2d toGetSecondYellowSample = new Pose2d(48.8, 46, toRadians(- 90)); //y49.2x64.2
+		Pose2d toGetSecondYellowSample = new Pose2d(48, 46, toRadians(- 90)); //y49.2x64.2
 		Pose2d toPutSecondYellowSample = new Pose2d(57, 52, toRadians(- 135));//150
 		Pose2d toGetThirdYellowSample  = new Pose2d(60, 45.8, toRadians(- 75));//150
 		Pose2d toPutThirdYellowSample  = new Pose2d(56, 53, toRadians(- 135));//150
@@ -45,7 +45,7 @@ public class LeftClassic extends LinearOpMode {
 
 		drive.setPoseEstimate(blueLeft);
 
-		TrajectorySequence left_put          = drive.trajectorySequenceBuilder(blueLeft)
+		Trajectory         left_put          = drive.trajectoryBuilder(blueLeft)
 				.lineToLinearHeading(strafe)
 				.build();
 		Trajectory         toPut             = drive.trajectoryBuilder(left_put.end())
@@ -60,7 +60,7 @@ public class LeftClassic extends LinearOpMode {
 		Trajectory         toPutSecondYellow = drive.trajectoryBuilder(toGetSecondYellow.end())
 				.lineToLinearHeading(toPutSecondYellowSample)
 				.build();
-		TrajectorySequence toGetThirdYellow  = drive.trajectorySequenceBuilder(toPutSecondYellow.end())
+		Trajectory         toGetThirdYellow  = drive.trajectoryBuilder(toPutSecondYellow.end())
 				.lineToLinearHeading(toGetThirdYellowSample)
 				.build();
 		Trajectory         toPutThirdYellow  = drive.trajectoryBuilder(toGetThirdYellow.end())
@@ -68,7 +68,7 @@ public class LeftClassic extends LinearOpMode {
 				.build();
 		TrajectorySequence toPark            = drive.trajectorySequenceBuilder(toPutThirdYellow.end())
 				.lineToLinearHeading(GoToPark)
-				.forward(19)
+				.forward(16)
 				.build();
 
 
@@ -84,7 +84,7 @@ public class LeftClassic extends LinearOpMode {
 		utils.setRearLiftPosition(up);
 		sleep(100);
 		utils.setPushPose(pushOut); //伸前电梯
-		drive.followTrajectorySequence(left_put); //放预载
+		drive.followTrajectory(left_put); //放预载
 		sleep(500);
 		utils.armOperation(false);
 		sleep(450);
@@ -155,7 +155,7 @@ public class LeftClassic extends LinearOpMode {
 
 		utils.setPushPose(pushOut); //伸前电梯
 
-		drive.followTrajectorySequence(toGetThirdYellow);       //去拿第三个块
+		drive.followTrajectory(toGetThirdYellow);       //去拿第三个块
 		sleep(100);
 		//utils.setRearLiftPosition(RearLiftLocation.low); //回电梯
 		utils.setRearLiftPosition(down); //回电梯/
