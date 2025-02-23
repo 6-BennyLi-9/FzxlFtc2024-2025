@@ -48,10 +48,8 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -134,7 +132,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/** @noinspection rawtypes, rawtypes */
+/** @noinspection rawtypes */
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity
   {
@@ -581,16 +579,14 @@ public class FtcRobotControllerActivity extends Activity
       finishAffinity();
 
       //For lollipop and up, we can clear ourselves from the recents list too
-      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.AppTask> tasks = manager.getAppTasks();
+		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		List<ActivityManager.AppTask> tasks = manager.getAppTasks();
 
-        for (ActivityManager.AppTask task : tasks) {
-          task.finishAndRemoveTask();
-        }
-      }
+		for (ActivityManager.AppTask task : tasks) {
+		  task.finishAndRemoveTask();
+		}
 
-      // Allow the user to use the Control Hub operating system's UI, instead of relaunching the app
+		// Allow the user to use the Control Hub operating system's UI, instead of relaunching the app
       AppAliveNotifier.getInstance().disableAppWatchdogUntilNextAppStart();
 
       //Finally, nuke the VM from orbit
@@ -686,7 +682,7 @@ public class FtcRobotControllerActivity extends Activity
       callback.updateRobotStatus(controllerService.getRobotStatus());
       // Only show this first-time toast on headless systems: what we have now on non-headless suffices
       requestRobotSetup(LynxConstants.isRevControlHub()
-        ? (Runnable) () -> showRestartRobotCompleteToast(R.string.toastRobotSetupComplete) : null);
+						? () -> showRestartRobotCompleteToast(R.string.toastRobotSetupComplete) : null);
     }
   }
 
