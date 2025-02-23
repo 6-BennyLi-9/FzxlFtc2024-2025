@@ -127,6 +127,8 @@ public class Utils {
 		this.upTurn = hardwareMap.get(Servo.class, upTurn);
 		this.leftPush = hardwareMap.get(Servo.class, leftPush);
 		this.rightPush = hardwareMap.get(Servo.class, rightPush);
+
+		this.clip.setPosition(clipOn);
 	}
 
 	public void sleepForMS(int time) {
@@ -192,7 +194,7 @@ public class Utils {
 				rearLiftToPosition(2350);//放篮子，原2300
 				break;
 			case middle:
-				rearLiftToPosition(870);//挂样本 849
+				rearLiftToPosition(873);//挂样本 849
 				break;
 			default:
 				throw new IllegalStateException(state.name());

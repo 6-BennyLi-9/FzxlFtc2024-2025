@@ -31,9 +31,9 @@ public class RightClassic extends LinearOpMode {
 
 		Pose2d blueRight            = new Pose2d(- 12, 58, Math.toRadians(- 90));
 		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
-		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 53, Math.toRadians(- 90));
+		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 51.5, Math.toRadians(- 90));
 		Pose2d toUpSecondBlueSample = new Pose2d(- 7.5, 30, Math.toRadians(- 90));//44
-		Pose2d toBlueSample         = new Pose2d(- 38, 37, Math.toRadians(- 90)); //-95
+		Pose2d toBlueSample         = new Pose2d(- 35, 37, Math.toRadians(- 90)); //-95
 		Pose2d toGetThirdBlueSample = new Pose2d(- 43, 55, Math.toRadians(- 90));
 		Pose2d toUpThirdSample      = new Pose2d(- 1, 33, Math.toRadians(- 90));
 		Pose2d toPark               = new Pose2d(- 49, 55, Math.toRadians(- 90));
@@ -58,7 +58,7 @@ public class RightClassic extends LinearOpMode {
 				.back(5)
 				.lineToLinearHeading(toBlueSample)
 				.forward(30)
-				.strafeRight(8)
+				.strafeRight(9)
 				.back(37)
 				.forward(37)
 				.strafeRight(7)
