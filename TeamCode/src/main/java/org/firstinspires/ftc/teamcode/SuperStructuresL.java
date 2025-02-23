@@ -19,19 +19,6 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class SuperStructuresL extends SuperStructures {
-	public void showEncoder() {
-		telemetry.addData("lift", leftLift.getCurrentPosition());
-
-		telemetry.addData("touch sensor", touch.isPressed());
-
-		telemetry.addData("push", rightPush.getPosition());
-		telemetry.addData("clip", clip.getPosition());
-		telemetry.addData("turn", turn.getPosition());
-		telemetry.addData("claw", claw.getPosition());
-		telemetry.addData("rotate", rotate.getPosition());
-		telemetry.addData("right push", rightPush.getPosition());
-	}
-
 	public void optionThroughGamePad() {
 		if (gamepad2.right_bumper) {
 			arm.setPosition(0.88);

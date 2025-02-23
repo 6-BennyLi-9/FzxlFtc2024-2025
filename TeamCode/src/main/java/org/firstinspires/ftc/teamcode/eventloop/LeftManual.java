@@ -38,7 +38,6 @@ public class LeftManual extends OpMode {
 		telemetry.addData("time",getRuntime());
 
 		carChassis.basicMoveThroughGamePad();
-		structures.showEncoder();
 		structures.optionThroughGamePad();
 
 		et = System.currentTimeMillis();

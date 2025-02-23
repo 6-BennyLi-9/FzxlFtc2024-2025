@@ -154,8 +154,7 @@ public abstract class SuperStructures {
 		} else if (right_encoder_value == 0) {
 			leftLift.setMode(RUN_WITHOUT_ENCODER);
 			rightLift.setMode(RUN_WITHOUT_ENCODER);
-			if (touch.isPressed())//40,210
-			{
+			if (touch.isPressed()) {
 				leftLift.setPower(0);
 				rightLift.setPower(0);
 				leftLift.setMode(STOP_AND_RESET_ENCODER);
