@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "放篮子")
-public class LeftClassic extends TeamLinearMode {
+public class LeftAuto extends TeamLinearMode {
 	public static double             SUSPEND_DELAY = 0.73;
 
 	@Override

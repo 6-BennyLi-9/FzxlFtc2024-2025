@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.TeamLinearMode;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive",preselectTeleOp = "挂样本")
-public class RightClassic extends TeamLinearMode {
+public class RightAuto extends TeamLinearMode {
 	@Override
 	public void onRunning() {
 		Pose2d blueRight            = new Pose2d(- 12, 58, Math.toRadians(- 90));

@@ -3,19 +3,19 @@ package org.firstinspires.ftc.teamcode.eventloop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.SuperStructuresR;
+import org.firstinspires.ftc.teamcode.SuperStructuresL;
 import org.firstinspires.ftc.teamcode.WyMoveMethod;
 
-@TeleOp(name = "挂样本", group = "team")
-public class Wy_textR extends OpMode {
+@TeleOp(name = "放篮子", group = "team")
+public class LeftManual extends OpMode {
 	private final WyMoveMethod     carChassis = new WyMoveMethod();
-	private final SuperStructuresR structures = new SuperStructuresR();
+	private final SuperStructuresL structures = new SuperStructuresL();
 	private       long             st, et;
 
 	@Override
 	public void init() {
 		carChassis.init(hardwareMap, telemetry, gamepad1, gamepad2);
-		//carChassis.imuInit("imu");
+
 		carChassis.motorInit("leftFront", "leftRear", "rightFront", "rightRear");
 		structures.init(hardwareMap, telemetry, gamepad2);
 		structures.servoInit("arm", "turn", "clip", "rotate", "claw", "upTurn", "leftPush", "rightPush");
@@ -26,7 +26,7 @@ public class Wy_textR extends OpMode {
 		carChassis.extraEncoderInit(carChassis.get_left_encoder(), carChassis.get_right_encoder(), carChassis.get_mid_encoder());
 
 //		structures.setPushPose(0.15); 不是滑轨自动伸出的原因
-		telemetry.addData("State", "初始化完毕");
+		telemetry.addData("state", "初始化完毕");
 		telemetry.update();
 	}
 
@@ -38,6 +38,7 @@ public class Wy_textR extends OpMode {
 		telemetry.addData("time",getRuntime());
 
 		carChassis.basicMoveThroughGamePad();
+		structures.showEncoder();
 		structures.optionThroughGamePad();
 
 		et = System.currentTimeMillis();
