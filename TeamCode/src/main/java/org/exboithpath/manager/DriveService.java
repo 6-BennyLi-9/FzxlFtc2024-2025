@@ -22,8 +22,11 @@ public interface DriveService extends RawUpdatable {
 	void lineTo(Pose from, Pose to);
 
 	void setPoseEst(Pose localizePose);
+	Pose getPoseEst();
 
 	RunnerStatus getTargetIDLEStatus();
-	public void setTargetIDLEStatus(RunnerStatus targetIDLEStatus);
 
+	void setTargetIDLEStatus(RunnerStatus targetIDLEStatus);
+
+	RunnerStatus getRunnerStatus();
 }

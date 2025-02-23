@@ -41,6 +41,11 @@ public class BaseMecanumDriveService implements DriveService {
 		this.targetIDLEStatus = targetIDLEStatus;
 	}
 
+	@Override
+	public RunnerStatus getRunnerStatus() {
+		return runner.getStatus();
+	}
+
 	public RunnerStatus targetIDLEStatus;
 
 	public BaseMecanumDriveService(HardwareMap hardwareMap) {
@@ -138,5 +143,10 @@ public class BaseMecanumDriveService implements DriveService {
 	public void setPoseEst(Pose localizePose){
 		localizer.setPoseEstimate(localizePose);
 		update();
+	}
+
+	@Override
+	public Pose getPoseEst() {
+		return localizer.update();
 	}
 }

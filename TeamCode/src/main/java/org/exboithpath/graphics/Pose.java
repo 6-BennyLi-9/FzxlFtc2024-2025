@@ -42,4 +42,10 @@ public class Pose extends Vec{
 	public static Pose poseOf(@NonNull Pose2d arg){
 		return new Pose(arg.getX(),arg.getY(),arg.getHeading());
 	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "Pose{" + "x=" + x + ", y=" + y + ", heading=" + heading + '}';
+	}
 }

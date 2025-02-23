@@ -25,4 +25,10 @@ public class Vec {
 	public strictfp double disTo(@NonNull Vec arg) {
 		return Math.sqrt((x - arg.x) * (x - arg.x) + (y - arg.y) * (y - arg.y));
 	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "Vec{" + "x=" + x + ", y=" + y + '}';
+	}
 }
