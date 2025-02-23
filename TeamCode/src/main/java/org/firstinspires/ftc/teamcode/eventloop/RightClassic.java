@@ -1,34 +1,18 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
-import static org.firstinspires.ftc.teamcode.HardwareParams.pushIn;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.down;
 import static org.firstinspires.ftc.teamcode.RearLiftLocation.middle;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Utils;
-import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.TeamLinearMode;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive",preselectTeleOp = "挂样本")
-public class RightClassic extends LinearOpMode {
-	public final Utils              utils = new Utils();
-	public       SampleMecanumDrive drive;
-
+public class RightClassic extends TeamLinearMode {
 	@Override
-	public void runOpMode() throws InterruptedException {
-		utils.init(hardwareMap,telemetry);
-		utils.liftMotorInit("leftLift","rightLift","touch");
-		utils.servoInit("arm","clip","rotate","turn","claw", "upTurn", "leftPush", "rightPush");
-		utils.armOperation(true);
-		utils.claw_rotate(false);
-		utils.setPushPose(pushIn); //收前电梯
-		utils.motorInit();
-
-		drive = new SampleMecanumDrive(hardwareMap);
-
+	public void onRunning() {
 		Pose2d blueRight            = new Pose2d(- 12, 58, Math.toRadians(- 90));
 		Pose2d forward              = new Pose2d(- 6, 33, Math.toRadians(- 90));
 		Pose2d toGetSecondSample    = new Pose2d(- 43.1, 51.5, Math.toRadians(- 90));

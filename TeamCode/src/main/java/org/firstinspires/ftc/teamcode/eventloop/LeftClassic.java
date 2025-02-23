@@ -9,20 +9,17 @@ import static java.lang.Math.toRadians;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Utils;
+import org.firstinspires.ftc.teamcode.TeamLinearMode;
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.sequence.TrajectorySequence;
 
 @Autonomous(group = Character.MIN_VALUE + "drive", preselectTeleOp = "放篮子")
-public class LeftClassic extends LinearOpMode {
+public class LeftClassic extends TeamLinearMode {
 	public static double             SUSPEND_DELAY = 0.73;
-	public final  Utils              utils         = new Utils();
-	public        SampleMecanumDrive drive;
 
 	@Override
-	public void runOpMode() throws InterruptedException {
+	public void onRunning() {
 		utils.init(hardwareMap, telemetry);
 		utils.liftMotorInit("leftLift", "rightLift", "touch");
 		utils.servoInit("arm", "clip", "rotate", "turn", "claw", "upTurn", "leftPush", "rightPush");
