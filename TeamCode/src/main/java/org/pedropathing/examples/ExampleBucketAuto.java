@@ -12,8 +12,8 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.pedropathing.constants.FConstants;
-import org.pedropathing.constants.LConstants;
+import org.pedropathing.constants.TeamFollowerConstants;
+import org.pedropathing.constants.LocalizerConstants;
 
 /**
  * This is an example auto that showcases movement and control of two servos autonomously.
@@ -265,7 +265,7 @@ public class ExampleBucketAuto extends OpMode {
         opmodeTimer = new Timer();
         opmodeTimer.resetTimer();
 
-        Constants.setConstants(FConstants.class, LConstants.class);
+        Constants.setConstants(TeamFollowerConstants.class, LocalizerConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);
         buildPaths();

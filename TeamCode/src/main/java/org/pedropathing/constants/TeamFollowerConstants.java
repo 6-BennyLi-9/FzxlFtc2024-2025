@@ -4,7 +4,7 @@ import com.pedropathing.localization.Localizers;
 import com.pedropathing.follower.FollowerConstants;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class FConstants {
+public class TeamFollowerConstants {
     static {
         FollowerConstants.localizers = Localizers.THREE_WHEEL;
 

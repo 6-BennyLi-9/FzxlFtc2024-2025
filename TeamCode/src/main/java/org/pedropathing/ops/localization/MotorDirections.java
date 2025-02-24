@@ -23,8 +23,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.Arrays;
 import java.util.List;
 
-import org.pedropathing.constants.FConstants;
-import org.pedropathing.constants.LConstants;
+import org.pedropathing.constants.TeamFollowerConstants;
+import org.pedropathing.constants.LocalizerConstants;
 
 @TeleOp(name = "Motor Directions", group = "Teleop Test")
 public class MotorDirections extends OpMode {
@@ -38,7 +38,7 @@ public class MotorDirections extends OpMode {
 
     @Override
     public void init() {
-        Constants.setConstants(FConstants.class, LConstants.class);
+        Constants.setConstants(TeamFollowerConstants.class, LocalizerConstants.class);
 
         leftFront = hardwareMap.get(DcMotorEx.class, leftFrontMotorName);
         leftRear = hardwareMap.get(DcMotorEx.class, leftRearMotorName);
@@ -68,7 +68,7 @@ public class MotorDirections extends OpMode {
 
     @Override
     public void loop() {
-        Constants.setConstants(FConstants.class, LConstants.class);
+        Constants.setConstants(TeamFollowerConstants.class, LocalizerConstants.class);
         leftFront.setDirection(leftFrontMotorDirection);
         leftRear.setDirection(leftRearMotorDirection);
         rightFront.setDirection(rightFrontMotorDirection);
