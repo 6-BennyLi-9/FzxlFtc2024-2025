@@ -1,5 +1,6 @@
 package org.betastudio.ftc;
 
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -17,7 +18,7 @@ public final class Annotations {
 	public @interface TestShelved {}
 
 	@Documented
-	@Target({TYPE,METHOD,FIELD})
+	@Target({TYPE,METHOD,FIELD,CONSTRUCTOR})
 	public @interface Beta {
 		String date();
 	}

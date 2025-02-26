@@ -4,8 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.Annotations.Beta;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 
@@ -13,12 +14,15 @@ import java.util.Locale;
 
 /**
  * 通用的舵机控制类
+ * @noinspection unused
  */
 public class ServoCtrl implements Action, Interfaces.DashboardCallable {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
 
+	@Deprecated
+	@Beta(date = "危险的构造函数")
 	public ServoCtrl(@NonNull final Servo target) {
 		this(target, 0.5);
 	}
@@ -94,7 +98,7 @@ public class ServoCtrl implements Action, Interfaces.DashboardCallable {
 	 * @param tolerance      最大更改量
 	 */
 	public void changeTargetPositionTolerance(final double targetPosition, final double tolerance) {
-		setTargetPositionTolerance(this.targetPosition + tolerance, tolerance);
+		setTargetPositionTolerance(targetPosition + tolerance, tolerance);
 	}
 
 	/**

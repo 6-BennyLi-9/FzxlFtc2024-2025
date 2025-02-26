@@ -16,9 +16,10 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
  */
 public abstract class LiftCtrl implements Action, Interfaces.DashboardCallable {
 	protected final DcMotorEx targetLift; // 目标升降机构电机
-	protected       long      currentPosition, targetPosition; // 当前位置和目标位置
-	protected String  tag; // 控制器的标签
-	private   boolean infinityRun = true; // 是否无限运行
+	protected       long      currentPosition;
+	protected       long      targetPosition;
+	protected       String    tag; // 控制器的标签
+	private         boolean   infinityRun = true; // 是否无限运行
 
 	/**
 	 * 构造函数，初始化目标升降机构电机和标签。
@@ -139,6 +140,7 @@ public abstract class LiftCtrl implements Action, Interfaces.DashboardCallable {
 	/**
 	 * 禁用无限运行模式。
 	 */
+	@Deprecated
 	protected void disableInfinityRun() {
 		this.infinityRun = false; // 设置无限运行模式为 false
 	}
