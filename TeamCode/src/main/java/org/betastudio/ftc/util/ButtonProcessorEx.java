@@ -6,9 +6,10 @@ public class ButtonProcessorEx extends ButtonProcessor {
 		default void onDisabled() {
 		}
 	}
-	private static final ButtonCallback defaultCallback = ()->{};
+	public static final ButtonCallback defaultCallback = ()->{};
 
 	private ButtonCallback callback;
+	private boolean		   isAutoActive;
 
 	/**
 	 * 构造函数，初始化按键处理器
@@ -29,17 +30,28 @@ public class ButtonProcessorEx extends ButtonProcessor {
 		this.callback = callback;
 	}
 
-	public boolean tryActivate(){
+	public void tryActivate(){
 		boolean enabled = getEnabled();
 		if (enabled){
 			callback.onActive();
 		}else{
 			callback.onDisabled();
 		}
-		return enabled;
 	}
 
 	public void setCallback(ButtonCallback callback) {
 		this.callback = callback;
+	}
+
+	public void setAutoActive(boolean autoActive) {
+		isAutoActive = autoActive;
+	}
+
+	@Override
+	public void sync(boolean input) {
+		super.sync(input);
+		if(isAutoActive){
+			tryActivate();
+		}
 	}
 }
