@@ -5,8 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;
@@ -16,7 +15,7 @@ import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public strictfp class DriveOp implements HardwareController, TagOptionsRequired {
+public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
 	public static final double kP = 0.0001, kI = 0, kD = 0;
 	private static final PidProcessor processor     = new PidProcessor(kP, kI, kD, 180);
 	public static        DriveMode    config        = DriveMode.STRAIGHT_LINEAR;

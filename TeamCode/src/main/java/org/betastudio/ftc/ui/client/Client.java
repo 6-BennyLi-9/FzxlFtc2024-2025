@@ -3,15 +3,14 @@ package org.betastudio.ftc.ui.client;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.entry.MessagesProcessRequired;
-import org.betastudio.ftc.util.entry.Updatable;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * @noinspection UnusedReturnValue
  */
-public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatable {
+public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg>, Interfaces.Updatable {
 	void clear();
 
 	/// 注意：这是新的Data
@@ -37,8 +36,6 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg> , Updatab
 	void speak(String text, String languageCode, String countryCode);
 
 	void configViewMode(final ClientViewMode clientViewMode);
-
-	boolean isUpdateRequested();
 
 	UpdateConfig getUpdateConfig();
 

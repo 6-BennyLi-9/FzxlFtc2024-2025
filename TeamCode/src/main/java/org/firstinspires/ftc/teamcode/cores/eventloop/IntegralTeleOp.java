@@ -8,7 +8,7 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.cores.RobotMng;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
@@ -21,7 +21,7 @@ import org.betastudio.ftc.RunMode;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, ThreadEx {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    RobotMng  robot;
 	public    Timer     timer;
 	public    Client    client;

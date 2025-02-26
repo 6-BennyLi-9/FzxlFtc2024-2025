@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.DashboardCallable;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 
@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * 通用的舵机控制类
  */
-public class ServoCtrl implements Action, DashboardCallable {
+public class ServoCtrl implements Action, Interfaces.DashboardCallable {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
