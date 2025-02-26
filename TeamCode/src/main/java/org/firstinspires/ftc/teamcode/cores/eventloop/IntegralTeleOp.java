@@ -93,10 +93,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
 	}
 
-	public boolean auto_terminate_when_TLE() {
-		return auto_terminate_when_TLE;
-	}
-
 	@Override
 	public void op_loop() {
 		if (! initialized) {
@@ -122,8 +118,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		try {
 			op_loop_entry();
-		} catch (final UnsupportedOperationException exception) {
-			FtcLogTunnel.MAIN.report(exception);
+		} catch (final Exception exception) {
+			exception_entry(exception);
 		}
 	}
 
