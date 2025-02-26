@@ -135,8 +135,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		Global.runMode = RunMode.TERMINATE;
 
-		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
-
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
 			throw new RuntimeException(inlineUncaughtException);
