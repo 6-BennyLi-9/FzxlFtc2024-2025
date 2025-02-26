@@ -49,6 +49,7 @@ public final class Local {
 		}
 	}
 
+	@Deprecated
 	public static void runMultiThreads(@NonNull final Runnable... threads) {
 		for (final Runnable current : threads) {
 			Global.service.execute(current);
