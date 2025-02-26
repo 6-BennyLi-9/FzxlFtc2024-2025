@@ -1,12 +1,17 @@
 package org.betastudio.ftc.util;
 
+import org.betastudio.ftc.Annotations.Beta;
+
 public class ButtonProcessorEx extends ButtonProcessor {
+	@FunctionalInterface
 	public interface ButtonCallback{
 		void onActive();
 		default void onDisabled() {
 		}
 	}
 	public static final ButtonCallback defaultCallback = ()->{};
+	@Beta(date = "2025-2-26")
+	public static boolean runUsingThread = false;
 
 	private ButtonCallback callback;
 	private boolean		   isAutoActive;
@@ -51,7 +56,13 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	public void sync(boolean input) {
 		super.sync(input);
 		if(isAutoActive){
-			tryActivate();
+			activeButtonMark();
 		}
+	}
+
+	/// hook方法，当按键被激活时调用
+	@Beta(date = "2025-2-26")
+	protected void activeButtonMark(){
+		tryActivate();
 	}
 }
