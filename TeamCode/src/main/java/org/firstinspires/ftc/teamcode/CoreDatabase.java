@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralOpMode;
 import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -78,5 +79,13 @@ public final class CoreDatabase {
 		orientation = HardwareDatabase.imu.getAngularOrientation();
 		last_terminate_reason = terminateReason;
 		last_is_autonomous = false;
+	}
+
+	public static void writeInVals(@NonNull final IntegralOpMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
+		pose = null;
+		orientation = HardwareDatabase.imu.getAngularOrientation();
+		last_is_autonomous = true;
+		last_terminate_reason = terminateReason;
+		CoreDatabase.autonomous_time_used = autonomous_time_used;
 	}
 }
