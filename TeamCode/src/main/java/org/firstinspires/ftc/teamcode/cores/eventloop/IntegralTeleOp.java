@@ -68,7 +68,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		if (- 1 != CoreDatabase.autonomous_time_used) {
 			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used);
-			client.putData("last terminateReason", CoreDatabase.last_terminateReason.name());
+			client.putData("last terminateReason", CoreDatabase.last_terminate_reason.name());
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");

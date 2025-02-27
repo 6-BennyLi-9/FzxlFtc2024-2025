@@ -13,7 +13,7 @@ public class ShowCoreDatabase extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		telemetry.addData("autonomous_time_used", CoreDatabase.autonomous_time_used);
 		telemetry.addData("pose", CoreDatabase.pose);
-		telemetry.addData("last_terminateReason", CoreDatabase.last_terminateReason.name());
+		telemetry.addData("last_terminate_reason", CoreDatabase.last_terminate_reason.name());
 		telemetry.addData("orientation", CoreDatabase.orientation);
 		telemetry.update();
 
