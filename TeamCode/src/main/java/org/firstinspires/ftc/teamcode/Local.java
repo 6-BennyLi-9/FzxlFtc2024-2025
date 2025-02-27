@@ -6,6 +6,8 @@ import org.betastudio.ftc.util.entry.ThreadEx;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class Local {
 	public static void sleep(final long millis) {
@@ -22,13 +24,25 @@ public final class Local {
 	}
 
 	public static <K> void waitForVal(final Callable <K> function, final K expect) {
-		waitForVal(function, expect, 60L);
+		waitForVal(function, expect, TimeUnit.MILLISECONDS, -1);
 	}
 
-	public static <K> void waitForVal(final Callable <K> function, final K expect, final long flashMillis) {
+	public static <K> void waitForVal(final Callable <K> function, final K expect, final TimeUnit unit, final long timeout){
+		AtomicBoolean timeLimited = new AtomicBoolean(false);
+		if(timeout != -1){
+			Global.service.execute(()->{
+				try {
+					unit.sleep(timeout);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+
+				timeLimited.set(true);
+			});
+		}
 		try {
-			while (function.call() != expect) {
-				sleep(flashMillis);
+			while (function.call() != expect && !timeLimited.get()) {
+				Thread.yield();
 			}
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
