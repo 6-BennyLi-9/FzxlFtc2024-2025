@@ -8,6 +8,9 @@ import org.betastudio.ftc.util.entry.ThreadEx;
 
 import java.util.concurrent.Callable;
 
+/**
+ * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
+ */
 public class ActionImpl extends Thread implements Action, ThreadEx {
 	private Callable <Boolean> action;
 	private boolean isStopRequested;
