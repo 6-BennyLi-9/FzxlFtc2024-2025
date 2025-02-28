@@ -68,9 +68,7 @@ public final class HardwareDatabase {
 		config(connectIMU);
 	}
 
-	/**
-	 * 关于底盘的设定需要在 {@code Drive} 中修改
-	 */
+	/// 关于底盘的设定需要在 `Drive` 中修改
 	public static void config(final boolean connectIMU) {
 		lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 		leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -101,9 +99,7 @@ public final class HardwareDatabase {
 		imu = hardwareMap.get(BNO055IMU.class, "imu");
 	}
 
-	/**
-	 * 手动用
-	 */
+	/// 手动用
 	public static void chassisConfig() {
 		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);   //F
 		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R

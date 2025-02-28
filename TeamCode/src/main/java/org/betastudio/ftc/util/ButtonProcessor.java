@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 /**
  * 用于控制按键布尔状态，更加轻量化
  */
-public final class ButtonProcessor {
+public class ButtonProcessor {
 	/**
 	 * 按键配置实例，定义了按键的响应方式
 	 */

@@ -7,16 +7,14 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.InitializeRequested;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements HardwareController, InitializeRequested, TagOptionsRequired {
+public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
 	public static ScalePositions recent = ScalePositions.BACK;
 	public static ServoCtrl      leftScaleController, rightScaleController;
 	public static final double  smooth = 0.2;

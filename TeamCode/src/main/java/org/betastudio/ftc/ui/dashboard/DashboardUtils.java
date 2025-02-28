@@ -7,8 +7,7 @@ import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
-import org.betastudio.ftc.util.entry.MessagesProcessRequired;
-import org.betastudio.ftc.util.entry.Updatable;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
@@ -20,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Config
-public class DashboardUtils implements Updatable, MessagesProcessRequired <TelemetryMsg> {
+public class DashboardUtils implements Interfaces.Updatable, Interfaces.MessagesProcessRequired <TelemetryMsg> {
 	private static final Set <TelemetryPacket> telemetryPackets = new HashSet <>();
 	public static        boolean               recordElements;
 	public static        boolean               updateRequested  = true;
@@ -71,11 +70,6 @@ public class DashboardUtils implements Updatable, MessagesProcessRequired <Telem
 		telemetryPackets.clear();
 		dashboard.updateConfig();
 		currentPacket = new TelemetryPacket();
-	}
-
-	@Override
-	public boolean isUpdateRequested() {
-		return updateRequested;
 	}
 
 	public TelemetryPacket getCurrentPacket() {
