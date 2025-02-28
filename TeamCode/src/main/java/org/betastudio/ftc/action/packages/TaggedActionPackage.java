@@ -53,7 +53,7 @@ public class TaggedActionPackage extends ActionPackage {
 	 * @see #add(String, PriorityAction)
 	 */
 	public void add(final String tag, final Action action) {
-		add(tag, Actions.asPriority(action));
+		add(tag, Actions.newMirroredPriority(action));
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class TaggedActionPackage extends ActionPackage {
 	 * @see #replace(String, PriorityAction)
 	 */
 	public void replace(final String tag, final Action action) {
-		replace(tag, Actions.asPriority(action));
+		replace(tag, Actions.newMirroredPriority(action));
 	}
 
 	/**

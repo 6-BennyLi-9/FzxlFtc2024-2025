@@ -26,7 +26,7 @@ public class ActionPackage {
 	}
 
 	public void add(final Action action) {
-		add(Actions.asPriority(action));
+		add(Actions.newMirroredPriority(action));
 	}
 
 	private void sort() {
