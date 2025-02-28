@@ -84,29 +84,33 @@ public class TaggedActionPackage extends ActionPackage {
 
 
 	@Override
-	public boolean run() {
-		final ArrayList <PriorityAction> actions = new ArrayList <>(priorityActionMap.values());
-		actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
+	public boolean activate() {
+		synchronized (actions){
+			final ArrayList <PriorityAction> actions = new ArrayList <>(priorityActionMap.values());
+			actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
 
-		final Set <PriorityAction> remove = new HashSet <>();
+			final Set <PriorityAction> remove = new HashSet <>();
 
-		for (final PriorityAction action : actions) {
-			if (! action.activate()) {
-				remove.add(action);
+			for (final PriorityAction action : actions) {
+				if (! action.activate()) {
+					remove.add(action);
+				}
 			}
-		}
 
-		actions.removeAll(remove);
-		return ! actions.isEmpty();
+			actions.removeAll(remove);
+			return ! actions.isEmpty();
+		}
 	}
 
 	/**
 	 * 作为本地方法
 	 */
 	@Override
-	public void runTillEnd() {
-		new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
-		priorityActionMap.clear();
+	public void activateTillEnd() {
+		synchronized (actions){
+			new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
+			priorityActionMap.clear();
+		}
 	}
 
 	public Map <String, PriorityAction> getActionMap() {

@@ -284,7 +284,7 @@ public class RobotMng implements Interfaces.Updatable {
 	 */
 	@Override
 	public void update() {
-		thread.run();
+		thread.activate();
 	}
 
 	public void printActions() {

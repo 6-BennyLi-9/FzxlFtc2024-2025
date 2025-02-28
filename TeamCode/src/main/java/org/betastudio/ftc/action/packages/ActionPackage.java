@@ -38,25 +38,29 @@ public class ActionPackage {
 	 *
 	 * @see Action#activate()
 	 */
-	public boolean run() {
-		sort();
-		final Set <PriorityAction> remove = new HashSet <>();
+	public boolean activate() {
+		synchronized (actions){
+			sort();
+			final Set <PriorityAction> remove = new HashSet <>();
 
-		for (final PriorityAction action : actions) {
-			if (! action.activate()) {
-				remove.add(action);
+			for (final PriorityAction action : actions) {
+				if (! action.activate()) {
+					remove.add(action);
+				}
 			}
-		}
 
-		actions.removeAll(remove);
-		return ! actions.isEmpty();
+			actions.removeAll(remove);
+			return ! actions.isEmpty();
+		}
 	}
 
 	/**
 	 * 运行所有存储的 {@code Action}, 直到结束, 并清空 {@code Action} 列表
 	 */
-	public void runTillEnd() {
-		new PriorityThreadedAction(actions).run();
-		actions.clear();
+	public void activateTillEnd() {
+		synchronized (actions){
+			new PriorityThreadedAction(actions).run();
+			actions.clear();
+		}
 	}
 }
