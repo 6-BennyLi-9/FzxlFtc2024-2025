@@ -5,17 +5,15 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, Interfaces.DashboardCallable, Interfaces.MessagesProcessRequired <DriveMsg> {
+public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveMsg> {
 	public static final double          kS              = 1;
 	public static final double          kF              = - 1;
 	public static final double          maxControlPower = 1.3;
@@ -166,12 +164,5 @@ public strictfp class ChassisCtrl implements Action, Interfaces.DashboardCallabl
 	@Override
 	public DriveMsg callMsg() {
 		return new DriveMsg(pX, pY, pTurn);
-	}
-
-	@Override
-	public void process(@NonNull final TelemetryMsg messageOverride) {
-		messageOverride.add(new TelemetryItem("vX", vX));
-		messageOverride.add(new TelemetryItem("vY", vY));
-		messageOverride.add(new TelemetryItem("vTurn", vTurn));
 	}
 }
