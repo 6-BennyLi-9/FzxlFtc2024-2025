@@ -106,9 +106,7 @@ public class RightAuto extends TeamLinearMode {
 		sleep(100);//150
 		utils.clipOperation(true);
 		utils.setRearLiftPosition(down); //回电梯
-
-		//去拿第三个
-		drive.followTrajectorySequence(Park);
+		drive.followTrajectorySequence(Park);//去拿第三个
 		utils.armOperationR(true);
 		utils.claw_rotate(true);
 
