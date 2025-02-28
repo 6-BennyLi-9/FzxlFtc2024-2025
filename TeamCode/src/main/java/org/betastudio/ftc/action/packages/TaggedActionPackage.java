@@ -4,6 +4,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
+import org.betastudio.ftc.util.Labeler;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,22 +23,14 @@ public class TaggedActionPackage extends ActionPackage {
 		priorityActionMap = new HashMap <>();
 	}
 
-	/**
-	 * @throws UnsupportedOperationException 必须提供Action的标签
-	 */
 	@Override
-	@Deprecated
 	public void add(final Action action) {
-		throw new UnsupportedOperationException("Must Given A Tag For Using This Method");
+		add(Labeler.generate().summonID(action), action);
 	}
 
-	/**
-	 * @throws UnsupportedOperationException 必须提供Action的标签
-	 */
 	@Override
-	@Deprecated
 	public void add(final PriorityAction action) {
-		throw new UnsupportedOperationException("Must Given A Tag For Using This Method");
+		add(Labeler.generate().summonID(action), action);
 	}
 
 	/**
