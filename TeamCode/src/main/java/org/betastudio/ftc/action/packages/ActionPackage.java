@@ -8,17 +8,17 @@ import org.betastudio.ftc.action.utils.PriorityThreadedAction;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
  */
 public class ActionPackage {
-	protected final List <PriorityAction> actions;
+	protected final Set <PriorityAction> actions;
 
 	public ActionPackage() {
-		actions = new LinkedList <>();
+		actions = new TreeSet <>(Comparator.comparing(PriorityAction::getPriorityCode).reversed());
 	}
 
 	public void add(final PriorityAction action) {
@@ -29,10 +29,6 @@ public class ActionPackage {
 		add(Actions.newMirroredPriority(action));
 	}
 
-	private void sort() {
-		actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
-	}
-
 	/**
 	 * 单次运行 Action
 	 *
@@ -40,7 +36,6 @@ public class ActionPackage {
 	 */
 	public boolean activate() {
 		synchronized (actions){
-			sort();
 			final Set <PriorityAction> remove = new HashSet <>();
 
 			for (final PriorityAction action : actions) {
@@ -59,7 +54,7 @@ public class ActionPackage {
 	 */
 	public void activateTillEnd() {
 		synchronized (actions){
-			new PriorityThreadedAction(actions).run();
+			new PriorityThreadedAction(new LinkedList <>(actions)).run();
 			actions.clear();
 		}
 	}
