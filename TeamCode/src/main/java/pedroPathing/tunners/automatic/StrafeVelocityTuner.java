@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import pedroPathing.constants.FollowerParams;
+import pedroPathing.constants.LocalizerParams;
 
 /**
  * This is the StrafeVelocityTuner autonomous follower OpMode. This runs the robot right at max
@@ -73,7 +73,7 @@ public class StrafeVelocityTuner extends OpMode {
      */
     @Override
     public void init() {
-        Constants.setConstants(FConstants.class, LConstants.class);
+        Constants.setConstants(FollowerParams.class, LocalizerParams.class);
         poseUpdater = new PoseUpdater(hardwareMap);
 
         leftFront = hardwareMap.get(DcMotorEx.class, leftFrontMotorName);

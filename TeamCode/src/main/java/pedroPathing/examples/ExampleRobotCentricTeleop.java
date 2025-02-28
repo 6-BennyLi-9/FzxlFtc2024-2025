@@ -6,8 +6,8 @@ import com.pedropathing.util.Constants;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import pedroPathing.constants.FollowerParams;
+import pedroPathing.constants.LocalizerParams;
 
 /**
  * This is an example teleop that showcases movement and robot-centric driving.
@@ -24,7 +24,7 @@ public class ExampleRobotCentricTeleop extends OpMode {
     /** This method is call once when init is played, it initializes the follower **/
     @Override
     public void init() {
-        Constants.setConstants(FConstants.class,LConstants.class);
+        Constants.setConstants(FollowerParams.class, LocalizerParams.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);
     }
