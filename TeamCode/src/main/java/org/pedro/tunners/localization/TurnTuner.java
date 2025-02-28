@@ -1,4 +1,4 @@
-package pedroPathing.tunners.localization;
+package org.pedro.tunners.localization;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -12,8 +12,8 @@ import com.pedropathing.localization.PoseUpdater;
 import com.pedropathing.util.DashboardPoseTracker;
 import com.pedropathing.util.Drawing;
 
-import pedroPathing.constants.FollowerParams;
-import pedroPathing.constants.LocalizerParams;
+import org.pedro.constants.FollowerParams;
+import org.pedro.constants.LocalizerParams;
 
 /**
  * This is the TurnTuner OpMode. This tracks the turning movement of the robot and displays the

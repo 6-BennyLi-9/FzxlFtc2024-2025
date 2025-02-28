@@ -20,7 +20,7 @@
  *   SOFTWARE.
  */
 
-package pedroPathing.tests.localization;
+package org.pedro.tests.localization;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

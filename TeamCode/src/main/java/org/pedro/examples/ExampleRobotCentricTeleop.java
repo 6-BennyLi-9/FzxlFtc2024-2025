@@ -1,4 +1,4 @@
-package pedroPathing.examples;
+package org.pedro.examples;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -6,8 +6,8 @@ import com.pedropathing.util.Constants;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import pedroPathing.constants.FollowerParams;
-import pedroPathing.constants.LocalizerParams;
+import org.pedro.constants.FollowerParams;
+import org.pedro.constants.LocalizerParams;
 
 /**
  * This is an example teleop that showcases movement and robot-centric driving.

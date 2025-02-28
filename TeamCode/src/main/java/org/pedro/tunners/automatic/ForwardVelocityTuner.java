@@ -1,5 +1,4 @@
-package pedroPathing.tunners.automatic;
-
+package org.pedro.tunners.automatic;
 
 import static com.pedropathing.follower.FollowerConstants.leftFrontMotorName;
 import static com.pedropathing.follower.FollowerConstants.leftRearMotorName;
@@ -29,15 +28,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import pedroPathing.constants.FollowerParams;
-import pedroPathing.constants.LocalizerParams;
+import org.pedro.constants.FollowerParams;
+import org.pedro.constants.LocalizerParams;
 
 /**
- * This is the StrafeVelocityTuner autonomous follower OpMode. This runs the robot right at max
+ * This is the ForwardVelocityTuner autonomous follower OpMode. This runs the robot forwards at max
  * power until it reaches some specified distance. It records the most recent velocities, and on
  * reaching the end of the distance, it averages them and prints out the velocity obtained. It is
  * recommended to run this multiple times on a full battery to get the best results. What this does
- * is, when paired with ForwardVelocityTuner, allows FollowerConstants to create a Vector that
+ * is, when paired with StrafeVelocityTuner, allows FollowerConstants to create a Vector that
  * empirically represents the direction your mecanum wheels actually prefer to go in, allowing for
  * more accurate following.
  * You can adjust the distance the robot will travel on FTC Dashboard: 192/168/43/1:8080/dash
@@ -48,8 +47,8 @@ import pedroPathing.constants.LocalizerParams;
  * @version 1.0, 3/13/2024
  */
 @Config
-@Autonomous(name = "Strafe Velocity Tuner", group = "Automatic Tuners")
-public class StrafeVelocityTuner extends OpMode {
+@Autonomous(name = "Forward Velocity Tuner", group = "Automatic Tuners")
+public class ForwardVelocityTuner extends OpMode {
     private final ArrayList<Double> velocities = new ArrayList<>();
 
     private DcMotorEx leftFront;
@@ -102,28 +101,31 @@ public class StrafeVelocityTuner extends OpMode {
         }
 
         telemetryA = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
-        telemetryA.addLine("The robot will run at 1 power until it reaches " + DISTANCE + " inches to the right.");
+        telemetryA.addLine("The robot will run at 1 power until it reaches " + DISTANCE + " inches forward.");
         telemetryA.addLine("Make sure you have enough room, since the robot has inertia after cutting power.");
-        telemetryA.addLine("After running the distance, the robot will cut power from the drivetrain and display the strafe velocity.");
+        telemetryA.addLine("After running the distance, the robot will cut power from the drivetrain and display the forward velocity.");
         telemetryA.addLine("Press CROSS or A on game pad 1 to stop.");
+        telemetryA.addData("pose", poseUpdater.getPose());
         telemetryA.update();
+
     }
 
     /**
-     * This starts the OpMode by setting the drive motors to run right at full power.
+     * This starts the OpMode by setting the drive motors to run forward at full power.
      */
     @Override
     public void start() {
         leftFront.setPower(1);
-        leftRear.setPower(-1);
-        rightFront.setPower(-1);
+        leftRear.setPower(1);
+        rightFront.setPower(1);
         rightRear.setPower(1);
+        end = false;
     }
 
     /**
      * This runs the OpMode. At any point during the running of the OpMode, pressing CROSS or A on
-     * game pad1 will stop the OpMode. This continuously records the RECORD_NUMBER most recent
-     * velocities, and when the robot has run sideways enough, these last velocities recorded are
+     * game pad 1 will stop the OpMode. This continuously records the RECORD_NUMBER most recent
+     * velocities, and when the robot has run forward enough, these last velocities recorded are
      * averaged and printed.
      */
     @Override
@@ -138,14 +140,14 @@ public class StrafeVelocityTuner extends OpMode {
 
         poseUpdater.update();
         if (!end) {
-            if (Math.abs(poseUpdater.getPose().getY()) > DISTANCE) {
+            if (Math.abs(poseUpdater.getPose().getX()) > DISTANCE) {
                 end = true;
                 for (DcMotorEx motor : motors) {
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                     motor.setPower(0);
                 }
             } else {
-                double currentVelocity = Math.abs(MathFunctions.dotProduct(poseUpdater.getVelocity(), new Vector(1, Math.PI / 2)));
+                double currentVelocity = Math.abs(MathFunctions.dotProduct(poseUpdater.getVelocity(), new Vector(1, 0)));
                 velocities.add(currentVelocity);
                 velocities.remove(0);
             }
@@ -163,7 +165,7 @@ public class StrafeVelocityTuner extends OpMode {
             }
             average /= velocities.size();
 
-            telemetryA.addData("strafe velocity:", average);
+            telemetryA.addData("forward velocity:", average);
             telemetryA.update();
         }
     }
