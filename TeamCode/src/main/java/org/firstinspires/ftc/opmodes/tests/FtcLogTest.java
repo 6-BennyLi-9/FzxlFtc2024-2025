@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Global;
 
 @Autonomous(group = "9_Tests")
 @Disabled
-@TestDoneSuccessfully
+@Annotations.TestDoneSuccessfully
 public class FtcLogTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

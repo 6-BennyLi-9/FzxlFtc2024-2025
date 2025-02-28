@@ -20,16 +20,19 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
-import org.betastudio.ftc.util.entry.DashboardCallable;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.InitializeRequested;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
-import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Local;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 import org.firstinspires.ftc.teamcode.cores.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ClipOp;
@@ -40,52 +43,45 @@ import org.firstinspires.ftc.teamcode.cores.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ScaleOp;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Local;
-import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
+ * 机器人管理类，实现了 {@link Interfaces.Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
  * 然后获取客户端 {@link #fetchClient()}。
  */
 @Config
-public class RobotMng implements Updatable {
+public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String printCode           = "-\\|/";
+	public static final String                                printCode           = "-\\|/";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
-	public static final double driverTriggerBufFal = 0.2;
+	public static final double                                driverTriggerBufFal = 0.2;
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double rotateTriggerBufFal = 0.01;
-	public static       boolean sendTelemetryPackets;
+	public static final double                                rotateTriggerBufFal = 0.01;
+	public static       boolean                               sendTelemetryPackets;
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final  Map <String, HardwareController> controllers = new HashMap <>();
+	public final  Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public final  TaggedActionPackage              thread      = new TaggedActionPackage();
+	public final  TaggedActionPackage                         thread              = new TaggedActionPackage();
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public       int                              updateTime;
+	public        int                              updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
-	private             Client                           client;
+	private       Client                           client;
 
 	/**
 	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
@@ -99,6 +95,62 @@ public class RobotMng implements Updatable {
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
 		controllers.put("drive", new DriveOp());
+
+		fetchClient();
+		initSimpleGamepadRequests();
+	}
+
+	protected void initSimpleGamepadRequests() {
+		clipOption.setCallback(()-> ClipOp.getInstance().change());
+		clipOption.setAutoActive(true);
+
+		sampleIO.setCallback(()->ClawOp.getInstance().change());
+		sampleIO.setAutoActive(true);
+
+		decantOrSuspend.setCallback(()->{
+			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
+			} else {
+				ArmOp.getInstance().safe();
+				PlaceOp.getInstance().flip();
+			}
+		});
+
+		flipArm.setCallback(()->{
+			if (ScalePositions.PROBE == ScaleOp.recent) {
+				ArmOp.getInstance().flipIO();
+			}
+		});
+		flipArm.setAutoActive(true);
+
+		switchViewMode.setCallback(()->{
+			client.switchViewMode();
+			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
+			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
+		});
+		switchViewMode.setAutoActive(true);
+
+		armScaleOperate.setCallback(()->{
+			armScaleOperate.ticker.tickAndMod(2);
+
+			//初始化
+			switch (armScaleOperate.ticker.getTicked()) {
+				case 0:
+					RotateOp.getInstance().mid();
+					PlaceOp.getInstance().idle();
+					ArmOp.getInstance().idle();
+					break;
+				case 1:
+					Global.service.execute(() -> {
+						Local.sleep(500);
+						ClawOp.getInstance().open();
+					});
+					ArmOp.getInstance().intake();
+					break;
+				default:
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+			}
+		});
 	}
 
 	/**
@@ -121,18 +173,18 @@ public class RobotMng implements Updatable {
 	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
 	 */
 	public void initControllers() {
-		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
-			final String             k = entry.getKey();
-			final HardwareController v = entry.getValue();
+		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
+			final String                        k = entry.getKey();
+			final Interfaces.HardwareController v = entry.getValue();
 
 			v.connect();
 			v.writeToInstance();
 
-			if (v instanceof InitializeRequested) {
-				((InitializeRequested) v).init();
+			if (v instanceof Interfaces.InitializeRequested) {
+				((Interfaces.InitializeRequested) v).init();
 			}
-			if (v instanceof TagOptionsRequired) {
-				((TagOptionsRequired) v).setTag(k + ":ctrl");
+			if (v instanceof Interfaces.TagOptionsRequired) {
+				((Interfaces.TagOptionsRequired) v).setTag(k + ":ctrl");
 			}
 
 			thread.add(k, v.getController());
@@ -144,14 +196,6 @@ public class RobotMng implements Updatable {
 	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
 	 */
 	public final void operateThroughGamepad() {
-		if (clipOption.getEnabled()) {
-			ClipOp.getInstance().change();
-		}
-
-		if (sampleIO.getEnabled()) {
-			ClawOp.getInstance().change();
-		}
-
 		if (liftIDLE.getEnabled()) {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
@@ -183,36 +227,10 @@ public class RobotMng implements Updatable {
 			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
 		}
 
-		if (decantOrSuspend.getEnabled()) {
-			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
-			} else {
-				ArmOp.getInstance().safe();
-				PlaceOp.getInstance().flip();
-			}
-		}
+		decantOrSuspend.tryActivate();
 
-		if (armScaleOperate.getEnabled()) {
-			armScaleOperate.ticker.tickAndMod(2);
+		armScaleOperate.tryActivate();
 
-			//初始化
-			switch (armScaleOperate.ticker.getTicked()) {
-				case 0:
-					RotateOp.getInstance().mid();
-					PlaceOp.getInstance().idle();
-					ArmOp.getInstance().idle();
-					break;
-				case 1:
-					Global.service.execute(() -> {
-						Local.sleep(500);
-						ClawOp.getInstance().open();
-					});
-					ArmOp.getInstance().intake();
-					break;
-				default:
-					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
-			}
-		}
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
@@ -223,18 +241,6 @@ public class RobotMng implements Updatable {
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
-		}
-
-		if (flipArm.getEnabled()) {
-			if (ScalePositions.PROBE == ScaleOp.recent) {
-				ArmOp.getInstance().flipIO();
-			}
-		}
-
-		if (switchViewMode.getEnabled()) {
-			client.switchViewMode();
-			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
-			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
 		}
 	}
 
@@ -281,26 +287,19 @@ public class RobotMng implements Updatable {
 		thread.run();
 	}
 
-	@Override
-	public boolean isUpdateRequested() {
-		return true;
-	}
-
 	public void printActions() {
 		++ updateTime;
 		final TelemetryMsg message = new TelemetryMsg();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
-//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
 		final Map <String, PriorityAction> map = thread.getActionMap();
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
 			client.changeData(s + "\t", updateCode + a.paramsString());
-//			client.deleteData(lastUpdateCode + s);
-			if (sendTelemetryPackets && a instanceof DashboardCallable) {
-				((DashboardCallable) a).process(message);
+			if (sendTelemetryPackets && a instanceof Interfaces.DashboardCallable) {
+				((Interfaces.DashboardCallable) a).process(message);
 			}
 		}
 		if (sendTelemetryPackets) {
@@ -310,6 +309,7 @@ public class RobotMng implements Updatable {
 		}
 	}
 
+	@Deprecated
 	public void printIMUVariables() {
 		final BNO055IMU   imu         = HardwareDatabase.imu;
 		final Orientation orientation = imu.getAngularOrientation();

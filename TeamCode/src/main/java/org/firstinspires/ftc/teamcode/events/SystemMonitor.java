@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.events;
 
 import static org.firstinspires.ftc.teamcode.Global.runMode;
 
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.betastudio.ftc.RunMode;
@@ -10,7 +10,7 @@ import org.betastudio.ftc.RunMode;
 /**
  * 定义一个名为 SystemMonitor 的最终类，该类继承自 Thread 并实现 ThreadEx 接口
  */
-public final class SystemMonitor extends Thread implements ThreadEx {
+public final class SystemMonitor extends Thread implements Interfaces.ThreadEx {
 	private boolean taskClosed; // 用于标记任务是否关闭的状态变量
 
 	/**

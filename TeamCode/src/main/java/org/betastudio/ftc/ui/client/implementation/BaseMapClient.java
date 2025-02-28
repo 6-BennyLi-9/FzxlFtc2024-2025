@@ -215,11 +215,6 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public boolean isUpdateRequested() {
-		return isUpdateRequested;
-	}
-
-	@Override
 	public UpdateConfig getUpdateConfig() {
 		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
 	}

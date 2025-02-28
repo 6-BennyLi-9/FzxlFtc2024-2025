@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.util.ButtonProcessorEx.*;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
@@ -8,14 +9,14 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.util.ButtonConfig;
-import org.betastudio.ftc.util.ButtonProcessor;
+import org.betastudio.ftc.util.ButtonProcessorEx;
 
 /**
  * gamepad 控制请求的数据库
  * 该类用于管理通过游戏手柄发送的控制请求，每个请求对应一个按钮处理器实例。
  * 请求的同步和打印值方法允许程序根据手柄输入的状态执行相应的动作。
  *
- * @see ButtonProcessor
+ * @see ButtonProcessorEx
  * @see ButtonConfig
  * @see Global
  */
@@ -24,64 +25,64 @@ public final class GamepadRequests {
 	 * 输入样本
 	 * 用于处理从gamepad2的A按钮输入的请求。
 	 */
-	public static final ButtonProcessor sampleIO;
+	public static final ButtonProcessorEx sampleIO;
 	/**
 	 * 电梯上筐
 	 * 用于处理从gamepad2的左扳机按钮输入的请求。
 	 */
-	public static final ButtonProcessor liftDecantUpping;
+	public static final ButtonProcessorEx liftDecantUpping;
 	/**
 	 * 电梯闲置（下）
 	 * 用于处理从gamepad2的dpad向下按钮输入的请求。
 	 */
-	public static final ButtonProcessor liftIDLE;
+	public static final ButtonProcessorEx liftIDLE;
 	/**
 	 * 电梯挂样本准备
 	 * 用于处理从gamepad2的dpad向上按钮输入的请求。
 	 */
-	public static final ButtonProcessor liftHighSuspendPrepare;
+	public static final ButtonProcessorEx liftHighSuspendPrepare;
 	/**
 	 * 倒筐与挂样本
 	 * 用于处理从gamepad2的X按钮输入的请求。
 	 */
-	public static final ButtonProcessor decantOrSuspend;
+	public static final ButtonProcessorEx decantOrSuspend;
 	/**
 	 * 打开/关闭样本夹
 	 * 用于处理从gamepad2的B按钮输入的请求。
 	 */
-	public static final ButtonProcessor clipOption;
+	public static final ButtonProcessorEx clipOption;
 	/**
 	 * 吸取滑轨与收取杆操作
 	 * 用于处理从gamepad2的右扳机按钮输入的请求。
 	 */
-	public static final ButtonProcessor armScaleOperate;
+	public static final ButtonProcessorEx armScaleOperate;
 	/**
 	 * 快慢速切换
 	 * 用于处理从gamepad1的A按钮输入的请求。
 	 */
-	public static final ButtonProcessor highLowSpeedConfigChange;
+	public static final ButtonProcessorEx highLowSpeedConfigChange;
 	/**
 	 * 抬降arm
 	 * 用于处理从gamepad2的Y按钮输入的请求。
 	 */
-	public static final ButtonProcessor flipArm;
+	public static final ButtonProcessorEx flipArm;
 	/**
 	 * 切换视图模式
 	 * 用于处理从gamepad1的右摇杆Y轴大于0.8的输入请求。
 	 */
-	public static final ButtonProcessor switchViewMode;
+	public static final ButtonProcessorEx switchViewMode;
 
 	static {
-		sampleIO = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		liftDecantUpping = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		liftHighSuspendPrepare = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		liftIDLE = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		decantOrSuspend = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		clipOption = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		armScaleOperate = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		highLowSpeedConfigChange = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		flipArm = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		switchViewMode = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		sampleIO = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		liftDecantUpping = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		liftHighSuspendPrepare = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		liftIDLE = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		decantOrSuspend = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		clipOption = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		armScaleOperate = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		highLowSpeedConfigChange = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		flipArm = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
+		switchViewMode = new ButtonProcessorEx(SINGLE_WHEN_PRESSED);
 
 		sampleIO.sync(false);
 		liftDecantUpping.sync(false);
@@ -93,6 +94,30 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange.sync(false);
 		flipArm.sync(false);
 		switchViewMode.sync(false);
+	}
+
+	public static void reboot(){
+		sampleIO.sync(false);
+		liftDecantUpping.sync(false);
+		liftHighSuspendPrepare.sync(false);
+		liftIDLE.sync(false);
+		decantOrSuspend.sync(false);
+		clipOption.sync(false);
+		armScaleOperate.sync(false);
+		highLowSpeedConfigChange.sync(false);
+		flipArm.sync(false);
+		switchViewMode.sync(false);
+
+		sampleIO.setCallback(defaultCallback);
+		liftDecantUpping.setCallback(defaultCallback);
+		liftHighSuspendPrepare.setCallback(defaultCallback);
+		liftIDLE.setCallback(defaultCallback);
+		decantOrSuspend.setCallback(defaultCallback);
+		clipOption.setCallback(defaultCallback);
+		armScaleOperate.setCallback(defaultCallback);
+		highLowSpeedConfigChange.setCallback(defaultCallback);
+		flipArm.setCallback(defaultCallback);
+		switchViewMode.setCallback(defaultCallback);
 	}
 
 	/**
@@ -113,15 +138,6 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange.sync(gamepad1.a);
 
 		switchViewMode.sync(0.8 < gamepad1.right_stick_y);
-	}
-
-	/**
-	 * 打印值
-	 * <p>
-	 * 默认使用 BaseMapClient 实例打印值。
-	 */
-	public static void printValues() {
-		printValues(Global.client);
 	}
 
 	/**

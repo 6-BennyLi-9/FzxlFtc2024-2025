@@ -5,10 +5,11 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.betastudio.ftc.Annotations;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(group = "9_Tests")
-@TestDoneSuccessfully
+@Annotations.TestDoneSuccessfully
 public final class SampleLocalExceptionHandle extends LinearOpMode implements Thread.UncaughtExceptionHandler {
 	private Throwable e;
 

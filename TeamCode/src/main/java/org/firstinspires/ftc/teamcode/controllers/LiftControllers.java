@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.betastudio.ftc.Annotations.Beta;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
 /**
@@ -22,6 +23,7 @@ public class LiftControllers {
 	 */
 	@Config
 	@Disabled
+	@Deprecated
 	public static class ClassicLiftCtrl extends LiftCtrl {
 		public static final long staticAllowError;
 		public static final long lowerErrorRange;
@@ -71,10 +73,9 @@ public class LiftControllers {
 	 */
 	@Config
 	public static class DcLiftCtrl extends LiftCtrl {
-		public static final double bufPow    = 1;
-		public static final int    tolerance = 10;
+		public static final double  bufPow                = 1;
+		public static final int     tolerance             = 10;
 		private             boolean using_touch_calibrate = true;
-		private       boolean using_touch_reset_encoders = true;
 
 		public DcLiftCtrl(@NonNull final DcMotorEx target) {
 			super(target);
@@ -118,14 +119,6 @@ public class LiftControllers {
 		public boolean using_touch_calibrate() {
 			return using_touch_calibrate;
 		}
-
-		public void using_touch_reset_encoders(final boolean using_touch_reset_encoders) {
-			this.using_touch_reset_encoders = using_touch_reset_encoders;
-		}
-
-		public boolean using_touch_reset_encoders() {
-			return using_touch_reset_encoders;
-		}
 	}
 
 	/**
@@ -133,6 +126,8 @@ public class LiftControllers {
 	 */
 	@Config
 	@Disabled
+	@Deprecated
+	@Beta(date = "I forget the date!")
 	public static class LinFuncLiftCtrl extends LiftCtrl {
 		public static final double vA;
 
@@ -170,6 +165,8 @@ public class LiftControllers {
 	 */
 	@Config
 	@Disabled
+	@Deprecated
+	@Beta(date = "I forget the date!")
 	public static class QuadFuncLiftCtrl extends LiftCtrl {
 		public static final double vA;
 

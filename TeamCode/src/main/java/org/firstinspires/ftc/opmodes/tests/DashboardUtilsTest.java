@@ -4,9 +4,10 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 
-@TestShelved
+@Annotations.TestShelved
 @Autonomous(group = "9_Tests")
 public class DashboardUtilsTest extends LinearOpMode {
 	public final DashboardUtils dashboard = DashboardUtils.generateInstance();

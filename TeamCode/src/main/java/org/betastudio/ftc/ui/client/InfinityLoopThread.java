@@ -1,9 +1,9 @@
 package org.betastudio.ftc.ui.client;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 
-public class InfinityLoopThread extends Thread implements ThreadEx {
+public class InfinityLoopThread extends Thread implements Interfaces.ThreadEx {
 	private final InfinityLoopAction action;
 
 	public InfinityLoopThread(final Runnable runnable) {
@@ -20,7 +20,7 @@ public class InfinityLoopThread extends Thread implements ThreadEx {
 		action.closeTask();
 	}
 
-	public static final class InfinityLoopAction implements Action, ThreadEx {
+	public static final class InfinityLoopAction implements Action, Interfaces.ThreadEx {
 		private final Runnable runnable;
 		private       boolean  interrupted;
 

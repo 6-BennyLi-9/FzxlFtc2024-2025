@@ -5,8 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -20,7 +19,7 @@ import org.jetbrains.annotations.Contract;
  */
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController, TagOptionsRequired {
+public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
 	/**
 	 * 当前的电梯状态
 	 */

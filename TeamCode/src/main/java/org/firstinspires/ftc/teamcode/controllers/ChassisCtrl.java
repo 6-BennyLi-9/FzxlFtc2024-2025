@@ -6,8 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.DashboardCallable;
-import org.betastudio.ftc.util.entry.MessagesProcessRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;
@@ -16,16 +15,24 @@ import org.betastudio.ftc.util.message.TelemetryMsg;
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, DashboardCallable, MessagesProcessRequired <DriveMsg> {
-	public static final double kS = 1;
-	public static final double kF = - 1;
-	public static final double maxControlPower = 1.3;
-	public static final double smoothConfig    = 0.9;
-	public static final double vS              = 0.6;
-	public static       ChassisCtrlMode mode         = ChassisCtrlMode.FASTER_CONTROL;
-	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
-	private double pX, pY, pTurn, vX, vY, vTurn;
-	private String tag;
+public strictfp class ChassisCtrl implements Action, Interfaces.DashboardCallable, Interfaces.MessagesProcessRequired <DriveMsg> {
+	public static final double          kS              = 1;
+	public static final double          kF              = - 1;
+	public static final double          maxControlPower = 1.3;
+	public static final double          smoothConfig    = 0.9;
+	public static final double          vS              = 0.6;
+	public static       ChassisCtrlMode mode            = ChassisCtrlMode.FASTER_CONTROL;
+	public final        DcMotorEx       leftFront;
+	public final        DcMotorEx       leftRear;
+	public final        DcMotorEx       rightFront;
+	public final        DcMotorEx       rightRear;
+	private             double          pX;
+	private             double          pY;
+	private             double          pTurn;
+	private             double          vX;
+	private             double          vY;
+	private             double          vTurn;
+	private             String          tag;
 
 	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear) {
 		this.leftFront = leftFront;

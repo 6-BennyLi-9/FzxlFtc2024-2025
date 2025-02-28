@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.DashboardCallable;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -14,11 +14,12 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 /**
  * LiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
  */
-public abstract class LiftCtrl implements Action, DashboardCallable {
+public abstract class LiftCtrl implements Action, Interfaces.DashboardCallable {
 	protected final DcMotorEx targetLift; // 目标升降机构电机
-	protected       long      currentPosition, targetPosition; // 当前位置和目标位置
-	protected String  tag; // 控制器的标签
-	private   boolean infinityRun = true; // 是否无限运行
+	protected       long      currentPosition;
+	protected       long      targetPosition;
+	protected       String    tag; // 控制器的标签
+	private         boolean   infinityRun = true; // 是否无限运行
 
 	/**
 	 * 构造函数，初始化目标升降机构电机和标签。
@@ -139,6 +140,7 @@ public abstract class LiftCtrl implements Action, DashboardCallable {
 	/**
 	 * 禁用无限运行模式。
 	 */
+	@Deprecated
 	protected void disableInfinityRun() {
 		this.infinityRun = false; // 设置无限运行模式为 false
 	}

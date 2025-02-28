@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.events;
 
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
 import org.betastudio.ftc.RunMode;
@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
  * AutonomousMonitor 类继承自 Thread 并实现了 ThreadEx 接口。
  * 它的主要功能是在自动模式下监控某个任务的活动状态，并提供关闭任务的方法。
  */
-public final class AutonomousMonitor extends Thread implements ThreadEx {
+public final class AutonomousMonitor extends Thread implements Interfaces.ThreadEx {
 	/**
 	 * 一个 Callable 对象，用于检查任务是否处于活动状态。
 	 * 如果该 Callable 返回 false，则表示任务不再处于活动状态。
