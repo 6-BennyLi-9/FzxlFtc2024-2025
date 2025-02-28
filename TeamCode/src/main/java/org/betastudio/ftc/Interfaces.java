@@ -5,13 +5,8 @@ import androidx.annotation.Nullable;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.message.Message;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 public final class Interfaces {
-	public interface DashboardCallable {
-		void process(@NonNull TelemetryMsg messageOverride);
-	}
-
 	public interface HardwareController {
 		void connect();
 
