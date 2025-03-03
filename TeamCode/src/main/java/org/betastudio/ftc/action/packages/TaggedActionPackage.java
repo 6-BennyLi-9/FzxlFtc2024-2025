@@ -4,6 +4,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
+import org.betastudio.ftc.util.Labeler;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,22 +23,14 @@ public class TaggedActionPackage extends ActionPackage {
 		priorityActionMap = new HashMap <>();
 	}
 
-	/**
-	 * @throws UnsupportedOperationException 必须提供Action的标签
-	 */
 	@Override
-	@Deprecated
 	public void add(final Action action) {
-		throw new UnsupportedOperationException("Must Given A Tag For Using This Method");
+		add(Labeler.generate().summonID(action), action);
 	}
 
-	/**
-	 * @throws UnsupportedOperationException 必须提供Action的标签
-	 */
 	@Override
-	@Deprecated
 	public void add(final PriorityAction action) {
-		throw new UnsupportedOperationException("Must Given A Tag For Using This Method");
+		add(Labeler.generate().summonID(action), action);
 	}
 
 	/**
@@ -53,7 +46,7 @@ public class TaggedActionPackage extends ActionPackage {
 	 * @see #add(String, PriorityAction)
 	 */
 	public void add(final String tag, final Action action) {
-		add(tag, Actions.asPriority(action));
+		add(tag, Actions.newMirroredPriority(action));
 	}
 
 	/**
@@ -72,7 +65,7 @@ public class TaggedActionPackage extends ActionPackage {
 	 * @see #replace(String, PriorityAction)
 	 */
 	public void replace(final String tag, final Action action) {
-		replace(tag, Actions.asPriority(action));
+		replace(tag, Actions.newMirroredPriority(action));
 	}
 
 	/**
@@ -84,29 +77,33 @@ public class TaggedActionPackage extends ActionPackage {
 
 
 	@Override
-	public boolean run() {
-		final ArrayList <PriorityAction> actions = new ArrayList <>(priorityActionMap.values());
-		actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
+	public boolean activate() {
+		synchronized (actions){
+			final ArrayList <PriorityAction> actions = new ArrayList <>(priorityActionMap.values());
+			actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
 
-		final Set <PriorityAction> remove = new HashSet <>();
+			final Set <PriorityAction> remove = new HashSet <>();
 
-		for (final PriorityAction action : actions) {
-			if (! action.activate()) {
-				remove.add(action);
+			for (final PriorityAction action : actions) {
+				if (! action.activate()) {
+					remove.add(action);
+				}
 			}
-		}
 
-		actions.removeAll(remove);
-		return ! actions.isEmpty();
+			actions.removeAll(remove);
+			return ! actions.isEmpty();
+		}
 	}
 
 	/**
 	 * 作为本地方法
 	 */
 	@Override
-	public void runTillEnd() {
-		new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
-		priorityActionMap.clear();
+	public void activateTillEnd() {
+		synchronized (actions){
+			new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
+			priorityActionMap.clear();
+		}
 	}
 
 	public Map <String, PriorityAction> getActionMap() {

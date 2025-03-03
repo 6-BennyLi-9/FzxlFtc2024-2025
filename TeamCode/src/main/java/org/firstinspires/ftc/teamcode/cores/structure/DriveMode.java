@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
 public enum DriveMode {
-	STRAIGHT_LINEAR, PID, SIMPLE_CALIBRATE
+	STRAIGHT_LINEAR, SIMPLE_CALIBRATE
 }

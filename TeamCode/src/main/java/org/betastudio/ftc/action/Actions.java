@@ -16,8 +16,14 @@ public final class Actions {
 		}
 	}
 
+	public static void runYieldAction(@NonNull final Action actionBlock){
+		while (actionBlock.activate()) {
+			Thread.yield();
+		}
+	}
+
 	public static void runThreadingAction(final Action actionBlock) {
-		new Thread(() -> runAction(actionBlock)).start();
+		new Thread(() -> runYieldAction(actionBlock)).start();
 	}
 
 	/**
@@ -36,13 +42,13 @@ public final class Actions {
 
 	@NonNull
 	@Contract("_ -> new")
-	public static PriorityAction asPriority(final Action action) {
-		return asPriority(action, 0);
+	public static PriorityAction newMirroredPriority(final Action action) {
+		return newMirroredPriority(action, 0);
 	}
 
 	@NonNull
 	@Contract("_, _ -> new")
-	public static PriorityAction asPriority(final Action action, final long priorityGrade) {
+	public static PriorityAction newMirroredPriority(final Action action, final long priorityGrade) {
 		return new PriorityAction() {
 			@Override
 			public long getPriorityCode() {

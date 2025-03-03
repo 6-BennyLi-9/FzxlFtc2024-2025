@@ -5,10 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.betastudio.ftc.Annotations.Beta;
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.Locale;
 
@@ -16,7 +13,7 @@ import java.util.Locale;
  * 通用的舵机控制类
  * @noinspection unused
  */
-public class ServoCtrl implements Action, Interfaces.DashboardCallable {
+public class ServoCtrl implements Action {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
@@ -133,10 +130,5 @@ public class ServoCtrl implements Action, Interfaces.DashboardCallable {
 
 	public void setTag(final String tag) {
 		this.tag = tag;
-	}
-
-	@Override
-	public void process(@NonNull final TelemetryMsg messageOverride) {
-		messageOverride.add(new TelemetryItem(tag + "-target", targetPosition));
 	}
 }

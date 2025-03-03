@@ -18,14 +18,12 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
 import org.betastudio.ftc.ui.client.Client;
-import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.message.DriveBufMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Global;
@@ -56,32 +54,31 @@ public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String                                printCode           = "-\\|/";
+	public static final String                                      printCode           = "-\\|/";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
-	public static final double                                driverTriggerBufFal = 0.2;
+	public static final double                                      driverTriggerBufFal = 0.2;
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double                                rotateTriggerBufFal = 0.01;
-	public static       boolean                               sendTelemetryPackets;
+	public static final double                                      rotateTriggerBufFal = 0.01;
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final  Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
+	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public final  TaggedActionPackage                         thread              = new TaggedActionPackage();
+	public final        TaggedActionPackage                         thread              = new TaggedActionPackage();
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public        int                              updateTime;
+	public              int                                         updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
-	private       Client                           client;
+	private             Client                                      client;
 
 	/**
 	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
@@ -284,12 +281,11 @@ public class RobotMng implements Interfaces.Updatable {
 	 */
 	@Override
 	public void update() {
-		thread.run();
+		thread.activate();
 	}
 
 	public void printActions() {
 		++ updateTime;
-		final TelemetryMsg message = new TelemetryMsg();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 
@@ -298,14 +294,6 @@ public class RobotMng implements Interfaces.Updatable {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
 			client.changeData(s + "\t", updateCode + a.paramsString());
-			if (sendTelemetryPackets && a instanceof Interfaces.DashboardCallable) {
-				((Interfaces.DashboardCallable) a).process(message);
-			}
-		}
-		if (sendTelemetryPackets) {
-			DashboardUtils.fetch();
-			DashboardUtils.generateInstance().sendMsg(message);
-			DashboardUtils.generateInstance().update();
 		}
 	}
 
