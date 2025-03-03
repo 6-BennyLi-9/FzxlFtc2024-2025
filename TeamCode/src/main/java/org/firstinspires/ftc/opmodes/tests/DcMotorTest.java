@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -14,6 +16,9 @@ import org.firstinspires.ftc.teamcode.Local;
 
 import java.util.concurrent.ExecutorService;
 
+@Annotations.TestDoneSuccessfully
+@Disabled
+@Deprecated
 @Autonomous
 public class DcMotorTest extends LinearOpMode {
 	public Client          client;

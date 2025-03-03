@@ -48,4 +48,12 @@ public final class Interfaces {
 	public interface Countable {
 		long getCount();
 	}
+
+	public interface ProgressMarker {
+		long getTotal();
+		long getDone();
+		default double getProgress(){
+			return (double) getDone() / getTotal();
+		}
+	}
 }
