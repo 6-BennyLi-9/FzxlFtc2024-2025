@@ -2,10 +2,10 @@ package org.betastudio.ftc.job;
 
 import org.betastudio.ftc.action.Action;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface Job extends Action {
-	Collection <Job> getDependencies();
+	List <Job> getDependencies();
 	void addDependency(Job job);
 	void removeDependency(Job job);
 
