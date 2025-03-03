@@ -59,6 +59,8 @@ public class TreeJob implements Job , Interfaces.Countable {
 		dependencies.forEach(job -> {
 			if (job instanceof Interfaces.Countable){
 				res.addAndGet(((Interfaces.Countable) job).getCount());
+			} else {
+				res.addAndGet(1);
 			}
 		});
 		return res.get();
