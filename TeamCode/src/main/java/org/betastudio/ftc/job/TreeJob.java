@@ -1,9 +1,12 @@
 package org.betastudio.ftc.job;
 
+import org.betastudio.ftc.Interfaces;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class TreeJob implements Job {
+public class TreeJob implements Job , Interfaces.Countable {
 	protected final List <Job> dependencies = new ArrayList <>();
 	protected       String     name;
 	protected       boolean   parallel;
@@ -48,5 +51,16 @@ public class TreeJob implements Job {
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public long getCount() {
+		AtomicLong res = new AtomicLong();
+		dependencies.forEach(job -> {
+			if (job instanceof Interfaces.Countable){
+				res.addAndGet(((Interfaces.Countable) job).getCount());
+			}
+		});
+		return res.get();
 	}
 }
