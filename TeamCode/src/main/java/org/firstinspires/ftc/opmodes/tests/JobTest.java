@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.TreeJob;
+import org.betastudio.ftc.job.render.JobClientRender;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -47,7 +48,6 @@ public class JobTest extends LinearOpMode {
 
 		client.putData("dependency count", ((Interfaces.Countable) target).getCount());
 
-		target = (Job) ((Interfaces.StoreRequired<?>) target).store();
-		activeJob(target);
+		activeJob((Job) ((Interfaces.StoreRequired<?>) target).store(), new JobClientRender(client));
 	}
 }

@@ -16,6 +16,12 @@ public class JobClientRender implements Interfaces.JobProgressRender {
 
 	@Override
 	public void render(@NonNull Interfaces.ProgressMarker marker) {
-		client.changeData("progress", String.format(Locale.SIMPLIFIED_CHINESE,"%d/%d:%f", marker.getDone(), marker.getTotal(), marker.getProgress()));
+		client.changeData("progress", String.format(
+				Locale.SIMPLIFIED_CHINESE,
+				"%d/%d[%f]",
+				marker.getDone(),
+				marker.getTotal(),
+				marker.getProgress())
+		);
 	}
 }
