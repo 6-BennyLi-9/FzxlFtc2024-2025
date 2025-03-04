@@ -15,6 +15,7 @@ public final class Interfaces {
 		void writeToInstance();
 	}
 
+	@FunctionalInterface
 	public interface InitializeRequested {
 		void init();
 	}
@@ -41,10 +42,12 @@ public final class Interfaces {
 		void closeTask();
 	}
 
+	@FunctionalInterface
 	public interface Updatable {
 		void update();
 	}
 
+	@FunctionalInterface
 	public interface Countable {
 		long getCount();
 	}
@@ -55,5 +58,10 @@ public final class Interfaces {
 		default double getProgress(){
 			return (double) getDone() / getTotal();
 		}
+	}
+
+	@FunctionalInterface
+	public interface JobProgressRender {
+		void render(ProgressMarker marker);
 	}
 }
