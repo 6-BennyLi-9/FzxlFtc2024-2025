@@ -3,6 +3,7 @@ package org.betastudio.ftc.job;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.Actions;
 
 public final class Workflows {
 	@NonNull
@@ -17,5 +18,9 @@ public final class Workflows {
 		Job res = new Step(work);
 		res.setName(name);
 		return res;
+	}
+
+	public static void activeJob(Job arg){
+		Actions.runAction(arg);
 	}
 }

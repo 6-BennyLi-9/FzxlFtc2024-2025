@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import static org.betastudio.ftc.job.Workflows.activeJob;
+import static org.betastudio.ftc.job.Workflows.newSteppedJob;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.job.Step;
 import org.betastudio.ftc.job.TreeJob;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,7 +18,7 @@ public class JobTest extends LinearOpMode {
 	public AtomicInteger count = new AtomicInteger();
 	
 	public void addPrint(){
-		target.addDependency(new Step(()->{
+		target.addDependency(newSteppedJob("print",()->{
 			telemetry.addData("count", count.addAndGet(1));
 			telemetry.update();
 			sleep(1000);
@@ -33,10 +35,14 @@ public class JobTest extends LinearOpMode {
 			addPrint();
 		}
 
+		waitForStart();
+
 		telemetry.addLine("TEST LINE 2");
 		telemetry.update();
 
 		telemetry.addData("dependency count", target.getCount());
 		telemetry.update();
+
+		activeJob(target);
 	}
 }
