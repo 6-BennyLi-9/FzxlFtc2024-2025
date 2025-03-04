@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -17,16 +19,22 @@ public class JobTest extends LinearOpMode {
 		target.addDependency(new Step(()->{
 			telemetry.addData("count", count.addAndGet(1));
 			telemetry.update();
+			sleep(1000);
 		}));
 	}
 	
 	@Override
 	public void runOpMode() throws InterruptedException {
-		telemetry.setAutoClear(false);
+		telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+		telemetry.addLine("TEST LINE 1");
+		telemetry.update();
 
 		for (int i = 0 ; i < 10 ; i++) {
 			addPrint();
 		}
+
+		telemetry.addLine("TEST LINE 2");
+		telemetry.update();
 
 		telemetry.addData("dependency count", target.getCount());
 		telemetry.update();
