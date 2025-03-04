@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TreeJob implements Job , Interfaces.Countable {
+public class TreeJob implements Job , Interfaces.Countable, Interfaces.StoreRequired<StoredJob> {
 	protected final List <Job> dependencies = new ArrayList <>();
 	protected       String     name;
-	protected       boolean   parallel;
 
 	@Override
 	public List <Job> getDependencies() {
@@ -64,5 +63,10 @@ public class TreeJob implements Job , Interfaces.Countable {
 			}
 		});
 		return res.get();
+	}
+
+	@Override
+	public StoredJob store() {
+		return new StoredJob(this);
 	}
 }

@@ -2,10 +2,14 @@ package org.betastudio.ftc.job;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
+import org.firstinspires.ftc.robotcore.external.Func;
 
 public final class Workflows {
+
 	@NonNull
 	public static Job newSteppedJob(String name, Action action) {
 		Job res = new Step(action);
@@ -21,6 +25,18 @@ public final class Workflows {
 	}
 
 	public static void activeJob(Job arg){
-		Actions.runAction(arg);
+		activeJob(arg, new IgnoredJobProgressRender());
+	}
+
+	public static void activeJob(Job arg, Interfaces.JobProgressRender render){
+		if (arg instanceof Func <?> && ((Func <?>) arg).value() instanceof Interfaces.ProgressMarker) {
+			Actions.runAction(() -> {
+				boolean activate = arg.activate();
+				render.render((Interfaces.ProgressMarker) ((Func <?>) arg).value());
+				return activate;
+			});
+		} else {
+			Actions.runAction(arg);
+		}
 	}
 }

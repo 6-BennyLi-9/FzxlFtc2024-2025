@@ -58,10 +58,16 @@ public final class Interfaces {
 		default double getProgress(){
 			return (double) getDone() / getTotal();
 		}
+
+		void tick();
 	}
 
 	@FunctionalInterface
 	public interface JobProgressRender {
 		void render(ProgressMarker marker);
+	}
+
+	public interface StoreRequired <T> {
+		T store();
 	}
 }

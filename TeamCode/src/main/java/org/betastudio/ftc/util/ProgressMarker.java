@@ -4,7 +4,11 @@ import org.betastudio.ftc.Interfaces;
 
 public class ProgressMarker implements Interfaces.ProgressMarker {
 	private final long total;
-	private long done;
+	private       long done;
+
+	public ProgressMarker(long total) {
+		this(total, 0L);
+	}
 
 	public ProgressMarker(long total, long doneAlready) {
 		this.total = total;
@@ -21,6 +25,7 @@ public class ProgressMarker implements Interfaces.ProgressMarker {
 		return done;
 	}
 
+	@Override
 	public void tick() {
 		++done;
 	}
