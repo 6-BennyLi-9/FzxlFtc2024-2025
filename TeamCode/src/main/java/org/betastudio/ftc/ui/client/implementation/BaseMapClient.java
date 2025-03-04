@@ -37,7 +37,7 @@ public class BaseMapClient implements Client {
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
-	protected       boolean                        autoUpdate;
+	protected       boolean                        autoUpdate = true;
 	protected       boolean                        isUpdateRequested;
 	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
@@ -226,6 +226,7 @@ public class BaseMapClient implements Client {
 				autoUpdate = true;
 				break;
 			case MANUAL_UPDATE_REQUESTED:
+			default:
 				autoUpdate = false;
 				break;
 		}
