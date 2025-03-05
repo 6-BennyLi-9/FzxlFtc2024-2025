@@ -15,14 +15,14 @@ public class JobClientRender implements Interfaces.JobProgressRender {
 	}
 
 	@Override
-	public void render(@NonNull Interfaces.ProgressMarker marker) {
-		client.changeData("progress", String.format(
+	public void render(String name, @NonNull Interfaces.ProgressMarker marker) {
+		client.changeData(name + "-progress", String.format(
 				Locale.SIMPLIFIED_CHINESE,
 				"%d/%d[%.2f%%]",
 				marker.getDone(),
 				marker.getTotal(),
 				marker.getProgress() * 100
 		));
-		client.changeData("detail", marker.getProgressString());
+		client.changeData(name + "-detail", marker.getProgressString());
 	}
 }

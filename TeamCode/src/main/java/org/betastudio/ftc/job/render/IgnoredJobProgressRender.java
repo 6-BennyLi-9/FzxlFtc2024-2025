@@ -4,6 +4,6 @@ import org.betastudio.ftc.Interfaces;
 
 public final class IgnoredJobProgressRender implements Interfaces.JobProgressRender {
 	@Override
-	public void render(Interfaces.ProgressMarker marker) {
+	public void render(String name, Interfaces.ProgressMarker marker) {
 	}
 }

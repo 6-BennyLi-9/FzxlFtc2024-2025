@@ -37,7 +37,7 @@ public final class Workflows {
 	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.JobProgressRender render){
 		boolean res = arg.activate();
 		if (arg instanceof RenderedJob){
-			render.render(((RenderedJob) arg).value());
+			render.render(arg.getName(), ((RenderedJob) arg).value());
 		}
 		return res;
 	}

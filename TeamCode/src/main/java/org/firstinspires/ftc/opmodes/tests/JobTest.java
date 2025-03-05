@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.Job;
+import org.betastudio.ftc.job.RenderedJob;
 import org.betastudio.ftc.job.TreeJob;
 import org.betastudio.ftc.job.render.JobClientRender;
 import org.betastudio.ftc.time.Timer;
@@ -27,7 +28,7 @@ public class JobTest extends LinearOpMode {
 	public Client        client;
 
 	public void addPrint(){
-		target.addDependency(newSteppedJob("print",()->{
+		target.addDependency(newSteppedJob("print" + count,()->{
 			client.changeData("count", String.valueOf(count.incrementAndGet()));
 			sleep(500);
 		}));
@@ -47,7 +48,7 @@ public class JobTest extends LinearOpMode {
 		client.putData("dependency count", ((Interfaces.Countable) target).getCount());
 		client.update();
 
-		Job store = (Job) ((Interfaces.StoreRequired <?>) target).store();
+		RenderedJob store = (RenderedJob) ((Interfaces.StoreRequired <?>) target).store();
 		client.putData("stored count", store.getDependencies().size());
 
 		waitForStart();

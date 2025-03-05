@@ -1,5 +1,7 @@
 package org.betastudio.ftc.job;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.StatementAction;
 
@@ -7,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Step implements Job {
-	protected String name;
 	protected final Action action;
+	protected       String name = "step";
 
 	public Step(Runnable runnable) {
 		this(new StatementAction(runnable));
@@ -51,5 +53,11 @@ public class Step implements Job {
 	@Override
 	public boolean activate() {
 		return action.activate();
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return name + ':' + action.paramsString();
 	}
 }

@@ -75,7 +75,11 @@ public final class Interfaces {
 
 	@FunctionalInterface
 	public interface JobProgressRender {
-		void render(ProgressMarker marker);
+		default void render(ProgressMarker marker) {
+			render("*", marker);
+		}
+
+		void render(String name, ProgressMarker marker);
 	}
 
 	public interface StoreRequired <T> {

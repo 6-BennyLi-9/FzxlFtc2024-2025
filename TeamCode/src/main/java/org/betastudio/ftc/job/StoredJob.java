@@ -89,7 +89,6 @@ public class StoredJob implements RenderedJob {
 			return false;
 		} else {
 			boolean activate = Workflows.activeJobSync(dependencies.get(0),render);
-			FtcLogTunnel.MAIN.report("run:"+activate);
 			if (! activate) {
 				dependencies.remove(0);
 				progressMarker.tick();
