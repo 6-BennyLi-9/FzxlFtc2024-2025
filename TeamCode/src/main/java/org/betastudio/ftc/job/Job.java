@@ -1,5 +1,6 @@
 package org.betastudio.ftc.job;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 
 import java.util.List;
@@ -13,4 +14,8 @@ public interface Job extends Action {
 	void setName(String name);
 
 	boolean isParallel();
+
+	default boolean activeWithRender(Interfaces.JobProgressRender render) {
+		return activate();
+	}
 }

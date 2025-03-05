@@ -29,13 +29,19 @@ public final class Workflows {
 
 	public static void activeJob(Job arg, Interfaces.JobProgressRender render){
 		if (arg instanceof Func <?> && ((Func <?>) arg).value() instanceof Interfaces.ProgressMarker) {
-			Actions.runAction(() -> {
-				boolean res = arg.activate();
-				render.render((Interfaces.ProgressMarker) ((Func <?>) arg).value());
-				return res;
-			});
+			Actions.runAction(() -> activeJobSync(arg, render));
 		} else {
-			Actions.runAction(arg);
+			Actions.runAction(() -> activeJobSync(arg));
 		}
+	}
+
+	public static boolean activeJobSync(@NonNull Job arg) {
+		return activeJobSync(arg, new IgnoredJobProgressRender());
+	}
+
+	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.JobProgressRender render){
+		boolean res = arg.activate();
+		render.render((Interfaces.ProgressMarker) ((Func <?>) arg).value());
+		return res;
 	}
 }

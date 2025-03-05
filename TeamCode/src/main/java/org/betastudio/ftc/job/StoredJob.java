@@ -3,6 +3,7 @@ package org.betastudio.ftc.job;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
@@ -80,10 +81,15 @@ public class StoredJob implements Job, Func<Interfaces.ProgressMarker> {
 
 	@Override
 	public boolean activate() {
+		return activeWithRender(new IgnoredJobProgressRender());
+	}
+
+	@Override
+	public boolean activeWithRender(Interfaces.JobProgressRender render) {
 		if(dependencies.isEmpty()){
 			return false;
 		} else {
-			boolean activate = dependencies.get(0).activate();
+			boolean activate = Workflows.activeJobSync(dependencies.get(0),render);
 			FtcLogTunnel.MAIN.report("run:"+activate);
 			if (! activate) {
 				dependencies.remove(0);
