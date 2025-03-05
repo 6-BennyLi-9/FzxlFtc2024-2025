@@ -11,9 +11,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.TreeJob;
+import org.betastudio.ftc.job.render.JobClientRender;
+import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,7 +29,7 @@ public class JobTest extends LinearOpMode {
 	public void addPrint(){
 		target.addDependency(newSteppedJob("print",()->{
 			client.changeData("count", String.valueOf(count.incrementAndGet()));
-			sleep(1000);
+			sleep(500);
 		}));
 	}
 	
@@ -35,18 +38,22 @@ public class JobTest extends LinearOpMode {
 		telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
-		client.putLine("TEST LINE 1");
 
 		for (int i = 0 ; i < 10 ; i++) {
 			addPrint();
 		}
 
+		client.putData("target count", target.getDependencies().size());
+		client.putData("dependency count", ((Interfaces.Countable) target).getCount());
+		client.update();
+
+		Job store = (Job) ((Interfaces.StoreRequired <?>) target).store();
+		client.putData("stored count", store.getDependencies().size());
+
 		waitForStart();
 
-		client.putLine("TEST LINE 2");
+		activeJob(store, new JobClientRender(client));
 
-		client.putData("dependency count", ((Interfaces.Countable) target).getCount());
-
-		activeJob((Job) ((Interfaces.StoreRequired<?>) target).store(), new JobClientRender(client));
+		FtcLogTunnel.MAIN.save("JobTest" + Timer.getCurrentTime());
 	}
 }

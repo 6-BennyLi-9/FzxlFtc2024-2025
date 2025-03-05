@@ -37,7 +37,7 @@ public class TreeJob implements Job , Interfaces.Countable, Interfaces.StoreRequ
 
 	@Override
 	public boolean isParallel() {
-		return dependencies.isEmpty();
+		return !dependencies.isEmpty();
 	}
 
 	@Override

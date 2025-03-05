@@ -3,20 +3,25 @@ package org.betastudio.ftc.job;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
 import org.firstinspires.ftc.robotcore.external.Func;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StoredJob implements Job, Func<Interfaces.ProgressMarker> {
-	protected final List <Job> dependencies = new ArrayList <>();
-	protected       String     name;
+	protected final List <Job>                dependencies = new ArrayList <>();
+	protected       String                    name;
 	protected       Interfaces.ProgressMarker progressMarker;
 
 	public StoredJob (@NonNull Job job) {
 		name = job.getName();
-		if (job.isParallel()) {
+		boolean parallel = job.isParallel();
+		FtcLogTunnel.MAIN.report("parallel:" + parallel);
+		if (parallel) {
 			dependencies.addAll(job.getDependencies());
 		} else {
 			dependencies.add(job);
@@ -27,6 +32,20 @@ public class StoredJob implements Job, Func<Interfaces.ProgressMarker> {
 		}else{
 			progressMarker = new ProgressMarker(1);
 		}
+	}
+
+	public StoredJob (Job... jobs) {
+		this(new ArrayList <>(Arrays.asList(jobs)));
+	}
+
+	public StoredJob (@NonNull List <Job> jobs) {
+		this(Labeler.generate().summonID(jobs), jobs);
+	}
+
+	public StoredJob (String name, @NonNull List <Job> jobs) {
+		this.name = name;
+		dependencies.addAll(jobs);
+		progressMarker = new ProgressMarker(jobs.size());
 	}
 
 	@Override
@@ -64,7 +83,9 @@ public class StoredJob implements Job, Func<Interfaces.ProgressMarker> {
 		if(dependencies.isEmpty()){
 			return false;
 		} else {
-			if (! dependencies.get(0).activate()) {
+			boolean activate = dependencies.get(0).activate();
+			FtcLogTunnel.MAIN.report("run:"+activate);
+			if (! activate) {
 				dependencies.remove(0);
 				progressMarker.tick();
 			}

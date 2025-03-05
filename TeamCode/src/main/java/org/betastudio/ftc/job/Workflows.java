@@ -9,7 +9,6 @@ import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 import org.firstinspires.ftc.robotcore.external.Func;
 
 public final class Workflows {
-
 	@NonNull
 	public static Job newSteppedJob(String name, Action action) {
 		Job res = new Step(action);
@@ -31,9 +30,9 @@ public final class Workflows {
 	public static void activeJob(Job arg, Interfaces.JobProgressRender render){
 		if (arg instanceof Func <?> && ((Func <?>) arg).value() instanceof Interfaces.ProgressMarker) {
 			Actions.runAction(() -> {
-				boolean activate = arg.activate();
+				boolean res = arg.activate();
 				render.render((Interfaces.ProgressMarker) ((Func <?>) arg).value());
-				return activate;
+				return res;
 			});
 		} else {
 			Actions.runAction(arg);

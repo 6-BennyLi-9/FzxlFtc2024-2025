@@ -24,8 +24,4 @@ public interface Action {
 	default void run() {
 		Actions.runAction(this);
 	}
-
-	default Boolean call() {
-		return activate();
-	}
 }
