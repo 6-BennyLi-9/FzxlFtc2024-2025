@@ -2,6 +2,8 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.time.Timestamp;
+import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.ExceptionMsg;
 import org.betastudio.ftc.util.message.StringMsg;
 import org.betastudio.ftc.util.message.TelemetryMsg;
@@ -48,13 +50,11 @@ public enum FtcLogTunnel {
 	}
 
 	public void save() {
-		if (! log.getElements().isEmpty() && log.isUnsaved()) {
-			FtcLogFilesBase.addFile(log.save());
-		}
+		save(Labeler.generate().summonID(log) + new Timestamp());
 	}
 
 	public void save(final String fileName) {
-		if (! log.getElements().isEmpty() && log.isUnsaved()) {
+		if (isSaveAble()) {
 			FtcLogFilesBase.addFile(log.save());
 			log.setFileName(fileName);
 		}
@@ -62,5 +62,9 @@ public enum FtcLogTunnel {
 
 	public FtcLogFile getLogFile() {
 		return log;
+	}
+
+	public boolean isSaveAble() {
+		return ! log.getElements().isEmpty() && log.isUnsaved();
 	}
 }
