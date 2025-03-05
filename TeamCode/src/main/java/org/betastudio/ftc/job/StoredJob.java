@@ -7,13 +7,12 @@ import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
-import org.firstinspires.ftc.robotcore.external.Func;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class StoredJob implements Job, Func<Interfaces.ProgressMarker> {
+public class StoredJob implements RenderedJob {
 	protected final List <Job>                dependencies = new ArrayList <>();
 	protected       String                    name;
 	protected       Interfaces.ProgressMarker progressMarker;

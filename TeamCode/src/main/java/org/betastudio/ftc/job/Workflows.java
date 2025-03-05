@@ -6,7 +6,6 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
-import org.firstinspires.ftc.robotcore.external.Func;
 
 public final class Workflows {
 	@NonNull
@@ -24,15 +23,11 @@ public final class Workflows {
 	}
 
 	public static void activeJob(Job arg){
-		activeJob(arg, new IgnoredJobProgressRender());
+		Actions.runAction(() -> activeJobSync(arg));
 	}
 
 	public static void activeJob(Job arg, Interfaces.JobProgressRender render){
-		if (arg instanceof Func <?> && ((Func <?>) arg).value() instanceof Interfaces.ProgressMarker) {
-			Actions.runAction(() -> activeJobSync(arg, render));
-		} else {
-			Actions.runAction(() -> activeJobSync(arg));
-		}
+		Actions.runAction(() -> activeJobSync(arg, render));
 	}
 
 	public static boolean activeJobSync(@NonNull Job arg) {
@@ -41,7 +36,9 @@ public final class Workflows {
 
 	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.JobProgressRender render){
 		boolean res = arg.activate();
-		render.render((Interfaces.ProgressMarker) ((Func <?>) arg).value());
+		if (arg instanceof RenderedJob){
+			render.render(((RenderedJob) arg).value());
+		}
 		return res;
 	}
 }
