@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class StoredJob implements RenderedJob {
+public class StoredJob implements RenderedJob, Interfaces.Countable {
 	protected final List <Job>                dependencies = new ArrayList <>();
 	protected       String                    name;
 	protected       Interfaces.ProgressMarker progressMarker;
@@ -20,7 +20,6 @@ public class StoredJob implements RenderedJob {
 	public StoredJob (@NonNull Job job) {
 		name = job.getName();
 		boolean parallel = job.isParallel();
-		FtcLogTunnel.MAIN.report("parallel:" + parallel);
 		if (parallel) {
 			dependencies.addAll(job.getDependencies());
 		} else {
@@ -100,5 +99,18 @@ public class StoredJob implements RenderedJob {
 	@Override
 	public Interfaces.ProgressMarker value() {
 		return progressMarker;
+	}
+
+	@Override
+	public long getCount() {
+		AtomicLong res = new AtomicLong();
+		dependencies.forEach(job -> {
+			if (job instanceof Interfaces.Countable){
+				res.addAndGet(((Interfaces.Countable) job).getCount());
+			} else {
+				res.addAndGet(1);
+			}
+		});
+		return res.get();
 	}
 }
