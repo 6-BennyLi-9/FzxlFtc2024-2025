@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftScale;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.lift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.place;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightArm;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
@@ -261,7 +261,7 @@ public class UtilsMng {
 	 * @return 电梯控制器对象
 	 */
 	protected LiftCtrl liftControllerGenerator(final long target) {
-		return new DcAutoLiftCtrl(lift, target);
+		return new DcAutoLiftCtrl(rightLift, target);
 	}
 
 	/**

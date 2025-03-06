@@ -57,7 +57,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 
 	@Override
 	public void connect() {
-		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.lift);
+		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.rightLift);
 
 		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
 	}
