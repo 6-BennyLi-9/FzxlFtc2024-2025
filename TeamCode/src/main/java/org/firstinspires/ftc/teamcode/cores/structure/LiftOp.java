@@ -7,9 +7,9 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -57,7 +57,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 
 	@Override
 	public void connect() {
-		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.rightLift);
+		liftCtrl = new DcTeleLiftCtrl(HardwareDatabase.rightLift);
 
 		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
 	}

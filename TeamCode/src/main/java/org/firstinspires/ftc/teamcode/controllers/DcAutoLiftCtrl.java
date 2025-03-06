@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
-public class DcAutoLiftCtrl extends LiftControllers.DcLiftCtrl {
+public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
 	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
 		this(target, targetPosition, false);
 	}
