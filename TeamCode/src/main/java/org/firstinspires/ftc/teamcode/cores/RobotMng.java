@@ -92,62 +92,6 @@ public class RobotMng implements Interfaces.Updatable {
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
 		controllers.put("drive", new DriveOp());
-
-		fetchClient();
-		initSimpleGamepadRequests();
-	}
-
-	protected void initSimpleGamepadRequests() {
-		clipOption.setCallback(()-> ClipOp.getInstance().change());
-		clipOption.setAutoActive(true);
-
-		sampleIO.setCallback(()->ClawOp.getInstance().change());
-		sampleIO.setAutoActive(true);
-
-		decantOrSuspend.setCallback(()->{
-			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
-			} else {
-				ArmOp.getInstance().safe();
-				PlaceOp.getInstance().flip();
-			}
-		});
-
-		flipArm.setCallback(()->{
-			if (ScalePositions.PROBE == ScaleOp.recent) {
-				ArmOp.getInstance().flipIO();
-			}
-		});
-		flipArm.setAutoActive(true);
-
-		switchViewMode.setCallback(()->{
-			client.switchViewMode();
-			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
-			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
-		});
-		switchViewMode.setAutoActive(true);
-
-		armScaleOperate.setCallback(()->{
-			armScaleOperate.ticker.tickAndMod(2);
-
-			//初始化
-			switch (armScaleOperate.ticker.getTicked()) {
-				case 0:
-					RotateOp.getInstance().mid();
-					PlaceOp.getInstance().idle();
-					ArmOp.getInstance().idle();
-					break;
-				case 1:
-					Global.service.execute(() -> {
-						Local.sleep(500);
-						ClawOp.getInstance().open();
-					});
-					ArmOp.getInstance().intake();
-					break;
-				default:
-					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
-			}
-		});
 	}
 
 	/**
@@ -193,6 +137,14 @@ public class RobotMng implements Interfaces.Updatable {
 	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
 	 */
 	public final void operateThroughGamepad() {
+		if (clipOption.getEnabled()) {
+			ClipOp.getInstance().change();
+		}
+
+		if (sampleIO.getEnabled()) {
+			ClawOp.getInstance().change();
+		}
+
 		if (liftIDLE.getEnabled()) {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
@@ -224,10 +176,36 @@ public class RobotMng implements Interfaces.Updatable {
 			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
 		}
 
-		decantOrSuspend.tryActivate();
+		if (decantOrSuspend.getEnabled()) {
+			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
+			} else {
+				ArmOp.getInstance().safe();
+				PlaceOp.getInstance().flip();
+			}
+		}
 
-		armScaleOperate.tryActivate();
+		if (armScaleOperate.getEnabled()) {
+			armScaleOperate.ticker.tickAndMod(2);
 
+			//初始化
+			switch (armScaleOperate.ticker.getTicked()) {
+				case 0:
+					RotateOp.getInstance().mid();
+					PlaceOp.getInstance().idle();
+					ArmOp.getInstance().idle();
+					break;
+				case 1:
+					Global.service.execute(() -> {
+						Local.sleep(500);
+						ClawOp.getInstance().open();
+					});
+					ArmOp.getInstance().intake();
+					break;
+				default:
+					throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+			}
+		}
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
@@ -238,6 +216,18 @@ public class RobotMng implements Interfaces.Updatable {
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
+		}
+
+		if (flipArm.getEnabled()) {
+			if (ScalePositions.PROBE == ScaleOp.recent) {
+				ArmOp.getInstance().flipIO();
+			}
+		}
+
+		if (switchViewMode.getEnabled()) {
+			client.switchViewMode();
+			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
+			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
 		}
 	}
 
@@ -288,6 +278,7 @@ public class RobotMng implements Interfaces.Updatable {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
+//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
 		final Map <String, PriorityAction> map = thread.getActionMap();
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
@@ -297,7 +288,6 @@ public class RobotMng implements Interfaces.Updatable {
 		}
 	}
 
-	@Deprecated
 	public void printIMUVariables() {
 		final BNO055IMU   imu         = HardwareDatabase.imu;
 		final Orientation orientation = imu.getAngularOrientation();
