@@ -26,12 +26,12 @@ public class Step implements Job {
 	}
 
 	@Override
-	public void addDependency(Job job) {
+	public void addDependency(final Job job) {
 		throw new JobNotParalleledException();
 	}
 
 	@Override
-	public void removeDependency(Job job) {
+	public void removeDependency(final Job job) {
 		throw new JobNotParalleledException();
 	}
 
