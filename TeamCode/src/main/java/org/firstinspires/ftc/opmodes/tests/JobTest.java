@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.job.Job;
-import org.betastudio.ftc.job.StoredJob;
 import org.betastudio.ftc.job.TreeJob;
 import org.betastudio.ftc.job.Workflows;
 import org.betastudio.ftc.job.render.JobClientRender;
@@ -43,7 +42,7 @@ public class JobTest extends LinearOpMode {
 		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
 		client.update();
 
-		activeJob(new StoredJob(buildJob(3)), new JobClientRender(client));
+		activeJob(Workflows.newSteppedJob("print step", ()->client.putData("count",count.incrementAndGet())), new JobClientRender(client));
 
 		FtcLogTunnel.MAIN.save("JobTest" + Timer.getCurrentTime());
 
