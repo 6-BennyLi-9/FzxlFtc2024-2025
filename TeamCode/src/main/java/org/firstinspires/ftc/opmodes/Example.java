@@ -20,7 +20,7 @@ public class Example extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		client = new BaseMapClient(telemetry);
 		executor=new ThreadPoolExecutor(8,16,1, TimeUnit.SECONDS, new ArrayBlockingQueue <>(16), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
-		DcMotorEx rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
+		final DcMotorEx rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
 
 		waitForStart();
 

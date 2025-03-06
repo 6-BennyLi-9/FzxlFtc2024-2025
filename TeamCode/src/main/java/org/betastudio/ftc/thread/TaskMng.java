@@ -22,7 +22,7 @@ public class TaskMng {
 		private final String str;
 		private final Future <?> future;
 
-		public TaskFuture(String str, Future <?> future) {
+		public TaskFuture(final String str, final Future <?> future) {
 			this.str = str;
 			this.future = future;
 		}
@@ -36,7 +36,7 @@ public class TaskMng {
 		 * @param value 不会干任何事
 		 */
 		@Override
-		public void set(String value) {}
+		public void set(final String value) {}
 
 		@Override
 		public Future <?> value() {
@@ -45,13 +45,13 @@ public class TaskMng {
 	}
 	@NonNull
 	@Contract(value = "_ -> new", pure = true)
-	public static TaskFuture newTaskFuture(Future <?> future) {
+	public static TaskFuture newTaskFuture(final Future <?> future) {
 		return newTaskFuture(Labeler.generate().summonID(future), future);
 	}
 
 	@NonNull
 	@Contract(value = "_, _ -> new", pure = true)
-	public static TaskFuture newTaskFuture(String str, Future <?> future) {
+	public static TaskFuture newTaskFuture(final String str, final Future <?> future) {
 		return new TaskFuture(str, future);
 	}
 
@@ -59,7 +59,7 @@ public class TaskMng {
 
 	private final Set <TaskFuture> tasks;
 
-	public TaskMng(ExecutorService service) {
+	public TaskMng(final ExecutorService service) {
 		this.service = service;
 		tasks = new TreeSet <>(Comparator.comparing(TaskFuture::get));
 	}
@@ -68,32 +68,32 @@ public class TaskMng {
 		return service.shutdownNow();
 	}
 
-	public List <Runnable> reboot(ExecutorService newService){
-		List <Runnable> res = shutdown();
+	public List <Runnable> reboot(final ExecutorService newService){
+		final List <Runnable> res = shutdown();
 		service=newService;
 		return res;
 	}
 
-	public Future <?> execute(Runnable task) {
-		Future <?> submit = service.submit(task);
+	public Future <?> execute(final Runnable task) {
+		final Future <?> submit = service.submit(task);
 		tasks.add(newTaskFuture(submit));
 		return submit;
 	}
 
-	public Future <?> execute(String name, Runnable task){
-		Future <?> submit = service.submit(task);
+	public Future <?> execute(final String name, final Runnable task){
+		final Future <?> submit = service.submit(task);
 		tasks.add(newTaskFuture(name, submit));
 		return submit;
 	}
 
-	public <T> Future <T> execute(Callable<T> task){
-		Future <T> submit = service.submit(task);
+	public <T> Future <T> execute(final Callable<T> task){
+		final Future <T> submit = service.submit(task);
 		tasks.add(newTaskFuture(submit));
 		return submit;
 	}
 
-	public <T> Future <T> execute(String name,Callable<T> task){
-		Future <T> submit = service.submit(task);
+	public <T> Future <T> execute(final String name, final Callable<T> task){
+		final Future <T> submit = service.submit(task);
 		tasks.add(newTaskFuture(name, submit));
 		return submit;
 	}

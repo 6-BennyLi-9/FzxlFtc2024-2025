@@ -17,11 +17,11 @@ public final class AutonomousCommands {
 	public static class TrajectoryCommand implements Command{
 		private final Trajectory trajectory;
 
-		public TrajectoryCommand(Trajectory trajectory) {
+		public TrajectoryCommand(final Trajectory trajectory) {
 			this.trajectory = trajectory;
 		}
 
-		public void execute(@NonNull SampleMecanumDrive driver){
+		public void execute(@NonNull final SampleMecanumDrive driver){
 			driver.followTrajectoryAsync(trajectory);
 		}
 	}
@@ -29,11 +29,11 @@ public final class AutonomousCommands {
 	public static class TrajectorySequenceCommand implements Command{
 		private final TrajectorySequence trajectory;
 
-		public TrajectorySequenceCommand(TrajectorySequence trajectory) {
+		public TrajectorySequenceCommand(final TrajectorySequence trajectory) {
 			this.trajectory = trajectory;
 		}
 
-		public void execute(@NonNull SampleMecanumDrive driver){
+		public void execute(@NonNull final SampleMecanumDrive driver){
 			driver.followTrajectorySequenceAsync(trajectory);
 		}
 	}
@@ -41,11 +41,11 @@ public final class AutonomousCommands {
 	public static class ActionCommand implements Command{
 		private final Action action;
 
-		public ActionCommand(Action action) {
+		public ActionCommand(final Action action) {
 			this.action = action;
 		}
 
-		public ActionCommand(Runnable runnable){
+		public ActionCommand(final Runnable runnable){
 			this.action = new StatementAction(runnable);
 		}
 

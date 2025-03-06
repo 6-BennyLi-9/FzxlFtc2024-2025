@@ -23,7 +23,7 @@ public final class Global {
 	public static       RunMode runMode;
 	public static  OpMode  currentOpmode;
 	public static  Client  client;
-	private static boolean auto_create_monitor = false;
+	private static boolean auto_create_monitor;
 
 	public static void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
 		Global.gamepad1 = gamepad1;
