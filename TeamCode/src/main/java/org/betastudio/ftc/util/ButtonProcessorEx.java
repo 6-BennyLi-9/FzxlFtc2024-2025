@@ -1,7 +1,9 @@
 package org.betastudio.ftc.util;
 
 import org.betastudio.ftc.Annotations.Beta;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
+@Deprecated
 public class ButtonProcessorEx extends ButtonProcessor {
 	@FunctionalInterface
 	public interface ButtonCallback{
@@ -37,6 +39,7 @@ public class ButtonProcessorEx extends ButtonProcessor {
 
 	public void tryActivate(){
 		boolean enabled = getEnabled();
+		FtcLogTunnel.MAIN.report("enabled=" + enabled);
 		if (enabled){
 			callback.onActive();
 		}else{

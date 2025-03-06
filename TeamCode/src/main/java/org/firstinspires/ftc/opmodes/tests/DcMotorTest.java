@@ -29,10 +29,10 @@ public class DcMotorTest extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		telemetry.setAutoClear(false);
 		telemetry.update();
-		lift =hardwareMap.get(DcMotorEx.class, "lift");
+		lift =hardwareMap.get(DcMotorEx.class, "rightLift");
 		service = Global.defaultThreadExecutor();
 
-		Telemetry.Item liftPosition = telemetry.addData("lift position", null);
+		Telemetry.Item liftPosition = telemetry.addData("rightLift position", null);
 
 		lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 		lift.setDirection(DcMotorSimple.Direction.REVERSE);
