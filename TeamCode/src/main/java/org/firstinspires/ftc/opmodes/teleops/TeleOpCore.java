@@ -11,7 +11,6 @@ public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void op_init() {
 		super.op_init();
-		GamepadRequests.reboot();
 		client.putData("DriveCtrlMode", "wait for start");
 	}
 
@@ -29,7 +28,5 @@ public class TeleOpCore extends IntegralTeleOp {
 
 		robot.update();
 		client.changeData("DriveCtrlMode", ChassisCtrl.mode.name());
-
-		GamepadRequests.printValues(client);
 	}
 }
