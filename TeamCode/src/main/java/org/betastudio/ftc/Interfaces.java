@@ -35,13 +35,15 @@ public final class Interfaces {
 	}
 
 	public interface ThreadEx {
-		/**
-		 * 安全的结束器，例如发送结束信号
-		 */
+		/// 安全的结束器，例如发送结束信号
 		void closeTask();
 	}
 
 	public interface Updatable {
 		void update();
+	}
+
+	public interface ValueProduction <T>{
+		T getVal();
 	}
 }

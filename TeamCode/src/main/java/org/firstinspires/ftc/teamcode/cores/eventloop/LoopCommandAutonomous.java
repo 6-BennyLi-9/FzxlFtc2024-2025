@@ -43,7 +43,7 @@ public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOp
 	public void op_loop() {
 		drive.update();
 		if (! drive.isBusy() && ! commands.isEmpty()) {
-			Command element = commands.remove();
+			final Command element = commands.remove();
 			if (element instanceof TrajectoryCommand) {
 				((TrajectoryCommand) element).execute(drive);
 			} else if (element instanceof TrajectorySequenceCommand) {
@@ -55,7 +55,7 @@ public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOp
 
 		if (is_terminate_method_called){
 			CoreDatabase.writeInVals(this, reason, timer.getDeltaTime());
-			if (inline_exception != null) {
+			if (null != inline_exception) {
 				if (inline_exception instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
 				} else {
@@ -70,7 +70,7 @@ public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOp
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e) {
+	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
 		is_terminate_method_called = true;
 		inline_exception = e;
 		this.reason = reason;

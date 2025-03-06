@@ -4,11 +4,11 @@ import java.util.Collection;
 
 public interface Step extends Job {
 	@Override
-	default void removeDependency(Job job) {
+	default void removeDependency(final Job job) {
 	}
 
 	@Override
-	default void addDependency(Job job) {
+	default void addDependency(final Job job) {
 	}
 
 	@Override
