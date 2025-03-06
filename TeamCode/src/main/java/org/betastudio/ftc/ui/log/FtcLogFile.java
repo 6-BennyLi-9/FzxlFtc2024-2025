@@ -51,7 +51,7 @@ public class FtcLogFile implements Interfaces.MessagesProcessRequired <Telemetry
 		addElement(new FtcLogElement.ElementImpl(new StringMsg("EOF")));
 		saveTime = new Timestamp();
 		saved = true;
-		fileName = Labeler.generate().summonID(this) + saveTime;
+		fileName = Labeler.gen().summon(this) + saveTime;
 		return this;
 	}
 

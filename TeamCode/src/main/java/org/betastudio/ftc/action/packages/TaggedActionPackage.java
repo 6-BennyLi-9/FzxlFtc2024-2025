@@ -25,12 +25,12 @@ public class TaggedActionPackage extends ActionPackage {
 
 	@Override
 	public void add(final Action action) {
-		add(Labeler.generate().summonID(action), action);
+		add(Labeler.gen().summon(action), action);
 	}
 
 	@Override
 	public void add(final PriorityAction action) {
-		add(Labeler.generate().summonID(action), action);
+		add(Labeler.gen().summon(action), action);
 	}
 
 	/**

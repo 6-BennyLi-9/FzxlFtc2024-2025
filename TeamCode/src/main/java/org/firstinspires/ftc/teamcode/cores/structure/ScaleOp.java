@@ -29,8 +29,8 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);
 		rightScaleController = new ServoCtrl(HardwareDatabase.rightScale, 0.5);
 
-		leftScaleController.setTag(Labeler.generate().summonID(leftScaleController));
-		rightScaleController.setTag(Labeler.generate().summonID(rightScaleController));
+		leftScaleController.setTag(Labeler.gen().summon(leftScaleController));
+		rightScaleController.setTag(Labeler.gen().summon(rightScaleController));
 	}
 
 	@NonNull
