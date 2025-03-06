@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 
-public class DcAutoLiftCtrl extends LiftControllers.DcLiftCtrl {
-	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition) {
-		this(target, targetPosition, false);
+public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
+	public DcAutoLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift, final long targetPosition) {
+		this(leftLift, rightLift, false);
 	}
 
-	public DcAutoLiftCtrl(@NonNull final DcMotorEx target, final long targetPosition, final boolean using_touch_calibrate) {
-		super(target);
+	public DcAutoLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift, final boolean using_touch_calibrate) {
+		super(leftLift, rightLift);
 		setTargetPosition(targetPosition);
 		using_touch_calibrate(using_touch_calibrate);
 	}

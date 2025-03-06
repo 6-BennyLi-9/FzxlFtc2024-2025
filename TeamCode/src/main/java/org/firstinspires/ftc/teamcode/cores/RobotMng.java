@@ -87,7 +87,7 @@ public class RobotMng implements Interfaces.Updatable {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new ClawOp());
-		controllers.put("lift", new LiftOp());
+		controllers.put("rightLift", new LiftOp());
 		controllers.put("place", new PlaceOp());
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
