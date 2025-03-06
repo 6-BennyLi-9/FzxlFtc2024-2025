@@ -42,4 +42,8 @@ public final class Interfaces {
 	public interface Updatable {
 		void update();
 	}
+
+	public interface ValueProduction <T>{
+		T getVal();
+	}
 }
