@@ -23,13 +23,13 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 
 	@Override
 	public boolean activate() {
-		currentPosition = rightLift.getCurrentPosition();
+		currentPosition = (rightLift.getCurrentPosition() + leftLift.getCurrentPosition()) / 2;
 
 		//特殊处理目标值为0的情况
 		if (0 == getTargetPosition() && using_touch_calibrate) {
 			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			leftLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
 			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+			leftLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
 			rightLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
 			if (! HardwareDatabase.liftTouch.isPressed()) {
 				leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -39,12 +39,12 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 		}
 
 		leftLift.setTargetPosition((int) getTargetPosition());
-		leftLift.setTargetPositionTolerance(tolerance);
-		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		leftLift.setPower(bufPow);
 		rightLift.setTargetPosition((int) getTargetPosition());
+		leftLift.setTargetPositionTolerance(tolerance);
 		rightLift.setTargetPositionTolerance(tolerance);
+		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+		leftLift.setPower(bufPow);
 		rightLift.setPower(bufPow);
 
 		return true;

@@ -22,24 +22,24 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
+	public static final long     decantLow          = 1080;
+	public static final long     decantHigh         = 2000;
+	public static final long     highSuspend        = 740;
+	public static final long     highSuspendPrepare = 1250;
+	public static final long     suspendLv1         = 770;
 	/**
 	 * 当前的电梯状态
 	 */
-	public static LiftMode recent                  = LiftMode.IDLE;
+	public static       LiftMode recent             = LiftMode.IDLE;
 	/**
 	 * 结构控制器
 	 */
-	public static LiftCtrl liftCtrl;
+	public static       LiftCtrl liftCtrl;
 	/**
 	 * 电梯的具体点位
 	 */
-	public static       long idlePosition;
-	public static final long decantLow  = 1080;
-	public static final long decantHigh = 2000;
-	public static final long highSuspend = 740;
-	public static final long highSuspendPrepare = 1250;
-	public static final long suspendLv1         = 770;
-	private static      LiftOp instance;
+	public static       long     idlePosition;
+	private static      LiftOp   instance;
 
 	public static LiftOp getInstance() {
 		return instance;

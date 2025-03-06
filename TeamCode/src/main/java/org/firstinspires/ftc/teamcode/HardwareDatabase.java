@@ -83,8 +83,8 @@ public final class HardwareDatabase {
 		rightFront.setZeroPowerBehavior(BRAKE);
 		rightRear.setZeroPowerBehavior(BRAKE);
 
-		leftLift.setDirection(FORWARD);
-		rightLift.setDirection(REVERSE);
+		leftLift.setDirection(REVERSE);
+		rightLift.setDirection(FORWARD);
 
 		leftLift.setMode(STOP_AND_RESET_ENCODER);
 		leftLift.setMode(RUN_WITHOUT_ENCODER);
