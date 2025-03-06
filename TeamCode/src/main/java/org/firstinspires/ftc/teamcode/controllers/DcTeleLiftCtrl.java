@@ -17,28 +17,35 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 	public static final int     tolerance             = 10;
 	private             boolean using_touch_calibrate = true;
 
-	public DcTeleLiftCtrl(@NonNull final DcMotorEx target) {
-		super(target);
+	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
+		super(leftLift, rightLift);
 	}
 
 	@Override
 	public boolean activate() {
-		currentPosition = targetLift.getCurrentPosition();
+		currentPosition = rightLift.getCurrentPosition();
 
 		//特殊处理目标值为0的情况
 		if (0 == getTargetPosition() && using_touch_calibrate) {
-			targetLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			targetLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
+			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+			leftLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
+			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+			rightLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
 			if (! HardwareDatabase.liftTouch.isPressed()) {
-				targetLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			}
 			return true;
 		}
 
-		targetLift.setTargetPosition((int) getTargetPosition());
-		targetLift.setTargetPositionTolerance(tolerance);
-		targetLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		targetLift.setPower(bufPow);
+		leftLift.setTargetPosition((int) getTargetPosition());
+		leftLift.setTargetPositionTolerance(tolerance);
+		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+		leftLift.setPower(bufPow);
+		rightLift.setTargetPosition((int) getTargetPosition());
+		rightLift.setTargetPositionTolerance(tolerance);
+		rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+		rightLift.setPower(bufPow);
 
 		return true;
 	}

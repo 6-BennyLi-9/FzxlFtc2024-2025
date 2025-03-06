@@ -4,12 +4,13 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftScale;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.place;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightArm;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
@@ -22,11 +23,11 @@ import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
-import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
+import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -261,7 +262,7 @@ public class UtilsMng {
 	 * @return 电梯控制器对象
 	 */
 	protected LiftCtrl liftControllerGenerator(final long target) {
-		return new DcAutoLiftCtrl(rightLift, target);
+		return new DcAutoLiftCtrl(leftLift, rightLift, target);
 	}
 
 	/**

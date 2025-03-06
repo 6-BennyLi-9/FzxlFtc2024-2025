@@ -10,19 +10,21 @@ import org.betastudio.ftc.action.Action;
  * LiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
  */
 public abstract class LiftCtrl implements Action {
-	protected final DcMotorEx targetLift; // 目标升降机构电机
+	protected final DcMotorEx leftLift;
+	protected final DcMotorEx rightLift;
 	protected       long      currentPosition;
 	protected       long      targetPosition;
-	protected       String    tag; // 控制器的标签
+	protected       String    tag;
 
 	/**
 	 * 构造函数，初始化目标升降机构电机和标签。
 	 *
-	 * @param target 目标升降机构电机
+	 * @param leftLift 目标升降机构电机
 	 */
-	protected LiftCtrl(@NonNull final DcMotorEx target) {
-		targetLift = target; // 设置目标电机
-		tag = target.getDeviceName(); // 设置标签为电机的设备名称
+	protected LiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
+		this.leftLift = leftLift;
+		this.rightLift = rightLift;
+		tag = "lift";
 	}
 
 	/**

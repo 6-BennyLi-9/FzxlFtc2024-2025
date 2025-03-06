@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -57,7 +59,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 
 	@Override
 	public void connect() {
-		liftCtrl = new DcTeleLiftCtrl(HardwareDatabase.rightLift);
+		liftCtrl = new DcTeleLiftCtrl(leftLift, rightLift);
 
 		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
 	}
