@@ -50,7 +50,7 @@ public enum FtcLogTunnel {
 	}
 
 	public void save() {
-		save(Labeler.generate().summonID(log) + new Timestamp());
+		save(Labeler.gen().summon(log) + new Timestamp());
 	}
 
 	public void save(final String fileName) {

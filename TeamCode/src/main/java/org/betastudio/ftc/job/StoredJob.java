@@ -38,7 +38,7 @@ public class StoredJob implements RenderedJob, Interfaces.Countable {
 	}
 
 	public StoredJob (@NonNull List <Job> jobs) {
-		this(Labeler.generate().summonID(jobs), jobs);
+		this(Labeler.gen().summon(jobs), jobs);
 	}
 
 	public StoredJob (String name, @NonNull List <Job> jobs) {
