@@ -40,7 +40,7 @@ public final class Workflows {
 		synchronized (Objects.requireNonNull(arg)) {
 			boolean res = arg.activate();
 			if (arg instanceof RenderedJob) {
-				render.render(arg.getName(), ((RenderedJob) arg).value());
+				render.render(arg.getName(), ((RenderedJob) arg).getVal());
 			}
 			return res;
 		}

@@ -97,7 +97,7 @@ public class StoredJob implements RenderedJob, Interfaces.Countable {
 	}
 
 	@Override
-	public Interfaces.ProgressMarker value() {
+	public Interfaces.ProgressMarker getVal() {
 		return progressMarker;
 	}
 
