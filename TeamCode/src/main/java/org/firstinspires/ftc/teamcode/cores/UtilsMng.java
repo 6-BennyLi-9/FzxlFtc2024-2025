@@ -353,7 +353,7 @@ public class UtilsMng {
 	 * 运行缓存的动作。
 	 */
 	public void runCached() {
-		Actions.runAction(new LinkedAction(actions));
+		Actions.runAction(pack());
 		actions.clear();
 	}
 
