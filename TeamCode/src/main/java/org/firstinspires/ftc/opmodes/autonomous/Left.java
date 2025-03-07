@@ -139,7 +139,6 @@ public class Left extends StructuralLinearMode {
 		utils.waitMs(1300);
 		utils.integralLiftDownPrepare();
 		utils.waitMs(500);
-		utils.liftDown();
 		utils.liftSuspendLv1();
 		utils.runAsThread();
 
