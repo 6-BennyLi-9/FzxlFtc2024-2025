@@ -41,22 +41,46 @@ public class ObjectiveClient implements Client {
 		line.values().forEach(telemetry::removeLine);
 		line.clear();
 		runnables.clear();
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Override
 	public void putData(String key, String val) {
 		item.put(key, telemetry.addData(key, val));
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Override
 	public void deleteData(String key) {
 		telemetry.removeItem(item.remove(key));
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Override
 	public void changeData(String key, String val) {
 		if (item.containsKey(key)) {
 			Objects.requireNonNull(item.get(key)).setValue(val);
+
+			if (autoUpdate) {
+				this.update();
+			} else {
+				isUpdateRequested = false;
+			}
 		} else {
 			putData(key, val);
 		}
@@ -65,11 +89,23 @@ public class ObjectiveClient implements Client {
 	@Override
 	public void putLine(String key) {
 		line.put(key, telemetry.addLine(key));
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Override
 	public void deleteLine(String key) {
 		telemetry.removeLine(line.remove(key));
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Deprecated
@@ -82,6 +118,12 @@ public class ObjectiveClient implements Client {
 	@Override
 	public void speak(String text, String languageCode, String countryCode) {
 		telemetry.speak(text, languageCode, countryCode);
+
+		if (autoUpdate) {
+			this.update();
+		} else {
+			isUpdateRequested = false;
+		}
 	}
 
 	@Override
@@ -90,7 +132,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void setUpdateConfig(UpdateConfig updateConfig) {
+	public void setUpdateConfig(@NonNull UpdateConfig updateConfig) {
 		switch (updateConfig) {
 			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
 				autoUpdate = true;
