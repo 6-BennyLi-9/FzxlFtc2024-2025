@@ -149,6 +149,7 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public void update() {
+		runnables.forEach(Runnable::run);
 		telemetry.clearAll();
 		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
 		telemetry.addData("Status", Global.runMode);
@@ -212,6 +213,8 @@ public class BaseMapClient implements Client {
 			case MANUAL_UPDATE_REQUESTED:
 				autoUpdate = false;
 				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + updateConfig);
 		}
 	}
 
