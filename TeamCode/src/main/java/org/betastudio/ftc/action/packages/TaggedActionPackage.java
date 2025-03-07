@@ -101,7 +101,7 @@ public class TaggedActionPackage extends ActionPackage {
 	@Override
 	public void activateTillEnd() {
 		synchronized (actions){
-			new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())).run();
+			Actions.runAction(new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())));
 			priorityActionMap.clear();
 		}
 	}
