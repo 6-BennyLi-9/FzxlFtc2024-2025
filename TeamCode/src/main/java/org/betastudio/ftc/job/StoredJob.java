@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Deprecated
 public class StoredJob implements RenderedJob, Interfaces.Countable {
 	protected final List <Job>                dependencies = new ArrayList <>();
 	protected       String                    name;
