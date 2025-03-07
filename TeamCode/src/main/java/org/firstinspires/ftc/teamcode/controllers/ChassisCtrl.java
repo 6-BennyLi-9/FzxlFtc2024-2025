@@ -47,7 +47,7 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	 * @return 处理后的函数值
 	 */
 	private static double resolveFunc(final double val, final double k) {
-		double absVal = Math.abs(val);
+		final double absVal = Math.abs(val);
 		double result = k * absVal * absVal + (1 - k) * absVal;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
@@ -87,7 +87,7 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 		double pRF = vY + vX + vTurn;
 		double pRR = vY - vX + vTurn;
 
-		if (Math.abs(pLF) > maxControlPower || Math.abs(pLR) > maxControlPower || Math.abs(pRF) > maxControlPower || Math.abs(pRR) > maxControlPower) {
+		if (maxControlPower < Math.abs(pLF) || maxControlPower < Math.abs(pLR) || maxControlPower < Math.abs(pRF) || maxControlPower < Math.abs(pRR)) {
 			final double buf = Math.max(Math.max(Math.abs(pLF), Math.abs(pLR)), Math.max(Math.abs(pRF), Math.abs(pRR))) / maxControlPower;
 			pLF /= buf;
 			pLR /= buf;

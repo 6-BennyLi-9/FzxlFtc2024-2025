@@ -48,15 +48,15 @@ public class MotorDirections extends OpMode {
         rightFront.setDirection(rightFrontMotorDirection);
         rightRear.setDirection(rightRearMotorDirection);
 
-		List <DcMotorEx> motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
+		final List <DcMotorEx> motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
-        for (DcMotorEx motor : motors) {
-            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+        for (final DcMotorEx motor : motors) {
+            final MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
         }
 
-        for (DcMotorEx motor : motors) {
+        for (final DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 

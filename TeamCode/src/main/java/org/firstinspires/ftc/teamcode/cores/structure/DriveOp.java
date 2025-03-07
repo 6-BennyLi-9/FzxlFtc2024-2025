@@ -30,7 +30,7 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);
 
-		chassisCtrl.setTag(Labeler.generate().summonID(chassisCtrl));
+		chassisCtrl.setTag(Labeler.gen().summon(chassisCtrl));
 	}
 
 	@NonNull

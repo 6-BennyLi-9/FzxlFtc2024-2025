@@ -186,7 +186,7 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines() {
-		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
+		for (final TaskMng.TaskFuture task : Global.service.getTasks()) {
 			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
 		}
 		this.telemetry.update();
@@ -210,7 +210,7 @@ public class BaseMapClient implements Client {
 	@Override
 	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
-			data.put(Labeler.generate().summonID(element), element);
+			data.put(Labeler.gen().summon(element), element);
 		}
 	}
 

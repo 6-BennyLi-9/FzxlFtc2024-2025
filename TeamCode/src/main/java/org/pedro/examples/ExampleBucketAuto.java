@@ -237,7 +237,7 @@ public class ExampleBucketAuto extends OpMode {
 
     /** These change the states of the paths and actions
      * It will also reset the timers of the individual switches **/
-    public void setPathState(int pState) {
+    public void setPathState(final int pState) {
         pathState = pState;
         pathTimer.resetTimer();
     }

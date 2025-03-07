@@ -36,9 +36,7 @@ public final class Interfaces {
 	}
 
 	public interface ThreadEx {
-		/**
-		 * 安全的结束器，例如发送结束信号
-		 */
+		/// 安全的结束器，例如发送结束信号
 		void closeTask();
 	}
 
@@ -84,5 +82,10 @@ public final class Interfaces {
 
 	public interface StoreRequired <T> {
 		T store();
+	}
+
+	@FunctionalInterface
+	public interface ValueProduction <T>{
+		T getVal();
 	}
 }

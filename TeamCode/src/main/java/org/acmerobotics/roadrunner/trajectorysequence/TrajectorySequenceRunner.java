@@ -184,7 +184,7 @@ public class TrajectorySequenceRunner {
 
 		poseHistory.add(poseEstimate);
 
-		if (- 1 < POSE_HISTORY_LIMIT && poseHistory.size() > POSE_HISTORY_LIMIT) {
+		if (- 1 < POSE_HISTORY_LIMIT && POSE_HISTORY_LIMIT < poseHistory.size()) {
 			poseHistory.removeFirst();
 		}
 
