@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 
-public interface ClientEx extends Client{
+public interface TokenizedClient extends Client{
 	void putData(final String token,final String key, final String val);
 	void putLine(final String token, final String val);
 	default void putData(final String token, final String key, @NonNull final Object val){
