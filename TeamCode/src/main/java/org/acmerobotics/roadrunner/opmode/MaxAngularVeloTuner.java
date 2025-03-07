@@ -52,7 +52,7 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 		drive.setDrivePower(new Pose2d(0, 0, 1));
 		final ElapsedTime timer = new ElapsedTime();
 
-		while (! isStopRequested() && timer.seconds() < RUNTIME) {
+		while (! isStopRequested() && RUNTIME > timer.seconds()) {
 			drive.updatePoseEstimate();
 
 			final Pose2d poseVelo = Objects.requireNonNull(drive.getPoseVelocity(), "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer.");

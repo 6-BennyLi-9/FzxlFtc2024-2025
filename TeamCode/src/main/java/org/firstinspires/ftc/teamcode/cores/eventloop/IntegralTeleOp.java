@@ -8,7 +8,7 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.cores.RobotMng;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
@@ -21,7 +21,7 @@ import org.betastudio.ftc.RunMode;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, ThreadEx {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    RobotMng  robot;
 	public    Timer     timer;
 	public    Client    client;
@@ -68,7 +68,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		if (- 1 != CoreDatabase.autonomous_time_used) {
 			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used);
-			client.putData("last terminateReason", CoreDatabase.last_terminateReason.name());
+			client.putData("last terminateReason", CoreDatabase.last_terminate_reason.name());
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -91,10 +91,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
 		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
-	}
-
-	public boolean auto_terminate_when_TLE() {
-		return auto_terminate_when_TLE;
 	}
 
 	@Override
@@ -122,8 +118,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		try {
 			op_loop_entry();
-		} catch (final UnsupportedOperationException exception) {
-			FtcLogTunnel.MAIN.report(exception);
+		} catch (final Exception exception) {
+			exception_entry(exception);
 		}
 	}
 
@@ -134,8 +130,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client.clear();
 
 		Global.runMode = RunMode.TERMINATE;
-
-		CoreDatabase.writeInVals(this, TerminateReason.USER_ACTIONS);
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);

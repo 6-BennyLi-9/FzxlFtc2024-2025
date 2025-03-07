@@ -5,20 +5,17 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;
-import org.firstinspires.ftc.teamcode.pid.PidProcessor;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
-public strictfp class DriveOp implements HardwareController, TagOptionsRequired {
+public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
 	public static final double kP = 0.0001, kI = 0, kD = 0;
-	private static final PidProcessor processor     = new PidProcessor(kP, kI, kD, 180);
 	public static        DriveMode    config        = DriveMode.STRAIGHT_LINEAR;
 	public static        ChassisCtrl  chassisCtrl;
 	public static        DriveBufMsg  globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
@@ -33,7 +30,7 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 	public void connect() {
 		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);
 
-		chassisCtrl.setTag(Labeler.generate().summonID(chassisCtrl));
+		chassisCtrl.setTag(Labeler.gen().summon(chassisCtrl));
 	}
 
 	@NonNull
@@ -53,10 +50,6 @@ public strictfp class DriveOp implements HardwareController, TagOptionsRequired 
 		final double angleErr     = targetAngle - currentAngle;
 
 		switch (config) {
-			case PID:
-				processor.modify(angleErr);
-				output = processor.getCalibrateVal();
-				break;
 			case SIMPLE_CALIBRATE:
 				output = (targetAngle - currentPowerAngle) * 0.8;
 				break;

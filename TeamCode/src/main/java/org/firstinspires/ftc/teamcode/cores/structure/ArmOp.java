@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.InitializeRequested;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -15,7 +13,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements HardwareController, InitializeRequested, TagOptionsRequired {
+public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
 	public static ArmPositions recent = ArmPositions.IDLE;
 	public static ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
@@ -29,8 +27,8 @@ public class ArmOp implements HardwareController, InitializeRequested, TagOption
 		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);
 		rightArmControl = new ServoCtrl(HardwareDatabase.rightArm, 0.7);
 
-		leftArmControl.setTag(Labeler.generate().summonID(leftArmControl));
-		rightArmControl.setTag(Labeler.generate().summonID(rightArmControl));
+		leftArmControl.setTag(Labeler.gen().summon(leftArmControl));
+		rightArmControl.setTag(Labeler.gen().summon(rightArmControl));
 	}
 
 	@Override

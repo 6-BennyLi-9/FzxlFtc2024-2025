@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralLinearMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralOpMode;
 import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -33,7 +34,7 @@ public final class CoreDatabase {
 	 * 上次操作模式终止的原因，默认为自然关闭。
 	 */
 	@NonNull
-	public static TerminateReason last_terminateReason;
+	public static TerminateReason last_terminate_reason;
 
 	/**
 	 * 自动模式下使用的时间，单位为秒。
@@ -48,7 +49,7 @@ public final class CoreDatabase {
 	static {
 		pose = null;
 		orientation = new Orientation();
-		last_terminateReason = TerminateReason.NATURALLY_SHUT_DOWN;
+		last_terminate_reason = TerminateReason.NATURALLY_SHUT_DOWN;
 		autonomous_time_used = - 1;
 	}
 
@@ -61,10 +62,9 @@ public final class CoreDatabase {
 	 */
 	public static void writeInVals(@NonNull final IntegralLinearMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
-		//		HardwareDatabase.syncIMU();
 		orientation = HardwareDatabase.imu.getAngularOrientation();
 		last_is_autonomous = true;
-		last_terminateReason = terminateReason;
+		last_terminate_reason = terminateReason;
 		CoreDatabase.autonomous_time_used = autonomous_time_used;
 	}
 
@@ -77,7 +77,15 @@ public final class CoreDatabase {
 	public static void writeInVals(@NonNull final IntegralTeleOp tele, final TerminateReason terminateReason) {
 		pose = null;
 		orientation = HardwareDatabase.imu.getAngularOrientation();
-		last_terminateReason = terminateReason;
+		last_terminate_reason = terminateReason;
 		last_is_autonomous = false;
+	}
+
+	public static void writeInVals(@NonNull final IntegralOpMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
+		pose = null;
+		orientation = HardwareDatabase.imu.getAngularOrientation();
+		last_is_autonomous = true;
+		last_terminate_reason = terminateReason;
+		CoreDatabase.autonomous_time_used = autonomous_time_used;
 	}
 }

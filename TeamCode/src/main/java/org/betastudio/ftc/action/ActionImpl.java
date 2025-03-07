@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.utils.NullptrAction;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 
 import java.util.concurrent.Callable;
 
-public class ActionImpl extends Thread implements Action, ThreadEx {
+/**
+ * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
+ */
+public class ActionImpl implements Action, Interfaces.ThreadEx {
 	private Callable <Boolean> action;
 	private boolean isStopRequested;
 

@@ -5,27 +5,32 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.DashboardCallable;
-import org.betastudio.ftc.util.entry.MessagesProcessRequired;
-import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.betastudio.ftc.util.message.DriveMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, DashboardCallable, MessagesProcessRequired <DriveMsg> {
-	public static final double kS = 1;
-	public static final double kF = - 1;
-	public static final double maxControlPower = 1.3;
-	public static final double smoothConfig    = 0.9;
-	public static final double vS              = 0.6;
-	public static       ChassisCtrlMode mode         = ChassisCtrlMode.FASTER_CONTROL;
-	public final  DcMotorEx       leftFront, leftRear, rightFront, rightRear;
-	private double pX, pY, pTurn, vX, vY, vTurn;
-	private String tag;
+public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveMsg> {
+	public static final double          kS              = 1;
+	public static final double          kF              = - 1;
+	public static final double          maxControlPower = 1.3;
+	public static final double          smoothConfig    = 0.9;
+	public static final double          vS              = 0.6;
+	public static       ChassisCtrlMode mode            = ChassisCtrlMode.FASTER_CONTROL;
+	public final        DcMotorEx       leftFront;
+	public final        DcMotorEx       leftRear;
+	public final        DcMotorEx       rightFront;
+	public final        DcMotorEx       rightRear;
+	private             double          pX;
+	private             double          pY;
+	private             double          pTurn;
+	private             double          vX;
+	private             double          vY;
+	private             double          vTurn;
+	private             String          tag;
 
 	public ChassisCtrl(final DcMotorEx leftFront, final DcMotorEx leftRear, final DcMotorEx rightFront, final DcMotorEx rightRear) {
 		this.leftFront = leftFront;
@@ -42,7 +47,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 	 * @return 处理后的函数值
 	 */
 	private static double resolveFunc(final double val, final double k) {
-		double absVal = Math.abs(val);
+		final double absVal = Math.abs(val);
 		double result = k * absVal * absVal + (1 - k) * absVal;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
@@ -82,7 +87,7 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 		double pRF = vY + vX + vTurn;
 		double pRR = vY - vX + vTurn;
 
-		if (Math.abs(pLF) > maxControlPower || Math.abs(pLR) > maxControlPower || Math.abs(pRF) > maxControlPower || Math.abs(pRR) > maxControlPower) {
+		if (maxControlPower < Math.abs(pLF) || maxControlPower < Math.abs(pLR) || maxControlPower < Math.abs(pRF) || maxControlPower < Math.abs(pRR)) {
 			final double buf = Math.max(Math.max(Math.abs(pLF), Math.abs(pLR)), Math.max(Math.abs(pRF), Math.abs(pRR))) / maxControlPower;
 			pLF /= buf;
 			pLR /= buf;
@@ -159,12 +164,5 @@ public strictfp class ChassisCtrl implements Action, DashboardCallable, Messages
 	@Override
 	public DriveMsg callMsg() {
 		return new DriveMsg(pX, pY, pTurn);
-	}
-
-	@Override
-	public void process(@NonNull final TelemetryMsg messageOverride) {
-		messageOverride.add(new TelemetryItem("vX", vX));
-		messageOverride.add(new TelemetryItem("vY", vY));
-		messageOverride.add(new TelemetryItem("vTurn", vTurn));
 	}
 }

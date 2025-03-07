@@ -8,17 +8,17 @@ import org.betastudio.ftc.action.utils.PriorityThreadedAction;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
  */
 public class ActionPackage {
-	protected final List <PriorityAction> actions;
+	protected final Set <PriorityAction> actions;
 
 	public ActionPackage() {
-		actions = new LinkedList <>();
+		actions = new TreeSet <>(Comparator.comparing(PriorityAction::getPriorityCode).reversed());
 	}
 
 	public void add(final PriorityAction action) {
@@ -26,11 +26,7 @@ public class ActionPackage {
 	}
 
 	public void add(final Action action) {
-		add(Actions.asPriority(action));
-	}
-
-	private void sort() {
-		actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
+		add(Actions.newMirroredPriority(action));
 	}
 
 	/**
@@ -38,25 +34,28 @@ public class ActionPackage {
 	 *
 	 * @see Action#activate()
 	 */
-	public boolean run() {
-		sort();
-		final Set <PriorityAction> remove = new HashSet <>();
+	public boolean activate() {
+		synchronized (actions){
+			final Set <PriorityAction> remove = new HashSet <>();
 
-		for (final PriorityAction action : actions) {
-			if (! action.activate()) {
-				remove.add(action);
+			for (final PriorityAction action : actions) {
+				if (! action.activate()) {
+					remove.add(action);
+				}
 			}
-		}
 
-		actions.removeAll(remove);
-		return ! actions.isEmpty();
+			actions.removeAll(remove);
+			return ! actions.isEmpty();
+		}
 	}
 
 	/**
 	 * 运行所有存储的 {@code Action}, 直到结束, 并清空 {@code Action} 列表
 	 */
-	public void runTillEnd() {
-		new PriorityThreadedAction(actions).run();
-		actions.clear();
+	public void activateTillEnd() {
+		synchronized (actions){
+			new PriorityThreadedAction(new LinkedList <>(actions)).run();
+			actions.clear();
+		}
 	}
 }

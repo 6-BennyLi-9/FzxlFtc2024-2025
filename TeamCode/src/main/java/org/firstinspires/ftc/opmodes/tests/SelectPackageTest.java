@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.util.ButtonProcessor;
@@ -13,7 +14,7 @@ import org.betastudio.ftc.util.ButtonConfig;
 import org.firstinspires.ftc.teamcode.Global;
 import org.betastudio.ftc.RunMode;
 
-@TestDoneSuccessfully
+@Annotations.TestDoneSuccessfully
 @TeleOp(group = "9_Tests")
 @Disabled
 public class SelectPackageTest extends LinearOpMode {

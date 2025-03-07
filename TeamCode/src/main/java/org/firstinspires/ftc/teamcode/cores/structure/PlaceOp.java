@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.InitializeRequested;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements HardwareController, InitializeRequested, TagOptionsRequired {
+public class PlaceOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
 	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static  ServoCtrl      placeController;
 	private static PlaceOp        instance;
@@ -27,7 +25,7 @@ public class PlaceOp implements HardwareController, InitializeRequested, TagOpti
 	public void connect() {
 		placeController = new ServoCtrl(HardwareDatabase.place, 0);
 
-		placeController.setTag(Labeler.generate().summonID(placeController));
+		placeController.setTag(Labeler.gen().summon(placeController));
 	}
 
 	@NonNull

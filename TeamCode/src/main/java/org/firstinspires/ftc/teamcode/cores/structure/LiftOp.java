@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.controllers.LiftControllers;
+import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -20,25 +21,25 @@ import org.jetbrains.annotations.Contract;
  */
 @Config
 @SuppressWarnings("PublicField")
-public class LiftOp implements HardwareController, TagOptionsRequired {
+public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
+	public static final long     decantLow          = 1080;
+	public static final long     decantHigh         = 2000;
+	public static final long     highSuspend        = 740;
+	public static final long     highSuspendPrepare = 1250;
+	public static final long     suspendLv1         = 770;
 	/**
 	 * 当前的电梯状态
 	 */
-	public static LiftMode recent                  = LiftMode.IDLE;
+	public static       LiftMode recent             = LiftMode.IDLE;
 	/**
 	 * 结构控制器
 	 */
-	public static LiftCtrl liftCtrl;
+	public static       LiftCtrl liftCtrl;
 	/**
 	 * 电梯的具体点位
 	 */
-	public static       long idlePosition;
-	public static final long decantLow  = 1080;
-	public static final long decantHigh = 2000;
-	public static final long highSuspend = 740;
-	public static final long highSuspendPrepare = 1250;
-	public static final long suspendLv1         = 770;
-	private static      LiftOp instance;
+	public static       long     idlePosition;
+	private static      LiftOp   instance;
 
 	public static LiftOp getInstance() {
 		return instance;
@@ -58,9 +59,9 @@ public class LiftOp implements HardwareController, TagOptionsRequired {
 
 	@Override
 	public void connect() {
-		liftCtrl = new LiftControllers.DcLiftCtrl(HardwareDatabase.lift);
+		liftCtrl = new DcTeleLiftCtrl(leftLift, rightLift);
 
-		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
+		liftCtrl.setTag(Labeler.gen().summon(liftCtrl));
 	}
 
 	public void sync(@NonNull final LiftMode option) {

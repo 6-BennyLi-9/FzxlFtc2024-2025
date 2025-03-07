@@ -18,18 +18,19 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.packages.TaggedActionPackage;
-import org.betastudio.ftc.util.entry.DashboardCallable;
-import org.betastudio.ftc.util.entry.HardwareController;
-import org.betastudio.ftc.util.entry.InitializeRequested;
-import org.betastudio.ftc.util.entry.TagOptionsRequired;
-import org.betastudio.ftc.util.entry.Updatable;
 import org.betastudio.ftc.ui.client.Client;
-import org.betastudio.ftc.ui.dashboard.DashboardUtils;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.DriveBufMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Local;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
+import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 import org.firstinspires.ftc.teamcode.cores.structure.ArmOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ClawOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ClipOp;
@@ -40,52 +41,44 @@ import org.firstinspires.ftc.teamcode.cores.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ScaleOp;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.Local;
-import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
+ * 机器人管理类，实现了 {@link Interfaces.Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
  * 然后获取客户端 {@link #fetchClient()}。
  */
 @Config
-public class RobotMng implements Updatable {
+public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String printCode           = "-\\|/";
+	public static final String                                      printCode           = "-\\|/";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
-	public static final double driverTriggerBufFal = 0.2;
+	public static final double                                      driverTriggerBufFal = 0.2;
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double rotateTriggerBufFal = 0.01;
-	public static       boolean sendTelemetryPackets;
+	public static final double                                      rotateTriggerBufFal = 0.01;
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final  Map <String, HardwareController> controllers = new HashMap <>();
+	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public final  TaggedActionPackage              thread      = new TaggedActionPackage();
+	public final        TaggedActionPackage                         thread              = new TaggedActionPackage();
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public       int                              updateTime;
+	public              int                                         updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
-	private             Client                           client;
+	private             Client                                      client;
 
 	/**
 	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
@@ -94,7 +87,7 @@ public class RobotMng implements Updatable {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new ClawOp());
-		controllers.put("lift", new LiftOp());
+		controllers.put("rightLift", new LiftOp());
 		controllers.put("place", new PlaceOp());
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
@@ -121,18 +114,18 @@ public class RobotMng implements Updatable {
 	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
 	 */
 	public void initControllers() {
-		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
-			final String             k = entry.getKey();
-			final HardwareController v = entry.getValue();
+		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
+			final String                        k = entry.getKey();
+			final Interfaces.HardwareController v = entry.getValue();
 
 			v.connect();
 			v.writeToInstance();
 
-			if (v instanceof InitializeRequested) {
-				((InitializeRequested) v).init();
+			if (v instanceof Interfaces.InitializeRequested) {
+				((Interfaces.InitializeRequested) v).init();
 			}
-			if (v instanceof TagOptionsRequired) {
-				((TagOptionsRequired) v).setTag(k + ":ctrl");
+			if (v instanceof Interfaces.TagOptionsRequired) {
+				((Interfaces.TagOptionsRequired) v).setTag(k + ":ctrl");
 			}
 
 			thread.add(k, v.getController());
@@ -278,17 +271,11 @@ public class RobotMng implements Updatable {
 	 */
 	@Override
 	public void update() {
-		thread.run();
-	}
-
-	@Override
-	public boolean isUpdateRequested() {
-		return true;
+		thread.activate();
 	}
 
 	public void printActions() {
 		++ updateTime;
-		final TelemetryMsg message = new TelemetryMsg();
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
 //		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
@@ -298,15 +285,6 @@ public class RobotMng implements Updatable {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
 			client.changeData(s + "\t", updateCode + a.paramsString());
-//			client.deleteData(lastUpdateCode + s);
-			if (sendTelemetryPackets && a instanceof DashboardCallable) {
-				((DashboardCallable) a).process(message);
-			}
-		}
-		if (sendTelemetryPackets) {
-			DashboardUtils.fetch();
-			DashboardUtils.generateInstance().sendMsg(message);
-			DashboardUtils.generateInstance().update();
 		}
 	}
 

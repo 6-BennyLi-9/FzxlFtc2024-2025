@@ -18,7 +18,7 @@ public abstract class AbstractJob implements Job{
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setName(final String name) {
 
 	}
 
@@ -28,12 +28,12 @@ public abstract class AbstractJob implements Job{
 	}
 
 	@Override
-	public void addDependency(Job job) {
+	public void addDependency(final Job job) {
 
 	}
 
 	@Override
-	public void removeDependency(Job job) {
+	public void removeDependency(final Job job) {
 
 	}
 }

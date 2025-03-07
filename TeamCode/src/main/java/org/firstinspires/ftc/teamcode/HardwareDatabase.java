@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -16,7 +20,8 @@ public final class HardwareDatabase {
 	public static DcMotorEx   leftRear;
 	public static DcMotorEx   rightFront;
 	public static DcMotorEx   rightRear;
-	public static DcMotorEx   lift;
+	public static DcMotorEx   rightLift;
+	public static DcMotorEx   leftLift;
 	public static Servo       leftScale;
 	public static Servo       rightScale;
 	/**
@@ -44,7 +49,8 @@ public final class HardwareDatabase {
 		rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 		rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-		lift = hardwareMap.get(DcMotorEx.class, "lift");
+		leftLift = hardwareMap.get(DcMotorEx.class, "leftLift");
+		rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
 
 		//收集
 		leftScale = hardwareMap.get(Servo.class, "leftScale");
@@ -68,20 +74,22 @@ public final class HardwareDatabase {
 		config(connectIMU);
 	}
 
-	/**
-	 * 关于底盘的设定需要在 {@code Drive} 中修改
-	 */
+	/// 关于底盘的设定需要在 `Drive` 中修改
 	public static void config(final boolean connectIMU) {
-		lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-		rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		leftLift.setZeroPowerBehavior(BRAKE);
+		rightLift.setZeroPowerBehavior(BRAKE);
+		leftFront.setZeroPowerBehavior(BRAKE);
+		leftRear.setZeroPowerBehavior(BRAKE);
+		rightFront.setZeroPowerBehavior(BRAKE);
+		rightRear.setZeroPowerBehavior(BRAKE);
 
-		lift.setDirection(DcMotorSimple.Direction.REVERSE);
+		leftLift.setDirection(REVERSE);
+		rightLift.setDirection(FORWARD);
 
-		lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		leftLift.setMode(STOP_AND_RESET_ENCODER);
+		leftLift.setMode(RUN_WITHOUT_ENCODER);
+		rightLift.setMode(STOP_AND_RESET_ENCODER);
+		rightLift.setMode(RUN_WITHOUT_ENCODER);
 
 		if (connectIMU) {
 			final BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -101,13 +109,11 @@ public final class HardwareDatabase {
 		imu = hardwareMap.get(BNO055IMU.class, "imu");
 	}
 
-	/**
-	 * 手动用
-	 */
+	/// 手动用
 	public static void chassisConfig() {
-		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);   //F
-		leftRear.setDirection(DcMotorSimple.Direction.REVERSE);    //R
-		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);  //F
-		rightRear.setDirection(DcMotorSimple.Direction.FORWARD);   //R
+		leftFront.setDirection(REVERSE);   //F
+		leftRear.setDirection(REVERSE);    //R
+		rightFront.setDirection(FORWARD);  //F
+		rightRear.setDirection(FORWARD);   //R
 	}
 }
