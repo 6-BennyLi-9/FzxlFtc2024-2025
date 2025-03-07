@@ -54,7 +54,7 @@ public class ActionPackage {
 	 */
 	public void activateTillEnd() {
 		synchronized (actions){
-			new PriorityThreadedAction(new LinkedList <>(actions)).run();
+			Actions.runAction(new PriorityThreadedAction(new LinkedList <>(actions)));
 			actions.clear();
 		}
 	}
