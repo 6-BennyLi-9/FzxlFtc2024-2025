@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.betastudio.ftc.util.entry.ThreadEx;
+import org.betastudio.ftc.Interfaces;
 
 import java.util.concurrent.Executor;
 
-public class DaemonDriveService extends BaseMecanumDriveService implements ThreadEx {
+public class DaemonDriveService extends BaseMecanumDriveService implements Interfaces.ThreadEx {
 	private boolean callDaemonStop;
 
 	public DaemonDriveService(HardwareMap hardwareMap, @NonNull Executor executor) {
