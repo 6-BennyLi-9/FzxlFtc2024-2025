@@ -2,21 +2,21 @@ package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.Interfaces;
-import org.firstinspires.ftc.teamcode.Local;
-import org.firstinspires.ftc.teamcode.cores.RobotMng;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.betastudio.ftc.RunMode;
+import org.firstinspires.ftc.teamcode.cores.RobotMng;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -46,13 +46,10 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
-		Global.service.execute(()->{
-			FtcLogTunnel.MAIN.report("start client updater successful");
-			while (!isStopRequested()){
-				client.update();
-				Local.sleep(100);
-			}
-		});
+		MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
+		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
+		caller.setFrequencyFPS(10);
+		Global.service.execute(caller);
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
@@ -157,5 +154,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	@Override
 	public void exception_entry(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+	}
+
+	private void run() {
+		client.update();
 	}
 }
