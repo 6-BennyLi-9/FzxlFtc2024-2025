@@ -28,12 +28,6 @@ import java.util.Objects;
  */
 @Config
 public class BaseMapClient implements Client {
-	public static ClientViewMode clientViewMode;
-
-	static {
-		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
-	}
-
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
@@ -149,16 +143,6 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ClientViewMode clientViewMode) {
-		BaseMapClient.clientViewMode = clientViewMode;
-	}
-
-	@Override
-	public ClientViewMode getCurrentViewMode() {
-		return clientViewMode;
-	}
-
-	@Override
 	public Telemetry getOriginTelemetry() {
 		return telemetry;
 	}
@@ -166,11 +150,11 @@ public class BaseMapClient implements Client {
 	@Override
 	public void update() {
 		telemetry.clearAll();
-		telemetry.addData("ClientViewMode", clientViewMode.name());
+		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
 		telemetry.addData("Status", Global.runMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
-		switch (clientViewMode) {
+		switch (ClientViewMode.globalViewMode) {
 			case FTC_LOG:
 				updateLogLines();
 				break;
