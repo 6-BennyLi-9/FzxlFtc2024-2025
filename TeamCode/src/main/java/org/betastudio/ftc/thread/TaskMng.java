@@ -46,7 +46,7 @@ public class TaskMng {
 	@NonNull
 	@Contract(value = "_ -> new", pure = true)
 	public static TaskFuture newTaskFuture(Future <?> future) {
-		return newTaskFuture(Labeler.generate().summonID(future), future);
+		return newTaskFuture(Labeler.gen().summon(future), future);
 	}
 
 	@NonNull
