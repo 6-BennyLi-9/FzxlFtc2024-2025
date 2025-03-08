@@ -54,12 +54,12 @@ public class StoredJob implements RenderedJob, Interfaces.Countable {
 
 	@Override
 	public void addDependency(Job job) {
-		throw new JobNotParalleledException();
+		throw new StoredException();
 	}
 
 	@Override
 	public void removeDependency(Job job) {
-		throw new JobNotParalleledException();
+		throw new StoredException();
 	}
 
 	@Override

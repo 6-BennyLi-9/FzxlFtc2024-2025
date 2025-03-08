@@ -7,6 +7,8 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 
+import java.util.Objects;
+
 public final class Workflows {
 	@NonNull
 	public static Job newSteppedJob(String name, Action action) {
@@ -35,10 +37,12 @@ public final class Workflows {
 	}
 
 	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.JobProgressRender render){
-		boolean res = arg.activate();
-		if (arg instanceof RenderedJob){
-			render.render(arg.getName(), ((RenderedJob) arg).value());
+		synchronized (Objects.requireNonNull(arg)) {
+			boolean res = arg.activate();
+			if (arg instanceof RenderedJob) {
+				render.render(arg.getName(), ((RenderedJob) arg).getVal());
+			}
+			return res;
 		}
-		return res;
 	}
 }

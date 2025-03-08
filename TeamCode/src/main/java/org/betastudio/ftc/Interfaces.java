@@ -80,10 +80,12 @@ public final class Interfaces {
 		void render(String name, ProgressMarker marker);
 	}
 
+	@FunctionalInterface
 	public interface StoreRequired <T> {
 		T store();
 	}
 
+	@FunctionalInterface
 	public interface ValueProduction <T>{
 		T getVal();
 	}
