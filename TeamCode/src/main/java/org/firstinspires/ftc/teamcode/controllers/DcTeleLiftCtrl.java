@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 public class DcTeleLiftCtrl extends LiftCtrl {
 	public static final double  bufPow                = 1;
 	public static final int     tolerance             = 10;
-	private             boolean using_touch_calibrate = true;
+	protected           boolean using_touch_calibrate = true;
 
 	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
 		super(leftLift, rightLift);
@@ -48,13 +48,5 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 		rightLift.setPower(bufPow);
 
 		return true;
-	}
-
-	public void using_touch_calibrate(final boolean using_touch_calibrate) {
-		this.using_touch_calibrate = using_touch_calibrate;
-	}
-
-	public boolean using_touch_calibrate() {
-		return using_touch_calibrate;
 	}
 }

@@ -42,45 +42,112 @@ public class Left extends StructuralLinearMode {
 
 		waitForStart();
 
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.integralLiftUpPrepare();
+		utils.liftSuspendHighPrepare();
+		utils.runAsThread();
 		drive.followTrajectory(suspend_preload);
-		utils.liftSuspendHigh().runCached();
+		utils.liftSuspendHigh();
+		utils.runCached();
 		sleep(500);
-		utils.openClip().waitMs(100).liftDown().integralIntakes().scaleOperate(scaleGetPosition1).runAsThread();
+		utils.openClip();
+		utils.waitMs(100);
+		utils.liftDown();
+		utils.integralIntakes();
+		utils.scaleOperate(scaleGetPosition1);
+		utils.runAsThread();
 
 		drive.followTrajectory(get_sample);
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.displayArms();
+		utils.waitMs(600);
+		utils.integralIntakesEnding();
+		utils.waitMs(1200);
+		utils.openClaw().waitMs(100);
+		utils.closeClaw().waitMs(100);
+		utils.openClaw().waitMs(200);
+		utils.integralLiftUpPrepare();
+		utils.liftDecantHigh();
+		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_1);
 
 		sleep(1200);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(0.1).scaleOperate(scaleGetPosition2).runAsThread();
+		utils.decant();
+		utils.waitMs(1300);
+		utils.integralLiftDownPrepare();
+		utils.waitMs(500);
+		utils.liftDown();
+		utils.waitMs(500);
+		utils.integralIntakes();
+		utils.rotateRightTurn(0.1);
+		utils.scaleOperate(scaleGetPosition2);
+		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(to_sample_1);
 
 		sleep(1000);
 
-		utils.displayArms().waitMs(600).integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.displayArms();
+		utils.waitMs(600);
+		utils.integralIntakesEnding();
+		utils.waitMs(1200);
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		utils.waitMs(200);
+		utils.integralLiftUpPrepare();
+		utils.liftDecantHigh();
+		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_2);
 
 		sleep(1200);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().waitMs(500).integralIntakes().rotateRightTurn(- 0.1).displayArms().waitMs(200).scaleOperate(scaleGetPosition3).runAsThread();
+		utils.decant();
+		utils.waitMs(1300);
+		utils.integralLiftDownPrepare();
+		utils.waitMs(500);
+		utils.liftDown();
+		utils.waitMs(500);
+		utils.integralIntakes();
+		utils.rotateRightTurn(- 0.1);
+		utils.displayArms();
+		utils.waitMs(200);
+		utils.scaleOperate(scaleGetPosition3);
+		utils.runAsThread();
 		sleep(1500);
 		drive.followTrajectory(to_sample_2);
 
 		sleep(1000);
 
-		utils.integralIntakesEnding().waitMs(1200).openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).integralLiftUpPrepare().liftDecantHigh().runAsThread();
+		utils.integralIntakesEnding();
+		utils.waitMs(1200);
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		utils.waitMs(200);
+		utils.integralLiftUpPrepare();
+		utils.liftDecantHigh();
+		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_3);
 
 		sleep(1200);
-		utils.decant().waitMs(1300).integralLiftDownPrepare().waitMs(500).liftDown().liftSuspendLv1().runAsThread();
+		utils.decant();
+		utils.waitMs(1300);
+		utils.integralLiftDownPrepare();
+		utils.waitMs(500);
+		utils.liftSuspendLv1();
+		utils.runAsThread();
 
 		sleep(1000);
 		drive.followTrajectorySequence(park);
-		utils.closeClip().addAction(SimpleDriveOp.build(0, - 0.25, 0)).waitMs(1000).runCached();
+		utils.closeClip();
+		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
+		utils.waitMs(1000);
+		utils.runCached();
 
 		flagging_op_complete();
 	}
