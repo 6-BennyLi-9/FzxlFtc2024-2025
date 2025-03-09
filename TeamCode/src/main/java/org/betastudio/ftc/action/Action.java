@@ -17,15 +17,4 @@ public interface Action {
 	default String paramsString() {
 		return String.valueOf(this.hashCode());
 	}
-
-	/**
-	 * 运行 {@code Action} 块，调用 {@link Actions#runAction(Action)} 的委托方法
-	 */
-	default void run() {
-		Actions.runAction(this);
-	}
-
-	default Boolean call() {
-		return activate();
-	}
 }
