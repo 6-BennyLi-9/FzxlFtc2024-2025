@@ -39,45 +39,107 @@ public class Right extends IntegralAutonomous {
 
 	@Override
 	public void linear() {
-		utils.integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.integralLiftUpPrepare();
+		utils.liftSuspendHighPrepare();
+		utils.runAsThread();
 		runTrajectory("suspend preload");
-		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().scaleOperate(scaleGetPosition).runAsThread();
+		utils.liftSuspendHigh();
+		utils.waitMs(300);
+		utils.openClip();
+		utils.waitMs(100);
+		utils.liftDown();
+		utils.integralIntakes();
+		utils.scaleOperate(scaleGetPosition);
+		utils.runAsThread();
 		sleep(600);
 
 		runTrajectory("get sample 1");
-		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+		utils.displayArms();
+		utils.waitMs(600);
+		utils.closeClaw();
+		utils.waitMs(300);
+		utils.integralIntakesEnding();
+		utils.runCached();
 
 		sleep(900);
-		utils.openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).scaleOperate(scaleGetPosition).armsToSafePosition().waitMs(200).decant().runAsThread();
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		utils.waitMs(200);
+		utils.scaleOperate(scaleGetPosition);
+		utils.armsToSafePosition();
+		utils.waitMs(200);
+		utils.decant();
+		utils.runAsThread();
 		runTrajectory("get sample 2");
 		sleep(200);
-		utils.displayArms().waitMs(600).closeClaw().waitMs(300).integralIntakesEnding().runCached();
+		utils.displayArms();
+		utils.waitMs(600);
+		utils.closeClaw();
+		utils.waitMs(300);
+		utils.integralIntakesEnding();
+		utils.runCached();
 
 		sleep(900);
-		utils.openClaw().waitMs(100).closeClaw().waitMs(100).openClaw().waitMs(200).armsToSafePosition().decant().runAsThread();
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		utils.waitMs(200);
+		utils.armsToSafePosition();
+		utils.decant();
+		utils.runAsThread();
 		sleep(900);
 
 		runTrajectory("get sample suspend 1");
 		sleep(500);
-		utils.boxRst().addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.boxRst();
+		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0));
+		utils.waitMs(800);
+		utils.closeClip();
+		utils.waitMs(1000);
+		utils.integralLiftUpPrepare();
+		utils.liftSuspendHighPrepare();
+		utils.runAsThread();
 		sleep(1500);
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 1");
 		angleCalibration(0, RightSuspend.plus(new Pose2d(5, 5)));
 		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(5, 5))).back(3.5).build());
-		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
+		utils.liftSuspendHigh();
+		utils.waitMs(300);
+		utils.openClip();
+		utils.waitMs(100);
+		utils.liftDown();
+		utils.integralIntakes();
+		utils.runAsThread();
 		sleep(500);
 		runTrajectory("get sample suspend 2");
 		sleep(500);
-		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0)).waitMs(800).closeClip().waitMs(1000).integralLiftUpPrepare().liftSuspendHighPrepare().runAsThread();
+		utils.addAction(SimpleDriveOp.build(0, - 0.2, 0));
+		utils.waitMs(800);
+		utils.closeClip();
+		utils.waitMs(1000);
+		utils.integralLiftUpPrepare();
+		utils.liftSuspendHighPrepare();
+		utils.runAsThread();
 		sleep(1500);
 		utils.rstMotors();
 
 		runTrajectory("suspend got sample 2");
 		angleCalibration(0, RightSuspend.plus(new Pose2d(10, 5)));
 		drive.followTrajectory(generateBuilder(RightSuspend.plus(new Pose2d(10, 5))).back(3.2).build());
-		utils.liftSuspendHigh().waitMs(300).openClip().waitMs(100).liftDown().integralIntakes().runAsThread();
+		utils.liftSuspendHigh();
+		utils.waitMs(300);
+		utils.openClip();
+		utils.waitMs(100);
+		utils.liftDown();
+		utils.integralIntakes();
+		utils.runAsThread();
 		sleep(500);
 
 		runTrajectory("park");

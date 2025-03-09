@@ -24,7 +24,6 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
@@ -87,17 +86,6 @@ public class UtilsMng {
 	 */
 	public UtilsMng addStatement(final Runnable r) {
 		actions.add(new StatementAction(r));
-		return this;
-	}
-
-	/**
-	 * 添加一个等待线程结束的动作。
-	 *
-	 * @param t 要等待的线程
-	 * @return 当前对象
-	 */
-	public UtilsMng joinThread(final Thread t) {
-		actions.add(new StatementAction(() -> Local.waitForVal(t::isInterrupted, true)));
 		return this;
 	}
 
@@ -365,7 +353,7 @@ public class UtilsMng {
 	 * 运行缓存的动作。
 	 */
 	public void runCached() {
-		Actions.runAction(new LinkedAction(actions));
+		Actions.runAction(pack());
 		actions.clear();
 	}
 
@@ -373,16 +361,7 @@ public class UtilsMng {
 	 * 将缓存的动作作为线程运行。
 	 */
 	public void runAsThread() {
-		Global.service.execute(saveCachedAsThread());
-	}
-
-	/**
-	 * 保存缓存的动作到线程。
-	 *
-	 * @return 包含缓存动作的新线程
-	 */
-	public Runnable saveCachedAsThread() {
-		return this::runCached;
+		Global.service.execute(this::runCached);
 	}
 
 	/**
