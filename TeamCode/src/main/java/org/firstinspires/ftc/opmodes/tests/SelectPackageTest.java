@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
@@ -12,9 +14,9 @@ import org.betastudio.ftc.util.ButtonConfig;
 import org.betastudio.ftc.util.ButtonProcessor;
 import org.firstinspires.ftc.teamcode.Global;
 
-//@Annotations.TestDoneSuccessfully
+@Annotations.TestDoneSuccessfully
 @TeleOp(group = "9_Tests")
-//@Disabled
+@Disabled
 public class SelectPackageTest extends LinearOpMode {
 	public static final int ITEM_COUNT = 50;
 
@@ -63,7 +65,6 @@ public class SelectPackageTest extends LinearOpMode {
 			client.clear();
 			client.sendMsg(selections.buildTelemetryMsg());
 			client.update();
-			//			sleep(200);
 		}
 
 		Global.runMode = RunMode.TERMINATE;
