@@ -46,7 +46,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		client.configViewMode(ORIGIN_TELEMETRY);
 		client.setUpdateConfig(MANUALLY);
 
-		while (opModeInInit()) {
+		while (opModeInInit() && ! isStopRequested()) {
 			select_prev.sync(gamepad1.left_bumper);
 			select_next.sync(gamepad1.right_bumper);
 
@@ -94,7 +94,5 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			client.sendMsg(log_message);
 			client.update();
 		}
-
-		sleep(Long.MAX_VALUE);
 	}
 }
