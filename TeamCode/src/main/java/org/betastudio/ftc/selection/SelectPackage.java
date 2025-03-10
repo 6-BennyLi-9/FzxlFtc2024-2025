@@ -75,7 +75,7 @@ public class SelectPackage implements Interfaces.Updatable {
 		return elements;
 	}
 
-	public Range <Integer> getShow_range() {
+	public Range <Integer> getShowRange() {
 		return show_range;
 	}
 
@@ -89,5 +89,4 @@ public class SelectPackage implements Interfaces.Updatable {
 			elements.get(i).setSelected(i == selected_index);
 		}
 	}
-
 }
