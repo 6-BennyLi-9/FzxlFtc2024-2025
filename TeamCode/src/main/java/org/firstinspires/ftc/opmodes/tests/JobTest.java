@@ -39,7 +39,7 @@ public class JobTest extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 		client = new BaseMapClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
+		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 		client.update();
 
 		activeJob(Workflows.newSteppedJob("print step", ()->client.putData("count",count.incrementAndGet())), new JobClientRender(client));
