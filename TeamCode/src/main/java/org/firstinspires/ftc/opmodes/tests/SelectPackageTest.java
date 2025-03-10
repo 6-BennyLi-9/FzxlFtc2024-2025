@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.opmodes.tests;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.Annotations;
-import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
-import org.betastudio.ftc.ui.client.UpdateConfig;
-import org.betastudio.ftc.util.ButtonProcessor;
+import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
+import org.betastudio.ftc.ui.client.UpdateConfig;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.util.ButtonConfig;
+import org.betastudio.ftc.util.ButtonProcessor;
 import org.firstinspires.ftc.teamcode.Global;
-import org.betastudio.ftc.RunMode;
 
-@Annotations.TestDoneSuccessfully
+//@Annotations.TestDoneSuccessfully
 @TeleOp(group = "9_Tests")
-@Disabled
+//@Disabled
 public class SelectPackageTest extends LinearOpMode {
+	public static final int ITEM_COUNT = 50;
+
 	@Override
 	public void runOpMode() throws InterruptedException {
 		Global.runMode = RunMode.TELEOP;
@@ -26,11 +26,10 @@ public class SelectPackageTest extends LinearOpMode {
 		final BaseMapClient client     = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
 
-		selections.add(new SelectElement("item1", () -> telemetry.speak("item1 selected")));
-		selections.add(new SelectElement("item2", () -> telemetry.speak("item2 selected")));
-		selections.add(new SelectElement("item3", () -> telemetry.speak("item3 selected")));
-		selections.add(new SelectElement("item4", () -> telemetry.speak("item4 selected")));
-		selections.add(new SelectElement("item5", () -> telemetry.speak("item5 selected")));
+		for (int i = 0 ; i < ITEM_COUNT ; i++) {
+			final int index = i + 1;
+			selections.add(new SelectElement("item" + index, () -> telemetry.speak("item"+index+" selected")));
+		}
 		selections.update();
 
 		client.sendMsg(selections.buildTelemetryMsg());
