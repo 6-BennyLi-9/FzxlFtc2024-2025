@@ -35,13 +35,17 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	void speak(String text, String languageCode, String countryCode);
 
-	void configViewMode(final ClientViewMode clientViewMode);
+	default void configViewMode(final ClientViewMode clientViewMode) {
+		ClientViewMode.globalViewMode = clientViewMode;
+	}
 
 	UpdateConfig getUpdateConfig();
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
-	ClientViewMode getCurrentViewMode();
+	default ClientViewMode getCurrentViewMode() {
+		return ClientViewMode.globalViewMode;
+	}
 
 	Telemetry getOriginTelemetry();
 
@@ -52,14 +56,14 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	default void switchViewMode() {
 		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
-				configViewMode(ClientViewMode.FTC_LOG);
+				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
 				break;
 			case FTC_LOG:
-				configViewMode(ClientViewMode.THREAD_SERVICE);
+				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
 				break;
 			case THREAD_SERVICE:
 			default:
-				configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
+				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 				break;
 		}
 	}

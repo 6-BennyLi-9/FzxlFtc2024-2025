@@ -3,6 +3,7 @@ package org.pedro.examples;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,6 +18,7 @@ import org.pedro.constants.LocalizerParams;
  */
 
 @TeleOp(name = "Example Field-Centric Teleop", group = "Examples")
+@Disabled
 public class ExampleFieldCentricTeleop extends OpMode {
     private Follower follower;
     private final Pose startPose = new Pose(0,0,0);

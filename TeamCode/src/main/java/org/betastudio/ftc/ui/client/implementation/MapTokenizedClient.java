@@ -2,14 +2,14 @@ package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.ui.client.ClientEx;
+import org.betastudio.ftc.ui.client.TokenizedClient;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class ExpansionMapClient extends BaseMapClient implements ClientEx {
-	public ExpansionMapClient(@NonNull Telemetry telemetry) {
+public class MapTokenizedClient extends BaseMapClient implements TokenizedClient {
+	public MapTokenizedClient(@NonNull final Telemetry telemetry) {
 		super(telemetry);
 	}
 

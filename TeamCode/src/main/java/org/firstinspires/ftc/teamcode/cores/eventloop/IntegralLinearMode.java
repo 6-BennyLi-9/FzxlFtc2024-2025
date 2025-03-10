@@ -46,7 +46,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
+		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 		utils = new UtilsMng();
 		timer = new Timer();
 

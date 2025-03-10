@@ -12,13 +12,13 @@ public enum FtcLogTunnel {
 	MAIN, @Deprecated DEBUG;
 	private FtcLogFile log = new FtcLogFile();
 
-	public static void clear() {
+	private static void clear() {
 		for (final FtcLogTunnel tunnel : values()) {
 			tunnel.log = new FtcLogFile();
 		}
 	}
 
-	public static void saveFiles() {
+	private static void saveFiles() {
 		for (final FtcLogTunnel tunnel : values()) {
 			tunnel.save();
 		}

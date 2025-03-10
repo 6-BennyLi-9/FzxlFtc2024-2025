@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
-public class Right extends IntegralAutonomous {
+public class RightStale extends IntegralAutonomous {
 	public static final double scaleGetPosition = 0.238;
 
 	@Override

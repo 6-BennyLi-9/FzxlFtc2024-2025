@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.opmodes;
+package org.firstinspires.ftc.opmodes.others;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,7 +14,7 @@ import org.betastudio.ftc.util.ButtonConfig;
 import java.util.concurrent.atomic.AtomicReference;
 
 @TeleOp(group = "zzz")
-public class ViewModeConvertor extends LinearOpMode {
+public final class ViewModeConvertor extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		final SelectPackage                    selections  = new SelectPackage();
@@ -28,7 +28,7 @@ public class ViewModeConvertor extends LinearOpMode {
 			selections.add(new SelectElement(mode.name(), () -> target.set(mode)));
 		}
 
-		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
 		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		selections.update();
 		client.sendMsg(selections.buildTelemetryMsg());
