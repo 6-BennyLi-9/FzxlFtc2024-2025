@@ -28,7 +28,7 @@ public class ViewModeConvertor extends LinearOpMode {
 			selections.add(new SelectElement(mode.name(), () -> target.set(mode)));
 		}
 
-		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
 		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		selections.update();
 		client.sendMsg(selections.buildTelemetryMsg());

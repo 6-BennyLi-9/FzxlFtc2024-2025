@@ -24,7 +24,7 @@ public class SelectPackageTest extends LinearOpMode {
 		Global.prepareCoreThreadPool();
 		final SelectPackage selections = new SelectPackage();
 		final BaseMapClient client     = new BaseMapClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
 		for (int i = 0 ; i < ITEM_COUNT ; i++) {
 			final int index = i + 1;

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.opmodes;
 
 import static org.betastudio.ftc.ui.client.ClientViewMode.ORIGIN_TELEMETRY;
-import static org.betastudio.ftc.ui.client.UpdateConfig.MANUAL_UPDATE_REQUESTED;
+import static org.betastudio.ftc.ui.client.UpdateConfig.MANUALLY;
 import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -44,7 +44,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 		})));
 		files_select.update();
 		client.configViewMode(ORIGIN_TELEMETRY);
-		client.setUpdateConfig(MANUAL_UPDATE_REQUESTED);
+		client.setUpdateConfig(MANUALLY);
 
 		while (opModeInInit()) {
 			select_prev.sync(gamepad1.left_bumper);

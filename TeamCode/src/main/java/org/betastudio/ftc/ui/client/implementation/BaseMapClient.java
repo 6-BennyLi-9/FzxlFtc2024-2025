@@ -28,12 +28,6 @@ import java.util.Objects;
  */
 @Config
 public class BaseMapClient implements Client {
-	public static ClientViewMode clientViewMode;
-
-	static {
-		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
-	}
-
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
@@ -149,28 +143,19 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ClientViewMode clientViewMode) {
-		BaseMapClient.clientViewMode = clientViewMode;
-	}
-
-	@Override
-	public ClientViewMode getCurrentViewMode() {
-		return clientViewMode;
-	}
-
-	@Override
 	public Telemetry getOriginTelemetry() {
 		return telemetry;
 	}
 
 	@Override
 	public void update() {
+		runnables.forEach(Runnable::run);
 		telemetry.clearAll();
-		telemetry.addData("ClientViewMode", clientViewMode.name());
+		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
 		telemetry.addData("Status", Global.runMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
-		switch (clientViewMode) {
+		switch (ClientViewMode.globalViewMode) {
 			case FTC_LOG:
 				updateLogLines();
 				break;
@@ -216,18 +201,20 @@ public class BaseMapClient implements Client {
 
 	@Override
 	public UpdateConfig getUpdateConfig() {
-		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+		return autoUpdate ? UpdateConfig.AUTOMATIC : UpdateConfig.MANUALLY;
 	}
 
 	@Override
 	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
 		switch (updateConfig) {
-			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
+			case AUTOMATIC:
 				autoUpdate = true;
 				break;
-			case MANUAL_UPDATE_REQUESTED:
+			case MANUALLY:
 				autoUpdate = false;
 				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + updateConfig);
 		}
 	}
 
