@@ -94,7 +94,5 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			client.sendMsg(log_message);
 			client.update();
 		}
-
-		sleep(Long.MAX_VALUE);
 	}
 }
