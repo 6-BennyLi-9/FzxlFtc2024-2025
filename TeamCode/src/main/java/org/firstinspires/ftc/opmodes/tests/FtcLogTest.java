@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.opmodes;
+package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
