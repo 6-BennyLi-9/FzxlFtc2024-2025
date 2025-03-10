@@ -12,7 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class Example extends LinearOpMode {
+@Deprecated
+public class ThreadErrExample extends LinearOpMode {
 	public Client client;
 	public ExecutorService executor;
 
