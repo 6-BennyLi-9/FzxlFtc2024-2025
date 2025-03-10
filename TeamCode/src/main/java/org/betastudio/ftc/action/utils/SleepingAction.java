@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Contract;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public final class SleepingAction extends ActionImpl {
+public class SleepingAction extends ActionImpl {
 	private final long sleepMilliseconds;
 
 	public SleepingAction(final long sleepMilliseconds) {
