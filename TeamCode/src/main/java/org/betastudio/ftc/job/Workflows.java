@@ -5,23 +5,22 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 
 import java.util.Objects;
 
 public final class Workflows {
 	@NonNull
-	public static Job newSteppedJob(String name, Action action) {
-		Job res = new Step(action);
+	public static Step newSteppedJob(String name, Action action) {
+		Step res = new Step(action);
 		res.setName(name);
 		return res;
 	}
 
 	@NonNull
 	public static Step newSteppedJob(String name, Runnable work) {
-		Step res = new Step(work);
-		res.setName(name);
-		return res;
+		return newSteppedJob(name, new StatementAction(work));
 	}
 
 	public static void activeJob(Job arg){
