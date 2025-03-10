@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.opmodes;
+package org.firstinspires.ftc.opmodes.others;
 
 import androidx.annotation.NonNull;
 
