@@ -128,16 +128,16 @@ public class ObjectiveClient implements Client {
 
 	@Override
 	public UpdateConfig getUpdateConfig() {
-		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+		return autoUpdate ? UpdateConfig.AUTOMATIC : UpdateConfig.MANUALLY;
 	}
 
 	@Override
 	public void setUpdateConfig(@NonNull UpdateConfig updateConfig) {
 		switch (updateConfig) {
-			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
+			case AUTOMATIC:
 				autoUpdate = true;
 				break;
-			case MANUAL_UPDATE_REQUESTED:
+			case MANUALLY:
 				autoUpdate = false;
 				break;
 			default:

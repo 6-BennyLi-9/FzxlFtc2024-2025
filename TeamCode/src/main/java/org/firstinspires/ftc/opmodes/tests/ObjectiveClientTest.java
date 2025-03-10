@@ -9,7 +9,7 @@ public class ObjectiveClientTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		ObjectiveClient client = new ObjectiveClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
+		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 
 		client.putData("key1","val1");
 	}
