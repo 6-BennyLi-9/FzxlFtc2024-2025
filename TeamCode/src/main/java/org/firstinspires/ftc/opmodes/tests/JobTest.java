@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.job.Job;
-import org.betastudio.ftc.job.TreeJob;
+import org.betastudio.ftc.job.implementation.TreeJob;
 import org.betastudio.ftc.job.Workflows;
 import org.betastudio.ftc.job.render.JobClientRender;
 import org.betastudio.ftc.job.render.JobLogRender;

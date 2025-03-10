@@ -6,6 +6,7 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.StatementAction;
+import org.betastudio.ftc.job.implementation.Step;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 
 import java.util.Objects;

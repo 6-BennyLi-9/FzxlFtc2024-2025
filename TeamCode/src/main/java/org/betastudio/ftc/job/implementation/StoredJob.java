@@ -1,8 +1,12 @@
-package org.betastudio.ftc.job;
+package org.betastudio.ftc.job.implementation;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.job.Job;
+import org.betastudio.ftc.job.RenderedJob;
+import org.betastudio.ftc.job.StoredException;
+import org.betastudio.ftc.job.Workflows;
 import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;

@@ -1,12 +1,13 @@
-package org.betastudio.ftc.job;
+package org.betastudio.ftc.job.implementation;
 
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.job.Job;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TreeJob implements Job , Interfaces.Countable, Interfaces.StoreRequired<StoredJob> {
+public class TreeJob implements Job, Interfaces.Countable, Interfaces.StoreRequired<StoredJob> {
 	protected final List <Job> dependencies = new ArrayList <>();
 	protected       String     name;
 
