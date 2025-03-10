@@ -11,6 +11,8 @@ import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.TreeJob;
 import org.betastudio.ftc.job.Workflows;
 import org.betastudio.ftc.job.render.JobClientRender;
+import org.betastudio.ftc.job.render.JobLogRender;
+import org.betastudio.ftc.job.render.MultipleJobRender;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -42,7 +44,7 @@ public class JobTest extends LinearOpMode {
 		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 		client.update();
 
-		activeJob(Workflows.newSteppedJob("print step", ()->client.putData("count",count.incrementAndGet())), new JobClientRender(client));
+		activeJob(Workflows.newSteppedJob("print step", ()->client.putData("count",count.incrementAndGet())), new MultipleJobRender(new JobClientRender(client),new JobLogRender()));
 
 		FtcLogTunnel.MAIN.save("JobTest" + Timer.getCurrentTime());
 
