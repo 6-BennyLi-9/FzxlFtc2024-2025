@@ -55,12 +55,16 @@ public class SelectPackage implements Interfaces.Updatable {
 		elements.get(selected_index).setSelected(false);
 		selected_index = (selected_index - 1 + elements.size()) % elements.size();
 		elements.get(selected_index).setSelected(true);
+
+		updateSelectRange();
 	}
 
 	public void select_next() {
 		elements.get(selected_index).setSelected(false);
 		selected_index = (selected_index + 1 + elements.size()) % elements.size();
 		elements.get(selected_index).setSelected(true);
+
+		updateSelectRange();
 	}
 
 	public TelemetryMsg buildTelemetryMsg() {
@@ -87,6 +91,14 @@ public class SelectPackage implements Interfaces.Updatable {
 	public void update() {
 		for (int i = 0 ; i < elements.size() ; i++) {
 			elements.get(i).setSelected(i == selected_index);
+		}
+	}
+
+	public void updateSelectRange(){
+		if(selected_index < show_range.getLower()){
+			set_show_lower(selected_index);
+		} else if (selected_index >= show_range.getUpper()) {
+			set_show_lower(selected_index - show_lines + 1);
 		}
 	}
 }
