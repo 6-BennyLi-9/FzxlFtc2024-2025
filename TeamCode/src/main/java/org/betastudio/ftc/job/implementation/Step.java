@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.StatementAction;
+import org.betastudio.ftc.job.AbstractJob;
 import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.JobNotParalleledException;
 
 import java.util.Collections;
 import java.util.List;
 
-public class Step implements Job {
+public class Step extends AbstractJob {
 	protected final Action action;
-	protected       String name = "step";
 
 	public Step(Runnable runnable) {
 		this(new StatementAction(runnable));
@@ -35,16 +35,6 @@ public class Step implements Job {
 	@Override
 	public void removeDependency(final Job job) {
 		throw new JobNotParalleledException();
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override

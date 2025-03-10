@@ -3,6 +3,7 @@ package org.betastudio.ftc.job.implementation;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.job.AbstractJob;
 import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.RenderedJob;
 import org.betastudio.ftc.job.StoredException;
@@ -16,9 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StoredJob implements RenderedJob, Interfaces.Countable {
+public class StoredJob extends AbstractJob implements RenderedJob, Interfaces.Countable {
 	protected final List <Job>                dependencies = new ArrayList <>();
-	protected       String                    name;
 	protected       Interfaces.ProgressMarker progressMarker;
 
 	public StoredJob (@NonNull Job job) {
@@ -64,16 +64,6 @@ public class StoredJob implements RenderedJob, Interfaces.Countable {
 	@Override
 	public void removeDependency(Job job) {
 		throw new StoredException();
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override
