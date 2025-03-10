@@ -18,8 +18,8 @@ public final class Workflows {
 	}
 
 	@NonNull
-	public static Job newSteppedJob(String name, Runnable work) {
-		Job res = new Step(work);
+	public static Step newSteppedJob(String name, Runnable work) {
+		Step res = new Step(work);
 		res.setName(name);
 		return res;
 	}
