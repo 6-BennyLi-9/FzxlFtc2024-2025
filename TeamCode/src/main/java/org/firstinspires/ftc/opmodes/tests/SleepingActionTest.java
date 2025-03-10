@@ -25,9 +25,11 @@ public class SleepingActionTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		Actions.runAction(new DebugSleepingAction(1000));
-		FtcLogTunnel.MAIN.save();
+		FtcLogTunnel.MAIN.report("EOF");
 		telemetry.addLine("OP FINISHED");
 		telemetry.update();
+//		FtcLogTunnel.MAIN.save(this.getClass().getSimpleName() + System.nanoTime());
+		FtcLogTunnel.saveAndClear();
 		sleep(Long.MAX_VALUE);
 	}
 }
