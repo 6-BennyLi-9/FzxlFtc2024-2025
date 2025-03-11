@@ -90,13 +90,13 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
 
         motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
-        for (final DcMotorEx motor : motors) {
-            final MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+        for (DcMotorEx motor : motors) {
+            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
         }
 
-        for (final DcMotorEx motor : motors) {
+        for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
@@ -129,7 +129,7 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.cross || gamepad1.a) {
-            for (final DcMotorEx motor : motors) {
+            for (DcMotorEx motor : motors) {
                 motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 motor.setPower(0);
             }
@@ -137,19 +137,19 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
         }
 
         poseUpdater.update();
-        final Vector heading = new Vector(1.0, poseUpdater.getPose().getHeading());
+        Vector heading = new Vector(1.0, poseUpdater.getPose().getHeading());
         if (!end) {
             if (!stopping) {
-                if (VELOCITY < MathFunctions.dotProduct(poseUpdater.getVelocity(), heading)) {
+                if (MathFunctions.dotProduct(poseUpdater.getVelocity(), heading) > VELOCITY) {
                     previousVelocity = MathFunctions.dotProduct(poseUpdater.getVelocity(), heading);
                     previousTimeNano = System.nanoTime();
                     stopping = true;
-                    for (final DcMotorEx motor : motors) {
+                    for (DcMotorEx motor : motors) {
                         motor.setPower(0);
                     }
                 }
             } else {
-                final double currentVelocity = MathFunctions.dotProduct(poseUpdater.getVelocity(), heading);
+                double currentVelocity = MathFunctions.dotProduct(poseUpdater.getVelocity(), heading);
                 accelerations.add((currentVelocity - previousVelocity) / ((System.nanoTime() - previousTimeNano) / Math.pow(10.0, 9)));
                 previousVelocity = currentVelocity;
                 previousTimeNano = System.nanoTime();
@@ -159,7 +159,7 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
             }
         } else {
             double average = 0;
-            for (final Double acceleration : accelerations) {
+            for (Double acceleration : accelerations) {
                 average += acceleration;
             }
             average /= accelerations.size();

@@ -31,7 +31,7 @@ public class BaseMapClient implements Client {
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
-	protected       boolean                        autoUpdate;
+	protected       boolean                        autoUpdate = true;
 	protected       boolean                        isUpdateRequested;
 	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
@@ -171,7 +171,7 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines() {
-		for (final TaskMng.TaskFuture task : Global.service.getTasks()) {
+		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
 			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
 		}
 		this.telemetry.update();
@@ -211,10 +211,9 @@ public class BaseMapClient implements Client {
 				autoUpdate = true;
 				break;
 			case MANUALLY:
+			default:
 				autoUpdate = false;
 				break;
-			default:
-				throw new IllegalStateException("Unexpected value: " + updateConfig);
 		}
 	}
 

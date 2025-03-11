@@ -9,7 +9,7 @@ public class TelemetryItem implements TelemetryElement {
 		return capital;
 	}
 
-	public void setCapital(final String capital) {
+	public void setCapital(String capital) {
 		this.capital = capital;
 	}
 
@@ -17,7 +17,7 @@ public class TelemetryItem implements TelemetryElement {
 		return value;
 	}
 
-	public void setValue(final String value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 

@@ -68,15 +68,15 @@ public class LocalizationTest extends OpMode {
         rightFront.setDirection(rightFrontMotorDirection);
         rightRear.setDirection(rightRearMotorDirection);
 
-		final List <DcMotorEx> motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
+		List <DcMotorEx> motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
-        for (final DcMotorEx motor : motors) {
-            final MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+        for (DcMotorEx motor : motors) {
+            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
         }
 
-        for (final DcMotorEx motor : motors) {
+        for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
@@ -98,18 +98,18 @@ public class LocalizationTest extends OpMode {
         poseUpdater.update();
         dashboardPoseTracker.update();
 
-        final double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-        final double x = gamepad1.left_stick_x; // this is strafing
-        final double rx = gamepad1.right_stick_x;
+        double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+        double x = gamepad1.left_stick_x; // this is strafing
+        double rx = gamepad1.right_stick_x;
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
-        final double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        final double leftFrontPower = (y + x + rx) / denominator;
-        final double leftRearPower = (y - x + rx) / denominator;
-        final double rightFrontPower = (y - x - rx) / denominator;
-        final double rightRearPower = (y + x - rx) / denominator;
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        double leftFrontPower = (y + x + rx) / denominator;
+        double leftRearPower = (y - x + rx) / denominator;
+        double rightFrontPower = (y - x - rx) / denominator;
+        double rightRearPower = (y + x - rx) / denominator;
 
         leftFront.setPower(leftFrontPower);
         leftRear.setPower(leftRearPower);

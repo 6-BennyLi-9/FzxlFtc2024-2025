@@ -1,6 +1,8 @@
-name: Android Assemble Build
+name: Android CI
 
 on:
+  push:
+    branches: [ "teamcode" ]
   pull_request:
     branches: [ "teamcode" ]
 
