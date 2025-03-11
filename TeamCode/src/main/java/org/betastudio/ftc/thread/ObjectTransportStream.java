@@ -3,9 +3,13 @@ package org.betastudio.ftc.thread;
 import org.betastudio.ftc.Annotations;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Annotations.Beta(date = "25.3.11")
 public class ObjectTransportStream <T> {
+	public final Lock    pushLock;
+	public final Lock    receiveLock;
 	public boolean isValuePushed;
 	public T       value;
 
@@ -15,6 +19,8 @@ public class ObjectTransportStream <T> {
 
 	public ObjectTransportStream(T initialValue) {
 		this.value = initialValue;
+		pushLock = new ReentrantLock();
+		receiveLock = new ReentrantLock();
 	}
 
 	public void pushValue(T value) {
@@ -22,6 +28,7 @@ public class ObjectTransportStream <T> {
 	}
 
 	public void pushValue(T value, TimeUnit unit, long timeout){
+		pushLock.lock();
 		long startTime = System.nanoTime();
 		while (isValuePushed) {
 			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
@@ -32,6 +39,7 @@ public class ObjectTransportStream <T> {
 
 		this.value = value;
 		isValuePushed = true;
+		pushLock.unlock();
 	}
 
 	public T receiveValue() {
@@ -47,15 +55,18 @@ public class ObjectTransportStream <T> {
 	}
 
 	public T receiveValue(TimeUnit unit, long timeout, T defaultValue){
+		receiveLock.lock();
 		long startTime = System.nanoTime();
 		while (!isValuePushed) {
 			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
+				receiveLock.unlock();
 				return defaultValue;
 			}
 			Thread.yield();
 		}
 
 		isValuePushed = false;
+		receiveLock.unlock();
 		return this.value;
 	}
 
