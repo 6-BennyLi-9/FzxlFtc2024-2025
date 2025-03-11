@@ -22,7 +22,7 @@ public class SelectPackageTest extends LinearOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		Global.runMode = RunMode.TELEOP;
+		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.prepareCoreThreadPool();
 		final SelectPackage selections = new SelectPackage();
 		final BaseMapClient client     = new BaseMapClient(telemetry);
@@ -67,6 +67,6 @@ public class SelectPackageTest extends LinearOpMode {
 			client.update();
 		}
 
-		Global.runMode = RunMode.TERMINATE;
+		RunMode.globalRunMode = RunMode.TERMINATE;
 	}
 }

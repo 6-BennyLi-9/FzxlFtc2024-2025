@@ -36,7 +36,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.currentOpmode = this;
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
-		Global.runMode = RunMode.TELEOP;
+		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
 		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
@@ -126,7 +126,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public void op_end() {
 		client.clear();
 
-		Global.runMode = RunMode.TERMINATE;
+		RunMode.globalRunMode = RunMode.TERMINATE;
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);

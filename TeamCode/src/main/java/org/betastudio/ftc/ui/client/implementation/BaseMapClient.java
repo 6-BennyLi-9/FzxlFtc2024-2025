@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.TaskFuture;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
@@ -152,7 +153,7 @@ public class BaseMapClient implements Client {
 		runnables.forEach(Runnable::run);
 		telemetry.clearAll();
 		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
-		telemetry.addData("Status", Global.runMode);
+		telemetry.addData("Status", RunMode.globalRunMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (ClientViewMode.globalViewMode) {
