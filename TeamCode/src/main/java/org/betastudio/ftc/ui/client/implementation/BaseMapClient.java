@@ -187,7 +187,7 @@ public class BaseMapClient implements Client {
 
 	protected synchronized void updateThreadLines() {
 		for (final TaskMng.TaskFuture task : Global.service.getTasks()) {
-			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
+			this.telemetry.addData(task.get(), task.getVal().isDone() ? "Done" : "Running");
 		}
 		this.telemetry.update();
 	}

@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.ValueProvider;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Comparator;
@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class TaskMng {
-	public static final class TaskFuture implements ValueProvider<String>, Func <Future<?>> {
+	public static final class TaskFuture implements ValueProvider<String>, Interfaces.ValueProduction <Future<?>> {
 
 		private final String str;
 		private final Future <?> future;
@@ -39,7 +39,7 @@ public class TaskMng {
 		public void set(final String value) {}
 
 		@Override
-		public Future <?> value() {
+		public Future <?> getVal() {
 			return future;
 		}
 	}
