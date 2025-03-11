@@ -1,12 +1,10 @@
 package org.betastudio.ftc.action.packages;
 
 import org.betastudio.ftc.Annotations.Beta;
-import org.betastudio.ftc.thread.RunnableCallable;
+import org.betastudio.ftc.thread.ActionTask;
 
 @Beta(date = "2025-2-28")
 public class ConcurrentActionPackage extends TaggedActionPackage {
-	public static abstract class ActionTask extends RunnableCallable<Boolean> {
-	}
 
 	public ActionTask newActivateTask() {
 		return new ActionTask() {
