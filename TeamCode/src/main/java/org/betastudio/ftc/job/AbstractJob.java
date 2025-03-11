@@ -1,39 +1,25 @@
 package org.betastudio.ftc.job;
 
-import java.util.Collection;
-import java.util.Collections;
-
 public abstract class AbstractJob implements Job{
-	protected Collection<Job> dependencies;
 	protected String name;
 
 	@Override
-	public void run() {
+	public void addDependency(Job job) {
+		getDependencies().add(job);
+	}
 
+	@Override
+	public void removeDependency(Job job) {
+		getDependencies().remove(job);
 	}
 
 	@Override
 	public String getName() {
-		return "";
+		return name;
 	}
 
 	@Override
-	public void setName(final String name) {
-
-	}
-
-	@Override
-	public Collection <Job> getDependencies() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	public void addDependency(final Job job) {
-
-	}
-
-	@Override
-	public void removeDependency(final Job job) {
-
+	public void setName(String name) {
+		this.name=name;
 	}
 }

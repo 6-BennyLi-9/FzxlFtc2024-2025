@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.client;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Actions;
 
 public class InfinityLoopThread extends Thread implements Interfaces.ThreadEx {
 	private final InfinityLoopAction action;
@@ -12,7 +13,7 @@ public class InfinityLoopThread extends Thread implements Interfaces.ThreadEx {
 
 	@Override
 	public void run() {
-		action.run();
+		Actions.runAction(action);
 	}
 
 	@Override

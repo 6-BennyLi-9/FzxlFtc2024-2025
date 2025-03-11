@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.StructuralLinearMode;
 
 //@Deprecated
 @Autonomous(name = "Left(只倒)", preselectTeleOp = "19419", group = "0_Main")
-public class LeftDecantOnly extends StructuralLinearMode {
+public class LeftDecant extends StructuralLinearMode {
 	@Override
 	public void linear() {
 		drive.setPoseEstimate(LeftStart);

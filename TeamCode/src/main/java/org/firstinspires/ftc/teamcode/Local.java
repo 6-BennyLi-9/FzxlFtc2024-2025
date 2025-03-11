@@ -28,12 +28,12 @@ public final class Local {
 	}
 
 	public static <K> void waitForVal(final Callable <K> function, final K expect, final TimeUnit unit, final long timeout){
-		final AtomicBoolean timeLimited = new AtomicBoolean(false);
-		if(-1 != timeout){
+		AtomicBoolean timeLimited = new AtomicBoolean(false);
+		if(timeout != -1){
 			Global.service.execute(()->{
 				try {
 					unit.sleep(timeout);
-				} catch (final InterruptedException e) {
+				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}
 

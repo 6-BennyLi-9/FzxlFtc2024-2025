@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.opmodes;
+package org.firstinspires.ftc.opmodes.others;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -12,7 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class Example extends LinearOpMode {
+@Deprecated
+public class ThreadErrExample extends LinearOpMode {
 	public Client client;
 	public ExecutorService executor;
 
@@ -20,7 +21,7 @@ public class Example extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		client = new BaseMapClient(telemetry);
 		executor=new ThreadPoolExecutor(8,16,1, TimeUnit.SECONDS, new ArrayBlockingQueue <>(16), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
-		final DcMotorEx rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
+		DcMotorEx rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
 
 		waitForStart();
 

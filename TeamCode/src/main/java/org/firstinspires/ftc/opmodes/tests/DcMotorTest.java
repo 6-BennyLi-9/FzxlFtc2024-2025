@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 
 @Annotations.TestDoneSuccessfully
 @Disabled
+@Deprecated
 @Autonomous
 public class DcMotorTest extends LinearOpMode {
 	public Client          client;
@@ -31,7 +32,7 @@ public class DcMotorTest extends LinearOpMode {
 		lift =hardwareMap.get(DcMotorEx.class, "rightLift");
 		service = Global.defaultThreadExecutor();
 
-		final Telemetry.Item liftPosition = telemetry.addData("rightLift position", null);
+		Telemetry.Item liftPosition = telemetry.addData("rightLift position", null);
 
 		lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 		lift.setDirection(DcMotorSimple.Direction.REVERSE);

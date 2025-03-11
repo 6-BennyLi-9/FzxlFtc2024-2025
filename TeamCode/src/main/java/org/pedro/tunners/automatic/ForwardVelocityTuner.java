@@ -86,17 +86,17 @@ public class ForwardVelocityTuner extends OpMode {
 
         motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
-        for (final DcMotorEx motor : motors) {
-            final MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+        for (DcMotorEx motor : motors) {
+            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
         }
 
-        for (final DcMotorEx motor : motors) {
+        for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
 
-        for (int i = 0; RECORD_NUMBER > i; i++) {
+        for (int i = 0; i < RECORD_NUMBER; i++) {
             velocities.add(0.0);
         }
 
@@ -131,7 +131,7 @@ public class ForwardVelocityTuner extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.cross || gamepad1.a) {
-            for (final DcMotorEx motor : motors) {
+            for (DcMotorEx motor : motors) {
                 motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 motor.setPower(0);
             }
@@ -140,14 +140,14 @@ public class ForwardVelocityTuner extends OpMode {
 
         poseUpdater.update();
         if (!end) {
-            if (DISTANCE < Math.abs(poseUpdater.getPose().getX())) {
+            if (Math.abs(poseUpdater.getPose().getX()) > DISTANCE) {
                 end = true;
-                for (final DcMotorEx motor : motors) {
+                for (DcMotorEx motor : motors) {
                     motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                     motor.setPower(0);
                 }
             } else {
-                final double currentVelocity = Math.abs(MathFunctions.dotProduct(poseUpdater.getVelocity(), new Vector(1, 0)));
+                double currentVelocity = Math.abs(MathFunctions.dotProduct(poseUpdater.getVelocity(), new Vector(1, 0)));
                 velocities.add(currentVelocity);
                 velocities.remove(0);
             }
@@ -156,11 +156,11 @@ public class ForwardVelocityTuner extends OpMode {
             leftRear.setPower(0);
             rightFront.setPower(0);
             rightRear.setPower(0);
-            for (final DcMotorEx motor : motors) {
+            for (DcMotorEx motor : motors) {
                 motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             }
             double average = 0;
-            for (final Double velocity : velocities) {
+            for (Double velocity : velocities) {
                 average += velocity;
             }
             average /= velocities.size();

@@ -28,7 +28,7 @@ public class FtcLogTest extends LinearOpMode {
 		client.configViewMode(ClientViewMode.FTC_LOG);
 		client.setTargetLogTunnel(FtcLogTunnel.MAIN);
 
-		FtcLogTunnel.clear();
+		FtcLogTunnel.saveAndClear();
 		FtcLogTunnel.MAIN.report("Op In INIT");
 		client.update();
 

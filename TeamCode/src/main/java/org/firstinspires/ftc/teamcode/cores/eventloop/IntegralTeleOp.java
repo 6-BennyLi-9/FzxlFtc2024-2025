@@ -44,7 +44,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.MANUAL_UPDATE_REQUESTED);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
 		MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
 		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());

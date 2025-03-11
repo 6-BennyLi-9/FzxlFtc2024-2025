@@ -13,7 +13,7 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	}
 	public static final ButtonCallback defaultCallback = ()->{};
 	@Beta(date = "2025-2-26")
-	public static boolean runUsingThread;
+	public static boolean runUsingThread = false;
 
 	private ButtonCallback callback;
 	private boolean		   isAutoActive;
@@ -23,7 +23,7 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	 *
 	 * @param config 按键配置，定义按键如何响应
 	 */
-	public ButtonProcessorEx(final ButtonConfig config) {
+	public ButtonProcessorEx(ButtonConfig config) {
 		this(config, defaultCallback);
 	}
 
@@ -32,13 +32,13 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	 *
 	 * @param config 按键配置，定义按键如何响应
 	 */
-	public ButtonProcessorEx(final ButtonConfig config, final ButtonCallback callback) {
+	public ButtonProcessorEx(ButtonConfig config, ButtonCallback callback) {
 		super(config);
 		this.callback = callback;
 	}
 
 	public void tryActivate(){
-		final boolean enabled = getEnabled();
+		boolean enabled = getEnabled();
 		FtcLogTunnel.MAIN.report("enabled=" + enabled);
 		if (enabled){
 			callback.onActive();
@@ -47,16 +47,16 @@ public class ButtonProcessorEx extends ButtonProcessor {
 		}
 	}
 
-	public void setCallback(final ButtonCallback callback) {
+	public void setCallback(ButtonCallback callback) {
 		this.callback = callback;
 	}
 
-	public void setAutoActive(final boolean autoActive) {
+	public void setAutoActive(boolean autoActive) {
 		isAutoActive = autoActive;
 	}
 
 	@Override
-	public void sync(final boolean input) {
+	public void sync(boolean input) {
 		super.sync(input);
 		if(isAutoActive){
 			activeButtonMark();

@@ -10,6 +10,7 @@ import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.pedro.constants.FollowerParams;
@@ -26,6 +27,7 @@ import org.pedro.constants.LocalizerParams;
  */
 
 @Autonomous(name = "Example Auto Blue", group = "Examples")
+@Disabled
 public class ExampleBucketAuto extends OpMode {
 
     private Follower follower;
@@ -237,7 +239,7 @@ public class ExampleBucketAuto extends OpMode {
 
     /** These change the states of the paths and actions
      * It will also reset the timers of the individual switches **/
-    public void setPathState(final int pState) {
+    public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
     }

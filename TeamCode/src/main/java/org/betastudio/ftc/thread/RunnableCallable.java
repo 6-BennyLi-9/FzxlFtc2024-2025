@@ -7,7 +7,7 @@ public abstract class RunnableCallable <T> implements Runnable, Callable<T> {
 
 	@Override
 	public void run() {
-		if(null == result){
+		if(result == null){
 			result = call();
 		}
 	}
