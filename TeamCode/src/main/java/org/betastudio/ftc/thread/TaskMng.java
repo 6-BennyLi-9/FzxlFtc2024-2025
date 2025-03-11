@@ -14,6 +14,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class TaskMng {
+	private final Set <TaskFuture> tasks;
+	private ExecutorService service;
+
+	public TaskMng(ExecutorService service) {
+		this.service = service;
+		tasks = new TreeSet <>(Comparator.comparing(TaskFuture::get));
+	}
+
 	@NonNull
 	@Contract(value = "_ -> new", pure = true)
 	public static TaskFuture newTaskFuture(Future <?> future) {
@@ -26,22 +34,13 @@ public class TaskMng {
 		return new TaskFuture(str, future);
 	}
 
-	private ExecutorService service;
-
-	private final Set <TaskFuture> tasks;
-
-	public TaskMng(ExecutorService service) {
-		this.service = service;
-		tasks = new TreeSet <>(Comparator.comparing(TaskFuture::get));
-	}
-
-	public List <Runnable> shutdown(){
+	public List <Runnable> shutdown() {
 		return service.shutdownNow();
 	}
 
-	public List <Runnable> reboot(ExecutorService newService){
+	public List <Runnable> reboot(ExecutorService newService) {
 		List <Runnable> res = shutdown();
-		service=newService;
+		service = newService;
 		return res;
 	}
 
@@ -51,19 +50,19 @@ public class TaskMng {
 		return submit;
 	}
 
-	public Future <?> execute(String name, Runnable task){
+	public Future <?> execute(String name, Runnable task) {
 		Future <?> submit = service.submit(task);
 		tasks.add(newTaskFuture(name, submit));
 		return submit;
 	}
 
-	public <T> Future <T> execute(Callable<T> task){
+	public <T> Future <T> execute(Callable <T> task) {
 		Future <T> submit = service.submit(task);
 		tasks.add(newTaskFuture(submit));
 		return submit;
 	}
 
-	public <T> Future <T> execute(String name,Callable<T> task){
+	public <T> Future <T> execute(String name, Callable <T> task) {
 		Future <T> submit = service.submit(task);
 		tasks.add(newTaskFuture(name, submit));
 		return submit;
