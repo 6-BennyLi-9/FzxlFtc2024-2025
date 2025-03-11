@@ -2,6 +2,7 @@ package org.betastudio.ftc.job.implementation;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.AbstractJob;
 import org.betastudio.ftc.job.Job;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Annotations.Beta(date = "2025.3.11")
 public class StoredJob extends AbstractJob implements RenderedJob, Interfaces.Countable {
 	protected final List <Job>                dependencies = new ArrayList <>();
 	protected       Interfaces.ProgressMarker progressMarker;

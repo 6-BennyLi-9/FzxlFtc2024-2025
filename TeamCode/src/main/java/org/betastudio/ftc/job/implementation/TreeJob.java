@@ -1,5 +1,6 @@
 package org.betastudio.ftc.job.implementation;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.job.AbstractJob;
 import org.betastudio.ftc.job.Job;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Annotations.Beta(date = "2025.3.11")
 public class TreeJob extends AbstractJob implements Interfaces.Countable, Interfaces.StoreRequired<StoredJob> {
 	protected final List <Job> dependencies = new ArrayList <>();
 

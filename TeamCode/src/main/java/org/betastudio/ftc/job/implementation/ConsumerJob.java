@@ -2,6 +2,7 @@ package org.betastudio.ftc.job.implementation;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.job.AbstractJob;
 import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.JobNotParalleledException;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
+@Annotations.Beta(date = "2025.3.11")
 public class ConsumerJob <T> extends AbstractJob {
 	protected final Iterator<T> iterator;
 	protected final Consumer<T> consumer;
