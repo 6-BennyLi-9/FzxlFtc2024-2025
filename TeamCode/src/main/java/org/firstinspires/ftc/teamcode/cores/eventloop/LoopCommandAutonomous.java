@@ -36,6 +36,8 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		client = new BaseMapClient(telemetry);
 		utils = new UtilsMng();
 		timer = new Timer();
+
+		commandOverload();
 	}
 
 	@Override
