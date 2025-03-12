@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.packages.ActionPackage;
-import org.betastudio.ftc.action.packages.ListActionPackage;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -31,6 +31,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	public    Timer              timer;
 	protected Exception          inline_exception;
 	protected ActionPackage      commands;
+	private   Action             main;
 	protected TerminateReason    reason;
 	private   boolean            is_terminate_method_called;
 	private   boolean            isCommandUndone;
@@ -55,8 +56,9 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 		drive = new SampleMecanumDrive(hardwareMap);
 
-		commands = new ListActionPackage();
+		commands = new ActionPackage();
 		commandOverload();
+		main = commands.store();
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
@@ -84,8 +86,8 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	@Override
 	public void op_loop() {
 		drive.update();
-		if (! drive.isBusy() && ! isCommandUndone) {
-			isCommandUndone = commands.activate();
+		if (! drive.isBusy() && isCommandUndone) {
+			isCommandUndone = main.activate();
 		}
 
 		if (is_terminate_method_called){
