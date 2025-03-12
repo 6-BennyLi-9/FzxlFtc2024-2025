@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * 将 {@code Action} 块进一步打包，可以通过数据标签（类型为 {@code String} ）自动处理、替换 {@code Action} 块
  */
-public class TaggedActionPackage extends ActionPackage {
+public class TaggedActionPackage extends ThreadedActionPackage {
 	private final Map <String, PriorityAction> priorityActionMap;
 
 	public TaggedActionPackage() {
