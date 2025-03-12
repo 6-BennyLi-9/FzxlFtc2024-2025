@@ -1,56 +1,98 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.ActionCommand;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.Command;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.TrajectoryCommand;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.TrajectorySequenceCommand;
-
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
+import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
-import java.util.Queue;
+import java.util.Objects;
 
-public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+@Annotations.Beta(date = "25.3.12")
+public abstract class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
 	public    UtilsMng           utils;
 	public    Timer              timer;
-	protected boolean            is_terminate_method_called;
-	protected Exception          inline_exception;
-	private   Queue <Command>    commands;
-	private   TerminateReason    reason;
+	protected Exception     inline_exception;
+	protected List <Action> commands;
+	private   Action        main;
+	protected TerminateReason    reason;
+	private   boolean            is_terminate_method_called;
+	private   boolean            isCommandUndone;
 
 	@Override
 	public void op_init() {
-		commands = new LinkedList <>();
-		drive = new SampleMecanumDrive(hardwareMap);
-		client = new BaseMapClient(telemetry);
-		utils = new UtilsMng();
+		FtcLogTunnel.saveAndClear();
+		Global.currentOpmode = this;
+		Global.registerGamepad(gamepad1, gamepad2);
+		Global.prepareCoreThreadPool();
+		Global.runMode = RunMode.TELEOP;
+		Global.client = client;
+		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
+		HardwareDatabase.sync(hardwareMap, false);
+		HardwareDatabase.chassisConfig();
 		timer = new Timer();
+
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		telemetry.setAutoClear(true);
+		telemetry.clearAll();
+		client = new BaseMapClient(telemetry);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
+		drive = new SampleMecanumDrive(hardwareMap);
+
+		commands = new ArrayList <>();
+		commandOverload();
+		main = new LinkedAction(commands);
+
+		client.putData("TPS", "wait for start");
+		client.putData("time", "wait for start");
+		client.putLine("ROBOT INITIALIZE COMPLETE!");
+		client.putLine("=======================");
+		FtcLogTunnel.MAIN.report("Op inline initialized");
+	}
+
+
+	@Override
+	public void loop_init() {
+		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		client.update();
+	}
+
+	@Override
+	public void op_start() {
+		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
+		client.deleteData("last autonomous time used");
+		client.deleteData("last terminateReason");
+		timer.pushTimeTag("start");
+
+		FtcLogTunnel.MAIN.report("Op inline started successfully");
 	}
 
 	@Override
 	public void op_loop() {
 		drive.update();
-		if (! drive.isBusy() && ! commands.isEmpty()) {
-			Command element = commands.remove();
-			if (element instanceof TrajectoryCommand) {
-				((TrajectoryCommand) element).execute(drive);
-			} else if (element instanceof TrajectorySequenceCommand) {
-				((TrajectorySequenceCommand) element).execute(drive);
-			} else if (element instanceof ActionCommand) {
-				((ActionCommand) element).execute();
-			}
+		if (! drive.isBusy() && isCommandUndone) {
+			isCommandUndone = main.activate();
 		}
 
 		if (is_terminate_method_called){
@@ -67,17 +109,45 @@ public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOp
 				FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 			}
 		}
+
+		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
+		client.changeData("time", getRuntime());
+		client.update();
+	}
+
+	public abstract void commandOverload();
+
+	@Override
+	public void op_end() {
+		client.clear();
+
+		Global.runMode = RunMode.TERMINATE;
+
+		if (null != inline_exception) {
+			FtcLogTunnel.MAIN.report(inline_exception);
+			throw new RuntimeException(inline_exception);
+		}
+
+		FtcLogTunnel.MAIN.report("Op inline closed");
+		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 	}
 
 	@Override
-	public void sendTerminateSignal(TerminateReason reason, Exception e) {
-		is_terminate_method_called = true;
-		inline_exception = e;
-		this.reason = reason;
+	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
+		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
+			inline_exception = e;
+		} else {
+			is_terminate_method_called = true;
+		}
 	}
 
 	@Override
 	public void closeTask() {
 		is_terminate_method_called = true;
+	}
+
+	@Override
+	public void exception_entry(final Throwable e) {
+		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 }

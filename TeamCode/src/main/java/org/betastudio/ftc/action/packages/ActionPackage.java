@@ -1,10 +1,13 @@
 package org.betastudio.ftc.action.packages;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
+import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -14,7 +17,7 @@ import java.util.TreeSet;
 /**
  * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
  */
-public class ActionPackage {
+public class ActionPackage implements Interfaces.StoreRequired<LinkedAction>{
 	protected final Set <PriorityAction> actions;
 
 	public ActionPackage() {
@@ -57,5 +60,13 @@ public class ActionPackage {
 			Actions.runAction(new PriorityThreadedAction(new LinkedList <>(actions)));
 			actions.clear();
 		}
+	}
+
+	/**
+	 * 存储成链性的 Action
+	 */
+	@Override
+	public LinkedAction store() {
+		return new LinkedAction(new ArrayList <>(actions));
 	}
 }

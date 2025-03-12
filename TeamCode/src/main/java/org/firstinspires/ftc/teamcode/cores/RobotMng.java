@@ -54,7 +54,7 @@ public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String                                      printCode           = "-\\|/";
+	public static final String                                      printCode           = "fzxl";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
