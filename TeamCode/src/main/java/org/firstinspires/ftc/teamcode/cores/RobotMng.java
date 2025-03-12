@@ -20,7 +20,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.PriorityAction;
-import org.betastudio.ftc.action.packages.TaggedActionPackage;
+import org.betastudio.ftc.action.packages.TaggedThreadActionPackage;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.DriveBufMsg;
@@ -66,15 +66,15 @@ public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
+	public final Map <String, Interfaces.HardwareController> controllers = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public final        TaggedActionPackage                         thread              = new TaggedActionPackage();
+	public final TaggedThreadActionPackage                   thread      = new TaggedThreadActionPackage();
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public              int                                         updateTime;
+	public       int                                         updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
