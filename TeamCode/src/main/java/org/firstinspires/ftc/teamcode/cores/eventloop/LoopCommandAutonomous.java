@@ -4,10 +4,11 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.packages.ActionPackage;
+import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -21,17 +22,20 @@ import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+@Annotations.Beta(date = "25.3.12")
 public abstract class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
 	public    UtilsMng           utils;
 	public    Timer              timer;
-	protected Exception          inline_exception;
-	protected ActionPackage      commands;
-	private   Action             main;
+	protected Exception     inline_exception;
+	protected List <Action> commands;
+	private   Action        main;
 	protected TerminateReason    reason;
 	private   boolean            is_terminate_method_called;
 	private   boolean            isCommandUndone;
@@ -56,9 +60,9 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 		drive = new SampleMecanumDrive(hardwareMap);
 
-		commands = new ActionPackage();
+		commands = new ArrayList <>();
 		commandOverload();
-		main = commands.store();
+		main = new LinkedAction(commands);
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
@@ -71,6 +75,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	@Override
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		client.update();
 	}
 
 	@Override
