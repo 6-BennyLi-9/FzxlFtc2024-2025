@@ -19,15 +19,15 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
 
-public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+public abstract class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
 	public    UtilsMng           utils;
 	public    Timer              timer;
 	protected boolean            is_terminate_method_called;
 	protected Exception          inline_exception;
-	private   Queue <Command>    commands;
-	private   TerminateReason    reason;
+	protected Queue <Command>    commands;
+	protected TerminateReason    reason;
 
 	@Override
 	public void op_init() {
@@ -79,4 +79,6 @@ public class LoopCommandAutonomous extends OverclockOpMode implements IntegralOp
 	public void closeTask() {
 		is_terminate_method_called = true;
 	}
+
+	public abstract void commandOverload();
 }
