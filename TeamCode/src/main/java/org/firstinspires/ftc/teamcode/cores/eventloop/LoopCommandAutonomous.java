@@ -7,7 +7,7 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.packages.ActionPackage;
-import org.betastudio.ftc.action.packages.TaggedActionPackage;
+import org.betastudio.ftc.action.packages.ListActionPackage;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -44,20 +44,19 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		Global.runMode = RunMode.TELEOP;
 		Global.client = client;
 		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
+		HardwareDatabase.sync(hardwareMap, false);
+		HardwareDatabase.chassisConfig();
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
+		telemetry.clearAll();
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
+		drive = new SampleMecanumDrive(hardwareMap);
 
-		commands = new TaggedActionPackage();
+		commands = new ListActionPackage();
 		commandOverload();
-
-		HardwareDatabase.sync(hardwareMap, false);
-		HardwareDatabase.chassisConfig();
-
-		telemetry.clearAll();
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
