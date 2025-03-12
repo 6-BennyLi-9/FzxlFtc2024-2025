@@ -12,8 +12,8 @@ import org.betastudio.ftc.action.Action;
 public abstract class LiftCtrl implements Action {
 	protected final DcMotorEx leftLift;
 	protected final DcMotorEx rightLift;
-	protected       long      currentPosition;
-	protected       long      targetPosition;
+	protected       int       currentPosition;
+	protected       int       targetPosition;
 	protected       String    tag;
 
 	/**
@@ -60,7 +60,7 @@ public abstract class LiftCtrl implements Action {
 	 *
 	 * @return 目标位置
 	 */
-	public long getTargetPosition() {
+	public int getTargetPosition() {
 		return targetPosition; // 返回目标位置
 	}
 
@@ -69,7 +69,7 @@ public abstract class LiftCtrl implements Action {
 	 *
 	 * @param targetPosition 目标位置
 	 */
-	public void setTargetPosition(final long targetPosition) {
+	public void setTargetPosition(final int targetPosition) {
 		this.targetPosition = targetPosition; // 设置目标位置
 	}
 }

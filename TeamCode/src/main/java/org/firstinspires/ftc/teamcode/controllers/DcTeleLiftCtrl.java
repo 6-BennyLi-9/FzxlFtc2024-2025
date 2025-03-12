@@ -38,8 +38,8 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 			return true;
 		}
 
-		leftLift.setTargetPosition((int) getTargetPosition());
-		rightLift.setTargetPosition((int) getTargetPosition());
+		leftLift.setTargetPosition(getTargetPosition());
+		rightLift.setTargetPosition(getTargetPosition());
 		leftLift.setTargetPositionTolerance(tolerance);
 		rightLift.setTargetPositionTolerance(tolerance);
 		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
