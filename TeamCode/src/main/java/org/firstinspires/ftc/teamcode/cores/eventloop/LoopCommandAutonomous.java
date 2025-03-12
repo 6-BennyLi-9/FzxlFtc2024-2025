@@ -1,21 +1,28 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.time.Timer;
 import org.betastudio.ftc.ui.client.Client;
+import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
+import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.cores.eventloop.commands.ActionCommand;
 import org.firstinspires.ftc.teamcode.cores.eventloop.commands.Command;
 import org.firstinspires.ftc.teamcode.cores.eventloop.commands.TrajectoryCommand;
 import org.firstinspires.ftc.teamcode.cores.eventloop.commands.TrajectorySequenceCommand;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
-import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
 
@@ -31,13 +38,32 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 
 	@Override
 	public void op_init() {
-		commands = new LinkedList <>();
-		drive = new SampleMecanumDrive(hardwareMap);
-		client = new BaseMapClient(telemetry);
-		utils = new UtilsMng();
+		FtcLogTunnel.saveAndClear();
+		Global.currentOpmode = this;
+		Global.registerGamepad(gamepad1, gamepad2);
+		Global.prepareCoreThreadPool();
+		Global.runMode = RunMode.TELEOP;
+		Global.client = client;
+		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
+		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
+		telemetry.setAutoClear(true);
+		client = new BaseMapClient(telemetry);
+		client.setUpdateConfig(UpdateConfig.MANUALLY);
+
 		commandOverload();
+
+		HardwareDatabase.sync(hardwareMap, false);
+		HardwareDatabase.chassisConfig();
+
+		telemetry.clearAll();
+
+		client.putData("TPS", "wait for start");
+		client.putData("time", "wait for start");
+		client.putLine("ROBOT INITIALIZE COMPLETE!");
+		client.putLine("=======================");
+		FtcLogTunnel.MAIN.report("Op inline initialized");
 	}
 
 	@Override
@@ -68,6 +94,8 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 				FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 			}
 		}
+
+		client.update();
 	}
 
 	@Override
@@ -83,4 +111,9 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	}
 
 	public abstract void commandOverload();
+
+	@Override
+	public void exception_entry(final Throwable e) {
+		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+	}
 }
