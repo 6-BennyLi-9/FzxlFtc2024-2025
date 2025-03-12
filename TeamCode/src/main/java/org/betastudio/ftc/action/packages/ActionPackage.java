@@ -11,22 +11,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 将 {@code Action} 块打包，可以代替部分使用集合、队列等数据结构维护 {@code Action} 块的方法
  */
-public class ActionPackage implements Interfaces.StoreRequired<LinkedAction> {
-	protected final List <PriorityAction> actions;
+public class ActionPackage implements Interfaces.StoreRequired<LinkedAction>{
+	protected final Set <PriorityAction> actions;
 
 	public ActionPackage() {
-		actions = new ArrayList <>();
+		actions = new TreeSet <>(Comparator.comparing(PriorityAction::getPriorityCode).reversed());
 	}
 
 	public void add(final PriorityAction action) {
 		actions.add(action);
-		actions.sort(Comparator.comparing(PriorityAction::getPriorityCode).reversed());
 	}
 
 	public void add(final Action action) {
@@ -63,6 +62,9 @@ public class ActionPackage implements Interfaces.StoreRequired<LinkedAction> {
 		}
 	}
 
+	/**
+	 * 存储成链性的 Action
+	 */
 	@Override
 	public LinkedAction store() {
 		return new LinkedAction(new ArrayList <>(actions));
