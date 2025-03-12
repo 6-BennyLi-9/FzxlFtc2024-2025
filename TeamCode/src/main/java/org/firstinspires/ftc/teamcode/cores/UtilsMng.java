@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(long)}
+ * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(int)}
  *
  * @see RobotMng
  */
@@ -249,7 +249,7 @@ public class UtilsMng {
 	 * @param target 目标位置
 	 * @return 电梯控制器对象
 	 */
-	protected AbstractLiftCtrl liftControllerGenerator(final long target) {
+	protected AbstractLiftCtrl liftControllerGenerator(final int target) {
 		return new DcAutoLiftCtrl(leftLift, rightLift, target);
 	}
 
