@@ -87,7 +87,7 @@ public class RobotMng implements Interfaces.Updatable {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new ClawOp());
-		controllers.put("rightLift", new LiftOp());
+		controllers.put("lift", new LiftOp());
 		controllers.put("place", new PlaceOp());
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
@@ -284,7 +284,7 @@ public class RobotMng implements Interfaces.Updatable {
 		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
 			final String         s = entry.getKey();
 			final PriorityAction a = entry.getValue();
-			client.changeData(s + "\t", updateCode + a.paramsString());
+			client.changeData(s, updateCode + a.paramsString());
 		}
 	}
 
