@@ -1,10 +1,5 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.ActionCommand;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.Command;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.TrajectoryCommand;
-import static org.firstinspires.ftc.teamcode.cores.eventloop.commands.AutonomousCommands.TrajectorySequenceCommand;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
@@ -15,6 +10,10 @@ import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.cores.eventloop.commands.ActionCommand;
+import org.firstinspires.ftc.teamcode.cores.eventloop.commands.Command;
+import org.firstinspires.ftc.teamcode.cores.eventloop.commands.TrajectoryCommand;
+import org.firstinspires.ftc.teamcode.cores.eventloop.commands.TrajectorySequenceCommand;
 
 import java.util.LinkedList;
 import java.util.Locale;
