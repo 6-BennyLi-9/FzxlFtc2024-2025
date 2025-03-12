@@ -24,8 +24,8 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
-import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
 
 import java.util.LinkedList;
@@ -249,7 +249,7 @@ public class UtilsMng {
 	 * @param target 目标位置
 	 * @return 电梯控制器对象
 	 */
-	protected LiftCtrl liftControllerGenerator(final long target) {
+	protected AbstractLiftCtrl liftControllerGenerator(final long target) {
 		return new DcAutoLiftCtrl(leftLift, rightLift, target);
 	}
 

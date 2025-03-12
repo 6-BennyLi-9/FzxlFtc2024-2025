@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
  * 使用 {@link DcMotorEx} 为基础的控制器
  */
 @Config
-public class DcTeleLiftCtrl extends LiftCtrl {
+public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 	public static final double  bufPow                = 1;
 	public static final int     tolerance             = 10;
 	protected           boolean using_touch_calibrate = true;

@@ -11,7 +11,7 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
-import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
@@ -22,15 +22,15 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final int      decantLow          = 1080;
-	public static final int      decantHigh         = 2000;
-	public static final int      highSuspend        = 740;
-	public static final int      highSuspendPrepare = 1250;
-	public static final int      suspendLv1         = 770;
-	public static final int      idlePosition       = 0;
-	public static       LiftMode recent             = LiftMode.IDLE;
-	public static       LiftCtrl liftCtrl;
-	private static      LiftOp   instance;
+	public static final int              decantLow          = 1080;
+	public static final int              decantHigh         = 2000;
+	public static final int              highSuspend        = 740;
+	public static final int              highSuspendPrepare = 1250;
+	public static final int              suspendLv1         = 770;
+	public static final int              idlePosition       = 0;
+	public static       LiftMode         recent             = LiftMode.IDLE;
+	public static       AbstractLiftCtrl liftCtrl;
+	private static      LiftOp           instance;
 
 	public static LiftOp getInstance() {
 		return instance;

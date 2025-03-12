@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.betastudio.ftc.action.Action;
 
 /**
- * LiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
+ * AbstractLiftCtrl 是一个抽象类，实现了 Action 和 DashboardCallable 接口，用于控制机器人电梯结构。
  */
-public abstract class LiftCtrl implements Action {
+public abstract class AbstractLiftCtrl implements Action {
 	protected final DcMotorEx leftLift;
 	protected final DcMotorEx rightLift;
 	protected       int       currentPosition;
@@ -21,7 +21,7 @@ public abstract class LiftCtrl implements Action {
 	 *
 	 * @param leftLift 目标升降机构电机
 	 */
-	protected LiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
+	protected AbstractLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
 		this.leftLift = leftLift;
 		this.rightLift = rightLift;
 		tag = "lift";
