@@ -2,6 +2,7 @@ package org.betastudio.ftc.action;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Annotations;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
@@ -22,6 +23,7 @@ public final class Actions {
 		}
 	}
 
+	@Annotations.MirrorMethod
 	public static void runThreadingAction(final Action actionBlock) {
 		new Thread(() -> runYieldAction(actionBlock)).start();
 	}
@@ -40,6 +42,7 @@ public final class Actions {
 		}
 	}
 
+	@Annotations.MirrorMethod
 	@NonNull
 	@Contract("_ -> new")
 	public static PriorityAction newMirroredPriority(final Action action) {
