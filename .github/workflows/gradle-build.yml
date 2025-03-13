@@ -5,7 +5,7 @@ on:
     branches: [ "teamcode" ]
 
 jobs:
-  setup:
+  main:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -15,9 +15,6 @@ jobs:
         java-version: '17'
         distribution: 'oracle'
         cache: gradle
-  build:
-    runs-on: ubuntu-latest
-    steps:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Clean Cached
