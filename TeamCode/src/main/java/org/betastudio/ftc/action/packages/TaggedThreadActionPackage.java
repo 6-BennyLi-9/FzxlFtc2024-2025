@@ -4,7 +4,6 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
-import org.betastudio.ftc.util.Labeler;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,21 +15,11 @@ import java.util.Set;
 /**
  * 将 {@code Action} 块进一步打包，可以通过数据标签（类型为 {@code String} ）自动处理、替换 {@code Action} 块
  */
-public class TaggedThreadActionPackage implements ActionPackage{
+public class TaggedThreadActionPackage implements TaggedActionPackage {
 	private final Map <String, PriorityAction> priorityActionMap;
 
 	public TaggedThreadActionPackage() {
 		priorityActionMap = new HashMap <>();
-	}
-
-	@Override
-	public void add(final Action action) {
-		add(Labeler.gen().summon(action), action);
-	}
-
-	@Override
-	public void add(final PriorityAction action) {
-		add(Labeler.gen().summon(action), action);
 	}
 
 	/**
@@ -38,6 +27,7 @@ public class TaggedThreadActionPackage implements ActionPackage{
 	 * @param action 要加入的 {@code  Action}
 	 * @see HashMap#put(Object, Object)
 	 */
+	@Override
 	public void add(final String tag, final PriorityAction action) {
 		priorityActionMap.put(tag, action);
 	}
@@ -45,6 +35,7 @@ public class TaggedThreadActionPackage implements ActionPackage{
 	/**
 	 * @see #add(String, PriorityAction)
 	 */
+	@Override
 	public void add(final String tag, final Action action) {
 		add(tag, Actions.newMirroredPriority(action));
 	}
@@ -53,6 +44,7 @@ public class TaggedThreadActionPackage implements ActionPackage{
 	 * @param tag    标签
 	 * @param action 如果该 {@code  Action} 不存在于集合中,将自动加入集合
 	 */
+	@Override
 	public void replace(final String tag, final PriorityAction action) {
 		if (priorityActionMap.containsKey(tag)) {
 			priorityActionMap.replace(tag, action);
@@ -64,6 +56,7 @@ public class TaggedThreadActionPackage implements ActionPackage{
 	/**
 	 * @see #replace(String, PriorityAction)
 	 */
+	@Override
 	public void replace(final String tag, final Action action) {
 		replace(tag, Actions.newMirroredPriority(action));
 	}
@@ -71,6 +64,7 @@ public class TaggedThreadActionPackage implements ActionPackage{
 	/**
 	 * @see HashMap#remove(Object)
 	 */
+	@Override
 	public void delete(final String tag) {
 		priorityActionMap.remove(tag);
 	}
