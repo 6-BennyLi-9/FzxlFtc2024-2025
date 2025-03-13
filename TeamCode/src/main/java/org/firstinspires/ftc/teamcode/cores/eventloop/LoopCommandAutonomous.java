@@ -46,7 +46,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		Global.currentOpmode = this;
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
-		Global.runMode = RunMode.TELEOP;
+		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
 		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		HardwareDatabase.sync(hardwareMap, false);
@@ -121,7 +121,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	public void op_end() {
 		client.clear();
 
-		Global.runMode = RunMode.TERMINATE;
+		RunMode.globalRunMode = RunMode.TERMINATE;
 
 		if (null != inline_exception) {
 			FtcLogTunnel.MAIN.report(inline_exception);
