@@ -1,9 +1,11 @@
 package org.betastudio.ftc.action.packages;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
 import org.betastudio.ftc.action.utils.PriorityThreadedAction;
+import org.betastudio.ftc.action.utils.ThreadedAction;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,7 +17,7 @@ import java.util.Set;
 /**
  * 将 {@code Action} 块进一步打包，可以通过数据标签（类型为 {@code String} ）自动处理、替换 {@code Action} 块
  */
-public class TaggedThreadActionPackage implements TaggedActionPackage {
+public class TaggedThreadActionPackage implements TaggedActionPackage , Interfaces.StoreRequired<ThreadedAction> {
 	private final Map <String, PriorityAction> priorityActionMap;
 
 	public TaggedThreadActionPackage() {
@@ -102,5 +104,10 @@ public class TaggedThreadActionPackage implements TaggedActionPackage {
 
 	public Map <String, PriorityAction> getActionMap() {
 		return priorityActionMap;
+	}
+
+	@Override
+	public ThreadedAction store() {
+		return new ThreadedAction(new ArrayList <>(priorityActionMap.values()));
 	}
 }
