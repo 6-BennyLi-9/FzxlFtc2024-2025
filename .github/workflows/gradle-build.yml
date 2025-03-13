@@ -3,6 +3,7 @@ name: Android Build
 on:
   pull_request:
     branches: [ "teamcode" ]
+  workflow_dispatch:
 
 jobs:
   main:
