@@ -1,5 +1,7 @@
 package org.betastudio.ftc.job;
 
+import static org.betastudio.ftc.Annotations.MirrorMethod;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
@@ -19,6 +21,7 @@ public final class Workflows {
 		return res;
 	}
 
+	@MirrorMethod
 	@NonNull
 	public static Step newSteppedJob(String name, Runnable work) {
 		return newSteppedJob(name, new StatementAction(work));
@@ -32,6 +35,7 @@ public final class Workflows {
 		Actions.runAction(() -> activeJobSync(arg, render));
 	}
 
+	@MirrorMethod
 	public static boolean activeJobSync(@NonNull Job arg) {
 		return activeJobSync(arg, new IgnoredJobProgressRender());
 	}

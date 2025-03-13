@@ -1,4 +1,4 @@
-package org.betastudio.ftc.ui.client;
+package org.betastudio.ftc.thread;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;

@@ -1,16 +1,12 @@
-name: Android CI
+name: Android Build
 
 on:
-  push:
-    branches: [ "teamcode" ]
   pull_request:
     branches: [ "teamcode" ]
 
 jobs:
-  build:
-
+  main:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: set up JDK 11
@@ -19,9 +15,10 @@ jobs:
         java-version: '17'
         distribution: 'oracle'
         cache: gradle
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Clean Cached
+      run: ./gradlew clean
     - name: Build with Gradle
       run: ./gradlew build
     - name: Assemble Debug
