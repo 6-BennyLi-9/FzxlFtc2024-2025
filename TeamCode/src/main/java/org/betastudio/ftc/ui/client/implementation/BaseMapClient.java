@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.thread.TaskMng;
+import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.thread.TaskFuture;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -152,7 +153,7 @@ public class BaseMapClient implements Client {
 		runnables.forEach(Runnable::run);
 		telemetry.clearAll();
 		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
-		telemetry.addData("Status", Global.runMode);
+		telemetry.addData("Status", RunMode.globalRunMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (ClientViewMode.globalViewMode) {
@@ -171,8 +172,8 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines() {
-		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
-			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
+		for (final TaskFuture task : Global.service.getTasks()) {
+			this.telemetry.addData(task.get(), task.getVal().isDone() ? "Done" : "Running");
 		}
 		this.telemetry.update();
 	}
