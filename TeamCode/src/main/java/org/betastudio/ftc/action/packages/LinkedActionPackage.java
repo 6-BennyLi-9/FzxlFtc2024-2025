@@ -4,14 +4,14 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.PriorityAction;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LinkedActionPackage implements ActionPackage {
 	private final List<Action> actions;
 
 	public LinkedActionPackage() {
-		actions = new ArrayList <>();
+		actions = new LinkedList <>();
 	}
 
 	/**
