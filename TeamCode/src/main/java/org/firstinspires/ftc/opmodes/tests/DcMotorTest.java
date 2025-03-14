@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 
 @Annotations.TestDoneSuccessfully
 @Disabled
+@Deprecated
 @Autonomous
 public class DcMotorTest extends LinearOpMode {
 	public Client          client;

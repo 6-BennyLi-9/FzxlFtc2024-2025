@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.events;
 
 import org.betastudio.ftc.Interfaces;
-import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.Local;
 import org.betastudio.ftc.RunMode;
+import org.firstinspires.ftc.teamcode.Local;
 
 import java.util.concurrent.Callable;
 
@@ -43,7 +42,7 @@ public final class AutonomousMonitor extends Thread implements Interfaces.Thread
 	@Override
 	public void run() {
 		Local.waitForVal(() -> (taskInterrupted || ! activeCaller.call()), true);
-		Global.runMode = RunMode.TERMINATE;
+		RunMode.globalRunMode = RunMode.TERMINATE;
 	}
 
 	/**

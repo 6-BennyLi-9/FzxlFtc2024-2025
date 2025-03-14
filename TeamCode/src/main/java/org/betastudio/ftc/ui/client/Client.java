@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.client;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.message.TelemetryMsg;
@@ -35,13 +36,18 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	void speak(String text, String languageCode, String countryCode);
 
-	void configViewMode(final ClientViewMode clientViewMode);
+	@Annotations.MirrorMethod
+	default void configViewMode(final ClientViewMode clientViewMode) {
+		ClientViewMode.globalViewMode = clientViewMode;
+	}
 
 	UpdateConfig getUpdateConfig();
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
-	ClientViewMode getCurrentViewMode();
+	default ClientViewMode getCurrentViewMode() {
+		return ClientViewMode.globalViewMode;
+	}
 
 	Telemetry getOriginTelemetry();
 
@@ -52,31 +58,36 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	default void switchViewMode() {
 		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
-				configViewMode(ClientViewMode.FTC_LOG);
+				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
 				break;
 			case FTC_LOG:
-				configViewMode(ClientViewMode.THREAD_SERVICE);
+				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
 				break;
 			case THREAD_SERVICE:
 			default:
-				configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
+				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
 				break;
 		}
 	}
 
-	/// 注意：这是新的Data
+	/** 注意：这是新的Data */
+	@Annotations.MirrorMethod
 	default void putData(final String key, @NonNull final Object val) {
 		putData(key, val.toString());
 	}
-	/// 自动创建新的行如果key所指向的值不存在
+	/** 自动创建新的行如果key所指向的值不存在 */
+	@Annotations.MirrorMethod
 	default void changeData(final String key, @NonNull final Object val) {
 		changeData(key, val.toString());
 	}
-	/// 注意：这是新的Line
+
+	/** 注意：这是新的Line*/
+	@Annotations.MirrorMethod
 	default void putLine(@NonNull final Object key) {
 		putLine(key.toString());
 	}
 
+	@Annotations.MirrorMethod
 	default void speak(final String text) {
 		speak(text, null, null);
 	}

@@ -1,5 +1,6 @@
 package org.betastudio.ftc;
 
 public enum RunMode {
-	TERMINATE, AUTONOMOUS, TELEOP, OTHERS
+	TERMINATE, AUTONOMOUS, TELEOP, OTHERS;
+	public static RunMode globalRunMode = RunMode.TERMINATE;
 }

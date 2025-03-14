@@ -36,7 +36,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	@Override
 	public void runOpMode() throws InterruptedException {
 		FtcLogTunnel.saveAndClear();
-		Global.runMode = RunMode.AUTONOMOUS;
+		RunMode.globalRunMode = RunMode.AUTONOMOUS;
 		Global.prepareCoreThreadPool();
 		Global.currentOpmode = this;
 		Global.client = client;
@@ -46,7 +46,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
 		client = new BaseMapClient(telemetry);
-		client.setUpdateConfig(UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED);
+		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 		utils = new UtilsMng();
 		timer = new Timer();
 
@@ -132,7 +132,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
 		timer.stop();
 		CoreDatabase.writeInVals(this, reason, timer.getDeltaTime() * 1.0e-3);
-		Global.runMode = RunMode.TERMINATE;
+		RunMode.globalRunMode = RunMode.TERMINATE;
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {

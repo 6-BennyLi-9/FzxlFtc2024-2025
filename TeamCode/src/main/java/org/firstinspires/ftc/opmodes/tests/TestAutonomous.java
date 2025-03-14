@@ -10,15 +10,11 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralAutonomous;
 public final class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		//		utils = new UtilsMng();
 		utils.armsToSafePosition().runCached();
 	}
 
 	@Override
 	public void linear() {
-		angleCalibration(90);
-		angleCalibration(- 90);
-		angleCalibration(0);
-		flagging_op_complete();
+
 	}
 }

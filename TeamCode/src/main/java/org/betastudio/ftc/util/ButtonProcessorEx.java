@@ -5,18 +5,11 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
 @Deprecated
 public class ButtonProcessorEx extends ButtonProcessor {
-	@FunctionalInterface
-	public interface ButtonCallback{
-		void onActive();
-		default void onDisabled() {
-		}
-	}
-	public static final ButtonCallback defaultCallback = ()->{};
+	public static final ButtonCallback defaultCallback = () -> {};
 	@Beta(date = "2025-2-26")
-	public static boolean runUsingThread = false;
-
-	private ButtonCallback callback;
-	private boolean		   isAutoActive;
+	public static       boolean        runUsingThread  = false;
+	private             ButtonCallback callback;
+	private             boolean        isAutoActive;
 
 	/**
 	 * 构造函数，初始化按键处理器

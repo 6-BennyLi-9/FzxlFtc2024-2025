@@ -61,7 +61,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	public void connect() {
 		liftCtrl = new DcTeleLiftCtrl(leftLift, rightLift);
 
-		liftCtrl.setTag(Labeler.generate().summonID(liftCtrl));
+		liftCtrl.setTag(Labeler.gen().summon(liftCtrl));
 	}
 
 	public void sync(@NonNull final LiftMode option) {

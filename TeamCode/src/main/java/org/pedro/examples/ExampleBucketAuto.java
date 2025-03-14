@@ -10,6 +10,7 @@ import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.pedro.constants.FollowerParams;
@@ -26,6 +27,7 @@ import org.pedro.constants.LocalizerParams;
  */
 
 @Autonomous(name = "Example Auto Blue", group = "Examples")
+@Disabled
 public class ExampleBucketAuto extends OpMode {
 
     private Follower follower;

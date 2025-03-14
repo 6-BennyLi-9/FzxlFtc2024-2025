@@ -23,7 +23,7 @@ public class ClipOp implements Interfaces.HardwareController, Interfaces.Initial
 	public void connect() {
 		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);
 
-		clipControl.setTag(Labeler.generate().summonID(clipControl));
+		clipControl.setTag(Labeler.gen().summon(clipControl));
 	}
 
 	@Override

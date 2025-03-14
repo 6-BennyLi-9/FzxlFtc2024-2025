@@ -25,7 +25,7 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 	public void connect() {
 		placeController = new ServoCtrl(HardwareDatabase.place, 0);
 
-		placeController.setTag(Labeler.generate().summonID(placeController));
+		placeController.setTag(Labeler.gen().summon(placeController));
 	}
 
 	@NonNull

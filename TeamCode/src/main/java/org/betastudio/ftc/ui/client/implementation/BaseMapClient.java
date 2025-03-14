@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.thread.TaskMng;
+import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.thread.TaskFuture;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -28,16 +29,10 @@ import java.util.Objects;
  */
 @Config
 public class BaseMapClient implements Client {
-	public static ClientViewMode clientViewMode;
-
-	static {
-		clientViewMode = ClientViewMode.ORIGIN_TELEMETRY;
-	}
-
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
-	protected       boolean                        autoUpdate;
+	protected       boolean                        autoUpdate = true;
 	protected       boolean                        isUpdateRequested;
 	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
@@ -149,28 +144,19 @@ public class BaseMapClient implements Client {
 	}
 
 	@Override
-	public void configViewMode(final ClientViewMode clientViewMode) {
-		BaseMapClient.clientViewMode = clientViewMode;
-	}
-
-	@Override
-	public ClientViewMode getCurrentViewMode() {
-		return clientViewMode;
-	}
-
-	@Override
 	public Telemetry getOriginTelemetry() {
 		return telemetry;
 	}
 
 	@Override
 	public void update() {
+		runnables.forEach(Runnable::run);
 		telemetry.clearAll();
-		telemetry.addData("ClientViewMode", clientViewMode.name());
-		telemetry.addData("Status", Global.runMode);
+		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
+		telemetry.addData("Status", RunMode.globalRunMode);
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
-		switch (clientViewMode) {
+		switch (ClientViewMode.globalViewMode) {
 			case FTC_LOG:
 				updateLogLines();
 				break;
@@ -186,8 +172,8 @@ public class BaseMapClient implements Client {
 	}
 
 	protected synchronized void updateThreadLines() {
-		for (TaskMng.TaskFuture task : Global.service.getTasks()) {
-			this.telemetry.addData(task.get(), task.value().isDone() ? "Done" : "Running");
+		for (final TaskFuture task : Global.service.getTasks()) {
+			this.telemetry.addData(task.get(), task.getVal().isDone() ? "Done" : "Running");
 		}
 		this.telemetry.update();
 	}
@@ -210,22 +196,23 @@ public class BaseMapClient implements Client {
 	@Override
 	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
-			data.put(Labeler.generate().summonID(element), element);
+			data.put(Labeler.gen().summon(element), element);
 		}
 	}
 
 	@Override
 	public UpdateConfig getUpdateConfig() {
-		return autoUpdate ? UpdateConfig.AUTO_UPDATE_WHEN_OPTION_PUSHED : UpdateConfig.MANUAL_UPDATE_REQUESTED;
+		return autoUpdate ? UpdateConfig.AUTOMATIC : UpdateConfig.MANUALLY;
 	}
 
 	@Override
 	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
 		switch (updateConfig) {
-			case AUTO_UPDATE_WHEN_OPTION_PUSHED:
+			case AUTOMATIC:
 				autoUpdate = true;
 				break;
-			case MANUAL_UPDATE_REQUESTED:
+			case MANUALLY:
+			default:
 				autoUpdate = false;
 				break;
 		}

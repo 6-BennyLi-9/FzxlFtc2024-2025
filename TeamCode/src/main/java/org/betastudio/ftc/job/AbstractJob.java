@@ -1,39 +1,29 @@
 package org.betastudio.ftc.job;
 
-import java.util.Collection;
-import java.util.Collections;
+import static org.betastudio.ftc.Annotations.MirrorMethod;
 
 public abstract class AbstractJob implements Job{
-	protected Collection<Job> dependencies;
 	protected String name;
 
+	@MirrorMethod
 	@Override
-	public void run() {
+	public void addDependency(Job job) {
+		getDependencies().add(job);
+	}
 
+	@MirrorMethod
+	@Override
+	public void removeDependency(Job job) {
+		getDependencies().remove(job);
 	}
 
 	@Override
 	public String getName() {
-		return "";
+		return name;
 	}
 
 	@Override
 	public void setName(String name) {
-
-	}
-
-	@Override
-	public Collection <Job> getDependencies() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	public void addDependency(Job job) {
-
-	}
-
-	@Override
-	public void removeDependency(Job job) {
-
+		this.name=name;
 	}
 }

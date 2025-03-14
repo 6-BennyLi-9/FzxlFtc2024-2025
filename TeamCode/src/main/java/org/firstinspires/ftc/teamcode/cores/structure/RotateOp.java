@@ -21,7 +21,7 @@ public class RotateOp implements Interfaces.HardwareController, Interfaces.Initi
 	public void connect() {
 		rotateController = new ServoCtrl(HardwareDatabase.rotate, 0.79);
 
-		rotateController.setTag(Labeler.generate().summonID(rotateController));
+		rotateController.setTag(Labeler.gen().summon(rotateController));
 	}
 
 	@Override
