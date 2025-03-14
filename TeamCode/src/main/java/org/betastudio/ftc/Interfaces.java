@@ -56,10 +56,14 @@ public final class Interfaces {
 		default double getProgress(){
 			return (double) getDone() / getTotal();
 		}
-		default String getProgressString(){
+
+		default String getProgressString() {
+			return getProgressString(10);
+		}
+		default String getProgressString(int length){
 			StringBuilder builder = new StringBuilder();
-			for (int i = 0 ; i < 10 ; i++) {
-				if (i / 10.0 <= getProgress()) {
+			for (int i = 0 ; i < length ; i++) {
+				if ((double) i / length <= getProgress()) {
 					builder.append('=');
 				} else {
 					builder.append('-');
