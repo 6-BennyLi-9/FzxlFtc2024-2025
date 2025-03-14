@@ -7,12 +7,11 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
@@ -28,8 +27,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	public static final int              suspend        = 740;
 	public static final int              suspendPrepare = 1250;
 	public static final int              suspendLv1     = 770;
-	@Annotations.Beta(date = "25.3.14")
-	public static final int              suspendLv2     = 800;
+	public static final int              suspendLv2     = 710;
 	public static final int              idlePosition   = 0;
 	public static       LiftMode         recent         = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
@@ -78,6 +76,9 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 				break;
 			case SUSPEND_LV1:
 				liftCtrl.setTargetPosition(suspendLv1); // 设置目标位置为悬停等级 1 位置
+				break;
+			case SUSPEND_LV2:
+				liftCtrl.setTargetPosition(suspendLv2);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected enum state:" + option.name()); // 抛出异常，表示意外的枚举状态
