@@ -4,15 +4,22 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.render.NullptrRender;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
-	public static void runAction(@NonNull final Action actionBlock, Interfaces.ProgressRender render){
+	public static Interfaces.ProgressRender DEFAULT_RENDER = new NullptrRender();
+
+	/**
+	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
+	 * @param render      用于渲染的渲染器
+	 */
+	public static void runAction(@NonNull final Action actionBlock, Interfaces.ProgressRender render) {
 		Interfaces.ProgressMarker marker = new ProgressMarker(actionBlock.getCount());
-		String name = Labeler.gen().summon(actionBlock);
-		if (actionBlock instanceof ActionExpressions.NameableAction){
+		String                    name   = Labeler.gen().summon(actionBlock);
+		if (actionBlock instanceof ActionExpressions.NameableAction) {
 			name = ((ActionExpressions.NameableAction) actionBlock).getName();
 		}
 
@@ -32,23 +39,9 @@ public final class Actions {
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
-	public static void runAction(@NonNull final Action actionBlock) {
-		while (true) {
-			if (! actionBlock.activate()) {
-				break;
-			}
-		}
-	}
-
-	public static void runYieldAction(@NonNull final Action actionBlock){
-		while (actionBlock.activate()) {
-			Thread.yield();
-		}
-	}
-
 	@Annotations.MirrorMethod
-	public static void runThreadingAction(final Action actionBlock) {
-		new Thread(() -> runYieldAction(actionBlock)).start();
+	public static void runAction(@NonNull final Action actionBlock) {
+		runAction(actionBlock, DEFAULT_RENDER);
 	}
 
 	/**
