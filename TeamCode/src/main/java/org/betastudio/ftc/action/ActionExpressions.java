@@ -4,6 +4,7 @@ import org.betastudio.ftc.Interfaces;
 
 public class ActionExpressions {
 	public interface NameableAction extends Action, Interfaces.Nameable {}
+	public interface ProgressRenderAbleAction extends Action, Interfaces.ValueProduction<Interfaces.ProgressRender> {}
 
 	/**
 	 * 带有优先级编码的模块化程序块，继承自 {@code Action}
