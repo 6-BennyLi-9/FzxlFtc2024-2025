@@ -19,8 +19,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.action.PriorityAction;
-import org.betastudio.ftc.action.packages.TaggedThreadActionPackage;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.builder.TaggedThreadedActionBuilder;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.message.DriveBufMsg;
@@ -66,15 +66,16 @@ public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final Map <String, Interfaces.HardwareController> controllers = new HashMap <>();
+	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
 	/**
 	 * 标记的 Action 包，用于管理不同硬件控制器的动作
 	 */
-	public final TaggedThreadActionPackage                   thread      = new TaggedThreadActionPackage();
+	public final        TaggedThreadedActionBuilder                 builder             = new TaggedThreadedActionBuilder();
+	public              Action                                      hardwareAction;
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public       int                                         updateTime;
+	public              int                                         updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
@@ -128,8 +129,9 @@ public class RobotMng implements Interfaces.Updatable {
 				((Interfaces.TagOptionsRequired) v).setTag(k + ":ctrl");
 			}
 
-			thread.add(k, v.getController());
+			builder.append(k, v.getController());
 		}
+		hardwareAction = builder.store();
 	}
 
 	/**
@@ -271,19 +273,18 @@ public class RobotMng implements Interfaces.Updatable {
 	 */
 	@Override
 	public void update() {
-		thread.activate();
+		hardwareAction.activate();
 	}
 
 	public void printActions() {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
-//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
+		//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
-		final Map <String, PriorityAction> map = thread.getActionMap();
-		for (final Map.Entry <String, PriorityAction> entry : map.entrySet()) {
-			final String         s = entry.getKey();
-			final PriorityAction a = entry.getValue();
+		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
+			final String s = entry.getKey();
+			final Action a = entry.getValue().getController();
 			client.changeData(s + "\t", updateCode + a.paramsString());
 		}
 	}
