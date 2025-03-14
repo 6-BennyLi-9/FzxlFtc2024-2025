@@ -15,12 +15,19 @@ import org.jetbrains.annotations.Contract;
 
 @Config
 public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final double kP = 0.0001, kI = 0, kD = 0;
-	public static        DriveMode    config        = DriveMode.STRAIGHT_LINEAR;
-	public static        ChassisCtrl  chassisCtrl;
-	public static        DriveBufMsg  globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
-	private static       double       output, targetAngle, currentPowerAngle, x, y, turn;
-	private static DriveOp instance;
+	public static final double      kP            = 0.0001;
+	public static final double      kI            = 0;
+	public static final double      kD            = 0;
+	public static       DriveMode   config        = DriveMode.STRAIGHT_LINEAR;
+	public static       ChassisCtrl chassisCtrl;
+	public static       DriveBufMsg globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
+	private static      double      output;
+	private static      double      targetAngle;
+	private static      double      currentPowerAngle;
+	private static      double      x;
+	private static      double      y;
+	private static      double      turn;
+	private static      DriveOp     instance;
 
 	public static DriveOp getInstance() {
 		return instance;
