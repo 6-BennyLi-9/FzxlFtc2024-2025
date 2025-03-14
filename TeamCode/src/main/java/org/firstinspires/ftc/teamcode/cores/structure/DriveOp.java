@@ -18,7 +18,6 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 	public static final double      kP            = 0.0001;
 	public static final double      kI            = 0;
 	public static final double      kD            = 0;
-	public static       DriveMode   config        = DriveMode.STRAIGHT_LINEAR;
 	public static       ChassisCtrl chassisCtrl;
 	public static       DriveBufMsg globalMessage = new DriveBufMsg(0.9, 0.9, 1.3);
 	private static      double      output;
@@ -53,18 +52,7 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 	}
 
 	private void syncAngle() {
-		final double currentAngle = HardwareDatabase.imu.getAngularOrientation().firstAngle;
-		final double angleErr     = targetAngle - currentAngle;
-
-		switch (config) {
-			case SIMPLE_CALIBRATE:
-				output = (targetAngle - currentPowerAngle) * 0.8;
-				break;
-			case STRAIGHT_LINEAR:
-			default:
-				output = turn;
-				break;
-		}
+		output = turn;
 	}
 
 	public void sync(final double x, final double y, final double turn) {
