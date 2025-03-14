@@ -13,7 +13,11 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  PlacePositions recent = PlacePositions.IDLE;
+	public static final int PLACE_DECANT = 1;
+	public static final int PLACE_IDLE = 0;
+	public static final double PLACE_PREPARE = 0.5;
+	public static final double PLACE_SAFE = 0.28;
+	public static PlacePositions recent = PlacePositions.IDLE;
 	public static  ServoCtrl      placeController;
 	private static PlaceOp        instance;
 
@@ -51,21 +55,21 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void decant() {
 		recent = PlacePositions.DECANT;
-		placeController.setTargetPosition(1);
+		placeController.setTargetPosition(PLACE_DECANT);
 	}
 
 	public void idle() {
 		recent = PlacePositions.IDLE;
-		placeController.setTargetPosition(0);
+		placeController.setTargetPosition(PLACE_IDLE);
 	}
 
 	public void prepare() {
 		recent = PlacePositions.PREPARE;
-		placeController.setTargetPosition(0.5);
+		placeController.setTargetPosition(PLACE_PREPARE);
 	}
 
 	public void safe() {
-		placeController.setTargetPosition(0.28);
+		placeController.setTargetPosition(PLACE_SAFE);
 	}
 
 	@NonNull
