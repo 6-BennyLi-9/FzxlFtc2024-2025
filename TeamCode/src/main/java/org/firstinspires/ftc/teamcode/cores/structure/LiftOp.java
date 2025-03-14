@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
@@ -27,6 +28,8 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	public static final int              suspend        = 740;
 	public static final int              suspendPrepare = 1250;
 	public static final int              suspendLv1     = 770;
+	@Annotations.Beta(date = "25.3.14")
+	public static final int              suspendLv2     = 800;
 	public static final int              idlePosition   = 0;
 	public static       LiftMode         recent         = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
