@@ -22,13 +22,13 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final int              decantLow          = 1080;
-	public static final int              decantHigh         = 2000;
-	public static final int              highSuspend        = 740;
-	public static final int              highSuspendPrepare = 1250;
-	public static final int              suspendLv1         = 770;
-	public static final int              idlePosition       = 0;
-	public static       LiftMode         recent             = LiftMode.IDLE;
+	public static final int              decantLow      = 1080;
+	public static final int              decantHigh     = 2000;
+	public static final int              suspend        = 740;
+	public static final int              suspendPrepare = 1250;
+	public static final int              suspendLv1     = 770;
+	public static final int              idlePosition   = 0;
+	public static       LiftMode         recent         = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
 	private static      LiftOp           instance;
 
@@ -68,10 +68,10 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 				liftCtrl.setTargetPosition(decantHigh);
 				break;
 			case HIGH_SUSPEND:
-				liftCtrl.setTargetPosition(highSuspend);
+				liftCtrl.setTargetPosition(suspend);
 				break;
 			case HIGH_SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(highSuspendPrepare); // 设置目标位置为高悬准备位置
+				liftCtrl.setTargetPosition(suspendPrepare); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
 				liftCtrl.setTargetPosition(suspendLv1); // 设置目标位置为悬停等级 1 位置

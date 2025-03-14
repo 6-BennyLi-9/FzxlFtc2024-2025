@@ -289,7 +289,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHighPrepare() {
-		actions.add(liftControllerGenerator(LiftOp.highSuspendPrepare));
+		actions.add(liftControllerGenerator(LiftOp.suspendPrepare));
 		return this;
 	}
 
@@ -299,7 +299,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHigh() {
-		actions.add(liftControllerGenerator(LiftOp.highSuspend));
+		actions.add(liftControllerGenerator(LiftOp.suspend));
 		return this;
 	}
 
