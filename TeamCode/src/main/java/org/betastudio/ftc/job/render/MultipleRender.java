@@ -1,15 +1,15 @@
 package org.betastudio.ftc.job.render;
 
-import static org.betastudio.ftc.Interfaces.JobProgressRender;
+import static org.betastudio.ftc.Interfaces.ProgressRender;
 import static org.betastudio.ftc.Interfaces.ProgressMarker;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MultipleJobRender implements JobProgressRender {
-	private final List <JobProgressRender> renders;
+public final class MultipleRender implements ProgressRender {
+	private final List <ProgressRender> renders;
 
-	public MultipleJobRender(JobProgressRender... renders){
+	public MultipleRender(ProgressRender... renders){
 		this.renders = new ArrayList <>(List.of(renders));
 	}
 

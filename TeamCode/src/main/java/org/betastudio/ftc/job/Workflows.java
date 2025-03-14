@@ -9,7 +9,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.job.implementation.Step;
-import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
+import org.betastudio.ftc.job.render.IgnoredProgressRender;
 
 import java.util.Objects;
 
@@ -31,16 +31,16 @@ public final class Workflows {
 		Actions.runAction(() -> activeJobSync(arg));
 	}
 
-	public static void activeJob(Job arg, Interfaces.JobProgressRender render){
+	public static void activeJob(Job arg, Interfaces.ProgressRender render){
 		Actions.runAction(() -> activeJobSync(arg, render));
 	}
 
 	@MirrorMethod
 	public static boolean activeJobSync(@NonNull Job arg) {
-		return activeJobSync(arg, new IgnoredJobProgressRender());
+		return activeJobSync(arg, new IgnoredProgressRender());
 	}
 
-	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.JobProgressRender render){
+	public static boolean activeJobSync(@NonNull Job arg, @NonNull Interfaces.ProgressRender render){
 		synchronized (Objects.requireNonNull(arg)) {
 			boolean res = arg.activate();
 			if (arg instanceof RenderedJob) {

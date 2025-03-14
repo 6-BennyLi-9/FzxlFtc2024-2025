@@ -9,7 +9,7 @@ import org.betastudio.ftc.job.Job;
 import org.betastudio.ftc.job.RenderedJob;
 import org.betastudio.ftc.job.StoredException;
 import org.betastudio.ftc.job.Workflows;
-import org.betastudio.ftc.job.render.IgnoredJobProgressRender;
+import org.betastudio.ftc.job.render.IgnoredProgressRender;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
 
@@ -76,11 +76,11 @@ public class StoredJob extends AbstractJob implements RenderedJob, Interfaces.Co
 	@Annotations.MirrorMethod
 	@Override
 	public boolean activate() {
-		return activeWithRender(new IgnoredJobProgressRender());
+		return activeWithRender(new IgnoredProgressRender());
 	}
 
 	@Override
-	public boolean activeWithRender(Interfaces.JobProgressRender render) {
+	public boolean activeWithRender(Interfaces.ProgressRender render) {
 		if(dependencies.isEmpty()){
 			return false;
 		} else {

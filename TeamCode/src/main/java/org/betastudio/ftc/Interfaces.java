@@ -72,7 +72,7 @@ public final class Interfaces {
 	}
 
 	@FunctionalInterface
-	public interface JobProgressRender {
+	public interface ProgressRender {
 		default void render(ProgressMarker marker) {
 			render("*", marker);
 		}

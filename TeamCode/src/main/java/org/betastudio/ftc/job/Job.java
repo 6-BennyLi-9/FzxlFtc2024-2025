@@ -15,7 +15,7 @@ public interface Job extends Action {
 
 	boolean isParallel();
 
-	default boolean activeWithRender(Interfaces.JobProgressRender render) {
+	default boolean activeWithRender(Interfaces.ProgressRender render) {
 		return activate();
 	}
 }

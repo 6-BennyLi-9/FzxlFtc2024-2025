@@ -7,7 +7,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
 import java.util.Locale;
 
-public class JobLogRender implements Interfaces.JobProgressRender {
+public class LogRender implements Interfaces.ProgressRender {
 	@Override
 	public void render(String name, @NonNull Interfaces.ProgressMarker marker) {
 		FtcLogTunnel.MAIN.report(String.format(Locale.SIMPLIFIED_CHINESE,

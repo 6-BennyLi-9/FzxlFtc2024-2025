@@ -7,10 +7,10 @@ import org.betastudio.ftc.ui.client.Client;
 
 import java.util.Locale;
 
-public class JobClientRender implements Interfaces.JobProgressRender {
+public class ClientRender implements Interfaces.ProgressRender {
 	private final Client client;
 
-	public JobClientRender(Client client) {
+	public ClientRender(Client client) {
 		this.client = client;
 	}
 
