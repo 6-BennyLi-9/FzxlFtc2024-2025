@@ -149,7 +149,7 @@ public class RobotMng implements Interfaces.Updatable {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftMode.HIGH_SUSPEND == LiftOp.recent || LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
+			if (LiftMode.SUSPEND == LiftOp.recent || LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
 				ClipOp.getInstance().open();
 			}
 
@@ -173,14 +173,14 @@ public class RobotMng implements Interfaces.Updatable {
 				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
+			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
 		} else if (liftSuspendLv2.getEnabled()) {
 			LiftOp.getInstance().sync(LiftMode.SUSPEND_LV2);
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
+			if (LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.SUSPEND);
 			} else {
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();

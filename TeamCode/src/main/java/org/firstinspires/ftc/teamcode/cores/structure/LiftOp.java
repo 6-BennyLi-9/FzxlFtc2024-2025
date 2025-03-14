@@ -68,10 +68,10 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 			case DECANT_HIGH:
 				liftCtrl.setTargetPosition(decantHigh);
 				break;
-			case HIGH_SUSPEND:
+			case SUSPEND:
 				liftCtrl.setTargetPosition(suspend);
 				break;
-			case HIGH_SUSPEND_PREPARE:
+			case SUSPEND_PREPARE:
 				liftCtrl.setTargetPosition(suspendPrepare); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
