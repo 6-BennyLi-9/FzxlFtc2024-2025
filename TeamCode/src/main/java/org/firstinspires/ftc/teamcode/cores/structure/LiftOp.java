@@ -27,7 +27,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	public static final int              suspend        = 740;
 	public static final int              suspendPrepare = 1250;
 	public static final int              suspendLv1     = 770;
-	public static final int              suspendLv2     = 710;
+	public static final int              suspendLv2     = 690;
 	public static final int              idlePosition   = 0;
 	public static       LiftMode         recent         = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
