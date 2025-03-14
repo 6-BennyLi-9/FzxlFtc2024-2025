@@ -1,0 +1,15 @@
+package org.betastudio.ftc.action.builder;
+
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.util.Labeler;
+
+public interface TaggedActionBuilder extends ActionBuilder{
+	@Override
+	default void append(Action action) {
+		append(Labeler.gen().summon(action), action);
+	}
+
+	void append(String tag, Action action);
+
+	void remove(String tag);
+}
