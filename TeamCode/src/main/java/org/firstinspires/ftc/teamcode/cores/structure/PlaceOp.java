@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
@@ -13,10 +14,6 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class PlaceOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static final int PLACE_DECANT = 1;
-	public static final int PLACE_IDLE = 0;
-	public static final double PLACE_PREPARE = 0.5;
-	public static final double PLACE_SAFE = 0.28;
 	public static PlacePositions recent = PlacePositions.IDLE;
 	public static  ServoCtrl      placeController;
 	private static PlaceOp        instance;
@@ -55,21 +52,21 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void decant() {
 		recent = PlacePositions.DECANT;
-		placeController.setTargetPosition(PLACE_DECANT);
+		placeController.setTargetPosition(HardwareConfigures.PLACE_DECANT);
 	}
 
 	public void idle() {
 		recent = PlacePositions.IDLE;
-		placeController.setTargetPosition(PLACE_IDLE);
+		placeController.setTargetPosition(HardwareConfigures.PLACE_IDLE);
 	}
 
 	public void prepare() {
 		recent = PlacePositions.PREPARE;
-		placeController.setTargetPosition(PLACE_PREPARE);
+		placeController.setTargetPosition(HardwareConfigures.PLACE_PREPARE);
 	}
 
 	public void safe() {
-		placeController.setTargetPosition(PLACE_SAFE);
+		placeController.setTargetPosition(HardwareConfigures.PLACE_SAFE);
 	}
 
 	@NonNull

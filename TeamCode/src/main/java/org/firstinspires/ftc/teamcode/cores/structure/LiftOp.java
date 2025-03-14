@@ -10,6 +10,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
@@ -22,13 +23,6 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final int              DECANT_LOW      = 1080;
-	public static final int              DECANT_HIGH     = 2000;
-	public static final int              SUSPEND         = 740;
-	public static final int              SUSPEND_PREPARE = 1250;
-	public static final int              SUSPEND_Lv1     = 770;
-	public static final int              SUSPEND_Lv2     = 690;
-	public static final int              IDLE            = 0;
 	public static       LiftMode         recent          = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
 	private static      LiftOp           instance;
@@ -60,25 +54,25 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 		recent = option;
 		switch (option) {
 			case IDLE:
-				liftCtrl.setTargetPosition(IDLE);
+				liftCtrl.setTargetPosition(HardwareConfigures.IDLE);
 				break;
 			case DECANT_LOW:
-				liftCtrl.setTargetPosition(DECANT_LOW);
+				liftCtrl.setTargetPosition(HardwareConfigures.DECANT_LOW);
 				break;
 			case DECANT_HIGH:
-				liftCtrl.setTargetPosition(DECANT_HIGH);
+				liftCtrl.setTargetPosition(HardwareConfigures.DECANT_HIGH);
 				break;
 			case SUSPEND:
-				liftCtrl.setTargetPosition(SUSPEND);
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND);
 				break;
 			case SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
-				liftCtrl.setTargetPosition(SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
 				break;
 			case SUSPEND_LV2:
-				liftCtrl.setTargetPosition(SUSPEND_Lv2);
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv2);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected enum state:" + option.name()); // 抛出异常，表示意外的枚举状态

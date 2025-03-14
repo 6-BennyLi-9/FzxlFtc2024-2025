@@ -6,6 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
@@ -14,13 +15,6 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static final int          MIN_POSITION  = 0;
-	public static final double       MAX_POSITION  = 0.92;
-	public static final double       LEFT_ADDITION = 0.08;
-	public static final double       ARM_INTAKE    = 0.1;
-	public static final double       ARM_IDLE      = 0.8;
-	public static final double       ARM_SAFE      = 0.61;
-	public static final double       ARM_RISE      = 0.37;
 	public static       ArmPositions recent        = ArmPositions.IDLE;
 	public static       ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
@@ -56,29 +50,29 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 	}
 
 	public void manage(double position) {
-		position = Math.min(Math.max(position, MIN_POSITION), MAX_POSITION);
-		leftArmControl.setTargetPosition(position + LEFT_ADDITION);
+		position = Math.min(Math.max(position, HardwareConfigures.ARM_MIN_POSITION), HardwareConfigures.ARM_MAX_POSITION);
+		leftArmControl.setTargetPosition(position + HardwareConfigures.LEFT_ADDITION);
 		rightArmControl.setTargetPosition(position);
 	}
 
 	public void intake() {
 		recent = ArmPositions.INTAKE;
-		manage(ARM_INTAKE);
+		manage(HardwareConfigures.ARM_INTAKE);
 	}
 
 	public void idle() {
 		recent = ArmPositions.IDLE;
-		manage(ARM_IDLE);
+		manage(HardwareConfigures.ARM_IDLE);
 	}
 
 	public void safe() {
 		recent = ArmPositions.SAFE;
-		manage(ARM_SAFE);
+		manage(HardwareConfigures.ARM_SAFE);
 	}
 
 	public void rise() {
 		recent = ArmPositions.RISE;
-		manage(ARM_RISE);
+		manage(HardwareConfigures.ARM_RISE);
 	}
 
 	public void flip() {
