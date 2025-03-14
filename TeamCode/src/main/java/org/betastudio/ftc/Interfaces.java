@@ -89,4 +89,9 @@ public final class Interfaces {
 	public interface ValueProduction <T>{
 		T getVal();
 	}
+
+	public interface Nameable {
+		String getName();
+		void setName(String name);
+	}
 }
