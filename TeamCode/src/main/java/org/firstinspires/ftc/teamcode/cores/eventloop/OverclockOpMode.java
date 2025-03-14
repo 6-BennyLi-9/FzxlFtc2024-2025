@@ -32,16 +32,20 @@ public abstract class OverclockOpMode extends LinearOpMode {
 	public abstract void op_init();
 
 	public void loop_init() {
+		idle();
 	}
 
 	public void op_start() {
+		idle();
 	}
 
 	public abstract void op_loop();
 
 	public void op_end() {
+		idle();
 	}
 
 	public void exception_entry(final Throwable e) {
+		throw new RuntimeException(e);
 	}
 }

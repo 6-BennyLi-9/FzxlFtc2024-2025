@@ -73,6 +73,7 @@ public class StoredJob extends AbstractJob implements RenderedJob, Interfaces.Co
 		return false;
 	}
 
+	@Annotations.MirrorMethod
 	@Override
 	public boolean activate() {
 		return activeWithRender(new IgnoredJobProgressRender());

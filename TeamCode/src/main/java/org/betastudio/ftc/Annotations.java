@@ -18,8 +18,12 @@ public final class Annotations {
 	public @interface TestShelved {}
 
 	@Documented
-	@Target({TYPE,METHOD,FIELD,CONSTRUCTOR})
+	@Target({TYPE, METHOD, FIELD, CONSTRUCTOR})
 	public @interface Beta {
 		String date();
 	}
+
+	@Documented
+	@Target({METHOD, CONSTRUCTOR})
+	public @interface MirrorMethod {}
 }

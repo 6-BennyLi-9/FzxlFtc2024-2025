@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.TaskMng;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
@@ -18,12 +17,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public final class Global {
-	public static  Gamepad gamepad1, gamepad2;
-	public static final TaskMng service = new TaskMng(defaultThreadExecutor());
-	public static       RunMode runMode;
-	public static  OpMode  currentOpmode;
-	public static  Client  client;
-	private static boolean auto_create_monitor = false;
+	public static final TaskMng service             = new TaskMng(defaultThreadExecutor());
+	public static       Gamepad gamepad1;
+	public static       Gamepad gamepad2;
+	public static       OpMode  currentOpmode;
+	public static       Client  client;
+	private static      boolean auto_create_monitor = false;
 
 	public static void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2) {
 		Global.gamepad1 = gamepad1;

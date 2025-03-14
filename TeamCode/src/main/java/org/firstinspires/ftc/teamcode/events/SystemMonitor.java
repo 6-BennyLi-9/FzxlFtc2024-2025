@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.events;
 
-import static org.firstinspires.ftc.teamcode.Global.runMode;
-
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.RunMode;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Local;
-import org.betastudio.ftc.RunMode;
 
 /**
  * 定义一个名为 SystemMonitor 的最终类，该类继承自 Thread 并实现 ThreadEx 接口
@@ -19,7 +17,7 @@ public final class SystemMonitor extends Thread implements Interfaces.ThreadEx {
 	@Override
 	public void run() {
 		// 当 runMode 不等于 RunMode.TERMINATE 且 taskClosed 为 false 时，线程持续运行
-		while (RunMode.TERMINATE != runMode && ! taskClosed) {
+		while (RunMode.TERMINATE != RunMode.globalRunMode && ! taskClosed) {
 			Local.sleep(5000); // 休眠 5000 毫秒（5 秒）
 		}
 		// 如果 taskClosed 为 false，表示是通过 runMode 为 RunMode.TERMINATE 退出的，此时中断所有线程

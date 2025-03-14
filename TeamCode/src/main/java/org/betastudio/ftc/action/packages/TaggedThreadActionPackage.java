@@ -16,10 +16,10 @@ import java.util.Set;
 /**
  * 将 {@code Action} 块进一步打包，可以通过数据标签（类型为 {@code String} ）自动处理、替换 {@code Action} 块
  */
-public class TaggedActionPackage extends ActionPackage {
+public class TaggedThreadActionPackage implements ActionPackage{
 	private final Map <String, PriorityAction> priorityActionMap;
 
-	public TaggedActionPackage() {
+	public TaggedThreadActionPackage() {
 		priorityActionMap = new HashMap <>();
 	}
 
@@ -78,7 +78,7 @@ public class TaggedActionPackage extends ActionPackage {
 
 	@Override
 	public boolean activate() {
-		synchronized (actions){
+		synchronized (priorityActionMap){
 			final ArrayList <PriorityAction> actions = new ArrayList <>(priorityActionMap.values());
 			actions.sort(Comparator.comparing(x -> - x.getPriorityCode()));
 
@@ -100,7 +100,7 @@ public class TaggedActionPackage extends ActionPackage {
 	 */
 	@Override
 	public void activateTillEnd() {
-		synchronized (actions){
+		synchronized (priorityActionMap){
 			Actions.runAction(new PriorityThreadedAction(new ArrayList <>(priorityActionMap.values())));
 			priorityActionMap.clear();
 		}
