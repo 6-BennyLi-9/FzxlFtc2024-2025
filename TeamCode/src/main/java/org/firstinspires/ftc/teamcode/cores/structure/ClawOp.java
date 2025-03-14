@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static final double        CLAW_OPEN  = 0.65;
+	public static final double        CLAW_OPEN  = 0.6;
 	public static final double        CLAW_CLOSE = 0.45;
 	public static       ClawPositions recent     = ClawPositions.OPEN;
 	public static       ServoCtrl     clawControl;
