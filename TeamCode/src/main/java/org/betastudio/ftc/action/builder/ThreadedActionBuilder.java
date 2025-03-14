@@ -19,6 +19,16 @@ public class ThreadedActionBuilder implements ActionBuilder{
 	}
 
 	@Override
+	public void clear() {
+		actions.clear();
+	}
+
+	@Override
+	public void remove(Action action) {
+		actions.remove(action);
+	}
+
+	@Override
 	public Action store() {
 		return new ThreadedAction(actions);
 	}
