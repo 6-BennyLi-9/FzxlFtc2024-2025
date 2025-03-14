@@ -86,13 +86,6 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	}
 
 	/**
-	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
-	 */
-	public boolean decanting() {
-		return LiftMode.DECANT_HIGH == recent || LiftMode.DECANT_LOW == recent; // 检查 recent 是否为 DECANT_HIGH 或 DECANT_LOW
-	}
-
-	/**
 	 * 初始化控制器并返回控制动作。
 	 * 首先调用 connect 方法连接硬件组件，然后返回升降机构控制器实例。
 	 *

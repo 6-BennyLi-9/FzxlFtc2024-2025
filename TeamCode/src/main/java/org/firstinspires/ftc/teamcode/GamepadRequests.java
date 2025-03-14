@@ -107,7 +107,7 @@ public final class GamepadRequests {
 		sampleIO.sync(gamepad2.a);
 		liftDecantUpping.sync(gamepad2.left_bumper);
 		liftSuspendPrepare.sync(gamepad2.dpad_up);
-		liftSuspendLv2.sync(gamepad1.x);
+		liftSuspendLv2.sync(gamepad2.dpad_left);
 		liftIDLE.sync(gamepad2.dpad_down);
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
