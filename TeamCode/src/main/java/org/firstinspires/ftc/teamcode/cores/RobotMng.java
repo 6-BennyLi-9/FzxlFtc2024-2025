@@ -67,10 +67,6 @@ public class RobotMng implements Interfaces.Updatable {
 	 * 硬件控制器的映射表
 	 */
 	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
-	/**
-	 * 标记的 Action 包，用于管理不同硬件控制器的动作
-	 */
-	public final        TaggedThreadedActionBuilder                 builder             = new TaggedThreadedActionBuilder();
 	public              Action                                      hardwareAction;
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
@@ -115,6 +111,7 @@ public class RobotMng implements Interfaces.Updatable {
 	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
 	 */
 	public void initControllers() {
+		TaggedThreadedActionBuilder builder = new TaggedThreadedActionBuilder();
 		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
 			final String                        k = entry.getKey();
 			final Interfaces.HardwareController v = entry.getValue();
