@@ -21,6 +21,7 @@ public class FtcLogRender implements Interfaces.ProgressRender {
 		marks.add(0.0);
 		marks.add(0.5);
 		marks.add(1.0);
+		marks.add(1.2);
 	}
 
 	@Override
