@@ -4,7 +4,7 @@ package org.betastudio.ftc.action.utils;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
-public final class LinkedAction extends ActionImpl {
+public final class LinkedAction extends ActionFactory {
 	private final List <Action> actions;
 	private final AtomicInteger ptr = new AtomicInteger(0);
 

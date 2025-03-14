@@ -3,9 +3,9 @@ package org.betastudio.ftc.action.utils;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionFactory;
 
-public final class RepetitionAction extends ActionImpl {
+public final class RepetitionAction extends ActionFactory {
 	private final long   times;
 	private final Action argument;
 	private       long   ptr;

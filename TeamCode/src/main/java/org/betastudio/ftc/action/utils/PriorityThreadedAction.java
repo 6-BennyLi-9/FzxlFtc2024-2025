@@ -1,7 +1,7 @@
 package org.betastudio.ftc.action.utils;
 
 
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionFactory;
 import org.betastudio.ftc.action.PriorityAction;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * 根据 {@code PriorityAction} 的优先级排序后进行执行操作
  */
-public class PriorityThreadedAction extends ActionImpl {
+public class PriorityThreadedAction extends ActionFactory {
 	public final List <PriorityAction> actions;
 
 	public PriorityThreadedAction(final List <PriorityAction> actions) {

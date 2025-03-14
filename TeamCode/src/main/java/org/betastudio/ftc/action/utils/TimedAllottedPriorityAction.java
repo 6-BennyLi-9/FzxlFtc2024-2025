@@ -1,6 +1,6 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionFactory;
 import org.betastudio.ftc.action.PriorityAction;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * 根据 {@code PriorityAction} 的优先级排序后进行执行操作，如果超时后将强制退出执行链
  */
-public class TimedAllottedPriorityAction extends ActionImpl {
+public class TimedAllottedPriorityAction extends ActionFactory {
 	public final  List <PriorityAction> actions;
 	private final long                  allottedMilliseconds;
 	private       boolean               initialized;
