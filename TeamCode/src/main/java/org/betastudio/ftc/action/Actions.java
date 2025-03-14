@@ -10,6 +10,7 @@ import org.betastudio.ftc.util.ProgressMarker;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
+	@NonNull
 	public static Interfaces.ProgressRender DEFAULT_RENDER = new NullptrRender();
 
 	/**
