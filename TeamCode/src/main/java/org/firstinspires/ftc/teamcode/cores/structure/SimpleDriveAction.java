@@ -7,7 +7,9 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.jetbrains.annotations.Contract;
 
 public final class SimpleDriveAction implements Action {
-	private final double x, y, turn;
+	private final double x;
+	private final double y;
+	private final double turn;
 
 	SimpleDriveAction(final double x, final double y, final double turn) {
 		this.x = x;
