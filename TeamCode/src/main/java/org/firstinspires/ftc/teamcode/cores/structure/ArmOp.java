@@ -14,8 +14,15 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static ArmPositions recent = ArmPositions.IDLE;
-	public static ServoCtrl    leftArmControl, rightArmControl;
+	public static final int          MIN_POSITION  = 0;
+	public static final double       MAX_POSITION  = 0.92;
+	public static final double       LEFT_ADDITION = 0.08;
+	public static final double       ARM_INTAKE    = 0.1;
+	public static final double       ARM_IDLE      = 0.8;
+	public static final double       ARM_SAFE      = 0.61;
+	public static final double       ARM_RISE      = 0.37;
+	public static       ArmPositions recent        = ArmPositions.IDLE;
+	public static       ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
 
 	public static ArmOp getInstance() {
@@ -49,29 +56,29 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 	}
 
 	public void manage(double position) {
-		position = Math.min(Math.max(position, 0), 0.92);
-		leftArmControl.setTargetPosition(position + 0.08);
+		position = Math.min(Math.max(position, MIN_POSITION), MAX_POSITION);
+		leftArmControl.setTargetPosition(position + LEFT_ADDITION);
 		rightArmControl.setTargetPosition(position);
 	}
 
 	public void intake() {
 		recent = ArmPositions.INTAKE;
-		manage(0.1);
+		manage(ARM_INTAKE);
 	}
 
 	public void idle() {
 		recent = ArmPositions.IDLE;
-		manage(0.8);
+		manage(ARM_IDLE);
 	}
 
 	public void safe() {
 		recent = ArmPositions.SAFE;
-		manage(0.61);
+		manage(ARM_SAFE);
 	}
 
 	public void rise() {
 		recent = ArmPositions.RISE;
-		manage(0.37);
+		manage(ARM_RISE);
 	}
 
 	public void flip() {

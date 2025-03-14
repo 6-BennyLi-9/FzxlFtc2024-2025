@@ -11,9 +11,11 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  ClipPositions recent = ClipPositions.OPEN;
-	public static  ServoCtrl     clipControl;
-	private static ClipOp        instance;
+	public static final int           CLIP_OPEN  = 0;
+	public static final double        CLIP_CLOSE = 0.5;
+	public static       ClipPositions recent     = ClipPositions.OPEN;
+	public static       ServoCtrl     clipControl;
+	private static      ClipOp        instance;
 
 	public static ClipOp getInstance() {
 		return instance;
@@ -57,12 +59,12 @@ public class ClipOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	public void open() {
 		recent = ClipPositions.OPEN;
-		clipControl.setTargetPosition(0);
+		clipControl.setTargetPosition(CLIP_OPEN);
 	}
 
 	public void close() {
 		recent = ClipPositions.CLOSE;
-		clipControl.setTargetPosition(0.5);
+		clipControl.setTargetPosition(CLIP_CLOSE);
 	}
 
 	@NonNull
