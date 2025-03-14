@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
  * 使用 {@link DcMotorEx} 为基础的控制器
  */
 @Config
-public class DcTeleLiftCtrl extends LiftCtrl {
+public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 	public static final double  bufPow                = 1;
 	public static final int     tolerance             = 10;
 	protected           boolean using_touch_calibrate = true;
@@ -38,8 +38,8 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 			return true;
 		}
 
-		leftLift.setTargetPosition((int) getTargetPosition());
-		rightLift.setTargetPosition((int) getTargetPosition());
+		leftLift.setTargetPosition(getTargetPosition());
+		rightLift.setTargetPosition(getTargetPosition());
 		leftLift.setTargetPositionTolerance(tolerance);
 		rightLift.setTargetPositionTolerance(tolerance);
 		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -48,5 +48,10 @@ public class DcTeleLiftCtrl extends LiftCtrl {
 		rightLift.setPower(bufPow);
 
 		return true;
+	}
+
+	@Override
+	public String paramsString() {
+		return tag + ":(" + rightLift.getCurrentPosition() + "," + leftLift.getCurrentPosition() + ")->" + targetPosition;
 	}
 }
