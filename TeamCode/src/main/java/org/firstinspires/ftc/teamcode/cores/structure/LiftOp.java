@@ -22,14 +22,14 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final int              decantLow      = 1080;
-	public static final int              decantHigh     = 2000;
-	public static final int              suspend        = 740;
-	public static final int              suspendPrepare = 1250;
-	public static final int              suspendLv1     = 770;
-	public static final int              suspendLv2     = 690;
-	public static final int              idlePosition   = 0;
-	public static       LiftMode         recent         = LiftMode.IDLE;
+	public static final int              DECANT_LOW      = 1080;
+	public static final int              DECANT_HIGH     = 2000;
+	public static final int              SUSPEND         = 740;
+	public static final int              SUSPEND_PREPARE = 1250;
+	public static final int              SUSPEND_Lv1     = 770;
+	public static final int              SUSPEND_Lv2     = 690;
+	public static final int              IDLE            = 0;
+	public static       LiftMode         recent          = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
 	private static      LiftOp           instance;
 
@@ -60,25 +60,25 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 		recent = option;
 		switch (option) {
 			case IDLE:
-				liftCtrl.setTargetPosition(idlePosition);
+				liftCtrl.setTargetPosition(IDLE);
 				break;
 			case DECANT_LOW:
-				liftCtrl.setTargetPosition(decantLow);
+				liftCtrl.setTargetPosition(DECANT_LOW);
 				break;
 			case DECANT_HIGH:
-				liftCtrl.setTargetPosition(decantHigh);
+				liftCtrl.setTargetPosition(DECANT_HIGH);
 				break;
 			case SUSPEND:
-				liftCtrl.setTargetPosition(suspend);
+				liftCtrl.setTargetPosition(SUSPEND);
 				break;
 			case SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(suspendPrepare); // 设置目标位置为高悬准备位置
+				liftCtrl.setTargetPosition(SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
-				liftCtrl.setTargetPosition(suspendLv1); // 设置目标位置为悬停等级 1 位置
+				liftCtrl.setTargetPosition(SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
 				break;
 			case SUSPEND_LV2:
-				liftCtrl.setTargetPosition(suspendLv2);
+				liftCtrl.setTargetPosition(SUSPEND_Lv2);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected enum state:" + option.name()); // 抛出异常，表示意外的枚举状态

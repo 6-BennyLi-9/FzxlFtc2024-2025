@@ -11,9 +11,11 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  ClawPositions recent = ClawPositions.OPEN;
-	public static  ServoCtrl     clawControl;
-	private static ClawOp        instance;
+	public static final double        CLAW_OPEN  = 0.65;
+	public static final double        CLAW_CLOSE = 0.45;
+	public static       ClawPositions recent     = ClawPositions.OPEN;
+	public static       ServoCtrl     clawControl;
+	private static      ClawOp        instance;
 
 	public static ClawOp getInstance() {
 		return instance;
@@ -57,12 +59,12 @@ public class ClawOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	public void open() {
 		recent = ClawPositions.OPEN;
-		clawControl.setTargetPosition(0.65);
+		clawControl.setTargetPosition(CLAW_OPEN);
 	}
 
 	public void close() {
 		recent = ClawPositions.CLOSE;
-		clawControl.setTargetPosition(0.45);
+		clawControl.setTargetPosition(CLAW_CLOSE);
 	}
 
 	@NonNull
