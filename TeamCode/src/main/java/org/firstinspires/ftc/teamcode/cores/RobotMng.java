@@ -261,10 +261,6 @@ public class RobotMng implements Interfaces.Updatable {
 		}
 
 		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMsg(driverTriggerBufFal));
-
-		if (gamepad1.a) {
-			DriveOp.getInstance().targetAngleRst();
-		}
 	}
 
 	/**
