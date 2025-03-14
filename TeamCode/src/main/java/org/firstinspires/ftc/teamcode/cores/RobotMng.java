@@ -6,7 +6,8 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.decantOrSuspend;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.flipArm;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.highLowSpeedConfigChange;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftDecantUpping;
-import static org.firstinspires.ftc.teamcode.GamepadRequests.liftHighSuspendPrepare;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendLv2;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
@@ -167,12 +168,14 @@ public class RobotMng implements Interfaces.Updatable {
 
 			ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
 			PlaceOp.getInstance().prepare();
-		} else if (liftHighSuspendPrepare.getEnabled()) {
+		} else if (liftSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
 			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
+		} else if (liftSuspendLv2.getEnabled()) {
+			LiftOp.getInstance().sync(LiftMode.SUSPEND_LV2);
 		}
 
 		if (decantOrSuspend.getEnabled()) {
