@@ -84,7 +84,7 @@ public class RobotMng implements Interfaces.Updatable {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new ClawOp());
-		controllers.put("rightLift", new LiftOp());
+		controllers.put("lift", new LiftOp());
 		controllers.put("place", new PlaceOp());
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
@@ -277,12 +277,11 @@ public class RobotMng implements Interfaces.Updatable {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
-		//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
 		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
 			final String s = entry.getKey();
 			final Action a = entry.getValue().getController();
-			client.changeData(s + "\t", updateCode + a.paramsString());
+			client.changeData(s, updateCode + a.paramsString());
 		}
 	}
 

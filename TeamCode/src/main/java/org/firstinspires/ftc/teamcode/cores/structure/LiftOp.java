@@ -7,11 +7,12 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
-import org.firstinspires.ftc.teamcode.controllers.LiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
@@ -22,24 +23,17 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final long     decantLow          = 1080;
-	public static final long     decantHigh         = 2000;
-	public static final long     highSuspend        = 740;
-	public static final long     highSuspendPrepare = 1250;
-	public static final long     suspendLv1         = 770;
-	/**
-	 * 当前的电梯状态
-	 */
-	public static       LiftMode recent             = LiftMode.IDLE;
-	/**
-	 * 结构控制器
-	 */
-	public static       LiftCtrl liftCtrl;
-	/**
-	 * 电梯的具体点位
-	 */
-	public static       long     idlePosition;
-	private static      LiftOp   instance;
+	public static final int              decantLow      = 1080;
+	public static final int              decantHigh     = 2000;
+	public static final int              suspend        = 740;
+	public static final int              suspendPrepare = 1250;
+	public static final int              suspendLv1     = 770;
+	@Annotations.Beta(date = "25.3.14")
+	public static final int              suspendLv2     = 800;
+	public static final int              idlePosition   = 0;
+	public static       LiftMode         recent         = LiftMode.IDLE;
+	public static       AbstractLiftCtrl liftCtrl;
+	private static      LiftOp           instance;
 
 	public static LiftOp getInstance() {
 		return instance;
@@ -77,10 +71,10 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 				liftCtrl.setTargetPosition(decantHigh);
 				break;
 			case HIGH_SUSPEND:
-				liftCtrl.setTargetPosition(highSuspend);
+				liftCtrl.setTargetPosition(suspend);
 				break;
 			case HIGH_SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(highSuspendPrepare); // 设置目标位置为高悬准备位置
+				liftCtrl.setTargetPosition(suspendPrepare); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
 				liftCtrl.setTargetPosition(suspendLv1); // 设置目标位置为悬停等级 1 位置
