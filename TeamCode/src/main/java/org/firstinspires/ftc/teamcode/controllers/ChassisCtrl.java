@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.DriveMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveBufMsg> {
+public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveMsg> {
 	public static final double          kS              = 1;
 	public static final double          kF              = - 1;
 	public static final double          maxControlPower = 1.3;
@@ -120,7 +120,7 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	 * @param turn 旋转速度
 	 */
 	public void setPowers(final double x, final double y, final double turn) {
-		setPowers(x, y, turn, new DriveBufMsg(1)); // 调用重载方法，缓冲值为 1
+		setPowers(x, y, turn, new DriveMsg(1)); // 调用重载方法，缓冲值为 1
 	}
 
 	/**
@@ -131,7 +131,7 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	 * @param turn   旋转速度
 	 * @param bufVal 缓冲值
 	 */
-	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveBufMsg bufVal) {
+	public void setPowers(final double x, final double y, final double turn, @NonNull final DriveMsg bufVal) {
 		pX = x * bufVal.valX; // 设置 pX 为 x 乘以缓冲值
 		pY = y * bufVal.valY; // 设置 pY 为 y 乘以缓冲值
 		pTurn = turn * bufVal.valTurn; // 设置 pTurn 为 turn 乘以缓冲值
@@ -156,12 +156,12 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	}
 
 	@Override
-	public void sendMsg(@NonNull final DriveBufMsg message) {
+	public void sendMsg(@NonNull final DriveMsg message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
 	@Override
-	public DriveBufMsg callMsg() {
-		return new DriveBufMsg(pX, pY, pTurn);
+	public DriveMsg callMsg() {
+		return new DriveMsg(pX, pY, pTurn);
 	}
 }

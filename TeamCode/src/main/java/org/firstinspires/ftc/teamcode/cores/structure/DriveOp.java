@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.message.DriveBufMsg;
+import org.betastudio.ftc.util.message.DriveMsg;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
@@ -59,8 +59,8 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 		chassisCtrl.setTag(tag);
 	}
 
-	public DriveBufMsg getDriveMsg(){
-		return new DriveBufMsg(x,y,turn);
+	public DriveMsg getDriveMsg(){
+		return new DriveMsg(x,y,turn);
 	}
 
 	public void sync(double x, double y, double turn) {
