@@ -180,7 +180,7 @@ public class RobotMng implements Updatable {
 
 			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
 		} else if (liftSuspendLv2.getEnabled()) {
-			LiftOp.getInstance().sync(LiftMode.SUSPEND_LV2);
+			LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
 		}
 
 		if (decantOrSuspend.getEnabled()) {

@@ -68,10 +68,13 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 			case SUSPEND_PREPARE:
 				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
 				break;
-			case SUSPEND_LV1:
+			case SUSPEND_Lv1:
 				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
 				break;
-			case SUSPEND_LV2:
+			case SUSPEND_Lv2_PREPARE:
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv2_PREPARE);
+				break;
+			case SUSPEND_Lv2:
 				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv2);
 				break;
 			default:
