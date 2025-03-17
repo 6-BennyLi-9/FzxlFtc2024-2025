@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.util.ButtonConfig.WHILE_PRESSING;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
@@ -71,6 +72,7 @@ public final class GamepadRequests {
 	 * 用于处理从gamepad1的右摇杆Y轴大于0.8的输入请求。
 	 */
 	public static final ButtonProcessor switchViewMode;
+	public static final ButtonProcessor ratchetTighten;
 
 	static {
 		sampleIO = new ButtonProcessor(SINGLE_WHEN_PRESSED);
@@ -84,6 +86,7 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		flipArm = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		switchViewMode = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		ratchetTighten = new ButtonProcessor(WHILE_PRESSING);
 
 		sampleIO.sync(false);
 		liftDecantUpping.sync(false);
@@ -96,6 +99,7 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange.sync(false);
 		flipArm.sync(false);
 		switchViewMode.sync(false);
+		ratchetTighten.sync(false);
 	}
 
 	/**
@@ -115,6 +119,7 @@ public final class GamepadRequests {
 		flipArm.sync(gamepad2.y);
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
+		ratchetTighten.sync(gamepad1.x);
 
 		switchViewMode.sync(0.8 < gamepad1.right_stick_y);
 	}
@@ -147,5 +152,6 @@ public final class GamepadRequests {
 		client.changeData("highLowSpeedConfigChange", highLowSpeedConfigChange);
 		client.changeData("flipArm", flipArm);
 		client.changeData("switchViewMode", switchViewMode);
+		client.changeData("ratchetTighten", ratchetTighten);
 	}
 }
