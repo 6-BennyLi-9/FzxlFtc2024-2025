@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.cores.eventloop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public abstract class OverclockOpMode extends LinearOpMode {
-	private OverclockMode mode = OverclockMode.SUPER_LINEAR;
+	private OverclockMode overclockMode = OverclockMode.SUPER_LINEAR;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -22,7 +22,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 			op_start();
 
 			while (opModeIsActive()) {
-				mode.newLoop(this::op_loop).run();
+				overclockMode.newLoop(this::op_loop).run();
 			}
 		} catch (final Throwable e) {
 			exception_entry(e);
@@ -31,13 +31,13 @@ public abstract class OverclockOpMode extends LinearOpMode {
 		}
 	}
 
-	public void setMode(OverclockMode mode) {
-		setMode(mode, 0L);
+	public void setOverclockMode(OverclockMode overclockMode) {
+		setMode(overclockMode, 0L);
 	}
 
 	public void setMode(OverclockMode mode, long utilConfigureValue) {
-		this.mode = mode;
-		this.mode.utilConfigureValue.set(utilConfigureValue);
+		this.overclockMode = mode;
+		this.overclockMode.utilConfigureValue.set(utilConfigureValue);
 	}
 
 	public abstract void op_init();
