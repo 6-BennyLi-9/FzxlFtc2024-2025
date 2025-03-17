@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.message.DriveBufMsg;
-import org.betastudio.ftc.util.message.DriveMsg;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
@@ -44,30 +43,6 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 		instance = this;
 	}
 
-	public void sync(final double x, final double y, final double turn) {
-		sync(x, y, turn, new DriveBufMsg(1));
-	}
-
-	public void sync(final double x, final double y, final double turn, @NonNull final DriveBufMsg message) {
-		chassisCtrl.sendMsg(new DriveMsg(x * message.valX, y * message.valY, turn * message.valTurn));
-	}
-
-	public void additions(final double x, final double y, final double turn) {
-		additions(x, y, turn, new DriveBufMsg(1));
-	}
-
-	public void additions(final double x, final double y, final double turn, @NonNull final DriveBufMsg message) {
-		sync(DriveOp.x + x * message.valX, DriveOp.y + y * message.valY, DriveOp.turn + turn * message.valTurn);
-	}
-
-	public void turn(final double turn) {
-		additions(0, 0, turn);
-	}
-
-	public void turn(final double turn, final DriveBufMsg message) {
-		additions(0, 0, turn, message);
-	}
-
 	@NonNull
 	public Action initController() {
 		connect();
@@ -84,7 +59,24 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 		chassisCtrl.setTag(tag);
 	}
 
-	public DriveMsg getDriveMsg(){
-		return new DriveMsg(x,y,turn);
+	public DriveBufMsg getDriveMsg(){
+		return new DriveBufMsg(x,y,turn);
+	}
+
+	public void sync(double x, double y, double turn) {
+		DriveOp.x = x;
+		DriveOp.y = y;
+		DriveOp.turn = turn;
+
+		chassisCtrl.setPowers(x, y, turn);
+	}
+
+
+	public void turn(double turn) {
+		turn(turn, 1);
+	}
+
+	public void turn(double turn, double buf) {
+		sync(x, y, DriveOp.turn + turn * buf);
 	}
 }

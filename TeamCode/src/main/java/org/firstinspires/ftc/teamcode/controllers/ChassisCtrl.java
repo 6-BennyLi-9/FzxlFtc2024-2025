@@ -8,12 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.message.DriveBufMsg;
-import org.betastudio.ftc.util.message.DriveMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveMsg> {
+public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessRequired <DriveBufMsg> {
 	public static final double          kS              = 1;
 	public static final double          kF              = - 1;
 	public static final double          maxControlPower = 1.3;
@@ -157,12 +156,12 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	}
 
 	@Override
-	public void sendMsg(@NonNull final DriveMsg message) {
+	public void sendMsg(@NonNull final DriveBufMsg message) {
 		setPowers(message.valX, message.valY, message.valTurn);
 	}
 
 	@Override
-	public DriveMsg callMsg() {
-		return new DriveMsg(pX, pY, pTurn);
+	public DriveBufMsg callMsg() {
+		return new DriveBufMsg(pX, pY, pTurn);
 	}
 }
