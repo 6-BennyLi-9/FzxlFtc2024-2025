@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.flipArm;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.highLowSpeedConfigChange;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftDecantUpping;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
-import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendLv2;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendLv2Modding;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.ratchetTighten;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
@@ -179,8 +179,17 @@ public class RobotMng implements Updatable {
 			}
 
 			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
-		} else if (liftSuspendLv2.getEnabled()) {
-			LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
+		} else if (liftSuspendLv2Modding.getEnabled()) {
+			liftSuspendLv2Modding.ticker.tickAndMod(3);
+
+			switch (liftSuspendLv2Modding.ticker.getTicked()) {
+				case 1:
+					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
+					break;
+				case 2:
+					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2);
+					break;
+			}
 		}
 
 		if (decantOrSuspend.getEnabled()) {
