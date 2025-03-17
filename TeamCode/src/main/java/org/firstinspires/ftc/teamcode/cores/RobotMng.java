@@ -263,6 +263,8 @@ public class RobotMng implements Updatable {
 
 		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
+		client.changeData("drive msg 1",DriveOp.getInstance().getDriveMsg());
+
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().turn(- 0.1);
 		}
@@ -271,6 +273,8 @@ public class RobotMng implements Updatable {
 		}
 
 		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMsg(driverTriggerBufFal));
+
+		client.changeData("drive msg 2",DriveOp.getInstance().getDriveMsg());
 	}
 
 	/**

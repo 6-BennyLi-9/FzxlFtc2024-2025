@@ -2,6 +2,8 @@ package org.betastudio.ftc.util.message;
 
 import androidx.annotation.NonNull;
 
+import java.util.Locale;
+
 public class DriveBufMsg implements Message {
 	public final double valX, valY, valTurn;
 
@@ -18,6 +20,6 @@ public class DriveBufMsg implements Message {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format("x=%s, y=%s, turn=%s", valX, valY, valTurn);
+		return String.format(Locale.SIMPLIFIED_CHINESE,"x=%.2f, y=%.2f, turn=%.2f", valX, valY, valTurn);
 	}
 }

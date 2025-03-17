@@ -83,4 +83,8 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 	public void setTag(final String tag) {
 		chassisCtrl.setTag(tag);
 	}
+
+	public DriveMsg getDriveMsg(){
+		return new DriveMsg(x,y,turn);
+	}
 }
