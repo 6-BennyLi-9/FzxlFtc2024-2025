@@ -26,4 +26,6 @@ public final class HardwareConfigures {
 	public static final double ROTATE_DEFAULT     = 0.79;
 	public static final int    SCALE_MIN_POSITION = 0;
 	public static final double SCALE_MAX_POSITION = 0.35;
+	public static final double RATCHET_LOOSEN     = 0.24;
+	public static final double RATCHET_TIGHT      = 0.8;
 }
