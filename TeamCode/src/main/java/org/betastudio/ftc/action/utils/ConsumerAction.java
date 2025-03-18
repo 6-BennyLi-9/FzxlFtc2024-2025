@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 public class ConsumerAction<T> extends ActionImplementFactory {
-
 	public ConsumerAction(@NonNull Collection <T> collection, Consumer <T> consumer) {
 		this(collection.iterator(), consumer);
 	}

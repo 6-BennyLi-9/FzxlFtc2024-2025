@@ -98,4 +98,12 @@ public final class Interfaces {
 		String getName();
 		void setName(String name);
 	}
+
+	@FunctionalInterface
+	public interface ConstNameable extends Nameable {
+		@Override
+		default void setName(String name) {
+			throw new IllegalStateException("Cannot set name of a constant named object");
+		}
+	}
 }
