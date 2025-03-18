@@ -24,9 +24,9 @@ public final class Actions {
 			name = ((Interfaces.Nameable) actionBlock).getName();
 		}
 
-		if (actionBlock instanceof ActionExpressions.ProgressMarkableAction) {
+		if (actionBlock instanceof Interfaces.ProgressedTask) {
 			while (actionBlock.activate()) {
-				marker = ((ActionExpressions.ProgressMarkableAction) actionBlock).getVal();
+				marker = ((Interfaces.ProgressedTask) actionBlock).getWorkerProgress();
 				render.render(name, marker);
 			}
 		} else {

@@ -1,10 +1,6 @@
 package org.betastudio.ftc.action;
 
-import org.betastudio.ftc.Interfaces;
-
 public class ActionExpressions {
-	public interface ProgressMarkableAction extends Action, Interfaces.ValueProduction<Interfaces.ProgressMarker> {}
-
 	/**
 	 * 带有优先级编码的模块化程序块，继承自 {@code Action}
 	 *
