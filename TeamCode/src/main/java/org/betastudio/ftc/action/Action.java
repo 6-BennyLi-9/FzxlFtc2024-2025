@@ -17,7 +17,7 @@ public interface Action extends Interfaces.Countable {
 	 * @implNote 默认打印 {@code hashCode()}，非常没用，所以要记得重写此函数来显示有意义的数据
 	 */
 	default String paramsString() {
-		return String.valueOf(this.hashCode());
+		return Integer.toHexString(this.hashCode());
 	}
 
 	@Override
