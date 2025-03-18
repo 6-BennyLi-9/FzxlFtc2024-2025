@@ -28,16 +28,6 @@ public abstract class AbstractLiftCtrl implements Action {
 	}
 
 	/**
-	 * 返回控制器的参数字符串，包含当前和目标位置。
-	 *
-	 * @return 参数字符串
-	 */
-	@Override
-	public String paramsString() {
-		return tag + ":" + currentPosition + "->" + targetPosition; // 返回参数字符串
-	}
-
-	/**
 	 * 获取控制器的标签。
 	 *
 	 * @return 标签字符串

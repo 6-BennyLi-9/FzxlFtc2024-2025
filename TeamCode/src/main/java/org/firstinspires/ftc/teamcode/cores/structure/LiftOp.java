@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
@@ -23,15 +23,7 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static final int              decantLow      = 1080;
-	public static final int              decantHigh     = 2000;
-	public static final int              suspend        = 740;
-	public static final int              suspendPrepare = 1250;
-	public static final int              suspendLv1     = 770;
-	@Annotations.Beta(date = "25.3.14")
-	public static final int              suspendLv2     = 800;
-	public static final int              idlePosition   = 0;
-	public static       LiftMode         recent         = LiftMode.IDLE;
+	public static       LiftMode         recent          = LiftMode.IDLE;
 	public static       AbstractLiftCtrl liftCtrl;
 	private static      LiftOp           instance;
 
@@ -62,33 +54,29 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 		recent = option;
 		switch (option) {
 			case IDLE:
-				liftCtrl.setTargetPosition(idlePosition);
+				liftCtrl.setTargetPosition(HardwareConfigures.IDLE);
 				break;
 			case DECANT_LOW:
-				liftCtrl.setTargetPosition(decantLow);
+				liftCtrl.setTargetPosition(HardwareConfigures.DECANT_LOW);
 				break;
 			case DECANT_HIGH:
-				liftCtrl.setTargetPosition(decantHigh);
+				liftCtrl.setTargetPosition(HardwareConfigures.DECANT_HIGH);
 				break;
-			case HIGH_SUSPEND:
-				liftCtrl.setTargetPosition(suspend);
+			case SUSPEND:
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND);
 				break;
-			case HIGH_SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(suspendPrepare); // 设置目标位置为高悬准备位置
+			case SUSPEND_PREPARE:
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_LV1:
-				liftCtrl.setTargetPosition(suspendLv1); // 设置目标位置为悬停等级 1 位置
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
+				break;
+			case SUSPEND_LV2:
+				liftCtrl.setTargetPosition(HardwareConfigures.SUSPEND_Lv2);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected enum state:" + option.name()); // 抛出异常，表示意外的枚举状态
 		}
-	}
-
-	/**
-	 * @return 返回 {@code recent} 是否是 {@code decant} 状态
-	 */
-	public boolean decanting() {
-		return LiftMode.DECANT_HIGH == recent || LiftMode.DECANT_LOW == recent; // 检查 recent 是否为 DECANT_HIGH 或 DECANT_LOW
 	}
 
 	/**

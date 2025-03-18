@@ -17,11 +17,11 @@ public class ButtonProcessor {
 	/**
 	 * 上一个按键状态
 	 */
-	private      boolean      lst,
+	private      boolean      lst;
 	/**
 	 * 当前按键状态
 	 */
-	now;
+	private      boolean      now;
 
 	/**
 	 * 构造函数，初始化按键处理器

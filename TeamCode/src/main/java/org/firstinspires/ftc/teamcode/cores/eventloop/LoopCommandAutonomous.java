@@ -19,8 +19,6 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,6 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		Global.prepareCoreThreadPool();
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
-		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		HardwareDatabase.sync(hardwareMap, false);
 		HardwareDatabase.chassisConfig();
 		timer = new Timer();

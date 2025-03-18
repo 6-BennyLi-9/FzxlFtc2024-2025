@@ -24,9 +24,9 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
-import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -269,7 +269,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantHigh() {
-		actions.add(liftControllerGenerator(LiftOp.decantHigh));
+		actions.add(liftControllerGenerator(HardwareConfigures.DECANT_HIGH));
 		return this;
 	}
 
@@ -279,7 +279,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantLow() {
-		actions.add(liftControllerGenerator(LiftOp.decantLow));
+		actions.add(liftControllerGenerator(HardwareConfigures.DECANT_LOW));
 		return this;
 	}
 
@@ -289,7 +289,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHighPrepare() {
-		actions.add(liftControllerGenerator(LiftOp.suspendPrepare));
+		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND_PREPARE));
 		return this;
 	}
 
@@ -299,7 +299,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHigh() {
-		actions.add(liftControllerGenerator(LiftOp.suspend));
+		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND));
 		return this;
 	}
 
@@ -309,7 +309,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendLv1() {
-		actions.add(liftControllerGenerator(LiftOp.suspendLv1));
+		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND_Lv1));
 		return this;
 	}
 

@@ -39,7 +39,8 @@ public final class GamepadRequests {
 	 * 电梯挂样本准备
 	 * 用于处理从gamepad2的dpad向上按钮输入的请求。
 	 */
-	public static final ButtonProcessor liftHighSuspendPrepare;
+	public static final ButtonProcessor liftSuspendPrepare;
+	public static final ButtonProcessor liftSuspendLv2;
 	/**
 	 * 倒筐与挂样本
 	 * 用于处理从gamepad2的X按钮输入的请求。
@@ -74,7 +75,8 @@ public final class GamepadRequests {
 	static {
 		sampleIO = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		liftDecantUpping = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		liftHighSuspendPrepare = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		liftSuspendPrepare = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		liftSuspendLv2 = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		liftIDLE = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		decantOrSuspend = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		clipOption = new ButtonProcessor(SINGLE_WHEN_PRESSED);
@@ -85,7 +87,8 @@ public final class GamepadRequests {
 
 		sampleIO.sync(false);
 		liftDecantUpping.sync(false);
-		liftHighSuspendPrepare.sync(false);
+		liftSuspendPrepare.sync(false);
+		liftSuspendLv2.sync(false);
 		liftIDLE.sync(false);
 		decantOrSuspend.sync(false);
 		clipOption.sync(false);
@@ -103,7 +106,8 @@ public final class GamepadRequests {
 	public static void syncRequests() {
 		sampleIO.sync(gamepad2.a);
 		liftDecantUpping.sync(gamepad2.left_bumper);
-		liftHighSuspendPrepare.sync(gamepad2.dpad_up);
+		liftSuspendPrepare.sync(gamepad2.dpad_up);
+		liftSuspendLv2.sync(gamepad2.dpad_left);
 		liftIDLE.sync(gamepad2.dpad_down);
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
@@ -134,7 +138,8 @@ public final class GamepadRequests {
 	public static void printValues(@NonNull final Client client) {
 		client.changeData("liftDecantUpping", liftDecantUpping);
 		client.changeData("sampleIO", sampleIO);
-		client.changeData("liftHighSuspendPrepare", liftHighSuspendPrepare);
+		client.changeData("liftSuspendPrepare", liftSuspendPrepare);
+		client.changeData("liftSuspendLv2", liftSuspendLv2);
 		client.changeData("liftIDLE", liftIDLE);
 		client.changeData("decantOrSuspend", decantOrSuspend);
 		client.changeData("clipOption", clipOption);
