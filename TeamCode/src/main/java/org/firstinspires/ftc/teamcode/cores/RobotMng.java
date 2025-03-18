@@ -59,28 +59,28 @@ public class RobotMng implements Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
-	public static final String                                      printCode           = "fzxl";
+	public static final String                           printCode           = "fzxl";
 	/**
 	 * 驱动杆缓冲阈值
 	 */
-	public static final double                                      driverTriggerBufFal = 0.2;
+	public static final double                           driverTriggerBufFal = 0.2;
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double                                      rotateTriggerBufFal = 0.01;
+	public static final double                           rotateTriggerBufFal = 0.01;
 	/**
 	 * 硬件控制器的映射表
 	 */
 	public final        Map <String, HardwareController> controllers         = new HashMap <>();
-	public              Action                                      hardwareAction;
+	public              Action                           hardwareAction;
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
 	 */
-	public              int                                         updateTime;
+	public              int                              updateTime;
 	/**
 	 * 客户端对象，用于与控制台通信
 	 */
-	private             Client                                      client;
+	private             Client                           client;
 
 	/**
 	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
@@ -119,7 +119,7 @@ public class RobotMng implements Updatable {
 	public void initControllers() {
 		TaggedThreadedActionBuilder builder = new TaggedThreadedActionBuilder();
 		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
-			final String                        k = entry.getKey();
+			final String             k = entry.getKey();
 			final HardwareController v = entry.getValue();
 
 			v.connect();
@@ -271,7 +271,7 @@ public class RobotMng implements Updatable {
 
 		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-		client.changeData("drive msg 1",DriveOp.getInstance().getDriveMsg());
+		client.changeData("drive msg 1", DriveOp.getInstance().getDriveMsg());
 
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().turn(- 0.1);
@@ -282,7 +282,7 @@ public class RobotMng implements Updatable {
 
 		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
 
-		client.changeData("drive msg 2",DriveOp.getInstance().getDriveMsg());
+		client.changeData("drive msg 2", DriveOp.getInstance().getDriveMsg());
 	}
 
 	/**

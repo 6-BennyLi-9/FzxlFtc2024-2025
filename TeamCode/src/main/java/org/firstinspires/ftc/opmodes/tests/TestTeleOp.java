@@ -12,6 +12,7 @@ public class TestTeleOp extends TeleOpCore {
 	public void op_init() {
 		super.op_init();
 		Actions.DEFAULT_RENDER = new ClientRender(client);
+		robot.hardwareAction = Actions.metaFor(robot.hardwareAction);
 	}
 
 	@Override

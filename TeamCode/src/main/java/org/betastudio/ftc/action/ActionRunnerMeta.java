@@ -1,15 +1,17 @@
 package org.betastudio.ftc.action;
 
+import androidx.annotation.NonNull;
+
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarker;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ActionRunnerMeta implements Action {
+public final class ActionRunnerMeta implements Action {
 	private final Action metaRunner;
 
-	public ActionRunnerMeta(Action action, Interfaces.ProgressRender render) {
+	public ActionRunnerMeta(@NonNull Action action, Interfaces.ProgressRender render) {
 		AtomicReference <Interfaces.ProgressMarker> marker = new AtomicReference <>(new ProgressMarker(action.getCount()));
 		AtomicReference <String>                    name   = new AtomicReference <>(Labeler.gen().summon(action));
 
