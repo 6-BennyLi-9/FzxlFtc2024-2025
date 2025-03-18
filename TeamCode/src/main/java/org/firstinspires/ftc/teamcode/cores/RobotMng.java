@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode.cores;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
+import static org.betastudio.ftc.Interfaces.Updatable;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.armScaleOperate;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.clipOption;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.decantOrSuspend;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.flipArm;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.highLowSpeedConfigChange;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftDecantUpping;
-import static org.firstinspires.ftc.teamcode.GamepadRequests.liftHighSuspendPrepare;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.liftIDLE;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendLv2Modding;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.liftSuspendPrepare;
+import static org.firstinspires.ftc.teamcode.GamepadRequests.ratchetTighten;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
@@ -18,12 +24,10 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.builder.TaggedThreadedActionBuilder;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.message.DriveBufMsg;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Global;
@@ -37,6 +41,7 @@ import org.firstinspires.ftc.teamcode.cores.structure.ClipOp;
 import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 import org.firstinspires.ftc.teamcode.cores.structure.LiftOp;
 import org.firstinspires.ftc.teamcode.cores.structure.PlaceOp;
+import org.firstinspires.ftc.teamcode.cores.structure.RatchetOp;
 import org.firstinspires.ftc.teamcode.cores.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.cores.structure.ScaleOp;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
@@ -46,11 +51,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 机器人管理类，实现了 {@link Interfaces.Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
+ * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
  * 然后获取客户端 {@link #fetchClient()}。
  */
 @Config
-public class RobotMng implements Interfaces.Updatable {
+public class RobotMng implements Updatable {
 	/**
 	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	 */
@@ -66,7 +71,7 @@ public class RobotMng implements Interfaces.Updatable {
 	/**
 	 * 硬件控制器的映射表
 	 */
-	public final        Map <String, Interfaces.HardwareController> controllers         = new HashMap <>();
+	public final        Map <String, HardwareController> controllers         = new HashMap <>();
 	public              Action                                      hardwareAction;
 	/**
 	 * 更新时间，用于计算 telemetry 的更新状态
@@ -84,11 +89,12 @@ public class RobotMng implements Interfaces.Updatable {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
 		controllers.put("claw", new ClawOp());
-		controllers.put("rightLift", new LiftOp());
+		controllers.put("lift", new LiftOp());
 		controllers.put("place", new PlaceOp());
 		controllers.put("rotate", new RotateOp());
 		controllers.put("scale", new ScaleOp());
 		controllers.put("drive", new DriveOp());
+		controllers.put("ratchet", new RatchetOp());
 	}
 
 	/**
@@ -112,18 +118,18 @@ public class RobotMng implements Interfaces.Updatable {
 	 */
 	public void initControllers() {
 		TaggedThreadedActionBuilder builder = new TaggedThreadedActionBuilder();
-		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
+		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			final String                        k = entry.getKey();
-			final Interfaces.HardwareController v = entry.getValue();
+			final HardwareController v = entry.getValue();
 
 			v.connect();
 			v.writeToInstance();
 
-			if (v instanceof Interfaces.InitializeRequested) {
-				((Interfaces.InitializeRequested) v).init();
+			if (v instanceof InitializeRequested) {
+				((InitializeRequested) v).init();
 			}
-			if (v instanceof Interfaces.TagOptionsRequired) {
-				((Interfaces.TagOptionsRequired) v).setTag(k + ":ctrl");
+			if (v instanceof TagOptionsRequired) {
+				((TagOptionsRequired) v).setTag(k + ":ctrl");
 			}
 
 			builder.append(k, v.getController());
@@ -148,7 +154,7 @@ public class RobotMng implements Interfaces.Updatable {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftMode.HIGH_SUSPEND == LiftOp.recent || LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
+			if (LiftMode.SUSPEND == LiftOp.recent || LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
 				ClipOp.getInstance().open();
 			}
 
@@ -167,17 +173,28 @@ public class RobotMng implements Interfaces.Updatable {
 
 			ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
 			PlaceOp.getInstance().prepare();
-		} else if (liftHighSuspendPrepare.getEnabled()) {
+		} else if (liftSuspendPrepare.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND_PREPARE);
+			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
+		} else if (liftSuspendLv2Modding.getEnabled()) {
+			liftSuspendLv2Modding.ticker.tickAndMod(3);
+
+			switch (liftSuspendLv2Modding.ticker.getTicked()) {
+				case 1:
+					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
+					break;
+				case 2:
+					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2);
+					break;
+			}
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftMode.HIGH_SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.HIGH_SUSPEND);
+			if (LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(LiftMode.SUSPEND);
 			} else {
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();
@@ -223,6 +240,10 @@ public class RobotMng implements Interfaces.Updatable {
 			}
 		}
 
+		if (ratchetTighten.getEnabled()) {
+			RatchetOp.getInstance().tighten();
+		}
+
 		if (switchViewMode.getEnabled()) {
 			client.switchViewMode();
 			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
@@ -250,6 +271,8 @@ public class RobotMng implements Interfaces.Updatable {
 
 		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
+		client.changeData("drive msg 1",DriveOp.getInstance().getDriveMsg());
+
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().turn(- 0.1);
 		}
@@ -257,11 +280,9 @@ public class RobotMng implements Interfaces.Updatable {
 			DriveOp.getInstance().turn(0.1);
 		}
 
-		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, new DriveBufMsg(driverTriggerBufFal));
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
 
-		if (gamepad1.a) {
-			DriveOp.getInstance().targetAngleRst();
-		}
+		client.changeData("drive msg 2",DriveOp.getInstance().getDriveMsg());
 	}
 
 	/**
@@ -277,12 +298,11 @@ public class RobotMng implements Interfaces.Updatable {
 		++ updateTime;
 
 		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
-		//		final String lastUpdateCode = "[" + printCode.charAt((updateTime - 1) % printCode.length()) + "]";
 
-		for (final Map.Entry <String, Interfaces.HardwareController> entry : controllers.entrySet()) {
+		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			final String s = entry.getKey();
 			final Action a = entry.getValue().getController();
-			client.changeData(s + "\t", updateCode + a.paramsString());
+			client.changeData(s, updateCode + a.paramsString());
 		}
 	}
 

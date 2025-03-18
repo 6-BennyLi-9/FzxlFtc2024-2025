@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop;
+package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.RobotMng;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockOpMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -38,7 +38,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.prepareCoreThreadPool();
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
-		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);

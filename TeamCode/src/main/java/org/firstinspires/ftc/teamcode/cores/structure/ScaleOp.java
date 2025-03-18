@@ -9,16 +9,20 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static ScalePositions recent = ScalePositions.BACK;
-	public static ServoCtrl      leftScaleController, rightScaleController;
-	public static final double  smooth = 0.2;
-	private static      ScaleOp instance;
+	public static final double         SMOOTH = 0.2;
+	public static final double SCALE_PROBE = 0.35;
+	public static final int SCALE_BACH = 0;
+	public static       ScalePositions recent = ScalePositions.BACK;
+	public static       ServoCtrl      leftScaleController;
+	public static       ServoCtrl      rightScaleController;
+	private static      ScaleOp        instance;
 
 	public static ScaleOp getInstance() {
 		return instance;
@@ -46,15 +50,15 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 	}
 
 	public void manage(double position) {
-		position = min(max(position, 0), 0.35);
+		position = min(max(position, HardwareConfigures.SCALE_MIN_POSITION), HardwareConfigures.SCALE_MAX_POSITION);
 		leftScaleController.setTargetPosition(1 - position);
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
-		position = min(max(position, 0), 0.35);
-		leftScaleController.setTargetPositionTolerance(1 - position, smooth);
-		rightScaleController.setTargetPositionTolerance(position, smooth);
+		position = min(max(position, HardwareConfigures.SCALE_MIN_POSITION), HardwareConfigures.SCALE_MAX_POSITION);
+		leftScaleController.setTargetPositionTolerance(1 - position, SMOOTH);
+		rightScaleController.setTargetPositionTolerance(position, SMOOTH);
 	}
 
 	@Override
@@ -72,12 +76,12 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void probe() {
 		recent = ScalePositions.PROBE;
-		manage(0.35);
+		manage(SCALE_PROBE);
 	}
 
 	public void back() {
 		recent = ScalePositions.BACK;
-		manage(0);
+		manage(SCALE_BACH);
 	}
 
 	public void operate(final double position) {

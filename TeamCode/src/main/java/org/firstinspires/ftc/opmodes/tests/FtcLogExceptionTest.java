@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.betastudio.ftc.Annotations;
-import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralTeleOp;
 
 @TeleOp(group = "zzz")
 @Disabled

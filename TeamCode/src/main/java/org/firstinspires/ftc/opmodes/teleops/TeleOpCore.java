@@ -4,7 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GamepadRequests;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
-import org.firstinspires.ftc.teamcode.cores.eventloop.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralTeleOp;
 
 @TeleOp(name = "19419", group = "0_Main")
 public class TeleOpCore extends IntegralTeleOp {
@@ -16,6 +17,7 @@ public class TeleOpCore extends IntegralTeleOp {
 
 	@Override
 	public void op_loop_entry() {
+		setOverclockMode(OverclockMode.YIELD_AT_EACH);
 		GamepadRequests.syncRequests();
 		//主程序开始
 
