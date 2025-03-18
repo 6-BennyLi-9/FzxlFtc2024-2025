@@ -25,6 +25,8 @@ public class ConsumerAction<T> extends ActionImplementFactory implements Interfa
 			}
 			return hasNext;
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@Override

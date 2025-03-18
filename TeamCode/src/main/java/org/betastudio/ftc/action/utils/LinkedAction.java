@@ -20,7 +20,7 @@ public final class LinkedAction extends ActionImplementFactory implements Interf
 	private final AtomicInteger ptr = new AtomicInteger(0);
 	private final ProgressMarker marker;
 
-	public LinkedAction(final List <Action> actions) {
+	public LinkedAction(@NonNull final List <Action> actions) {
 		this.actions = actions;
 		marker = new ProgressMarker(actions.size());
 		setAction(()->{
@@ -32,6 +32,8 @@ public final class LinkedAction extends ActionImplementFactory implements Interf
 				return ptr.get() < actions.size();
 			}
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	public LinkedAction(final Action... actions) {

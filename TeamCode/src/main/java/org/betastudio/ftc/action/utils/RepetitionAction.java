@@ -26,6 +26,8 @@ public final class RepetitionAction extends ActionImplementFactory implements In
 			marker.tick();
 			return b;
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@NonNull

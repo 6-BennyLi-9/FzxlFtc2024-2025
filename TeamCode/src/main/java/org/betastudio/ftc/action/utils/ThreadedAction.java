@@ -37,6 +37,8 @@ public final class ThreadedAction extends ActionImplementFactory implements Inte
 			actions.removeAll(removes);
 			return ! actions.isEmpty();
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	public ThreadedAction(final Action... actions) {

@@ -16,6 +16,8 @@ public class StatementAction extends ActionImplementFactory {
 			node.run();
 			return false;
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@Override

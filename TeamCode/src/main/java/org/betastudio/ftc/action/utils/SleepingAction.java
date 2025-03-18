@@ -22,6 +22,8 @@ public class SleepingAction extends ActionImplementFactory {
 			}
 			return System.currentTimeMillis() - startTime.get() <= sleepMilliseconds;
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@NonNull
