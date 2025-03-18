@@ -3,7 +3,6 @@ package org.betastudio.ftc.action;
 import org.betastudio.ftc.Interfaces;
 
 public class ActionExpressions {
-	public interface NameableAction extends Action, Interfaces.Nameable {}
 	public interface ProgressMarkableAction extends Action, Interfaces.ValueProduction<Interfaces.ProgressMarker> {}
 
 	/**

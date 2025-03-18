@@ -20,8 +20,8 @@ public final class Actions {
 	public static void runAction(@NonNull final Action actionBlock, Interfaces.ProgressRender render) {
 		Interfaces.ProgressMarker marker = new ProgressMarker(actionBlock.getCount());
 		String                    name   = Labeler.gen().summon(actionBlock);
-		if (actionBlock instanceof ActionExpressions.NameableAction) {
-			name = ((ActionExpressions.NameableAction) actionBlock).getName();
+		if (actionBlock instanceof Interfaces.Nameable) {
+			name = ((Interfaces.Nameable) actionBlock).getName();
 		}
 
 		if (actionBlock instanceof ActionExpressions.ProgressMarkableAction) {
