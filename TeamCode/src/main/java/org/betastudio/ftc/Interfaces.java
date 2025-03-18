@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.message.Message;
+import org.betastudio.ftc.message.Message;
 
 public final class Interfaces {
 	public interface HardwareController {

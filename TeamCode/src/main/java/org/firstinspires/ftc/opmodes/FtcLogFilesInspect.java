@@ -17,7 +17,7 @@ import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.ButtonProcessor;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.message.TelemetryMsg;
 
 import java.util.Objects;
 

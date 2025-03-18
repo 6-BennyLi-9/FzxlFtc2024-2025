@@ -2,11 +2,10 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.time.Timestamp;
+import org.betastudio.ftc.message.LogMessages;
+import org.betastudio.ftc.util.Timestamp;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.message.ExceptionMsg;
-import org.betastudio.ftc.util.message.StringMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.message.TelemetryMsg;
 
 public enum FtcLogTunnel {
 	MAIN, @Deprecated DEBUG;
@@ -30,11 +29,11 @@ public enum FtcLogTunnel {
 	}
 
 	public void report(final String s) {
-		report(new FtcLogElement.ElementImpl(new StringMsg(s)));
+		report(new FtcLogElement.ElementImpl(new LogMessages.StringMsg(s)));
 	}
 
 	public void report(@NonNull final Throwable e) {
-		report(new FtcLogElement.ElementImpl(new ExceptionMsg(e)));
+		report(new FtcLogElement.ElementImpl(new LogMessages.ExceptionMsg(e)));
 	}
 
 	public void report(final FtcLogElement element) {

@@ -5,7 +5,7 @@ import android.util.Range;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.message.TelemetryMsg;
 
 import java.util.ArrayList;
 import java.util.Arrays;
