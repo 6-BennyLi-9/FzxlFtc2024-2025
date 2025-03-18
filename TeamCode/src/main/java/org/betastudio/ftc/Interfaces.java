@@ -106,4 +106,8 @@ public final class Interfaces {
 			throw new IllegalStateException("Cannot set name of a constant named object");
 		}
 	}
+
+	public interface ProgressedTask {
+		ProgressMarker getWorkerProgress();
+	}
 }
