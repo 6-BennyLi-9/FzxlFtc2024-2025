@@ -11,10 +11,12 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
+@Deprecated
 @Disabled
 @Annotations.TestDoneSuccessfully
 @Autonomous(group = "9_Test")
 public class SleepingActionTest extends LinearOpMode {
+	@Deprecated
 	public static final class DebugSleepingAction extends SleepingAction {
 		public long tick;
 
