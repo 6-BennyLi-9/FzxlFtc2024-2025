@@ -2,7 +2,7 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.time.Timestamp;
+import org.betastudio.ftc.util.Timestamp;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.message.ExceptionMsg;
 import org.betastudio.ftc.message.StringMsg;

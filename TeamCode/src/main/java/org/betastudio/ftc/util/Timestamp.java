@@ -1,8 +1,8 @@
-package org.betastudio.ftc.time;
+package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-public class Timestamp {
+public final class Timestamp {
 	private final String minute;
 	private final String second;
 

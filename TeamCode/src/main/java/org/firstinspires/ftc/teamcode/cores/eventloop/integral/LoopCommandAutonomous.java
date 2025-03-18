@@ -9,7 +9,7 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
