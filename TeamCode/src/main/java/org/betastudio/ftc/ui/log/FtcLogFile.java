@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.message.StringMsg;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.message.StringMsg;
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.time.Timestamp;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.message.DriveMsg;
+import org.betastudio.ftc.message.DriveMsg;
 
 import java.util.Locale;
 
