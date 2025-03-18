@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
-import org.firstinspires.ftc.teamcode.cores.eventloop.LoopCommandAutonomous;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.LoopCommandAutonomous;
 
 @Autonomous(group = "9_Tests")
 public class LoopCommandAutonomousTest extends LoopCommandAutonomous {

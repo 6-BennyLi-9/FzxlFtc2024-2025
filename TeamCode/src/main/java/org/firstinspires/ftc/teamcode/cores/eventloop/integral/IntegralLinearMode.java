@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop;
+package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -16,6 +16,7 @@ import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.time.Timer;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;

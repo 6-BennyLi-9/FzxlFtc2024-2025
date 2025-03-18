@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.util.ButtonConfig.WHILE_PRESSING;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
@@ -40,7 +41,7 @@ public final class GamepadRequests {
 	 * 用于处理从gamepad2的dpad向上按钮输入的请求。
 	 */
 	public static final ButtonProcessor liftSuspendPrepare;
-	public static final ButtonProcessor liftSuspendLv2;
+	public static final ButtonProcessor liftSuspendLv2Modding;
 	/**
 	 * 倒筐与挂样本
 	 * 用于处理从gamepad2的X按钮输入的请求。
@@ -71,12 +72,13 @@ public final class GamepadRequests {
 	 * 用于处理从gamepad1的右摇杆Y轴大于0.8的输入请求。
 	 */
 	public static final ButtonProcessor switchViewMode;
+	public static final ButtonProcessor ratchetTighten;
 
 	static {
 		sampleIO = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		liftDecantUpping = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		liftSuspendPrepare = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-		liftSuspendLv2 = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		liftSuspendLv2Modding = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		liftIDLE = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		decantOrSuspend = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		clipOption = new ButtonProcessor(SINGLE_WHEN_PRESSED);
@@ -84,11 +86,12 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		flipArm = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 		switchViewMode = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+		ratchetTighten = new ButtonProcessor(WHILE_PRESSING);
 
 		sampleIO.sync(false);
 		liftDecantUpping.sync(false);
 		liftSuspendPrepare.sync(false);
-		liftSuspendLv2.sync(false);
+		liftSuspendLv2Modding.sync(false);
 		liftIDLE.sync(false);
 		decantOrSuspend.sync(false);
 		clipOption.sync(false);
@@ -96,6 +99,7 @@ public final class GamepadRequests {
 		highLowSpeedConfigChange.sync(false);
 		flipArm.sync(false);
 		switchViewMode.sync(false);
+		ratchetTighten.sync(false);
 	}
 
 	/**
@@ -107,7 +111,7 @@ public final class GamepadRequests {
 		sampleIO.sync(gamepad2.a);
 		liftDecantUpping.sync(gamepad2.left_bumper);
 		liftSuspendPrepare.sync(gamepad2.dpad_up);
-		liftSuspendLv2.sync(gamepad2.dpad_left);
+		liftSuspendLv2Modding.sync(gamepad2.dpad_right);
 		liftIDLE.sync(gamepad2.dpad_down);
 		decantOrSuspend.sync(gamepad2.x);
 		clipOption.sync(gamepad2.b);
@@ -115,6 +119,7 @@ public final class GamepadRequests {
 		flipArm.sync(gamepad2.y);
 
 		highLowSpeedConfigChange.sync(gamepad1.a);
+		ratchetTighten.sync(gamepad1.x);
 
 		switchViewMode.sync(0.8 < gamepad1.right_stick_y);
 	}
@@ -139,7 +144,7 @@ public final class GamepadRequests {
 		client.changeData("liftDecantUpping", liftDecantUpping);
 		client.changeData("sampleIO", sampleIO);
 		client.changeData("liftSuspendPrepare", liftSuspendPrepare);
-		client.changeData("liftSuspendLv2", liftSuspendLv2);
+		client.changeData("liftSuspendLv2Modding", liftSuspendLv2Modding);
 		client.changeData("liftIDLE", liftIDLE);
 		client.changeData("decantOrSuspend", decantOrSuspend);
 		client.changeData("clipOption", clipOption);
@@ -147,5 +152,6 @@ public final class GamepadRequests {
 		client.changeData("highLowSpeedConfigChange", highLowSpeedConfigChange);
 		client.changeData("flipArm", flipArm);
 		client.changeData("switchViewMode", switchViewMode);
+		client.changeData("ratchetTighten", ratchetTighten);
 	}
 }
