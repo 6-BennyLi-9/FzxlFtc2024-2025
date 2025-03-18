@@ -5,12 +5,13 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class RotateOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  ServoCtrl rotateController;
+	public static ServoCtrl rotateController;
 	private static RotateOp  instance;
 
 	public static RotateOp getInstance() {
@@ -19,7 +20,7 @@ public class RotateOp implements Interfaces.HardwareController, Interfaces.Initi
 
 	@Override
 	public void connect() {
-		rotateController = new ServoCtrl(HardwareDatabase.rotate, 0.79);
+		rotateController = new ServoCtrl(HardwareDatabase.rotate, HardwareConfigures.ROTATE_DEFAULT);
 
 		rotateController.setTag(Labeler.gen().summon(rotateController));
 	}
@@ -42,7 +43,7 @@ public class RotateOp implements Interfaces.HardwareController, Interfaces.Initi
 	}
 
 	public void mid() {
-		rotateController.setTargetPosition(0.79);
+		rotateController.setTargetPosition(HardwareConfigures.ROTATE_DEFAULT);
 	}
 
 	public void turn(final double position) {

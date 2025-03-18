@@ -5,15 +5,16 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  ClawPositions recent = ClawPositions.OPEN;
-	public static  ServoCtrl     clawControl;
-	private static ClawOp        instance;
+	public static       ClawPositions recent     = ClawPositions.OPEN;
+	public static       ServoCtrl     clawControl;
+	private static      ClawOp        instance;
 
 	public static ClawOp getInstance() {
 		return instance;
@@ -57,12 +58,12 @@ public class ClawOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	public void open() {
 		recent = ClawPositions.OPEN;
-		clawControl.setTargetPosition(0.65);
+		clawControl.setTargetPosition(HardwareConfigures.CLAW_OPEN);
 	}
 
 	public void close() {
 		recent = ClawPositions.CLOSE;
-		clawControl.setTargetPosition(0.45);
+		clawControl.setTargetPosition(HardwareConfigures.CLAW_CLOSE);
 	}
 
 	@NonNull

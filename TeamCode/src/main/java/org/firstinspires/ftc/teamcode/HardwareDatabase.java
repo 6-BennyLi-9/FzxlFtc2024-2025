@@ -36,6 +36,7 @@ public final class HardwareDatabase {
 	 */
 	public static Servo       claw;
 	public static Servo       rotate;
+	public static Servo       ratchet;
 	public static BNO055IMU   imu;
 	public static TouchSensor liftTouch;
 
@@ -51,6 +52,7 @@ public final class HardwareDatabase {
 
 		leftLift = hardwareMap.get(DcMotorEx.class, "leftLift");
 		rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
+		liftTouch = hardwareMap.get(TouchSensor.class, "liftTouch");
 
 		//收集
 		leftScale = hardwareMap.get(Servo.class, "leftScale");
@@ -66,7 +68,7 @@ public final class HardwareDatabase {
 		clip = hardwareMap.get(Servo.class, "clip");
 		place = hardwareMap.get(Servo.class, "place");
 
-		liftTouch = hardwareMap.get(TouchSensor.class, "liftTouch");
+		ratchet = hardwareMap.get(Servo.class, "ratchet");
 
 		if (connectIMU) {
 			syncIMU();

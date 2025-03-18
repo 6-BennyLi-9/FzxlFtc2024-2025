@@ -6,6 +6,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
@@ -14,8 +15,8 @@ import org.jetbrains.annotations.Contract;
 import java.util.Objects;
 
 public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static ArmPositions recent = ArmPositions.IDLE;
-	public static ServoCtrl    leftArmControl, rightArmControl;
+	public static       ArmPositions recent        = ArmPositions.IDLE;
+	public static       ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
 
 	public static ArmOp getInstance() {
@@ -49,29 +50,29 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 	}
 
 	public void manage(double position) {
-		position = Math.min(Math.max(position, 0), 0.92);
-		leftArmControl.setTargetPosition(position + 0.08);
+		position = Math.min(Math.max(position, HardwareConfigures.ARM_MIN_POSITION), HardwareConfigures.ARM_MAX_POSITION);
+		leftArmControl.setTargetPosition(position + HardwareConfigures.LEFT_ADDITION);
 		rightArmControl.setTargetPosition(position);
 	}
 
 	public void intake() {
 		recent = ArmPositions.INTAKE;
-		manage(0.1);
+		manage(HardwareConfigures.ARM_INTAKE);
 	}
 
 	public void idle() {
 		recent = ArmPositions.IDLE;
-		manage(0.8);
+		manage(HardwareConfigures.ARM_IDLE);
 	}
 
 	public void safe() {
 		recent = ArmPositions.SAFE;
-		manage(0.61);
+		manage(HardwareConfigures.ARM_SAFE);
 	}
 
 	public void rise() {
 		recent = ArmPositions.RISE;
-		manage(0.37);
+		manage(HardwareConfigures.ARM_RISE);
 	}
 
 	public void flip() {

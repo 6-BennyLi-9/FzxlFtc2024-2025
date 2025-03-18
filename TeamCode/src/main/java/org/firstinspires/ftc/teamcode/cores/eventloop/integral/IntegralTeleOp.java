@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop;
+package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.RobotMng;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockOpMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -38,7 +38,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		Global.prepareCoreThreadPool();
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
-		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		timer = new Timer();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);

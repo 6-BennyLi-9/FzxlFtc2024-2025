@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop;
+package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
@@ -9,7 +9,7 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveMode;
-import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
+import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockOpMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	public    Client             client;
 	public    UtilsMng           utils;
 	public    Timer              timer;
-	protected Exception     inline_exception;
-	protected List <Action> commands;
-	private   Action        main;
+	protected Exception          inline_exception;
+	protected List <Action>      commands;
+	private   Action             main;
 	protected TerminateReason    reason;
 	private   boolean            is_terminate_method_called;
 	private   boolean            isCommandUndone;
@@ -48,7 +48,6 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		Global.prepareCoreThreadPool();
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
-		DriveOp.config = DriveMode.STRAIGHT_LINEAR;
 		HardwareDatabase.sync(hardwareMap, false);
 		HardwareDatabase.chassisConfig();
 		timer = new Timer();

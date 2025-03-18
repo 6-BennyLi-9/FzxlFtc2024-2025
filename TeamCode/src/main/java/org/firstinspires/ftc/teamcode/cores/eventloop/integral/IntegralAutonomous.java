@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop;
+package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 
 import java.util.HashMap;
 import java.util.Map;
