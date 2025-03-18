@@ -16,7 +16,7 @@ import java.util.concurrent.Callable;
 public class ActionImplementFactory implements Action, ThreadEx, Nameable {
 	private Callable <Boolean> action;
 	private boolean            isStopRequested;
-	private String             name;
+	private String             name = "*unnamed*";
 
 	public ActionImplementFactory() {
 		this(new NullptrAction());

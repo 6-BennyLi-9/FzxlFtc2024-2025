@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
+@Disabled
+@Annotations.TestDoneSuccessfully
 @Autonomous(group = "9_Test")
 public class SleepingActionTest extends LinearOpMode {
 	public static final class DebugSleepingAction extends SleepingAction {

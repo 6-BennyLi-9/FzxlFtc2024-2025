@@ -2,9 +2,6 @@ package org.firstinspires.ftc.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.action.Actions;
-import org.betastudio.ftc.action.render.FtcLogRender;
-import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.GamepadRequests;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockMode;
@@ -32,6 +29,6 @@ public class TeleOpCore extends IntegralTeleOp {
 		robot.printActions();
 
 		robot.update();
-		Actions.runAction(new StatementAction(() -> client.changeData("DriveCtrlMode", ChassisCtrl.mode.name())), new FtcLogRender());
+		client.changeData("DriveCtrlMode", ChassisCtrl.mode.name());
 	}
 }
