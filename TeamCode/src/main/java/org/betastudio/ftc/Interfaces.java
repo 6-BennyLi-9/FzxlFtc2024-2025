@@ -56,10 +56,14 @@ public final class Interfaces {
 		default double getProgress(){
 			return (double) getDone() / getTotal();
 		}
-		default String getProgressString(){
+
+		default String getProgressString() {
+			return getProgressString(10);
+		}
+		default String getProgressString(int length){
 			StringBuilder builder = new StringBuilder();
-			for (int i = 0 ; i < 10 ; i++) {
-				if (i / 10.0 <= getProgress()) {
+			for (int i = 0 ; i < length ; i++) {
+				if ((double) i / length <= getProgress()) {
 					builder.append('=');
 				} else {
 					builder.append('-');
@@ -72,9 +76,9 @@ public final class Interfaces {
 	}
 
 	@FunctionalInterface
-	public interface JobProgressRender {
+	public interface ProgressRender {
 		default void render(ProgressMarker marker) {
-			render("*", marker);
+			render("*unnamed*", marker);
 		}
 
 		void render(String name, ProgressMarker marker);
@@ -88,5 +92,22 @@ public final class Interfaces {
 	@FunctionalInterface
 	public interface ValueProduction <T>{
 		T getVal();
+	}
+
+	public interface Nameable {
+		String getName();
+		void setName(String name);
+	}
+
+	@FunctionalInterface
+	public interface ConstNameable extends Nameable {
+		@Override
+		default void setName(String name) {
+			throw new IllegalStateException("Cannot set name of a constant named object");
+		}
+	}
+
+	public interface ProgressedTask {
+		ProgressMarker getWorkerProgress();
 	}
 }
