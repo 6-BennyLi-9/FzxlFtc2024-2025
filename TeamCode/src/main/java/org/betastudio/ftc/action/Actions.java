@@ -1,5 +1,7 @@
 package org.betastudio.ftc.action;
 
+import static org.betastudio.ftc.Interfaces.*;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Annotations;
@@ -11,22 +13,22 @@ import org.jetbrains.annotations.Contract;
 
 public final class Actions {
 	@NonNull
-	public static Interfaces.ProgressRender DEFAULT_RENDER = new NullptrRender();
+	public static ProgressRender DEFAULT_RENDER = new NullptrRender();
 
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 * @param render      用于渲染的渲染器
 	 */
-	public static void runAction(@NonNull final Action actionBlock, Interfaces.ProgressRender render) {
+	public static void runAction(@NonNull final Action actionBlock, ProgressRender render) {
 		Interfaces.ProgressMarker marker = new ProgressMarker(actionBlock.getCount());
 		String                    name   = Labeler.gen().summon(actionBlock);
-		if (actionBlock instanceof Interfaces.Nameable) {
-			name = ((Interfaces.Nameable) actionBlock).getName();
+		if (actionBlock instanceof Nameable) {
+			name = ((Nameable) actionBlock).getName();
 		}
 
-		if (actionBlock instanceof Interfaces.ProgressedTask) {
+		if (actionBlock instanceof ProgressedTask) {
 			while (actionBlock.activate()) {
-				marker = ((Interfaces.ProgressedTask) actionBlock).getWorkerProgress();
+				marker = ((ProgressedTask) actionBlock).getWorkerProgress();
 				render.render(name, marker);
 			}
 		} else {
