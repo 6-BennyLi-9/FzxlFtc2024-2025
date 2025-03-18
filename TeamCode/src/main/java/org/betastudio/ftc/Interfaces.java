@@ -78,7 +78,7 @@ public final class Interfaces {
 	@FunctionalInterface
 	public interface ProgressRender {
 		default void render(ProgressMarker marker) {
-			render("*", marker);
+			render("*unnamed*", marker);
 		}
 
 		void render(String name, ProgressMarker marker);
