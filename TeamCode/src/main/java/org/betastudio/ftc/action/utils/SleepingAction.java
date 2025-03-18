@@ -2,13 +2,13 @@ package org.betastudio.ftc.action.utils;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.ActionFactory;
+import org.betastudio.ftc.action.ActionImplementFactory;
 import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class SleepingAction extends ActionFactory {
+public class SleepingAction extends ActionImplementFactory {
 	private final long sleepMilliseconds;
 
 	public SleepingAction(final long sleepMilliseconds) {

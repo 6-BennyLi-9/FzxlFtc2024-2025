@@ -4,7 +4,7 @@ package org.betastudio.ftc.action.utils;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionFactory;
+import org.betastudio.ftc.action.ActionImplementFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 多线程的 {@code Action} 块，对 {@code tps} 要求较高
  */
-public final class ThreadedAction extends ActionFactory {
+public final class ThreadedAction extends ActionImplementFactory {
 	public final List <Action> actions;
 
 	public ThreadedAction(final List <Action> actions) {

@@ -1,8 +1,8 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.ActionFactory;
+import org.betastudio.ftc.action.ActionImplementFactory;
 
-public class StatementAction extends ActionFactory {
+public class StatementAction extends ActionImplementFactory {
 	private final Runnable node;
 
 	/**

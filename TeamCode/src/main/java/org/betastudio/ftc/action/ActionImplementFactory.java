@@ -11,19 +11,19 @@ import java.util.concurrent.Callable;
 /**
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
  */
-public class ActionFactory implements Action, Interfaces.ThreadEx {
+public class ActionImplementFactory implements Action, Interfaces.ThreadEx {
 	private Callable <Boolean> action;
 	private boolean isStopRequested;
 
-	public ActionFactory() {
+	public ActionImplementFactory() {
 		this(new NullptrAction());
 	}
 
-	public ActionFactory(final Callable<Boolean> action) {
+	public ActionImplementFactory(final Callable<Boolean> action) {
 		this.action = action;
 	}
 
-	public ActionFactory(@NonNull final Action action){
+	public ActionImplementFactory(@NonNull final Action action){
 		this.action = action::activate;
 	}
 
