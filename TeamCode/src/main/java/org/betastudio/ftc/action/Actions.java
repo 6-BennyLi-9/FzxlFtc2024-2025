@@ -1,42 +1,29 @@
 package org.betastudio.ftc.action;
 
-import static org.betastudio.ftc.Interfaces.*;
+import static org.betastudio.ftc.Interfaces.ProgressRender;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Annotations;
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.render.NullptrRender;
-import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.ProgressMarker;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
 	@NonNull
 	public static ProgressRender DEFAULT_RENDER = new NullptrRender();
 
+	@NonNull
+	@Contract("_ -> new")
+	public static ActionRunnerMeta metaFor(Action action) {
+		return new ActionRunnerMeta(action, DEFAULT_RENDER);
+	}
+
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 * @param render      用于渲染的渲染器
 	 */
 	public static void runAction(@NonNull final Action actionBlock, ProgressRender render) {
-		Interfaces.ProgressMarker marker = new ProgressMarker(actionBlock.getCount());
-		String                    name   = Labeler.gen().summon(actionBlock);
-		if (actionBlock instanceof Nameable) {
-			name = ((Nameable) actionBlock).getName();
-		}
-
-		if (actionBlock instanceof ProgressedTask) {
-			while (actionBlock.activate()) {
-				marker = ((ProgressedTask) actionBlock).getWorkerProgress();
-				render.render(name, marker);
-			}
-		} else {
-			while (actionBlock.activate()) {
-				marker.tick();
-				render.render(name, marker);
-			}
-		}
+		runAction(new ActionRunnerMeta(actionBlock, render));
 	}
 
 	/**
@@ -44,7 +31,11 @@ public final class Actions {
 	 */
 	@Annotations.MirrorMethod
 	public static void runAction(@NonNull final Action actionBlock) {
-		runAction(actionBlock, DEFAULT_RENDER);
+		while (true) {
+			if (! actionBlock.activate()) {
+				break;
+			}
+		}
 	}
 
 	/**
