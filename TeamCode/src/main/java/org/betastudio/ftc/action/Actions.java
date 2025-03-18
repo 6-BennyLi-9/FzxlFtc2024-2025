@@ -62,14 +62,14 @@ public final class Actions {
 	@Annotations.MirrorMethod
 	@NonNull
 	@Contract("_ -> new")
-	public static ActionExpressions.PriorityAction newMirroredPriority(final Action action) {
+	public static PriorityAction newMirroredPriority(final Action action) {
 		return newMirroredPriority(action, 0);
 	}
 
 	@NonNull
 	@Contract("_, _ -> new")
-	public static ActionExpressions.PriorityAction newMirroredPriority(final Action action, final long priorityGrade) {
-		return new ActionExpressions.PriorityAction() {
+	public static PriorityAction newMirroredPriority(final Action action, final long priorityGrade) {
+		return new PriorityAction() {
 			@Override
 			public long getPriorityCode() {
 				return priorityGrade;
