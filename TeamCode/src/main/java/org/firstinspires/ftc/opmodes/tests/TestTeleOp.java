@@ -7,7 +7,7 @@ import org.betastudio.ftc.action.render.ClientRender;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
 @TeleOp(name = "19419(Test)", group = "9_Beta")
-public class TestTeleOp extends TeleOpCore {
+public final class TestTeleOp extends TeleOpCore {
 	@Override
 	public void op_init() {
 		super.op_init();
