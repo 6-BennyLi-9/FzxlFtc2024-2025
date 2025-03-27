@@ -51,7 +51,7 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 
 	public void manage(double position) {
 		position = Math.min(Math.max(position, HardwareConfigures.ARM_MIN_POSITION), HardwareConfigures.ARM_MAX_POSITION);
-		leftArmControl.setTargetPosition(position + HardwareConfigures.LEFT_ADDITION);
+		leftArmControl.setTargetPosition(position + HardwareConfigures.ARM_LEFT_ADDITION);
 		rightArmControl.setTargetPosition(position);
 	}
 

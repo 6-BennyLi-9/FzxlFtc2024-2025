@@ -269,7 +269,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantHigh() {
-		actions.add(liftControllerGenerator(HardwareConfigures.DECANT_HIGH));
+		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_DECANT_HIGH));
 		return this;
 	}
 
@@ -279,7 +279,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantLow() {
-		actions.add(liftControllerGenerator(HardwareConfigures.DECANT_LOW));
+		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_DECANT_LOW));
 		return this;
 	}
 
@@ -289,7 +289,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHighPrepare() {
-		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND_PREPARE));
+		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND_PREPARE));
 		return this;
 	}
 
@@ -299,7 +299,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHigh() {
-		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND));
+		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND));
 		return this;
 	}
 
@@ -309,7 +309,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendLv1() {
-		actions.add(liftControllerGenerator(HardwareConfigures.SUSPEND_Lv1));
+		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND_Lv1));
 		return this;
 	}
 
