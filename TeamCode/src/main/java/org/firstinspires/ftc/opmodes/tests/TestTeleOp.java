@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.render.ClientRender;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
+import org.firstinspires.ftc.teamcode.GamepadRequests;
 
 @TeleOp(name = "19419(Test)", group = "9_Beta")
 public class TestTeleOp extends TeleOpCore {
@@ -18,5 +19,11 @@ public class TestTeleOp extends TeleOpCore {
 	public void op_start() {
 		super.op_start();
 		robot.hardwareAction = Actions.metaFor(robot.hardwareAction);
+	}
+
+	@Override
+	public void op_loop() {
+		super.op_loop();
+		GamepadRequests.printValues(client);
 	}
 }

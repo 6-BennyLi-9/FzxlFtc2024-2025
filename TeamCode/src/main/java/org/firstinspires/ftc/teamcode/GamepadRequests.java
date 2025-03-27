@@ -127,15 +127,6 @@ public final class GamepadRequests {
 	/**
 	 * 打印值
 	 * <p>
-	 * 默认使用 BaseMapClient 实例打印值。
-	 */
-	public static void printValues() {
-		printValues(Global.client);
-	}
-
-	/**
-	 * 打印值
-	 * <p>
 	 * 该方法用于通过Client将各个按钮处理器的状态打印到控制台。
 	 * <p>
 	 * 这有助于调试和监控程序的运行状态。
