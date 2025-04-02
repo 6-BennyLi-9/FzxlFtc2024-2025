@@ -314,15 +314,6 @@ public class UtilsMng {
 	}
 
 	/**
-	 * 集成动作：准备将电梯升高。
-	 *
-	 * @return 当前对象
-	 */
-	public UtilsMng integralLiftUpPrepare() {
-		return armsToSafePosition();
-	}
-
-	/**
 	 * 集成动作：准备将电梯降低。
 	 *
 	 * @return 当前对象
