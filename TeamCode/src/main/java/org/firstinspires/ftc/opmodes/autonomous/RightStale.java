@@ -39,7 +39,7 @@ public class RightStale extends IntegralAutonomous {
 
 	@Override
 	public void linear() {
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		runTrajectory("suspend preload");
@@ -101,7 +101,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);
@@ -124,7 +124,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);

@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
@@ -23,14 +26,15 @@ import java.util.Locale;
 import java.util.Objects;
 
 public abstract class AutonomousHead extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public    UtilsMng      util;
-	public    Timer         timer;
-	public    Client        client;
-	public    ActionBuilder actionBuilder;
-	protected boolean       is_terminate_method_called;
-	private   Exception     inlineUncaughtException;
-	private   Action        action;
-	private   Runnable      actionRunner;
+	public    SampleMecanumDrive drive;
+	public    UtilsMng           utils;
+	public    Timer              timer;
+	public    Client             client;
+	public    ActionBuilder      builder;
+	protected boolean            is_terminate_method_called;
+	private   Exception          inlineUncaughtException;
+	private   Action             action;
+	private   Runnable           runner;
 
 	public abstract void actionBuildEntry();
 
@@ -43,7 +47,7 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
 		timer = new Timer();
-		actionBuilder = new LinkedActionBuilder();
+		builder = new LinkedActionBuilder();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
@@ -57,7 +61,7 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
-		util = new UtilsMng();
+		utils = new UtilsMng();
 
 		telemetry.clearAll();
 
@@ -66,13 +70,14 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 		client.putLine("ROBOT INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
+		drive = new SampleMecanumDrive(hardwareMap);
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		actionBuildEntry();
-		action = actionBuilder.store();
-		actionRunner = () -> {
+		action = builder.store();
+		runner = () -> {
 			if (! action.activate()) {
-				actionRunner = () -> {};
+				runner = () -> {};
 			}
 		};
 	}
@@ -104,7 +109,7 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 			terminateOpModeNow();
 		}
 
-		actionRunner.run();
+		runner.run();
 	}
 
 	@Override
@@ -139,5 +144,16 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 	@Override
 	public void exception_entry(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+	}
+
+	public void inputMngAction(){
+		builder.append(utils.pack());
+	}
+
+	public Action driveAction(Trajectory trajectory){
+		return new TrajectoryRunnerAction(drive, trajectory);
+	}
+	public Action driveAction(TrajectorySequence trajectorySequence){
+		return new TrajectoryRunnerAction(drive, trajectorySequence);
 	}
 }

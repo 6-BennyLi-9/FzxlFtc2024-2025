@@ -42,7 +42,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		waitForStart();
 
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		drive.followTrajectory(suspend_preload);
@@ -64,7 +64,7 @@ public class LeftStale extends StructuralLinearMode {
 		utils.openClaw().waitMs(100);
 		utils.closeClaw().waitMs(100);
 		utils.openClaw().waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
@@ -96,7 +96,7 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
@@ -128,7 +128,7 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armsToSafePosition();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
