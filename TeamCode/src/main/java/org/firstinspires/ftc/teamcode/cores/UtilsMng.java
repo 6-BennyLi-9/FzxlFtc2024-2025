@@ -314,15 +314,6 @@ public class UtilsMng {
 	}
 
 	/**
-	 * 集成动作：准备将电梯降低。
-	 *
-	 * @return 当前对象
-	 */
-	public UtilsMng integralLiftDownPrepare() {
-		return boxRst().armsToSafePosition();
-	}
-
-	/**
 	 * 运行缓存的动作。
 	 */
 	public void runCached() {

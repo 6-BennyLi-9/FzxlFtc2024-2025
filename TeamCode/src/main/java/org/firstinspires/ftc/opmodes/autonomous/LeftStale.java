@@ -73,7 +73,7 @@ public class LeftStale extends StructuralLinearMode {
 		sleep(1200);
 		utils.decant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftDown();
 		utils.waitMs(500);
@@ -105,7 +105,7 @@ public class LeftStale extends StructuralLinearMode {
 		sleep(1200);
 		utils.decant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftDown();
 		utils.waitMs(500);
@@ -137,7 +137,7 @@ public class LeftStale extends StructuralLinearMode {
 		sleep(1200);
 		utils.decant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftSuspendLv1();
 		utils.runAsThread();
