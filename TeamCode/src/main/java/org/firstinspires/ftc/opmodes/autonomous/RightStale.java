@@ -9,10 +9,12 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomous;
 import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
+@Disabled
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
 public class RightStale extends IntegralAutonomous {
