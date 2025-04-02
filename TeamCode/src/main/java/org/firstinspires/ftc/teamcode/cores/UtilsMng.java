@@ -314,15 +314,6 @@ public class UtilsMng {
 	}
 
 	/**
-	 * 集成动作：抓取机构结束动作。
-	 *
-	 * @return 当前对象
-	 */
-	public UtilsMng integralIntakesEnding() {
-		return boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
-	}
-
-	/**
 	 * 集成动作：准备将电梯升高。
 	 *
 	 * @return 当前对象

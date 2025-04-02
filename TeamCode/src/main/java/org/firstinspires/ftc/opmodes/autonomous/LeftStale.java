@@ -59,7 +59,7 @@ public class LeftStale extends StructuralLinearMode {
 		drive.followTrajectory(get_sample);
 		utils.displayArms();
 		utils.waitMs(600);
-		utils.integralIntakesEnding();
+		utils.closeClaw().waitMs(250).armsIDLE().scalesBack();
 		utils.waitMs(1200);
 		utils.openClaw().waitMs(100);
 		utils.closeClaw().waitMs(100);
@@ -88,7 +88,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		utils.displayArms();
 		utils.waitMs(600);
-		utils.integralIntakesEnding();
+		utils.boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -120,7 +120,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.integralIntakesEnding();
+		utils.boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);

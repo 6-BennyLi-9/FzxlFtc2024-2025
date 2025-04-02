@@ -57,8 +57,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.displayArms();
 		utils.waitMs(600);
 		utils.closeClaw();
-		utils.waitMs(300);
-		utils.integralIntakesEnding();
+		utils.waitMs(300).armsIDLE().scalesBack();
 		utils.runCached();
 
 		sleep(900);
@@ -79,7 +78,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(600);
 		utils.closeClaw();
 		utils.waitMs(300);
-		utils.integralIntakesEnding();
+		utils.boxRst().waitMs(250).armsIDLE().scalesBack();
 		utils.runCached();
 
 		sleep(900);
