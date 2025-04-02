@@ -48,7 +48,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.scaleOperate(scaleGetPosition);
 		utils.runAsThread();
 		sleep(600);
@@ -115,7 +115,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.runAsThread();
 		sleep(500);
 		runTrajectory("get sample suspend 2");
@@ -138,7 +138,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.runAsThread();
 		sleep(500);
 

@@ -314,15 +314,6 @@ public class UtilsMng {
 	}
 
 	/**
-	 * 集成动作：初始化抓取机构。
-	 *
-	 * @return 当前对象
-	 */
-	public UtilsMng integralIntakes() {
-		return openClaw().rotateToMid();
-	}
-
-	/**
 	 * 集成动作：抓取机构结束动作。
 	 *
 	 * @return 当前对象
