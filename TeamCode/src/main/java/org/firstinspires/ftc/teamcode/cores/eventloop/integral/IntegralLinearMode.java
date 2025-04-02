@@ -26,6 +26,9 @@ import org.betastudio.ftc.RunMode;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * 更高级的线性操作模式，提供更丰富的功能
+ */
 public abstract class IntegralLinearMode extends LinearOpMode implements IntegralOpMode, Interfaces.ThreadEx {
 	public    SampleMecanumDrive drive;
 	public    Client             client;
@@ -56,6 +59,7 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		waitForStart();
+//		以上有问题:初始化时电梯突然抬起再落下
 
 		client.deleteLine(">>>ROBOT READY!");
 
