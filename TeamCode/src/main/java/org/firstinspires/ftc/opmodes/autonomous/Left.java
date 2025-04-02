@@ -2,6 +2,7 @@ package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -26,6 +27,11 @@ public class Left extends AutonomousHead {
 						lineTrack(LeftDecantingStart, Decant),
 						utils.boxDecant().pack()
 				)
+		));
+		builder.append(utils.boxRst().pack());
+		builder.append(new ThreadedAction(
+				utils.liftDown().scaleOperate(scaleGetPosition1).pack(),
+				lineTrack(Decant, LeftSample)
 		));
 	}
 }

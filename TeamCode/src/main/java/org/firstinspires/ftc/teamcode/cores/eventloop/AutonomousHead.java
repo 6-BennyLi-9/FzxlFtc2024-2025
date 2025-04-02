@@ -52,6 +52,7 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
+		telemetry.clearAll();
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
