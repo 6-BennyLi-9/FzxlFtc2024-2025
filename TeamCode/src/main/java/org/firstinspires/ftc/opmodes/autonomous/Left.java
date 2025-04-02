@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSuspend;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -19,14 +19,13 @@ public class Left extends AutonomousHead {
 
 	@Override
 	public void actionBuildEntry() {
-		drive.setPoseEstimate(LeftStart);
+		drive.setPoseEstimate(LeftDecantingStart);
 		builder.append(new ThreadedAction(
-				utils.armSafe().liftSuspendHighPrepare().pack(),
+				utils.armSafe().liftDecantHigh().pack(),
 				new LinkedAction(
-						lineTrack(LeftStart, LeftSuspend),
-						utils.liftSuspendHigh().pack()
+						lineTrack(LeftDecantingStart, Decant),
+						utils.boxDecant().pack()
 				)
 		));
-
 	}
 }
