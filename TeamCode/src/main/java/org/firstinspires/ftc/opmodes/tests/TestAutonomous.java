@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomou
 public final class TestAutonomous extends IntegralAutonomous {
 	@Override
 	public void initialize() {
-		utils.armsToSafePosition().runCached();
+		utils.armSafe().runCached();
 	}
 
 	@Override

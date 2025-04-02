@@ -42,7 +42,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		waitForStart();
 
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		drive.followTrajectory(suspend_preload);
@@ -57,21 +57,21 @@ public class LeftStale extends StructuralLinearMode {
 		utils.runAsThread();
 
 		drive.followTrajectory(get_sample);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
-		utils.closeClaw().waitMs(250).armsIDLE().scalesBack();
+		utils.closeClaw().waitMs(250).armBack().scaleBack();
 		utils.waitMs(1200);
 		utils.openClaw().waitMs(100);
 		utils.closeClaw().waitMs(100);
 		utils.openClaw().waitMs(200);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_1);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
 		utils.boxRst();
 		utils.waitMs(500);
@@ -86,9 +86,9 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
-		utils.boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
+		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -96,14 +96,14 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_2);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
 		utils.boxRst();
 		utils.waitMs(500);
@@ -111,7 +111,7 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(500);
 		utils.openClaw();
 		utils.rotateRightTurn(- 0.1);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(200);
 		utils.scaleOperate(scaleGetPosition3);
 		utils.runAsThread();
@@ -120,7 +120,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.boxRst().closeClaw().waitMs(250).armsIDLE().scalesBack().rotateToMid();
+		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -128,14 +128,14 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_3);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
 		utils.boxRst();
 		utils.waitMs(500);

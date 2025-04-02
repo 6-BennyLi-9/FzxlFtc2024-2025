@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #liftControllerGenerator(int)}
+ * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
  *
  * @see RobotMng
  */
@@ -53,7 +53,7 @@ public class UtilsMng {
 	 */
 	public void deviceInit() {
 		actions.add(new StatementAction(() -> rotate.setPosition(0.79)));
-		boxRst().armsToSafePosition().openClaw().scalesBack().closeClip().liftDown().runCached();
+		boxRst().armSafe().openClaw().scaleBack().closeClip().liftDown().runCached();
 	}
 
 	/**
@@ -75,17 +75,6 @@ public class UtilsMng {
 	 */
 	public UtilsMng addAction(final Action action) {
 		actions.add(action);
-		return this;
-	}
-
-	/**
-	 * 添加一个StatementAction动作。
-	 *
-	 * @param r Runnable对象，代表要执行的语句
-	 * @return 当前对象
-	 */
-	public UtilsMng addStatement(final Runnable r) {
-		actions.add(new StatementAction(r));
 		return this;
 	}
 
@@ -125,7 +114,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng decant() {
+	public UtilsMng boxDecant() {
 		actions.add(new StatementAction(() -> place.setPosition(1)));
 		return this;
 	}
@@ -185,7 +174,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng displayArms() {
+	public UtilsMng armDisplay() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
 		return this;
 	}
@@ -195,7 +184,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng armsIDLE() {
+	public UtilsMng armBack() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 		return this;
 	}
@@ -205,7 +194,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng armsToSafePosition() {
+	public UtilsMng armSafe() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 		return this;
 	}
@@ -215,7 +204,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng scalesProbe() {
+	public UtilsMng scaleProbe() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.65)), new StatementAction(() -> rightScale.setPosition(0.35))));
 		return this;
 	}
@@ -225,7 +214,7 @@ public class UtilsMng {
 	 *
 	 * @return 当前对象
 	 */
-	public UtilsMng scalesBack() {
+	public UtilsMng scaleBack() {
 		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0))));
 		return this;
 	}
@@ -249,7 +238,7 @@ public class UtilsMng {
 	 * @param target 目标位置
 	 * @return 电梯控制器对象
 	 */
-	protected AbstractLiftCtrl liftControllerGenerator(final int target) {
+	protected AbstractLiftCtrl genLiftController(final int target) {
 		return new DcAutoLiftCtrl(leftLift, rightLift, target);
 	}
 
@@ -259,7 +248,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDown() {
-		actions.add(liftControllerGenerator(0));
+		actions.add(genLiftController(0));
 		return this;
 	}
 
@@ -269,7 +258,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantHigh() {
-		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_DECANT_HIGH));
+		actions.add(genLiftController(HardwareConfigures.LIFT_DECANT_HIGH));
 		return this;
 	}
 
@@ -279,7 +268,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftDecantLow() {
-		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_DECANT_LOW));
+		actions.add(genLiftController(HardwareConfigures.LIFT_DECANT_LOW));
 		return this;
 	}
 
@@ -289,7 +278,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHighPrepare() {
-		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND_PREPARE));
+		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND_PREPARE));
 		return this;
 	}
 
@@ -299,7 +288,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendHigh() {
-		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND));
+		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND));
 		return this;
 	}
 
@@ -309,7 +298,7 @@ public class UtilsMng {
 	 * @return 当前对象
 	 */
 	public UtilsMng liftSuspendLv1() {
-		actions.add(liftControllerGenerator(HardwareConfigures.LIFT_SUSPEND_Lv1));
+		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND_Lv1));
 		return this;
 	}
 

@@ -39,7 +39,7 @@ public class RightStale extends IntegralAutonomous {
 
 	@Override
 	public void linear() {
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		runTrajectory("suspend preload");
@@ -54,10 +54,10 @@ public class RightStale extends IntegralAutonomous {
 		sleep(600);
 
 		runTrajectory("get sample 1");
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
-		utils.waitMs(300).armsIDLE().scalesBack();
+		utils.waitMs(300).armBack().scaleBack();
 		utils.runCached();
 
 		sleep(900);
@@ -68,17 +68,17 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClaw();
 		utils.waitMs(200);
 		utils.scaleOperate(scaleGetPosition);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.waitMs(200);
-		utils.decant();
+		utils.boxDecant();
 		utils.runAsThread();
 		runTrajectory("get sample 2");
 		sleep(200);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
 		utils.waitMs(300);
-		utils.boxRst().waitMs(250).armsIDLE().scalesBack();
+		utils.boxRst().waitMs(250).armBack().scaleBack();
 		utils.runCached();
 
 		sleep(900);
@@ -88,8 +88,8 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.armsToSafePosition();
-		utils.decant();
+		utils.armSafe();
+		utils.boxDecant();
 		utils.runAsThread();
 		sleep(900);
 
@@ -100,7 +100,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);
@@ -123,7 +123,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);

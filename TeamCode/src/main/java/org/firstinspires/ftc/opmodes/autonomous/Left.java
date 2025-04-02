@@ -21,7 +21,7 @@ public class Left extends AutonomousHead {
 	public void actionBuildEntry() {
 		drive.setPoseEstimate(LeftStart);
 		builder.append(new ThreadedAction(
-				utils.armsToSafePosition().liftSuspendHighPrepare().pack(),
+				utils.armSafe().liftSuspendHighPrepare().pack(),
 				new LinkedAction(
 						lineTrack(LeftStart, LeftSuspend),
 						utils.liftSuspendHigh().pack()
