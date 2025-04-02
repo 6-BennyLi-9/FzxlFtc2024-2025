@@ -8,7 +8,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.cores.eventloop.AutonomousHead;
 
 @Config
@@ -21,17 +20,21 @@ public class Left extends AutonomousHead {
 	@Override
 	public void actionBuildEntry() {
 		drive.setPoseEstimate(LeftDecantingStart);
-		builder.append(new ThreadedAction(
+		appendThreaded(
 				utils.armSafe().liftDecantHigh().pack(),
 				new LinkedAction(
 						lineTrack(LeftDecantingStart, Decant),
 						utils.boxDecant().pack()
 				)
-		));
-		builder.append(utils.boxRst().pack());
-		builder.append(new ThreadedAction(
+		);
+
+		utils.waitMs(200);
+		utils.boxRst();
+		inputMngAction();
+
+		appendThreaded(
 				utils.liftDown().scaleOperate(scaleGetPosition1).pack(),
 				lineTrack(Decant, LeftSample)
-		));
+		);
 	}
 }

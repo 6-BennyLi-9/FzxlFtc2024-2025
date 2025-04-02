@@ -6,7 +6,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 public final class UtilPoses {
 	public static final Pose2d LeftStart  = new Pose2d(12, 60, toRadians(90));
-	public static final Pose2d LeftDecantingStart = new Pose2d(34, 60, toRadians(-90));
+	public static final Pose2d LeftDecantingStart = new Pose2d(38, 60, toRadians(-90));
 	public static final Pose2d RightStart = new Pose2d(- 12, 60, toRadians(90));
 
 	public static final Pose2d Decant = new Pose2d(59, 55, toRadians(- 135));
