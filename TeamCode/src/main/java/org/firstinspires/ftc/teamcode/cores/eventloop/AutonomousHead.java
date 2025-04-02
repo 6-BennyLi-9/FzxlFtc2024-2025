@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
@@ -77,6 +78,7 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 		action = builder.store();
 		runner = () -> {
 			if (! action.activate()) {
+				client.putLine("Core Action Finished");
 				runner = () -> {};
 			}
 		};
@@ -155,5 +157,9 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 	}
 	public Action driveAction(TrajectorySequence trajectorySequence){
 		return new TrajectoryRunnerAction(drive, trajectorySequence);
+	}
+
+	public Action lineTrack(Pose2d from,Pose2d to){
+		return driveAction(drive.trajectoryBuilder(from).lineToLinearHeading(to).build());
 	}
 }

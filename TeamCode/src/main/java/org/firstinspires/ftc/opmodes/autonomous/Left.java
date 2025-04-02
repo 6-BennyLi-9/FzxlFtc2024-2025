@@ -23,7 +23,7 @@ public class Left extends AutonomousHead {
 		builder.append(new ThreadedAction(
 				utils.armsToSafePosition().liftSuspendHighPrepare().pack(),
 				new LinkedAction(
-						driveAction(drive.trajectoryBuilder(LeftStart).lineToLinearHeading(LeftSuspend).build()),
+						lineTrack(LeftStart, LeftSuspend),
 						utils.liftSuspendHigh().pack()
 				)
 		));
