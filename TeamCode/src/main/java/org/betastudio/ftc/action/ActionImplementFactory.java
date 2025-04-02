@@ -1,35 +1,38 @@
 package org.betastudio.ftc.action;
 
+import static org.betastudio.ftc.Interfaces.Nameable;
+import static org.betastudio.ftc.Interfaces.ThreadEx;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.utils.NullptrAction;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.Interfaces;
 
 import java.util.concurrent.Callable;
 
 /**
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
  */
-public class ActionImpl implements Action, Interfaces.ThreadEx {
+public class ActionImplementFactory implements Action, ThreadEx, Nameable {
 	private Callable <Boolean> action;
-	private boolean isStopRequested;
+	private boolean            isStopRequested;
+	private String             name = "[unnamed]";
 
-	public ActionImpl() {
+	public ActionImplementFactory() {
 		this(new NullptrAction());
 	}
 
-	public ActionImpl(final Callable<Boolean> action) {
+	public ActionImplementFactory(final Callable <Boolean> action) {
 		this.action = action;
 	}
 
-	public ActionImpl(@NonNull final Action action){
+	public ActionImplementFactory(@NonNull final Action action) {
 		this.action = action::activate;
 	}
 
 	@Override
 	public boolean activate() {
-		if(isStopRequested){
+		if (isStopRequested) {
 			return false;
 		}
 		try {
@@ -42,14 +45,24 @@ public class ActionImpl implements Action, Interfaces.ThreadEx {
 
 	@Override
 	public void closeTask() {
-		isStopRequested=true;
+		isStopRequested = true;
+	}
+
+	public Callable <Boolean> getAction() {
+		return action;
 	}
 
 	public void setAction(final Callable <Boolean> action) {
 		this.action = action;
 	}
 
-	public Callable <Boolean> getAction() {
-		return action;
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		 this.name = name;
 	}
 }

@@ -3,8 +3,10 @@ package org.betastudio.ftc.action.utils;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.util.ProgressMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,22 +18,27 @@ import java.util.List;
 /**
  * 多线程的 {@code Action} 块，对 {@code tps} 要求较高
  */
-public final class ThreadedAction extends ActionImpl {
-	public final List <Action> actions;
+public final class ThreadedAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
+	private final ProgressMarker marker;
+	public final  List <Action>  actions;
 
 	public ThreadedAction(final List <Action> actions) {
 		this.actions = new LinkedList <>(actions);
+		marker = new ProgressMarker(actions.size());
 		setAction(()->{
 			if (actions.isEmpty()) return false;
 			final Collection <Action> removes = new HashSet <>();
 			for (final Action action : actions) {
 				if (! action.activate()) {
 					removes.add(action);
+					marker.tick();
 				}
 			}
 			actions.removeAll(removes);
 			return ! actions.isEmpty();
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	public ThreadedAction(final Action... actions) {
@@ -46,5 +53,10 @@ public final class ThreadedAction extends ActionImpl {
 			stringBuilder.append(action.paramsString()).append(",");
 		}
 		return stringBuilder.append("}").toString();
+	}
+
+	@Override
+	public Interfaces.ProgressMarker getWorkerProgress() {
+		return marker;
 	}
 }

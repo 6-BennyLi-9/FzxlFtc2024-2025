@@ -15,7 +15,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.RuntimeMemoryStamp;
-import org.betastudio.ftc.util.message.TelemetryMsg;
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.cores.eventloop;
 
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Local;
 
 import java.util.concurrent.atomic.AtomicLong;

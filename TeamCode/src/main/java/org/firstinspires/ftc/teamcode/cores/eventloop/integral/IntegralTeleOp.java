@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -26,7 +26,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public    Timer     timer;
 	public    Client    client;
 	protected boolean   is_terminate_method_called;
-	protected boolean   initialized;
 	private   boolean   auto_terminate_when_TLE;
 	private   Exception inlineUncaughtException;
 
@@ -83,6 +82,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		timer.pushTimeTag("start");
 
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
+		robot.initControllers();
 	}
 
 	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
@@ -91,10 +91,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_loop() {
-		if (! initialized) {
-			initialized = true;
-			robot.initControllers();
-		}
 		if (121 < getRuntime() && auto_terminate_when_TLE) {
 			stop();
 			terminateOpModeNow();

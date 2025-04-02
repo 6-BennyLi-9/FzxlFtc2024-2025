@@ -14,7 +14,7 @@ import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.time.Timer;
+import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
 import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;

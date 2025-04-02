@@ -1,31 +1,41 @@
 package org.betastudio.ftc.action;
 
+import static org.betastudio.ftc.Interfaces.ProgressRender;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Annotations;
+import org.betastudio.ftc.action.render.NullptrRender;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
+	@NonNull
+	public static ProgressRender DEFAULT_RENDER = new NullptrRender();
+
+	@NonNull
+	@Contract("_ -> new")
+	public static ActionRunnerMeta metaFor(Action action) {
+		return new ActionRunnerMeta(action, DEFAULT_RENDER);
+	}
+
+	/**
+	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
+	 * @param render      用于渲染的渲染器
+	 */
+	public static void runAction(@NonNull final Action actionBlock, ProgressRender render) {
+		runAction(new ActionRunnerMeta(actionBlock, render));
+	}
+
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
+	@Annotations.MirrorMethod
 	public static void runAction(@NonNull final Action actionBlock) {
 		while (true) {
 			if (! actionBlock.activate()) {
 				break;
 			}
 		}
-	}
-
-	public static void runYieldAction(@NonNull final Action actionBlock){
-		while (actionBlock.activate()) {
-			Thread.yield();
-		}
-	}
-
-	@Annotations.MirrorMethod
-	public static void runThreadingAction(final Action actionBlock) {
-		new Thread(() -> runYieldAction(actionBlock)).start();
 	}
 
 	/**

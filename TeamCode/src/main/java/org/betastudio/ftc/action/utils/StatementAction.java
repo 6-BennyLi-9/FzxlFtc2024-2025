@@ -1,8 +1,8 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.ActionImpl;
+import org.betastudio.ftc.action.ActionImplementFactory;
 
-public class StatementAction extends ActionImpl {
+public class StatementAction extends ActionImplementFactory {
 	private final Runnable node;
 
 	/**
@@ -16,6 +16,8 @@ public class StatementAction extends ActionImpl {
 			node.run();
 			return false;
 		});
+
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@Override

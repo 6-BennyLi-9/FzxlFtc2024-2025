@@ -10,8 +10,7 @@ import org.jetbrains.annotations.Contract;
 /**
  * Labeler类用于管理一个内部ID，并提供方法来生成唯一的标识符。
  */
-public class Labeler {
-
+public final class Labeler {
 	/**
 	 * 用于生成唯一标识符的内部ID。
 	 */
