@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
@@ -81,6 +79,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
+		drive.setPoseEstimate(getInitialPose());
+		track.setCurrent(getInitialPose());
 		actionBuildEntry();
 		action = builder.store();
 		runner = () -> {
@@ -155,26 +155,17 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 
-	public void inputMngAction(){
+	public void inputMngAction() {
 		builder.append(utils.pack());
 	}
 
-	public Action driveAction(Trajectory trajectory){
-		return new TrajectoryRunnerAction(drive, trajectory);
-	}
-	public Action driveAction(TrajectorySequence trajectorySequence){
-		return new TrajectoryRunnerAction(drive, trajectorySequence);
-	}
-
-	public Action lineTrack(Pose2d from,Pose2d to){
-		return driveAction(drive.trajectoryBuilder(from).lineToLinearHeading(to).build());
-	}
-
-	public void appendThreaded(Action... actions){
+	public void appendThreaded(Action... actions) {
 		builder.append(new ThreadedAction(actions));
 	}
 
-	public void appendLinked(Action... actions){
+	public void appendLinked(Action... actions) {
 		builder.append(new LinkedAction(actions));
 	}
+
+	public abstract Pose2d getInitialPose();
 }

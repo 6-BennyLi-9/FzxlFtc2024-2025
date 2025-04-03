@@ -6,6 +6,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
+import org.betastudio.ftc.action.Action;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
 
 public class HeadingTrajectoryBuilder {
 	private final SampleMecanumDrive drive;
@@ -20,5 +22,13 @@ public class HeadingTrajectoryBuilder {
 		Trajectory build = drive.trajectoryBuilder(current).lineToLinearHeading(end).build();
 		current = end;
 		return build;
+	}
+
+	public Action runTo(Pose2d end) {
+		return new TrajectoryRunnerAction(drive,lineTo(end));
+	}
+
+	public void setCurrent(Pose2d current) {
+		this.current = current;
 	}
 }

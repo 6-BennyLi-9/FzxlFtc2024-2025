@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingSt
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.utils.LinkedAction;
@@ -19,22 +20,57 @@ public class Left extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
-		drive.setPoseEstimate(LeftDecantingStart);
+		appendDecanting();
+
+		appendAfterDecant();
+
+		appendRunningScaling(scaleGetPosition1, LeftSample);
+
+		appendIntake();
+		appendDecanting();
+	}
+
+	@Override
+	public Pose2d getInitialPose() {
+		return LeftDecantingStart;
+	}
+
+	public void appendDecanting() {
 		appendThreaded(
 				utils.armSafe().liftDecantHigh().pack(),
 				new LinkedAction(
-						lineTrack(LeftDecantingStart, Decant),
+						track.runTo(Decant),
 						utils.boxDecant().pack()
 				)
 		);
+	}
 
+	public void appendAfterDecant(){
 		utils.waitMs(200);
 		utils.boxRst();
 		inputMngAction();
+	}
 
+	public void appendIntake() {
+		utils.armDisplay();
+		utils.waitMs(600);
+		utils.closeClaw();
+		utils.waitMs(250);
+		utils.armBack();
+		utils.scaleBack();
+		utils.waitMs(1200);
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		inputMngAction();
+	}
+
+	public void appendRunningScaling(double scalePose, Pose2d pose) {
 		appendThreaded(
-				utils.liftDown().scaleOperate(scaleGetPosition1).pack(),
-				lineTrack(Decant, LeftSample)
+				utils.liftDown().scaleOperate(scalePose).pack(),
+				track.runTo(pose)
 		);
 	}
 }
