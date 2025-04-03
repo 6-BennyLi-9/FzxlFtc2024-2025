@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.firstinspires.ftc.teamcode.cores.eventloop.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
+import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -42,7 +43,14 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 		appendAfterDecant();
 
-		builder.append(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()));
+		utils.closeClip();
+		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
+		utils.waitMs(1000);
+
+		appendThreaded(
+				new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()),
+				utils.pack()
+		);
 	}
 
 	@Override
