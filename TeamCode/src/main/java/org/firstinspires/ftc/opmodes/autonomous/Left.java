@@ -2,7 +2,10 @@ package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
+
+import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -10,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.firstinspires.ftc.teamcode.cores.eventloop.ActionBasedAutonomous;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -21,13 +25,24 @@ public class Left extends ActionBasedAutonomous {
 	@Override
 	public void actionBuildEntry() {
 		appendDecanting();
-
 		appendAfterDecant();
 
 		appendRunningScaling(scaleGetPosition1, LeftSample);
-
 		appendIntake();
 		appendDecanting();
+		appendAfterDecant();
+
+		appendRunningScaling(scaleGetPosition2, LeftSample.plus(new Pose2d(0, 0, toRadians(- 23))));
+		appendIntake();
+		appendDecanting();
+		appendAfterDecant();
+
+		appendRunningScaling(scaleGetPosition3, LeftSample.plus(new Pose2d(0, 0, toRadians(21.7))));
+		appendIntake();
+		appendDecanting();
+		appendAfterDecant();
+
+		builder.append(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()));
 	}
 
 	@Override
