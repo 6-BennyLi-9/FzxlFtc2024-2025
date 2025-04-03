@@ -24,20 +24,22 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralOpMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.trajectory.HeadingTrajectoryBuilder;
 
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class AutonomousHead extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public    SampleMecanumDrive drive;
-	public    UtilsMng           utils;
-	public    Timer              timer;
-	public    Client             client;
-	public    ActionBuilder      builder;
-	protected boolean            is_terminate_method_called;
-	private   Exception          inlineUncaughtException;
-	private   Action             action;
-	private   Runnable           runner;
+public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+	public    SampleMecanumDrive       drive;
+	public    UtilsMng                 utils;
+	public    Timer                    timer;
+	public    Client                   client;
+	public    ActionBuilder            builder;
+	protected boolean                  is_terminate_method_called;
+	protected HeadingTrajectoryBuilder track;
+	private   Exception                inlineUncaughtException;
+	private   Action                   action;
+	private   Runnable                 runner;
 
 	public abstract void actionBuildEntry();
 
@@ -69,12 +71,14 @@ public abstract class AutonomousHead extends OverclockOpMode implements Integral
 
 		telemetry.clearAll();
 
+		drive = new SampleMecanumDrive(hardwareMap);
+		track = new HeadingTrajectoryBuilder(drive);
+
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
 		client.putLine("ROBOT INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
-		drive = new SampleMecanumDrive(hardwareMap);
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		actionBuildEntry();
