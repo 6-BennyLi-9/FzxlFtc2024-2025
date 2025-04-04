@@ -11,11 +11,13 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.cores.eventloop.integral.StructuralLinearMode;
 import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
+@Disabled
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class LeftStale extends StructuralLinearMode {
@@ -42,7 +44,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		waitForStart();
 
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		drive.followTrajectory(suspend_preload);
@@ -52,32 +54,32 @@ public class LeftStale extends StructuralLinearMode {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.scaleOperate(scaleGetPosition1);
 		utils.runAsThread();
 
 		drive.followTrajectory(get_sample);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
-		utils.integralIntakesEnding();
+		utils.closeClaw().waitMs(250).armBack().scaleBack();
 		utils.waitMs(1200);
 		utils.openClaw().waitMs(100);
 		utils.closeClaw().waitMs(100);
 		utils.openClaw().waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_1);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftDown();
 		utils.waitMs(500);
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.rotateRightTurn(0.1);
 		utils.scaleOperate(scaleGetPosition2);
 		utils.runAsThread();
@@ -86,9 +88,9 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
-		utils.integralIntakesEnding();
+		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -96,22 +98,22 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_2);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftDown();
 		utils.waitMs(500);
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.rotateRightTurn(- 0.1);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(200);
 		utils.scaleOperate(scaleGetPosition3);
 		utils.runAsThread();
@@ -120,7 +122,7 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.integralIntakesEnding();
+		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -128,16 +130,16 @@ public class LeftStale extends StructuralLinearMode {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
 		sleep(1000);
 		drive.followTrajectory(decant_3);
 
 		sleep(1200);
-		utils.decant();
+		utils.boxDecant();
 		utils.waitMs(1300);
-		utils.integralLiftDownPrepare();
+		utils.boxRst();
 		utils.waitMs(500);
 		utils.liftSuspendLv1();
 		utils.runAsThread();

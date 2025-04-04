@@ -52,6 +52,6 @@ public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 
 	@Override
 	public String paramsString() {
-		return tag + ":(" + rightLift.getCurrentPosition() + "," + leftLift.getCurrentPosition() + ")->" + targetPosition;
+		return tag + ":(" + rightLift.getCurrentPosition() + ',' + leftLift.getCurrentPosition() + ")->" + targetPosition;
 	}
 }

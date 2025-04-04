@@ -37,6 +37,9 @@ public class BaseMapClient implements Client {
 	protected       boolean                        isUpdateRequested;
 	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
+	/**
+	 * @param telemetry 自动覆写字体
+	 */
 	public BaseMapClient(@NonNull final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		this.data = new LinkedHashMap <>();

@@ -1,33 +1,45 @@
-package org.firstinspires.ftc.teamcode.cores.eventloop.integral;
+package org.firstinspires.ftc.teamcode.cores.eventloop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.builder.ActionBuilder;
+import org.betastudio.ftc.action.builder.LinkedActionBuilder;
+import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.ThreadedAction;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
-import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.firstinspires.ftc.teamcode.CoreDatabase;
+import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.cores.RobotMng;
-import org.firstinspires.ftc.teamcode.cores.eventloop.OverclockOpMode;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralOpMode;
+import org.firstinspires.ftc.teamcode.cores.eventloop.trajectory.HeadingTrajectoryBuilder;
 
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public    RobotMng  robot;
-	public    Timer     timer;
-	public    Client    client;
-	protected boolean   is_terminate_method_called;
-	private   boolean   auto_terminate_when_TLE;
-	private   Exception inlineUncaughtException;
+public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+	public    SampleMecanumDrive       drive;
+	public    UtilsMng                 utils;
+	public    Timer                    timer;
+	public    Client                   client;
+	public    ActionBuilder            builder;
+	protected boolean                  is_terminate_method_called;
+	protected HeadingTrajectoryBuilder track;
+	private   Exception                inlineUncaughtException;
+	private   Action                   action;
+	private   Runnable                 runner;
+
+	public abstract void actionBuildEntry();
 
 	@Override
 	public void op_init() {
@@ -38,9 +50,11 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
 		timer = new Timer();
+		builder = new LinkedActionBuilder();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
+		telemetry.clearAll();
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
@@ -51,22 +65,30 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
-		robot = new RobotMng();
-		robot.fetchClient(client);
+		utils = new UtilsMng();
 
 		telemetry.clearAll();
+
+		drive = new SampleMecanumDrive(hardwareMap);
+		track = new HeadingTrajectoryBuilder(drive);
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
 		client.putLine("ROBOT INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
-		if (- 1 != CoreDatabase.autonomous_time_used) {
-			client.putData("last autonomous time used", CoreDatabase.autonomous_time_used);
-			client.putData("last terminateReason", CoreDatabase.last_terminate_reason.name());
-		}
-
 		FtcLogTunnel.MAIN.report("Op inline initialized");
+
+		drive.setPoseEstimate(getInitialPose());
+		track.setCurrent(getInitialPose());
+		actionBuildEntry();
+		action = builder.store();
+		runner = () -> {
+			if (! action.activate()) {
+				client.putLine("Core Action Finished");
+				runner = () -> {};
+			}
+		};
 	}
 
 	@Override
@@ -76,25 +98,13 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void op_start() {
-		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
-		client.deleteData("last autonomous time used");
-		client.deleteData("last terminateReason");
 		timer.pushTimeTag("start");
 
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
-		robot.initControllers();
-	}
-
-	public void auto_terminate_when_TLE(final boolean auto_terminate_when_TLE) {
-		this.auto_terminate_when_TLE = auto_terminate_when_TLE;
 	}
 
 	@Override
 	public void op_loop() {
-		if (121 < getRuntime() && auto_terminate_when_TLE) {
-			stop();
-			terminateOpModeNow();
-		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
 		client.changeData("time", getRuntime());
 
@@ -108,14 +118,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			terminateOpModeNow();
 		}
 
-		try {
-			op_loop_entry();
-		} catch (final Exception exception) {
-			exception_entry(exception);
-		}
+		runner.run();
 	}
-
-	public abstract void op_loop_entry();
 
 	@Override
 	public void op_end() {
@@ -150,4 +154,18 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public void exception_entry(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
+
+	public void inputMngAction() {
+		builder.append(utils.pack());
+	}
+
+	public void appendThreaded(Action... actions) {
+		builder.append(new ThreadedAction(actions));
+	}
+
+	public void appendLinked(Action... actions) {
+		builder.append(new LinkedAction(actions));
+	}
+
+	public abstract Pose2d getInitialPose();
 }

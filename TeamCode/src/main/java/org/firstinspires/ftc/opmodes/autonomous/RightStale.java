@@ -9,10 +9,12 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomous;
 import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
+@Disabled
 @Config
 @Autonomous(name = "Right", preselectTeleOp = "19419", group = "0_Main")
 public class RightStale extends IntegralAutonomous {
@@ -39,7 +41,7 @@ public class RightStale extends IntegralAutonomous {
 
 	@Override
 	public void linear() {
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		runTrajectory("suspend preload");
@@ -48,17 +50,16 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.scaleOperate(scaleGetPosition);
 		utils.runAsThread();
 		sleep(600);
 
 		runTrajectory("get sample 1");
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
-		utils.waitMs(300);
-		utils.integralIntakesEnding();
+		utils.waitMs(300).armBack().scaleBack();
 		utils.runCached();
 
 		sleep(900);
@@ -69,17 +70,17 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClaw();
 		utils.waitMs(200);
 		utils.scaleOperate(scaleGetPosition);
-		utils.armsToSafePosition();
+		utils.armSafe();
 		utils.waitMs(200);
-		utils.decant();
+		utils.boxDecant();
 		utils.runAsThread();
 		runTrajectory("get sample 2");
 		sleep(200);
-		utils.displayArms();
+		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
 		utils.waitMs(300);
-		utils.integralIntakesEnding();
+		utils.boxRst().waitMs(250).armBack().scaleBack();
 		utils.runCached();
 
 		sleep(900);
@@ -89,8 +90,8 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(100);
 		utils.openClaw();
 		utils.waitMs(200);
-		utils.armsToSafePosition();
-		utils.decant();
+		utils.armSafe();
+		utils.boxDecant();
 		utils.runAsThread();
 		sleep(900);
 
@@ -101,7 +102,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);
@@ -115,7 +116,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.runAsThread();
 		sleep(500);
 		runTrajectory("get sample suspend 2");
@@ -124,7 +125,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(800);
 		utils.closeClip();
 		utils.waitMs(1000);
-		utils.integralLiftUpPrepare();
+		utils.armSafe();
 		utils.liftSuspendHighPrepare();
 		utils.runAsThread();
 		sleep(1500);
@@ -138,7 +139,7 @@ public class RightStale extends IntegralAutonomous {
 		utils.openClip();
 		utils.waitMs(100);
 		utils.liftDown();
-		utils.integralIntakes();
+		utils.openClaw();
 		utils.runAsThread();
 		sleep(500);
 
