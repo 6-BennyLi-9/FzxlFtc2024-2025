@@ -3,6 +3,7 @@ package org.betastudio.ftc.util;
 import org.betastudio.ftc.Annotations.Beta;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
+/** @noinspection DeprecatedIsStillUsed*/
 @Deprecated
 public class ButtonProcessorEx extends ButtonProcessor {
 	public static final ButtonCallback defaultCallback = () -> {};
