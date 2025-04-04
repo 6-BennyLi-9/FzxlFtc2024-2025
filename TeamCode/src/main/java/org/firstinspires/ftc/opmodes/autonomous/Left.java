@@ -51,7 +51,7 @@ public class Left extends ActionBasedAutonomous {
 		final Action liftUpping = utils.pack();
 		utils.boxDecant();
 		final Action decanting = utils.pack();
-		appendThreaded(
+		appendAssembled(
 				liftUpping,
 				new LinkedAction(
 						track.runTo(Decant),
@@ -86,7 +86,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
-		appendThreaded(
+		appendAssembled(
 				utils.pack(),
 				track.runTo(pose)
 		);

@@ -1,6 +1,6 @@
 package org.betastudio.ftc.action.utils;
 
-public class YieldAction extends  SleepingAction{
+public class YieldAction extends SleepingAction{
 	public YieldAction(final long sleepMilliseconds) {
 		super(sleepMilliseconds);
 

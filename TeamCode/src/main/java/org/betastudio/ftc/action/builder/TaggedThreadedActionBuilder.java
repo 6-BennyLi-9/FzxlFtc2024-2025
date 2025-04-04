@@ -1,7 +1,7 @@
 package org.betastudio.ftc.action.builder;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.utils.AssembledAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +46,6 @@ public class TaggedThreadedActionBuilder implements TaggedActionBuilder{
 
 	@Override
 	public Action store() {
-		return new ThreadedAction(new ArrayList <>(actions.values()));
+		return new AssembledAction(new ArrayList <>(actions.values()));
 	}
 }

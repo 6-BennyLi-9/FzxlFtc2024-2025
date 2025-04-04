@@ -1,33 +1,27 @@
 package org.betastudio.ftc.action;
 
-import static org.betastudio.ftc.Interfaces.Nameable;
-import static org.betastudio.ftc.Interfaces.ThreadEx;
+import org.betastudio.ftc.ui.log.*;
 
-import androidx.annotation.NonNull;
+import java.util.concurrent.*;
 
-import org.betastudio.ftc.action.utils.NullptrAction;
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
-
-import java.util.concurrent.Callable;
+import static org.betastudio.ftc.Interfaces.*;
 
 /**
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
  */
-public class ActionImplementFactory implements Action, ThreadEx, Nameable {
+public abstract class ActionImplementFactory implements Action, ThreadEx, Nameable {
 	private Callable <Boolean> action;
+	private Callable <String>  params;
 	private boolean            isStopRequested;
 	private String             name = "[unnamed]";
 
-	public ActionImplementFactory() {
-		this(new NullptrAction());
+	protected ActionImplementFactory() {
+		this(() -> false,() -> "[unsetted]");
 	}
 
-	public ActionImplementFactory(final Callable <Boolean> action) {
+	protected ActionImplementFactory(final Callable<Boolean> action, final Callable<String> params) {
 		this.action = action;
-	}
-
-	public ActionImplementFactory(@NonNull final Action action) {
-		this.action = action::activate;
+		this.params = params;
 	}
 
 	@Override
@@ -64,5 +58,18 @@ public class ActionImplementFactory implements Action, ThreadEx, Nameable {
 	@Override
 	public void setName(final String name) {
 		 this.name = name;
+	}
+
+	public void setParams(final Callable<String> params){
+		this.params = params;
+	}
+
+	@Override
+	public String paramsString(){
+		try{
+			return params.call();
+		}catch(final Exception e){
+			throw new RuntimeException(e);
+		}
 	}
 }

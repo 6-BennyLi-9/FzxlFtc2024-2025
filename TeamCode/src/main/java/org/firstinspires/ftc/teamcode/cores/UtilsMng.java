@@ -128,35 +128,35 @@ public class UtilsMng {
 	 * 显示臂。
 	 */
 	public void armDisplay() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
 	}
 
 	/**
 	 * 将臂设置为待命位置。
 	 */
 	public void armBack() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
 	}
 
 	/**
 	 * 将臂移动到安全位置。
 	 */
 	public void armSafe() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
 	}
 
 	/**
 	 * 使秤臂探出。
 	 */
 	public void scaleProbe() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(0.65)), new StatementAction(() -> rightScale.setPosition(0.35))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(0.65)), new StatementAction(() -> rightScale.setPosition(0.35))));
 	}
 
 	/**
 	 * 使秤臂收回。
 	 */
 	public void scaleBack() {
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0))));
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class UtilsMng {
 	public void scaleOperate(double rightScalePosition) {
 		rightScalePosition = min(0.35, max(rightScalePosition, 0));
 		final double finalRightScalePosition = rightScalePosition;
-		actions.add(new ThreadedAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**

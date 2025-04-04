@@ -1,39 +1,31 @@
 package org.betastudio.ftc.action.utils;
 
-import androidx.annotation.NonNull;
+import org.betastudio.ftc.*;
+import org.betastudio.ftc.action.*;
+import org.betastudio.ftc.util.*;
 
-import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImplementFactory;
-import org.betastudio.ftc.util.ProgressMarker;
+import java.util.concurrent.atomic.*;
 
 public final class RepetitionAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
 	private final ProgressMarker marker;
-	private final long           times;
-	private final Action         argument;
-	private       long           ptr;
 
 	public RepetitionAction(final Action repeatArgument, final long times) {
-		this.times = times;
-		argument = repeatArgument;
+		final AtomicLong ptr = new AtomicLong();
 		marker = new ProgressMarker(times);
+
 		setAction(() -> {
-			final boolean res = argument.activate();
+			final boolean res = repeatArgument.activate();
 			if (! res)
 				return false;
-			final boolean b = ptr < times;
-			ptr++;
+			final boolean b = ptr.get() < times;
+			ptr.getAndIncrement();
 			marker.tick();
 			return b;
 		});
 
-		setName(getName() + this.getClass().getSimpleName());
-	}
+		setParams(() -> "[" + ptr + "/" + times + "]" + repeatArgument.paramsString());
 
-	@NonNull
-	@Override
-	public String paramsString() {
-		return "[" + ptr + "/" + times + "]" + argument.paramsString();
+		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	@Override

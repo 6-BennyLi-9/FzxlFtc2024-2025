@@ -10,7 +10,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -159,8 +159,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		builder.append(utils.pack());
 	}
 
-	public void appendThreaded(final Action... actions) {
-		builder.append(new ThreadedAction(actions));
+	public void appendAssembled(final Action... actions) {
+		builder.append(new AssembledAction(actions));
 	}
 
 	public void appendLinked(final Action... actions) {
