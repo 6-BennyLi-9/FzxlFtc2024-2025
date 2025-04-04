@@ -13,22 +13,22 @@ public class HeadingTrajectoryBuilder {
 	private final SampleMecanumDrive drive;
 	private Pose2d current;
 
-	public HeadingTrajectoryBuilder(@NonNull SampleMecanumDrive drive) {
+	public HeadingTrajectoryBuilder(@NonNull final SampleMecanumDrive drive) {
 		this.drive = drive;
 		current  = drive.getPoseEstimate();
 	}
 
-	public Trajectory lineTo(Pose2d end) {
-		Trajectory build = drive.trajectoryBuilder(current).lineToLinearHeading(end).build();
+	public Trajectory lineTo(final Pose2d end) {
+		final Trajectory build = drive.trajectoryBuilder(current).lineToLinearHeading(end).build();
 		current = end;
 		return build;
 	}
 
-	public Action runTo(Pose2d end) {
+	public Action runTo(final Pose2d end) {
 		return new TrajectoryRunnerAction(drive,lineTo(end));
 	}
 
-	public void setCurrent(Pose2d current) {
+	public void setCurrent(final Pose2d current) {
 		this.current = current;
 	}
 }

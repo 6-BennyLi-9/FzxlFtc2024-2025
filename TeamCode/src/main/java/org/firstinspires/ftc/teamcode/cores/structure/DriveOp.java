@@ -63,7 +63,7 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 		return new DriveMsg(x,y,turn);
 	}
 
-	public void sync(double x, double y, double turn) {
+	public void sync(final double x, final double y, final double turn) {
 		DriveOp.x = x;
 		DriveOp.y = y;
 		DriveOp.turn = turn;
@@ -72,11 +72,11 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 	}
 
 
-	public void turn(double turn) {
+	public void turn(final double turn) {
 		turn(turn, 1);
 	}
 
-	public void turn(double turn, double buf) {
+	public void turn(final double turn, final double buf) {
 		sync(x, y, DriveOp.turn + turn * buf);
 	}
 }

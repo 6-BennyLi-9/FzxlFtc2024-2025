@@ -17,20 +17,20 @@ public class TaggedThreadedActionBuilder implements TaggedActionBuilder{
 	}
 
 	@Override
-	public void append(String tag, Action action) {
+	public void append(final String tag, final Action action) {
 		actions.put(tag, action);
 	}
 
 	@Override
-	public void remove(String tag) {
+	public void remove(final String tag) {
 		actions.remove(tag);
 	}
 
 	@Override
-	public void remove(Action action) {
-		Set <String> remove = new HashSet <>();
+	public void remove(final Action action) {
+		final Set <String> remove = new HashSet <>();
 
-		for (Map.Entry <String, Action> entry : actions.entrySet()) {
+		for (final Map.Entry <String, Action> entry : actions.entrySet()) {
 			if (entry.getValue() == action){
 				remove.add(entry.getKey());
 			}

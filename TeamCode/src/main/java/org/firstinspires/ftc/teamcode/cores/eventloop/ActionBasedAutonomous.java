@@ -58,7 +58,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
-		MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
+		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
 		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
 		caller.setFrequencyFPS(10);
 		Global.service.execute(caller);
@@ -159,11 +159,11 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		builder.append(utils.pack());
 	}
 
-	public void appendThreaded(Action... actions) {
+	public void appendThreaded(final Action... actions) {
 		builder.append(new ThreadedAction(actions));
 	}
 
-	public void appendLinked(Action... actions) {
+	public void appendLinked(final Action... actions) {
 		builder.append(new LinkedAction(actions));
 	}
 

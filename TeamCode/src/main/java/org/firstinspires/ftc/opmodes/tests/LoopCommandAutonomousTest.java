@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.integral.LoopCommandAutono
 public class LoopCommandAutonomousTest extends LoopCommandAutonomous {
 	@Override
 	public void commandOverload(){
-		UtilsMng utils = new UtilsMng();
+		final UtilsMng utils = new UtilsMng();
 
 		commands.add(new StatementAction(()-> client.putLine("r1")));
 		commands.add(new SleepingAction(1000));

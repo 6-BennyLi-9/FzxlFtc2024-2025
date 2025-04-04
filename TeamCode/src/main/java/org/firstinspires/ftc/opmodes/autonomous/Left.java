@@ -82,7 +82,7 @@ public class Left extends ActionBasedAutonomous {
 		inputMngAction();
 	}
 
-	public void appendRunningScaling(double scalePose, Pose2d pose) {
+	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
 		appendThreaded(
 				utils.liftDown().scaleOperate(scalePose).pack(),
 				track.runTo(pose)

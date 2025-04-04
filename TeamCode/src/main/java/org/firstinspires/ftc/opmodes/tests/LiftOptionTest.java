@@ -15,7 +15,7 @@ public class LiftOptionTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
 		HardwareDatabase.sync(hardwareMap, true);
-		DcTeleLiftCtrl ctrl = new DcTeleLiftCtrl(HardwareDatabase.leftLift, HardwareDatabase.rightLift);
+		final DcTeleLiftCtrl ctrl = new DcTeleLiftCtrl(HardwareDatabase.leftLift, HardwareDatabase.rightLift);
 		ctrl.setTargetPosition(0);
 
 		waitForStart();

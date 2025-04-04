@@ -25,7 +25,7 @@ public class FtcLogRender implements Interfaces.ProgressRender {
 	}
 
 	@Override
-	public void render(String name, @NonNull Interfaces.ProgressMarker marker) {
+	public void render(final String name, @NonNull final Interfaces.ProgressMarker marker) {
 		if (marker.getProgress() >= unMarked.get(0)){
 			FtcLogTunnel.MAIN.report(name + marker.getProgressString() + marker);
 			unMarked.remove(0);

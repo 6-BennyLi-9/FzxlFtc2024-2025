@@ -15,7 +15,7 @@ import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 public class ActionRunnerRenderTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
-		Client client = new BaseMapClient(telemetry);
+		final Client client = new BaseMapClient(telemetry);
 		Actions.runAction(new ThreadedAction(
 				new SleepingAction(1024),
 				new StatementAction(client::update)

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 
 public class RatchetOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  boolean   isTightened = false;
+	public static  boolean   isTightened;
 	public static  ServoCtrl ratchetControl;
 	private static RatchetOp instance;
 
@@ -52,7 +52,7 @@ public class RatchetOp implements Interfaces.HardwareController, Interfaces.Init
 	}
 
 	@Override
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		ratchetControl.setTag(tag);
 	}
 }

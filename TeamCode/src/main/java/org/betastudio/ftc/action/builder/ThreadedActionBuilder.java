@@ -14,7 +14,7 @@ public class ThreadedActionBuilder implements ActionBuilder{
 	}
 
 	@Override
-	public void append(Action action) {
+	public void append(final Action action) {
 		actions.add(action);
 	}
 
@@ -24,7 +24,7 @@ public class ThreadedActionBuilder implements ActionBuilder{
 	}
 
 	@Override
-	public void remove(Action action) {
+	public void remove(final Action action) {
 		actions.remove(action);
 	}
 

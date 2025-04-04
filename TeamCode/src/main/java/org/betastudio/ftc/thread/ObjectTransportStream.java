@@ -17,19 +17,19 @@ public class ObjectTransportStream <T> {
 		this(null);
 	}
 
-	public ObjectTransportStream(T initialValue) {
+	public ObjectTransportStream(final T initialValue) {
 		this.value = initialValue;
 		pushLock = new ReentrantLock();
 		receiveLock = new ReentrantLock();
 	}
 
-	public void pushValue(T value) {
+	public void pushValue(final T value) {
 		pushValue(value, TimeUnit.SECONDS, 1L);
 	}
 
-	public void pushValue(T value, TimeUnit unit, long timeout){
+	public void pushValue(final T value, final TimeUnit unit, final long timeout){
 		pushLock.lock();
-		long startTime = System.nanoTime();
+		final long startTime = System.nanoTime();
 		while (isValuePushed) {
 			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
 				return;
@@ -46,17 +46,17 @@ public class ObjectTransportStream <T> {
 		return receiveValue(TimeUnit.SECONDS, 1L, null);
 	}
 
-	public T receiveValue(T defaultValue) {
+	public T receiveValue(final T defaultValue) {
 		return receiveValue(TimeUnit.SECONDS, 1L, defaultValue);
 	}
 
-	public T receiveValue(TimeUnit unit, long timeout) {
+	public T receiveValue(final TimeUnit unit, final long timeout) {
 		return receiveValue(unit, timeout, null);
 	}
 
-	public T receiveValue(TimeUnit unit, long timeout, T defaultValue){
+	public T receiveValue(final TimeUnit unit, final long timeout, final T defaultValue){
 		receiveLock.lock();
-		long startTime = System.nanoTime();
+		final long startTime = System.nanoTime();
 		while (!isValuePushed) {
 			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
 				receiveLock.unlock();
