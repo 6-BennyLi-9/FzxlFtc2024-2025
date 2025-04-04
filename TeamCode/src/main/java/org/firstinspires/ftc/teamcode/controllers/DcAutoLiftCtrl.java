@@ -20,6 +20,6 @@ public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
 	@Override
 	public boolean activate() {
 		super.activate();
-		return Math.abs(targetPosition - currentPosition) > tolerance || (using_touch_calibrate && 0 == getTargetPosition() && HardwareDatabase.liftTouch.isPressed());
+		return tolerance < Math.abs(targetPosition - currentPosition) || (using_touch_calibrate && 0 == getTargetPosition() && HardwareDatabase.liftTouch.isPressed());
 	}
 }

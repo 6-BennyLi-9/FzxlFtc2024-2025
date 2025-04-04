@@ -9,7 +9,7 @@ public class TelemetryLine implements TelemetryElement {
 		return line;
 	}
 
-	public void setLine(String line) {
+	public void setLine(final String line) {
 		this.line = line;
 	}
 

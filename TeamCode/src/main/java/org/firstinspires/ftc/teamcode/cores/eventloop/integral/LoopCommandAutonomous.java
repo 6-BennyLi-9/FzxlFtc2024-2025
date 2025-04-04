@@ -96,7 +96,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 
 		if (is_terminate_method_called){
 			CoreDatabase.writeInVals(this, reason, timer.getDeltaTime());
-			if (inline_exception != null) {
+			if (null != inline_exception) {
 				if (inline_exception instanceof OpModeManagerImpl.ForceStopException) {
 					closeTask();
 				} else {

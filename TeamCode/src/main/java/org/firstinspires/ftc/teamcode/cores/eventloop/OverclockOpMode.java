@@ -31,11 +31,11 @@ public abstract class OverclockOpMode extends LinearOpMode {
 		}
 	}
 
-	public void setOverclockMode(OverclockMode overclockMode) {
+	public void setOverclockMode(final OverclockMode overclockMode) {
 		setMode(overclockMode, 0L);
 	}
 
-	public void setMode(OverclockMode mode, long utilConfigureValue) {
+	public void setMode(final OverclockMode mode, final long utilConfigureValue) {
 		this.overclockMode = mode;
 		this.overclockMode.utilConfigureValue.set(utilConfigureValue);
 	}

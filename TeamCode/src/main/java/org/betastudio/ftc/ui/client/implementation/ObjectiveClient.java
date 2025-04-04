@@ -27,7 +27,7 @@ public class ObjectiveClient implements Client {
 	protected       boolean                      isUpdateRequested;
 	protected       FtcLogTunnel                 targetLogTunnel = FtcLogTunnel.MAIN;
 
-	public ObjectiveClient(Telemetry telemetry) {
+	public ObjectiveClient(final Telemetry telemetry) {
 		this.telemetry = telemetry;
 		item = new HashMap <>();
 		line = new HashMap <>();
@@ -50,7 +50,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void putData(String key, String val) {
+	public void putData(final String key, final String val) {
 		item.put(key, telemetry.addData(key, val));
 
 		if (autoUpdate) {
@@ -61,7 +61,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void deleteData(String key) {
+	public void deleteData(final String key) {
 		telemetry.removeItem(item.remove(key));
 
 		if (autoUpdate) {
@@ -72,7 +72,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void changeData(String key, String val) {
+	public void changeData(final String key, final String val) {
 		if (item.containsKey(key)) {
 			Objects.requireNonNull(item.get(key)).setValue(val);
 
@@ -87,7 +87,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void putLine(String key) {
+	public void putLine(final String key) {
 		line.put(key, telemetry.addLine(key));
 
 		if (autoUpdate) {
@@ -98,7 +98,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void deleteLine(String key) {
+	public void deleteLine(final String key) {
 		telemetry.removeLine(line.remove(key));
 
 		if (autoUpdate) {
@@ -110,13 +110,13 @@ public class ObjectiveClient implements Client {
 
 	@Deprecated
 	@Override
-	public void changeLine(String oldData, String newData) {
+	public void changeLine(final String oldData, final String newData) {
 		deleteLine(oldData);
 		putLine(newData);
 	}
 
 	@Override
-	public void speak(String text, String languageCode, String countryCode) {
+	public void speak(final String text, final String languageCode, final String countryCode) {
 		telemetry.speak(text, languageCode, countryCode);
 
 		if (autoUpdate) {
@@ -132,7 +132,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void setUpdateConfig(@NonNull UpdateConfig updateConfig) {
+	public void setUpdateConfig(@NonNull final UpdateConfig updateConfig) {
 		switch (updateConfig) {
 			case AUTOMATIC:
 				autoUpdate = true;
@@ -156,7 +156,7 @@ public class ObjectiveClient implements Client {
 	}
 
 	@Override
-	public void sendMsg(@NonNull TelemetryMsg message) {
+	public void sendMsg(@NonNull final TelemetryMsg message) {
 		for (final TelemetryElement element : message.getElements()) {
 			if (element instanceof TelemetryItem) {
 				changeData(((TelemetryItem) element).getCapital(), ((TelemetryItem) element).getValue());

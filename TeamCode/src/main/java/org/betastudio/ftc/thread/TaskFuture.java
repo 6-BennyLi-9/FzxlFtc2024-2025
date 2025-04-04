@@ -10,7 +10,7 @@ public final class TaskFuture implements ValueProvider <String>, Interfaces.Valu
 	private final String     str;
 	private final Future <?> future;
 
-	public TaskFuture(String str, Future <?> future) {
+	public TaskFuture(final String str, final Future <?> future) {
 		this.str = str;
 		this.future = future;
 	}
@@ -24,7 +24,7 @@ public final class TaskFuture implements ValueProvider <String>, Interfaces.Valu
 	 * @param value 不会干任何事
 	 */
 	@Override
-	public void set(String value) {
+	public void set(final String value) {
 	}
 
 	@Override

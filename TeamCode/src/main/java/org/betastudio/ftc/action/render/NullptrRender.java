@@ -4,6 +4,6 @@ import org.betastudio.ftc.Interfaces;
 
 public final class NullptrRender implements Interfaces.ProgressRender {
 	@Override
-	public void render(String name, Interfaces.ProgressMarker marker) {
+	public void render(final String name, final Interfaces.ProgressMarker marker) {
 	}
 }

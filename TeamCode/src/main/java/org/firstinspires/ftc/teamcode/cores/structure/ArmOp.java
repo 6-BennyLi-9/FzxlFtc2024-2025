@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareConfigures;
@@ -41,7 +41,7 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 	@Contract(" -> new")
 	@Override
 	public Action getController() {
-		return new ThreadedAction(leftArmControl, rightArmControl);
+		return new AssembledAction(leftArmControl, rightArmControl);
 	}
 
 	@Override

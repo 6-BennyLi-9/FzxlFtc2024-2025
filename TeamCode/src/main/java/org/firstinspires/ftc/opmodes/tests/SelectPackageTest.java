@@ -28,7 +28,7 @@ public class SelectPackageTest extends LinearOpMode {
 		final BaseMapClient client     = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
-		for (int i = 0 ; i < ITEM_COUNT ; i++) {
+		for (int i = 0; ITEM_COUNT > i; i++) {
 			final int index = i + 1;
 			selections.add(new SelectElement("item" + index, () -> telemetry.speak("item"+index+" selected")));
 		}

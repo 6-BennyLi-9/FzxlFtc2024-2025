@@ -13,7 +13,7 @@ public enum OverclockMode {
 	public Timer      timer              = new Timer();
 	public AtomicLong utilConfigureValue = new AtomicLong();
 
-	public Runnable newLoop(Runnable loopEntry){
+	public Runnable newLoop(final Runnable loopEntry){
 		switch (this) {
 			case YIELD_AT_EACH:
 				return () -> {
@@ -26,7 +26,7 @@ public enum OverclockMode {
 					loopEntry.run();
 				};
 			case MAX_FPS:
-				long minTime = 1000 / utilConfigureValue.get();
+				final long minTime = 1000 / utilConfigureValue.get();
 				return () -> {
 					Local.sleep(Math.max(0, minTime - (long) timer.stopAndGetDeltaTime()));
 					loopEntry.run();

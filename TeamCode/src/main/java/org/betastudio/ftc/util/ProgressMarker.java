@@ -11,11 +11,11 @@ public class ProgressMarker implements Interfaces.ProgressMarker {
 	private final AtomicLong total = new AtomicLong();
 	private final AtomicLong done  = new AtomicLong();
 
-	public ProgressMarker(long total) {
+	public ProgressMarker(final long total) {
 		this(total, 0L);
 	}
 
-	public ProgressMarker(long total, long doneAlready) {
+	public ProgressMarker(final long total, final long doneAlready) {
 		this.total.set(total);
 		done.set(doneAlready);
 	}

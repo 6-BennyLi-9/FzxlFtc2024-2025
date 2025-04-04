@@ -9,8 +9,8 @@ import org.betastudio.ftc.action.ActionImplementFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TrajectoryRunnerAction extends ActionImplementFactory {
-	public TrajectoryRunnerAction(SampleMecanumDrive drive, TrajectorySequence trajectorySequence) {
-		AtomicBoolean isInitialized = new AtomicBoolean(false);
+	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final TrajectorySequence trajectorySequence) {
+		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
 			if (!isInitialized.get()){
 				isInitialized.set(true);
@@ -20,8 +20,8 @@ public class TrajectoryRunnerAction extends ActionImplementFactory {
 			return drive.isBusy();
 		});
 	}
-	public TrajectoryRunnerAction(SampleMecanumDrive drive, Trajectory trajectory) {
-		AtomicBoolean isInitialized = new AtomicBoolean(false);
+	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final Trajectory trajectory) {
+		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
 			if (!isInitialized.get()){
 				isInitialized.set(true);

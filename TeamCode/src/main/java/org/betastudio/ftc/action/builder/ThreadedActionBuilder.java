@@ -1,7 +1,7 @@
 package org.betastudio.ftc.action.builder;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.utils.AssembledAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class ThreadedActionBuilder implements ActionBuilder{
 	}
 
 	@Override
-	public void append(Action action) {
+	public void append(final Action action) {
 		actions.add(action);
 	}
 
@@ -24,12 +24,12 @@ public class ThreadedActionBuilder implements ActionBuilder{
 	}
 
 	@Override
-	public void remove(Action action) {
+	public void remove(final Action action) {
 		actions.remove(action);
 	}
 
 	@Override
 	public Action store() {
-		return new ThreadedAction(actions);
+		return new AssembledAction(actions);
 	}
 }

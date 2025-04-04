@@ -1,19 +1,16 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import androidx.annotation.*;
+import org.betastudio.ftc.*;
+import org.betastudio.ftc.action.*;
+import org.betastudio.ftc.action.utils.*;
+import org.betastudio.ftc.util.*;
+import org.firstinspires.ftc.teamcode.*;
+import org.firstinspires.ftc.teamcode.controllers.*;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.*;
+import org.jetbrains.annotations.*;
 
-import androidx.annotation.NonNull;
-
-import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.utils.ThreadedAction;
-import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.jetbrains.annotations.Contract;
+import static java.lang.Math.*;
 
 public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
 	public static final double         SMOOTH = 0.2;
@@ -41,7 +38,7 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 	@Contract(" -> new")
 	@Override
 	public Action getController() {
-		return new ThreadedAction(leftScaleController, rightScaleController);
+		return new AssembledAction(leftScaleController, rightScaleController);
 	}
 
 	@Override

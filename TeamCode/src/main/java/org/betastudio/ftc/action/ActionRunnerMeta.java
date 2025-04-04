@@ -11,9 +11,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class ActionRunnerMeta implements Action {
 	private final Action metaRunner;
 
-	public ActionRunnerMeta(@NonNull Action action, Interfaces.ProgressRender render) {
-		AtomicReference <Interfaces.ProgressMarker> marker = new AtomicReference <>(new ProgressMarker(action.getCount()));
-		AtomicReference <String>                    name   = new AtomicReference <>(Labeler.gen().summon(action));
+	public ActionRunnerMeta(@NonNull final Action action, final Interfaces.ProgressRender render) {
+		final AtomicReference <Interfaces.ProgressMarker> marker = new AtomicReference <>(new ProgressMarker(action.getCount()));
+		final AtomicReference <String>                    name   = new AtomicReference <>(Labeler.gen().summon(action));
 
 		if (action instanceof Interfaces.Nameable) {
 			name.set(((Interfaces.Nameable) action).getName());

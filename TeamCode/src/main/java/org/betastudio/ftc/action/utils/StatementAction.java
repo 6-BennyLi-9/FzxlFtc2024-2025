@@ -2,26 +2,20 @@ package org.betastudio.ftc.action.utils;
 
 import org.betastudio.ftc.action.ActionImplementFactory;
 
-public class StatementAction extends ActionImplementFactory {
-	private final Runnable node;
-
+public final class StatementAction extends ActionImplementFactory {
 	/**
 	 * 语句式 {@code Action} 块
 	 * <p>
 	 * 示例： {@code ... new StatementAction( () -> yourMethodHere() ); ...}
 	 */
 	public StatementAction(final Runnable meaning) {
-		node = meaning;
 		setAction(() -> {
-			node.run();
+			meaning.run();
 			return false;
 		});
 
-		setName(getName() + this.getClass().getSimpleName());
-	}
+		setParams(() -> "statement:" + meaning);
 
-	@Override
-	public String paramsString() {
-		return "statement:" + node;
+		setName(getName() + this.getClass().getSimpleName());
 	}
 }

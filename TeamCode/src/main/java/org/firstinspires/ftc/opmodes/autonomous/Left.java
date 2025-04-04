@@ -1,19 +1,14 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
+import com.acmerobotics.dashboard.config.*;
+import com.acmerobotics.roadrunner.geometry.*;
+import com.qualcomm.robotcore.eventloop.opmode.*;
+import org.betastudio.ftc.action.*;
+import org.betastudio.ftc.action.utils.*;
+import org.firstinspires.ftc.teamcode.cores.eventloop.*;
 
 import static java.lang.Math.toRadians;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
-import org.betastudio.ftc.action.utils.LinkedAction;
-import org.firstinspires.ftc.teamcode.cores.eventloop.ActionBasedAutonomous;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.*;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -51,11 +46,16 @@ public class Left extends ActionBasedAutonomous {
 	}
 
 	public void appendDecanting() {
-		appendThreaded(
-				utils.armSafe().liftDecantHigh().pack(),
+		utils.armSafe();
+		utils.liftDecantHigh();
+		final Action liftUpping = utils.pack();
+		utils.boxDecant();
+		final Action decanting = utils.pack();
+		appendAssembled(
+				liftUpping,
 				new LinkedAction(
 						track.runTo(Decant),
-						utils.boxDecant().pack()
+						decanting
 				)
 		);
 	}
@@ -82,9 +82,12 @@ public class Left extends ActionBasedAutonomous {
 		inputMngAction();
 	}
 
-	public void appendRunningScaling(double scalePose, Pose2d pose) {
-		appendThreaded(
-				utils.liftDown().scaleOperate(scalePose).pack(),
+	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
+		utils.liftDown();
+		utils.scaleOperate(scalePose);
+
+		appendAssembled(
+				utils.pack(),
 				track.runTo(pose)
 		);
 	}

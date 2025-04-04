@@ -14,22 +14,22 @@ public class MapTokenizedClient extends BaseMapClient implements TokenizedClient
 	}
 
 	@Override
-	public void putData(String token, String key, String val) {
+	public void putData(final String token, final String key, final String val) {
 		data.put(token, new TelemetryItem(key, val));
 	}
 
 	@Override
-	public void putLine(String token, String val) {
+	public void putLine(final String token, final String val) {
 		data.put(token, new TelemetryItem(val, val));
 	}
 
 	@Override
-	public TelemetryElement getByToken(String token) {
+	public TelemetryElement getByToken(final String token) {
 		return data.get(token);
 	}
 
 	@Override
-	public void deleteByToken(String token) {
+	public void deleteByToken(final String token) {
 		data.remove(token);
 
 		if (autoUpdate){
@@ -40,8 +40,8 @@ public class MapTokenizedClient extends BaseMapClient implements TokenizedClient
 	}
 
 	@Override
-	public void changeByToken(String token, String val) {
-		TelemetryElement element = data.get(token);
+	public void changeByToken(final String token, final String val) {
+		final TelemetryElement element = data.get(token);
 
 		//noinspection ChainOfInstanceofChecks
 		if (element instanceof TelemetryItem) {
@@ -49,7 +49,7 @@ public class MapTokenizedClient extends BaseMapClient implements TokenizedClient
 		} else if (element instanceof TelemetryLine) {
 			((TelemetryLine) element).setLine(val);
 		} else {
-			assert element != null;
+			assert null != element;
 			throw new IllegalStateException("Unsupported telemetry element type: " + element.getClass().getSimpleName());
 		}
 	}
