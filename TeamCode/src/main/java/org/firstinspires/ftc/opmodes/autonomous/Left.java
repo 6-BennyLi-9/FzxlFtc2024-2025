@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
 import static java.lang.Math.toRadians;
@@ -56,7 +56,7 @@ public class Left extends ActionBasedAutonomous {
 
 	@Override
 	public Pose2d getInitialPose() {
-		return LeftDecantingStart;
+		return LeftStart;
 	}
 
 	public void appendDecanting() {
