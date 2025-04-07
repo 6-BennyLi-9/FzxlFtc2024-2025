@@ -14,7 +14,7 @@ public final class Actions {
 
 	@NonNull
 	@Contract("_ -> new")
-	public static ActionRunnerMeta metaFor(Action action) {
+	public static ActionRunnerMeta metaFor(final Action action) {
 		return new ActionRunnerMeta(action, DEFAULT_RENDER);
 	}
 
@@ -22,7 +22,7 @@ public final class Actions {
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 * @param render      用于渲染的渲染器
 	 */
-	public static void runAction(@NonNull final Action actionBlock, ProgressRender render) {
+	public static void runAction(@NonNull final Action actionBlock, final ProgressRender render) {
 		runAction(new ActionRunnerMeta(actionBlock, render));
 	}
 

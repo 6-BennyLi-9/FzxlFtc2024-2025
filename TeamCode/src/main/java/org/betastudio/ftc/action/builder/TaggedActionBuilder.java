@@ -5,7 +5,7 @@ import org.betastudio.ftc.util.Labeler;
 
 public interface TaggedActionBuilder extends ActionBuilder{
 	@Override
-	default void append(Action action) {
+	default void append(final Action action) {
 		append(Labeler.gen().summon(action), action);
 	}
 

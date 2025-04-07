@@ -1,18 +1,12 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.GetSample;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetFirstSample;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightGetSecondSample;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightStart;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.RightSuspend;
+import com.acmerobotics.dashboard.config.*;
+import com.acmerobotics.roadrunner.geometry.*;
+import com.qualcomm.robotcore.eventloop.opmode.*;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.*;
+import org.firstinspires.ftc.teamcode.cores.structure.*;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomous;
-import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.*;
 
 @Disabled
 @Config
@@ -59,7 +53,9 @@ public class RightStale extends IntegralAutonomous {
 		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
-		utils.waitMs(300).armBack().scaleBack();
+		utils.waitMs(300);
+		utils.armBack();
+		utils.scaleBack();
 		utils.runCached();
 
 		sleep(900);
@@ -80,7 +76,10 @@ public class RightStale extends IntegralAutonomous {
 		utils.waitMs(600);
 		utils.closeClaw();
 		utils.waitMs(300);
-		utils.boxRst().waitMs(250).armBack().scaleBack();
+		utils.boxRst();
+		utils.waitMs(250);
+		utils.armBack();
+		utils.scaleBack();
 		utils.runCached();
 
 		sleep(900);

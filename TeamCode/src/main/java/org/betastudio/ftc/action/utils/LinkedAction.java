@@ -16,13 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
 public final class LinkedAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
-	private final List <Action> actions;
-	private final AtomicInteger ptr = new AtomicInteger(0);
 	private final ProgressMarker marker;
 
 	public LinkedAction(@NonNull final List <Action> actions) {
-		this.actions = actions;
 		marker = new ProgressMarker(actions.size());
+		final AtomicInteger ptr = new AtomicInteger(0);
 		setAction(()->{
 			if (actions.get(ptr.get()).activate()) {
 				return true;
@@ -33,21 +31,19 @@ public final class LinkedAction extends ActionImplementFactory implements Interf
 			}
 		});
 
+		setParams(()->{
+			final StringBuilder stringBuilder = new StringBuilder("{");
+			for (final Action action : actions) {
+				stringBuilder.append(action.paramsString()).append(",");
+			}
+			return stringBuilder.append("}").toString();
+		});
+
 		setName(getName() + this.getClass().getSimpleName());
 	}
 
 	public LinkedAction(final Action... actions) {
 		this(Arrays.asList(actions));
-	}
-
-	@NonNull
-	@Override
-	public String paramsString() {
-		final StringBuilder stringBuilder = new StringBuilder("{");
-		for (final Action action : actions) {
-			stringBuilder.append(action.paramsString()).append(",");
-		}
-		return stringBuilder.append("}").toString();
 	}
 
 	@Override

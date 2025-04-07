@@ -117,7 +117,7 @@ public class RobotMng implements Updatable {
 	 * 初始化所有的硬件控制器，连接硬件，写入实例，并根据需要执行初始化、设置标签操作
 	 */
 	public void initControllers() {
-		TaggedThreadedActionBuilder builder = new TaggedThreadedActionBuilder();
+		final TaggedThreadedActionBuilder builder = new TaggedThreadedActionBuilder();
 		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			final String             k = entry.getKey();
 			final HardwareController v = entry.getValue();

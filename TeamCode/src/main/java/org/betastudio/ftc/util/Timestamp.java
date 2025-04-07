@@ -22,7 +22,7 @@ public final class Timestamp {
 	/**
 	 * 需要测试
 	 */
-	protected void checkAccess() {
+	private void checkAccess() {
 		assert 2 >= second.length();
 		assert Double.valueOf(minute).doubleValue() == Integer.valueOf(minute).intValue();
 	}

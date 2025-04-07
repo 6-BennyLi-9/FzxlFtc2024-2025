@@ -10,7 +10,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.action.utils.ThreadedAction;
+import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -58,7 +58,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
-		MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
+		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
 		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
 		caller.setFrequencyFPS(10);
 		Global.service.execute(caller);
@@ -159,11 +159,11 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		builder.append(utils.pack());
 	}
 
-	public void appendThreaded(Action... actions) {
-		builder.append(new ThreadedAction(actions));
+	public void appendAssembled(final Action... actions) {
+		builder.append(new AssembledAction(actions));
 	}
 
-	public void appendLinked(Action... actions) {
+	public void appendLinked(final Action... actions) {
 		builder.append(new LinkedAction(actions));
 	}
 

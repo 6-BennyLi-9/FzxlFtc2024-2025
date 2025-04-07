@@ -60,8 +60,8 @@ public final class Interfaces {
 		default String getProgressString() {
 			return getProgressString(10);
 		}
-		default String getProgressString(int length){
-			StringBuilder builder = new StringBuilder();
+		default String getProgressString(final int length){
+			final StringBuilder builder = new StringBuilder();
 			for (int i = 0 ; i < length ; i++) {
 				if ((double) i / length <= getProgress()) {
 					builder.append('=');
@@ -77,7 +77,7 @@ public final class Interfaces {
 
 	@FunctionalInterface
 	public interface ProgressRender {
-		default void render(ProgressMarker marker) {
+		default void render(final ProgressMarker marker) {
 			render("*unnamed*", marker);
 		}
 
@@ -102,7 +102,7 @@ public final class Interfaces {
 	@FunctionalInterface
 	public interface ConstNameable extends Nameable {
 		@Override
-		default void setName(String name) {
+		default void setName(final String name) {
 			throw new IllegalStateException("Cannot set name of a constant named object");
 		}
 	}

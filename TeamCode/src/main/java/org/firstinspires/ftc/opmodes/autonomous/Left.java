@@ -4,13 +4,13 @@ import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftDecantingStart;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
-
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.firstinspires.ftc.teamcode.cores.eventloop.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
@@ -48,7 +48,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
 		utils.waitMs(1000);
 
-		appendThreaded(
+		appendAssembled(
 				new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()),
 				utils.pack()
 		);
@@ -60,11 +60,16 @@ public class Left extends ActionBasedAutonomous {
 	}
 
 	public void appendDecanting() {
-		appendThreaded(
-				utils.armSafe().liftDecantHigh().pack(),
+		utils.armSafe();
+		utils.liftDecantHigh();
+		final Action liftUpping = utils.pack();
+		utils.boxDecant();
+		final Action decanting = utils.pack();
+		appendAssembled(
+				liftUpping,
 				new LinkedAction(
 						track.runTo(Decant),
-						utils.boxDecant().pack()
+						decanting
 				)
 		);
 	}
@@ -91,9 +96,12 @@ public class Left extends ActionBasedAutonomous {
 		inputMngAction();
 	}
 
-	public void appendRunningScaling(double scalePose, Pose2d pose) {
-		appendThreaded(
-				utils.liftDown().scaleOperate(scalePose).pack(),
+	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
+		utils.liftDown();
+		utils.scaleOperate(scalePose);
+
+		appendAssembled(
+				utils.pack(),
 				track.runTo(pose)
 		);
 	}

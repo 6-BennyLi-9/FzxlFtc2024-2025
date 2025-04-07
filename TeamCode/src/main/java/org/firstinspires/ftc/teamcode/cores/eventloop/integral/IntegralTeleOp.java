@@ -44,7 +44,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
-		MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
+		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
 		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
 		caller.setFrequencyFPS(10);
 		Global.service.execute(caller);

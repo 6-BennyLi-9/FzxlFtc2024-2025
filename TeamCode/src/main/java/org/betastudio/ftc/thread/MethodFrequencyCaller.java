@@ -10,7 +10,7 @@ public class MethodFrequencyCaller implements Interfaces.ThreadEx, Runnable {
 	protected       Callable <Boolean> isStopRequested = () -> false;
 	protected       long               FPS             = 10;
 
-	public MethodFrequencyCaller(Runnable methodCall) {
+	public MethodFrequencyCaller(final Runnable methodCall) {
 		this.methodCall = methodCall;
 	}
 
@@ -23,7 +23,7 @@ public class MethodFrequencyCaller implements Interfaces.ThreadEx, Runnable {
 					break;
 				}
 				TimeUnit.MILLISECONDS.sleep(1000 / FPS);
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				throw new RuntimeException(e);
 			}
 			methodCall.run();
@@ -35,7 +35,7 @@ public class MethodFrequencyCaller implements Interfaces.ThreadEx, Runnable {
 		isStopRequested = () -> true;
 	}
 
-	public void setRequestCaller(Callable <Boolean> isStopRequested) {
+	public void setRequestCaller(final Callable <Boolean> isStopRequested) {
 		this.isStopRequested = isStopRequested;
 	}
 

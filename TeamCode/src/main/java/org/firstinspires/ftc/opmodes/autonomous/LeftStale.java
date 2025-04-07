@@ -1,21 +1,15 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSuspend;
+import com.acmerobotics.dashboard.config.*;
+import com.acmerobotics.roadrunner.geometry.*;
+import com.acmerobotics.roadrunner.trajectory.*;
+import com.qualcomm.robotcore.eventloop.opmode.*;
+import org.acmerobotics.roadrunner.trajectorysequence.*;
+import org.firstinspires.ftc.teamcode.cores.eventloop.integral.*;
+import org.firstinspires.ftc.teamcode.cores.structure.*;
+
 import static java.lang.Math.toRadians;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
-import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.StructuralLinearMode;
-import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.*;
 
 @Disabled
 @Config
@@ -61,11 +55,17 @@ public class LeftStale extends StructuralLinearMode {
 		drive.followTrajectory(get_sample);
 		utils.armDisplay();
 		utils.waitMs(600);
-		utils.closeClaw().waitMs(250).armBack().scaleBack();
+		utils.closeClaw();
+		utils.waitMs(250);
+		utils.armBack();
+		utils.scaleBack();
 		utils.waitMs(1200);
-		utils.openClaw().waitMs(100);
-		utils.closeClaw().waitMs(100);
-		utils.openClaw().waitMs(200);
+		utils.openClaw();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.openClaw();
+		utils.waitMs(200);
 		utils.armSafe();
 		utils.liftDecantHigh();
 		utils.runAsThread();
@@ -90,7 +90,12 @@ public class LeftStale extends StructuralLinearMode {
 
 		utils.armDisplay();
 		utils.waitMs(600);
-		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
+		utils.boxRst();
+		utils.closeClaw();
+		utils.waitMs(250);
+		utils.armBack();
+		utils.scaleBack();
+		utils.rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
@@ -122,7 +127,12 @@ public class LeftStale extends StructuralLinearMode {
 
 		sleep(1000);
 
-		utils.boxRst().closeClaw().waitMs(250).armBack().scaleBack().rotateToMid();
+		utils.boxRst();
+		utils.closeClaw();
+		utils.waitMs(250);
+		utils.armBack();
+		utils.scaleBack();
+		utils.rotateToMid();
 		utils.waitMs(1200);
 		utils.openClaw();
 		utils.waitMs(100);
