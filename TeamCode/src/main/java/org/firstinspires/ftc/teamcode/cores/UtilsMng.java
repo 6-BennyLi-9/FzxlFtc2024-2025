@@ -1,5 +1,22 @@
 package org.firstinspires.ftc.teamcode.cores;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_OPEN;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_HIGH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_LOW;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv1;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_PREPARE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_DEFAULT;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
@@ -24,7 +41,6 @@ import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 
@@ -93,7 +109,7 @@ public class UtilsMng {
 	 * 将旋转器设置到中间位置。
 	 */
 	public void rotateToMid() {
-		actions.add(new StatementAction(() -> rotate.setPosition(0.79)));
+		actions.add(new StatementAction(() -> rotate.setPosition(ROTATE_DEFAULT)));
 	}
 
 	/**
@@ -108,77 +124,70 @@ public class UtilsMng {
 	 * 将放置机构设置到倾倒位置。
 	 */
 	public void boxDecant() {
-		actions.add(new StatementAction(() -> place.setPosition(1)));
+		actions.add(new StatementAction(() -> place.setPosition(PLACE_DECANT)));
 	}
 
 	/**
 	 * 将放置机构重置到初始位置。
 	 */
 	public void boxRst() {
-		actions.add(new StatementAction(() -> place.setPosition(0)));
+		actions.add(new StatementAction(() -> place.setPosition(PLACE_IDLE)));
 	}
 
 	/**
 	 * 打开夹具。
 	 */
 	public void openClip() {
-		actions.add(new StatementAction(() -> clip.setPosition(0)));
+		actions.add(new StatementAction(() -> clip.setPosition(CLIP_OPEN)));
 	}
 
 	/**
 	 * 关闭夹具。
 	 */
 	public void closeClip() {
-		actions.add(new StatementAction(() -> clip.setPosition(0.5)));
+		actions.add(new StatementAction(() -> clip.setPosition(CLIP_CLOSE)));
 	}
 
 	/**
 	 * 关闭抓取器。
 	 */
 	public void closeClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.44)));
+		actions.add(new StatementAction(() -> claw.setPosition(CLAW_CLOSE)));
 	}
 
 	/**
 	 * 打开抓取器。
 	 */
 	public void openClaw() {
-		actions.add(new StatementAction(() -> claw.setPosition(0.66)));
+		actions.add(new StatementAction(() -> claw.setPosition(CLAW_OPEN)));
 	}
 
 	/**
 	 * 显示臂。
 	 */
 	public void armDisplay() {
-		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.1625)), new StatementAction(() -> rightArm.setPosition(0.0825))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(ARM_INTAKE+ARM_LEFT_ADDITION)), new StatementAction(() -> rightArm.setPosition(ARM_INTAKE))));
 	}
 
 	/**
 	 * 将臂设置为待命位置。
 	 */
 	public void armBack() {
-		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.87)), new StatementAction(() -> rightArm.setPosition(0.79))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(ARM_IDLE+ARM_LEFT_ADDITION)), new StatementAction(() -> rightArm.setPosition(ARM_IDLE))));
 	}
 
 	/**
 	 * 将臂移动到安全位置。
 	 */
 	public void armSafe() {
-		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(0.69)), new StatementAction(() -> rightArm.setPosition(0.61))));
-	}
-
-	/**
-	 * 使秤臂探出。
-	 */
-	public void scaleProbe() {
-		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(0.65)), new StatementAction(() -> rightScale.setPosition(0.35))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftArm.setPosition(ARM_SAFE+ARM_LEFT_ADDITION)), new StatementAction(() -> rightArm.setPosition(ARM_SAFE))));
 	}
 
 	/**
 	 * 使秤臂收回。
 	 */
 	public void scaleBack() {
-		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1)), new StatementAction(() -> rightScale.setPosition(0))));
+		actions.add(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1-SCALE_BACH)), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
 	}
 
 	/**
@@ -212,35 +221,35 @@ public class UtilsMng {
 	 * 将电梯升高到倾倒高位置。
 	 */
 	public void liftDecantHigh() {
-		actions.add(genLiftController(HardwareConfigures.LIFT_DECANT_HIGH));
+		actions.add(genLiftController(LIFT_DECANT_HIGH));
 	}
 
 	/**
 	 * 将电梯升高到倾倒低位置。
 	 */
 	public void liftDecantLow() {
-		actions.add(genLiftController(HardwareConfigures.LIFT_DECANT_LOW));
+		actions.add(genLiftController(LIFT_DECANT_LOW));
 	}
 
 	/**
 	 * 准备将电梯升高到高悬停位置。
 	 */
 	public void liftSuspendHighPrepare() {
-		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND_PREPARE));
+		actions.add(genLiftController(LIFT_SUSPEND_PREPARE));
 	}
 
 	/**
 	 * 将电梯升高到高悬停位置。
 	 */
 	public void liftSuspendHigh() {
-		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND));
+		actions.add(genLiftController(LIFT_SUSPEND));
 	}
 
 	/**
 	 * 将电梯升高到一级悬停位置。
 	 */
 	public void liftSuspendLv1() {
-		actions.add(genLiftController(HardwareConfigures.LIFT_SUSPEND_Lv1));
+		actions.add(genLiftController(LIFT_SUSPEND_Lv1));
 	}
 
 	/**

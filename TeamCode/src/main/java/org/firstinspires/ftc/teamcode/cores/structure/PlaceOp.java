@@ -65,10 +65,6 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 		placeController.setTargetPosition(HardwareConfigures.PLACE_PREPARE);
 	}
 
-	public void safe() {
-		placeController.setTargetPosition(HardwareConfigures.PLACE_SAFE);
-	}
-
 	@NonNull
 	public Action initController() {
 		connect();

@@ -1,21 +1,22 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
-import androidx.annotation.*;
-import org.betastudio.ftc.*;
-import org.betastudio.ftc.action.*;
-import org.betastudio.ftc.action.utils.*;
-import org.betastudio.ftc.util.*;
-import org.firstinspires.ftc.teamcode.*;
-import org.firstinspires.ftc.teamcode.controllers.*;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.*;
-import org.jetbrains.annotations.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
-import static java.lang.Math.*;
+import androidx.annotation.NonNull;
+
+import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.utils.AssembledAction;
+import org.betastudio.ftc.util.Labeler;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
+import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.ScalePositions;
+import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
 	public static final double         SMOOTH = 0.2;
-	public static final double SCALE_PROBE = 0.35;
-	public static final int SCALE_BACH = 0;
 	public static       ScalePositions recent = ScalePositions.BACK;
 	public static       ServoCtrl      leftScaleController;
 	public static       ServoCtrl      rightScaleController;
@@ -73,12 +74,12 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void probe() {
 		recent = ScalePositions.PROBE;
-		manage(SCALE_PROBE);
+		manage(HardwareConfigures.SCALE_PROBE);
 	}
 
 	public void back() {
 		recent = ScalePositions.BACK;
-		manage(SCALE_BACH);
+		manage(HardwareConfigures.SCALE_BACH);
 	}
 
 	public void operate(final double position) {
