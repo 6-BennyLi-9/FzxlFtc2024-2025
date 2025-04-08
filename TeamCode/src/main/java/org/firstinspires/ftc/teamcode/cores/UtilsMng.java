@@ -1,14 +1,35 @@
 package org.firstinspires.ftc.teamcode.cores;
 
-import org.betastudio.ftc.action.*;
-import org.betastudio.ftc.action.utils.*;
-import org.firstinspires.ftc.teamcode.*;
-import org.firstinspires.ftc.teamcode.controllers.*;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftScale;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.place;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightArm;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
-import java.util.*;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.Actions;
+import org.betastudio.ftc.action.utils.AssembledAction;
+import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.SleepingAction;
+import org.betastudio.ftc.action.utils.StatementAction;
+import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.HardwareConfigures;
+import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
+import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 
-import static java.lang.Math.*;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
@@ -38,6 +59,7 @@ public class UtilsMng {
 		closeClip();
 		liftDown();
 		rotateToMid();
+
 		runCached();
 	}
 

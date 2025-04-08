@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
 
 public class HeadingTrajectoryBuilder {
 	private final SampleMecanumDrive drive;
-	private Pose2d current;
+	private       Pose2d             current;
 
 	public HeadingTrajectoryBuilder(@NonNull final SampleMecanumDrive drive) {
 		this.drive = drive;

@@ -45,8 +45,8 @@ public class Left extends ActionBasedAutonomous {
 		appendAfterDecant();
 
 		utils.closeClip();
+		utils.waitMs(2000);
 		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
-		utils.waitMs(1000);
 
 		appendAssembled(
 				new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()),
@@ -75,7 +75,7 @@ public class Left extends ActionBasedAutonomous {
 	}
 
 	public void appendAfterDecant(){
-		utils.waitMs(200);
+		utils.waitMs(300);
 		utils.boxRst();
 		inputMngAction();
 	}
