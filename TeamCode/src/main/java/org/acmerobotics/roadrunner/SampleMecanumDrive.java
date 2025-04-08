@@ -53,15 +53,15 @@ import java.util.List;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
+	public static final  PIDCoefficients                  TRANSLATIONAL_PID  = new PIDCoefficients(8, 0, 0);
+	public static final  PIDCoefficients                  HEADING_PID        = new PIDCoefficients(8, 0, 0);
+	public static final  double                           LATERAL_MULTIPLIER = 1;
+	public static final  double                           VX_WEIGHT          = 1;
+	public static final  double                           VY_WEIGHT          = 1;
+	public static final  double                           OMEGA_WEIGHT       = 1;
 	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT     = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-	private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT  = getAccelerationConstraint(MAX_ACCEL);
-	public static final  PIDCoefficients                  TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
-	public static final  PIDCoefficients                  HEADING_PID       = new PIDCoefficients(8, 0, 0);
-	public static final double          LATERAL_MULTIPLIER = 1;
-	public static final double          VX_WEIGHT          = 1;
-	public static final double VY_WEIGHT          = 1;
-	public static final double OMEGA_WEIGHT = 1;
-	private final       TrajectorySequenceRunner trajectorySequenceRunner;
+	private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT   = getAccelerationConstraint(MAX_ACCEL);
+	private final        TrajectorySequenceRunner         trajectorySequenceRunner;
 
 	private final DcMotorEx        leftFront;
 	private final DcMotorEx        leftRear;
@@ -189,11 +189,13 @@ public class SampleMecanumDrive extends MecanumDrive {
 	public void update() {
 		updatePoseEstimate();
 		final DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
-		if (null != signal) setDriveSignal(signal);
+		if (null != signal)
+			setDriveSignal(signal);
 	}
 
 	public void waitForIdle() {
-		while (! Thread.currentThread().isInterrupted() && isBusy()) update();
+		while (! Thread.currentThread().isInterrupted() && isBusy())
+			update();
 	}
 
 	public boolean isBusy() {

@@ -2,19 +2,19 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareConfigures;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.ClipPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.ClipPositions;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static       ClipPositions recent     = ClipPositions.OPEN;
-	public static       ServoCtrl     clipControl;
-	private static      ClipOp        instance;
+	public static  ClipPositions recent = ClipPositions.OPEN;
+	public static  ServoCtrl     clipControl;
+	private static ClipOp        instance;
 
 	public static ClipOp getInstance() {
 		return instance;

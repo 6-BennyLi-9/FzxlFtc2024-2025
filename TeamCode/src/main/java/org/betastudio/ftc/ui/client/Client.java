@@ -3,9 +3,9 @@ package org.betastudio.ftc.ui.client;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Annotations;
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.message.TelemetryMsg;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
@@ -16,15 +16,19 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	/// 注意：这是新的Data
 	void putData(final String key, final String val);
+
 	/// @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	void deleteData(final String key);
+
 	/// 自动创建新的行如果key所指向的值不存在
 	void changeData(final String key, final String val);
 
 	/// 注意：这是新的Line
 	void putLine(final String key);
+
 	/// @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	void deleteLine(final String key);
+
 	/**
 	 * 将key行替代为val，自动创建新的行如果key所指向的值不存在
 	 *
@@ -70,18 +74,25 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 		}
 	}
 
-	/** 注意：这是新的Data */
+	/**
+	 * 注意：这是新的Data
+	 */
 	@Annotations.MirrorMethod
 	default void putData(final String key, @NonNull final Object val) {
 		putData(key, val.toString());
 	}
-	/** 自动创建新的行如果key所指向的值不存在 */
+
+	/**
+	 * 自动创建新的行如果key所指向的值不存在
+	 */
 	@Annotations.MirrorMethod
 	default void changeData(final String key, @NonNull final Object val) {
 		changeData(key, val.toString());
 	}
 
-	/** 注意：这是新的Line*/
+	/**
+	 * 注意：这是新的Line
+	 */
 	@Annotations.MirrorMethod
 	default void putLine(@NonNull final Object key) {
 		putLine(key.toString());

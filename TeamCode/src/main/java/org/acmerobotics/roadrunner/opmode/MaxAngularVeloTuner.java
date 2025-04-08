@@ -68,6 +68,7 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 		telemetry.addData("Max Recommended Angular Velocity (deg)", Math.toDegrees(maxAngVelocity * 0.8));
 		telemetry.update();
 
-		while (! isStopRequested()) idle();
+		while (! isStopRequested())
+			idle();
 	}
 }

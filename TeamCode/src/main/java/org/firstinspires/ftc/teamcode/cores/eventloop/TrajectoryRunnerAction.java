@@ -12,7 +12,7 @@ public class TrajectoryRunnerAction extends ActionImplementFactory {
 	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final TrajectorySequence trajectorySequence) {
 		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
-			if (!isInitialized.get()){
+			if (! isInitialized.get()) {
 				isInitialized.set(true);
 				drive.followTrajectorySequenceAsync(trajectorySequence);
 			}
@@ -20,10 +20,11 @@ public class TrajectoryRunnerAction extends ActionImplementFactory {
 			return drive.isBusy();
 		});
 	}
+
 	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final Trajectory trajectory) {
 		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
-			if (!isInitialized.get()){
+			if (! isInitialized.get()) {
 				isInitialized.set(true);
 				drive.followTrajectoryAsync(trajectory);
 			}

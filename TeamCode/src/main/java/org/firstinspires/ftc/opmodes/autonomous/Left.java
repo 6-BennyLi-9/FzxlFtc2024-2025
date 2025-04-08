@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -48,10 +48,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(2000);
 		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
 
-		appendAssembled(
-				new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()),
-				utils.pack()
-		);
+		appendAssembled(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()), utils.pack());
 	}
 
 	@Override
@@ -65,16 +62,10 @@ public class Left extends ActionBasedAutonomous {
 		final Action liftUpping = utils.pack();
 		utils.boxDecant();
 		final Action decanting = utils.pack();
-		appendAssembled(
-				liftUpping,
-				new LinkedAction(
-						track.runTo(Decant),
-						decanting
-				)
-		);
+		appendAssembled(liftUpping, new LinkedAction(track.runTo(Decant), decanting));
 	}
 
-	public void appendAfterDecant(){
+	public void appendAfterDecant() {
 		utils.waitMs(300);
 		utils.boxRst();
 		inputMngAction();
@@ -100,9 +91,6 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
-		appendAssembled(
-				utils.pack(),
-				track.runTo(pose)
-		);
+		appendAssembled(utils.pack(), track.runTo(pose));
 	}
 }

@@ -14,26 +14,26 @@ import java.util.concurrent.TimeUnit;
 
 @Deprecated
 public class ThreadErrExample extends LinearOpMode {
-	public Client client;
+	public Client          client;
 	public ExecutorService executor;
 
 	@Override
 	public void runOpMode() throws InterruptedException {
 		client = new BaseMapClient(telemetry);
-		executor=new ThreadPoolExecutor(8,16,1, TimeUnit.SECONDS, new ArrayBlockingQueue <>(16), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
+		executor = new ThreadPoolExecutor(8, 16, 1, TimeUnit.SECONDS, new ArrayBlockingQueue <>(16), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 		final DcMotorEx rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
 
 		waitForStart();
 
-		executor.execute(()->{
-			while (opModeIsActive()){
-				client.changeData("pose",rightLift.getCurrentPosition());
+		executor.execute(() -> {
+			while (opModeIsActive()) {
+				client.changeData("pose", rightLift.getCurrentPosition());
 			}
 		});
 
-		while (opModeIsActive()){
+		while (opModeIsActive()) {
 			rightLift.setPower(gamepad1.left_stick_y);
-			client.changeData("power",rightLift.getPower());
+			client.changeData("power", rightLift.getPower());
 		}
 	}
 }

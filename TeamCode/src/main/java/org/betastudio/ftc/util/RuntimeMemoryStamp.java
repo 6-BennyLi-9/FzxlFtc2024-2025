@@ -6,10 +6,10 @@ import java.util.Locale;
 
 public final class RuntimeMemoryStamp {
 	private static final double BYTE_TO_MB = 1048576.0f;
-	private final double usedMemory;
-	private final double freeMemory;
-	private final double totalMemory;
-	private final double memoryRatio;
+	private final        double usedMemory;
+	private final        double freeMemory;
+	private final        double totalMemory;
+	private final        double memoryRatio;
 
 	public RuntimeMemoryStamp() {
 		final Runtime runtime = Runtime.getRuntime();
@@ -39,6 +39,6 @@ public final class RuntimeMemoryStamp {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f(%.1f%%)",usedMemory,totalMemory,memoryRatio * 100);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f(%.1f%%)", usedMemory, totalMemory, memoryRatio * 100);
 	}
 }

@@ -32,9 +32,9 @@ public class MapTokenizedClient extends BaseMapClient implements TokenizedClient
 	public void deleteByToken(final String token) {
 		data.remove(token);
 
-		if (autoUpdate){
+		if (autoUpdate) {
 			update();
-		}else {
+		} else {
 			isUpdateRequested = false;
 		}
 	}

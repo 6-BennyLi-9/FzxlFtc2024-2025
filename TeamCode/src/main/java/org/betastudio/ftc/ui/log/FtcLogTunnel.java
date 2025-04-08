@@ -3,9 +3,9 @@ package org.betastudio.ftc.ui.log;
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.message.LogMessages;
-import org.betastudio.ftc.util.Timestamp;
-import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.message.TelemetryMsg;
+import org.betastudio.ftc.util.Labeler;
+import org.betastudio.ftc.util.Timestamp;
 
 public enum FtcLogTunnel {
 	MAIN, @Deprecated DEBUG;

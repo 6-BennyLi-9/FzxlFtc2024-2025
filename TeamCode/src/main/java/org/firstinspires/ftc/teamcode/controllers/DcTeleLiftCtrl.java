@@ -17,7 +17,7 @@ public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 	public static final int     tolerance             = 10;
 	protected           boolean using_touch_calibrate = true;
 
-	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
+	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift) {
 		super(leftLift, rightLift);
 	}
 

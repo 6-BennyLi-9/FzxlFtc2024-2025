@@ -21,7 +21,7 @@ public final class LogMessages {
 		@NonNull
 		@Override
 		public String toString() {
-			return "error:" + "\"" + Objects.requireNonNullElse(exception.getMessage(),"*nullptr*") + "\"";
+			return "error:" + "\"" + Objects.requireNonNullElse(exception.getMessage(), "*nullptr*") + "\"";
 		}
 
 		public TelemetryMsg buildTelemetryMsg() {

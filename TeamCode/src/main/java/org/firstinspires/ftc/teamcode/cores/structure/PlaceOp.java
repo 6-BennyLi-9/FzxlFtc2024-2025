@@ -2,19 +2,19 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareConfigures;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.PlacePositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.PlacePositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
 public class PlaceOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static PlacePositions recent = PlacePositions.IDLE;
+	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static  ServoCtrl      placeController;
 	private static PlaceOp        instance;
 

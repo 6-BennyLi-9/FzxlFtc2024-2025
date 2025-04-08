@@ -6,19 +6,19 @@ import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.message.DriveMsg;
+import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.jetbrains.annotations.Contract;
 
 @Config
 public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static       ChassisCtrl chassisCtrl;
-	private static      double      x;
-	private static      double      y;
-	private static      double      turn;
-	private static      DriveOp     instance;
+	public static  ChassisCtrl chassisCtrl;
+	private static double      x;
+	private static double      y;
+	private static double      turn;
+	private static DriveOp     instance;
 
 	public static DriveOp getInstance() {
 		return instance;
@@ -59,8 +59,8 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 		chassisCtrl.setTag(tag);
 	}
 
-	public DriveMsg getDriveMsg(){
-		return new DriveMsg(x,y,turn);
+	public DriveMsg getDriveMsg() {
+		return new DriveMsg(x, y, turn);
 	}
 
 	public void sync(final double x, final double y, final double turn) {

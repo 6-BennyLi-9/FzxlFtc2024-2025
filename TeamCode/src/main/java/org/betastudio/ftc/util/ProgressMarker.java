@@ -38,11 +38,6 @@ public class ProgressMarker implements Interfaces.ProgressMarker {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format(
-				Locale.SIMPLIFIED_CHINESE,
-				"%d/%d[%f]",
-				done.get(),
-				total.get(),
-				getProgress());
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%d/%d[%f]", done.get(), total.get(), getProgress());
 	}
 }

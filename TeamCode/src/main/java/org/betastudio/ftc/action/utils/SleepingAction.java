@@ -1,8 +1,9 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.action.*;
+import org.betastudio.ftc.action.ActionImplementFactory;
 
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SleepingAction extends ActionImplementFactory {
 	public SleepingAction(final long sleepMilliseconds) {

@@ -21,7 +21,7 @@ public abstract class AbstractLiftCtrl implements Action {
 	 *
 	 * @param leftLift 目标升降机构电机
 	 */
-	protected AbstractLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final  DcMotorEx rightLift) {
+	protected AbstractLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift) {
 		this.leftLift = leftLift;
 		this.rightLift = rightLift;
 		tag = "lift";

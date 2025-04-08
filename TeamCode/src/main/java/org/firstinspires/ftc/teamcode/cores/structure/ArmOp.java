@@ -2,21 +2,21 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareConfigures;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
 public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static       ArmPositions recent        = ArmPositions.IDLE;
-	public static       ServoCtrl    leftArmControl, rightArmControl;
+	public static ArmPositions recent = ArmPositions.IDLE;
+	public static ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;
 
 	public static ArmOp getInstance() {

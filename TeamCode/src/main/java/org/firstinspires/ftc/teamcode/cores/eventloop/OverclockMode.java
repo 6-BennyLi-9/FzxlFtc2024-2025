@@ -6,14 +6,11 @@ import org.firstinspires.ftc.teamcode.Local;
 import java.util.concurrent.atomic.AtomicLong;
 
 public enum OverclockMode {
-	SUPER_LINEAR,
-	YIELD_AT_EACH,
-	SLEEP_AT_EACH,
-	MAX_FPS;
+	SUPER_LINEAR, YIELD_AT_EACH, SLEEP_AT_EACH, MAX_FPS;
 	public Timer      timer              = new Timer();
 	public AtomicLong utilConfigureValue = new AtomicLong();
 
-	public Runnable newLoop(final Runnable loopEntry){
+	public Runnable newLoop(final Runnable loopEntry) {
 		switch (this) {
 			case YIELD_AT_EACH:
 				return () -> {

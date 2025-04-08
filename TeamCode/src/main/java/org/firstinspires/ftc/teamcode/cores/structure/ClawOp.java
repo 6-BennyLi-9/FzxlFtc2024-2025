@@ -2,19 +2,19 @@ package org.firstinspires.ftc.teamcode.cores.structure;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareConfigures;
-import org.firstinspires.ftc.teamcode.cores.structure.positions.ClawPositions;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
+import org.firstinspires.ftc.teamcode.cores.structure.positions.ClawPositions;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static       ClawPositions recent     = ClawPositions.OPEN;
-	public static       ServoCtrl     clawControl;
-	private static      ClawOp        instance;
+	public static  ClawPositions recent = ClawPositions.OPEN;
+	public static  ServoCtrl     clawControl;
+	private static ClawOp        instance;
 
 	public static ClawOp getInstance() {
 		return instance;

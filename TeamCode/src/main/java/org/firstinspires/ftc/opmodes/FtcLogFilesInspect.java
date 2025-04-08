@@ -7,6 +7,7 @@ import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -17,19 +18,18 @@ import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.ButtonProcessor;
-import org.betastudio.ftc.message.TelemetryMsg;
 
 import java.util.Objects;
 
 @TeleOp(name = "日志检查", group = "zzz")
 public class FtcLogFilesInspect extends LinearOpMode {
-	private final        ButtonProcessor select_prev       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-	private final        ButtonProcessor select_next       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-	private final        ButtonProcessor submit            = new ButtonProcessor(SINGLE_WHEN_PRESSED);
-	private              SelectPackage   files_select;
-	private              FtcLogFile      selected_file;
-	private              Boolean         is_files_selected = false;
-	private              TelemetryMsg    log_message       = new TelemetryMsg(new TelemetryLine("**unselected**"));
+	private final ButtonProcessor select_prev       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+	private final ButtonProcessor select_next       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+	private final ButtonProcessor submit            = new ButtonProcessor(SINGLE_WHEN_PRESSED);
+	private       SelectPackage   files_select;
+	private       FtcLogFile      selected_file;
+	private       Boolean         is_files_selected = false;
+	private       TelemetryMsg    log_message       = new TelemetryMsg(new TelemetryLine("**unselected**"));
 
 	@Override
 	public void runOpMode() throws InterruptedException {

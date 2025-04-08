@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
  * 运行结束返回结束原因
  */
 public interface IntegralOpMode {
-	default void sendTerminateSignal(final TerminateReason reason){
+	default void sendTerminateSignal(final TerminateReason reason) {
 		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 

@@ -47,7 +47,7 @@ public strictfp class ChassisCtrl implements Action, Interfaces.MessagesProcessR
 	 */
 	private static double resolveFunc(final double val, final double k) {
 		final double absVal = Math.abs(val);
-		double result = k * absVal * absVal + (1 - k) * absVal;//y=ax^2+(1-a)x
+		double       result = k * absVal * absVal + (1 - k) * absVal;//y=ax^2+(1-a)x
 		if (Math.signum(result) != Math.signum(val)) {//处理符号
 			result = - result;
 		}

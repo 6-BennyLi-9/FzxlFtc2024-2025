@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Config
-public class DashboardUtils implements Updatable{
+public class DashboardUtils implements Updatable {
 	private static final Set <TelemetryPacket> telemetryPackets = new HashSet <>();
 	public static        boolean               updateRequested  = true;
 	private static       FtcDashboard          dashboard;

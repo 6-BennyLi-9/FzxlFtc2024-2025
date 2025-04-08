@@ -21,7 +21,7 @@ public final class LinkedAction extends ActionImplementFactory implements Interf
 	public LinkedAction(@NonNull final List <Action> actions) {
 		marker = new ProgressMarker(actions.size());
 		final AtomicInteger ptr = new AtomicInteger(0);
-		setAction(()->{
+		setAction(() -> {
 			if (actions.get(ptr.get()).activate()) {
 				return true;
 			} else {
@@ -31,7 +31,7 @@ public final class LinkedAction extends ActionImplementFactory implements Interf
 			}
 		});
 
-		setParams(()->{
+		setParams(() -> {
 			final StringBuilder stringBuilder = new StringBuilder("{");
 			for (final Action action : actions) {
 				stringBuilder.append(action.paramsString()).append(",");

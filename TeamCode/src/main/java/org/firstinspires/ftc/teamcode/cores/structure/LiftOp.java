@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Contract;
 @Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
-	public static       LiftMode         recent          = LiftMode.IDLE;
-	public static       AbstractLiftCtrl liftCtrl;
-	private static      LiftOp           instance;
+	public static  LiftMode         recent = LiftMode.IDLE;
+	public static  AbstractLiftCtrl liftCtrl;
+	private static LiftOp           instance;
 
 	public static LiftOp getInstance() {
 		return instance;

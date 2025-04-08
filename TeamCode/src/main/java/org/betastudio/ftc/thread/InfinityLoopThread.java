@@ -1,14 +1,14 @@
 package org.betastudio.ftc.thread;
 
-import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 
 public class InfinityLoopThread extends Thread implements Interfaces.ThreadEx {
 	private final InfinityLoopAction action;
 
 	public InfinityLoopThread(final Runnable runnable) {
-		action=new InfinityLoopAction(runnable);
+		action = new InfinityLoopAction(runnable);
 	}
 
 	@Override

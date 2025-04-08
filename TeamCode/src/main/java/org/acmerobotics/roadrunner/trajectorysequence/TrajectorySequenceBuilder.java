@@ -202,7 +202,8 @@ public class TrajectorySequenceBuilder {
 	}
 
 	private TrajectorySequenceBuilder addPath(final AddPathCallback callback) {
-		if (null == currentTrajectoryBuilder) newPath();
+		if (null == currentTrajectoryBuilder)
+			newPath();
 
 		try {
 			callback.run();
@@ -391,7 +392,8 @@ public class TrajectorySequenceBuilder {
 	}
 
 	private void newPath() {
-		if (null != currentTrajectoryBuilder) pushPath();
+		if (null != currentTrajectoryBuilder)
+			pushPath();
 
 		lastDurationTraj = 0.0;
 		lastDisplacementTraj = 0.0;
@@ -435,7 +437,8 @@ public class TrajectorySequenceBuilder {
 	}
 
 	private void projectGlobalMarkersToLocalSegments(final List <TrajectoryMarker> markers, final List <SequenceSegment> sequenceSegments) {
-		if (sequenceSegments.isEmpty()) return;
+		if (sequenceSegments.isEmpty())
+			return;
 
 		markers.sort(Comparator.comparingDouble(TrajectoryMarker::getTime));
 

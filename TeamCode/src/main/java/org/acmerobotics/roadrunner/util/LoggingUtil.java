@@ -38,7 +38,8 @@ public enum LoggingUtil {
 		}
 
 		while (LOG_QUOTA < dirSize) {
-			if (logFiles.isEmpty()) break;
+			if (logFiles.isEmpty())
+				break;
 			final File fileToRemove = logFiles.remove(0);
 			dirSize -= fileToRemove.length();
 			//noinspection ResultOfMethodCallIgnored

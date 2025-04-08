@@ -15,7 +15,7 @@ public class HeadingTrajectoryBuilder {
 
 	public HeadingTrajectoryBuilder(@NonNull final SampleMecanumDrive drive) {
 		this.drive = drive;
-		current  = drive.getPoseEstimate();
+		current = drive.getPoseEstimate();
 	}
 
 	public Trajectory lineTo(final Pose2d end) {
@@ -25,7 +25,7 @@ public class HeadingTrajectoryBuilder {
 	}
 
 	public Action runTo(final Pose2d end) {
-		return new TrajectoryRunnerAction(drive,lineTo(end));
+		return new TrajectoryRunnerAction(drive, lineTo(end));
 	}
 
 	public void setCurrent(final Pose2d current) {

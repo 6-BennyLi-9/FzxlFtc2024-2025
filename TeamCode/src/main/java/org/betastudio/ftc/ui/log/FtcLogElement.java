@@ -13,7 +13,7 @@ public interface FtcLogElement {
 	class ElementImpl implements FtcLogElement {
 		private final LogMessages.LogMessage message;
 		private final Timestamp              timestamp;
-		private final LogElementType type;
+		private final LogElementType         type;
 
 		public ElementImpl(final LogMessages.LogMessage message) {
 			this(LogElementType.INFO, message);

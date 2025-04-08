@@ -24,13 +24,13 @@ public final class Local {
 	}
 
 	public static <K> void waitForVal(final Callable <K> function, final K expect) {
-		waitForVal(function, expect, TimeUnit.MILLISECONDS, -1);
+		waitForVal(function, expect, TimeUnit.MILLISECONDS, - 1);
 	}
 
-	public static <K> void waitForVal(final Callable <K> function, final K expect, final TimeUnit unit, final long timeout){
+	public static <K> void waitForVal(final Callable <K> function, final K expect, final TimeUnit unit, final long timeout) {
 		final AtomicBoolean timeLimited = new AtomicBoolean(false);
-		if(-1 != timeout){
-			Global.service.execute(()->{
+		if (- 1 != timeout) {
+			Global.service.execute(() -> {
 				try {
 					unit.sleep(timeout);
 				} catch (final InterruptedException e) {
@@ -41,7 +41,7 @@ public final class Local {
 			});
 		}
 		try {
-			while (function.call() != expect && !timeLimited.get()) {
+			while (function.call() != expect && ! timeLimited.get()) {
 				Thread.yield();
 			}
 		} catch (final Exception e) {
@@ -53,7 +53,7 @@ public final class Local {
 		waifForNotVal(function, expect, 60L);
 	}
 
-	public static <K> void waifForNotVal(final Callable <K> function, final K expect, final long flashMillis){
+	public static <K> void waifForNotVal(final Callable <K> function, final K expect, final long flashMillis) {
 		try {
 			while (function.call() == expect) {
 				sleep(flashMillis);

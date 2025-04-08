@@ -7,11 +7,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Annotations.Beta(date = "25.3.11")
-public class ObjectTransportStream <T> {
+public class ObjectTransportStream<T> {
 	public final Lock    pushLock;
 	public final Lock    receiveLock;
-	public boolean isValuePushed;
-	public T       value;
+	public       boolean isValuePushed;
+	public       T       value;
 
 	public ObjectTransportStream() {
 		this(null);
@@ -27,11 +27,11 @@ public class ObjectTransportStream <T> {
 		pushValue(value, TimeUnit.SECONDS, 1L);
 	}
 
-	public void pushValue(final T value, final TimeUnit unit, final long timeout){
+	public void pushValue(final T value, final TimeUnit unit, final long timeout) {
 		pushLock.lock();
 		final long startTime = System.nanoTime();
 		while (isValuePushed) {
-			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
+			if (System.nanoTime() - startTime >= unit.toNanos(timeout)) {
 				return;
 			}
 			Thread.yield();
@@ -54,11 +54,11 @@ public class ObjectTransportStream <T> {
 		return receiveValue(unit, timeout, null);
 	}
 
-	public T receiveValue(final TimeUnit unit, final long timeout, final T defaultValue){
+	public T receiveValue(final TimeUnit unit, final long timeout, final T defaultValue) {
 		receiveLock.lock();
 		final long startTime = System.nanoTime();
-		while (!isValuePushed) {
-			if (System.nanoTime() - startTime >= unit.toNanos(timeout)){
+		while (! isValuePushed) {
+			if (System.nanoTime() - startTime >= unit.toNanos(timeout)) {
 				receiveLock.unlock();
 				return defaultValue;
 			}
@@ -70,7 +70,7 @@ public class ObjectTransportStream <T> {
 		return this.value;
 	}
 
-	public T peakValue(){
+	public T peakValue() {
 		return this.value;
 	}
 }

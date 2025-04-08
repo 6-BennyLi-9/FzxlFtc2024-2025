@@ -13,7 +13,8 @@ public class TrajectorySequence {
 	private final List <SequenceSegment> sequenceList;
 
 	public TrajectorySequence(@NonNull final List <SequenceSegment> sequenceList) {
-		if (sequenceList.isEmpty()) throw new EmptySequenceException();
+		if (sequenceList.isEmpty())
+			throw new EmptySequenceException();
 
 		this.sequenceList = Collections.unmodifiableList(sequenceList);
 	}

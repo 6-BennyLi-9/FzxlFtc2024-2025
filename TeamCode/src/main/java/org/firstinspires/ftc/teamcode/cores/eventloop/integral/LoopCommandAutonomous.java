@@ -9,12 +9,12 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.util.Timer;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -35,8 +35,8 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	public    Timer              timer;
 	protected Exception          inline_exception;
 	protected List <Action>      commands;
-	private   Action             main;
 	protected TerminateReason    reason;
+	private   Action             main;
 	private   boolean            is_terminate_method_called;
 	private   boolean            isCommandUndone;
 
@@ -94,7 +94,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 			isCommandUndone = main.activate();
 		}
 
-		if (is_terminate_method_called){
+		if (is_terminate_method_called) {
 			CoreDatabase.writeInVals(this, reason, timer.getDeltaTime());
 			if (null != inline_exception) {
 				if (inline_exception instanceof OpModeManagerImpl.ForceStopException) {
@@ -104,7 +104,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 					FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 					throw new RuntimeException(inline_exception);
 				}
-			}else{
+			} else {
 				FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 			}
 		}

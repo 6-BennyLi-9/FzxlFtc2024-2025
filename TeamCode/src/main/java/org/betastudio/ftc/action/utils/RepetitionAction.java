@@ -1,10 +1,11 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.*;
-import org.betastudio.ftc.action.*;
-import org.betastudio.ftc.util.*;
+import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.util.ProgressMarker;
 
-import java.util.concurrent.atomic.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class RepetitionAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
 	private final ProgressMarker marker;

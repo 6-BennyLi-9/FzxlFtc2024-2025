@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public final class Global {
-	public static final TaskMng service             = new TaskMng(defaultThreadExecutor());
+	public static final TaskMng service = new TaskMng(defaultThreadExecutor());
 	public static       Gamepad gamepad1;
 	public static       Gamepad gamepad2;
 	public static       OpMode  currentOpmode;
@@ -52,7 +52,7 @@ public final class Global {
 
 	@NonNull
 	@Contract(" -> new")
-	public static ThreadPoolExecutor defaultThreadExecutor(){
+	public static ThreadPoolExecutor defaultThreadExecutor() {
 		return new ThreadPoolExecutor(16, 32, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue <>(1024), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 	}
 }

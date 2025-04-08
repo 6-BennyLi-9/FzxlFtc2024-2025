@@ -40,25 +40,22 @@ public class TrajectorySequenceRunner {
 	public static final String COLOR_ACTIVE_WAIT       = "#dd2c00";
 
 	public static final int POSE_HISTORY_LIMIT = 100;
-
-	private final TrajectoryFollower follower;
-
-	private final PIDFController turnController;
-
-	private final NanoClock           clock;
-	private final FtcDashboard        dashboard;
-	private final LinkedList <Pose2d> poseHistory = new LinkedList <>();
-	private final VoltageSensor       voltageSensor;
-	private final List <Integer>      lastDriveEncPositions;
-	private final List <Integer>      lastDriveEncVels;
-	private final List <Integer>      lastTrackingEncPositions;
-	private final List <Integer>          lastTrackingEncVels;
 	final         List <TrajectoryMarker> remainingMarkers = new ArrayList <>();
+	private final TrajectoryFollower follower;
+	private final PIDFController turnController;
+	private final NanoClock               clock;
+	private final FtcDashboard            dashboard;
+	private final LinkedList <Pose2d>     poseHistory      = new LinkedList <>();
+	private final VoltageSensor           voltageSensor;
+	private final List <Integer>          lastDriveEncPositions;
+	private final List <Integer>          lastDriveEncVels;
+	private final List <Integer>          lastTrackingEncPositions;
+	private final List <Integer>          lastTrackingEncVels;
 	private       TrajectorySequence      currentTrajectorySequence;
-	private double             currentSegmentStartTime;
-	private int                currentSegmentIndex;
-	private int                lastSegmentIndex;
-	private Pose2d             lastPoseError = new Pose2d();
+	private       double                  currentSegmentStartTime;
+	private       int                     currentSegmentIndex;
+	private       int                     lastSegmentIndex;
+	private       Pose2d                  lastPoseError    = new Pose2d();
 
 	public TrajectorySequenceRunner(final TrajectoryFollower follower, final PIDCoefficients headingPIDCoefficients, final VoltageSensor voltageSensor, final List <Integer> lastDriveEncPositions, final List <Integer> lastDriveEncVels, final List <Integer> lastTrackingEncPositions, final List <Integer> lastTrackingEncVels) {
 		this.follower = follower;
@@ -106,7 +103,8 @@ public class TrajectorySequenceRunner {
 				currentTrajectorySequence = null;
 			}
 
-			if (null == currentTrajectorySequence) return new DriveSignal();
+			if (null == currentTrajectorySequence)
+				return new DriveSignal();
 
 			final double  now             = clock.seconds();
 			final boolean isNewTransition = currentSegmentIndex != lastSegmentIndex;
@@ -132,7 +130,8 @@ public class TrajectorySequenceRunner {
 			if (currentSegment instanceof TrajectorySegment) {
 				final Trajectory currentTrajectory = ((TrajectorySegment) currentSegment).getTrajectory();
 
-				if (isNewTransition) follower.followTrajectory(currentTrajectory);
+				if (isNewTransition)
+					follower.followTrajectory(currentTrajectory);
 
 				if (! follower.isFollowing()) {
 					currentSegmentIndex++;

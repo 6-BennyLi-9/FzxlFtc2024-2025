@@ -79,6 +79,7 @@ public class UtilsMng {
 
 	/**
 	 * 添加一个等待指定时间的动作。
+	 *
 	 * @param waitMillis 等待的毫秒数
 	 */
 	public void waitMs(final long waitMillis) {
@@ -87,6 +88,7 @@ public class UtilsMng {
 
 	/**
 	 * 添加一个动作到actions列表。
+	 *
 	 * @param action 要添加的动作
 	 */
 	public void addAction(final Action action) {
@@ -112,6 +114,7 @@ public class UtilsMng {
 
 	/**
 	 * 使旋转器向右转到指定位置。
+	 *
 	 * @param positionVal 要增加的位置值
 	 */
 	public void rotateRightTurn(final double positionVal) {
@@ -190,6 +193,7 @@ public class UtilsMng {
 
 	/**
 	 * 操作秤臂到指定位置。
+	 *
 	 * @param rightScalePosition 右侧秤臂的目标位置
 	 */
 	public void scaleOperate(double rightScalePosition) {

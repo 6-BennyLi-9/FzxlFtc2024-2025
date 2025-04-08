@@ -7,21 +7,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
+import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Timer;
-import org.firstinspires.ftc.teamcode.cores.UtilsMng;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.betastudio.ftc.RunMode;
+import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -59,11 +59,12 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		FtcLogTunnel.MAIN.report("Op inline initialized");
 
 		waitForStart();
-//		以上有问题:初始化时电梯突然抬起再落下
+		//		以上有问题:初始化时电梯突然抬起再落下
 
 		client.deleteLine(">>>ROBOT READY!");
 
-		if (! opModeIsActive()) return;
+		if (! opModeIsActive())
+			return;
 		timer.restart();
 		FtcLogTunnel.MAIN.report("Op inline started");
 

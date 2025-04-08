@@ -32,7 +32,8 @@ public class StrafeTest extends LinearOpMode {
 
 		waitForStart();
 
-		if (isStopRequested()) return;
+		if (isStopRequested())
+			return;
 
 		drive.followTrajectory(trajectory);
 
@@ -42,6 +43,7 @@ public class StrafeTest extends LinearOpMode {
 		telemetry.addData("finalHeading", poseEstimate.getHeading());
 		telemetry.update();
 
-		while (! isStopRequested() && opModeIsActive()) Local.sleep(50);
+		while (! isStopRequested() && opModeIsActive())
+			Local.sleep(50);
 	}
 }
