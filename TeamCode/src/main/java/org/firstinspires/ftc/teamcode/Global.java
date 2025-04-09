@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.betastudio.ftc.thread.TaskMng;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.firstinspires.ftc.teamcode.events.FtcThreadFactory;
 import org.firstinspires.ftc.teamcode.events.SystemMonitor;
 import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +53,6 @@ public final class Global {
 	@NonNull
 	@Contract(" -> new")
 	public static ThreadPoolExecutor defaultThreadExecutor() {
-		return new ThreadPoolExecutor(16, 32, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue <>(1024), Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
+		return new ThreadPoolExecutor(16, 32, 1L, TimeUnit.SECONDS, new ArrayBlockingQueue <>(1024), new FtcThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
 	}
 }
