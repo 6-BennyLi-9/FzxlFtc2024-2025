@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.ActionImplementFactory;
-import org.betastudio.ftc.util.ProgressMarker;
+import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 链式的 {@code Action} 块，可以优化代码书写，减少重复代码。
  */
 public final class LinkedAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
-	private final ProgressMarker marker;
+	private final ProgressMarkerImplement marker;
 
 	public LinkedAction(@NonNull final List <Action> actions) {
-		marker = new ProgressMarker(actions.size());
+		marker = new ProgressMarkerImplement(actions.size());
 		final AtomicInteger ptr = new AtomicInteger(0);
 		setAction(() -> {
 			if (actions.get(ptr.get()).activate()) {

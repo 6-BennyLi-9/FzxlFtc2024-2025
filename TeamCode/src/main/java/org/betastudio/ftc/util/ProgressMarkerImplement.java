@@ -7,15 +7,15 @@ import org.betastudio.ftc.Interfaces;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class ProgressMarker implements Interfaces.ProgressMarker {
+public class ProgressMarkerImplement implements Interfaces.ProgressMarker {
 	private final AtomicLong total = new AtomicLong();
 	private final AtomicLong done  = new AtomicLong();
 
-	public ProgressMarker(final long total) {
+	public ProgressMarkerImplement(final long total) {
 		this(total, 0L);
 	}
 
-	public ProgressMarker(final long total, final long doneAlready) {
+	public ProgressMarkerImplement(final long total, final long doneAlready) {
 		this.total.set(total);
 		done.set(doneAlready);
 	}

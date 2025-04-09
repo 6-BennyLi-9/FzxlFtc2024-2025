@@ -3,16 +3,16 @@ package org.betastudio.ftc.action.utils;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.ActionImplementFactory;
-import org.betastudio.ftc.util.ProgressMarker;
+import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 public final class RepetitionAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
-	private final ProgressMarker marker;
+	private final ProgressMarkerImplement marker;
 
 	public RepetitionAction(final Action repeatArgument, final long times) {
 		final AtomicLong ptr = new AtomicLong();
-		marker = new ProgressMarker(times);
+		marker = new ProgressMarkerImplement(times);
 
 		setAction(() -> {
 			final boolean res = repeatArgument.activate();

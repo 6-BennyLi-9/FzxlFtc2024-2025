@@ -4,7 +4,7 @@ package org.betastudio.ftc.action.utils;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.ActionImplementFactory;
-import org.betastudio.ftc.util.ProgressMarker;
+import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +17,11 @@ import java.util.List;
  * 多线程的 {@code Action} 块，对 {@code tps} 要求较高
  */
 public final class AssembledAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
-	private final ProgressMarker marker;
+	private final ProgressMarkerImplement marker;
 
 	public AssembledAction(final List <Action> actions) {
 		new LinkedList <>(actions);
-		marker = new ProgressMarker(actions.size());
+		marker = new ProgressMarkerImplement(actions.size());
 		setAction(() -> {
 			if (actions.isEmpty())
 				return false;
