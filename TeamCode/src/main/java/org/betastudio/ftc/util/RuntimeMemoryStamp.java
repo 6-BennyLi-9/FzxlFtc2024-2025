@@ -39,6 +39,6 @@ public final class RuntimeMemoryStamp {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f(%.1f%%)", usedMemory, totalMemory, memoryRatio * 100);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f MB(%.1f%%)", usedMemory, totalMemory, memoryRatio * 100);
 	}
 }
