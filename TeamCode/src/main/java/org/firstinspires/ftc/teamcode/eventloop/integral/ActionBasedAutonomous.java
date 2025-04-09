@@ -60,8 +60,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
 		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
-		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
-		caller.setFrequencyFPS(10);
+		caller.setStopRequestCaller(() -> is_terminate_method_called || isStopRequested());
+		caller.setFrequencyFPS(5);
 		Global.service.execute(caller);
 
 		HardwareDatabase.sync(hardwareMap, true);
