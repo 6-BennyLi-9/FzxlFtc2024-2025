@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.action.Action;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.jetbrains.annotations.Contract;
 
 public final class SimpleDriveAction implements Action {
@@ -19,10 +23,10 @@ public final class SimpleDriveAction implements Action {
 
 	@Override
 	public boolean activate() {
-		HardwareDatabase.leftFront.setPower(y + x - turn);
-		HardwareDatabase.leftRear.setPower(y - x - turn);
-		HardwareDatabase.rightFront.setPower(y - x + turn);
-		HardwareDatabase.rightRear.setPower(y + x + turn);
+		leftFront.setPower(y + x - turn);
+		leftRear.setPower(y - x - turn);
+		rightFront.setPower(y - x + turn);
+		rightRear.setPower(y + x + turn);
 		return false;
 	}
 

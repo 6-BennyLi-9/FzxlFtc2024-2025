@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -107,22 +107,22 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 
 			if (Math.abs(target - ang) < Math.abs(360 - target + ang)) {
 				if (ang > target + allowErr) {
-					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
+					Actions.runAction(DriveOp.build(0, 0, - 0.5));
 					return true;
 				} else if (ang < target - allowErr) {
-					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
+					Actions.runAction(DriveOp.build(0, 0, 0.5));
 					return true;
 				}
 			} else {
 				if (ang > target + allowErr) {
-					Actions.runAction(SimpleDriveOp.build(0, 0, 0.5));
+					Actions.runAction(DriveOp.build(0, 0, 0.5));
 					return true;
 				} else if (ang < target - allowErr) {
-					Actions.runAction(SimpleDriveOp.build(0, 0, - 0.5));
+					Actions.runAction(DriveOp.build(0, 0, - 0.5));
 					return true;
 				}
 			}
-			Actions.runAction(SimpleDriveOp.build(0, 0, 0));
+			Actions.runAction(DriveOp.build(0, 0, 0));
 			return false;
 		});
 		drive.setPoseEstimate(poseEst);

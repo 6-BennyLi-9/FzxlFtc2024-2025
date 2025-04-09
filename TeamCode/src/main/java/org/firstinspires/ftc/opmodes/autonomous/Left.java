@@ -14,7 +14,7 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.firstinspires.ftc.teamcode.cores.eventloop.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.cores.eventloop.TrajectoryRunnerAction;
-import org.firstinspires.ftc.teamcode.cores.structure.SimpleDriveOp;
+import org.firstinspires.ftc.teamcode.cores.structure.DriveOp;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -46,7 +46,7 @@ public class Left extends ActionBasedAutonomous {
 
 		utils.closeClip();
 		utils.waitMs(2000);
-		utils.addAction(SimpleDriveOp.build(0, - 0.25, 0));
+		utils.addAction(DriveOp.build(0, - 0.25, 0));
 
 		appendAssembled(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()), utils.pack());
 	}
