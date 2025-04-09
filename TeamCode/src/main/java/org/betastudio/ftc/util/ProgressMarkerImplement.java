@@ -37,7 +37,7 @@ public class ProgressMarkerImplement implements Interfaces.ProgressMarker {
 
 	@NonNull
 	@Override
-	public String toString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE, "%d/%d[%f]", done.get(), total.get(), getProgress());
+	public strictfp String toString() {
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%d/%d\n[%.5f%%]", done.get(), total.get(), getProgress() * 100);
 	}
 }
