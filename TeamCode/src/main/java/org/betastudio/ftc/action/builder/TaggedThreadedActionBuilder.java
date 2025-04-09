@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class TaggedThreadedActionBuilder implements TaggedActionBuilder{
-	protected Map<String, Action> actions;
+public class TaggedThreadedActionBuilder implements TaggedActionBuilder {
+	protected Map <String, Action> actions;
 
 	public TaggedThreadedActionBuilder() {
 		actions = new HashMap <>();
@@ -31,7 +31,7 @@ public class TaggedThreadedActionBuilder implements TaggedActionBuilder{
 		final Set <String> remove = new HashSet <>();
 
 		for (final Map.Entry <String, Action> entry : actions.entrySet()) {
-			if (entry.getValue() == action){
+			if (entry.getValue() == action) {
 				remove.add(entry.getKey());
 			}
 		}

@@ -1,14 +1,20 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import com.acmerobotics.dashboard.config.*;
-import com.acmerobotics.roadrunner.geometry.*;
-import com.qualcomm.robotcore.eventloop.opmode.*;
-import org.betastudio.ftc.action.*;
-import org.betastudio.ftc.action.utils.*;
-import org.firstinspires.ftc.teamcode.cores.eventloop.*;
-
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
+import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
 import static java.lang.Math.toRadians;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.*;
+
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.utils.LinkedAction;
+import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
+import org.firstinspires.ftc.teamcode.eventloop.TrajectoryRunnerAction;
+import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
@@ -17,6 +23,7 @@ public class Left extends ActionBasedAutonomous {
 	public static final double scaleGetPosition2 = 0.2905;
 	public static final double scaleGetPosition3 = 0.28;
 
+	/// box初始化位置有误
 	@Override
 	public void actionBuildEntry() {
 		appendDecanting();
@@ -37,12 +44,16 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 		appendAfterDecant();
 
-		builder.append(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()));
+		utils.closeClip();
+		utils.waitMs(2000);
+		utils.addAction(DriveOp.build(0, - 0.25, 0));
+
+		appendAssembled(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()), utils.pack());
 	}
 
 	@Override
 	public Pose2d getInitialPose() {
-		return LeftDecantingStart;
+		return LeftStart;
 	}
 
 	public void appendDecanting() {
@@ -51,17 +62,11 @@ public class Left extends ActionBasedAutonomous {
 		final Action liftUpping = utils.pack();
 		utils.boxDecant();
 		final Action decanting = utils.pack();
-		appendAssembled(
-				liftUpping,
-				new LinkedAction(
-						track.runTo(Decant),
-						decanting
-				)
-		);
+		appendAssembled(liftUpping, new LinkedAction(track.runTo(Decant), decanting));
 	}
 
-	public void appendAfterDecant(){
-		utils.waitMs(200);
+	public void appendAfterDecant() {
+		utils.waitMs(300);
 		utils.boxRst();
 		inputMngAction();
 	}
@@ -86,9 +91,6 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
-		appendAssembled(
-				utils.pack(),
-				track.runTo(pose)
-		);
+		appendAssembled(utils.pack(), track.runTo(pose));
 	}
 }

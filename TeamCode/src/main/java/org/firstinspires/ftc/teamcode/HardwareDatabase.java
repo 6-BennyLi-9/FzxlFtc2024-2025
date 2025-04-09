@@ -45,11 +45,13 @@ public final class HardwareDatabase {
 	public static void sync(@NonNull final HardwareMap hardwareMap, final boolean connectIMU) {
 		HardwareDatabase.hardwareMap = hardwareMap;
 
+		//底盘
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 		leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
 		rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 		rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
+		//悬挂
 		leftLift = hardwareMap.get(DcMotorEx.class, "leftLift");
 		rightLift = hardwareMap.get(DcMotorEx.class, "rightLift");
 		liftTouch = hardwareMap.get(TouchSensor.class, "liftTouch");
@@ -68,6 +70,7 @@ public final class HardwareDatabase {
 		clip = hardwareMap.get(Servo.class, "clip");
 		place = hardwareMap.get(Servo.class, "place");
 
+		//上挂
 		ratchet = hardwareMap.get(Servo.class, "ratchet");
 
 		if (connectIMU) {

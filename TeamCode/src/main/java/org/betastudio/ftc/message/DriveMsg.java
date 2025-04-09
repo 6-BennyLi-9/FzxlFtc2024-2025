@@ -20,6 +20,6 @@ public class DriveMsg implements Message {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE,"x=%.2f, y=%.2f, turn=%.2f", valX, valY, valTurn);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "x=%.2f, y=%.2f, turn=%.2f", valX, valY, valTurn);
 	}
 }

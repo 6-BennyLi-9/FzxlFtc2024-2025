@@ -84,7 +84,8 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
 
 		waitForStart();
 
-		if (isStopRequested()) return;
+		if (isStopRequested())
+			return;
 
 		telemetry.clearAll();
 		telemetry.update();
@@ -113,7 +114,8 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
 			telemetry.addLine("Press Y/△ to conclude routine");
 			telemetry.update();
 
-			if (gamepad1.y) tuningFinished = true;
+			if (gamepad1.y)
+				tuningFinished = true;
 		}
 
 		telemetry.clearAll();
@@ -122,6 +124,7 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
 
 		telemetry.update();
 
-		while (! isStopRequested()) idle();
+		while (! isStopRequested())
+			idle();
 	}
 }

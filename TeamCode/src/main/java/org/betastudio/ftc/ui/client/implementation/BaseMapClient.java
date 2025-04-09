@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.RunMode;
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.thread.TaskFuture;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
@@ -15,7 +16,6 @@ import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.RuntimeMemoryStamp;
-import org.betastudio.ftc.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
@@ -33,7 +33,7 @@ public class BaseMapClient implements Client {
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;
 	protected final List <Runnable>                runnables;
-	protected       boolean                        autoUpdate = true;
+	protected       boolean                        autoUpdate      = true;
 	protected       boolean                        isUpdateRequested;
 	protected       FtcLogTunnel                   targetLogTunnel = FtcLogTunnel.MAIN;
 
@@ -78,7 +78,7 @@ public class BaseMapClient implements Client {
 		}
 	}
 
-		@Override
+	@Override
 	public void deleteData(final String key) {
 		this.data.remove(key);
 

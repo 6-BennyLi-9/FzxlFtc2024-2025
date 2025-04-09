@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.betastudio.ftc.Interfaces;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomous;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralOpMode;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralOpMode;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
@@ -42,7 +41,7 @@ public class IntegralThreadExceptionHandler implements UncaughtExceptionHandler 
 			// 如果异常不是OpModeManagerImpl.ForceStopException类型，记录错误日志
 			Log.e("Error", "OpMode Terminated By Exception", e);
 			// 根据当前操作模式的类型，发送终止信号或直接终止操作模式
-			if (currentOpmode instanceof IntegralAutonomous) {
+			if (currentOpmode instanceof IntegralOpMode) {
 				((IntegralOpMode) currentOpmode).sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 			} else {
 				currentOpmode.terminateOpModeNow();

@@ -13,10 +13,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-/** @noinspection UnusedReturnValue*/
+/**
+ * @noinspection UnusedReturnValue
+ */
 public class TaskMng {
 	private final Set <TaskFuture> tasks;
-	private ExecutorService service;
+	private       ExecutorService  service;
 
 	public TaskMng(final ExecutorService service) {
 		this.service = service;

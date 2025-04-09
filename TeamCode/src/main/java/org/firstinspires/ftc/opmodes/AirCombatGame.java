@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-@TeleOp(name = "Air Combat Game", group = Character.MAX_VALUE+"DEMO")
+@TeleOp(name = "Air Combat Game", group = Character.MAX_VALUE + "DEMO")
 public class AirCombatGame extends LinearOpMode {
 	// 游戏区域尺寸
 	public static final int SCREEN_WIDTH  = 20;
@@ -20,20 +20,17 @@ public class AirCombatGame extends LinearOpMode {
 	private static final String PLAYER_SYMBOL = "A";
 	private static final String ENEMY_SYMBOL  = "E";
 	private static final String BULLET_SYMBOL = "|";
-
+	// 游戏对象列表
+	protected final ArrayList <Enemy>  enemies = new ArrayList <>();
+	protected final ArrayList <Bullet> bullets = new ArrayList <>();
+	// 计时器
+	protected final ElapsedTime enemySpawnTimer = new ElapsedTime();
+	protected final ElapsedTime gameTimer       = new ElapsedTime();
 	// 玩家属性
 	protected int playerX = SCREEN_WIDTH / 2;
 	protected int playerY = SCREEN_HEIGHT - 1;
 	protected int lives   = 3;
 	protected int score;
-
-	// 游戏对象列表
-	protected final ArrayList <Enemy>  enemies = new ArrayList <>();
-	protected final ArrayList <Bullet> bullets = new ArrayList <>();
-
-	// 计时器
-	protected final ElapsedTime enemySpawnTimer = new ElapsedTime();
-	protected final ElapsedTime gameTimer       = new ElapsedTime();
 
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -166,8 +163,8 @@ public class AirCombatGame extends LinearOpMode {
 
 	// 敌人类
 	public static class Enemy {
-		public       int x;
 		public final int y;
+		public       int x;
 
 		Enemy(final int x, final int y) {
 			this.x = x;

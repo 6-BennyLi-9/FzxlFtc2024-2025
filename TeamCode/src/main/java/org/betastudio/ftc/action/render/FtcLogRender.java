@@ -10,11 +10,6 @@ import java.util.List;
 
 public class FtcLogRender implements Interfaces.ProgressRender {
 	public static List <Double> marks;
-	public        List <Double> unMarked;
-
-	public FtcLogRender(){
-		unMarked = new ArrayList<>(marks);
-	}
 
 	static {
 		marks = new ArrayList <>();
@@ -24,9 +19,15 @@ public class FtcLogRender implements Interfaces.ProgressRender {
 		marks.add(1.2);
 	}
 
+	public        List <Double> unMarked;
+
+	public FtcLogRender() {
+		unMarked = new ArrayList <>(marks);
+	}
+
 	@Override
 	public void render(final String name, @NonNull final Interfaces.ProgressMarker marker) {
-		if (marker.getProgress() >= unMarked.get(0)){
+		if (marker.getProgress() >= unMarked.get(0)) {
 			FtcLogTunnel.MAIN.report(name + marker.getProgressString() + marker);
 			unMarked.remove(0);
 		}

@@ -2,6 +2,7 @@ package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
@@ -9,7 +10,6 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
-import org.betastudio.ftc.message.TelemetryMsg;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;

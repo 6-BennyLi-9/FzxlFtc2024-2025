@@ -1,10 +1,11 @@
 package org.betastudio.ftc.action;
 
-import org.betastudio.ftc.ui.log.*;
+import static org.betastudio.ftc.Interfaces.Nameable;
+import static org.betastudio.ftc.Interfaces.ThreadEx;
 
-import java.util.concurrent.*;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
-import static org.betastudio.ftc.Interfaces.*;
+import java.util.concurrent.Callable;
 
 /**
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
@@ -16,10 +17,10 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 	private String             name = "[unnamed]";
 
 	protected ActionImplementFactory() {
-		this(() -> false,() -> "[unsetted]");
+		this(() -> false, () -> "[unsetted]");
 	}
 
-	protected ActionImplementFactory(final Callable<Boolean> action, final Callable<String> params) {
+	protected ActionImplementFactory(final Callable <Boolean> action, final Callable <String> params) {
 		this.action = action;
 		this.params = params;
 	}
@@ -57,18 +58,18 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 
 	@Override
 	public void setName(final String name) {
-		 this.name = name;
+		this.name = name;
 	}
 
-	public void setParams(final Callable<String> params){
+	public void setParams(final Callable <String> params) {
 		this.params = params;
 	}
 
 	@Override
-	public String paramsString(){
-		try{
+	public String paramsString() {
+		try {
 			return params.call();
-		}catch(final Exception e){
+		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

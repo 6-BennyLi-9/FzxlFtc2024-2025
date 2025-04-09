@@ -14,7 +14,7 @@ import java.util.List;
 public class SelectPackage implements Interfaces.Updatable {
 	private final List <SelectElement> elements;
 	private       int                  selected_index, show_lines;
-	private       Range <Integer> show_range;
+	private Range <Integer> show_range;
 
 	{
 		selected_index = 0;
@@ -94,8 +94,8 @@ public class SelectPackage implements Interfaces.Updatable {
 		}
 	}
 
-	public void updateSelectRange(){
-		if(selected_index < show_range.getLower()){
+	public void updateSelectRange() {
+		if (selected_index < show_range.getLower()) {
 			set_show_lower(selected_index);
 		} else if (selected_index >= show_range.getUpper()) {
 			set_show_lower(selected_index - show_lines + 1);

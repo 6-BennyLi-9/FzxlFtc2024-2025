@@ -5,6 +5,17 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class TelemetryItem implements TelemetryElement {
+	public String capital, value;
+
+	public TelemetryItem(final String capital, final String value) {
+		this.capital = capital;
+		this.value = value;
+	}
+
+	public TelemetryItem(final String capital, @NonNull final Object value) {
+		this(capital, value.toString());
+	}
+
 	public String getCapital() {
 		return capital;
 	}
@@ -19,17 +30,6 @@ public class TelemetryItem implements TelemetryElement {
 
 	public void setValue(final String value) {
 		this.value = value;
-	}
-
-	public String capital, value;
-
-	public TelemetryItem(final String capital, final String value) {
-		this.capital = capital;
-		this.value = value;
-	}
-
-	public TelemetryItem(final String capital, @NonNull final Object value) {
-		this(capital, value.toString());
 	}
 
 	@Override

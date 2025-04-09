@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.Annotations;
-import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
+import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.client.ClientViewMode;
+import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
-import org.betastudio.ftc.message.TelemetryMsg;
 import org.firstinspires.ftc.teamcode.Global;
 
 @Autonomous(group = "9_Tests")

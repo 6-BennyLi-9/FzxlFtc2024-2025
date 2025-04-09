@@ -17,6 +17,6 @@ public class ObjectiveClientTest extends LinearOpMode {
 		final ObjectiveClient client = new ObjectiveClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.AUTOMATIC);
 
-		client.putData("key1","val1");
+		client.putData("key1", "val1");
 	}
 }

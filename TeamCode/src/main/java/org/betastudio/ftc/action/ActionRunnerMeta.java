@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.ProgressMarker;
+import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -12,7 +12,7 @@ public final class ActionRunnerMeta implements Action {
 	private final Action metaRunner;
 
 	public ActionRunnerMeta(@NonNull final Action action, final Interfaces.ProgressRender render) {
-		final AtomicReference <Interfaces.ProgressMarker> marker = new AtomicReference <>(new ProgressMarker(action.getCount()));
+		final AtomicReference <Interfaces.ProgressMarker> marker = new AtomicReference <>(new ProgressMarkerImplement(action.getCount()));
 		final AtomicReference <String>                    name   = new AtomicReference <>(Labeler.gen().summon(action));
 
 		if (action instanceof Interfaces.Nameable) {

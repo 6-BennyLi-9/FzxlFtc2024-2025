@@ -52,15 +52,18 @@ public final class Interfaces {
 
 	public interface ProgressMarker {
 		long getTotal();
+
 		long getDone();
-		default double getProgress(){
+
+		default double getProgress() {
 			return (double) getDone() / getTotal();
 		}
 
 		default String getProgressString() {
 			return getProgressString(10);
 		}
-		default String getProgressString(final int length){
+
+		default String getProgressString(final int length) {
 			final StringBuilder builder = new StringBuilder();
 			for (int i = 0 ; i < length ; i++) {
 				if ((double) i / length <= getProgress()) {
@@ -85,17 +88,18 @@ public final class Interfaces {
 	}
 
 	@FunctionalInterface
-	public interface StoreRequired <T> {
+	public interface StoreRequired<T> {
 		T store();
 	}
 
 	@FunctionalInterface
-	public interface ValueProduction <T>{
+	public interface ValueProduction<T> {
 		T getVal();
 	}
 
 	public interface Nameable {
 		String getName();
+
 		void setName(String name);
 	}
 

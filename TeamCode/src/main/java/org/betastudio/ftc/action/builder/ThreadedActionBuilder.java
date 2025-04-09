@@ -6,10 +6,10 @@ import org.betastudio.ftc.action.utils.AssembledAction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThreadedActionBuilder implements ActionBuilder{
+public class ThreadedActionBuilder implements ActionBuilder {
 	protected final List <Action> actions;
 
-	public ThreadedActionBuilder(){
+	public ThreadedActionBuilder() {
 		actions = new ArrayList <>();
 	}
 

@@ -74,7 +74,8 @@ public class MaxVelocityTuner extends LinearOpMode {
 		telemetry.addData("Voltage Compensated kF", effectiveKf * batteryVoltageSensor.getVoltage() / 12);
 		telemetry.update();
 
-		while (! isStopRequested() && opModeIsActive()) idle();
+		while (! isStopRequested() && opModeIsActive())
+			idle();
 	}
 
 	private double veloInchesToTicks(final double inchesPerSec) {

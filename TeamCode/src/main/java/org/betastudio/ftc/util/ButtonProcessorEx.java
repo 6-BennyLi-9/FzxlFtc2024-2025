@@ -3,7 +3,9 @@ package org.betastudio.ftc.util;
 import org.betastudio.ftc.Annotations.Beta;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
-/** @noinspection DeprecatedIsStillUsed*/
+/**
+ * @noinspection DeprecatedIsStillUsed
+ */
 @Deprecated
 public class ButtonProcessorEx extends ButtonProcessor {
 	public static final ButtonCallback defaultCallback = () -> {};
@@ -31,12 +33,12 @@ public class ButtonProcessorEx extends ButtonProcessor {
 		this.callback = callback;
 	}
 
-	public void tryActivate(){
+	public void tryActivate() {
 		final boolean enabled = getEnabled();
 		FtcLogTunnel.MAIN.report("enabled=" + enabled);
-		if (enabled){
+		if (enabled) {
 			callback.onActive();
-		}else{
+		} else {
 			callback.onDisabled();
 		}
 	}
@@ -52,14 +54,14 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	@Override
 	public void sync(final boolean input) {
 		super.sync(input);
-		if(isAutoActive){
+		if (isAutoActive) {
 			activeButtonMark();
 		}
 	}
 
 	/// hook方法，当按键被激活时调用
 	@Beta(date = "2025-2-26")
-	protected void activeButtonMark(){
+	protected void activeButtonMark() {
 		tryActivate();
 	}
 }

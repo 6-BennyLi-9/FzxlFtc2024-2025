@@ -136,7 +136,9 @@ public class LogFiles {
 		}
 	}
 
-	/** @noinspection IOStreamConstructor*/
+	/**
+	 * @noinspection IOStreamConstructor
+	 */
 	@WebHandlerRegistrar
 	public static void registerRoutes(@NonNull final WebHandlerManager manager) {
 		//noinspection ResultOfMethodCallIgnored
@@ -185,13 +187,23 @@ public class LogFiles {
 	}
 
 	public static class LogFile {
-		public String version = "quickstart1 v2";
-
 		public final String opModeName;
 		public final long   msInit = System.currentTimeMillis();
+		public final List <Long> nsTimes = new ArrayList <>();
+		public final List <Double> targetXs       = new ArrayList <>();
+		public final List <Double> targetYs       = new ArrayList <>();
+		public final List <Double> targetHeadings = new ArrayList <>();
+		public final List <Double> xs       = new ArrayList <>();
+		public final List <Double> ys       = new ArrayList <>();
+		public final List <Double> headings = new ArrayList <>();
+		public final List <Double> voltages = new ArrayList <>();
+		public final List <List <Integer>> driveEncPositions    = new ArrayList <>();
+		public final List <List <Integer>> driveEncVels         = new ArrayList <>();
+		public final List <List <Integer>> trackingEncPositions = new ArrayList <>();
+		public final List <List <Integer>> trackingEncVels      = new ArrayList <>();
+		public String version = "quickstart1 v2";
 		public       long   nsInit = System.nanoTime();
-		public long   nsStart, nsStop;
-
+		public       long   nsStart, nsStop;
 		public double  ticksPerRev     = DriveConstants.TICKS_PER_REV;
 		public double  maxRpm          = DriveConstants.MAX_RPM;
 		public boolean runUsingEncoder = DriveConstants.RUN_USING_ENCODER;
@@ -209,7 +221,6 @@ public class LogFiles {
 		public double  maxAccel        = DriveConstants.MAX_ACCEL;
 		public double  maxAngVel       = DriveConstants.MAX_ANG_VEL;
 		public double  maxAngAccel     = DriveConstants.MAX_ANG_ACCEL;
-
 		public double mecTransP            = SampleMecanumDrive.TRANSLATIONAL_PID.kP;
 		public double mecTransI            = SampleMecanumDrive.TRANSLATIONAL_PID.kI;
 		public double mecTransD            = SampleMecanumDrive.TRANSLATIONAL_PID.kD;
@@ -217,32 +228,13 @@ public class LogFiles {
 		public double mecHeadingI          = SampleMecanumDrive.HEADING_PID.kI;
 		public double mecHeadingD          = SampleMecanumDrive.HEADING_PID.kD;
 		public double mecLateralMultiplier = SampleMecanumDrive.LATERAL_MULTIPLIER;
-
 		public double trackingTicksPerRev     = StandardTrackingWheelLocalizer.TICKS_PER_REV;
 		public double trackingWheelRadius     = StandardTrackingWheelLocalizer.WHEEL_RADIUS;
 		public double trackingGearRatio       = StandardTrackingWheelLocalizer.GEAR_RATIO;
 		public double trackingLateralDistance = StandardTrackingWheelLocalizer.LATERAL_DISTANCE;
 		public double trackingForwardOffset   = StandardTrackingWheelLocalizer.FORWARD_OFFSET;
-
 		public RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = DriveConstants.LOGO_FACING_DIR;
 		public RevHubOrientationOnRobot.UsbFacingDirection  USB_FACING_DIR  = DriveConstants.USB_FACING_DIR;
-
-		public final List <Long> nsTimes = new ArrayList <>();
-
-		public final List <Double> targetXs = new ArrayList <>();
-		public final List <Double> targetYs = new ArrayList <>();
-		public final List <Double> targetHeadings = new ArrayList <>();
-
-		public final List <Double> xs = new ArrayList <>();
-		public final List <Double> ys = new ArrayList <>();
-		public final List <Double> headings = new ArrayList <>();
-
-		public final List <Double> voltages = new ArrayList <>();
-
-		public final List <List <Integer>> driveEncPositions = new ArrayList <>();
-		public final List <List <Integer>> driveEncVels      = new ArrayList <>();
-		public final List <List <Integer>> trackingEncPositions = new ArrayList <>();
-		public final List <List <Integer>> trackingEncVels      = new ArrayList <>();
 
 		public LogFile(final String opModeName) {
 			this.opModeName = opModeName;

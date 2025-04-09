@@ -35,7 +35,7 @@ public class MethodFrequencyCaller implements Interfaces.ThreadEx, Runnable {
 		isStopRequested = () -> true;
 	}
 
-	public void setRequestCaller(final Callable <Boolean> isStopRequested) {
+	public void setStopRequestCaller(final Callable <Boolean> isStopRequested) {
 		this.isStopRequested = isStopRequested;
 	}
 
