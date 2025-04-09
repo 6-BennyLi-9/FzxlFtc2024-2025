@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.betastudio.ftc.Interfaces;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralAutonomous;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralOpMode;
+import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralAutonomous;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralOpMode;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 

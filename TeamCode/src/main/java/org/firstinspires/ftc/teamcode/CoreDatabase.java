@@ -7,10 +7,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.cores.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralLinearMode;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralOpMode;
-import org.firstinspires.ftc.teamcode.cores.eventloop.integral.IntegralTeleOp;
+import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralLinearMode;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralOpMode;
+import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralTeleOp;
 
 /**
  * CoreDatabase 类用于存储机器人在不同操作模式下的状态信息。
