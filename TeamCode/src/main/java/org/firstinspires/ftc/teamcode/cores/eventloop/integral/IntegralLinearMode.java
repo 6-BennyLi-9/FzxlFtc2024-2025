@@ -68,8 +68,6 @@ public abstract class IntegralLinearMode extends LinearOpMode implements Integra
 		timer.restart();
 		FtcLogTunnel.MAIN.report("Op inline started");
 
-		//		Global.threadManager.add("autonomous-exception-interrupter",new AutonomousMonitor(this::opModeIsActive));
-
 		while (opModeIsActive() && ! is_terminate_method_called) {
 			if (null != inlineUncaughtException) {
 				if (inlineUncaughtException instanceof OpModeManagerImpl.ForceStopException) {
