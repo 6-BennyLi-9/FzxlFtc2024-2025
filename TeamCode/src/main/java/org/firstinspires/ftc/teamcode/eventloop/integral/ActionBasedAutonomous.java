@@ -1,44 +1,46 @@
 package org.firstinspires.ftc.teamcode.eventloop.integral;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.builder.ActionBuilder;
+import org.betastudio.ftc.action.builder.LinkedActionBuilder;
+import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Timer;
-import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.cores.UtilsMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-@Annotations.Beta(date = "25.3.12")
-public abstract class LoopCommandAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public    SampleMecanumDrive drive;
-	public    Client             client;
-	public    UtilsMng           utils;
-	public    Timer              timer;
-	protected Exception          inline_exception;
-	protected List <Action>      commands;
-	protected TerminateReason    reason;
-	private   Action             main;
-	private   boolean            is_terminate_method_called;
-	private   boolean            isCommandUndone;
+public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+	public    SampleMecanumDrive       drive;
+	public    UtilsMng                 utils;
+	public    Timer                    timer;
+	public    Client                   client;
+	public    ActionBuilder            builder;
+	protected boolean                  is_terminate_method_called;
+	protected HeadingTrajectoryBuilder track;
+	private   Exception                inlineUncaughtException;
+	private   Action                   action;
+	private   Runnable                 runner;
+
+	public abstract void actionBuildEntry();
 
 	@Override
 	public void op_init() {
@@ -48,40 +50,55 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 		Global.prepareCoreThreadPool();
 		RunMode.globalRunMode = RunMode.TELEOP;
 		Global.client = client;
-		HardwareDatabase.sync(hardwareMap, false);
-		HardwareDatabase.chassisConfig();
 		timer = new Timer();
+		builder = new LinkedActionBuilder();
 
 		telemetry = new DashTelemetry(FtcDashboard.getInstance(), telemetry);
 		telemetry.setAutoClear(true);
 		telemetry.clearAll();
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
-		drive = new SampleMecanumDrive(hardwareMap);
 
-		commands = new ArrayList <>();
-		commandOverload();
-		main = new LinkedAction(commands);
+		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
+		caller.setRequestCaller(() -> is_terminate_method_called || isStopRequested());
+		caller.setFrequencyFPS(10);
+		Global.service.execute(caller);
+
+		HardwareDatabase.sync(hardwareMap, true);
+		HardwareDatabase.chassisConfig();
+		utils = new UtilsMng();
+
+		telemetry.clearAll();
+
+		drive = new SampleMecanumDrive(hardwareMap);
+		track = new HeadingTrajectoryBuilder(drive);
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
 		client.putLine("ROBOT INITIALIZE COMPLETE!");
 		client.putLine("=======================");
-		FtcLogTunnel.MAIN.report("Op inline initialized");
-	}
 
+		FtcLogTunnel.MAIN.report("Op inline initialized");
+
+		drive.setPoseEstimate(getInitialPose());
+		track.setCurrent(getInitialPose());
+		actionBuildEntry();
+		action = builder.store();
+		runner = () -> {
+			if (! action.activate()) {
+				client.putLine("Core Action Finished");
+				runner = () -> {};
+			}
+		};
+	}
 
 	@Override
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
-		client.update();
 	}
 
 	@Override
 	public void op_start() {
-		client.deleteLine("ROBOT INITIALIZE COMPLETE!");
-		client.deleteData("last autonomous time used");
-		client.deleteData("last terminateReason");
 		timer.pushTimeTag("start");
 
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
@@ -89,32 +106,21 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 
 	@Override
 	public void op_loop() {
-		drive.update();
-		if (! drive.isBusy() && isCommandUndone) {
-			isCommandUndone = main.activate();
+		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
+		client.changeData("time", getRuntime());
+
+		if (null != inlineUncaughtException) {
+			FtcLogTunnel.MAIN.report(inlineUncaughtException);
+			throw new RuntimeException(inlineUncaughtException);
 		}
 
 		if (is_terminate_method_called) {
-			CoreDatabase.writeInVals(this, reason, timer.getDeltaTime());
-			if (null != inline_exception) {
-				if (inline_exception instanceof OpModeManagerImpl.ForceStopException) {
-					closeTask();
-				} else {
-					FtcLogTunnel.MAIN.report(inline_exception);
-					FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
-					throw new RuntimeException(inline_exception);
-				}
-			} else {
-				FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
-			}
+			op_end();
+			terminateOpModeNow();
 		}
 
-		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
-		client.changeData("time", getRuntime());
-		client.update();
+		runner.run();
 	}
-
-	public abstract void commandOverload();
 
 	@Override
 	public void op_end() {
@@ -122,9 +128,9 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 
 		RunMode.globalRunMode = RunMode.TERMINATE;
 
-		if (null != inline_exception) {
-			FtcLogTunnel.MAIN.report(inline_exception);
-			throw new RuntimeException(inline_exception);
+		if (null != inlineUncaughtException) {
+			FtcLogTunnel.MAIN.report(inlineUncaughtException);
+			throw new RuntimeException(inlineUncaughtException);
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline closed");
@@ -134,7 +140,7 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	@Override
 	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
-			inline_exception = e;
+			inlineUncaughtException = e;
 		} else {
 			is_terminate_method_called = true;
 		}
@@ -149,4 +155,18 @@ public abstract class LoopCommandAutonomous extends OverclockOpMode implements I
 	public void exception_entry(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
+
+	public void inputMngAction() {
+		builder.append(utils.pack());
+	}
+
+	public void appendAssembled(final Action... actions) {
+		builder.append(new AssembledAction(actions));
+	}
+
+	public void appendLinked(final Action... actions) {
+		builder.append(new LinkedAction(actions));
+	}
+
+	public abstract Pose2d getInitialPose();
 }

@@ -7,8 +7,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralLinearMode;
 import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralTeleOp;
 
@@ -60,7 +60,7 @@ public final class CoreDatabase {
 	 * @param terminateReason      操作模式终止的原因。
 	 * @param autonomous_time_used 自动模式下使用的时间，单位为秒。
 	 */
-	public static void writeInVals(@NonNull final IntegralLinearMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
+	public static void writeInVals(@NonNull final ActionBasedAutonomous autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
 		orientation = HardwareDatabase.imu.getAngularOrientation();
 		last_is_autonomous = true;

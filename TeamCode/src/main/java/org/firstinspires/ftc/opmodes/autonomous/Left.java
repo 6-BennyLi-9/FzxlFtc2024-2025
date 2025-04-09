@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.firstinspires.ftc.teamcode.eventloop.ActionBasedAutonomous;
+import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.eventloop.TrajectoryRunnerAction;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
