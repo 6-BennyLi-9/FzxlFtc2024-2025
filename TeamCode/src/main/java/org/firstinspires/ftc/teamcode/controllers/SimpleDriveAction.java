@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores.structure;
+package org.firstinspires.ftc.teamcode.controllers;
 
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
@@ -15,7 +15,7 @@ public final class SimpleDriveAction implements Action {
 	private final double y;
 	private final double turn;
 
-	SimpleDriveAction(final double x, final double y, final double turn) {
+	public SimpleDriveAction(final double x, final double y, final double turn) {
 		this.x = x;
 		this.y = y;
 		this.turn = turn;
