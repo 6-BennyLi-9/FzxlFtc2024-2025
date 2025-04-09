@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_PREPARE;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.PlacePositions;
@@ -52,17 +55,17 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void decant() {
 		recent = PlacePositions.DECANT;
-		placeController.setTargetPosition(HardwareConfigures.PLACE_DECANT);
+		placeController.setTargetPosition(PLACE_DECANT);
 	}
 
 	public void idle() {
 		recent = PlacePositions.IDLE;
-		placeController.setTargetPosition(HardwareConfigures.PLACE_IDLE);
+		placeController.setTargetPosition(PLACE_IDLE);
 	}
 
 	public void prepare() {
 		recent = PlacePositions.PREPARE;
-		placeController.setTargetPosition(HardwareConfigures.PLACE_PREPARE);
+		placeController.setTargetPosition(PLACE_PREPARE);
 	}
 
 	@NonNull

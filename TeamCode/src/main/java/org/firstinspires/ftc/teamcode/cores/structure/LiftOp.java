@@ -1,5 +1,13 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_HIGH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_LOW;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_IDLE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv1;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2_PREPARE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_PREPARE;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
 
@@ -10,7 +18,6 @@ import com.acmerobotics.dashboard.config.Config;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.LiftMode;
@@ -54,28 +61,28 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 		recent = option;
 		switch (option) {
 			case IDLE:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_IDLE);
+				liftCtrl.setTargetPosition(LIFT_IDLE);
 				break;
 			case DECANT_LOW:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_DECANT_LOW);
+				liftCtrl.setTargetPosition(LIFT_DECANT_LOW);
 				break;
 			case DECANT_HIGH:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_DECANT_HIGH);
+				liftCtrl.setTargetPosition(LIFT_DECANT_HIGH);
 				break;
 			case SUSPEND:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_SUSPEND);
+				liftCtrl.setTargetPosition(LIFT_SUSPEND);
 				break;
 			case SUSPEND_PREPARE:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
+				liftCtrl.setTargetPosition(LIFT_SUSPEND_PREPARE); // 设置目标位置为高悬准备位置
 				break;
 			case SUSPEND_Lv1:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
+				liftCtrl.setTargetPosition(LIFT_SUSPEND_Lv1); // 设置目标位置为悬停等级 1 位置
 				break;
 			case SUSPEND_Lv2_PREPARE:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_SUSPEND_Lv2_PREPARE);
+				liftCtrl.setTargetPosition(LIFT_SUSPEND_Lv2_PREPARE);
 				break;
 			case SUSPEND_Lv2:
-				liftCtrl.setTargetPosition(HardwareConfigures.LIFT_SUSPEND_Lv2);
+				liftCtrl.setTargetPosition(LIFT_SUSPEND_Lv2);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected enum state:" + option.name()); // 抛出异常，表示意外的枚举状态

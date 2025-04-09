@@ -1,12 +1,19 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MAX_POSITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MIN_POSITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_RISE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ArmPositions;
@@ -50,29 +57,29 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 	}
 
 	public void manage(double position) {
-		position = Math.min(Math.max(position, HardwareConfigures.ARM_MIN_POSITION), HardwareConfigures.ARM_MAX_POSITION);
-		leftArmControl.setTargetPosition(position + HardwareConfigures.ARM_LEFT_ADDITION);
+		position = Math.min(Math.max(position, ARM_MIN_POSITION), ARM_MAX_POSITION);
+		leftArmControl.setTargetPosition(position + ARM_LEFT_ADDITION);
 		rightArmControl.setTargetPosition(position);
 	}
 
 	public void intake() {
 		recent = ArmPositions.INTAKE;
-		manage(HardwareConfigures.ARM_INTAKE);
+		manage(ARM_INTAKE);
 	}
 
 	public void idle() {
 		recent = ArmPositions.IDLE;
-		manage(HardwareConfigures.ARM_IDLE);
+		manage(ARM_IDLE);
 	}
 
 	public void safe() {
 		recent = ArmPositions.SAFE;
-		manage(HardwareConfigures.ARM_SAFE);
+		manage(ARM_SAFE);
 	}
 
 	public void rise() {
 		recent = ArmPositions.RISE;
-		manage(HardwareConfigures.ARM_RISE);
+		manage(ARM_RISE);
 	}
 
 	public void flip() {

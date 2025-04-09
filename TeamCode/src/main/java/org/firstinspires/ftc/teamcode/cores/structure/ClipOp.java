@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_OPEN;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ClipPositions;
@@ -58,12 +60,12 @@ public class ClipOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	public void open() {
 		recent = ClipPositions.OPEN;
-		clipControl.setTargetPosition(HardwareConfigures.CLIP_OPEN);
+		clipControl.setTargetPosition(CLIP_OPEN);
 	}
 
 	public void close() {
 		recent = ClipPositions.CLOSE;
-		clipControl.setTargetPosition(HardwareConfigures.CLIP_CLOSE);
+		clipControl.setTargetPosition(CLIP_CLOSE);
 	}
 
 	@NonNull

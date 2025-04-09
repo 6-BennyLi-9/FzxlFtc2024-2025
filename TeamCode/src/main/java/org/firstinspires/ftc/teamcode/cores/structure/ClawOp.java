@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.cores.structure;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
+
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.firstinspires.ftc.teamcode.cores.structure.positions.ClawPositions;
@@ -58,12 +60,12 @@ public class ClawOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	public void open() {
 		recent = ClawPositions.OPEN;
-		clawControl.setTargetPosition(HardwareConfigures.CLAW_OPEN);
+		clawControl.setTargetPosition(CLAW_OPEN);
 	}
 
 	public void close() {
 		recent = ClawPositions.CLOSE;
-		clawControl.setTargetPosition(HardwareConfigures.CLAW_CLOSE);
+		clawControl.setTargetPosition(CLAW_CLOSE);
 	}
 
 	@NonNull
