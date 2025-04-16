@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftParkPrepare;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftSample;
-import static org.firstinspires.ftc.opmodes.autonomous.UtilPoses.LeftStart;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.Decant;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftParkPrepare;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftSample;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftStart;
 import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;

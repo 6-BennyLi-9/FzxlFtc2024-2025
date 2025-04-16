@@ -6,7 +6,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.jetbrains.annotations.Contract;
 
-public final class UtilPoses {
+public final class AutonomousPositions {
 	public static final Pose2d LeftStart       = p(38, 60, - 90);
 	public static final Pose2d Decant          = p(59, 55, - 135);
 	public static final Pose2d LeftSample      = p(59, 50, - 90);
