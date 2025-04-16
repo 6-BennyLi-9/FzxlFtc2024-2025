@@ -16,32 +16,39 @@ import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.eventloop.TrajectoryRunnerAction;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static final double scaleGetPosition1 = 0.238;
-	public static final double scaleGetPosition2 = 0.2905;
-	public static final double scaleGetPosition3 = 0.28;
+	public static final double SCALE_GET_POSITION_1 = 0.238;
+	public static final double SCALE_GET_POSITION_2 = 0.2905;
+	public static final double SCALE_GET_POSITION_3 = 0.28;
+	public static final int    LOOP_TIME            = 3;
 
 	@Override
 	public void actionBuildEntry() {
 		appendDecanting();
 		appendAfterDecant();
 
-		appendRunningScaling(scaleGetPosition1, LeftSample);
-		appendIntake();
-		appendDecanting();
-		appendAfterDecant();
+		List <Double> scale_get    = new ArrayList <>();
+		List <Pose2d> sample_poses = new ArrayList <>();
 
-		appendRunningScaling(scaleGetPosition2, LeftSample.plus(new Pose2d(0, 0, toRadians(- 23))));
-		appendIntake();
-		appendDecanting();
-		appendAfterDecant();
+		scale_get.add(SCALE_GET_POSITION_1);
+		scale_get.add(SCALE_GET_POSITION_2);
+		scale_get.add(SCALE_GET_POSITION_3);
 
-		appendRunningScaling(scaleGetPosition3, LeftSample.plus(new Pose2d(0, 0, toRadians(21.7))));
-		appendIntake();
-		appendDecanting();
-		appendAfterDecant();
+		sample_poses.add(LeftSample);
+		sample_poses.add(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23))));
+		sample_poses.add(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7))));
+
+		for (int i = 0 ; i < LOOP_TIME ; i++) {
+			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
+			appendIntake();
+			appendDecanting();
+			appendAfterDecant();
+		}
 
 		utils.closeClip();
 		utils.waitMs(2000);
