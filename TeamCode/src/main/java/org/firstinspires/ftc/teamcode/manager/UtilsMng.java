@@ -70,7 +70,7 @@ public class UtilsMng {
 		armSafe();
 		openClaw();
 		scaleBack();
-		closeClip();
+		openClip();
 		liftDown();
 		rotateToMid();
 
