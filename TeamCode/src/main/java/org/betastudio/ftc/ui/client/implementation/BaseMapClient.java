@@ -15,7 +15,7 @@ import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import org.betastudio.ftc.util.Labeler;
-import org.betastudio.ftc.util.RuntimeMemoryStamp;
+import org.betastudio.ftc.util.MemoryStamp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Global;
 
@@ -158,7 +158,7 @@ public class BaseMapClient implements Client {
 		telemetry.clearAll();
 		telemetry.addData("ClientViewMode", ClientViewMode.globalViewMode.name());
 		telemetry.addData("Status", RunMode.globalRunMode);
-		telemetry.addData("MemoryStatus", new RuntimeMemoryStamp());
+		telemetry.addData("MemoryStatus", new MemoryStamp());
 		telemetry.addLine(">>>>>>>>>>>>>>>>>>>");
 
 		switch (ClientViewMode.globalViewMode) {
