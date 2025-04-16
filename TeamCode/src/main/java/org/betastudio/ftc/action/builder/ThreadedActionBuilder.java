@@ -30,6 +30,6 @@ public class ThreadedActionBuilder implements ActionBuilder {
 
 	@Override
 	public Action store() {
-		return new AssembledAction(actions);
+		return new AssembledAction(new ArrayList <>(actions));
 	}
 }

@@ -41,7 +41,6 @@ import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
-import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
 
@@ -260,13 +259,6 @@ public class UtilsMng {
 	public void runCached() {
 		Actions.runAction(pack());
 		builder.clear();
-	}
-
-	/**
-	 * 将缓存的动作作为线程运行。
-	 */
-	public void runAsThread() {
-		Global.service.execute(this::runCached);
 	}
 
 	/**

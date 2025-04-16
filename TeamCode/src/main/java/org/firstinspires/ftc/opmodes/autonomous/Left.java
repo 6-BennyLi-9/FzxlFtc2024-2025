@@ -23,7 +23,6 @@ public class Left extends ActionBasedAutonomous {
 	public static final double scaleGetPosition2 = 0.2905;
 	public static final double scaleGetPosition3 = 0.28;
 
-	/// box初始化位置有误
 	@Override
 	public void actionBuildEntry() {
 		appendDecanting();

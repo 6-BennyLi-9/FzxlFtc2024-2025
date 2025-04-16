@@ -30,6 +30,6 @@ public class LinkedActionBuilder implements ActionBuilder {
 
 	@Override
 	public Action store() {
-		return new LinkedAction(actions);
+		return new LinkedAction(new ArrayList <>(actions));
 	}
 }
