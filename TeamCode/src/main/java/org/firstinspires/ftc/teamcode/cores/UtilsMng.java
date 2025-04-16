@@ -43,6 +43,7 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.ScaleOp;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
@@ -195,9 +196,9 @@ public class UtilsMng {
 	 *
 	 * @param rightScalePosition 右侧秤臂的目标位置
 	 */
-	public void scaleOperate(double rightScalePosition) {
+	public void scaleOperate(final double rightScalePosition) {
 		final double finalRightScalePosition = min(0.5, max(rightScalePosition, 0.08));
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition((0.4024-0.41*finalRightScalePosition)/0.42)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(ScaleOp.operateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**
