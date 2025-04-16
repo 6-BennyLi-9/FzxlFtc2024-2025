@@ -18,6 +18,8 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
 
 import androidx.annotation.NonNull;
 
@@ -67,7 +69,7 @@ public class RobotMng implements Updatable {
 	/**
 	 * 旋转触发缓冲失败的阈值
 	 */
-	public static final double                           rotateTriggerBufFal = 0.01;
+	public static final double                           rotateTriggerBufFal = 0.03;
 	/**
 	 * 硬件控制器的映射表
 	 */
@@ -228,7 +230,7 @@ public class RobotMng implements Updatable {
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.15 + 0.2);
+				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH)/2);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());

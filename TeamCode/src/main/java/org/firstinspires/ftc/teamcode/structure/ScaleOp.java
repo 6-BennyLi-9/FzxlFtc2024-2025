@@ -52,13 +52,13 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void manage(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPosition(1 - position);
+		leftScaleController.setTargetPosition((0.4024-0.41*position)/0.42);
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPositionTolerance(1 - position, SMOOTH);
+		leftScaleController.setTargetPositionTolerance((0.4024-0.41*position)/0.42, SMOOTH);
 		rightScaleController.setTargetPositionTolerance(position, SMOOTH);
 	}
 

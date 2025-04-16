@@ -196,9 +196,8 @@ public class UtilsMng {
 	 * @param rightScalePosition 右侧秤臂的目标位置
 	 */
 	public void scaleOperate(double rightScalePosition) {
-		rightScalePosition = min(0.35, max(rightScalePosition, 0));
-		final double finalRightScalePosition = rightScalePosition;
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		final double finalRightScalePosition = min(0.5, max(rightScalePosition, 0.08));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition((0.4024-0.41*finalRightScalePosition)/0.42)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**
