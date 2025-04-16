@@ -11,8 +11,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.utils.LinkedAction;
-import org.firstinspires.ftc.teamcode.eventloop.TrajectoryRunnerAction;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
@@ -49,11 +47,11 @@ public class Left extends ActionBasedAutonomous {
 			appendDecanting();
 		}
 
+		utils.liftSuspendLv1();
 		utils.closeClip();
-		utils.waitMs(2000);
 		utils.addAction(DriveOp.build(0, - 0.25, 0));
 
-		appendAssembled(new TrajectoryRunnerAction(drive, drive.trajectorySequenceBuilder(Decant).lineToLinearHeading(LeftParkPrepare).back(15).build()), utils.pack());
+		appendLinked(track.runTo(LeftParkPrepare), utils.pack());
 	}
 
 	@Override
@@ -70,7 +68,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(800);
 		utils.boxRst();
 		final Action decanting = utils.pack();
-		appendAssembled(liftUpping, new LinkedAction(track.runTo(Decant), decanting));
+		appendLinked(liftUpping, track.runTo(Decant), decanting);
 	}
 
 	public void appendIntake() {
@@ -90,7 +88,7 @@ public class Left extends ActionBasedAutonomous {
 	}
 
 	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
-		utils.waitMs(600);
+		utils.waitMs(1000);
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
