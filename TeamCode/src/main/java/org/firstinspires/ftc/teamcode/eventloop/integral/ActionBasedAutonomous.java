@@ -20,7 +20,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.cores.UtilsMng;
+import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
 import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;

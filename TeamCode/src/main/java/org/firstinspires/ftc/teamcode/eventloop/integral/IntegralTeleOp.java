@@ -14,7 +14,7 @@ import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.cores.RobotMng;
+import org.firstinspires.ftc.teamcode.manager.RobotMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
 

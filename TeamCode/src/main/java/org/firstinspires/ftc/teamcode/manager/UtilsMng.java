@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores;
+package org.firstinspires.ftc.teamcode.manager;
 
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;

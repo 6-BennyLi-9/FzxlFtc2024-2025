@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores;
+package org.firstinspires.ftc.teamcode.manager;
 
 import static org.betastudio.ftc.Interfaces.HardwareController;
 import static org.betastudio.ftc.Interfaces.InitializeRequested;
