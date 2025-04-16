@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
+import static org.betastudio.ftc.util.Pose2dUtil.t;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.Decant;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftParkPrepare;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftSample;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftStart;
-import static java.lang.Math.toRadians;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.eventloop.TrajectoryRunnerAction;
+import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class Left extends ActionBasedAutonomous {
 		scale_get.add(SCALE_GET_POSITION_3);
 
 		sample_poses.add(LeftSample);
-		sample_poses.add(LeftSample.plus(new Pose2d(0, 0, toRadians(- 23))));
-		sample_poses.add(LeftSample.plus(new Pose2d(0, 0, toRadians(21.7))));
+		sample_poses.add(t(LeftSample, - 23));
+		sample_poses.add(t(LeftSample, 21.7));
 
 		for (int i = 0 ; i < LOOP_TIME ; i++) {
 			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
