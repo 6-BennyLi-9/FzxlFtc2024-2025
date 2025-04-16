@@ -29,6 +29,7 @@ public class Left extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
+		client.putLine("注意，初始化位置：机器右靠内侧边缘");
 		appendDecanting();
 		appendAfterDecant();
 
