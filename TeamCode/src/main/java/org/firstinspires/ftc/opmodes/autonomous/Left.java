@@ -29,9 +29,8 @@ public class Left extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
-		client.putLine("注意，初始化位置：机器右靠内侧边缘");
+		client.putData("注意", "初始化位置：机器右靠内侧边缘");
 		appendDecanting();
-		appendAfterDecant();
 
 		List <Double> scale_get    = new ArrayList <>();
 		List <Pose2d> sample_poses = new ArrayList <>();
@@ -48,7 +47,6 @@ public class Left extends ActionBasedAutonomous {
 			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
 			appendIntake();
 			appendDecanting();
-			appendAfterDecant();
 		}
 
 		utils.closeClip();
@@ -67,15 +65,12 @@ public class Left extends ActionBasedAutonomous {
 		utils.armSafe();
 		utils.liftDecantHigh();
 		final Action liftUpping = utils.pack();
+		utils.waitMs(50);
 		utils.boxDecant();
+		utils.waitMs(800);
+		utils.boxRst();
 		final Action decanting = utils.pack();
 		appendAssembled(liftUpping, new LinkedAction(track.runTo(Decant), decanting));
-	}
-
-	public void appendAfterDecant() {
-		utils.waitMs(300);
-		utils.boxRst();
-		inputMngAction();
 	}
 
 	public void appendIntake() {
@@ -95,6 +90,7 @@ public class Left extends ActionBasedAutonomous {
 	}
 
 	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
+		utils.waitMs(600);
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
