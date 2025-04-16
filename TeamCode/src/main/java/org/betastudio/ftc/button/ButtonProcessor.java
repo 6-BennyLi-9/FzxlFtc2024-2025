@@ -1,6 +1,8 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.button;
 
 import androidx.annotation.NonNull;
+
+import org.betastudio.ftc.util.TickEncoder;
 
 /**
  * 用于控制按键布尔状态，更加轻量化

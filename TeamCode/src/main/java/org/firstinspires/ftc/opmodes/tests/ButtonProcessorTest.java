@@ -3,8 +3,8 @@ package org.firstinspires.ftc.opmodes.tests;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.ButtonConfig;
-import org.betastudio.ftc.util.ButtonProcessorEx;
+import org.betastudio.ftc.button.ButtonConfig;
+import org.betastudio.ftc.button.ButtonProcessorEx;
 
 /**
  * @noinspection deprecation
