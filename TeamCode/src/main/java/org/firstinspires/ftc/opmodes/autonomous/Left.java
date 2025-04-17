@@ -49,9 +49,9 @@ public class Left extends ActionBasedAutonomous {
 
 		utils.liftSuspendLv1();
 		utils.closeClip();
-		utils.addAction(DriveOp.build(0, - 0.25, 0));
 
-		appendLinked(track.runTo(LeftParkPrepare), utils.pack());
+		appendLinked(track.runTo(LeftParkPrepare));
+		appendAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
 	}
 
 	@Override
