@@ -24,13 +24,8 @@ public final class ActionRunnerMeta implements Action {
 			name.set(((Nameable) action).getName());
 		}
 
-		final AtomicBoolean res = new AtomicBoolean(false);
-		Runnable            workerProgressOverride;
-		if (action instanceof ProgressedTask) {
-			workerProgressOverride = () -> marker.set(((ProgressedTask) action).getWorkerProgress());
-		} else {
-			workerProgressOverride = () -> marker.get().tick();
-		}
+		final AtomicBoolean res                    = new AtomicBoolean(false);
+		final Runnable      workerProgressOverride = action instanceof ProgressedTask ? (() -> marker.set(((ProgressedTask) action).getWorkerProgress())) : (() -> marker.get().tick());
 		metaRunner = () -> {
 			try {
 				workerProgressOverride.run();
