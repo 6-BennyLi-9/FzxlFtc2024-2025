@@ -24,30 +24,27 @@ public final class ActionRunnerMeta implements Action {
 			name.set(((Nameable) action).getName());
 		}
 
-		AtomicBoolean res = new AtomicBoolean(false);
+		final AtomicBoolean res = new AtomicBoolean(false);
+		Runnable            workerProgressOverride;
 		if (action instanceof ProgressedTask) {
-			metaRunner = () -> {
-				marker.set(((ProgressedTask) action).getWorkerProgress());
-				render.render(name.get(), marker.get());
-				res.set(action.activate());
-				if (! res.get()) {
-					marker.set(((ProgressedTask) action).getWorkerProgress());
-					render.render(name.get(), marker.get());
-				}
-				return res.get();
-			};
+			workerProgressOverride = () -> marker.set(((ProgressedTask) action).getWorkerProgress());
 		} else {
-			metaRunner = () -> {
-				marker.get().tick();
+			workerProgressOverride = () -> marker.get().tick();
+		}
+		metaRunner = () -> {
+			try {
+				workerProgressOverride.run();
 				render.render(name.get(), marker.get());
 				res.set(action.activate());
 				if (! res.get()) {
-					marker.get().tick();
+					workerProgressOverride.run();
 					render.render(name.get(), marker.get());
 				}
 				return res.get();
-			};
-		}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		};
 	}
 
 	@Override
