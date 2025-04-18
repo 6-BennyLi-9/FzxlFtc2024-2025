@@ -20,6 +20,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.eventloop.TrajectoryAction;
 import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
@@ -48,7 +49,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		Global.currentOpmode = this;
 		Global.registerGamepad(gamepad1, gamepad2);
 		Global.prepareCoreThreadPool();
-		RunMode.globalRunMode = RunMode.TELEOP;
+		RunMode.globalRunMode = RunMode.AUTONOMOUS;
 		Global.client = client;
 		timer = new Timer();
 		builder = new LinkedActionBuilder();
@@ -72,6 +73,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		drive = new SampleMecanumDrive(hardwareMap);
 		track = new HeadingTrajectoryBuilder(drive);
+		TrajectoryAction.setClient(client);
 
 		client.putData("TPS", "wait for start");
 		client.putData("time", "wait for start");
