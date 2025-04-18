@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
+import static org.betastudio.ftc.util.Pose2dUtil.str;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
@@ -22,7 +24,7 @@ public class TrajectoryAction extends ActionImplementFactory {
 			}
 			drive.update();
 			Pose2d minus = trajectorySequence.end().minus(drive.getPoseEstimate());
-			client.putData("点位差", minus);
+			client.putData("点位差", str(minus));
 			return drive.isBusy();
 		});
 	}
@@ -36,7 +38,7 @@ public class TrajectoryAction extends ActionImplementFactory {
 			}
 			drive.update();
 			Pose2d minus = trajectory.end().minus(drive.getPoseEstimate());
-			client.putData("点位差", minus);
+			client.putData("点位差", str(minus));
 			return drive.isBusy();
 		});
 	}
