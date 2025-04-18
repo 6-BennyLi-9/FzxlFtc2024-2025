@@ -8,8 +8,8 @@ import org.betastudio.ftc.action.ActionImplementFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class TrajectoryRunnerAction extends ActionImplementFactory {
-	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final TrajectorySequence trajectorySequence) {
+public class TrajectoryAction extends ActionImplementFactory {
+	public TrajectoryAction(final SampleMecanumDrive drive, final TrajectorySequence trajectorySequence) {
 		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
 			if (! isInitialized.get()) {
@@ -21,7 +21,7 @@ public class TrajectoryRunnerAction extends ActionImplementFactory {
 		});
 	}
 
-	public TrajectoryRunnerAction(final SampleMecanumDrive drive, final Trajectory trajectory) {
+	public TrajectoryAction(final SampleMecanumDrive drive, final Trajectory trajectory) {
 		final AtomicBoolean isInitialized = new AtomicBoolean(false);
 		setAction(() -> {
 			if (! isInitialized.get()) {
