@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -15,7 +16,6 @@ import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ScalePositions;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
@@ -27,6 +27,10 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public static ScaleOp getInstance() {
 		return instance;
+	}
+
+	public strictfp static double operateLeftPosition(final double rightPosition) {
+		return 0.9580952380952381 - 0.9761904761904762 * rightPosition;
 	}
 
 	@Override
@@ -48,10 +52,6 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 	@Override
 	public void writeToInstance() {
 		instance = this;
-	}
-
-	public strictfp static double operateLeftPosition(final double rightPosition){
-		return 0.9580952380952381 - 0.9761904761904762 * rightPosition;
 	}
 
 	public void manage(double position) {

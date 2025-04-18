@@ -10,6 +10,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_PREPARE;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
@@ -20,7 +21,6 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
 /**

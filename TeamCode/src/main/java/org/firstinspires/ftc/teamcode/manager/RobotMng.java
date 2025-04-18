@@ -20,6 +20,8 @@ import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
 
 import androidx.annotation.NonNull;
 
@@ -46,8 +48,6 @@ import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.RatchetOp;
 import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.structure.positions.ScalePositions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -230,7 +230,7 @@ public class RobotMng implements Updatable {
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH)/2);
+				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH) / 2);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());

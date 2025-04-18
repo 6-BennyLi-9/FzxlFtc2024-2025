@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MAX_POSITION
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_RISE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
@@ -16,7 +17,6 @@ import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ArmPositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.structure;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_PREPARE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
@@ -11,7 +12,6 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.PlacePositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;

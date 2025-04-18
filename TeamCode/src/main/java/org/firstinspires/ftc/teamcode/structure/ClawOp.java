@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +11,6 @@ import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ClawPositions;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
