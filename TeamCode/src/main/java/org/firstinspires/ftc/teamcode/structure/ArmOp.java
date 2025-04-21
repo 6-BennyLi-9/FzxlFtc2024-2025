@@ -35,8 +35,8 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);
 		rightArmControl = new ServoCtrl(HardwareDatabase.rightArm, 0.7);
 
-		leftArmControl.setTag(Labeler.gen().summon(leftArmControl));
-		rightArmControl.setTag(Labeler.gen().summon(rightArmControl));
+		leftArmControl.setTag(Labeler.summon(leftArmControl));
+		rightArmControl.setTag(Labeler.summon(rightArmControl));
 	}
 
 	@Override

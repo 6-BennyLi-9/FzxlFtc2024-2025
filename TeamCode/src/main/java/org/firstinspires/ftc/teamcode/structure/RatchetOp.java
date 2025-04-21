@@ -22,7 +22,7 @@ public class RatchetOp implements Interfaces.HardwareController, Interfaces.Init
 	public void connect() {
 		ratchetControl = new ServoCtrl(HardwareDatabase.ratchet, RATCHET_LOOSEN);
 
-		ratchetControl.setTag(Labeler.gen().summon(ratchetControl));
+		ratchetControl.setTag(Labeler.summon(ratchetControl));
 	}
 
 	@Override

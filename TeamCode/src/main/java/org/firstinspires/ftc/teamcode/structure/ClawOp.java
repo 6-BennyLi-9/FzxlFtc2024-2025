@@ -26,7 +26,7 @@ public class ClawOp implements Interfaces.HardwareController, Interfaces.Initial
 	public void connect() {
 		clawControl = new ServoCtrl(HardwareDatabase.claw, 0);
 
-		clawControl.setTag(Labeler.gen().summon(clawControl));
+		clawControl.setTag(Labeler.summon(clawControl));
 	}
 
 	@Override

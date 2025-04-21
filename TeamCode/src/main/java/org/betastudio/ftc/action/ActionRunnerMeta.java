@@ -18,7 +18,7 @@ public final class ActionRunnerMeta implements Action {
 
 	public ActionRunnerMeta(@NonNull final Action action, final ProgressRender render) {
 		final AtomicReference <ProgressMarker> marker = new AtomicReference <>(new ProgressMarkerImplement(action.getCount()));
-		final AtomicReference <String>         name   = new AtomicReference <>(Labeler.gen().summon(action));
+		final AtomicReference <String>         name   = new AtomicReference <>(Labeler.summon(action));
 
 		if (action instanceof Nameable) {
 			name.set(((Nameable) action).getName());
