@@ -39,7 +39,7 @@ public class Left extends ActionBasedAutonomous {
 
 		sample_poses.add(LeftSample);
 		sample_poses.add(t(LeftSample, - 23));
-		sample_poses.add(t(LeftSample, 21.7));
+		sample_poses.add(t(LeftSample, 30));
 
 		for (int i = 0 ; i < LOOP_TIME ; i++) {
 			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
@@ -80,7 +80,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.scaleBack();
 		utils.waitMs(1200);
 		utils.openClaw();
-		utils.waitMs(100);
+		utils.waitMs(120);
 		utils.closeClaw();
 		utils.waitMs(100);
 		utils.openClaw();
