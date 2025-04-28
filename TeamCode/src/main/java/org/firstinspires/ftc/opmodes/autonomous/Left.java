@@ -27,7 +27,7 @@ public class Left extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
-		client.putData("注意", "初始化位置：机器右靠内侧边缘");
+		client.putData("初始化位置", "机器右靠内侧边缘");
 		appendDecanting();
 
 		List <Double> scale_get    = new ArrayList <>();
