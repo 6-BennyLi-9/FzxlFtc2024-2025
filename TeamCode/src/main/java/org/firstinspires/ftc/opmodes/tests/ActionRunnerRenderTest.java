@@ -13,7 +13,7 @@ import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 
-@Annotations.TestDoneSuccessfully
+@Annotations.TestSucceed
 @Disabled
 @Autonomous(group = "9_Tests")
 public class ActionRunnerRenderTest extends LinearOpMode {

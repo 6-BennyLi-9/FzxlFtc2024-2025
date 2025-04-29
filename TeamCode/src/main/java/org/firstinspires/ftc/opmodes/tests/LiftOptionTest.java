@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
 
 @Disabled
-@Annotations.TestDoneSuccessfully
+@Annotations.TestSucceed
 @TeleOp
 public class LiftOptionTest extends LinearOpMode {
 	@Override

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.eventloop.integral.IntegralTeleOp;
 
 @TeleOp(group = "zzz")
 @Disabled
-@Annotations.TestDoneSuccessfully
+@Annotations.TestSucceed
 public class FtcLogExceptionTest extends IntegralTeleOp {
 	@Override
 	public void op_loop_entry() {

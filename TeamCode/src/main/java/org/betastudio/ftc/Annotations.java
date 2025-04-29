@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 public final class Annotations {
 	@Documented
 	@Target({ElementType.TYPE_USE, TYPE})
-	public @interface TestDoneSuccessfully {}
+	public @interface TestSucceed {}
 
 	@Documented
 	@Target(TYPE)

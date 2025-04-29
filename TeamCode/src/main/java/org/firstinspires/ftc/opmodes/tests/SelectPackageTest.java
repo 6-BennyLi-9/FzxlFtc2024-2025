@@ -14,7 +14,7 @@ import org.betastudio.ftc.button.ButtonConfig;
 import org.betastudio.ftc.button.ButtonProcessor;
 import org.firstinspires.ftc.teamcode.Global;
 
-@Annotations.TestDoneSuccessfully
+@Annotations.TestSucceed
 @TeleOp(group = "9_Tests")
 @Disabled
 public class SelectPackageTest extends LinearOpMode {

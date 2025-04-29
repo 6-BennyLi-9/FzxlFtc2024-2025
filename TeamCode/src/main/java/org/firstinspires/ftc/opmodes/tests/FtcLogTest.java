@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Global;
 
 @Autonomous(group = "9_Tests")
 @Disabled
-@Annotations.TestDoneSuccessfully
+@Annotations.TestSucceed
 public class FtcLogTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
