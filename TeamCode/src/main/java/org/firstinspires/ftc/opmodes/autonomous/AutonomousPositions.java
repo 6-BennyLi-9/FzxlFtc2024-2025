@@ -19,4 +19,9 @@ public final class AutonomousPositions {
 	public static final Pose2d LeftSample      = p(59, 49, - 90);
 	@TestSucceed
 	public static final Pose2d LeftParkPrepare = p(36, 10, 0);
+
+	public static final Pose2d RightStart  = p(- 12, 60, 90);
+	public static final Pose2d Suspend     = p(- 10, 32, 90);
+	public static final Pose2d RightSample = p(- 49.5, 47.5, - 90);
+	public static final Pose2d GetSuspend  = p(- 50, 61, - 90);
 }
