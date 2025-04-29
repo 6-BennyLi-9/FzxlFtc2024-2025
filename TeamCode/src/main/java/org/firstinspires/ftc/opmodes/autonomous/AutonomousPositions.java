@@ -12,16 +12,16 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
  */
 public final class AutonomousPositions {
 	@TestSucceed
-	public static final Pose2d LeftStart       = p(40, 65, - 90);
+	public static final Pose2d LEFT_START        = p(40, 65, - 90);
 	@TestSucceed
-	public static final Pose2d Decant          = p(55.5, 55.5, - 135);
+	public static final Pose2d DECANT            = p(55.5, 55.5, - 135);
 	@TestSucceed
-	public static final Pose2d LeftSample      = p(59, 49, - 90);
+	public static final Pose2d LEFT_SAMPLE       = p(59, 49, - 90);
 	@TestSucceed
-	public static final Pose2d LeftParkPrepare = p(36, 10, 0);
+	public static final Pose2d LEFT_PARK_PREPARE = p(36, 10, 0);
 
-	public static final Pose2d RightStart  = p(- 12, 60, 90);
-	public static final Pose2d Suspend     = p(- 10, 32, 90);
-	public static final Pose2d RightSample = p(- 49.5, 47.5, - 90);
-	public static final Pose2d GetSuspend  = p(- 50, 61, - 90);
+	public static final Pose2d RIGHT_START  = p(- 12, 60, 90);
+	public static final Pose2d SUSPEND      = p(- 10, 32, 90);
+	public static final Pose2d RIGHT_SAMPLE = p(- 49.5, 47.5, - 90);
+	public static final Pose2d GET_SUSPEND  = p(- 50, 61, - 90);
 }

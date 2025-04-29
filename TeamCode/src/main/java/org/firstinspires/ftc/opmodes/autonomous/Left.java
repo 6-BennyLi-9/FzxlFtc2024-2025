@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.t;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.Decant;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftParkPrepare;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftSample;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LeftStart;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.DECANT;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_PARK_PREPARE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_SAMPLE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_START;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -37,9 +37,9 @@ public class Left extends ActionBasedAutonomous {
 		scale_get.add(SCALE_GET_POSITION_2);
 		scale_get.add(SCALE_GET_POSITION_3);
 
-		sample_poses.add(LeftSample);
-		sample_poses.add(t(LeftSample, - 23));
-		sample_poses.add(t(LeftSample, 30));
+		sample_poses.add(LEFT_SAMPLE);
+		sample_poses.add(t(LEFT_SAMPLE, - 23));
+		sample_poses.add(t(LEFT_SAMPLE, 30));
 
 		for (int i = 0 ; i < LOOP_TIME ; i++) {
 			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
@@ -50,13 +50,13 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftSuspendLv1();
 		utils.closeClip();
 
-		appendLinked(track.runTo(LeftParkPrepare));
+		appendLinked(track.runTo(LEFT_PARK_PREPARE));
 		appendAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
 	}
 
 	@Override
 	public Pose2d getInitialPose() {
-		return LeftStart;
+		return LEFT_START;
 	}
 
 	public void appendDecanting() {
@@ -68,7 +68,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(800);
 		utils.boxRst();
 		final Action decanting = utils.pack();
-		appendLinked(liftUpping, track.runTo(Decant), decanting);
+		appendLinked(liftUpping, track.runTo(DECANT), decanting);
 	}
 
 	public void appendIntake() {
