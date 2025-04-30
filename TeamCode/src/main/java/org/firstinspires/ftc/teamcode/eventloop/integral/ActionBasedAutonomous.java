@@ -93,6 +93,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 	@Override
 	public void loop_init() {
 		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		client.update();
 	}
 
 	@Override
