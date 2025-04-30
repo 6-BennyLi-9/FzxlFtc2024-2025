@@ -25,7 +25,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 				overclockMode.newLoop(this::op_loop).run();
 			}
 		} catch (final Throwable e) {
-			exception_entry(e);
+			on_exception(e);
 		} finally {
 			op_end();
 		}
@@ -56,7 +56,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 		idle();
 	}
 
-	public void exception_entry(final Throwable e) {
+	public void on_exception(final Throwable e) {
 		throw new RuntimeException(e);
 	}
 }

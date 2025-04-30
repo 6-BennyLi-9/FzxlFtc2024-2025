@@ -111,7 +111,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		try {
 			op_loop_entry();
 		} catch (final Exception exception) {
-			exception_entry(exception);
+			on_exception(exception);
 		}
 	}
 
@@ -147,7 +147,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	}
 
 	@Override
-	public void exception_entry(final Throwable e) {
+	public void on_exception(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 }

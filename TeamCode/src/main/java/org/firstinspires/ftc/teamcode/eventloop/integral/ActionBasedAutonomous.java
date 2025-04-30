@@ -154,7 +154,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 	}
 
 	@Override
-	public void exception_entry(final Throwable e) {
+	public void on_exception(final Throwable e) {
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 
