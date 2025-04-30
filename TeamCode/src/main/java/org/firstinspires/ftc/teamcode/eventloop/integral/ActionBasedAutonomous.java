@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.eventloop.TrajectoryAction;
+import org.firstinspires.ftc.teamcode.eventloop.trajectory.TrajectoryAction;
 import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;
 import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 

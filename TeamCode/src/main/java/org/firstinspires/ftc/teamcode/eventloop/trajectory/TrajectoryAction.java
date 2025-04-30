@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.eventloop;
+package org.firstinspires.ftc.teamcode.eventloop.trajectory;
 
 import static org.betastudio.ftc.util.Pose2dUtil.str;
 
