@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 public abstract class OverclockOpMode extends LinearOpMode {
 	private OverclockMode overclockMode = OverclockMode.SUPER_LINEAR;
@@ -24,6 +25,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 			while (opModeIsActive()) {
 				overclockMode.newLoop(this::op_loop).run();
 			}
+		} catch (OpModeManagerImpl.ForceStopException ignored) {// ignore force stop exception
 		} catch (final Throwable e) {
 			on_exception(e);
 		} finally {
