@@ -30,6 +30,7 @@ public class LinkedActionBuilder implements ActionBuilder {
 
 	@Override
 	public Action store() {
+		assert ! actions.isEmpty();
 		return new LinkedAction(new ArrayList <>(actions));
 	}
 }
