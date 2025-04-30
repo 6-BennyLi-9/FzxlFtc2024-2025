@@ -28,6 +28,9 @@ public class LinkedActionBuilder implements ActionBuilder {
 		actions.remove(action);
 	}
 
+	/**
+	 * 为了防止后期出现 {@link IndexOutOfBoundsException}， 将提前断言可能出现的问题
+	 */
 	@Override
 	public Action store() {
 		assert ! actions.isEmpty();
