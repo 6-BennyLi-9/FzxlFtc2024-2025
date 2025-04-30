@@ -50,8 +50,8 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftSuspendLv1();
 		utils.closeClip();
 
-		appendLinked(track.runTo(LEFT_PARK_PREPARE));
-		appendAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
+		executeLinked(track.runTo(LEFT_PARK_PREPARE));
+		executeAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(800);
 		utils.boxRst();
 		final Action decanting = utils.pack();
-		appendLinked(liftUpping, track.runTo(DECANT), decanting);
+		executeLinked(liftUpping, track.runTo(DECANT), decanting);
 	}
 
 	public void appendIntake() {
@@ -84,7 +84,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.closeClaw();
 		utils.waitMs(100);
 		utils.openClaw();
-		inputMngAction();
+		executeManager();
 	}
 
 	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
@@ -92,6 +92,6 @@ public class Left extends ActionBasedAutonomous {
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 
-		appendAssembled(utils.pack(), track.runTo(pose));
+		executeAssembled(utils.pack(), track.runTo(pose));
 	}
 }

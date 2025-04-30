@@ -158,15 +158,15 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
 	}
 
-	public void inputMngAction() {
+	public void executeManager() {
 		builder.append(utils.pack());
 	}
 
-	public void appendAssembled(final Action... actions) {
+	public void executeAssembled(final Action... actions) {
 		builder.append(new AssembledAction(actions));
 	}
 
-	public void appendLinked(final Action... actions) {
+	public void executeLinked(final Action... actions) {
 		builder.append(new LinkedAction(actions));
 	}
 
