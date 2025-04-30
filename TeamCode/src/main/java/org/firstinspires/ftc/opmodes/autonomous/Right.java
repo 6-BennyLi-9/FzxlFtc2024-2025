@@ -24,7 +24,6 @@ public class Right extends ActionBasedAutonomous {
 	public static final double        GET_SAMPLE_DISTANCE     = 2;
 	public static final double        INTAKE_SAMPLE_DISTANCE  = - 5;
 	public static final double        SUSPEND_SAMPLE_DISTANCE = 5;
-	public static final double        SUSPEND_Y_CALIBRATE     = 1;
 	public static final int           SUSPEND_COUNT           = 2;
 	public static final int           INTAKE_COUNT            = 2;
 	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
@@ -32,7 +31,7 @@ public class Right extends ActionBasedAutonomous {
 
 	static {
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
-			SUSPEND_POSES.add(yp(xp(SUSPEND, SUSPEND_SAMPLE_DISTANCE * (i + 1)), SUSPEND_Y_CALIBRATE * i));
+			SUSPEND_POSES.add(xp(SUSPEND, SUSPEND_SAMPLE_DISTANCE * (i + 1)));
 		}
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
