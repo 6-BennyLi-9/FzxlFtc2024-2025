@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import androidx.annotation.NonNull;
-
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
@@ -66,10 +64,4 @@ public final class Local {
 		}
 	}
 
-	@Deprecated
-	public static void runMultiThreads(@NonNull final Runnable... threads) {
-		for (final Runnable current : threads) {
-			Global.service.execute(current);
-		}
-	}
 }

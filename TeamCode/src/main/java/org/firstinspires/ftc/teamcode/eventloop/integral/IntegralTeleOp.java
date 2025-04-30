@@ -28,7 +28,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public    Client    client;
 	protected boolean   is_terminate_method_called;
 	private   boolean   auto_terminate_when_TLE;
-	private   Exception inlineUncaughtException;
+	private   Throwable inlineUncaughtException;
 
 	@Override
 	public void op_init() {
@@ -136,7 +136,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
+	public void sendTerminateSignal(final TerminateReason reason, final Throwable e) {
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
@@ -151,6 +151,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 
 	@Override
 	public void on_exception(final Throwable e) {
-		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, e);
 	}
 }
