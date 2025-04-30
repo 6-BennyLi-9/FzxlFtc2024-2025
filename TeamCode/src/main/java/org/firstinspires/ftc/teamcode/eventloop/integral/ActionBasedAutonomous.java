@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+	public static final String         LOW_TPS_WARNING = "⚠警告⚠ TPS偏低！ ⚠警告⚠";
 	public    SampleMecanumDrive       drive;
 	public    UtilsMng                 utils;
 	public    Timer                    timer;
@@ -108,7 +109,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 	@Override
 	public void op_loop() {
-		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
+		double tps = 1.0e3 / timer.restartAndGetDeltaTime();
+		client.changeData("TPS", tps);
 		client.changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
@@ -123,6 +125,16 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		drive.update();
 		runner.run();
+
+		checkTPS(tps);
+	}
+
+	protected void checkTPS(double tps) {
+		if (tps < 30){
+			client.putLine(LOW_TPS_WARNING);
+		} else {
+			client.deleteLine(LOW_TPS_WARNING);
+		}
 	}
 
 	@Override
