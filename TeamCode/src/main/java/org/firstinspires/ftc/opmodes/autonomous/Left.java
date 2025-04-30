@@ -28,6 +28,8 @@ public class Left extends ActionBasedAutonomous {
 	@Override
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器右靠内侧边缘");
+
+		/// 倒预载
 		appendDecanting();
 
 		List <Double> scale_get    = new ArrayList <>();
@@ -42,11 +44,14 @@ public class Left extends ActionBasedAutonomous {
 		sample_poses.add(t(LEFT_SAMPLE, 30));
 
 		for (int i = 0 ; i < LOOP_TIME ; i++) {
+			/// 夹取
 			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
 			appendIntake();
+			/// 倒出
 			appendDecanting();
 		}
 
+		/// 停靠
 		utils.liftSuspendLv1();
 		utils.closeClip();
 
