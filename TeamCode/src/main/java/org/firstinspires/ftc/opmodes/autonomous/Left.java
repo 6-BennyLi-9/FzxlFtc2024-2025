@@ -20,10 +20,22 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static final double SCALE_GET_POSITION_1 = 0.238;
-	public static final double SCALE_GET_POSITION_2 = 0.2905;
-	public static final double SCALE_GET_POSITION_3 = 0.28;
-	public static final int    LOOP_TIME            = 3;
+	public static final double        SCALE_GET_POSITION_1 = 0.238;
+	public static final double        SCALE_GET_POSITION_2 = 0.2905;
+	public static final double        SCALE_GET_POSITION_3 = 0.28;
+	public static final int           SAMPLE_COUNTS        = 3;
+	public static final List <Double> SCALE_GET_POSITIONS  = new ArrayList <>();
+	public static final List <Pose2d> SAMPLE_POSES         = new ArrayList <>();
+
+	static {
+		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_1);
+		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_2);
+		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_3);
+
+		SAMPLE_POSES.add(LEFT_SAMPLE);
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 23));
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, 30));
+	}
 
 	@Override
 	public void actionBuildEntry() {
@@ -32,20 +44,9 @@ public class Left extends ActionBasedAutonomous {
 		/// 倒预载
 		appendDecanting();
 
-		List <Double> scale_get    = new ArrayList <>();
-		List <Pose2d> sample_poses = new ArrayList <>();
-
-		scale_get.add(SCALE_GET_POSITION_1);
-		scale_get.add(SCALE_GET_POSITION_2);
-		scale_get.add(SCALE_GET_POSITION_3);
-
-		sample_poses.add(LEFT_SAMPLE);
-		sample_poses.add(t(LEFT_SAMPLE, - 23));
-		sample_poses.add(t(LEFT_SAMPLE, 30));
-
-		for (int i = 0 ; i < LOOP_TIME ; i++) {
+		for (int i = 0 ; i < SAMPLE_COUNTS ; i++) {
 			/// 夹取
-			appendRunningScaling(scale_get.get(i), sample_poses.get(i));
+			appendRunningScaling(SCALE_GET_POSITIONS.get(i), SAMPLE_POSES.get(i));
 			appendIntake();
 			/// 倒出
 			appendDecanting();
