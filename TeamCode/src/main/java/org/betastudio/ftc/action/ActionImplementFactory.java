@@ -3,7 +3,7 @@ package org.betastudio.ftc.action;
 import static org.betastudio.ftc.Interfaces.Nameable;
 import static org.betastudio.ftc.Interfaces.ThreadEx;
 
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.ExceptionsUtil;
 
 import java.util.concurrent.Callable;
 
@@ -33,8 +33,8 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 		try {
 			return action.call();
 		} catch (final Exception e) {
-			FtcLogTunnel.MAIN.report(e);
-			throw new RuntimeException(e);
+			Throwable cause = ExceptionsUtil.getOriginException(e);
+			throw new RuntimeException(cause);
 		}
 	}
 
@@ -70,7 +70,8 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 		try {
 			return params.call();
 		} catch (final Exception e) {
-			throw new RuntimeException(e);
+			Throwable cause = ExceptionsUtil.getOriginException(e);
+			throw new RuntimeException(cause);
 		}
 	}
 }

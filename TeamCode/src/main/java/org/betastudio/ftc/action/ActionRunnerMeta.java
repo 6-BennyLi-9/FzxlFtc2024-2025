@@ -7,6 +7,7 @@ import static org.betastudio.ftc.Interfaces.ProgressedTask;
 
 import androidx.annotation.NonNull;
 
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Labeler;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
@@ -37,7 +38,8 @@ public final class ActionRunnerMeta implements Action {
 				}
 				return res.get();
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				Throwable cause = ExceptionsUtil.getOriginException(e);
+				throw new RuntimeException(cause);
 			}
 		};
 	}

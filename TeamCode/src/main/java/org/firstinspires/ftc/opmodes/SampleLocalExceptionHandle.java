@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.betastudio.ftc.Annotations;
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(group = "9_Tests")
@@ -36,7 +37,8 @@ public final class SampleLocalExceptionHandle extends LinearOpMode implements Th
 
 		while (opModeIsActive()) {
 			if (null != e) {
-				throw new RuntimeException(e);
+				Throwable cause = ExceptionsUtil.getOriginException(e);
+				throw new RuntimeException(cause);
 			}
 		}
 	}

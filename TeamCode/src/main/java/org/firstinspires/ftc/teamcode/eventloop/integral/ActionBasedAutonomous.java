@@ -16,6 +16,7 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
@@ -106,7 +107,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
-			throw new RuntimeException(inlineUncaughtException);
+			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			throw new RuntimeException(cause);
 		}
 
 		if (is_terminate_method_called) {
@@ -136,8 +138,9 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		RunMode.globalRunMode = RunMode.TERMINATE;
 
 		if (null != inlineUncaughtException) {
-			FtcLogTunnel.MAIN.report(inlineUncaughtException);
-			throw new RuntimeException(inlineUncaughtException);
+			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			FtcLogTunnel.MAIN.report(cause);
+			throw new RuntimeException(cause);
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline closed");
