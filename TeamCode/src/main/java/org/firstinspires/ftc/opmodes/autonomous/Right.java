@@ -89,6 +89,7 @@ public class Right extends ActionBasedAutonomous {
 	}
 
 	public void appendGetSample(final Pose2d get) {
+		utils.waitMs(100);
 		executeAssembled(track.runTo(get), utils.pack());
 		utils.waitMs(500);
 		utils.closeClip();
