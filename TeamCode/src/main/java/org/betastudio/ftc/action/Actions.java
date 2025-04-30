@@ -1,10 +1,10 @@
 package org.betastudio.ftc.action;
 
+import static org.betastudio.ftc.Annotations.MirrorMethod;
 import static org.betastudio.ftc.Interfaces.ProgressRender;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.action.render.NullptrRender;
 import org.jetbrains.annotations.Contract;
 
@@ -29,7 +29,6 @@ public final class Actions {
 	/**
 	 * @param actionBlock 要运行的 {@code Action} 块,执行直到结束
 	 */
-	@Annotations.MirrorMethod
 	public static void runAction(@NonNull final Action actionBlock) {
 		while (true) {
 			if (! actionBlock.activate()) {
@@ -52,7 +51,7 @@ public final class Actions {
 		}
 	}
 
-	@Annotations.MirrorMethod
+	@MirrorMethod
 	@NonNull
 	@Contract("_ -> new")
 	public static PriorityAction newMirroredPriority(final Action action) {
