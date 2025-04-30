@@ -25,14 +25,17 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
+	public static final int           SUSPEND_COUNT           = 2;
+	public static final int           INTAKE_COUNT            = 2;
+	public static final double        SCALE_INTAKE_POSITION   = 0.2;
 	public static final double        GET_SAMPLE_DISTANCE     = 2;
 	public static final double        INTAKE_SAMPLE_DISTANCE  = - 5;
 	public static final double        SUSPEND_SAMPLE_DISTANCE = 5;
 	public static final double        SUSPEND_Y_CALIBRATE     = 1;
-	public static final int           SUSPEND_COUNT           = 2;
-	public static final int           INTAKE_COUNT            = 2;
+	public static final int           OUTTAKE_DISTANCE        = - 10;
 	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
 	public static final List <Pose2d> INTAKE_POSES            = new ArrayList <>();
+	public static final List <Pose2d> OUTTAKE_POSES           = new ArrayList <>();
 
 	static {
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
@@ -41,6 +44,7 @@ public class Right extends ActionBasedAutonomous {
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
 			INTAKE_POSES.add(xp(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i));
+			OUTTAKE_POSES.add(p(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i, OUTTAKE_DISTANCE));
 		}
 	}
 
@@ -50,11 +54,17 @@ public class Right extends ActionBasedAutonomous {
 		Actions.runAction(utils.pack());
 		appendSuspend(SUSPEND);
 
+		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
+			appendIntake(INTAKE_POSES.get(i), OUTTAKE_POSES.get(i));
+		}
+
+		/// 悬挂
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
 			appendGetSample(GET_SUSPEND);
 			appendSuspend(SUSPEND_POSES.get(i));
 		}
 
+		/// 停靠
 		executeAssembled(track.runTo(RIGHT_PARK), utils.pack());
 	}
 
@@ -79,6 +89,26 @@ public class Right extends ActionBasedAutonomous {
 		utils.closeClip();
 		utils.waitMs(500);
 		executeLinked(track.runTo(yp(get, GET_SAMPLE_DISTANCE)), utils.pack());
+	}
+
+	public void appendIntake(final Pose2d intake, final Pose2d outtake) {
+		utils.waitMs(200);
+		utils.scaleOperate(SCALE_INTAKE_POSITION);
+		executeAssembled(track.runTo(intake), utils.pack());
+		utils.armDisplay();
+		utils.waitMs(100);
+		utils.closeClaw();
+		utils.waitMs(100);
+		utils.armBack();
+		utils.scaleBack();
+		utils.waitMs(200);
+		utils.openClaw();
+		executeAssembled(track.runTo(outtake), utils.pack());
+		utils.armSafe();
+		utils.boxDecant();
+		utils.waitMs(200);
+		utils.boxRst();
+		executeManager();
 	}
 
 	@Override
