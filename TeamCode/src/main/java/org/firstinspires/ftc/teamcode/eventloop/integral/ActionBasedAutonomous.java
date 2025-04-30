@@ -11,7 +11,6 @@ import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
-import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -20,27 +19,27 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.eventloop.TrajectoryAction;
-import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.eventloop.TrajectoryAction;
 import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;
+import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 
 import java.util.Locale;
 import java.util.Objects;
 
 public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public static final String         LOW_TPS_WARNING = "⚠警告⚠ TPS偏低！ ⚠警告⚠";
-	public    SampleMecanumDrive       drive;
-	public    UtilsMng                 utils;
-	public    Timer                    timer;
-	public    Client                   client;
-	public    ActionBuilder            builder;
-	protected boolean                  is_terminate_method_called;
-	protected HeadingTrajectoryBuilder track;
-	private   Exception                inlineUncaughtException;
-	private   Action                   action;
-	private   Runnable                 runner;
+	public static final String                   LOW_TPS_WARNING = "⚠警告⚠ TPS偏低！ ⚠警告⚠";
+	public              SampleMecanumDrive       drive;
+	public              UtilsMng                 utils;
+	public              Timer                    timer;
+	public              Client                   client;
+	public              ActionBuilder            builder;
+	protected           boolean                  is_terminate_method_called;
+	protected           HeadingTrajectoryBuilder track;
+	private             Exception                inlineUncaughtException;
+	private             Action                   action;
+	public              Runnable                 runner;
 
 	public abstract void actionBuildEntry();
 
@@ -60,11 +59,6 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		telemetry.clearAll();
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
-
-		final MethodFrequencyCaller caller = new MethodFrequencyCaller(client::update);
-		caller.setStopRequestCaller(() -> is_terminate_method_called || isStopRequested());
-		caller.setFrequencyFPS(5);
-		Global.service.execute(caller);
 
 		HardwareDatabase.sync(hardwareMap, true);
 		HardwareDatabase.chassisConfig();
@@ -102,8 +96,6 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 	@Override
 	public void op_start() {
-		timer.pushTimeTag("start");
-
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
 	}
 
@@ -111,7 +103,6 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 	public void op_loop() {
 		double tps = 1.0e3 / timer.restartAndGetDeltaTime();
 		client.changeData("TPS", tps);
-		client.changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
@@ -127,10 +118,11 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		runner.run();
 
 		checkTPS(tps);
+		client.update();
 	}
 
 	protected void checkTPS(double tps) {
-		if (tps < 30){
+		if (tps < 30) {
 			client.putLine(LOW_TPS_WARNING);
 		} else {
 			client.deleteLine(LOW_TPS_WARNING);
