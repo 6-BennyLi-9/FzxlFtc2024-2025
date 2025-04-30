@@ -62,6 +62,7 @@ public class Right extends ActionBasedAutonomous {
 		executeAssembled(track.runTo(suspend), utils.pack());
 		utils.liftSuspendHigh();
 		utils.openClip();
+		utils.waitMs(100);
 		executeManager();
 		utils.waitMs(200);
 		utils.liftDown();
