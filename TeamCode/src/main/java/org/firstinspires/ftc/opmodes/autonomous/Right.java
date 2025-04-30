@@ -11,6 +11,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.betastudio.ftc.action.Actions;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
-	public static final double GET_SAMPLE_DISTANCE = 5;
-	public static final double INTAKE_SAMPLE_DISTANCE = 5;
-	public static final double SUSPEND_SAMPLE_DISTANCE = -5;
-	public static final int    SUSPEND_COUNT = 2;
-	public static final int    INTAKE_COUNT = 2;
-	public static final List<Pose2d> SUSPEND_POSES = new ArrayList <>();
-	public static final List<Pose2d> INTAKE_POSES = new ArrayList <>();
+	public static final double        GET_SAMPLE_DISTANCE     = 3;
+	public static final double        INTAKE_SAMPLE_DISTANCE  = - 5;
+	public static final double        SUSPEND_SAMPLE_DISTANCE = 8;
+	public static final int           SUSPEND_COUNT           = 2;
+	public static final int           INTAKE_COUNT            = 2;
+	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
+	public static final List <Pose2d> INTAKE_POSES            = new ArrayList <>();
 
 	static {
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
@@ -39,6 +40,8 @@ public class Right extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
+		utils.closeClip();
+		Actions.runAction(utils.pack());
 		appendSuspend();
 
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
@@ -46,10 +49,7 @@ public class Right extends ActionBasedAutonomous {
 			appendSuspend();
 		}
 
-		executeAssembled(
-				track.runTo(GET_SUSPEND),
-				utils.pack()
-		);
+		executeAssembled(track.runTo(GET_SUSPEND), utils.pack());
 	}
 
 	/**
@@ -57,10 +57,7 @@ public class Right extends ActionBasedAutonomous {
 	 */
 	public void appendSuspend() {
 		utils.liftSuspendHighPrepare();
-		executeAssembled(
-				track.runTo(SUSPEND),
-				utils.pack()
-		);
+		executeAssembled(track.runTo(SUSPEND), utils.pack());
 		utils.liftSuspendHigh();
 		utils.openClip();
 		executeManager();
@@ -68,16 +65,11 @@ public class Right extends ActionBasedAutonomous {
 	}
 
 	public void appendGetSample() {
-		executeAssembled(
-				track.runTo(GET_SUSPEND),
-				utils.pack()
-		);
+		executeAssembled(track.runTo(GET_SUSPEND), utils.pack());
 		utils.waitMs(500);
 		utils.closeClip();
-		executeLinked(
-				track.runTo(yp(GET_SUSPEND, GET_SAMPLE_DISTANCE)),
-				utils.pack()
-		);
+		utils.waitMs(500);
+		executeLinked(track.runTo(yp(GET_SUSPEND, GET_SAMPLE_DISTANCE)), utils.pack());
 	}
 
 	@Override

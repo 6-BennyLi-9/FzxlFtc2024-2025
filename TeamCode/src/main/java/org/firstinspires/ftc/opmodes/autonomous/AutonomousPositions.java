@@ -21,7 +21,8 @@ public final class AutonomousPositions {
 	public static final Pose2d LEFT_PARK_PREPARE = p(36, 10, 0);
 
 	public static final Pose2d RIGHT_START  = p(- 12, 60, 90);
-	public static final Pose2d SUSPEND      = p(- 10, 32, 90);
+	public static final Pose2d SUSPEND      = p(- 10, 30, 90);
 	public static final Pose2d RIGHT_SAMPLE = p(- 49.5, 47.5, - 90);
-	public static final Pose2d GET_SUSPEND  = p(- 50, 61, - 90);
+	public static final Pose2d GET_SUSPEND  = p(- 43, 61, - 90);
+	public static final Pose2d RIGHT_PARK   = p(- 45, 60, 90);
 }
