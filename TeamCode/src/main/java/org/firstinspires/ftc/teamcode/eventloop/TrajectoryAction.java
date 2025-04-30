@@ -12,6 +12,9 @@ import org.betastudio.ftc.ui.client.Client;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * 不会自动调用 {@link SampleMecanumDrive#update()}
+ */
 public class TrajectoryAction extends ActionImplementFactory {
 	private static Client client;
 
@@ -22,7 +25,6 @@ public class TrajectoryAction extends ActionImplementFactory {
 				isInitialized.set(true);
 				drive.followTrajectorySequenceAsync(trajectorySequence);
 			}
-			drive.update();
 			Pose2d minus = trajectorySequence.end().minus(drive.getPoseEstimate());
 			client.putData("点位差", str(minus));
 			return drive.isBusy();
@@ -36,7 +38,6 @@ public class TrajectoryAction extends ActionImplementFactory {
 				isInitialized.set(true);
 				drive.followTrajectoryAsync(trajectory);
 			}
-			drive.update();
 			Pose2d minus = trajectory.end().minus(drive.getPoseEstimate());
 			client.putData("点位差", str(minus));
 			return drive.isBusy();

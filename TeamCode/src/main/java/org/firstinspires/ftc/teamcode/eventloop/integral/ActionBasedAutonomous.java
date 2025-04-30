@@ -121,6 +121,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 			terminateOpModeNow();
 		}
 
+		drive.update();
 		runner.run();
 	}
 
