@@ -16,6 +16,12 @@ public final class Pose2dUtil {
 	}
 
 	@NonNull
+	@Contract("_, _, _ -> new")
+	public static Pose2d p(@NonNull final Pose2d o, final double x, final double y) {
+		return o.plus(new Pose2d(x, y, 0));
+	}
+
+	@NonNull
 	@Contract("_, _ -> new")
 	public static Pose2d t(@NonNull final Pose2d p, final double h) {
 		return p.plus(new Pose2d(0, 0, Math.toRadians(h)));

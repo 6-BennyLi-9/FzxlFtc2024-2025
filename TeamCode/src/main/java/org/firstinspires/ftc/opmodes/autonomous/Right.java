@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
+import static org.betastudio.ftc.util.Pose2dUtil.p;
 import static org.betastudio.ftc.util.Pose2dUtil.xp;
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.GET_SUSPEND;
@@ -18,12 +19,16 @@ import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 由于连续跑点位会导致错误累计，加上 TPS 较低，因此设置 CALIBRATE 参数，在每次点位累加。
+ */
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
 	public static final double        GET_SAMPLE_DISTANCE     = 2;
 	public static final double        INTAKE_SAMPLE_DISTANCE  = - 5;
 	public static final double        SUSPEND_SAMPLE_DISTANCE = 5;
+	public static final double        SUSPEND_Y_CALIBRATE     = 1;
 	public static final int           SUSPEND_COUNT           = 2;
 	public static final int           INTAKE_COUNT            = 2;
 	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
@@ -31,7 +36,7 @@ public class Right extends ActionBasedAutonomous {
 
 	static {
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
-			SUSPEND_POSES.add(xp(SUSPEND, SUSPEND_SAMPLE_DISTANCE * (i + 1)));
+			SUSPEND_POSES.add(p(SUSPEND, SUSPEND_SAMPLE_DISTANCE * (i + 1), SUSPEND_Y_CALIBRATE * i));
 		}
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
