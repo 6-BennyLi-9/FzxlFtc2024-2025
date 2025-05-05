@@ -19,16 +19,17 @@ public final class AutonomousPositions {
 	public static final Pose2d DECANT            = p(55.5, 55.5, - 135);
 	/// 夹取样本
 	@TestSucceed
-	public static final Pose2d LEFT_SAMPLE       = p(58, 49, - 90);
+	public static final Pose2d LEFT_SAMPLE       = p(59, 49, - 90);
 	@TestSucceed
 	public static final Pose2d LEFT_PARK_PREPARE = p(36, 10, 0);
 
 	/// Right
 	@TestSucceed
-	public static final Pose2d RIGHT_START  = p(- 12, 60, 90);
+	public static final Pose2d RIGHT_START  = p(- 8, 60, 90);
+	@TestSucceed
 	public static final Pose2d SUSPEND      = p(- 10, 31.5, 90);
 	/// 夹取样本
-	public static final Pose2d RIGHT_SAMPLE = p(- 49.5, 47.5, - 90);
+	public static final Pose2d RIGHT_SAMPLE = p(- 49.5, 44.5, - 90);
 	public static final Pose2d GET_SUSPEND  = p(- 43, 61, - 90);
 	public static final Pose2d RIGHT_PARK   = p(- 45, 60, 90);
 }
