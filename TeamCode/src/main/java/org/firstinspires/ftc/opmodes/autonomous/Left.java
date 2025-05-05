@@ -20,9 +20,9 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static final double        SCALE_GET_POSITION_1 = 0.238;
-	public static final double        SCALE_GET_POSITION_2 = 0.2905;
-	public static final double        SCALE_GET_POSITION_3 = 0.28;
+	public static final double        SCALE_GET_POSITION_1 = 0.24;
+	public static final double        SCALE_GET_POSITION_2 = 0.29;
+	public static final double        SCALE_GET_POSITION_3 = 0.29;
 	public static final int           SAMPLE_COUNTS        = 3;
 	public static final List <Double> SCALE_GET_POSITIONS  = new ArrayList <>();
 	public static final List <Pose2d> SAMPLE_POSES         = new ArrayList <>();
@@ -33,22 +33,22 @@ public class Left extends ActionBasedAutonomous {
 		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_3);
 
 		SAMPLE_POSES.add(LEFT_SAMPLE);
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 23));
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, 30));
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 25.5));
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, 25.5));
 	}
 
 	@Override
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器右靠内侧边缘");
 
-		/// 倒预载
+		// 倒预载
 		appendDecanting();
 
 		for (int i = 0 ; i < SAMPLE_COUNTS ; i++) {
-			/// 夹取
+			// 夹取
 			appendRunningScaling(SCALE_GET_POSITIONS.get(i), SAMPLE_POSES.get(i));
 			appendIntake();
-			/// 倒出
+			// 倒出
 			appendDecanting();
 		}
 
@@ -84,9 +84,10 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(250);
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(1200);
+		utils.waitMs(1100);
+		//倒入box
 		utils.openClaw();
-		utils.waitMs(120);
+		utils.waitMs(110);
 		utils.closeClaw();
 		utils.waitMs(100);
 		utils.openClaw();
