@@ -84,12 +84,12 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(250);
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(1100);
+		utils.waitMs(1090);
 		//倒入box
 		utils.openClaw();
 		utils.waitMs(110);
 		utils.closeClaw();
-		utils.waitMs(100);
+		utils.waitMs(110);
 		utils.openClaw();
 		executeManager();
 	}
