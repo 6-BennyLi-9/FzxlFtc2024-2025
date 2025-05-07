@@ -30,18 +30,21 @@ public class Right extends ActionBasedAutonomous {
 
 	public static final double SCALE_INTAKE_POSITION = 0.2;
 
+	/// 每一个夹取的样本的距离
 	public static final double INTAKE_SAMPLE_DISTANCE  = - 11;
+	/// 到达人类玩家处后前进的距离
 	public static final double GET_SAMPLE_DISTANCE     = 2;
+	/// 每一个悬挂的样本的距离
 	public static final double SUSPEND_SAMPLE_DISTANCE = 5;
-
+	/// 每挂一个样本后 Y 的校准值
 	public static final double SUSPEND_Y_CALIBRATE = 1;
 
 	public static final List <Pose2d> SUSPEND_POSES = new ArrayList <>();
 	public static final List <Pose2d> INTAKE_POSES  = new ArrayList <>();
 
 	static {
-		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
-			SUSPEND_POSES.add(p(SUSPEND, SUSPEND_SAMPLE_DISTANCE * (i + 1), SUSPEND_Y_CALIBRATE * i));
+		for (int i = 1 ; i <= SUSPEND_COUNT ; i++) {
+			SUSPEND_POSES.add(p(SUSPEND, SUSPEND_SAMPLE_DISTANCE * i, SUSPEND_Y_CALIBRATE * i));
 		}
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {

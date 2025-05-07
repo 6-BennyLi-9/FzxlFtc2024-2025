@@ -11,7 +11,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
  * 标记有 {@link TestSucceed} 的不要修改，已测试完毕。
  */
 public final class AutonomousPositions {
-
 	// Left
 	@TestSucceed
 	public static final Pose2d LEFT_START        = p(40, 65, - 90);
@@ -30,6 +29,6 @@ public final class AutonomousPositions {
 	public static final Pose2d SUSPEND      = p(- 10, 31.5, 90);
 	/// 夹取样本
 	public static final Pose2d RIGHT_SAMPLE = p(- 49.5, 44.5, - 90);
-	public static final Pose2d GET_SUSPEND  = p(- 43, 61, - 90);
+	public static final Pose2d GET_SUSPEND  = p(- 43, 60, - 90);
 	public static final Pose2d RIGHT_PARK   = p(- 45, 60, 90);
 }
