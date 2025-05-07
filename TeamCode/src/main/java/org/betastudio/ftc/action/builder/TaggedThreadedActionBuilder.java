@@ -2,7 +2,6 @@ package org.betastudio.ftc.action.builder;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
-import org.betastudio.ftc.action.utils.NullptrAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class TaggedThreadedActionBuilder implements TaggedActionBuilder {
 	@Override
 	public Action store() {
 		if (actions.isEmpty()) {
-			return new NullptrAction();
+			return policy.getV().resolve();
 		}
 		return new AssembledAction(new ArrayList <>(actions.values()));
 	}
