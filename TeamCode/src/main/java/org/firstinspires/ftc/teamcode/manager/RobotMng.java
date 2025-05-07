@@ -247,9 +247,9 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()) {
-			client.switchViewMode();
-			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
-			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
+			Client.switchViewMode();
+			client.speak("The telemetry's ClientViewMode has recently switched to " + Client.getCurrentViewMode());
+			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + Client.getCurrentViewMode());
 		}
 	}
 
