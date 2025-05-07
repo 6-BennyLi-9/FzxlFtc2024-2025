@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
  */
 public final class AutonomousPositions {
 
-	/// Left
+	// Left
 	@TestSucceed
 	public static final Pose2d LEFT_START        = p(40, 65, - 90);
 	@TestSucceed
@@ -23,7 +23,7 @@ public final class AutonomousPositions {
 	@TestSucceed
 	public static final Pose2d LEFT_PARK_PREPARE = p(36, 10, 0);
 
-	/// Right
+	// Right
 	@TestSucceed
 	public static final Pose2d RIGHT_START  = p(- 8, 60, 90);
 	@TestSucceed
