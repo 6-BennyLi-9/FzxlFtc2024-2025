@@ -39,7 +39,6 @@ public class Right extends ActionBasedAutonomous {
 
 	public static final List <Pose2d> SUSPEND_POSES = new ArrayList <>();
 	public static final List <Pose2d> INTAKE_POSES  = new ArrayList <>();
-	public static final List <Pose2d> OUTTAKE_POSES = new ArrayList <>();
 
 	static {
 		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
@@ -48,7 +47,6 @@ public class Right extends ActionBasedAutonomous {
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
 			INTAKE_POSES.add(xp(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i));
-			OUTTAKE_POSES.add(p(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i, OUTTAKE_DISTANCE));
 		}
 	}
 
@@ -63,7 +61,7 @@ public class Right extends ActionBasedAutonomous {
 
 		/// 夹取
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
-			appendIntake(INTAKE_POSES.get(i), OUTTAKE_POSES.get(i));
+			appendIntake(INTAKE_POSES.get(i));
 		}
 
 		/// 悬挂
@@ -100,7 +98,7 @@ public class Right extends ActionBasedAutonomous {
 		executeLinked(track.runTo(yp(get, GET_SAMPLE_DISTANCE)), utils.pack());
 	}
 
-	public void appendIntake(final Pose2d intake, final Pose2d outtake) {
+	public void appendIntake(final Pose2d intake) {
 		utils.waitMs(200);
 		utils.scaleOperate(SCALE_INTAKE_POSITION);
 		executeAssembled(track.runTo(intake), utils.pack());
@@ -113,7 +111,6 @@ public class Right extends ActionBasedAutonomous {
 		utils.scaleBack();
 		utils.waitMs(900);
 		utils.openClaw();
-		executeAssembled(track.runTo(outtake), utils.pack());
 		utils.armSafe();
 		utils.boxDecant();
 		utils.waitMs(500);
