@@ -41,14 +41,14 @@ public class Left extends ActionBasedAutonomous {
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器右靠内侧边缘");
 
-		// 倒预载
+		/// 倒预载
 		appendDecanting();
 
 		for (int i = 0 ; i < SAMPLE_COUNTS ; i++) {
-			// 夹取
+			/// 夹取
 			appendRunningScaling(SCALE_GET_POSITIONS.get(i), SAMPLE_POSES.get(i));
 			appendIntake();
-			// 倒出
+			/// 倒出
 			appendDecanting();
 		}
 
@@ -84,7 +84,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(250);
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(1090);
+		utils.waitMs(1200);
 		//倒入box
 		utils.openClaw();
 		utils.waitMs(110);
