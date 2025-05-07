@@ -14,11 +14,11 @@ public final class HardwareConfigures {
 	public static final double CLIP_CLOSE               = 0.5;
 	public static final int    LIFT_DECANT_LOW          = 1080;
 	public static final int    LIFT_DECANT_HIGH         = 2000;
-	public static final int    LIFT_SUSPEND             = 740;
+	public static final int    LIFT_SUSPEND             = 750;
 	public static final int    LIFT_SUSPEND_PREPARE     = 1250;
-	public static final int    LIFT_SUSPEND_Lv1         = 770;
+	public static final int    LIFT_SUSPEND_Lv1         = 810;//770
 	public static final int    LIFT_SUSPEND_Lv2_PREPARE = 1690;
-	public static final int    LIFT_SUSPEND_Lv2         = 750;
+	public static final int    LIFT_SUSPEND_Lv2         = 800;//750
 	public static final int    LIFT_IDLE                = 0;
 	public static final int    PLACE_DECANT             = 1;
 	public static final int    PLACE_IDLE               = 0;
