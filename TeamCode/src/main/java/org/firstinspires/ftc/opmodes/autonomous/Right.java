@@ -31,7 +31,6 @@ public class Right extends ActionBasedAutonomous {
 	public static final double SCALE_INTAKE_POSITION = 0.2;
 
 	public static final double INTAKE_SAMPLE_DISTANCE  = - 11;
-	public static final int    OUTTAKE_DISTANCE        = 10;
 	public static final double GET_SAMPLE_DISTANCE     = 2;
 	public static final double SUSPEND_SAMPLE_DISTANCE = 5;
 
