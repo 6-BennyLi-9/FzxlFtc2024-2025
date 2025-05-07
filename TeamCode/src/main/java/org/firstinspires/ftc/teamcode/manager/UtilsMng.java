@@ -19,6 +19,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_DEFAULT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
+import static org.firstinspires.ftc.teamcode.HardwareDatabase.imu;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
@@ -32,9 +33,14 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
 import static org.firstinspires.ftc.teamcode.structure.ScaleOp.operateLeftPosition;
+import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.Math.signum;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
@@ -44,6 +50,7 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
@@ -251,6 +258,24 @@ public class UtilsMng {
 	 */
 	public void liftSuspendLv1() {
 		builder.append(genLiftController(LIFT_SUSPEND_Lv1));
+	}
+
+	private static final double allowableError = 2;
+
+	public Action imuCalibrateAction(double target, SampleMecanumDrive drive, Pose2d pose2d) {
+		return () -> {
+			double error = imu.getAngularOrientation().firstAngle - target;
+			if (abs(error) <= allowableError) {
+				drive.setPoseEstimate(pose2d);
+				return false;
+			}
+			DriveOp.build(0,0, 0.5 * signum(error)).activate();
+			return true;
+		};
+	}
+
+	public void imuCalibrate(double target, SampleMecanumDrive drive, Pose2d pose2d) {
+		builder.append(imuCalibrateAction(target, drive, pose2d));
 	}
 
 	/**
