@@ -30,7 +30,7 @@ public class Right extends ActionBasedAutonomous {
 
 	public static final double SCALE_INTAKE_POSITION = 0.2;
 
-	public static final double INTAKE_SAMPLE_DISTANCE  = - 13;
+	public static final double INTAKE_SAMPLE_DISTANCE  = - 11;
 	public static final int    OUTTAKE_DISTANCE        = 10;
 	public static final double GET_SAMPLE_DISTANCE     = 2;
 	public static final double SUSPEND_SAMPLE_DISTANCE = 5;
@@ -54,6 +54,9 @@ public class Right extends ActionBasedAutonomous {
 
 	@Override
 	public void actionBuildEntry() {
+		client.putData("初始化位置", "机器左靠内侧边缘");
+
+		///挂预载
 		utils.closeClip();
 		Actions.runAction(utils.pack());
 		appendSuspend(SUSPEND);
@@ -102,13 +105,13 @@ public class Right extends ActionBasedAutonomous {
 		utils.scaleOperate(SCALE_INTAKE_POSITION);
 		executeAssembled(track.runTo(intake), utils.pack());
 		utils.armDisplay();
-		utils.waitMs(500);
+		utils.waitMs(600);
 		utils.closeClaw();
 		utils.waitMs(400);
 		executeManager();
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(200);
+		utils.waitMs(900);
 		utils.openClaw();
 		executeAssembled(track.runTo(outtake), utils.pack());
 		utils.armSafe();
