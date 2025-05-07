@@ -2,6 +2,7 @@ package org.betastudio.ftc.action.builder;
 
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.NullptrAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,9 @@ public class LinkedActionBuilder implements ActionBuilder {
 	 */
 	@Override
 	public Action store() {
-		assert ! actions.isEmpty();
+		if (actions.isEmpty()) {
+			return new NullptrAction();
+		}
 		return new LinkedAction(new ArrayList <>(actions));
 	}
 }
