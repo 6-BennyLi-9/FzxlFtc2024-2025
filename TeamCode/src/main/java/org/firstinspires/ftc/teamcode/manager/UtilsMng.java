@@ -31,6 +31,7 @@ import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
 import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
+import static org.firstinspires.ftc.teamcode.structure.ScaleOp.operateLeftPosition;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -43,7 +44,6 @@ import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
-import org.firstinspires.ftc.teamcode.structure.ScaleOp;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
@@ -188,7 +188,7 @@ public class UtilsMng {
 	 * 使秤臂收回。
 	 */
 	public void scaleBack() {
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1 - SCALE_BACH)), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(SCALE_BACH))), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class UtilsMng {
 	 */
 	public void scaleOperate(final double rightScalePosition) {
 		final double finalRightScalePosition = min(0.5, max(rightScalePosition, 0.08));
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(ScaleOp.operateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**
