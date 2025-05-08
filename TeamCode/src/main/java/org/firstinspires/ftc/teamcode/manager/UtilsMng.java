@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.manager;
 
+import static org.betastudio.ftc.Annotations.Beta;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
@@ -262,6 +263,7 @@ public class UtilsMng {
 
 	private static final double allowableError = 2;
 
+	@Beta(date = "25.5.8")
 	public Action imuCalibrateAction(double target, SampleMecanumDrive drive, Pose2d pose2d) {
 		return () -> {
 			double error = imu.getAngularOrientation().firstAngle - target;
@@ -274,6 +276,7 @@ public class UtilsMng {
 		};
 	}
 
+	@Beta(date = "25.5.8")
 	public void imuCalibrate(double target, SampleMecanumDrive drive, Pose2d pose2d) {
 		builder.append(imuCalibrateAction(target, drive, pose2d));
 	}
