@@ -13,7 +13,7 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
 public class TurnTest extends LinearOpMode {
-	public static final double ANGLE = 180; // deg
+	public static double ANGLE = 180; // deg
 
 	@Override
 	public void runOpMode() throws InterruptedException {

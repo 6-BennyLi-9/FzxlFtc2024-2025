@@ -45,7 +45,7 @@ import java.util.Objects;
 @Config
 @Autonomous(group = "drive")
 public class ManualFeedforwardTuner extends LinearOpMode {
-	public static final double DISTANCE = 72; // in
+	public static double DISTANCE = 72; // in
 
 	private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
@@ -124,7 +124,7 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 					if (gamepad1.b) {
 						mode = Mode.TUNING_MODE;
 						movingForwards = true;
-						activeProfile = generateProfile(true);
+						activeProfile = generateProfile(movingForwards);
 						profileStart = clock.seconds();
 					}
 

@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Local;
 @Autonomous(group = "drive")
 //@Disabled
 public class StraightTest extends LinearOpMode {
-	public static final double DISTANCE = 60; // in
+	public static double DISTANCE = 60; // in
 
 	@Override
 	public void runOpMode() throws InterruptedException {
