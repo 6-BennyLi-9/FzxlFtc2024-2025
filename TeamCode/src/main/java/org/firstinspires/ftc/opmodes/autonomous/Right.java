@@ -2,6 +2,7 @@ package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.xp;
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
+import static org.betastudio.ftc.util.Pose2dUtil.p;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.GET_SUSPEND;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_PARK;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE;
@@ -21,10 +22,15 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
-	public static final int           SUSPEND_COUNT = 2;
-	public static final int           INTAKE_COUNT  = 2;
+	/// 悬挂样本个数
+	public static final int           SUSPEND_COUNT           = 2;
+	/// 夹取样本个数
+	public static final int           INTAKE_COUNT            = 2;
+	/// 悬挂样本目标位置
 	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
+	/// 夹取样本目标位置
 	public static final List <Pose2d> INTAKE_POSES            = new ArrayList <>();
+	/// 夹取样本时滑轨伸出距离
 	public static       double        SCALE_INTAKE_POSITION   = 0.2;
 	/// 每一个夹取的样本的距离
 	public static       double        INTAKE_SAMPLE_DISTANCE  = - 11;
@@ -39,7 +45,7 @@ public class Right extends ActionBasedAutonomous {
 		}
 
 		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
-			INTAKE_POSES.add(xp(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i));
+			INTAKE_POSES.add(p(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i,1.5));
 		}
 	}
 
