@@ -19,9 +19,14 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
 import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
 import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import androidx.annotation.NonNull;
 
@@ -58,35 +63,25 @@ import java.util.Map;
  */
 @Config
 public class RobotMng implements Updatable {
-	/**
-	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
-	 */
+	/// 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	public static final String                           printCode           = "fzxl";
-	/**
-	 * 驱动杆缓冲阈值
-	 */
+	/// 驱动杆缓冲阈值
 	public static final double                           driverTriggerBufFal = 0.2;
-	/**
-	 * 旋转触发缓冲失败的阈值
-	 */
+	/// 旋转触发缓冲失败的阈值
 	public static final double                           rotateTriggerBufFal = 0.03;
-	/**
-	 * 硬件控制器的映射表
-	 */
+	/// 滑轨伸出时移动方式，默认为累加
+	public static final boolean                          scaleTypeAdding     = true;
+	/// 滑轨当前位置
+	public static       double                           scaleRecent         = (SCALE_BACH + SCALE_PROBE) / 2;
+	/// 硬件控制器的映射表
 	public final        Map <String, HardwareController> controllers         = new HashMap <>();
 	public              Action                           hardwareAction;
-	/**
-	 * 更新时间，用于计算 telemetry 的更新状态
-	 */
+	/// 更新时间，用于计算 telemetry 的更新状态
 	public              int                              updateTime;
-	/**
-	 * 客户端对象，用于与控制台通信
-	 */
+	/// 客户端对象，用于与控制台通信
 	private             Client                           client;
 
-	/**
-	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
-	 */
+	/// 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
@@ -99,9 +94,7 @@ public class RobotMng implements Updatable {
 		controllers.put("ratchet", new RatchetOp());
 	}
 
-	/**
-	 * 获取默认的 telemetry 客户端
-	 */
+	/// 获取默认的 telemetry 客户端
 	public void fetchClient() {
 		fetchClient(Global.client);
 	}
@@ -227,10 +220,12 @@ public class RobotMng implements Updatable {
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
+				scaleRecent = (SCALE_BACH + SCALE_PROBE) / 2;
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH) / 2);
+				scaleRecent = scaleTypeAdding ? min(max(scaleRecent - gamepad2.left_stick_y * 0.05, SCALE_MIN_POSITION), SCALE_MAX_POSITION) : - gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH) / 2;
+				ScaleOp.getInstance().operate(scaleRecent);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
