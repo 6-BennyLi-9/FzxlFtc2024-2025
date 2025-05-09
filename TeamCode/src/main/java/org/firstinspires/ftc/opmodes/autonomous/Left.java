@@ -23,7 +23,7 @@ public class Left extends ActionBasedAutonomous {
 	public static final int           SAMPLE_COUNTS        = 3;
 	public static final List <Double> SCALE_GET_POSITIONS  = new ArrayList <>();
 	public static final List <Pose2d> SAMPLE_POSES         = new ArrayList <>();
-	public static       double        SCALE_GET_POSITION_1 = 0.24;
+	public static       double        SCALE_GET_POSITION_1 = 0.23;
 	public static       double        SCALE_GET_POSITION_2 = 0.29;
 	public static       double        SCALE_GET_POSITION_3 = 0.29;
 
@@ -84,10 +84,14 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(250);
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(1000);
+		utils.waitMs(1050);
 		//倒入box
 		utils.openClaw();
-		utils.waitMs(200);
+		utils.waitMs(50);
+		utils.closeClaw();
+		utils.waitMs(50);
+		utils.openClaw();
+		utils.waitMs(50);
 		executeManager();
 	}
 
