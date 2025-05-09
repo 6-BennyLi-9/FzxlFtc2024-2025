@@ -33,8 +33,8 @@ public class Left extends ActionBasedAutonomous {
 		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_3);
 
 		SAMPLE_POSES.add(LEFT_SAMPLE);
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 25.5));
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, 25.5));
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 25));
+		SAMPLE_POSES.add(t(LEFT_SAMPLE, 25));
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class Left extends ActionBasedAutonomous {
 		final Action liftUpping = utils.pack();
 		utils.waitMs(50);
 		utils.boxDecant();
-		utils.waitMs(800);
+		utils.waitMs(700);
 		utils.boxRst();
 		final Action decanting = utils.pack();
 		executeLinked(liftUpping, track.runTo(DECANT), decanting);
@@ -84,18 +84,15 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(250);
 		utils.armBack();
 		utils.scaleBack();
-		utils.waitMs(1200);
+		utils.waitMs(1000);
 		//倒入box
 		utils.openClaw();
-		utils.waitMs(110);
-		utils.closeClaw();
-		utils.waitMs(110);
-		utils.openClaw();
+		utils.waitMs(200);
 		executeManager();
 	}
 
 	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
-		utils.waitMs(1000);
+		utils.waitMs(750);
 		utils.liftDown();
 		utils.scaleOperate(scalePose);
 

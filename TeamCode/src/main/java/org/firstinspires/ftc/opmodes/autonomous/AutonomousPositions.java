@@ -20,9 +20,9 @@ public final class AutonomousPositions {
 	public static Pose2d DECANT            = p(55.5, 55.5, - 135);
 	/// 夹取样本
 	@TestSucceed
-	public static Pose2d LEFT_SAMPLE       = p(59, 49, - 90);
+	public static Pose2d LEFT_SAMPLE       = p(58, 49, - 90);
 	@TestSucceed
-	public static Pose2d LEFT_PARK_PREPARE = p(36, 10, 0);
+	public static Pose2d LEFT_PARK_PREPARE = p(38, 10, 0);
 
 	// Right
 	@TestSucceed
