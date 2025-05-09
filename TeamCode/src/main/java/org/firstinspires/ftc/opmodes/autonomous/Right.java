@@ -21,20 +21,17 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
-	public static final int SUSPEND_COUNT = 2;
-	public static final int INTAKE_COUNT  = 2;
-
-	public static final double SCALE_INTAKE_POSITION = 0.2;
-
+	public static final int           SUSPEND_COUNT = 2;
+	public static final int           INTAKE_COUNT  = 2;
+	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
+	public static final List <Pose2d> INTAKE_POSES            = new ArrayList <>();
+	public static       double        SCALE_INTAKE_POSITION   = 0.2;
 	/// 每一个夹取的样本的距离
-	public static final double INTAKE_SAMPLE_DISTANCE  = - 11;
+	public static       double        INTAKE_SAMPLE_DISTANCE  = - 11;
 	/// 到达人类玩家处后前进的距离
-	public static final double GET_SAMPLE_DISTANCE     = 2;
+	public static       double        GET_SAMPLE_DISTANCE     = 2;
 	/// 每一个悬挂的样本的距离
-	public static final double SUSPEND_SAMPLE_DISTANCE = 5;
-
-	public static final List <Pose2d> SUSPEND_POSES = new ArrayList <>();
-	public static final List <Pose2d> INTAKE_POSES  = new ArrayList <>();
+	public static       double        SUSPEND_SAMPLE_DISTANCE = 5;
 
 	static {
 		for (int i = 1 ; i <= SUSPEND_COUNT ; i++) {

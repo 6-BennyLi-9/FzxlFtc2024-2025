@@ -20,12 +20,12 @@ import java.util.List;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static final double        SCALE_GET_POSITION_1 = 0.24;
-	public static final double        SCALE_GET_POSITION_2 = 0.29;
-	public static final double        SCALE_GET_POSITION_3 = 0.29;
 	public static final int           SAMPLE_COUNTS        = 3;
 	public static final List <Double> SCALE_GET_POSITIONS  = new ArrayList <>();
 	public static final List <Pose2d> SAMPLE_POSES         = new ArrayList <>();
+	public static       double        SCALE_GET_POSITION_1 = 0.24;
+	public static       double        SCALE_GET_POSITION_2 = 0.29;
+	public static       double        SCALE_GET_POSITION_3 = 0.29;
 
 	static {
 		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_1);
