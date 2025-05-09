@@ -11,6 +11,7 @@ import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
+import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
@@ -22,8 +23,8 @@ import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.HardwareDatabase;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
-import org.firstinspires.ftc.teamcode.eventloop.trajectory.TrajectoryAction;
 import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;
+import org.firstinspires.ftc.teamcode.eventloop.trajectory.TrajectoryAction;
 import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 
 import java.util.Locale;
@@ -177,6 +178,10 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 	public void executeLinked(final Action... actions) {
 		builder.append(new LinkedAction(actions));
+	}
+
+	public void executeSleep(final long sleepMS){
+		builder.append(new SleepingAction(sleepMS));
 	}
 
 	public abstract Pose2d getInitialPose();
