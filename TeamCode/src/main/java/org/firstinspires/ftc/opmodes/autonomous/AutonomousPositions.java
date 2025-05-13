@@ -18,7 +18,7 @@ public final class AutonomousPositions {
 	public static Pose2d LEFT_START        = p(40, 65, - 90);
 	@TestSucceed
 	public static Pose2d DECANT            = p(55.5, 55.5, - 135);
-	/// 夹取样本（第一个）
+	/// 夹取样本（
 	@TestSucceed
 	public static Pose2d LEFT_SAMPLE       = p(58, 49, - 90);
 	@TestSucceed
@@ -26,10 +26,14 @@ public final class AutonomousPositions {
 
 	/// Right点位
 	@TestSucceed
-	public static Pose2d RIGHT_START  = p(- 8, 60, 90);
-	public static Pose2d SUSPEND      = p(- 10, 32, 90);
-	/// 夹取样本（第一个）
-	public static Pose2d RIGHT_SAMPLE = p(- 49.5, 44.5, - 90);
-	public static Pose2d GET_SUSPEND  = p(- 43, 60, - 90);
-	public static Pose2d RIGHT_PARK   = p(- 45, 60, 90);
+	public static Pose2d RIGHT_START     = p(- 8, 60, 90);
+	public static Pose2d SUSPEND_PREPARE = p(- 10, 40, 90);
+	public static Pose2d SUSPEND_1       = p(- 10, 32, 90);
+	public static Pose2d SUSPEND_2       = p(- 2, 32, 90);
+	public static Pose2d SUSPEND_3       = p(6, 32, 90);
+	/// 夹取样本
+	public static Pose2d RIGHT_SAMPLE_1  = p(- 49.5, 44.5, - 90);
+	public static Pose2d RIGHT_SAMPLE_2  = p(- 60.5, 44.5, - 90);
+	public static Pose2d GET_SUSPEND     = p(- 43, 60, - 90);
+	public static Pose2d RIGHT_PARK      = p(- 45, 60, 90);
 }

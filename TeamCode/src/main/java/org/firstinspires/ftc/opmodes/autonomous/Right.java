@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.betastudio.ftc.util.Pose2dUtil.xp;
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
-import static org.betastudio.ftc.util.Pose2dUtil.p;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.GET_SUSPEND;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_PARK;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_START;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_3;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -16,38 +16,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.betastudio.ftc.action.Actions;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
-	/// 悬挂样本个数
-	public static final int           SUSPEND_COUNT           = 2;
-	/// 夹取样本个数
-	public static final int           INTAKE_COUNT            = 2;
-	/// 悬挂样本目标位置
-	public static final List <Pose2d> SUSPEND_POSES           = new ArrayList <>();
-	/// 夹取样本目标位置
-	public static final List <Pose2d> INTAKE_POSES            = new ArrayList <>();
 	/// 夹取样本时滑轨伸出距离
-	public static       double        SCALE_INTAKE_POSITION   = 0.2;
-	/// 每一个夹取的样本的距离
-	public static       double        INTAKE_SAMPLE_DISTANCE  = - 11;
+	public static       double        SCALE_INTAKE_POSITION   = 0.24;
 	/// 到达人类玩家处后前进的距离
 	public static       double        GET_SAMPLE_DISTANCE     = 2;
-	/// 每一个悬挂的样本的距离
-	public static       double        SUSPEND_SAMPLE_DISTANCE = 5;
-
-	static {
-		for (int i = 1 ; i <= SUSPEND_COUNT ; i++) {
-			SUSPEND_POSES.add(xp(SUSPEND, SUSPEND_SAMPLE_DISTANCE * i));
-		}
-
-		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
-			INTAKE_POSES.add(p(RIGHT_SAMPLE, INTAKE_SAMPLE_DISTANCE * i,1.5));
-		}
-	}
 
 	@Override
 	public void actionBuildEntry() {
@@ -56,18 +31,17 @@ public class Right extends ActionBasedAutonomous {
 		///挂预载
 		utils.closeClip();
 		Actions.runAction(utils.pack());
-		appendSuspend(SUSPEND);
+		appendSuspend(SUSPEND_1);
 
 		/// 夹取
-		for (int i = 0 ; i < INTAKE_COUNT ; i++) {
-			appendIntake(INTAKE_POSES.get(i));
-		}
+		appendIntake(RIGHT_SAMPLE_1);
+		appendIntake(RIGHT_SAMPLE_1);
 
 		/// 悬挂
-		for (int i = 0 ; i < SUSPEND_COUNT ; i++) {
-			appendGetSample(GET_SUSPEND);
-			appendSuspend(SUSPEND_POSES.get(i));
-		}
+		appendGetSample(GET_SUSPEND);
+		appendSuspend(SUSPEND_2);
+		appendGetSample(GET_SUSPEND);
+		appendSuspend(SUSPEND_3);
 
 		/// 停靠
 		executeAssembled(track.runTo(RIGHT_PARK), utils.pack());
@@ -80,6 +54,7 @@ public class Right extends ActionBasedAutonomous {
 		utils.waitMs(200);
 		utils.liftSuspendHighPrepare();
 		executeAssembled(track.runTo(suspend), utils.pack());
+		utils.waitMs(50);
 		utils.liftSuspendHigh();
 		utils.openClip();
 		utils.waitMs(100);
@@ -91,9 +66,9 @@ public class Right extends ActionBasedAutonomous {
 	public void appendGetSample(final Pose2d get) {
 		utils.waitMs(100);
 		executeAssembled(track.runTo(get), utils.pack());
-		utils.waitMs(500);
+		utils.waitMs(300);
 		utils.closeClip();
-		utils.waitMs(500);
+		utils.waitMs(400);
 		executeLinked(track.runTo(yp(get, GET_SAMPLE_DISTANCE)), utils.pack());
 	}
 
