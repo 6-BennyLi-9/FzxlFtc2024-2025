@@ -53,7 +53,7 @@ public class Left extends ActionBasedAutonomous {
 		}
 
 		/// 停靠
-		utils.liftSuspendLv1();
+		utils.liftDown();
 		utils.closeClip();
 
 		executeLinked(track.runTo(LEFT_PARK_PREPARE));
@@ -77,6 +77,7 @@ public class Left extends ActionBasedAutonomous {
 		executeLinked(liftUpping, track.runTo(DECANT), decanting);
 	}
 
+	/// 夹取样本
 	public void appendIntake() {
 		utils.armDisplay();
 		utils.waitMs(600);
@@ -85,7 +86,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.armBack();
 		utils.scaleBack();
 		utils.waitMs(1050);
-		//倒入box
+		/// 倒入box
 		utils.openClaw();
 		utils.waitMs(50);
 		utils.closeClaw();
