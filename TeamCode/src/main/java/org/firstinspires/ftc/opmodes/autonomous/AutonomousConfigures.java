@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
  * 标记有 {@link TestSucceed} 的不要修改，已测试完毕。
  */
 @Config
-public final class AutonomousPositions {
+public final class AutonomousConfigures {
 	/// Left点位
 	@TestSucceed
 	public static Pose2d LEFT_START        = p(40, 65, - 90);

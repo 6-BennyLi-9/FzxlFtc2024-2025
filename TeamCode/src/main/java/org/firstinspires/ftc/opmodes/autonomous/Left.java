@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.t;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.DECANT;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_PARK_PREPARE;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_SAMPLE;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.LEFT_START;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.DECANT;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_PARK_PREPARE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_START;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;

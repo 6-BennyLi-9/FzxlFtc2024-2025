@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_START;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.GET_SUSPEND;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_PARK;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE_1;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE_2;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_1;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_2;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_3;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_START;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.GET_SUSPEND;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_PARK;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_SAMPLE_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_SAMPLE_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_3;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
