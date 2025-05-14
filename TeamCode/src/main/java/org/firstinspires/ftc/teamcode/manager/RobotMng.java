@@ -134,7 +134,6 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 根据游戏手柄的操作来控制机器人，包括剪切、采样、提升、放置等动作。
-	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
 	 */
 	public final void operateThroughGamepad() {
 		if (clipOption.getEnabled()) {
@@ -250,7 +249,7 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 根据游戏手柄的操作来控制机器人的驱动，包括速度切换、转向和复位操作。
-	 * 该方法会根据不同的游戏手柄输入调整驱动模式。
+	 * <P>该方法会根据不同的游戏手柄输入调整驱动模式。
 	 */
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
@@ -284,7 +283,7 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 更新方法，执行标记动作包中的所有动作。
-	 * 在机器人的每一周期中调用，用于驱动所有硬件控制器的操作。
+	 * <P>在机器人的每一周期中调用，用于驱动所有硬件控制器的操作。
 	 */
 	@Override
 	public void update() {

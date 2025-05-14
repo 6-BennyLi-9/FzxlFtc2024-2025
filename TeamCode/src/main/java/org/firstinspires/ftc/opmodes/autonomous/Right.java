@@ -20,9 +20,9 @@ import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
 	/// 夹取样本时滑轨伸出距离
-	public static       double        SCALE_INTAKE_POSITION   = 0.24;
+	public static double SCALE_INTAKE_POSITION = 0.225;
 	/// 到达人类玩家处后前进的距离
-	public static       double        GET_SAMPLE_DISTANCE     = 2;
+	public static double GET_SAMPLE_DISTANCE   = 2;
 
 	@Override
 	public void actionBuildEntry() {
