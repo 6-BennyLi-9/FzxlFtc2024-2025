@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_HALF_OPEN;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_CLOSE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_OPEN;
@@ -169,6 +170,10 @@ public class UtilsMng {
 	 */
 	public void openClaw() {
 		builder.append(new StatementAction(() -> claw.setPosition(CLAW_OPEN)));
+	}
+
+	public void halfOpenClaw(){
+		builder.append(new StatementAction(() -> claw.setPosition(CLAW_HALF_OPEN)));
 	}
 
 	/**

@@ -9,6 +9,7 @@ public final class HardwareConfigures {
 	public static final double ARM_SAFE                 = 0.61;
 	public static final double ARM_RISE                 = 0.37;
 	public static final double CLAW_OPEN                = 0.6;
+	public static final double CLAW_HALF_OPEN           = 0.55;
 	public static final double CLAW_CLOSE               = 0.45;
 	public static final int    CLIP_OPEN                = 0;
 	public static final double CLIP_CLOSE               = 0.5;
