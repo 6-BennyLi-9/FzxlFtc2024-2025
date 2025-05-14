@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -21,7 +21,7 @@ public class RotateOp implements Interfaces.HardwareController, Interfaces.Initi
 
 	@Override
 	public void connect() {
-		rotateController = new ServoCtrl(HardwareDatabase.rotate, ROTATE_DEFAULT);
+		rotateController = new ServoCtrl(Hardwares.rotate, ROTATE_DEFAULT);
 
 		rotateController.setTag(Labeler.summon(rotateController));
 	}

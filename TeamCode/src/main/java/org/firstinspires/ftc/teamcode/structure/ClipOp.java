@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -24,7 +24,7 @@ public class ClipOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	@Override
 	public void connect() {
-		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);
+		clipControl = new ServoCtrl(Hardwares.clip, 0);
 
 		clipControl.setTag(Labeler.summon(clipControl));
 	}

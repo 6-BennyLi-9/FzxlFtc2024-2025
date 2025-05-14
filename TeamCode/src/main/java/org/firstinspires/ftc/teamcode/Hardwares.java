@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-public final class HardwareDatabase {
+public final class Hardwares {
 	public static DcMotorEx   leftFront;
 	public static DcMotorEx   leftRear;
 	public static DcMotorEx   rightFront;
@@ -43,7 +43,7 @@ public final class HardwareDatabase {
 	private static HardwareMap hardwareMap;
 
 	public static void sync(@NonNull final HardwareMap hardwareMap, final boolean connectIMU) {
-		HardwareDatabase.hardwareMap = hardwareMap;
+		Hardwares.hardwareMap = hardwareMap;
 
 		//底盘
 		leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");

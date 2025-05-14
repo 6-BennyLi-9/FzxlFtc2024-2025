@@ -14,7 +14,7 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -35,8 +35,8 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	@Override
 	public void connect() {
-		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);
-		rightScaleController = new ServoCtrl(HardwareDatabase.rightScale, 0.5);
+		leftScaleController = new ServoCtrl(Hardwares.leftScale, 1);
+		rightScaleController = new ServoCtrl(Hardwares.rightScale, 0.5);
 
 		leftScaleController.setTag(Labeler.summon(leftScaleController));
 		rightScaleController.setTag(Labeler.summon(rightScaleController));

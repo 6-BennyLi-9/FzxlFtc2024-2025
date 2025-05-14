@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightRear;
 
 import androidx.annotation.NonNull;
 

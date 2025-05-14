@@ -60,7 +60,7 @@ public final class CoreDatabase {
 	 */
 	public static void writeInVals(@NonNull final ActionBasedAutonomous autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
 		pose = autonomous.drive.getPoseEstimate();
-		orientation = HardwareDatabase.imu.getAngularOrientation();
+		orientation = Hardwares.imu.getAngularOrientation();
 		last_is_autonomous = true;
 		last_terminate_reason = terminateReason;
 		CoreDatabase.autonomous_time_used = autonomous_time_used;
@@ -74,14 +74,14 @@ public final class CoreDatabase {
 	 */
 	public static void writeInVals(@NonNull final IntegralTeleOp tele, final TerminateReason terminateReason) {
 		pose = null;
-		orientation = HardwareDatabase.imu.getAngularOrientation();
+		orientation = Hardwares.imu.getAngularOrientation();
 		last_terminate_reason = terminateReason;
 		last_is_autonomous = false;
 	}
 
 	public static void writeInVals(@NonNull final IntegralOpMode autonomous, final TerminateReason terminateReason, final double autonomous_time_used) {
 		pose = null;
-		orientation = HardwareDatabase.imu.getAngularOrientation();
+		orientation = Hardwares.imu.getAngularOrientation();
 		last_is_autonomous = true;
 		last_terminate_reason = terminateReason;
 		CoreDatabase.autonomous_time_used = autonomous_time_used;

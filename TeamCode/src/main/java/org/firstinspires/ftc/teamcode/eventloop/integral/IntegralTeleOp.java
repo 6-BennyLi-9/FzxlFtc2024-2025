@@ -14,7 +14,7 @@ import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.manager.RobotMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
@@ -50,8 +50,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		caller.setFrequencyFPS(5);
 		Global.service.execute(caller);
 
-		HardwareDatabase.sync(hardwareMap, true);
-		HardwareDatabase.chassisConfig();
+		Hardwares.sync(hardwareMap, true);
+		Hardwares.chassisConfig();
 		robot = new RobotMng();
 		robot.fetchClient(client);
 

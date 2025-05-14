@@ -8,8 +8,8 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv1
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2_PREPARE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_PREPARE;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightLift;
 import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
 
 import androidx.annotation.NonNull;

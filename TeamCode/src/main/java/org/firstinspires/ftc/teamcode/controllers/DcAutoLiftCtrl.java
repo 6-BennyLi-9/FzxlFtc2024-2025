@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 
 public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
 	public DcAutoLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift, final int targetPosition) {
@@ -20,6 +20,6 @@ public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
 	@Override
 	public boolean activate() {
 		super.activate();
-		return tolerance < Math.abs(targetPosition - currentPosition) || (using_touch_calibrate && 0 == getTargetPosition() && HardwareDatabase.liftTouch.isPressed());
+		return tolerance < Math.abs(targetPosition - currentPosition) || (using_touch_calibrate && 0 == getTargetPosition() && Hardwares.liftTouch.isPressed());
 	}
 }

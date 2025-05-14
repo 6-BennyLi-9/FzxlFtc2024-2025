@@ -40,7 +40,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
@@ -303,7 +303,7 @@ public class RobotMng implements Updatable {
 	}
 
 	public void printIMUVariables() {
-		final BNO055IMU   imu         = HardwareDatabase.imu;
+		final BNO055IMU   imu         = Hardwares.imu;
 		final Orientation orientation = imu.getAngularOrientation();
 		client.changeData("∠1", orientation.firstAngle);
 		client.changeData("∠2", orientation.secondAngle);

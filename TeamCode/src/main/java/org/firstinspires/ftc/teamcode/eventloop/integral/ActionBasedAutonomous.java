@@ -20,7 +20,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
 import org.firstinspires.ftc.teamcode.eventloop.trajectory.HeadingTrajectoryBuilder;
@@ -62,8 +62,8 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		client = new BaseMapClient(telemetry);
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
 
-		HardwareDatabase.sync(hardwareMap, true);
-		HardwareDatabase.chassisConfig();
+		Hardwares.sync(hardwareMap, true);
+		Hardwares.chassisConfig();
 		utils = new UtilsMng();
 
 		telemetry.clearAll();

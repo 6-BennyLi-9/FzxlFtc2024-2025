@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
@@ -27,7 +27,7 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	@Override
 	public void connect() {
-		placeController = new ServoCtrl(HardwareDatabase.place, 0);
+		placeController = new ServoCtrl(Hardwares.place, 0);
 
 		placeController.setTag(Labeler.summon(placeController));
 	}
