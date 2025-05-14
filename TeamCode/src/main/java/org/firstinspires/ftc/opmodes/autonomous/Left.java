@@ -14,29 +14,12 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static final int           SAMPLE_COUNTS        = 3;
-	public static final List <Double> SCALE_GET_POSITIONS  = new ArrayList <>();
-	public static final List <Pose2d> SAMPLE_POSES         = new ArrayList <>();
 	public static       double        SCALE_GET_POSITION_1 = 0.23;
 	public static       double        SCALE_GET_POSITION_2 = 0.29;
 	public static       double        SCALE_GET_POSITION_3 = 0.29;
-
-	static {
-		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_1);
-		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_2);
-		SCALE_GET_POSITIONS.add(SCALE_GET_POSITION_3);
-
-		SAMPLE_POSES.add(LEFT_SAMPLE);
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, - 25));
-		SAMPLE_POSES.add(t(LEFT_SAMPLE, 25));
-	}
-
 	@Override
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器右靠内侧边缘");
@@ -44,13 +27,21 @@ public class Left extends ActionBasedAutonomous {
 		/// 倒预载
 		appendDecanting();
 
-		for (int i = 0 ; i < SAMPLE_COUNTS ; i++) {
-			/// 夹取
-			appendRunningScaling(SCALE_GET_POSITIONS.get(i), SAMPLE_POSES.get(i));
-			appendIntake();
-			/// 倒出
-			appendDecanting();
-		}
+		/// 夹取 1
+		appendRunningScaling(SCALE_GET_POSITION_1, LEFT_SAMPLE);
+		appendIntake();
+		/// 倒出
+		appendDecanting();
+		/// 夹取 2
+		appendRunningScaling(SCALE_GET_POSITION_2, t(LEFT_SAMPLE, - 25));
+		appendIntake();
+		/// 倒出
+		appendDecanting();
+		/// 夹取 3
+		appendRunningScaling(SCALE_GET_POSITION_3, t(LEFT_SAMPLE, 25));
+		appendIntake();
+		/// 倒出
+		appendDecanting();
 
 		/// 停靠
 		utils.liftDown();
