@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(group = "9_Tests")
 @Annotations.TestSucceed
-public final class SampleLocalExceptionHandle extends LinearOpMode implements Thread.UncaughtExceptionHandler {
+public final class LocalExceptionHandleTest extends LinearOpMode implements Thread.UncaughtExceptionHandler {
 	private Throwable e;
 
 	@Override
