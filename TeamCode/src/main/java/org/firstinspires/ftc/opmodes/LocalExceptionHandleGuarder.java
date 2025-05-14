@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Autonomous(group = "2_Guarder")
+@Autonomous(name = "Local Exception Handle Guarder", group = "2_Guarder")
 @TestSucceed
-public final class LocalExceptionHandleTest extends LinearOpMode implements Thread.UncaughtExceptionHandler {
+public final class LocalExceptionHandleGuarder extends LinearOpMode implements Thread.UncaughtExceptionHandler {
 	private Throwable e;
 
 	@Override
