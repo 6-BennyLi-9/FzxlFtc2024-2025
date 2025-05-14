@@ -25,18 +25,15 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 
 		/// 夹取 1
-		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE);
-		appendIntake();
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 2
-		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, t(LEFT_SAMPLE, - 25));
-		appendIntake();
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, t(LEFT_SAMPLE, - 25));
 		/// 倒出
 		appendDecanting();
 		/// 夹取 3
-		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, t(LEFT_SAMPLE, 25));
-		appendIntake();
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, t(LEFT_SAMPLE, 25));
 		/// 倒出
 		appendDecanting();
 
@@ -65,8 +62,13 @@ public class Left extends ActionBasedAutonomous {
 		executeLinked(liftUpping, track.runTo(DECANT), decanting);
 	}
 
-	/// 夹取样本
-	public void appendIntake() {
+	public void appendIntake(final double scalePose, final Pose2d pose) {
+		utils.waitMs(750);
+		utils.liftDown();
+		utils.scaleOperate(scalePose);
+
+		executeAssembled(utils.pack(), track.runTo(pose));
+
 		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
@@ -82,13 +84,5 @@ public class Left extends ActionBasedAutonomous {
 		utils.openClaw();
 		utils.waitMs(50);
 		executeManager();
-	}
-
-	public void appendRunningScaling(final double scalePose, final Pose2d pose) {
-		utils.waitMs(750);
-		utils.liftDown();
-		utils.scaleOperate(scalePose);
-
-		executeAssembled(utils.pack(), track.runTo(pose));
 	}
 }

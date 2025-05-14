@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.opmodes.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.button.ButtonConfig;
 import org.betastudio.ftc.button.ButtonProcessorEx;
+import org.betastudio.ftc.ui.log.FtcLogTunnel;
 
 /**
  * @noinspection deprecation
  */
+@TeleOp(group = "9_Tests")
 public class ButtonProcessorTest extends LinearOpMode {
 	public ButtonProcessorEx processor;
 

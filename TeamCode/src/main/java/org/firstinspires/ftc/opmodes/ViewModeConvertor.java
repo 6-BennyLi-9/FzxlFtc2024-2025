@@ -14,7 +14,7 @@ import org.betastudio.ftc.button.ButtonProcessor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-@TeleOp(group = "zzz")
+@TeleOp(group = "2_Guard")
 public final class ViewModeConvertor extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

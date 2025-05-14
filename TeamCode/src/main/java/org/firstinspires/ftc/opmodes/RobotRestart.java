@@ -3,7 +3,7 @@ package org.firstinspires.ftc.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "强制重启机器", group = "zzz")
+@Autonomous(name = "强制重启机器", group = "2_Guard")
 public final class RobotRestart extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
