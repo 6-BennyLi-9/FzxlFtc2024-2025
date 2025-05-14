@@ -3,6 +3,7 @@ package org.acmerobotics.roadrunner.opmode;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
@@ -21,7 +22,7 @@ import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
  * If you are using SampleTankDrive, you should be tuning AXIAL_PID, CROSS_TRACK_PID, and HEADING_PID.
  * These coefficients can be tuned live in dashboard.
  */
-//@Disabled
+@Disabled
 @Config
 @Autonomous(group = "drive")
 public class FollowerPIDTuner extends LinearOpMode {
