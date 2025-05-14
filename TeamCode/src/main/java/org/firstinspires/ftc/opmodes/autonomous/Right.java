@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_START;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.GET_SUSPEND;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_PARK;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE_1;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_START;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.RIGHT_SAMPLE_2;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_2;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousPositions.SUSPEND_3;
@@ -28,14 +29,14 @@ public class Right extends ActionBasedAutonomous {
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器左靠内侧边缘");
 
-		///挂预载
+		/// 挂预载
 		utils.closeClip();
 		Actions.runAction(utils.pack());
 		appendSuspend(SUSPEND_1);
 
 		/// 夹取
 		appendIntake(RIGHT_SAMPLE_1);
-		appendIntake(RIGHT_SAMPLE_1);
+		appendIntake(RIGHT_SAMPLE_2);
 
 		/// 悬挂
 		appendGetSample(GET_SUSPEND);
@@ -54,7 +55,6 @@ public class Right extends ActionBasedAutonomous {
 		utils.waitMs(200);
 		utils.liftSuspendHighPrepare();
 		executeAssembled(track.runTo(suspend), utils.pack());
-		utils.waitMs(50);
 		utils.liftSuspendHigh();
 		utils.openClip();
 		utils.waitMs(100);
@@ -79,13 +79,14 @@ public class Right extends ActionBasedAutonomous {
 		utils.armDisplay();
 		utils.waitMs(600);
 		utils.closeClaw();
-		utils.waitMs(400);
+		utils.waitMs(330);
 		executeManager();
 		utils.armBack();
 		utils.scaleBack();
 		utils.waitMs(900);
 		utils.openClaw();
 		utils.armSafe();
+		utils.waitMs(100);
 		utils.boxDecant();
 		utils.waitMs(500);
 		utils.boxRst();
