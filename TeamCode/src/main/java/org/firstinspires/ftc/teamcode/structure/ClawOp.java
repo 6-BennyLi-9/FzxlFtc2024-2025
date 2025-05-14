@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ClawPositions;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ClawPositions.*;
 
 import androidx.annotation.NonNull;
 
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
 public class ClawOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
-	public static  ClawPositions recent = ClawPositions.OPEN;
+	public static  ClawPositions recent = OPEN;
 	public static  ServoCtrl     clawControl;
 	private static ClawOp        instance;
 
@@ -59,12 +60,12 @@ public class ClawOp implements Interfaces.HardwareController, Interfaces.Initial
 	}
 
 	public void open() {
-		recent = ClawPositions.OPEN;
+		recent = OPEN;
 		clawControl.setTargetPosition(CLAW_OPEN);
 	}
 
 	public void close() {
-		recent = ClawPositions.CLOSE;
+		recent = CLOSE;
 		clawControl.setTargetPosition(CLAW_CLOSE);
 	}
 
