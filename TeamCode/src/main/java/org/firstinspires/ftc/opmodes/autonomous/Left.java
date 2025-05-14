@@ -17,9 +17,6 @@ import org.firstinspires.ftc.teamcode.structure.DriveOp;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
-	public static       double        SCALE_GET_POSITION_1 = 0.23;
-	public static       double        SCALE_GET_POSITION_2 = 0.29;
-	public static       double        SCALE_GET_POSITION_3 = 0.29;
 	@Override
 	public void actionBuildEntry() {
 		client.putData("初始化位置", "机器右靠内侧边缘");
@@ -28,17 +25,17 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 
 		/// 夹取 1
-		appendRunningScaling(SCALE_GET_POSITION_1, LEFT_SAMPLE);
+		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE);
 		appendIntake();
 		/// 倒出
 		appendDecanting();
 		/// 夹取 2
-		appendRunningScaling(SCALE_GET_POSITION_2, t(LEFT_SAMPLE, - 25));
+		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, t(LEFT_SAMPLE, - 25));
 		appendIntake();
 		/// 倒出
 		appendDecanting();
 		/// 夹取 3
-		appendRunningScaling(SCALE_GET_POSITION_3, t(LEFT_SAMPLE, 25));
+		appendRunningScaling(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, t(LEFT_SAMPLE, 25));
 		appendIntake();
 		/// 倒出
 		appendDecanting();

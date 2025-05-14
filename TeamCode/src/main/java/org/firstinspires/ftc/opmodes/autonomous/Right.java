@@ -20,10 +20,6 @@ import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 @Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
-	/// 夹取样本时滑轨伸出距离
-	public static double SCALE_INTAKE_POSITION = 0.225;
-	/// 到达人类玩家处后前进的距离
-	public static double GET_SAMPLE_DISTANCE   = 2;
 
 	@Override
 	public void actionBuildEntry() {
@@ -69,12 +65,12 @@ public class Right extends ActionBasedAutonomous {
 		utils.waitMs(300);
 		utils.closeClip();
 		utils.waitMs(400);
-		executeLinked(track.runTo(yp(get, GET_SAMPLE_DISTANCE)), utils.pack());
+		executeLinked(track.runTo(yp(get, AutonomousConfigures.GET_SUSPENDING_SAMPLE_DISTANCE)), utils.pack());
 	}
 
 	public void appendIntake(final Pose2d intake) {
 		utils.waitMs(200);
-		utils.scaleOperate(SCALE_INTAKE_POSITION);
+		utils.scaleOperate(AutonomousConfigures.RIGHT_SCALE_INTAKE_POSITION);
 		executeAssembled(track.runTo(intake), utils.pack());
 		utils.armDisplay();
 		utils.waitMs(600);
