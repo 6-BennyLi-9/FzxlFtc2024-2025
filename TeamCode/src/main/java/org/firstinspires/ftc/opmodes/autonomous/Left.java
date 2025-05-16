@@ -43,7 +43,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.closeClip();
 
 		executeLinked(track.runTo(LEFT_PARK_PREPARE));
-		executeAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
+		executeAssembled(utils.pack(), DriveOp.build(0, 0.25, 0));
 	}
 
 	@Override
