@@ -12,10 +12,11 @@ import java.util.concurrent.Callable;
 public abstract class ActionImplementFactory implements Action, ThreadEx, Nameable {
 	public static ForceHandleExceptionPolicy <String>  paramsPolicy = new RuntimeExceptionPolicy <>();
 	public static ForceHandleExceptionPolicy <Boolean> actionPolicy = new RuntimeExceptionPolicy <>();
-	private       Callable <Boolean>                   action;
-	private       Callable <String>                    params;
-	private       boolean                              isStopRequested;
-	private       String                               name         = "[unnamed]";
+
+	private Callable <Boolean> action;
+	private Callable <String>  params;
+	private boolean            isStopRequested;
+	private String             name = "[unnamed]";
 
 	protected ActionImplementFactory() {
 		this(() -> false, () -> "[unsetted]");
