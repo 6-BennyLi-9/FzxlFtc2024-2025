@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.ObjectiveClient;
 
-@Autonomous(group = "9_Tests")
 @Disabled
 @TestShelved
+@Autonomous(group = "9_Tests")
 public class ObjectiveClientTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

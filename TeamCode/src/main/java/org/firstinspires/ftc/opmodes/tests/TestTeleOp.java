@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import static org.betastudio.ftc.Annotations.TestShelved;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.render.ClientRender;
 import org.firstinspires.ftc.opmodes.teleops.TeleOpCore;
 
+@Disabled
+@TestShelved
 @TeleOp(name = "19419(Test)", group = "9_Test")
 public final class TestTeleOp extends TeleOpCore {
 	@Override

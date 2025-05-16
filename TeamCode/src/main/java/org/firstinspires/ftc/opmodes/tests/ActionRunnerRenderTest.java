@@ -14,8 +14,8 @@ import org.betastudio.ftc.action.utils.StatementAction;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 
-@TestSucceed
 @Disabled
+@TestSucceed
 @Autonomous(group = "9_Tests")
 public class ActionRunnerRenderTest extends LinearOpMode {
 	@Override
