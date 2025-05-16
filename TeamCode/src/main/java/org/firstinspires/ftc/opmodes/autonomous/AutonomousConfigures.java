@@ -26,7 +26,7 @@ public final class AutonomousConfigures {
 	@TestSucceed
 	public static Pose2d LEFT_SAMPLE_3                = t(LEFT_SAMPLE_1, 25);
 	@TestSucceed
-	public static Pose2d LEFT_PARK_PREPARE            = p(38, 10, 180);
+	public static Pose2d LEFT_PARK_PREPARE            = p(38, 10, 0);
 	/* Left  硬件参数 */
 	@TestSucceed
 	public static double LEFT_SCALE_INTAKE_POSITION_1 = 0.23;
