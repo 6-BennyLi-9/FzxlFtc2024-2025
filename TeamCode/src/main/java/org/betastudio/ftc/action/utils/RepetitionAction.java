@@ -1,13 +1,15 @@
 package org.betastudio.ftc.action.utils;
 
-import org.betastudio.ftc.Interfaces;
+import static org.betastudio.ftc.Interfaces.ProgressMarker;
+import static org.betastudio.ftc.Interfaces.ProgressedTask;
+
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.ActionImplementFactory;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-public final class RepetitionAction extends ActionImplementFactory implements Interfaces.ProgressedTask {
+public final class RepetitionAction extends ActionImplementFactory implements ProgressedTask {
 	private final ProgressMarkerImplement marker;
 
 	public RepetitionAction(final Action repeatArgument, final long times) {
@@ -30,7 +32,7 @@ public final class RepetitionAction extends ActionImplementFactory implements In
 	}
 
 	@Override
-	public Interfaces.ProgressMarker getWorkerProgress() {
+	public ProgressMarker getWorkerProgress() {
 		return marker;
 	}
 }

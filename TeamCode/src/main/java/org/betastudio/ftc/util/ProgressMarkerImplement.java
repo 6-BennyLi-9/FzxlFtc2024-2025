@@ -35,6 +35,11 @@ public class ProgressMarkerImplement implements Interfaces.ProgressMarker {
 		done.incrementAndGet();
 	}
 
+	/// 非特殊用途不推荐调用。
+	public void setDone(final long done) {
+		this.done.set(done);
+	}
+
 	@NonNull
 	@Override
 	public strictfp String toString() {
