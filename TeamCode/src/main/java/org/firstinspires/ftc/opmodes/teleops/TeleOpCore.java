@@ -19,13 +19,12 @@ public class TeleOpCore extends IntegralTeleOp {
 	public void op_loop_entry() {
 		setOverclockMode(OverclockMode.YIELD_AT_EACH);
 		GamepadRequests.syncRequests();
-		//主程序开始
 
+		//主程序开始
 		robot.operateThroughGamepad();
 		robot.driveThroughGamepad();
 
 		//主程序结束
-
 		robot.printActions();
 
 		robot.update();
