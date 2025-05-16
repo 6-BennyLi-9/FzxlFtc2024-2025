@@ -4,12 +4,12 @@ import static org.betastudio.ftc.Interfaces.ProgressMarker;
 import static org.betastudio.ftc.Interfaces.ProgressedTask;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.action.AbstractActionImplement;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-public final class RepetitionAction extends ActionImplementFactory implements ProgressedTask {
+public final class RepetitionAction extends AbstractActionImplement implements ProgressedTask {
 	private final ProgressMarkerImplement marker;
 
 	public RepetitionAction(final Action repeatArgument, final long times) {

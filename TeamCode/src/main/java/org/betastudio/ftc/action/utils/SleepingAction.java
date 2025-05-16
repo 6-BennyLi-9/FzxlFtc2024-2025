@@ -3,13 +3,13 @@ package org.betastudio.ftc.action.utils;
 import static org.betastudio.ftc.Interfaces.ProgressedTask;
 
 import org.betastudio.ftc.Interfaces.ProgressMarker;
-import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.action.AbstractActionImplement;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class SleepingAction extends ActionImplementFactory implements ProgressedTask {
+public class SleepingAction extends AbstractActionImplement implements ProgressedTask {
 	private final ProgressMarkerImplement marker;
 
 	public SleepingAction(final long sleepMilliseconds) {

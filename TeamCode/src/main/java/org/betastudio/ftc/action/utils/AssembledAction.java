@@ -5,7 +5,7 @@ import static org.betastudio.ftc.Interfaces.ProgressMarker;
 import static org.betastudio.ftc.Interfaces.ProgressedTask;
 
 import org.betastudio.ftc.action.Action;
-import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.action.AbstractActionImplement;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 多线程的 {@code Action} 块，对 {@code tps} 要求较高
  */
-public final class AssembledAction extends ActionImplementFactory implements ProgressedTask {
+public final class AssembledAction extends AbstractActionImplement implements ProgressedTask {
 	private final ProgressMarkerImplement marker;
 
 	public AssembledAction(final List <Action> actions) {

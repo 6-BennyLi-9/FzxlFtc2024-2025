@@ -11,7 +11,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.acmerobotics.roadrunner.trajectorysequence.TrajectorySequence;
-import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.action.AbstractActionImplement;
 import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.util.Pose2dUtil;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 不会自动调用 {@link SampleMecanumDrive#update()}
  */
-public class TrajectoryAction extends ActionImplementFactory implements ProgressedTask {
+public class TrajectoryAction extends AbstractActionImplement implements ProgressedTask {
 	public static final double PROGRESS_LENGTH_MULTIPLIER = 10;
 
 	private final ProgressMarkerImplement marker;
