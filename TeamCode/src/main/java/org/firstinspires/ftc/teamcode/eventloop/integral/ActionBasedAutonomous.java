@@ -7,8 +7,10 @@ import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
+import org.betastudio.ftc.action.render.ClientRender;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
@@ -73,9 +75,9 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		track = new HeadingTrajectoryBuilder(drive);
 		TrajectoryAction.setClient(client);
 
-		client.putData("TPS", "wait for start");
+		client.putData("TPS", "wait for start");  // useless
 		client.putData("time", "wait for start");
-		client.putLine("ROBOT INITIALIZE COMPLETE!");
+		client.putData("HEAD","ROBOT CORE INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -84,23 +86,27 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		track.setCurrent(getInitialPose());
 		actionBuildEntry();
 		action = builder.store();
+		action = Actions.metaFor(action, new ClientRender(client));
 		runner = () -> {
 			if (! action.activate()) {
-				client.putLine("Core Action Finished");
+				client.putLine("CORE ACTION FINISHED");
 				runner = () -> {};
 			}
 		};
+
+		client.putData("HEAD","ROBOT ACTION INITIALIZE COMPLETE!");
 	}
 
 	@Override
 	public void loop_init() {
-		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()));
 		client.update();
 	}
 
 	@Override
 	public void op_start() {
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
+		client.deleteData("HEAD");
 	}
 
 	@Override
