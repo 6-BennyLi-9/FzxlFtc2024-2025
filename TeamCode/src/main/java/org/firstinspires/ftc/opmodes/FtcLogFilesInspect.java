@@ -22,7 +22,7 @@ import org.betastudio.ftc.button.ButtonProcessor;
 
 import java.util.Objects;
 
-@TeleOp(name = "Ftc Log  Inspector", group = "2_Guarder")
+@TeleOp(name = "Ftc Log Inspector", group = "2_Guarder")
 public class FtcLogFilesInspect extends LinearOpMode {
 	private final ButtonProcessor select_prev       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 	private final ButtonProcessor select_next       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
