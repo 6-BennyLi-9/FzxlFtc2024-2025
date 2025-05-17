@@ -28,7 +28,6 @@ import static java.lang.Math.min;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.Action;
@@ -60,7 +59,6 @@ import java.util.Map;
  * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
  * 然后获取客户端 {@link #fetchClient()}。
  */
-@Config
 public class RobotMng implements Updatable {
 	public static final String UPDATE_CODE            = "fzxl";
 

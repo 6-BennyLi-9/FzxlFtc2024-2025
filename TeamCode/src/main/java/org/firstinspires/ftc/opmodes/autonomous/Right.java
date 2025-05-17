@@ -1,24 +1,23 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.*;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_START;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.GET_SUSPEND;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_GET_SUSPENDING_DISTANCE;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_PARK;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_SAMPLE_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_SAMPLE_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_SCALE_INTAKE_POSITION;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_START;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_2;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.SUSPEND_3;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.betastudio.ftc.action.Actions;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 
-@Config
 @Autonomous(preselectTeleOp = "19419", group = "1_Beta")
 public class Right extends ActionBasedAutonomous {
 

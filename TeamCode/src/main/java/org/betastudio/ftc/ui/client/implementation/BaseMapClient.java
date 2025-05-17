@@ -2,8 +2,6 @@ package org.betastudio.ftc.ui.client.implementation;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
-
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.thread.TaskFuture;
@@ -25,10 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * @noinspection UnusedReturnValue
- */
-@Config
 public class BaseMapClient implements Client {
 	protected final Telemetry                      telemetry;
 	protected final Map <String, TelemetryElement> data;

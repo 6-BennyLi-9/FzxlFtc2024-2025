@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 import org.firstinspires.ftc.teamcode.Hardwares;
 
 /**
@@ -11,9 +13,9 @@ import org.firstinspires.ftc.teamcode.Hardwares;
  */
 @Config
 public class DcTeleLiftCtrl extends AbstractLiftCtrl {
-	public static final double  bufPow                = 1;
-	public static final int     tolerance             = 10;
-	protected           boolean using_touch_calibrate = true;
+	public static double  bufPow                = 1;
+	public static int     tolerance             = 10;
+	protected     boolean using_touch_calibrate = true;
 
 	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift) {
 		super(leftLift, rightLift);

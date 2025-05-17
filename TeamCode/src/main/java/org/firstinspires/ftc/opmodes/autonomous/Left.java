@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.*;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.DECANT;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_PARK_PREPARE;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_2;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_3;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_START;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -16,7 +17,6 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
-@Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
 	@Override
