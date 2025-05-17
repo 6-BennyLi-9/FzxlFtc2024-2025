@@ -11,9 +11,9 @@ public final class HardwareConfigures {
 	public static double ARM_IDLE                 = 0.8;
 	public static double ARM_SAFE                 = 0.61;
 	public static double ARM_RISE                 = 0.37;
-	public static double CLAW_OPEN                = 0.42;
-	public static double CLAW_HALF_OPEN           = 0.52;
-	public static double CLAW_CLOSE               = 0.58;
+	public static double CLAW_OPEN                = 0.62;
+	public static double CLAW_HALF_OPEN           = 0.53;
+	public static double CLAW_CLOSE               = 0.45;
 	public static int    CLIP_OPEN                = 0;
 	public static double CLIP_CLOSE               = 0.5;
 	public static int    LIFT_DECANT_LOW          = 1080;
