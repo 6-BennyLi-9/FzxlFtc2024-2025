@@ -30,7 +30,7 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 	}
 
 	public strictfp static double calculateLeftPosition(final double rightPosition) {
-		return 0.9604347826087 - 0.9130434782609 * rightPosition;
+		return 1 - 1 * rightPosition;
 	}
 
 	@Override

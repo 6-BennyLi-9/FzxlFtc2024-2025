@@ -28,10 +28,10 @@ public final class HardwareConfigures {
 	public static int    PLACE_IDLE               = 0;
 	public static double PLACE_PREPARE            = 0.5;
 	public static double ROTATE_DEFAULT           = 0.79;
-	public static double SCALE_MIN_POSITION       = 0.115;
-	public static double SCALE_MAX_POSITION       = 0.57;
-	public static double SCALE_PROBE              = 0.57;
-	public static double SCALE_BACH               = 0.115;
+	public static double SCALE_MIN_POSITION       = 0;
+	public static double SCALE_MAX_POSITION       = 0.58;
+	public static double SCALE_PROBE              = 0.5;
+	public static double SCALE_BACH               = 0;
 	public static double RATCHET_LOOSEN           = 0.05;
 	public static double RATCHET_TIGHT            = 0.8;
 }
