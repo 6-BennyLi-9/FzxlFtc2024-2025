@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_TOLERANCE;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.Hardwares;
 
 public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
@@ -21,6 +22,6 @@ public class DcAutoLiftCtrl extends DcTeleLiftCtrl {
 	@Override
 	public boolean activate() {
 		super.activate();
-		return HardwareConfigures.LIFT_TOLERANCE < Math.abs(targetPosition - currentPosition) || (using_touch_calibrate && 0 == getTargetPosition() && Hardwares.liftTouch.isPressed());
+		return LIFT_TOLERANCE < Math.abs(targetPosition - currentPosition) || (using_touch_calibrate && 0 == getTargetPosition() && Hardwares.liftTouch.isPressed());
 	}
 }

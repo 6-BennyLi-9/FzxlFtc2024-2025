@@ -18,6 +18,9 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.DRIVER_TRIGGER_BUF_FAL;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_TRIGGER_BUF_FAL;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BUF_FAL;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
@@ -37,7 +40,6 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareConfigures;
 import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
@@ -208,8 +210,8 @@ public class RobotMng implements Updatable {
 				scaleRecent = SCALE_PROBE;
 				break;
 			case 1:
-				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * HardwareConfigures.ROTATE_TRIGGER_BUF_FAL);
-				scaleRecent = min(max(scaleRecent - gamepad2.left_stick_y * HardwareConfigures.SCALE_BUF_FAL, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
+				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * ROTATE_TRIGGER_BUF_FAL);
+				scaleRecent = min(max(scaleRecent - gamepad2.left_stick_y * SCALE_BUF_FAL, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
 				ScaleOp.getInstance().operate(scaleRecent);
 				break;
 			default:
@@ -262,7 +264,7 @@ public class RobotMng implements Updatable {
 			DriveOp.getInstance().turn(0.1);
 		}
 
-		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, HardwareConfigures.DRIVER_TRIGGER_BUF_FAL);
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, DRIVER_TRIGGER_BUF_FAL);
 
 		client.changeData("drive msg 2", DriveOp.getInstance().getDriveMsg());
 	}
