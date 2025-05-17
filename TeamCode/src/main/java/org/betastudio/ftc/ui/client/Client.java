@@ -10,15 +10,13 @@ import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-/**
- * @noinspection UnusedReturnValue
- */
 public interface Client extends MessagesProcessRequired <TelemetryMsg>, Updatable {
 	@MirrorMethod
 	static void configViewMode(final ClientViewMode clientViewMode) {
 		ClientViewMode.globalViewMode = clientViewMode;
 	}
 
+	@MirrorMethod
 	static ClientViewMode getCurrentViewMode() {
 		return ClientViewMode.globalViewMode;
 	}
