@@ -48,112 +48,109 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Robot: Teleop POV", group="Robot")
+@TeleOp(name = "Robot: Teleop POV", group = "Robot")
 @Disabled
 public class RobotTeleopPOV_Linear extends LinearOpMode {
 
-    /* Declare OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  leftArm     = null;
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+	public static final double MID_SERVO      = 0.5;
+	public static final double CLAW_SPEED     = 0.02;                 // sets rate to move servo
+	public static final double ARM_UP_POWER   = 0.45;
+	public static final double ARM_DOWN_POWER = - 0.45;
+	/* Declare OpMode members. */
+	public DcMotor leftDrive  = null;
+	public DcMotor rightDrive = null;
+	public DcMotor leftArm    = null;
+	public Servo   leftClaw   = null;
+	public Servo   rightClaw  = null;
+	double clawOffset = 0;
 
-    double clawOffset = 0;
+	@Override
+	public void runOpMode() {
+		double left;
+		double right;
+		double drive;
+		double turn;
+		double max;
 
-    public static final double MID_SERVO   =  0.5 ;
-    public static final double CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
-    public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
+		// Define and Initialize Motors
+		leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
+		rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+		leftArm = hardwareMap.get(DcMotor.class, "left_arm");
 
-    @Override
-    public void runOpMode() {
-        double left;
-        double right;
-        double drive;
-        double turn;
-        double max;
+		// To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
+		// Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
+		// Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
+		leftDrive.setDirection(DcMotor.Direction.REVERSE);
+		rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        // Define and Initialize Motors
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftArm    = hardwareMap.get(DcMotor.class, "left_arm");
+		// If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
+		// leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+		// rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
-        // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
-        // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+		// Define and initialize ALL installed servos.
+		leftClaw = hardwareMap.get(Servo.class, "left_hand");
+		rightClaw = hardwareMap.get(Servo.class, "right_hand");
+		leftClaw.setPosition(MID_SERVO);
+		rightClaw.setPosition(MID_SERVO);
 
-        // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
-        // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+		// Send telemetry message to signify robot waiting;
+		telemetry.addData(">", "Robot Ready.  Press START.");    //
+		telemetry.update();
 
-        // Define and initialize ALL installed servos.
-        leftClaw  = hardwareMap.get(Servo.class, "left_hand");
-        rightClaw = hardwareMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+		// Wait for the game to start (driver presses START)
+		waitForStart();
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData(">", "Robot Ready.  Press START.");    //
-        telemetry.update();
+		// run until the end of the match (driver presses STOP)
+		while (opModeIsActive()) {
 
-        // Wait for the game to start (driver presses START)
-        waitForStart();
+			// Run wheels in POV mode (note: The joystick goes negative when pushed forward, so negate it)
+			// In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
+			// This way it's also easy to just drive straight, or just turn.
+			drive = - gamepad1.left_stick_y;
+			turn = gamepad1.right_stick_x;
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+			// Combine drive and turn for blended motion.
+			left = drive + turn;
+			right = drive - turn;
 
-            // Run wheels in POV mode (note: The joystick goes negative when pushed forward, so negate it)
-            // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
-            // This way it's also easy to just drive straight, or just turn.
-            drive = -gamepad1.left_stick_y;
-            turn  =  gamepad1.right_stick_x;
+			// Normalize the values so neither exceed +/- 1.0
+			max = Math.max(Math.abs(left), Math.abs(right));
+			if (max > 1.0) {
+				left /= max;
+				right /= max;
+			}
 
-            // Combine drive and turn for blended motion.
-            left  = drive + turn;
-            right = drive - turn;
+			// Output the safe vales to the motor drives.
+			leftDrive.setPower(left);
+			rightDrive.setPower(right);
 
-            // Normalize the values so neither exceed +/- 1.0
-            max = Math.max(Math.abs(left), Math.abs(right));
-            if (max > 1.0)
-            {
-                left /= max;
-                right /= max;
-            }
+			// Use gamepad left & right Bumpers to open and close the claw
+			if (gamepad1.right_bumper)
+				clawOffset += CLAW_SPEED;
+			else if (gamepad1.left_bumper)
+				clawOffset -= CLAW_SPEED;
 
-            // Output the safe vales to the motor drives.
-            leftDrive.setPower(left);
-            rightDrive.setPower(right);
+			// Move both servos to new position.  Assume servos are mirror image of each other.
+			clawOffset = Range.clip(clawOffset, - 0.5, 0.5);
+			leftClaw.setPosition(MID_SERVO + clawOffset);
+			rightClaw.setPosition(MID_SERVO - clawOffset);
 
-            // Use gamepad left & right Bumpers to open and close the claw
-            if (gamepad1.right_bumper)
-                clawOffset += CLAW_SPEED;
-            else if (gamepad1.left_bumper)
-                clawOffset -= CLAW_SPEED;
+			// Use gamepad buttons to move arm up (Y) and down (A)
+			if (gamepad1.y)
+				leftArm.setPower(ARM_UP_POWER);
+			else if (gamepad1.a)
+				leftArm.setPower(ARM_DOWN_POWER);
+			else
+				leftArm.setPower(0.0);
 
-            // Move both servos to new position.  Assume servos are mirror image of each other.
-            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-            leftClaw.setPosition(MID_SERVO + clawOffset);
-            rightClaw.setPosition(MID_SERVO - clawOffset);
+			// Send telemetry message to signify robot running;
+			telemetry.addData("claw", "Offset = %.2f", clawOffset);
+			telemetry.addData("left", "%.2f", left);
+			telemetry.addData("right", "%.2f", right);
+			telemetry.update();
 
-            // Use gamepad buttons to move arm up (Y) and down (A)
-            if (gamepad1.y)
-                leftArm.setPower(ARM_UP_POWER);
-            else if (gamepad1.a)
-                leftArm.setPower(ARM_DOWN_POWER);
-            else
-                leftArm.setPower(0.0);
-
-            // Send telemetry message to signify robot running;
-            telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
-            telemetry.update();
-
-            // Pace this loop so jaw action is reasonable speed.
-            sleep(50);
-        }
-    }
+			// Pace this loop so jaw action is reasonable speed.
+			sleep(50);
+		}
+	}
 }

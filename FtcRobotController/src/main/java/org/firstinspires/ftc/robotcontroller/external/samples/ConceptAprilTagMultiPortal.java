@@ -42,62 +42,51 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
  */
 @TeleOp(name = "Concept: AprilTagMultiPortal", group = "Concept")
 @Disabled
-public class ConceptAprilTagMultiPortal extends LinearOpMode
-{
-    VisionPortal portal1;
-    VisionPortal portal2;
+public class ConceptAprilTagMultiPortal extends LinearOpMode {
+	VisionPortal portal1;
+	VisionPortal portal2;
 
-    AprilTagProcessor aprilTagProcessor1;
-    AprilTagProcessor aprilTagProcessor2;
+	AprilTagProcessor aprilTagProcessor1;
+	AprilTagProcessor aprilTagProcessor2;
 
-    @Override
-    public void runOpMode() throws InterruptedException
-    {
-        // Because we want to show two camera feeds simultaneously, we need to inform
-        // the SDK that we want it to split the camera monitor area into two smaller
-        // areas for us. It will then give us View IDs which we can pass to the individual
-        // vision portals to allow them to properly hook into the UI in tandem.
-        int[] viewIds = VisionPortal.makeMultiPortalView(2, VisionPortal.MultiPortalLayout.VERTICAL);
+	@Override
+	public void runOpMode() throws InterruptedException {
+		// Because we want to show two camera feeds simultaneously, we need to inform
+		// the SDK that we want it to split the camera monitor area into two smaller
+		// areas for us. It will then give us View IDs which we can pass to the individual
+		// vision portals to allow them to properly hook into the UI in tandem.
+		int[] viewIds = VisionPortal.makeMultiPortalView(2, VisionPortal.MultiPortalLayout.VERTICAL);
 
-        // We extract the two view IDs from the array to make our lives a little easier later.
-        // NB: the array is 2 long because we asked for 2 portals up above.
-        int portal1ViewId = viewIds[0];
-        int portal2ViewId = viewIds[1];
+		// We extract the two view IDs from the array to make our lives a little easier later.
+		// NB: the array is 2 long because we asked for 2 portals up above.
+		int portal1ViewId = viewIds[0];
+		int portal2ViewId = viewIds[1];
 
-        // If we want to run AprilTag detection on two portals simultaneously,
-        // we need to create two distinct instances of the AprilTag processor,
-        // one for each portal. If you want to see more detail about different
-        // options that you have when creating these processors, go check out
-        // the ConceptAprilTag OpMode.
-        aprilTagProcessor1 = AprilTagProcessor.easyCreateWithDefaults();
-        aprilTagProcessor2 = AprilTagProcessor.easyCreateWithDefaults();
+		// If we want to run AprilTag detection on two portals simultaneously,
+		// we need to create two distinct instances of the AprilTag processor,
+		// one for each portal. If you want to see more detail about different
+		// options that you have when creating these processors, go check out
+		// the ConceptAprilTag OpMode.
+		aprilTagProcessor1 = AprilTagProcessor.easyCreateWithDefaults();
+		aprilTagProcessor2 = AprilTagProcessor.easyCreateWithDefaults();
 
-        // Now we build both portals. The CRITICAL thing to notice here is the call to
-        // setLiveViewContainerId(), where we pass in the IDs we received earlier from
-        // makeMultiPortalView().
-        portal1 = new VisionPortal.Builder()
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .setLiveViewContainerId(portal1ViewId)
-                .addProcessor(aprilTagProcessor1)
-                .build();
-        portal2 = new VisionPortal.Builder()
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 2"))
-                .setLiveViewContainerId(portal2ViewId)
-                .addProcessor(aprilTagProcessor2)
-                .build();
+		// Now we build both portals. The CRITICAL thing to notice here is the call to
+		// setLiveViewContainerId(), where we pass in the IDs we received earlier from
+		// makeMultiPortalView().
+		portal1 = new VisionPortal.Builder().setCamera(hardwareMap.get(WebcamName.class, "Webcam 1")).setLiveViewContainerId(portal1ViewId).addProcessor(aprilTagProcessor1).build();
+		portal2 = new VisionPortal.Builder().setCamera(hardwareMap.get(WebcamName.class, "Webcam 2")).setLiveViewContainerId(portal2ViewId).addProcessor(aprilTagProcessor2).build();
 
-        waitForStart();
+		waitForStart();
 
-        // Main Loop
-        while (opModeIsActive())
-        {
-            // Just show some basic telemetry to demonstrate both processors are working in parallel
-            // on their respective cameras. If you want to see more detail about the information you
-            // can get back from the processor, you should look at ConceptAprilTag.
-            telemetry.addData("Number of tags in Camera 1", aprilTagProcessor1.getDetections().size());
-            telemetry.addData("Number of tags in Camera 2", aprilTagProcessor2.getDetections().size());
-            telemetry.update();
-            sleep(20);
-        }
-    }
+		// Main Loop
+		while (opModeIsActive()) {
+			// Just show some basic telemetry to demonstrate both processors are working in parallel
+			// on their respective cameras. If you want to see more detail about the information you
+			// can get back from the processor, you should look at ConceptAprilTag.
+			telemetry.addData("Number of tags in Camera 1", aprilTagProcessor1.getDetections().size());
+			telemetry.addData("Number of tags in Camera 2", aprilTagProcessor2.getDetections().size());
+			telemetry.update();
+			sleep(20);
+		}
+	}
 }

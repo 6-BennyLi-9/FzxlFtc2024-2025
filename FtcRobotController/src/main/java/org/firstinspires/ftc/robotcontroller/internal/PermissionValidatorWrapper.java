@@ -42,23 +42,21 @@ import java.util.List;
 
 public class PermissionValidatorWrapper extends PermissionValidatorActivity {
 
-    private final String TAG = "PermissionValidatorWrapper";
+	private final static Class <FtcRobotControllerActivity> startApplication = FtcRobotControllerActivity.class;
+	/*
+	 * The list of dangerous permissions the robot controller needs.
+	 */
+	protected final List <String> robotControllerPermissions = new ArrayList <String>() {{
+		add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		add(Manifest.permission.READ_EXTERNAL_STORAGE);
+		add(Manifest.permission.CAMERA);
+		add(Manifest.permission.ACCESS_COARSE_LOCATION);
+		add(Manifest.permission.ACCESS_FINE_LOCATION);
+		add(Manifest.permission.READ_PHONE_STATE);
+	}};
+	private final String TAG = "PermissionValidatorWrapper";
 
-    /*
-     * The list of dangerous permissions the robot controller needs.
-     */
-    protected final List<String> robotControllerPermissions = new ArrayList<String>() {{
-        add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        add(Manifest.permission.CAMERA);
-        add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        add(Manifest.permission.ACCESS_FINE_LOCATION);
-        add(Manifest.permission.READ_PHONE_STATE);
-    }};
-
-    private final static Class <FtcRobotControllerActivity> startApplication = FtcRobotControllerActivity.class;
-
-    public String mapPermissionToExplanation(final String permission) {
+	public String mapPermissionToExplanation(final String permission) {
 		switch (permission) {
 			case Manifest.permission.WRITE_EXTERNAL_STORAGE:
 				return Misc.formatForUser(R.string.permRcWriteExternalStorageExplain);
@@ -73,20 +71,18 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
 			case Manifest.permission.READ_PHONE_STATE:
 				return Misc.formatForUser(R.string.permReadPhoneState);
 		}
-        return Misc.formatForUser(R.string.permGenericExplain);
-    }
+		return Misc.formatForUser(R.string.permGenericExplain);
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        permissions = robotControllerPermissions;
-    }
+		permissions = robotControllerPermissions;
+	}
 
-    protected Class onStartApplication()
-    {
-        FtcRobotControllerActivity.setPermissionsValidated();
-        return startApplication;
-    }
+	protected Class onStartApplication() {
+		FtcRobotControllerActivity.setPermissionsValidated();
+		return startApplication;
+	}
 }
