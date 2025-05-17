@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
 import static org.betastudio.ftc.util.Pose2dUtil.yp;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.*;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_START;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.GET_SUSPEND;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.RIGHT_PARK;
@@ -65,12 +66,12 @@ public class Right extends ActionBasedAutonomous {
 		utils.waitMs(300);
 		utils.closeClip();
 		utils.waitMs(400);
-		executeLinked(track.runTo(yp(get, AutonomousConfigures.GET_SUSPENDING_SAMPLE_DISTANCE)), utils.pack());
+		executeLinked(track.runTo(yp(get, RIGHT_GET_SUSPENDING_DISTANCE)), utils.pack());
 	}
 
 	public void appendIntake(final Pose2d intake) {
 		utils.waitMs(150);
-		utils.scaleOperate(AutonomousConfigures.RIGHT_SCALE_INTAKE_POSITION);
+		utils.scaleOperate(RIGHT_SCALE_INTAKE_POSITION);
 		executeAssembled(track.runTo(intake), utils.pack());
 		utils.armDisplay();
 		utils.waitMs(600);

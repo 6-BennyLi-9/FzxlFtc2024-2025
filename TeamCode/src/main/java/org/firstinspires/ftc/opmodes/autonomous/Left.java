@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.*;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.DECANT;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_PARK_PREPARE;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_1;
@@ -26,15 +27,15 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 
 		/// 夹取 1
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE_1);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE_1);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 2
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, LEFT_SAMPLE_2);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_2, LEFT_SAMPLE_2);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 3
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, LEFT_SAMPLE_3);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_3, LEFT_SAMPLE_3);
 		/// 倒出
 		appendDecanting();
 
