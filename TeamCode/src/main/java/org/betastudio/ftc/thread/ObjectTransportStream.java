@@ -1,12 +1,12 @@
 package org.betastudio.ftc.thread;
 
-import org.betastudio.ftc.Annotations;
+import static org.betastudio.ftc.Annotations.Beta;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@Annotations.Beta(date = "25.3.11")
+@Beta(date = "25.3.11")
 public class ObjectTransportStream<T> {
 	public final Lock    pushLock;
 	public final Lock    receiveLock;
