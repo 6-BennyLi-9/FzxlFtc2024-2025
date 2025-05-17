@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.betastudio.ftc.Interfaces.ThreadEx;
+import static org.betastudio.ftc.util.ExceptionsUtil.getOriginException;
 
-import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;
@@ -45,7 +45,7 @@ public final class Local {
 				Thread.yield();
 			}
 		} catch (final Exception e) {
-			Throwable cause = ExceptionsUtil.getOriginException(e);
+			Throwable cause = getOriginException(e);
 			throw new RuntimeException(cause);
 		}
 	}
@@ -60,7 +60,7 @@ public final class Local {
 				sleep(flashMillis);
 			}
 		} catch (final Exception e) {
-			Throwable cause = ExceptionsUtil.getOriginException(e);
+			Throwable cause = getOriginException(e);
 			throw new RuntimeException(cause);
 		}
 	}

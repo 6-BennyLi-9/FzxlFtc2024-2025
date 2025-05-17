@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.opmodes;
 
+import static org.betastudio.ftc.util.ExceptionsUtil.getOriginException;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Autonomous(name = "Local Exception Handle Guarder", group = "2_Guarder")
@@ -35,7 +36,7 @@ public final class LocalExceptionHandleGuarder extends LinearOpMode implements T
 
 		while (opModeIsActive()) {
 			if (null != e) {
-				Throwable cause = ExceptionsUtil.getOriginException(e);
+				Throwable cause = getOriginException(e);
 				throw new RuntimeException(cause);
 			}
 		}

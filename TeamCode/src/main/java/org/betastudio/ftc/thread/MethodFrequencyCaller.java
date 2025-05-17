@@ -1,8 +1,7 @@
 package org.betastudio.ftc.thread;
 
 import static org.betastudio.ftc.Interfaces.ThreadEx;
-
-import org.betastudio.ftc.util.ExceptionsUtil;
+import static org.betastudio.ftc.util.ExceptionsUtil.getOriginException;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +25,7 @@ public class MethodFrequencyCaller implements ThreadEx, Runnable {
 				}
 				TimeUnit.MILLISECONDS.sleep(1000 / FPS);
 			} catch (final Exception e) {
-				Throwable cause = ExceptionsUtil.getOriginException(e);
+				Throwable cause = getOriginException(e);
 				throw new RuntimeException(cause);
 			}
 			methodCall.run();
