@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.betastudio.ftc.Interfaces.MessagesProcessRequired;
+import org.betastudio.ftc.Interfaces.MessagesProcessor;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.message.DriveMsg;
 
 import java.util.Locale;
 
 @Config
-public strictfp class ChassisCtrl implements Action, MessagesProcessRequired <DriveMsg> {
+public strictfp class ChassisCtrl implements Action, MessagesProcessor <DriveMsg> {
 	public static final double          kS              = 1;
 	public static final double          kF              = - 1;
 	public static final double          maxControlPower = 1.3;

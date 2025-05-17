@@ -4,13 +4,13 @@ import static org.betastudio.ftc.Annotations.MirrorMethod;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces.MessagesProcessRequired;
+import org.betastudio.ftc.Interfaces.MessagesProcessor;
 import org.betastudio.ftc.Interfaces.Updatable;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public interface Client extends MessagesProcessRequired <TelemetryMsg>, Updatable {
+public interface Client extends MessagesProcessor <TelemetryMsg>, Updatable {
 	@MirrorMethod
 	static void configViewMode(final ClientViewMode clientViewMode) {
 		ClientViewMode.globalViewMode = clientViewMode;

@@ -20,7 +20,7 @@ public final class Interfaces {
 		void init();
 	}
 
-	public interface MessagesProcessRequired<K extends Message> {
+	public interface MessagesProcessor<K extends Message> {
 		void sendMsg(@NonNull final K message);
 
 		@Nullable
