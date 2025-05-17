@@ -12,7 +12,7 @@ public class TeleOpCore extends IntegralTeleOp {
 	@Override
 	public void op_init() {
 		super.op_init();
-		client.putData("DriveCtrlMode", "wait for start");
+		client.putData("Drive Mode", "wait for start");
 	}
 
 	@Override
@@ -28,6 +28,6 @@ public class TeleOpCore extends IntegralTeleOp {
 		robot.printActions();
 
 		robot.update();
-		client.changeData("DriveCtrlMode", ChassisCtrl.mode.name());
+		client.changeData("Drive Mode", ChassisCtrl.mode.name());
 	}
 }
