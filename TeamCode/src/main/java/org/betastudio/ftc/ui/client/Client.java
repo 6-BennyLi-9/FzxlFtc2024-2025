@@ -14,6 +14,30 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @noinspection UnusedReturnValue
  */
 public interface Client extends MessagesProcessRequired <TelemetryMsg>, Updatable {
+	@MirrorMethod
+	static void configViewMode(final ClientViewMode clientViewMode) {
+		ClientViewMode.globalViewMode = clientViewMode;
+	}
+
+	static ClientViewMode getCurrentViewMode() {
+		return ClientViewMode.globalViewMode;
+	}
+
+	static void switchViewMode() {
+		switch (getCurrentViewMode()) {
+			case ORIGIN_TELEMETRY:
+				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
+				break;
+			case FTC_LOG:
+				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
+				break;
+			case THREAD_SERVICE:
+			default:
+				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
+				break;
+		}
+	}
+
 	void clear();
 
 	/// 注意：这是新的Data
@@ -42,39 +66,13 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg>, Updatabl
 
 	void speak(String text, String languageCode, String countryCode);
 
-	@MirrorMethod
-	static void configViewMode(final ClientViewMode clientViewMode) {
-		ClientViewMode.globalViewMode = clientViewMode;
-	}
-
 	UpdateConfig getUpdateConfig();
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
-	static ClientViewMode getCurrentViewMode() {
-		return ClientViewMode.globalViewMode;
-	}
-
 	Telemetry getOriginTelemetry();
 
-
-	//------------------------
-	// DEFAULT IMPLEMENTATION
-	//------------------------
-	static void switchViewMode() {
-		switch (getCurrentViewMode()) {
-			case ORIGIN_TELEMETRY:
-				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
-				break;
-			case FTC_LOG:
-				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
-				break;
-			case THREAD_SERVICE:
-			default:
-				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
-				break;
-		}
-	}
+	FtcLogTunnel getTargetLogTunnel();
 
 	/**
 	 * 注意：这是新的Data
@@ -104,6 +102,4 @@ public interface Client extends MessagesProcessRequired <TelemetryMsg>, Updatabl
 	default void speak(final String text) {
 		speak(text, null, null);
 	}
-
-	FtcLogTunnel getTargetLogTunnel();
 }

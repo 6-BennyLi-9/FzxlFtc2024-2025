@@ -21,7 +21,7 @@ public class FtcLogRender implements ProgressRender {
 		marks.add(1.2);
 	}
 
-	public        List <Double> unMarked;
+	public List <Double> unMarked;
 
 	public FtcLogRender() {
 		unMarked = new ArrayList <>(marks);

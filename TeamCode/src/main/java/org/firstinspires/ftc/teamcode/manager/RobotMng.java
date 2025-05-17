@@ -62,7 +62,7 @@ import java.util.Map;
  * 然后获取客户端 {@link #fetchClient()}。
  */
 public class RobotMng implements Updatable {
-	public static final String UPDATE_CODE            = "fzxl";
+	public static final String UPDATE_CODE = "fzxl";
 
 	public final Map <String, HardwareController> controllers = new HashMap <>();
 	public       double                           scaleRecent = SCALE_PROBE;

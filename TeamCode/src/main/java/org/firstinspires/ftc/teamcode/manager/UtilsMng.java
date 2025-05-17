@@ -60,6 +60,7 @@ import org.firstinspires.ftc.teamcode.structure.DriveOp;
  * @see RobotMng
  */
 public class UtilsMng {
+	private static final double allowableError = 2;
 	private final LinkedActionBuilder builder;
 
 	/**
@@ -172,7 +173,7 @@ public class UtilsMng {
 		builder.append(new StatementAction(() -> claw.setPosition(CLAW_OPEN)));
 	}
 
-	public void halfOpenClaw(){
+	public void halfOpenClaw() {
 		builder.append(new StatementAction(() -> claw.setPosition(CLAW_HALF_OPEN)));
 	}
 
@@ -266,8 +267,6 @@ public class UtilsMng {
 		builder.append(genLiftController(LIFT_SUSPEND_Lv1));
 	}
 
-	private static final double allowableError = 2;
-
 	@Beta(date = "25.5.8")
 	public Action imuCalibrateAction(double target, SampleMecanumDrive drive, Pose2d pose2d) {
 		return () -> {
@@ -276,7 +275,7 @@ public class UtilsMng {
 				drive.setPoseEstimate(pose2d);
 				return false;
 			}
-			DriveOp.build(0,0, 0.5 * signum(error)).activate();
+			DriveOp.build(0, 0, 0.5 * signum(error)).activate();
 			return true;
 		};
 	}

@@ -30,14 +30,14 @@ public class ProgressMarkerImplement implements ProgressMarker {
 		return done.get();
 	}
 
-	@Override
-	public void tick() {
-		done.incrementAndGet();
-	}
-
 	/// 非特殊用途不推荐调用。
 	public void setDone(final long done) {
 		this.done.set(done);
+	}
+
+	@Override
+	public void tick() {
+		done.incrementAndGet();
 	}
 
 	@NonNull

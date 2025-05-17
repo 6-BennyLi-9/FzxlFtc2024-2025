@@ -23,9 +23,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class TrajectoryAction extends AbstractActionImplement implements ProgressedTask {
 	public static final double PROGRESS_LENGTH_MULTIPLIER = 10;
-
-	private final ProgressMarkerImplement marker;
-	private static Client client;
+	private static Client                  client;
+	private final  ProgressMarkerImplement marker;
 
 	public TrajectoryAction(@NonNull final SampleMecanumDrive drive, @NonNull final TrajectorySequence track) {
 		final AtomicBoolean isInitialized = new AtomicBoolean(false);
