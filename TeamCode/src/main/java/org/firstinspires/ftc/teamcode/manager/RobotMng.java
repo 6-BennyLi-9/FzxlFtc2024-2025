@@ -87,6 +87,9 @@ public class RobotMng implements Updatable {
 		controllers.put("scale", new ScaleOp());
 		controllers.put("drive", new DriveOp());
 		controllers.put("ratchet", new RatchetOp());
+
+		liftSuspendLv2Modding.ticker.setTicked(0);
+		armScaleOperate.ticker.setTicked(0);
 	}
 
 	/// 获取默认的 telemetry 客户端
@@ -261,8 +264,6 @@ public class RobotMng implements Updatable {
 
 		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-		client.changeData("drive msg 1", DriveOp.getInstance().getDriveMsg());
-
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().turn(- 0.1);
 		}
@@ -271,8 +272,6 @@ public class RobotMng implements Updatable {
 		}
 
 		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, DRIVER_TRIGGER_BUF_FAL);
-
-		client.changeData("drive msg 2", DriveOp.getInstance().getDriveMsg());
 	}
 
 	/**
