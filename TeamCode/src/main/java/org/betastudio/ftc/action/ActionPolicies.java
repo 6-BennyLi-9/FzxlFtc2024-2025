@@ -12,7 +12,7 @@ public final class ActionPolicies {
 		Action resolve();
 	}
 
-	public interface ForceHandleExceptionPolicy <T>{
+	public interface ForceHandleExceptionPolicy<T> {
 		T resolve(Exception e);
 	}
 
@@ -32,7 +32,7 @@ public final class ActionPolicies {
 		}
 	}
 
-	public static final class RuntimeExceptionPolicy <T> implements ForceHandleExceptionPolicy <T> {
+	public static final class RuntimeExceptionPolicy<T> implements ForceHandleExceptionPolicy <T> {
 		@Override
 		public T resolve(Exception e) {
 			throw new RuntimeException(getOriginException(e));

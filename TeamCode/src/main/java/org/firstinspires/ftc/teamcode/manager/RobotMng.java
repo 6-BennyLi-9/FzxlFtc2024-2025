@@ -18,19 +18,25 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
-import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.DRIVER_TRIGGER_BUF_FAL;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_TRIGGER_BUF_FAL;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BUF_FAL;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.DECANT_HIGH;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.DECANT_LOW;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.IDLE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_Lv2;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_Lv2_PREPARE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_PREPARE;
 import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.betastudio.ftc.action.Action;
@@ -61,29 +67,14 @@ import java.util.Map;
  * 机器人管理类，实现了 {@link Updatable} 接口。在使用此类时，需要先初始化硬件控制器 {@link #initControllers()}，
  * 然后获取客户端 {@link #fetchClient()}。
  */
-@Config
 public class RobotMng implements Updatable {
-	/// 打印代码的字符数组，用于在 telemetry 中显示状态更新
-	public static final String                           printCode           = "fzxl";
-	/// 驱动杆缓冲阈值
-	public static final double                           driverTriggerBufFal = 0.2;
-	/// 旋转触发缓冲失败的阈值
-	public static final double                           rotateTriggerBufFal = 0.03;
-	/**
-	 * 滑轨伸出时移动方式
-	 * <p>
-	 *默认为累加
-	 */
-	public static final boolean                          scaleTypeAdding     = true;
-	/// 滑轨当前位置
-	public static       double                           scaleRecent         = (SCALE_BACH + SCALE_PROBE) / 2;
-	/// 硬件控制器的映射表
-	public final        Map <String, HardwareController> controllers         = new HashMap <>();
-	public              Action                           hardwareAction;
-	/// 更新时间，用于计算 telemetry 的更新状态
-	public              int                              updateTime;
-	/// 客户端对象，用于与控制台通信
-	private             Client                           client;
+	public static final String UPDATE_CODE = "fzxl";
+
+	public final Map <String, HardwareController> controllers = new HashMap <>();
+	public       double                           scaleRecent = SCALE_PROBE;
+	public       Action                           hardwareAction;
+	public       int                              updateTime;
+	private      Client                           client;
 
 	/// 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
 	public RobotMng() {
@@ -96,6 +87,9 @@ public class RobotMng implements Updatable {
 		controllers.put("scale", new ScaleOp());
 		controllers.put("drive", new DriveOp());
 		controllers.put("ratchet", new RatchetOp());
+
+		liftSuspendLv2Modding.ticker.setTicked(0);
+		armScaleOperate.ticker.setTicked(0);
 	}
 
 	/// 获取默认的 telemetry 客户端
@@ -152,21 +146,21 @@ public class RobotMng implements Updatable {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftMode.SUSPEND == LiftOp.recent || LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
+			if (SUSPEND == LiftOp.recent || SUSPEND_PREPARE == LiftOp.recent) {
 				ClipOp.getInstance().open();
 			}
 
 			ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
-			LiftOp.getInstance().sync(LiftMode.IDLE);
+			LiftOp.getInstance().sync(IDLE);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
-			if (LiftMode.IDLE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_LOW);
-			} else if (LiftMode.DECANT_LOW == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_HIGH);
+			if (IDLE == LiftOp.recent) {
+				LiftOp.getInstance().sync(DECANT_LOW);
+			} else if (DECANT_LOW == LiftOp.recent) {
+				LiftOp.getInstance().sync(DECANT_HIGH);
 			}
 
 			ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
@@ -176,23 +170,23 @@ public class RobotMng implements Updatable {
 				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
+			LiftOp.getInstance().sync(SUSPEND_PREPARE);
 		} else if (liftSuspendLv2Modding.getEnabled()) {
 			liftSuspendLv2Modding.ticker.tickAndMod(3);
 
 			switch (liftSuspendLv2Modding.ticker.getTicked()) {
 				case 1:
-					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
+					LiftOp.getInstance().sync(SUSPEND_Lv2_PREPARE);
 					break;
 				case 2:
-					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2);
+					LiftOp.getInstance().sync(SUSPEND_Lv2);
 					break;
 			}
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.SUSPEND);
+			if (SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(SUSPEND);
 			} else {
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();
@@ -202,7 +196,6 @@ public class RobotMng implements Updatable {
 		if (armScaleOperate.getEnabled()) {
 			armScaleOperate.ticker.tickAndMod(2);
 
-			//初始化
 			switch (armScaleOperate.ticker.getTicked()) {
 				case 0:
 					RotateOp.getInstance().mid();
@@ -223,11 +216,11 @@ public class RobotMng implements Updatable {
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
-				scaleRecent = (SCALE_BACH + SCALE_PROBE) / 2;
+				scaleRecent = SCALE_PROBE;
 				break;
 			case 1:
-				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				scaleRecent = scaleTypeAdding ? min(max(scaleRecent - gamepad2.left_stick_y * 0.05, SCALE_MIN_POSITION), SCALE_MAX_POSITION) : - gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH) / 2;
+				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * ROTATE_TRIGGER_BUF_FAL);
+				scaleRecent = min(max(scaleRecent - gamepad2.left_stick_y * SCALE_BUF_FAL, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
 				ScaleOp.getInstance().operate(scaleRecent);
 				break;
 			default:
@@ -271,8 +264,6 @@ public class RobotMng implements Updatable {
 
 		DriveOp.getInstance().sync(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-		client.changeData("drive msg 1", DriveOp.getInstance().getDriveMsg());
-
 		if (gamepad1.left_bumper) {
 			DriveOp.getInstance().turn(- 0.1);
 		}
@@ -280,9 +271,7 @@ public class RobotMng implements Updatable {
 			DriveOp.getInstance().turn(0.1);
 		}
 
-		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
-
-		client.changeData("drive msg 2", DriveOp.getInstance().getDriveMsg());
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, DRIVER_TRIGGER_BUF_FAL);
 	}
 
 	/**
@@ -297,7 +286,7 @@ public class RobotMng implements Updatable {
 	public void printActions() {
 		++ updateTime;
 
-		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
+		final String updateCode = "[" + UPDATE_CODE.charAt(updateTime % UPDATE_CODE.length()) + "]";
 
 		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			final String s = entry.getKey();

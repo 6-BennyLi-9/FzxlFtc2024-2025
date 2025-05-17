@@ -11,17 +11,12 @@ public class FtcThreadFactory implements ThreadFactory {
 
 	public FtcThreadFactory() {
 		SecurityManager s = System.getSecurityManager();
-		group = (s != null) ? s.getThreadGroup() :
-				Thread.currentThread().getThreadGroup();
-		namePrefix = "pool-" +
-					 poolNumber.getAndIncrement() +
-					 "-thread-";
+		group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
+		namePrefix = "pool-" + poolNumber.getAndIncrement() + "-thread-";
 	}
 
 	public Thread newThread(Runnable r) {
-		Thread t = new Thread(group, r,
-				namePrefix + threadNumber.getAndIncrement(),
-				0);
+		Thread t = new Thread(group, r, namePrefix + threadNumber.getAndIncrement(), 0);
 		if (t.isDaemon())
 			t.setDaemon(false);
 		if (t.getPriority() != Thread.NORM_PRIORITY)

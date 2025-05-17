@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_HIGH;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_DECANT_LOW;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_IDLE;
@@ -14,7 +16,6 @@ import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMod
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Contract;
  * 该类用于操作升降机构，包括设置目标位置、获取当前位置、获取错误位置、获取标签、设置标签等。
  */
 @SuppressWarnings("PublicField")
-public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
+public class LiftOp implements HardwareController, TagOptionsRequired {
 	public static  LiftMode         recent = LiftMode.IDLE;
 	public static  AbstractLiftCtrl liftCtrl;
 	private static LiftOp           instance;

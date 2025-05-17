@@ -1,5 +1,18 @@
 package org.acmerobotics.roadrunner.util;
 
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
+import static com.qualcomm.robotcore.eventloop.opmode.OpModeManagerNotifier.*;
+import static org.acmerobotics.roadrunner.DriveConstants.*;
+import static org.acmerobotics.roadrunner.SampleMecanumDrive.HEADING_PID;
+import static org.acmerobotics.roadrunner.SampleMecanumDrive.LATERAL_MULTIPLIER;
+import static org.acmerobotics.roadrunner.SampleMecanumDrive.TRANSLATIONAL_PID;
+import static org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer.FORWARD_OFFSET;
+import static org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer.GEAR_RATIO;
+import static org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer.LATERAL_DISTANCE;
+import static org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer.TICKS_PER_REV;
+import static org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer.WHEEL_RADIUS;
+
 import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
@@ -8,16 +21,12 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerNotifier;
 import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.WebHandlerManager;
 
 import org.acmerobotics.roadrunner.DriveConstants;
-import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.acmerobotics.roadrunner.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.ftccommon.external.WebHandlerRegistrar;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
@@ -38,8 +47,8 @@ import fi.iki.elonen.NanoHTTPD;
 public class LogFiles {
 	private static final File ROOT = new File(AppUtil.ROOT_FOLDER + "/RoadRunner/logs/");
 
-	public static        LogFile                             log          = new LogFile("uninitialized");
-	private static final OpModeManagerNotifier.Notifications notifHandler = new OpModeManagerNotifier.Notifications() {
+	public static        LogFile       log           = new LogFile("uninitialized");
+	private static final Notifications notifyHandler = new Notifications() {
 		@SuppressLint("SimpleDateFormat")
 		final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_SSS");
 
@@ -146,7 +155,7 @@ public class LogFiles {
 
 		// op mode manager only stores a weak reference, so we need to keep notifHandler alive ourselves
 		// don't use @OnCreateEventLoop because it's unreliable
-		OpModeManagerImpl.getOpModeManagerOfActivity(AppUtil.getInstance().getActivity()).registerListener(notifHandler);
+		OpModeManagerImpl.getOpModeManagerOfActivity(AppUtil.getInstance().getActivity()).registerListener(notifyHandler);
 
 		manager.register("/logs", session -> {
 			final StringBuilder sb = new StringBuilder();
@@ -187,54 +196,55 @@ public class LogFiles {
 	}
 
 	public static class LogFile {
-		public final String opModeName;
-		public final long   msInit = System.currentTimeMillis();
-		public final List <Long> nsTimes = new ArrayList <>();
-		public final List <Double> targetXs       = new ArrayList <>();
-		public final List <Double> targetYs       = new ArrayList <>();
-		public final List <Double> targetHeadings = new ArrayList <>();
-		public final List <Double> xs       = new ArrayList <>();
-		public final List <Double> ys       = new ArrayList <>();
-		public final List <Double> headings = new ArrayList <>();
-		public final List <Double> voltages = new ArrayList <>();
-		public final List <List <Integer>> driveEncPositions    = new ArrayList <>();
-		public final List <List <Integer>> driveEncVels         = new ArrayList <>();
-		public final List <List <Integer>> trackingEncPositions = new ArrayList <>();
-		public final List <List <Integer>> trackingEncVels      = new ArrayList <>();
-		public String version = "quickstart1 v2";
-		public       long   nsInit = System.nanoTime();
-		public       long   nsStart, nsStop;
-		public double  ticksPerRev     = DriveConstants.TICKS_PER_REV;
-		public double  maxRpm          = DriveConstants.MAX_RPM;
-		public boolean runUsingEncoder = DriveConstants.RUN_USING_ENCODER;
-		public double  motorP          = DriveConstants.MOTOR_VELOCITY_PID.p;
-		public double  motorI          = DriveConstants.MOTOR_VELOCITY_PID.i;
-		public double  motorD          = DriveConstants.MOTOR_VELOCITY_PID.d;
-		public double  motorF          = DriveConstants.MOTOR_VELOCITY_PID.f;
-		public double  wheelRadius     = DriveConstants.WHEEL_RADIUS;
-		public double  gearRatio       = DriveConstants.GEAR_RATIO;
-		public double  trackWidth      = DriveConstants.TRACK_WIDTH;
-		public double  kV              = DriveConstants.kV;
-		public double  kA              = DriveConstants.kA;
-		public double  kStatic         = DriveConstants.kStatic;
-		public double  maxVel          = DriveConstants.MAX_VEL;
-		public double  maxAccel        = DriveConstants.MAX_ACCEL;
-		public double  maxAngVel       = DriveConstants.MAX_ANG_VEL;
-		public double  maxAngAccel     = DriveConstants.MAX_ANG_ACCEL;
-		public double mecTransP            = SampleMecanumDrive.TRANSLATIONAL_PID.kP;
-		public double mecTransI            = SampleMecanumDrive.TRANSLATIONAL_PID.kI;
-		public double mecTransD            = SampleMecanumDrive.TRANSLATIONAL_PID.kD;
-		public double mecHeadingP          = SampleMecanumDrive.HEADING_PID.kP;
-		public double mecHeadingI          = SampleMecanumDrive.HEADING_PID.kI;
-		public double mecHeadingD          = SampleMecanumDrive.HEADING_PID.kD;
-		public double mecLateralMultiplier = SampleMecanumDrive.LATERAL_MULTIPLIER;
-		public double trackingTicksPerRev     = StandardTrackingWheelLocalizer.TICKS_PER_REV;
-		public double trackingWheelRadius     = StandardTrackingWheelLocalizer.WHEEL_RADIUS;
-		public double trackingGearRatio       = StandardTrackingWheelLocalizer.GEAR_RATIO;
-		public double trackingLateralDistance = StandardTrackingWheelLocalizer.LATERAL_DISTANCE;
-		public double trackingForwardOffset   = StandardTrackingWheelLocalizer.FORWARD_OFFSET;
-		public RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = DriveConstants.LOGO_FACING_DIR;
-		public RevHubOrientationOnRobot.UsbFacingDirection  USB_FACING_DIR  = DriveConstants.USB_FACING_DIR;
+		public final String                opModeName;
+		public final long                  msInit                  = System.currentTimeMillis();
+		public final List <Long>           nsTimes                 = new ArrayList <>();
+		public final List <Double>         targetXs                = new ArrayList <>();
+		public final List <Double>         targetYs                = new ArrayList <>();
+		public final List <Double>         targetHeadings          = new ArrayList <>();
+		public final List <Double>         xs                      = new ArrayList <>();
+		public final List <Double>         ys                      = new ArrayList <>();
+		public final List <Double>         headings                = new ArrayList <>();
+		public final List <Double>         voltages                = new ArrayList <>();
+		public final List <List <Integer>> driveEncPositions       = new ArrayList <>();
+		public final List <List <Integer>> driveEncVels            = new ArrayList <>();
+		public final List <List <Integer>> trackingEncPositions    = new ArrayList <>();
+		public final List <List <Integer>> trackingEncVels         = new ArrayList <>();
+		public       String                version                 = "quickstart1 v2";
+		public       long                  nsInit                  = System.nanoTime();
+		public       long                  nsStart;
+		public       long                  nsStop;
+		public       double                ticksPerRev             = DriveConstants.TICKS_PER_REV;
+		public       double                maxRpm                  = MAX_RPM;
+		public       boolean               runUsingEncoder         = RUN_USING_ENCODER;
+		public       double                motorP                  = MOTOR_VELOCITY_PID.p;
+		public       double                motorI                  = MOTOR_VELOCITY_PID.i;
+		public       double                motorD                  = MOTOR_VELOCITY_PID.d;
+		public       double                motorF                  = MOTOR_VELOCITY_PID.f;
+		public       double                wheelRadius             = DriveConstants.WHEEL_RADIUS;
+		public       double                gearRatio               = DriveConstants.GEAR_RATIO;
+		public       double                trackWidth              = TRACK_WIDTH;
+		public       double                kV                      = DriveConstants.kV;
+		public       double                kA                      = DriveConstants.kA;
+		public       double                kStatic                 = DriveConstants.kStatic;
+		public       double                maxVel                  = MAX_VEL;
+		public       double                maxAccel                = MAX_ACCEL;
+		public       double                maxAngVel               = MAX_ANG_VEL;
+		public       double                maxAngAccel             = MAX_ANG_ACCEL;
+		public       double                mecTransP               = TRANSLATIONAL_PID.kP;
+		public       double                mecTransI               = TRANSLATIONAL_PID.kI;
+		public       double                mecTransD               = TRANSLATIONAL_PID.kD;
+		public       double                mecHeadingP             = HEADING_PID.kP;
+		public       double                mecHeadingI             = HEADING_PID.kI;
+		public       double                mecHeadingD             = HEADING_PID.kD;
+		public       double                mecLateralMultiplier    = LATERAL_MULTIPLIER;
+		public       double                trackingTicksPerRev     = TICKS_PER_REV;
+		public       double                trackingWheelRadius     = WHEEL_RADIUS;
+		public       double                trackingGearRatio       = GEAR_RATIO;
+		public       double                trackingLateralDistance = LATERAL_DISTANCE;
+		public       double                trackingForwardOffset   = FORWARD_OFFSET;
+		public       LogoFacingDirection   LOGO_FACING_DIR         = DriveConstants.LOGO_FACING_DIR;
+		public       UsbFacingDirection    USB_FACING_DIR          = DriveConstants.USB_FACING_DIR;
 
 		public LogFile(final String opModeName) {
 			this.opModeName = opModeName;

@@ -5,9 +5,11 @@ import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_1;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_2;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_3;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_START;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -15,7 +17,6 @@ import org.betastudio.ftc.action.Action;
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
-@Config
 @Autonomous(preselectTeleOp = "19419", group = "0_Main")
 public class Left extends ActionBasedAutonomous {
 	@Override
@@ -26,15 +27,15 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 
 		/// 夹取 1
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE_1);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE_1);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 2
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, LEFT_SAMPLE_2);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_2, LEFT_SAMPLE_2);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 3
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, LEFT_SAMPLE_3);
+		appendIntake(LEFT_SCALE_INTAKE_POSITION_3, LEFT_SAMPLE_3);
 		/// 倒出
 		appendDecanting();
 

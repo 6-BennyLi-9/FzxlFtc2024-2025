@@ -1,17 +1,18 @@
 package org.betastudio.ftc.selection;
 
+import static org.betastudio.ftc.Interfaces.Updatable;
+
 import android.util.Range;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.message.TelemetryMsg;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SelectPackage implements Interfaces.Updatable {
+public class SelectPackage implements Updatable {
 	private final List <SelectElement> elements;
 	private       int                  selected_index, show_lines;
 	private Range <Integer> show_range;

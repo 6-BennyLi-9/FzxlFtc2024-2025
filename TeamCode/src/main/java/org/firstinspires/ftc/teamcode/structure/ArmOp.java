@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
@@ -7,11 +10,10 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MAX_POSITION
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_RISE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ArmPositions;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
@@ -21,7 +23,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class ArmOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
+public class ArmOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static ArmPositions recent = ArmPositions.IDLE;
 	public static ServoCtrl    leftArmControl, rightArmControl;
 	private static ArmOp instance;

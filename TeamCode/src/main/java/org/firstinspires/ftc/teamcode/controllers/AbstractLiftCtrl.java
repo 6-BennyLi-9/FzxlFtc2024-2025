@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
 import static java.lang.Math.max;
+
 import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 import org.betastudio.ftc.action.Action;
 
 /**
@@ -59,6 +62,6 @@ public abstract class AbstractLiftCtrl implements Action {
 	 * @param targetPosition 目标位置
 	 */
 	public void setTargetPosition(final int targetPosition) {
-		this.targetPosition = max(0,targetPosition); // 设置目标位置
+		this.targetPosition = max(0, targetPosition); // 设置目标位置
 	}
 }

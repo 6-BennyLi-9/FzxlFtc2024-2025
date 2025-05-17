@@ -45,34 +45,34 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 @TeleOp(name = "Sensor: digital channel", group = "Sensor")
 @Disabled
 public class SensorDigitalTouch extends LinearOpMode {
-    DigitalChannel digitalTouch;  // Digital channel Object
+	DigitalChannel digitalTouch;  // Digital channel Object
 
-    @Override
-    public void runOpMode() {
+	@Override
+	public void runOpMode() {
 
-        // get a reference to our touchSensor object.
-        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+		// get a reference to our touchSensor object.
+		digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
 
-        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
-        telemetry.addData("DigitalTouchSensorExample", "Press start to continue...");
-        telemetry.update();
+		digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+		telemetry.addData("DigitalTouchSensorExample", "Press start to continue...");
+		telemetry.update();
 
-        // wait for the start button to be pressed.
-        waitForStart();
+		// wait for the start button to be pressed.
+		waitForStart();
 
-        // while the OpMode is active, loop and read the digital channel.
-        // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-        while (opModeIsActive()) {
+		// while the OpMode is active, loop and read the digital channel.
+		// Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+		while (opModeIsActive()) {
 
-            // button is pressed if value returned is LOW or false.
-            // send the info back to driver station using telemetry function.
-            if (! digitalTouch.getState()) {
-                telemetry.addData("Button", "PRESSED");
-            } else {
-                telemetry.addData("Button", "NOT PRESSED");
-            }
+			// button is pressed if value returned is LOW or false.
+			// send the info back to driver station using telemetry function.
+			if (! digitalTouch.getState()) {
+				telemetry.addData("Button", "PRESSED");
+			} else {
+				telemetry.addData("Button", "NOT PRESSED");
+			}
 
-            telemetry.update();
-        }
-    }
+			telemetry.update();
+		}
+	}
 }

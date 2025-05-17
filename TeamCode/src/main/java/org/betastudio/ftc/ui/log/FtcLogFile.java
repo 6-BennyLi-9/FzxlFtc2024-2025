@@ -2,7 +2,7 @@ package org.betastudio.ftc.ui.log;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.Interfaces.MessagesProcessor;
 import org.betastudio.ftc.message.LogMessages;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
@@ -12,7 +12,7 @@ import org.betastudio.ftc.util.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FtcLogFile implements Interfaces.MessagesProcessRequired <TelemetryMsg> {
+public class FtcLogFile implements MessagesProcessor <TelemetryMsg> {
 	private final List <FtcLogElement> elements;
 	private       Timestamp            saveTime;
 	private       boolean              saved;

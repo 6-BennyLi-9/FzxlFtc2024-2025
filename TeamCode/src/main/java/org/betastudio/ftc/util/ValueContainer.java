@@ -1,10 +1,10 @@
 package org.betastudio.ftc.util;
 
-public final class ValueContainer <T> {
+public final class ValueContainer<T> {
 	private T v;
 
-	public ValueContainer(T initial){
-		v=initial;
+	public ValueContainer(T initial) {
+		v = initial;
 	}
 
 	public T getV() {

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.betastudio.ftc.Annotations.Beta;
 import org.betastudio.ftc.action.Action;
 
 import java.util.Locale;
@@ -18,12 +17,6 @@ public class ServoCtrl implements Action {
 	public final Servo  controlTarget;
 	private      double targetPosition;
 	private      String tag;
-
-	@Deprecated
-	@Beta(date = "危险的构造函数")
-	public ServoCtrl(@NonNull final Servo target) {
-		this(target, 0.5);
-	}
 
 	public ServoCtrl(@NonNull final Servo target, final double defaultPosition) {
 		targetPosition = defaultPosition;

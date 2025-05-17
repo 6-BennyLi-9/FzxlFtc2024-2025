@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.eventloop;
 
+import static org.betastudio.ftc.util.ExceptionsUtil.getOriginException;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
-
-import org.betastudio.ftc.util.ExceptionsUtil;
 
 public abstract class OverclockOpMode extends LinearOpMode {
 	private OverclockMode overclockMode = OverclockMode.SUPER_LINEAR;
@@ -61,7 +61,7 @@ public abstract class OverclockOpMode extends LinearOpMode {
 	}
 
 	public void on_exception(final Throwable e) {
-		Throwable cause = ExceptionsUtil.getOriginException(e);
+		Throwable cause = getOriginException(e);
 		throw new RuntimeException(cause);
 	}
 }

@@ -81,7 +81,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		client.putData("TPS", "wait for start");  // useless
 		client.putData("time", "wait for start");
-		client.putData("HEAD","ROBOT CORE INITIALIZE COMPLETE!");
+		client.putData("HEAD", "ROBOT CORE INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -101,7 +101,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 			}
 		};
 
-		client.putData("HEAD","ROBOT ACTION INITIALIZE COMPLETE!");
+		client.putData("HEAD", "ROBOT ACTION INITIALIZE COMPLETE!");
 	}
 
 	@Override

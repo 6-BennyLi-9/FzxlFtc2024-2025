@@ -38,7 +38,7 @@ public final class Labeler {
 	}
 
 	@NonNull
-	public static String getClassSign(@NonNull Class<?> clazz){
+	public static String getClassSign(@NonNull Class <?> clazz) {
 		if (clazz.isAnnotation()) {
 			return "<@" + clazz.getSimpleName() + ">";
 		} else if (clazz.isEnum()) {

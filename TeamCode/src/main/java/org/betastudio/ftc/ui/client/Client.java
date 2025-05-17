@@ -4,15 +4,38 @@ import static org.betastudio.ftc.Annotations.MirrorMethod;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.Interfaces.MessagesProcessor;
+import org.betastudio.ftc.Interfaces.Updatable;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-/**
- * @noinspection UnusedReturnValue
- */
-public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg>, Interfaces.Updatable {
+public interface Client extends MessagesProcessor <TelemetryMsg>, Updatable {
+	@MirrorMethod
+	static void configViewMode(final ClientViewMode clientViewMode) {
+		ClientViewMode.globalViewMode = clientViewMode;
+	}
+
+	@MirrorMethod
+	static ClientViewMode getCurrentViewMode() {
+		return ClientViewMode.globalViewMode;
+	}
+
+	static void switchViewMode() {
+		switch (getCurrentViewMode()) {
+			case ORIGIN_TELEMETRY:
+				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
+				break;
+			case FTC_LOG:
+				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
+				break;
+			case THREAD_SERVICE:
+			default:
+				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
+				break;
+		}
+	}
+
 	void clear();
 
 	/// 注意：这是新的Data
@@ -41,39 +64,13 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	void speak(String text, String languageCode, String countryCode);
 
-	@MirrorMethod
-	static void configViewMode(final ClientViewMode clientViewMode) {
-		ClientViewMode.globalViewMode = clientViewMode;
-	}
-
 	UpdateConfig getUpdateConfig();
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
-	static ClientViewMode getCurrentViewMode() {
-		return ClientViewMode.globalViewMode;
-	}
-
 	Telemetry getOriginTelemetry();
 
-
-	//------------------------
-	// DEFAULT IMPLEMENTATION
-	//------------------------
-	static void switchViewMode() {
-		switch (getCurrentViewMode()) {
-			case ORIGIN_TELEMETRY:
-				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
-				break;
-			case FTC_LOG:
-				ClientViewMode.globalViewMode = ClientViewMode.THREAD_SERVICE;
-				break;
-			case THREAD_SERVICE:
-			default:
-				ClientViewMode.globalViewMode = ClientViewMode.ORIGIN_TELEMETRY;
-				break;
-		}
-	}
+	FtcLogTunnel getTargetLogTunnel();
 
 	/**
 	 * 注意：这是新的Data
@@ -103,6 +100,4 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	default void speak(final String text) {
 		speak(text, null, null);
 	}
-
-	FtcLogTunnel getTargetLogTunnel();
 }
