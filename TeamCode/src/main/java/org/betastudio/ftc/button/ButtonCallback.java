@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.button;
 
 @FunctionalInterface
 public interface ButtonCallback {

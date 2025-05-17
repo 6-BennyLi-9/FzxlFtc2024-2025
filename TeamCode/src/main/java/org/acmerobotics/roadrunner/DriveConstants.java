@@ -1,7 +1,11 @@
 package org.acmerobotics.roadrunner;
 
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
+
+import static java.lang.Math.*;
+
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
@@ -61,22 +65,22 @@ public final class DriveConstants {
 	 */
 	public static final double MAX_VEL       = 42.78998769230769;
 	public static final double MAX_ACCEL     = 42.78998769230769;
-	public static final double MAX_ANG_VEL   = Math.toRadians(180);
-	public static final double MAX_ANG_ACCEL = Math.toRadians(180);
+	public static final double MAX_ANG_VEL   = toRadians(180);
+	public static final double MAX_ANG_ACCEL = toRadians(180);
 	/*
 	 * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
 	 */
-	public static final RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-	public static final RevHubOrientationOnRobot.UsbFacingDirection  USB_FACING_DIR  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+	public static final LogoFacingDirection LOGO_FACING_DIR = LogoFacingDirection.UP;
+	public static final UsbFacingDirection  USB_FACING_DIR  = UsbFacingDirection.FORWARD;
 	public static       double kA;
 	public static       double kStatic;
 
 	public static double encoderTicksToInches(final double ticks) {
-		return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
+		return WHEEL_RADIUS * 2 * PI * GEAR_RATIO * ticks / TICKS_PER_REV;
 	}
 
 	public static double rpmToVelocity(final double rpm) {
-		return rpm * GEAR_RATIO * 2 * Math.PI * WHEEL_RADIUS / 60.0;
+		return rpm * GEAR_RATIO * 2 * PI * WHEEL_RADIUS / 60.0;
 	}
 
 	public static double getMotorVelocityF(final double ticksPerSecond) {

@@ -1,8 +1,9 @@
 package org.betastudio.ftc.ui.client;
 
+import static org.betastudio.ftc.Annotations.MirrorMethod;
+
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
@@ -40,8 +41,8 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	void speak(String text, String languageCode, String countryCode);
 
-	@Annotations.MirrorMethod
-	default void configViewMode(final ClientViewMode clientViewMode) {
+	@MirrorMethod
+	static void configViewMode(final ClientViewMode clientViewMode) {
 		ClientViewMode.globalViewMode = clientViewMode;
 	}
 
@@ -49,7 +50,7 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 
 	void setUpdateConfig(final UpdateConfig updateConfig);
 
-	default ClientViewMode getCurrentViewMode() {
+	static ClientViewMode getCurrentViewMode() {
 		return ClientViewMode.globalViewMode;
 	}
 
@@ -59,7 +60,7 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	//------------------------
 	// DEFAULT IMPLEMENTATION
 	//------------------------
-	default void switchViewMode() {
+	static void switchViewMode() {
 		switch (getCurrentViewMode()) {
 			case ORIGIN_TELEMETRY:
 				ClientViewMode.globalViewMode = ClientViewMode.FTC_LOG;
@@ -77,7 +78,7 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	/**
 	 * 注意：这是新的Data
 	 */
-	@Annotations.MirrorMethod
+	@MirrorMethod
 	default void putData(final String key, @NonNull final Object val) {
 		putData(key, val.toString());
 	}
@@ -85,7 +86,7 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
-	@Annotations.MirrorMethod
+	@MirrorMethod
 	default void changeData(final String key, @NonNull final Object val) {
 		changeData(key, val.toString());
 	}
@@ -93,12 +94,12 @@ public interface Client extends Interfaces.MessagesProcessRequired <TelemetryMsg
 	/**
 	 * 注意：这是新的Line
 	 */
-	@Annotations.MirrorMethod
+	@MirrorMethod
 	default void putLine(@NonNull final Object key) {
 		putLine(key.toString());
 	}
 
-	@Annotations.MirrorMethod
+	@MirrorMethod
 	default void speak(final String text) {
 		speak(text, null, null);
 	}

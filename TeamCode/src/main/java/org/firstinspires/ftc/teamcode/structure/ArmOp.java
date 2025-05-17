@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MAX_POSITION
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_RISE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
@@ -14,9 +15,8 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ArmPositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
@@ -32,11 +32,11 @@ public class ArmOp implements Interfaces.HardwareController, Interfaces.Initiali
 
 	@Override
 	public void connect() {
-		leftArmControl = new ServoCtrl(HardwareDatabase.leftArm, 0.7);
-		rightArmControl = new ServoCtrl(HardwareDatabase.rightArm, 0.7);
+		leftArmControl = new ServoCtrl(Hardwares.leftArm, 0.7);
+		rightArmControl = new ServoCtrl(Hardwares.rightArm, 0.7);
 
-		leftArmControl.setTag(Labeler.gen().summon(leftArmControl));
-		rightArmControl.setTag(Labeler.gen().summon(rightArmControl));
+		leftArmControl.setTag(Labeler.summon(leftArmControl));
+		rightArmControl.setTag(Labeler.summon(rightArmControl));
 	}
 
 	@Override

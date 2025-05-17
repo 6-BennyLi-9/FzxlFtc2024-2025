@@ -5,15 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
+import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.ClientViewMode;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
-import org.betastudio.ftc.util.ButtonConfig;
-import org.betastudio.ftc.util.ButtonProcessor;
+import org.betastudio.ftc.button.ButtonConfig;
+import org.betastudio.ftc.button.ButtonProcessor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-@TeleOp(group = "zzz")
+@TeleOp(name = "View Mode Convertor", group = "2_Guarder")
 public final class ViewModeConvertor extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
@@ -29,7 +30,7 @@ public final class ViewModeConvertor extends LinearOpMode {
 		}
 
 		client.setUpdateConfig(UpdateConfig.MANUALLY);
-		client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
+		Client.configViewMode(ClientViewMode.ORIGIN_TELEMETRY);
 		selections.update();
 		client.sendMsg(selections.buildTelemetryMsg());
 		client.update();
@@ -56,7 +57,7 @@ public final class ViewModeConvertor extends LinearOpMode {
 		}
 
 		if (! isStopRequested()) {
-			client.configViewMode(target.get());
+			Client.configViewMode(target.get());
 		}
 	}
 }

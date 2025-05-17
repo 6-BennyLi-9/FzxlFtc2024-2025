@@ -2,15 +2,15 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_CLOSE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_OPEN;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ClipPositions;
 import org.jetbrains.annotations.Contract;
 
 public class ClipOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
@@ -24,9 +24,9 @@ public class ClipOp implements Interfaces.HardwareController, Interfaces.Initial
 
 	@Override
 	public void connect() {
-		clipControl = new ServoCtrl(HardwareDatabase.clip, 0);
+		clipControl = new ServoCtrl(Hardwares.clip, 0);
 
-		clipControl.setTag(Labeler.gen().summon(clipControl));
+		clipControl.setTag(Labeler.summon(clipControl));
 	}
 
 	@Override

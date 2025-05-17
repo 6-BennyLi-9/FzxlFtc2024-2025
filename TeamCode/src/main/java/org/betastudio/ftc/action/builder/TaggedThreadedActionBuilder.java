@@ -46,6 +46,9 @@ public class TaggedThreadedActionBuilder implements TaggedActionBuilder {
 
 	@Override
 	public Action store() {
+		if (actions.isEmpty()) {
+			return policy.getV().resolve();
+		}
 		return new AssembledAction(new ArrayList <>(actions.values()));
 	}
 }

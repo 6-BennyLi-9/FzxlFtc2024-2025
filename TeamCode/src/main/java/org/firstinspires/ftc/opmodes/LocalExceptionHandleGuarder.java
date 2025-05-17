@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.opmodes;
 
+import static org.betastudio.ftc.Annotations.TestSucceed;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.Annotations;
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Autonomous(group = "9_Tests")
-@Annotations.TestDoneSuccessfully
-public final class SampleLocalExceptionHandle extends LinearOpMode implements Thread.UncaughtExceptionHandler {
+@Autonomous(name = "Local Exception Handle Guarder", group = "2_Guarder")
+@TestSucceed
+public final class LocalExceptionHandleGuarder extends LinearOpMode implements Thread.UncaughtExceptionHandler {
 	private Throwable e;
 
 	@Override
@@ -36,7 +38,8 @@ public final class SampleLocalExceptionHandle extends LinearOpMode implements Th
 
 		while (opModeIsActive()) {
 			if (null != e) {
-				throw new RuntimeException(e);
+				Throwable cause = ExceptionsUtil.getOriginException(e);
+				throw new RuntimeException(cause);
 			}
 		}
 	}

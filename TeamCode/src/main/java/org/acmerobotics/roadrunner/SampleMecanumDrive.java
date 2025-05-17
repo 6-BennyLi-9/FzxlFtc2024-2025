@@ -30,10 +30,12 @@ import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationCon
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
@@ -53,23 +55,22 @@ import java.util.List;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-	public static final  PIDCoefficients                  TRANSLATIONAL_PID  = new PIDCoefficients(8, 0, 0);
-	public static final  PIDCoefficients                  HEADING_PID        = new PIDCoefficients(8, 0, 0);
-	public static final  double                           LATERAL_MULTIPLIER = 1;
-	public static final  double                           VX_WEIGHT          = 1;
-	public static final  double                           VY_WEIGHT          = 1;
-	public static final  double                           OMEGA_WEIGHT       = 1;
 	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT     = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
 	private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT   = getAccelerationConstraint(MAX_ACCEL);
-	private final        TrajectorySequenceRunner         trajectorySequenceRunner;
+	public static        PIDCoefficients                  TRANSLATIONAL_PID  = new PIDCoefficients(8, 0, 1.8);
+	public static        PIDCoefficients                  HEADING_PID        = new PIDCoefficients(8, 0, 0.05);
+	public static        double                           LATERAL_MULTIPLIER = 1;
+	public static        double                           VX_WEIGHT          = 1;
+	public static        double                           VY_WEIGHT          = 1;
+	public static        double                           OMEGA_WEIGHT       = 1;
 
-	private final DcMotorEx        leftFront;
-	private final DcMotorEx        leftRear;
-	private final DcMotorEx        rightRear;
-	private final DcMotorEx        rightFront;
-	private final List <DcMotorEx> motors;
-
-	private final VoltageSensor batteryVoltageSensor;
+	private final TrajectorySequenceRunner trajectorySequenceRunner;
+	private final DcMotorEx                leftFront;
+	private final DcMotorEx                leftRear;
+	private final DcMotorEx                rightRear;
+	private final DcMotorEx                rightFront;
+	private final List <DcMotorEx>         motors;
+	private final VoltageSensor            batteryVoltageSensor;
 
 	private final List <Integer> lastEncPositions = new ArrayList <>();
 	private final List <Integer> lastEncVels      = new ArrayList <>();
@@ -86,6 +87,10 @@ public class SampleMecanumDrive extends MecanumDrive {
 		for (final LynxModule module : hardwareMap.getAll(LynxModule.class)) {
 			module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
 		}
+
+		IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
+		IMU            imu        = hardwareMap.get(IMU.class, "imu");
+		imu.initialize(parameters);
 
 		//DONE_TODO: adjust the names of the following hardware devices to match your configuration
 
@@ -189,8 +194,9 @@ public class SampleMecanumDrive extends MecanumDrive {
 	public void update() {
 		updatePoseEstimate();
 		final DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
-		if (null != signal)
+		if (null != signal) {
 			setDriveSignal(signal);
+		}
 	}
 
 	public void waitForIdle() {

@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -13,9 +14,8 @@ import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.ScalePositions;
 import org.jetbrains.annotations.Contract;
 
 public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
@@ -29,13 +29,17 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 		return instance;
 	}
 
+	public strictfp static double operateLeftPosition(final double rightPosition) {
+		return 0.9580952380952381 - 0.9761904761904762 * rightPosition;
+	}
+
 	@Override
 	public void connect() {
-		leftScaleController = new ServoCtrl(HardwareDatabase.leftScale, 1);
-		rightScaleController = new ServoCtrl(HardwareDatabase.rightScale, 0.5);
+		leftScaleController = new ServoCtrl(Hardwares.leftScale, 1);
+		rightScaleController = new ServoCtrl(Hardwares.rightScale, 0.5);
 
-		leftScaleController.setTag(Labeler.gen().summon(leftScaleController));
-		rightScaleController.setTag(Labeler.gen().summon(rightScaleController));
+		leftScaleController.setTag(Labeler.summon(leftScaleController));
+		rightScaleController.setTag(Labeler.summon(rightScaleController));
 	}
 
 	@NonNull
@@ -52,13 +56,13 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void manage(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPosition(1 - position);
+		leftScaleController.setTargetPosition(operateLeftPosition(position));
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPositionTolerance(1 - position, SMOOTH);
+		leftScaleController.setTargetPositionTolerance(operateLeftPosition(position), SMOOTH);
 		rightScaleController.setTargetPositionTolerance(position, SMOOTH);
 	}
 

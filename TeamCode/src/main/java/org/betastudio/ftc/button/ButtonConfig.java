@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.button;
 
 /**
  * 按键配置枚举，定义了按键的响应方式

@@ -10,11 +10,12 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
-import org.firstinspires.ftc.teamcode.cores.RobotMng;
+import org.firstinspires.ftc.teamcode.Hardwares;
+import org.firstinspires.ftc.teamcode.manager.RobotMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
 
@@ -27,7 +28,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	public    Client    client;
 	protected boolean   is_terminate_method_called;
 	private   boolean   auto_terminate_when_TLE;
-	private   Exception inlineUncaughtException;
+	private   Throwable inlineUncaughtException;
 
 	@Override
 	public void op_init() {
@@ -49,8 +50,8 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		caller.setFrequencyFPS(5);
 		Global.service.execute(caller);
 
-		HardwareDatabase.sync(hardwareMap, true);
-		HardwareDatabase.chassisConfig();
+		Hardwares.sync(hardwareMap, true);
+		Hardwares.chassisConfig();
 		robot = new RobotMng();
 		robot.fetchClient(client);
 
@@ -99,8 +100,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		client.changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
-			FtcLogTunnel.MAIN.report(inlineUncaughtException);
-			throw new RuntimeException(inlineUncaughtException);
+			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			FtcLogTunnel.MAIN.report(cause);
+			throw new RuntimeException(cause);
 		}
 
 		if (is_terminate_method_called) {
@@ -111,7 +113,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		try {
 			op_loop_entry();
 		} catch (final Exception exception) {
-			exception_entry(exception);
+			on_exception(exception);
 		}
 	}
 
@@ -124,8 +126,9 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		RunMode.globalRunMode = RunMode.TERMINATE;
 
 		if (null != inlineUncaughtException) {
-			FtcLogTunnel.MAIN.report(inlineUncaughtException);
-			throw new RuntimeException(inlineUncaughtException);
+			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			FtcLogTunnel.MAIN.report(cause);
+			throw new RuntimeException(cause);
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline closed");
@@ -133,7 +136,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	}
 
 	@Override
-	public void sendTerminateSignal(final TerminateReason reason, final Exception e) {
+	public void sendTerminateSignal(final TerminateReason reason, final Throwable e) {
 		if (TerminateReason.UNCAUGHT_EXCEPTION == Objects.requireNonNull(reason)) {
 			inlineUncaughtException = e;
 		} else {
@@ -147,7 +150,7 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 	}
 
 	@Override
-	public void exception_entry(final Throwable e) {
-		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+	public void on_exception(final Throwable e) {
+		sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, e);
 	}
 }

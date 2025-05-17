@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import androidx.annotation.NonNull;
-
 import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
 import java.util.concurrent.Callable;
@@ -45,7 +44,8 @@ public final class Local {
 				Thread.yield();
 			}
 		} catch (final Exception e) {
-			throw new RuntimeException(e);
+			Throwable cause = ExceptionsUtil.getOriginException(e);
+			throw new RuntimeException(cause);
 		}
 	}
 
@@ -59,14 +59,9 @@ public final class Local {
 				sleep(flashMillis);
 			}
 		} catch (final Exception e) {
-			throw new RuntimeException(e);
+			Throwable cause = ExceptionsUtil.getOriginException(e);
+			throw new RuntimeException(cause);
 		}
 	}
 
-	@Deprecated
-	public static void runMultiThreads(@NonNull final Runnable... threads) {
-		for (final Runnable current : threads) {
-			Global.service.execute(current);
-		}
-	}
 }

@@ -8,26 +8,23 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv1
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_Lv2_PREPARE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_SUSPEND_PREPARE;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightLift;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
 
 import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.config.Config;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcTeleLiftCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
 import org.jetbrains.annotations.Contract;
 
 /**
  * 升降机构操作类。
  * 该类用于操作升降机构，包括设置目标位置、获取当前位置、获取错误位置、获取标签、设置标签等。
  */
-@Config
 @SuppressWarnings("PublicField")
 public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
 	public static  LiftMode         recent = LiftMode.IDLE;
@@ -54,7 +51,7 @@ public class LiftOp implements Interfaces.HardwareController, Interfaces.TagOpti
 	public void connect() {
 		liftCtrl = new DcTeleLiftCtrl(leftLift, rightLift);
 
-		liftCtrl.setTag(Labeler.gen().summon(liftCtrl));
+		liftCtrl.setTag(Labeler.summon(liftCtrl));
 	}
 
 	public void sync(@NonNull final LiftMode option) {

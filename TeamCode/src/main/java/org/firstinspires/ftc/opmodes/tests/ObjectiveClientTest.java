@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import static org.betastudio.ftc.Annotations.TestShelved;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.betastudio.ftc.Annotations;
 import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.ObjectiveClient;
 
-@Autonomous
+@Autonomous(group = "9_Tests")
 @Disabled
-@Annotations.TestShelved
+@TestShelved
 public class ObjectiveClientTest extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {

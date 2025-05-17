@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
 import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 
 /**
  * 使用 {@link DcMotorEx} 为基础的控制器
@@ -29,9 +27,9 @@ public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 		if (0 == getTargetPosition() && using_touch_calibrate) {
 			leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 			rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-			leftLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
-			rightLift.setPower(! HardwareDatabase.liftTouch.isPressed() ? 0 : - 1);
-			if (! HardwareDatabase.liftTouch.isPressed()) {
+			leftLift.setPower(! Hardwares.liftTouch.isPressed() ? 0 : - 1);
+			rightLift.setPower(! Hardwares.liftTouch.isPressed() ? 0 : - 1);
+			if (! Hardwares.liftTouch.isPressed()) {
 				leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 				rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			}

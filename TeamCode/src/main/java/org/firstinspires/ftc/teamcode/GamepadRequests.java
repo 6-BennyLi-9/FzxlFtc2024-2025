@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
-import static org.betastudio.ftc.util.ButtonConfig.WHILE_PRESSING;
+import static org.betastudio.ftc.button.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.button.ButtonConfig.WHILE_PRESSING;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.ui.client.Client;
-import org.betastudio.ftc.util.ButtonConfig;
-import org.betastudio.ftc.util.ButtonProcessor;
+import org.betastudio.ftc.button.ButtonConfig;
+import org.betastudio.ftc.button.ButtonProcessor;
 
 /**
  * gamepad 控制请求的数据库

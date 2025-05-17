@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public enum OverclockMode {
 	SUPER_LINEAR, YIELD_AT_EACH, SLEEP_AT_EACH, MAX_FPS;
-	public Timer      timer              = new Timer();
-	public AtomicLong utilConfigureValue = new AtomicLong();
+	public final Timer      timer              = new Timer();
+	public final AtomicLong utilConfigureValue = new AtomicLong();
 
 	public Runnable newLoop(final Runnable loopEntry) {
 		switch (this) {

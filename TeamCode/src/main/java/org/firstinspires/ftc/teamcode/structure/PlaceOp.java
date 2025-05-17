@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode.structure;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_PREPARE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
 
 import androidx.annotation.NonNull;
 
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
-import org.firstinspires.ftc.teamcode.structure.positions.PlacePositions;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
@@ -27,9 +27,9 @@ public class PlaceOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	@Override
 	public void connect() {
-		placeController = new ServoCtrl(HardwareDatabase.place, 0);
+		placeController = new ServoCtrl(Hardwares.place, 0);
 
-		placeController.setTag(Labeler.gen().summon(placeController));
+		placeController.setTag(Labeler.summon(placeController));
 	}
 
 	@NonNull

@@ -55,8 +55,8 @@ public class TrajectorySequenceBuilder {
 	private double currentDuration;
 	private double currentDisplacement;
 
-	private double lastDurationTraj;
-	private double lastDisplacementTraj;
+	private double lastDurationTrack;
+	private double lastDisplacementTrack;
 
 	public TrajectorySequenceBuilder(final Pose2d startPose, final Double startTangent, final TrajectoryVelocityConstraint baseVelConstraint, final TrajectoryAccelerationConstraint baseAccelConstraint, final double baseTurnConstraintMaxAngVel, final double baseTurnConstraintMaxAngAccel) {
 		this.baseVelConstraint = baseVelConstraint;
@@ -89,8 +89,8 @@ public class TrajectorySequenceBuilder {
 		currentDuration = 0.0;
 		currentDisplacement = 0.0;
 
-		lastDurationTraj = 0.0;
-		lastDisplacementTraj = 0.0;
+		lastDurationTrack = 0.0;
+		lastDisplacementTrack = 0.0;
 	}
 
 	public TrajectorySequenceBuilder(final Pose2d startPose, final TrajectoryVelocityConstraint baseVelConstraint, final TrajectoryAccelerationConstraint baseAccelConstraint, final double baseTurnConstraintMaxAngVel, final double baseTurnConstraintMaxAngAccel) {
@@ -212,17 +212,17 @@ public class TrajectorySequenceBuilder {
 			callback.run();
 		}
 
-		final Trajectory builtTraj = currentTrajectoryBuilder.build();
+		final Trajectory builtTrack = currentTrajectoryBuilder.build();
 
-		final double durationDifference     = builtTraj.duration() - lastDurationTraj;
-		final double displacementDifference = builtTraj.getPath().length() - lastDisplacementTraj;
+		final double durationDifference     = builtTrack.duration() - lastDurationTrack;
+		final double displacementDifference = builtTrack.getPath().length() - lastDisplacementTrack;
 
-		lastPose = builtTraj.end();
+		lastPose = builtTrack.end();
 		currentDuration += durationDifference;
 		currentDisplacement += displacementDifference;
 
-		lastDurationTraj = builtTraj.duration();
-		lastDisplacementTraj = builtTraj.getPath().length();
+		lastDurationTrack = builtTrack.duration();
+		lastDisplacementTrack = builtTrack.getPath().length();
 
 		return this;
 	}
@@ -384,8 +384,8 @@ public class TrajectorySequenceBuilder {
 
 	private void pushPath() {
 		if (null != currentTrajectoryBuilder) {
-			final Trajectory builtTraj = currentTrajectoryBuilder.build();
-			sequenceSegments.add(new TrajectorySegment(builtTraj));
+			final Trajectory builtTrack = currentTrajectoryBuilder.build();
+			sequenceSegments.add(new TrajectorySegment(builtTrack));
 		}
 
 		currentTrajectoryBuilder = null;
@@ -395,8 +395,8 @@ public class TrajectorySequenceBuilder {
 		if (null != currentTrajectoryBuilder)
 			pushPath();
 
-		lastDurationTraj = 0.0;
-		lastDisplacementTraj = 0.0;
+		lastDurationTrack = 0.0;
+		lastDisplacementTrack = 0.0;
 
 		final double tangent = setAbsoluteTangent ? absoluteTangent : Angle.norm(lastPose.getHeading() + tangentOffset);
 

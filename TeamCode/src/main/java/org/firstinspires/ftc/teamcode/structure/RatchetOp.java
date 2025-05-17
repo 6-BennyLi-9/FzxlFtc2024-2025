@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.RATCHET_TIGHT;
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 
 public class RatchetOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
@@ -20,9 +20,9 @@ public class RatchetOp implements Interfaces.HardwareController, Interfaces.Init
 
 	@Override
 	public void connect() {
-		ratchetControl = new ServoCtrl(HardwareDatabase.ratchet, RATCHET_LOOSEN);
+		ratchetControl = new ServoCtrl(Hardwares.ratchet, RATCHET_LOOSEN);
 
-		ratchetControl.setTag(Labeler.gen().summon(ratchetControl));
+		ratchetControl.setTag(Labeler.summon(ratchetControl));
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.cores;
+package org.firstinspires.ftc.teamcode.manager;
 
 import static org.betastudio.ftc.Interfaces.HardwareController;
 import static org.betastudio.ftc.Interfaces.InitializeRequested;
@@ -18,6 +18,15 @@ import static org.firstinspires.ftc.teamcode.GamepadRequests.sampleIO;
 import static org.firstinspires.ftc.teamcode.GamepadRequests.switchViewMode;
 import static org.firstinspires.ftc.teamcode.Global.gamepad1;
 import static org.firstinspires.ftc.teamcode.Global.gamepad2;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import androidx.annotation.NonNull;
 
@@ -31,7 +40,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Global;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.Local;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrlMode;
@@ -44,8 +53,6 @@ import org.firstinspires.ftc.teamcode.structure.PlaceOp;
 import org.firstinspires.ftc.teamcode.structure.RatchetOp;
 import org.firstinspires.ftc.teamcode.structure.RotateOp;
 import org.firstinspires.ftc.teamcode.structure.ScaleOp;
-import org.firstinspires.ftc.teamcode.structure.positions.LiftMode;
-import org.firstinspires.ftc.teamcode.structure.positions.ScalePositions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,35 +63,25 @@ import java.util.Map;
  */
 @Config
 public class RobotMng implements Updatable {
-	/**
-	 * 打印代码的字符数组，用于在 telemetry 中显示状态更新
-	 */
+	/// 打印代码的字符数组，用于在 telemetry 中显示状态更新
 	public static final String                           printCode           = "fzxl";
-	/**
-	 * 驱动杆缓冲阈值
-	 */
+	/// 驱动杆缓冲阈值
 	public static final double                           driverTriggerBufFal = 0.2;
-	/**
-	 * 旋转触发缓冲失败的阈值
-	 */
-	public static final double                           rotateTriggerBufFal = 0.01;
-	/**
-	 * 硬件控制器的映射表
-	 */
+	/// 旋转触发缓冲失败的阈值
+	public static final double                           rotateTriggerBufFal = 0.03;
+	/// 滑轨伸出时移动方式，默认为累加
+	public static final boolean                          scaleTypeAdding     = true;
+	/// 滑轨当前位置
+	public static       double                           scaleRecent         = (SCALE_BACH + SCALE_PROBE) / 2;
+	/// 硬件控制器的映射表
 	public final        Map <String, HardwareController> controllers         = new HashMap <>();
 	public              Action                           hardwareAction;
-	/**
-	 * 更新时间，用于计算 telemetry 的更新状态
-	 */
+	/// 更新时间，用于计算 telemetry 的更新状态
 	public              int                              updateTime;
-	/**
-	 * 客户端对象，用于与控制台通信
-	 */
+	/// 客户端对象，用于与控制台通信
 	private             Client                           client;
 
-	/**
-	 * 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
-	 */
+	/// 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
 	public RobotMng() {
 		controllers.put("arm", new ArmOp());
 		controllers.put("clip", new ClipOp());
@@ -97,9 +94,7 @@ public class RobotMng implements Updatable {
 		controllers.put("ratchet", new RatchetOp());
 	}
 
-	/**
-	 * 获取默认的 telemetry 客户端
-	 */
+	/// 获取默认的 telemetry 客户端
 	public void fetchClient() {
 		fetchClient(Global.client);
 	}
@@ -139,7 +134,6 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 根据游戏手柄的操作来控制机器人，包括剪切、采样、提升、放置等动作。
-	 * 此方法会同步游戏手柄请求，然后根据不同的按钮和开关执行相应的操作。
 	 */
 	public final void operateThroughGamepad() {
 		if (clipOption.getEnabled()) {
@@ -225,10 +219,12 @@ public class RobotMng implements Updatable {
 		switch (armScaleOperate.ticker.getTicked()) {
 			case 0:
 				ScaleOp.getInstance().back();
+				scaleRecent = (SCALE_BACH + SCALE_PROBE) / 2;
 				break;
 			case 1:
 				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				ScaleOp.getInstance().operate(- gamepad2.left_stick_y * 0.15 + 0.2);
+				scaleRecent = scaleTypeAdding ? min(max(scaleRecent - gamepad2.left_stick_y * 0.05, SCALE_MIN_POSITION), SCALE_MAX_POSITION) : - gamepad2.left_stick_y * 0.2 + (SCALE_PROBE + SCALE_BACH) / 2;
+				ScaleOp.getInstance().operate(scaleRecent);
 				break;
 			default:
 				throw new IllegalStateException("Scaling Unexpected value: " + armScaleOperate.ticker.getTicked());
@@ -245,15 +241,15 @@ public class RobotMng implements Updatable {
 		}
 
 		if (switchViewMode.getEnabled()) {
-			client.switchViewMode();
-			client.speak("The telemetry's ClientViewMode has recently switched to " + client.getCurrentViewMode());
-			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + client.getCurrentViewMode());
+			Client.switchViewMode();
+			client.speak("The telemetry's ClientViewMode has recently switched to " + Client.getCurrentViewMode());
+			FtcLogTunnel.MAIN.report("ClientViewMode switched to " + Client.getCurrentViewMode());
 		}
 	}
 
 	/**
 	 * 根据游戏手柄的操作来控制机器人的驱动，包括速度切换、转向和复位操作。
-	 * 该方法会根据不同的游戏手柄输入调整驱动模式。
+	 * <P>该方法会根据不同的游戏手柄输入调整驱动模式。
 	 */
 	public final void driveThroughGamepad() {
 		if (highLowSpeedConfigChange.getEnabled()) {
@@ -287,7 +283,7 @@ public class RobotMng implements Updatable {
 
 	/**
 	 * 更新方法，执行标记动作包中的所有动作。
-	 * 在机器人的每一周期中调用，用于驱动所有硬件控制器的操作。
+	 * <P>在机器人的每一周期中调用，用于驱动所有硬件控制器的操作。
 	 */
 	@Override
 	public void update() {
@@ -307,7 +303,7 @@ public class RobotMng implements Updatable {
 	}
 
 	public void printIMUVariables() {
-		final BNO055IMU   imu         = HardwareDatabase.imu;
+		final BNO055IMU   imu         = Hardwares.imu;
 		final Orientation orientation = imu.getAngularOrientation();
 		client.changeData("∠1", orientation.firstAngle);
 		client.changeData("∠2", orientation.secondAngle);

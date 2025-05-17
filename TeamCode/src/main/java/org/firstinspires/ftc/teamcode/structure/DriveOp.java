@@ -2,18 +2,15 @@ package org.firstinspires.ftc.teamcode.structure;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
-
 import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.message.DriveMsg;
 import org.betastudio.ftc.util.Labeler;
-import org.firstinspires.ftc.teamcode.HardwareDatabase;
+import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.SimpleDriveAction;
 import org.jetbrains.annotations.Contract;
 
-@Config
 public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
 	public static  ChassisCtrl chassisCtrl;
 	private static double      x;
@@ -39,9 +36,9 @@ public strictfp class DriveOp implements Interfaces.HardwareController, Interfac
 
 	@Override
 	public void connect() {
-		chassisCtrl = new ChassisCtrl(HardwareDatabase.leftFront, HardwareDatabase.leftRear, HardwareDatabase.rightFront, HardwareDatabase.rightRear);
+		chassisCtrl = new ChassisCtrl(Hardwares.leftFront, Hardwares.leftRear, Hardwares.rightFront, Hardwares.rightRear);
 
-		chassisCtrl.setTag(Labeler.gen().summon(chassisCtrl));
+		chassisCtrl.setTag(Labeler.summon(chassisCtrl));
 	}
 
 	@NonNull

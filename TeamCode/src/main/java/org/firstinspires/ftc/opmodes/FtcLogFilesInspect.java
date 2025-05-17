@@ -2,7 +2,7 @@ package org.firstinspires.ftc.opmodes;
 
 import static org.betastudio.ftc.ui.client.ClientViewMode.ORIGIN_TELEMETRY;
 import static org.betastudio.ftc.ui.client.UpdateConfig.MANUALLY;
-import static org.betastudio.ftc.util.ButtonConfig.SINGLE_WHEN_PRESSED;
+import static org.betastudio.ftc.button.ButtonConfig.SINGLE_WHEN_PRESSED;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.betastudio.ftc.message.TelemetryMsg;
 import org.betastudio.ftc.selection.SelectElement;
 import org.betastudio.ftc.selection.SelectPackage;
+import org.betastudio.ftc.ui.client.Client;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.log.FtcLogFile;
 import org.betastudio.ftc.ui.log.FtcLogFilesBase;
@@ -17,11 +18,11 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 import org.betastudio.ftc.ui.telemetry.LogTelemetryItem;
 import org.betastudio.ftc.ui.telemetry.TelemetryElement;
 import org.betastudio.ftc.ui.telemetry.TelemetryLine;
-import org.betastudio.ftc.util.ButtonProcessor;
+import org.betastudio.ftc.button.ButtonProcessor;
 
 import java.util.Objects;
 
-@TeleOp(name = "日志检查", group = "zzz")
+@TeleOp(name = "Ftc Log  Inspector", group = "2_Guarder")
 public class FtcLogFilesInspect extends LinearOpMode {
 	private final ButtonProcessor select_prev       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
 	private final ButtonProcessor select_next       = new ButtonProcessor(SINGLE_WHEN_PRESSED);
@@ -43,7 +44,7 @@ public class FtcLogFilesInspect extends LinearOpMode {
 			is_files_selected = true;
 		})));
 		files_select.update();
-		client.configViewMode(ORIGIN_TELEMETRY);
+		Client.configViewMode(ORIGIN_TELEMETRY);
 		client.setUpdateConfig(MANUALLY);
 
 		while (opModeInInit() && ! isStopRequested()) {

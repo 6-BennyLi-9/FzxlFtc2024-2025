@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.cores;
+package org.firstinspires.ftc.teamcode.manager;
 
+import static org.betastudio.ftc.Annotations.Beta;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_INTAKE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_LEFT_ADDITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ARM_SAFE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_CLOSE;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_HALF_OPEN;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLAW_OPEN;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_CLOSE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.CLIP_OPEN;
@@ -17,23 +19,30 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_DEFAULT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.claw;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.clip;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftArm;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftFront;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftLift;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftRear;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.leftScale;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.place;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightArm;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightFront;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightLift;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightRear;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rightScale;
-import static org.firstinspires.ftc.teamcode.HardwareDatabase.rotate;
+import static org.firstinspires.ftc.teamcode.Hardwares.claw;
+import static org.firstinspires.ftc.teamcode.Hardwares.clip;
+import static org.firstinspires.ftc.teamcode.Hardwares.imu;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftArm;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.leftScale;
+import static org.firstinspires.ftc.teamcode.Hardwares.place;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightArm;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightLift;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.rightScale;
+import static org.firstinspires.ftc.teamcode.Hardwares.rotate;
+import static org.firstinspires.ftc.teamcode.structure.ScaleOp.operateLeftPosition;
+import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.Math.signum;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+
+import org.acmerobotics.roadrunner.SampleMecanumDrive;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
@@ -41,9 +50,9 @@ import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
 import org.betastudio.ftc.action.utils.StatementAction;
-import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.controllers.AbstractLiftCtrl;
 import org.firstinspires.ftc.teamcode.controllers.DcAutoLiftCtrl;
+import org.firstinspires.ftc.teamcode.structure.DriveOp;
 
 /**
  * 适配于自动程序的 {@code RobotMng} ，修改电梯适配器参见 {@link #genLiftController(int)}
@@ -70,7 +79,7 @@ public class UtilsMng {
 		armSafe();
 		openClaw();
 		scaleBack();
-		closeClip();
+		openClip();
 		liftDown();
 		rotateToMid();
 
@@ -163,6 +172,10 @@ public class UtilsMng {
 		builder.append(new StatementAction(() -> claw.setPosition(CLAW_OPEN)));
 	}
 
+	public void halfOpenClaw(){
+		builder.append(new StatementAction(() -> claw.setPosition(CLAW_HALF_OPEN)));
+	}
+
 	/**
 	 * 显示臂。
 	 */
@@ -188,7 +201,7 @@ public class UtilsMng {
 	 * 使秤臂收回。
 	 */
 	public void scaleBack() {
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1 - SCALE_BACH)), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(SCALE_BACH))), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
 	}
 
 	/**
@@ -196,10 +209,9 @@ public class UtilsMng {
 	 *
 	 * @param rightScalePosition 右侧秤臂的目标位置
 	 */
-	public void scaleOperate(double rightScalePosition) {
-		rightScalePosition = min(0.35, max(rightScalePosition, 0));
-		final double finalRightScalePosition = rightScalePosition;
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(1 - finalRightScalePosition)), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+	public void scaleOperate(final double rightScalePosition) {
+		final double finalRightScalePosition = min(0.5, max(rightScalePosition, 0.08));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**
@@ -254,19 +266,32 @@ public class UtilsMng {
 		builder.append(genLiftController(LIFT_SUSPEND_Lv1));
 	}
 
+	private static final double allowableError = 2;
+
+	@Beta(date = "25.5.8")
+	public Action imuCalibrateAction(double target, SampleMecanumDrive drive, Pose2d pose2d) {
+		return () -> {
+			double error = imu.getAngularOrientation().firstAngle - target;
+			if (abs(error) <= allowableError) {
+				drive.setPoseEstimate(pose2d);
+				return false;
+			}
+			DriveOp.build(0,0, 0.5 * signum(error)).activate();
+			return true;
+		};
+	}
+
+	@Beta(date = "25.5.8")
+	public void imuCalibrate(double target, SampleMecanumDrive drive, Pose2d pose2d) {
+		builder.append(imuCalibrateAction(target, drive, pose2d));
+	}
+
 	/**
 	 * 运行缓存的动作。
 	 */
 	public void runCached() {
 		Actions.runAction(pack());
 		builder.clear();
-	}
-
-	/**
-	 * 将缓存的动作作为线程运行。
-	 */
-	public void runAsThread() {
-		Global.service.execute(this::runCached);
 	}
 
 	/**

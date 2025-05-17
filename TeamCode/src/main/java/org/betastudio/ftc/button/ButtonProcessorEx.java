@@ -1,4 +1,4 @@
-package org.betastudio.ftc.util;
+package org.betastudio.ftc.button;
 
 import org.betastudio.ftc.Annotations.Beta;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;

@@ -4,14 +4,14 @@ import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
-public final class RuntimeMemoryStamp {
+public final class MemoryStamp {
 	private static final double BYTE_TO_MB = 1048576.0f;
 	private final        double usedMemory;
 	private final        double freeMemory;
 	private final        double totalMemory;
 	private final        double memoryRatio;
 
-	public RuntimeMemoryStamp() {
+	public MemoryStamp() {
 		final Runtime runtime = Runtime.getRuntime();
 		totalMemory = runtime.totalMemory() / BYTE_TO_MB;
 		freeMemory = runtime.freeMemory() / BYTE_TO_MB;
@@ -39,6 +39,6 @@ public final class RuntimeMemoryStamp {
 	@NonNull
 	@Override
 	public String toString() {
-		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f(%.1f%%)", usedMemory, totalMemory, memoryRatio * 100);
+		return String.format(Locale.SIMPLIFIED_CHINESE, "%.2f/%.2f MB(%.1f%%)", usedMemory, totalMemory, memoryRatio * 100);
 	}
 }

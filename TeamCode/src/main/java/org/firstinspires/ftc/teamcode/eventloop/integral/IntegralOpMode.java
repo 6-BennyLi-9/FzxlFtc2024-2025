@@ -11,5 +11,5 @@ public interface IntegralOpMode {
 		sendTerminateSignal(reason, new OpTerminateException(reason.name()));
 	}
 
-	void sendTerminateSignal(TerminateReason reason, Exception e);
+	void sendTerminateSignal(TerminateReason reason, Throwable e);
 }

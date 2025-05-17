@@ -2,8 +2,7 @@ package org.betastudio.ftc.action;
 
 import static org.betastudio.ftc.Interfaces.Nameable;
 import static org.betastudio.ftc.Interfaces.ThreadEx;
-
-import org.betastudio.ftc.ui.log.FtcLogTunnel;
+import static org.betastudio.ftc.action.ActionPolicies.*;
 
 import java.util.concurrent.Callable;
 
@@ -11,10 +10,12 @@ import java.util.concurrent.Callable;
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
  */
 public abstract class ActionImplementFactory implements Action, ThreadEx, Nameable {
-	private Callable <Boolean> action;
-	private Callable <String>  params;
-	private boolean            isStopRequested;
-	private String             name = "[unnamed]";
+	public static ForceHandleExceptionPolicy <String>  paramsPolicy = new RuntimeExceptionPolicy <>();
+	public static ForceHandleExceptionPolicy <Boolean> actionPolicy = new RuntimeExceptionPolicy <>();
+	private       Callable <Boolean>                   action;
+	private       Callable <String>                    params;
+	private       boolean                              isStopRequested;
+	private       String                               name         = "[unnamed]";
 
 	protected ActionImplementFactory() {
 		this(() -> false, () -> "[unsetted]");
@@ -33,8 +34,7 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 		try {
 			return action.call();
 		} catch (final Exception e) {
-			FtcLogTunnel.MAIN.report(e);
-			throw new RuntimeException(e);
+			return actionPolicy.resolve(e);
 		}
 	}
 
@@ -70,7 +70,7 @@ public abstract class ActionImplementFactory implements Action, ThreadEx, Nameab
 		try {
 			return params.call();
 		} catch (final Exception e) {
-			throw new RuntimeException(e);
+			return paramsPolicy.resolve(e);
 		}
 	}
 }

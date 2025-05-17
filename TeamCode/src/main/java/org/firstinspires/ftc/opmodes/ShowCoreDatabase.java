@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 
 @Disabled
-@TeleOp(name = "显示数据库", group = "zzz")
+@TeleOp(name = "Show Core Database", group = "2_Guarder")
 public class ShowCoreDatabase extends LinearOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
