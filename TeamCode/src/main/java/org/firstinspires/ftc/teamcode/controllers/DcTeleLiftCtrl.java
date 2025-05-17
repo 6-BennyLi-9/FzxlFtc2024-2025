@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_TOLERANCE;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -14,9 +13,8 @@ import org.firstinspires.ftc.teamcode.Hardwares;
 /**
  * 使用 {@link DcMotorEx} 为基础的控制器
  */
-@Config
 public class DcTeleLiftCtrl extends AbstractLiftCtrl {
-	protected           boolean using_touch_calibrate = true;
+	protected boolean using_touch_calibrate = true;
 
 	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift) {
 		super(leftLift, rightLift);
