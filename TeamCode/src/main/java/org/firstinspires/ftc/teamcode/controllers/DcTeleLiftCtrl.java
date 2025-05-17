@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.controllers;
 
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.AUTO_LIFT_POWER;
+import static org.firstinspires.ftc.teamcode.HardwareConfigures.LIFT_TOLERANCE;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -13,9 +16,7 @@ import org.firstinspires.ftc.teamcode.Hardwares;
  */
 @Config
 public class DcTeleLiftCtrl extends AbstractLiftCtrl {
-	public static double  bufPow                = 1;
-	public static int     tolerance             = 10;
-	protected     boolean using_touch_calibrate = true;
+	protected           boolean using_touch_calibrate = true;
 
 	public DcTeleLiftCtrl(@NonNull final DcMotorEx leftLift, @NonNull final DcMotorEx rightLift) {
 		super(leftLift, rightLift);
@@ -40,12 +41,12 @@ public class DcTeleLiftCtrl extends AbstractLiftCtrl {
 
 		leftLift.setTargetPosition(getTargetPosition());
 		rightLift.setTargetPosition(getTargetPosition());
-		leftLift.setTargetPositionTolerance(tolerance);
-		rightLift.setTargetPositionTolerance(tolerance);
+		leftLift.setTargetPositionTolerance(LIFT_TOLERANCE);
+		rightLift.setTargetPositionTolerance(LIFT_TOLERANCE);
 		leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		leftLift.setPower(bufPow);
-		rightLift.setPower(bufPow);
+		leftLift.setPower(AUTO_LIFT_POWER);
+		rightLift.setPower(AUTO_LIFT_POWER);
 
 		return true;
 	}

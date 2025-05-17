@@ -38,4 +38,6 @@ public final class HardwareConfigures {
 	public static double DRIVER_TRIGGER_BUF_FAL = 0.2;
 	public static double ROTATE_TRIGGER_BUF_FAL = 0.03;
 	public static double SCALE_BUF_FAL          = 0.03;
+	public static double AUTO_LIFT_POWER        = 1;
+	public static int    LIFT_TOLERANCE         = 10;
 }
