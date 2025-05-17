@@ -22,7 +22,7 @@ public final class AutonomousConfigures {
 	@TestSucceed
 	public static final Pose2d LEFT_SAMPLE_1     = p(58, 49, - 90);
 	@TestSucceed
-	public static final Pose2d LEFT_SAMPLE_2     = t(LEFT_SAMPLE_1, - 25);
+	public static final Pose2d LEFT_SAMPLE_2     = t(LEFT_SAMPLE_1, - 23);
 	@TestSucceed
 	public static final Pose2d LEFT_SAMPLE_3     = t(LEFT_SAMPLE_1, 25);
 	@TestSucceed
@@ -40,9 +40,9 @@ public final class AutonomousConfigures {
 	public static final Pose2d RIGHT_PARK        = p(- 45, 60, 90);
 
 	/* Left  硬件参数 */
-	public static double LEFT_SCALE_INTAKE_POSITION_1  = 0.25;
-	public static double LEFT_SCALE_INTAKE_POSITION_2  = 0.29;
-	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.31;
+	public static double LEFT_SCALE_INTAKE_POSITION_1  = 0.32;
+	public static double LEFT_SCALE_INTAKE_POSITION_2  = 0.34;
+	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.36;
 	/* Right 硬件参数 */
 	public static double RIGHT_SCALE_INTAKE_POSITION   = 0.21;
 	/// 到达人类玩家处后前进的距离
