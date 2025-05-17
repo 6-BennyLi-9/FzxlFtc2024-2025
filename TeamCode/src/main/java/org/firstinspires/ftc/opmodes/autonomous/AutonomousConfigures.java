@@ -33,9 +33,9 @@ public final class AutonomousConfigures {
 	@TestSucceed
 	public static final Pose2d SUSPEND_1         = p(- 11.5, 32, 90);
 	public static final Pose2d SUSPEND_2         = p(- 2, 32, 90);
-	public static final Pose2d SUSPEND_3         = p(6, 32, 90);
+	public static final Pose2d SUSPEND_3         = p(6, 33, 90);
 	public static final Pose2d RIGHT_SAMPLE_1    = p(- 50, 44, - 90);
-	public static final Pose2d RIGHT_SAMPLE_2    = p(- 60.5, 44, - 90);
+	public static final Pose2d RIGHT_SAMPLE_2    = p(- 60.5, 42, - 90);
 	public static final Pose2d GET_SUSPEND       = p(- 43, 60, - 90);
 	public static final Pose2d RIGHT_PARK        = p(- 45, 60, 90);
 
