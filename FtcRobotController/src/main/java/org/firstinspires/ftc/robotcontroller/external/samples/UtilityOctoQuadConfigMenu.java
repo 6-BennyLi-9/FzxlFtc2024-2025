@@ -21,6 +21,8 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -30,6 +32,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Stack;
 
 /*
@@ -115,21 +118,21 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 		//menuHwInfo.addChild(new TelemetryMenu.StaticItem("Board unique ID: FIXME"));
 
 		for (int i = 0 ; i < OctoQuad.NUM_ENCODERS ; i++) {
-			optionsEncoderDirections[i] = new TelemetryMenu.BooleanOption(String.format("Encoder %d direction", i), octoquad.getSingleEncoderDirection(i) == OctoQuad.EncoderDirection.REVERSE, "-", "+");
+			optionsEncoderDirections[i] = new TelemetryMenu.BooleanOption(String.format(Locale.ENGLISH, "Encoder %d direction", i), octoquad.getSingleEncoderDirection(i) == OctoQuad.EncoderDirection.REVERSE, "-", "+");
 		}
 		menuEncoderDirections.addChildren(optionsEncoderDirections);
 
 		for (int i = 0 ; i < OctoQuad.NUM_ENCODERS ; i++) {
-			optionsVelocityIntervals[i] = new TelemetryMenu.IntegerOption(String.format("Chan %d velocity intvl", i), OctoQuad.MIN_VELOCITY_MEASUREMENT_INTERVAL_MS, OctoQuad.MAX_VELOCITY_MEASUREMENT_INTERVAL_MS, octoquad.getSingleVelocitySampleInterval(i));
+			optionsVelocityIntervals[i] = new TelemetryMenu.IntegerOption(String.format(Locale.ENGLISH, "Chan %d velocity intvl", i), OctoQuad.MIN_VELOCITY_MEASUREMENT_INTERVAL_MS, OctoQuad.MAX_VELOCITY_MEASUREMENT_INTERVAL_MS, octoquad.getSingleVelocitySampleInterval(i));
 		}
 		menuVelocityIntervals.addChildren(optionsVelocityIntervals);
 
 		for (int i = 0 ; i < OctoQuad.NUM_ENCODERS ; i++) {
 			OctoQuad.ChannelPulseWidthParams params = octoquad.getSingleChannelPulseWidthParams(i);
 
-			optionsAbsParamsMax[i] = new TelemetryMenu.IntegerOption(String.format("Chan %d max pulse length", i), OctoQuad.MIN_PULSE_WIDTH_US, OctoQuad.MAX_PULSE_WIDTH_US, params.max_length_us);
+			optionsAbsParamsMax[i] = new TelemetryMenu.IntegerOption(String.format(Locale.ENGLISH, "Chan %d max pulse length", i), OctoQuad.MIN_PULSE_WIDTH_US, OctoQuad.MAX_PULSE_WIDTH_US, params.max_length_us);
 
-			optionsAbsParamsMin[i] = new TelemetryMenu.IntegerOption(String.format("Chan %d min pulse length", i), OctoQuad.MIN_PULSE_WIDTH_US, OctoQuad.MAX_PULSE_WIDTH_US, params.min_length_us);
+			optionsAbsParamsMin[i] = new TelemetryMenu.IntegerOption(String.format(Locale.ENGLISH, "Chan %d min pulse length", i), OctoQuad.MIN_PULSE_WIDTH_US, OctoQuad.MAX_PULSE_WIDTH_US, params.min_length_us);
 		}
 		menuAbsParams.addChildren(optionsAbsParamsMin);
 		menuAbsParams.addChildren(optionsAbsParamsMax);
@@ -375,6 +378,14 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 
 			// Start building the text display.
 			// First, we add the static directions for gamepad operation
+			String menu = getString(children);
+
+			// Add it to telemetry
+			telemetry.addLine(menu);
+		}
+
+		@NonNull
+		private String getString(ArrayList <Element> children) {
 			StringBuilder builder = new StringBuilder();
 			builder.append("<font color='#119af5' face=monospace>");
 			builder.append("Navigate items.....dpad up/down\n").append("Select.............X or Square\n").append("Edit option........dpad left/right\n").append("Up one level.......left bumper\n");
@@ -416,10 +427,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 			builder.append("</font>");
 
 			// Build the string!!!! :nerd:
-			String menu = builder.toString();
-
-			// Add it to telemetry
-			telemetry.addLine(menu);
+			return builder.toString();
 		}
 
 		public static class MenuElement extends Element {
@@ -533,7 +541,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 
 			@Override
 			protected String getDisplayText() {
-				return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, e[idx].name());
+				return String.format(Locale.ENGLISH, "%s: <font color='#e37c07' face=monospace>%s</font>", name, e[idx].name());
 			}
 
 			public Enum <?> getValue() {
@@ -579,7 +587,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 
 			@Override
 			protected String getDisplayText() {
-				return String.format("%s: <font color='#e37c07' face=monospace>%d</font>", name, i);
+				return String.format(Locale.ENGLISH, "%s: <font color='#e37c07' face=monospace>%d</font>", name, i);
 			}
 
 			public int getValue() {
@@ -589,7 +597,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 
 		static class BooleanOption extends OptionElement {
 			private final String  name;
-			private       boolean val = true;
+			private       boolean val;
 
 			private String customTrue;
 			private String customFalse;
@@ -630,7 +638,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 					valStr = val ? "true" : "false";
 				}
 
-				return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, valStr);
+				return String.format(Locale.ENGLISH, "%s: <font color='#e37c07' face=monospace>%s</font>", name, valStr);
 			}
 
 			public boolean getValue() {

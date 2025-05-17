@@ -1,10 +1,12 @@
 package org.betastudio.ftc.action;
 
+import static org.betastudio.ftc.Interfaces.Countable;
+
 /**
  * 基本的模块化程序块，可以应用于多方面的维护需求
  */
 @FunctionalInterface
-public interface Action {
+public interface Action extends Countable {
 	/**
 	 * @return 该 {@code Action} 块是否结束. 为真时,该 {@code Action} 未结束,反之亦然.
 	 */
@@ -16,5 +18,10 @@ public interface Action {
 	 */
 	default String paramsString() {
 		return Integer.toHexString(this.hashCode());
+	}
+
+	@Override
+	default long getCount() {
+		return 1;
 	}
 }

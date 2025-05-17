@@ -45,6 +45,11 @@ public final class Interfaces {
 		void update();
 	}
 
+	@FunctionalInterface
+	public interface Countable {
+		long getCount();
+	}
+
 	public interface ProgressMarker {
 		long getTotal();
 

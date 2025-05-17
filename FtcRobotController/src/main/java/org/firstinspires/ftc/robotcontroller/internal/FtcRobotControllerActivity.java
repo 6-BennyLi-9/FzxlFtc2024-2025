@@ -132,6 +132,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/** @noinspection deprecation*/
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity {
 	public static final  String                    TAG                         = "RCActivity";
