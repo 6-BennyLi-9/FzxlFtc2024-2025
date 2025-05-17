@@ -54,17 +54,17 @@ import java.util.Stack;
 @TeleOp(name = "OctoQuad Configuration Tool", group = "OctoQuad")
 @Disabled
 public class UtilityOctoQuadConfigMenu extends LinearOpMode {
-	final TelemetryMenu.MenuElement rootMenu   = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
-	final TelemetryMenu.MenuElement menuHwInfo = new TelemetryMenu.MenuElement("Hardware Information", false);
+	final TelemetryMenu.MenuElement     rootMenu                 = new TelemetryMenu.MenuElement("OctoQuad Config Menu", true);
+	final TelemetryMenu.MenuElement     menuHwInfo               = new TelemetryMenu.MenuElement("Hardware Information", false);
 	final TelemetryMenu.MenuElement     menuEncoderDirections    = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
 	final TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
 	final TelemetryMenu.MenuElement     menuVelocityIntervals    = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
 	final TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-	final TelemetryMenu.MenuElement     menuAbsParams       = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
-	final TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-	final TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-	TelemetryMenu.EnumOption optionI2cResetMode;
-	TelemetryMenu.EnumOption optionChannelBankConfig;
+	final TelemetryMenu.MenuElement     menuAbsParams            = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMax      = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	final TelemetryMenu.IntegerOption[] optionsAbsParamsMin      = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+	TelemetryMenu.EnumOption    optionI2cResetMode;
+	TelemetryMenu.EnumOption    optionChannelBankConfig;
 	TelemetryMenu.OptionElement optionProgramToFlash;
 	TelemetryMenu.OptionElement optionSendToRAM;
 
@@ -242,16 +242,16 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 	 */
 
 	public static class TelemetryMenu {
-		private final MenuElement root;
+		private final MenuElement     root;
 		private final Stack <Integer> selectedIdxStack = new Stack <>();
-		private final Telemetry telemetry;
-		private       MenuElement currentLevel;
-		private boolean dpadUpPrev;
-		private boolean dpadDnPrev;
-		private boolean dpadRightPrev;
-		private boolean dpadLeftPrev;
-		private boolean xPrev;
-		private boolean lbPrev;
+		private final Telemetry       telemetry;
+		private       MenuElement     currentLevel;
+		private       boolean         dpadUpPrev;
+		private       boolean         dpadDnPrev;
+		private       boolean         dpadRightPrev;
+		private       boolean         dpadLeftPrev;
+		private       boolean         xPrev;
+		private       boolean         lbPrev;
 		private       int             selectedIdx      = 0;
 
 		/**
@@ -494,16 +494,16 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 		}
 
 		public static class EnumOption extends OptionElement {
-			protected final Enum[] e;
-			protected final String name;
-			protected       int    idx = 0;
+			protected final Enum <?>[] e;
+			protected final String     name;
+			protected       int        idx = 0;
 
-			public EnumOption(String name, Enum[] e) {
+			public EnumOption(String name, Enum <?>[] e) {
 				this.e = e;
 				this.name = name;
 			}
 
-			public EnumOption(String name, Enum[] e, Enum def) {
+			public EnumOption(String name, Enum <?>[] e, Enum <?> def) {
 				this(name, e);
 				idx = def.ordinal();
 			}
@@ -536,7 +536,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode {
 				return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, e[idx].name());
 			}
 
-			public Enum getValue() {
+			public Enum <?> getValue() {
 				return e[idx];
 			}
 		}

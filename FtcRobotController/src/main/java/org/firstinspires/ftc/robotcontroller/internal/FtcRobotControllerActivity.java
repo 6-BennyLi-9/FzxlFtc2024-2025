@@ -134,40 +134,40 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity {
-	public static final String TAG = "RCActivity";
-	private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
-	private static final int NUM_GAMEPADS                = 2;
-	private static boolean permissionsValidated = false;
-	protected final StartResult               prefRemoterStartResult    = new StartResult();
-	protected final StartResult               deviceNameStartResult     = new StartResult();
-	protected final SharedPreferencesListener sharedPreferencesListener = new SharedPreferencesListener();
-	protected final TextView[]    textGamepad = new TextView[NUM_GAMEPADS];
-	protected WifiManager.WifiLock   wifiLock;
-	protected RobotConfigFileManager cfgFileMgr;
-	protected ProgrammingModeManager programmingModeManager;
-	protected       UpdateUI.Callback         callback;
-	protected       Context                   context;
-	protected       Utility                   utility;
-	protected       PreferencesHelper         preferencesHelper;
-	protected       ImageButton   buttonMenu;
-	protected       TextView      textDeviceName;
-	protected       TextView      textNetworkConnectionStatus;
-	protected       TextView      textRobotStatus;
-	protected       TextView      textOpMode;
-	protected       TextView      textErrorMessage;
-	protected       ImmersiveMode immersion;
-	protected UpdateUI     updateUI;
-	protected Dimmer       dimmer;
-	protected LinearLayout entireScreenLayout;
-	protected FtcRobotControllerService controllerService;
-	protected NetworkType               networkType;
-	protected FtcEventLoop      eventLoop;
-	protected Queue <UsbDevice> receivedUsbAttachmentNotifications;
-	protected WifiMuteStateMachine wifiMuteStateMachine;
-	protected MotionDetection      motionDetection;
-	protected       boolean           serviceShouldUnbind = false;
-	private OnBotJavaHelper onBotJavaHelper;
-	protected final ServiceConnection connection          = new ServiceConnection() {
+	public static final  String                    TAG                         = "RCActivity";
+	private static final int                       REQUEST_CONFIG_WIFI_CHANNEL = 1;
+	private static final int                       NUM_GAMEPADS                = 2;
+	private static       boolean                   permissionsValidated        = false;
+	protected final      StartResult               prefRemoterStartResult      = new StartResult();
+	protected final      StartResult               deviceNameStartResult       = new StartResult();
+	protected final      SharedPreferencesListener sharedPreferencesListener   = new SharedPreferencesListener();
+	protected final      TextView[]                textGamepad                 = new TextView[NUM_GAMEPADS];
+	protected            WifiManager.WifiLock      wifiLock;
+	protected            RobotConfigFileManager    cfgFileMgr;
+	protected            ProgrammingModeManager    programmingModeManager;
+	protected            UpdateUI.Callback         callback;
+	protected            Context                   context;
+	protected            Utility                   utility;
+	protected            PreferencesHelper         preferencesHelper;
+	protected            ImageButton               buttonMenu;
+	protected            TextView                  textDeviceName;
+	protected            TextView                  textNetworkConnectionStatus;
+	protected            TextView                  textRobotStatus;
+	protected            TextView                  textOpMode;
+	protected            TextView                  textErrorMessage;
+	protected            ImmersiveMode             immersion;
+	protected            UpdateUI                  updateUI;
+	protected            Dimmer                    dimmer;
+	protected            LinearLayout              entireScreenLayout;
+	protected            FtcRobotControllerService controllerService;
+	protected            NetworkType               networkType;
+	protected            FtcEventLoop              eventLoop;
+	protected            Queue <UsbDevice>         receivedUsbAttachmentNotifications;
+	protected            WifiMuteStateMachine      wifiMuteStateMachine;
+	protected            MotionDetection           motionDetection;
+	protected            boolean                   serviceShouldUnbind         = false;
+	private              OnBotJavaHelper           onBotJavaHelper;
+	protected final      ServiceConnection         connection                  = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			FtcRobotControllerBinder binder = (FtcRobotControllerBinder) service;
@@ -299,9 +299,8 @@ public class FtcRobotControllerActivity extends Activity {
 		buttonMenu = findViewById(R.id.menu_buttons);
 		buttonMenu.setOnClickListener(v -> {
 			PopupMenu popupMenu = new PopupMenu(FtcRobotControllerActivity.this, v);
-			popupMenu.setOnMenuItemClickListener(item -> {
-				return onOptionsItemSelected(item); // Delegate to the handler for the hardware menu button
-			});
+			// Delegate to the handler for the hardware menu button
+			popupMenu.setOnMenuItemClickListener(this::onOptionsItemSelected);
 			popupMenu.inflate(R.menu.ftc_robot_controller);
 			AnnotatedHooksClassFilter.getInstance().callOnCreateMenuMethods(FtcRobotControllerActivity.this, popupMenu.getMenu());
 			popupMenu.show();
@@ -537,8 +536,8 @@ public class FtcRobotControllerActivity extends Activity {
 			requestRobotRestart();
 			return true;
 		} else if (id == R.id.action_configure_robot) {
-			EditParameters parameters      = new EditParameters();
-			Intent         intentConfigure = new Intent(AppUtil.getDefContext(), FtcLoadFileActivity.class);
+			EditParameters <?> parameters      = new EditParameters <>();
+			Intent             intentConfigure = new Intent(AppUtil.getDefContext(), FtcLoadFileActivity.class);
 			parameters.putIntent(intentConfigure);
 			startActivityForResult(intentConfigure, RequestCode.CONFIGURE_ROBOT_CONTROLLER.ordinal());
 		} else if (id == R.id.action_settings) {
@@ -661,7 +660,7 @@ public class FtcRobotControllerActivity extends Activity {
 			callback.networkConnectionUpdate(controllerService.getNetworkConnectionStatus());
 			callback.updateRobotStatus(controllerService.getRobotStatus());
 			// Only show this first-time toast on headless systems: what we have now on non-headless suffices
-			requestRobotSetup(LynxConstants.isRevControlHub() ? (Runnable) () -> showRestartRobotCompleteToast(R.string.toastRobotSetupComplete) : null);
+			requestRobotSetup(LynxConstants.isRevControlHub() ? () -> showRestartRobotCompleteToast(R.string.toastRobotSetupComplete) : null);
 		}
 	}
 

@@ -35,7 +35,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /*
@@ -98,7 +97,7 @@ public class ConceptTelemetry extends LinearOpMode {
 		 *
 		 * @see Telemetry#getMsTransmissionInterval()
 		 */
-		telemetry.addData("voltage", "%.1f volts", () -> getBatteryVoltage());
+		telemetry.addData("voltage", "%.1f volts", this::getBatteryVoltage);
 
 		// Reset to keep some timing stats for the post-'start' part of the OpMode
 		opmodeRunTime.reset();

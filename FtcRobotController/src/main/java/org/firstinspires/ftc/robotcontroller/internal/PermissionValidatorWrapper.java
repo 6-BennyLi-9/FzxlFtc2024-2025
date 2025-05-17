@@ -81,7 +81,7 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
 		permissions = robotControllerPermissions;
 	}
 
-	protected Class onStartApplication() {
+	protected Class<?> onStartApplication() {
 		FtcRobotControllerActivity.setPermissionsValidated();
 		return startApplication;
 	}

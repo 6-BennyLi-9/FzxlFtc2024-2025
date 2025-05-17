@@ -42,7 +42,7 @@ public class IntegralThreadExceptionHandler implements UncaughtExceptionHandler 
 			Log.e("Error", "OpMode Terminated By Exception", e);
 			// 根据当前操作模式的类型，发送终止信号或直接终止操作模式
 			if (currentOpmode instanceof IntegralOpMode) {
-				((IntegralOpMode) currentOpmode).sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, (Exception) e);
+				((IntegralOpMode) currentOpmode).sendTerminateSignal(TerminateReason.UNCAUGHT_EXCEPTION, e);
 			} else {
 				currentOpmode.terminateOpModeNow();
 			}

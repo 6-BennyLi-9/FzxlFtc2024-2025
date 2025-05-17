@@ -136,7 +136,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
 						mode = Mode.TUNING_MODE;
 						movingForwards = true;
-						activeProfile = generateProfile(movingForwards);
+						activeProfile = generateProfile(true);
 						profileStart = clock.seconds();
 					}
 
