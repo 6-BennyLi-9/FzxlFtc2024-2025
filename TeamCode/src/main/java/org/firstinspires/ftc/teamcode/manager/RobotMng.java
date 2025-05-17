@@ -61,21 +61,16 @@ import java.util.Map;
  */
 @Config
 public class RobotMng implements Updatable {
-	/// 打印代码的字符数组，用于在 telemetry 中显示状态更新
-	public static final String                           printCode           = "fzxl";
-	/// 驱动杆缓冲阈值
-	public static final double                           driverTriggerBufFal = 0.2;
-	/// 旋转触发缓冲失败的阈值
-	public static final double                           rotateTriggerBufFal = 0.03;
-	/// 滑轨当前位置
-	public static       double                           scaleRecent         = SCALE_PROBE;
-	/// 硬件控制器的映射表
-	public final        Map <String, HardwareController> controllers         = new HashMap <>();
-	public              Action                           hardwareAction;
-	/// 更新时间，用于计算 telemetry 的更新状态
-	public              int                              updateTime;
-	/// 客户端对象，用于与控制台通信
-	private             Client                           client;
+	public static final String UPDATE_CODE            = "fzxl";
+	public static       double DRIVER_TRIGGER_BUF_FAL = 0.2;
+	public static       double ROTATE_TRIGGER_BUF_FAL = 0.03;
+	public static       double SCALE_BUF_FAL          = 0.025;
+
+	public final Map <String, HardwareController> controllers = new HashMap <>();
+	public       double                           scaleRecent = SCALE_PROBE;
+	public       Action                           hardwareAction;
+	public       int                              updateTime;
+	private      Client                           client;
 
 	/// 构造函数，在创建 RobotMng 对象时初始化各个硬件控制器并将其放入控制器映射表中
 	public RobotMng() {
@@ -218,8 +213,8 @@ public class RobotMng implements Updatable {
 				scaleRecent = SCALE_PROBE;
 				break;
 			case 1:
-				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * rotateTriggerBufFal);
-				scaleRecent = min(max(scaleRecent - gamepad2.left_stick_y * 0.025, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
+				RotateOp.getInstance().turn((gamepad2.left_trigger - gamepad2.right_trigger) * ROTATE_TRIGGER_BUF_FAL);
+				scaleRecent = min(max(scaleRecent - gamepad2.left_stick_y * SCALE_BUF_FAL, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
 				ScaleOp.getInstance().operate(scaleRecent);
 				break;
 			default:
@@ -272,7 +267,7 @@ public class RobotMng implements Updatable {
 			DriveOp.getInstance().turn(0.1);
 		}
 
-		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, driverTriggerBufFal);
+		DriveOp.getInstance().turn(gamepad1.right_trigger - gamepad1.left_trigger, DRIVER_TRIGGER_BUF_FAL);
 
 		client.changeData("drive msg 2", DriveOp.getInstance().getDriveMsg());
 	}
@@ -289,7 +284,7 @@ public class RobotMng implements Updatable {
 	public void printActions() {
 		++ updateTime;
 
-		final String updateCode = "[" + printCode.charAt(updateTime % printCode.length()) + "]";
+		final String updateCode = "[" + UPDATE_CODE.charAt(updateTime % UPDATE_CODE.length()) + "]";
 
 		for (final Map.Entry <String, HardwareController> entry : controllers.entrySet()) {
 			final String s = entry.getKey();
