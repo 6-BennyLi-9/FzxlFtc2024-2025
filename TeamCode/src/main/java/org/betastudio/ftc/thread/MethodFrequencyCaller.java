@@ -1,12 +1,13 @@
 package org.betastudio.ftc.thread;
 
-import org.betastudio.ftc.Interfaces;
+import static org.betastudio.ftc.Interfaces.ThreadEx;
+
 import org.betastudio.ftc.util.ExceptionsUtil;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-public class MethodFrequencyCaller implements Interfaces.ThreadEx, Runnable {
+public class MethodFrequencyCaller implements ThreadEx, Runnable {
 	protected final Runnable           methodCall;
 	protected       Callable <Boolean> isStopRequested = () -> false;
 	protected       long               FPS             = 10;

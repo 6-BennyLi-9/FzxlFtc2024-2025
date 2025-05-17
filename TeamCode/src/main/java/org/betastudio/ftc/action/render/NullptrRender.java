@@ -1,9 +1,10 @@
 package org.betastudio.ftc.action.render;
 
-import org.betastudio.ftc.Interfaces;
+import static org.betastudio.ftc.Interfaces.ProgressMarker;
+import static org.betastudio.ftc.Interfaces.ProgressRender;
 
-public final class NullptrRender implements Interfaces.ProgressRender {
+public final class NullptrRender implements ProgressRender {
 	@Override
-	public void render(final String name, final Interfaces.ProgressMarker marker) {
+	public void render(final String name, final ProgressMarker marker) {
 	}
 }

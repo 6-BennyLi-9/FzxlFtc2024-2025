@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import org.betastudio.ftc.Interfaces;
+import static org.betastudio.ftc.Interfaces.ThreadEx;
+
 import org.betastudio.ftc.util.ExceptionsUtil;
 import org.firstinspires.ftc.teamcode.events.TaskCloseMonitor;
 
@@ -13,8 +14,8 @@ public final class Local {
 		try {
 			Thread.sleep(millis);
 		} catch (final InterruptedException e) {
-			if (Thread.currentThread() instanceof Interfaces.ThreadEx) {
-				((Interfaces.ThreadEx) Thread.currentThread()).closeTask();
+			if (Thread.currentThread() instanceof ThreadEx) {
+				((ThreadEx) Thread.currentThread()).closeTask();
 				new TaskCloseMonitor(Thread.currentThread());
 			} else {
 				Thread.currentThread().interrupt();

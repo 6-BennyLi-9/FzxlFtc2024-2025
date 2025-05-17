@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.eventloop.integral;
 
+import static org.betastudio.ftc.Interfaces.ThreadEx;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.thread.MethodFrequencyCaller;
 import org.betastudio.ftc.ui.client.Client;
@@ -15,14 +16,14 @@ import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.CoreDatabase;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Hardwares;
-import org.firstinspires.ftc.teamcode.manager.RobotMng;
 import org.firstinspires.ftc.teamcode.eventloop.OverclockOpMode;
 import org.firstinspires.ftc.teamcode.eventloop.TerminateReason;
+import org.firstinspires.ftc.teamcode.manager.RobotMng;
 
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
+public abstract class IntegralTeleOp extends OverclockOpMode implements IntegralOpMode, ThreadEx {
 	public    RobotMng  robot;
 	public    Timer     timer;
 	public    Client    client;

@@ -2,12 +2,12 @@ package org.betastudio.ftc.util;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.Interfaces.ProgressMarker;
 
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class ProgressMarkerImplement implements Interfaces.ProgressMarker {
+public class ProgressMarkerImplement implements ProgressMarker {
 	private final AtomicLong total = new AtomicLong();
 	private final AtomicLong done  = new AtomicLong();
 

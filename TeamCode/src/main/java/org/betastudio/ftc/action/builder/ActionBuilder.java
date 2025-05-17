@@ -1,12 +1,13 @@
 package org.betastudio.ftc.action.builder;
 
-import static org.betastudio.ftc.action.ActionPolicies.*;
+import static org.betastudio.ftc.action.ActionPolicies.CollectionAbortPolicy;
+import static org.betastudio.ftc.action.ActionPolicies.EmptyCollectionResolvePolicy;
 
-import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.Interfaces.StoreRequired;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.ValueContainer;
 
-public interface ActionBuilder extends Interfaces.StoreRequired <Action> {
+public interface ActionBuilder extends StoreRequired <Action> {
 	ValueContainer <EmptyCollectionResolvePolicy> policy = new ValueContainer<>(new CollectionAbortPolicy());
 
 	void append(Action action);

@@ -1,12 +1,12 @@
 package org.betastudio.ftc.action;
 
-import org.betastudio.ftc.Interfaces;
+import static org.betastudio.ftc.Interfaces.Countable;
 
 /**
  * 基本的模块化程序块，可以应用于多方面的维护需求
  */
 @FunctionalInterface
-public interface Action extends Interfaces.Countable {
+public interface Action extends Countable {
 	/**
 	 * @return 该 {@code Action} 块是否结束. 为真时,该 {@code Action} 未结束,反之亦然.
 	 */

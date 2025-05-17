@@ -2,11 +2,11 @@ package org.betastudio.ftc.thread;
 
 import com.acmerobotics.dashboard.config.ValueProvider;
 
-import org.betastudio.ftc.Interfaces;
+import org.betastudio.ftc.Interfaces.ValueProduction;
 
 import java.util.concurrent.Future;
 
-public final class TaskFuture implements ValueProvider <String>, Interfaces.ValueProduction <Future <?>> {
+public final class TaskFuture implements ValueProvider <String>, ValueProduction <Future <?>> {
 	private final String     str;
 	private final Future <?> future;
 
