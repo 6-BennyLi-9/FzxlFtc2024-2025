@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
+
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.message.DriveMsg;
 import org.betastudio.ftc.util.Labeler;
@@ -11,7 +13,7 @@ import org.firstinspires.ftc.teamcode.controllers.ChassisCtrl;
 import org.firstinspires.ftc.teamcode.controllers.SimpleDriveAction;
 import org.jetbrains.annotations.Contract;
 
-public strictfp class DriveOp implements Interfaces.HardwareController, Interfaces.TagOptionsRequired {
+public strictfp class DriveOp implements HardwareController, TagOptionsRequired {
 	public static  ChassisCtrl chassisCtrl;
 	private static double      x;
 	private static double      y;

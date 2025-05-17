@@ -1,17 +1,19 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.ROTATE_DEFAULT;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class RotateOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
+public class RotateOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static  ServoCtrl rotateController;
 	private static RotateOp  instance;
 

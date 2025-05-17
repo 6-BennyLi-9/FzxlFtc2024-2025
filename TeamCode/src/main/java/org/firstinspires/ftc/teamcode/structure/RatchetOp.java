@@ -1,15 +1,17 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.RATCHET_LOOSEN;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.RATCHET_TIGHT;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 
-public class RatchetOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
+public class RatchetOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static  boolean   isTightened;
 	public static  ServoCtrl ratchetControl;
 	private static RatchetOp instance;

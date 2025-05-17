@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BACH;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.util.Labeler;
@@ -18,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Hardwares;
 import org.firstinspires.ftc.teamcode.controllers.ServoCtrl;
 import org.jetbrains.annotations.Contract;
 
-public class ScaleOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
+public class ScaleOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static final double         SMOOTH = 0.2;
 	public static       ScalePositions recent = ScalePositions.BACK;
 	public static       ServoCtrl      leftScaleController;

@@ -187,7 +187,6 @@ public class RobotMng implements Updatable {
 		if (armScaleOperate.getEnabled()) {
 			armScaleOperate.ticker.tickAndMod(2);
 
-			//初始化
 			switch (armScaleOperate.ticker.getTicked()) {
 				case 0:
 					RotateOp.getInstance().mid();

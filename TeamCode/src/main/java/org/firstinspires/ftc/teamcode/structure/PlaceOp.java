@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.structure;
 
+import static org.betastudio.ftc.Interfaces.HardwareController;
+import static org.betastudio.ftc.Interfaces.InitializeRequested;
+import static org.betastudio.ftc.Interfaces.TagOptionsRequired;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_DECANT;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_IDLE;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.PLACE_PREPARE;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.*;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.PlacePositions;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.action.Action;
 import org.betastudio.ftc.util.Labeler;
 import org.firstinspires.ftc.teamcode.Hardwares;
@@ -16,7 +18,7 @@ import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class PlaceOp implements Interfaces.HardwareController, Interfaces.InitializeRequested, Interfaces.TagOptionsRequired {
+public class PlaceOp implements HardwareController, InitializeRequested, TagOptionsRequired {
 	public static  PlacePositions recent = PlacePositions.IDLE;
 	public static  ServoCtrl      placeController;
 	private static PlaceOp        instance;
