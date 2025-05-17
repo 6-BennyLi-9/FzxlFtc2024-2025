@@ -24,7 +24,13 @@ import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_BUF_FAL;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MAX_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_MIN_POSITION;
 import static org.firstinspires.ftc.teamcode.HardwareConfigures.SCALE_PROBE;
-import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.DECANT_HIGH;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.DECANT_LOW;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.IDLE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_Lv2;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_Lv2_PREPARE;
+import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.LiftMode.SUSPEND_PREPARE;
 import static org.firstinspires.ftc.teamcode.structure.HardwareSituation.ScalePositions;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -137,21 +143,21 @@ public class RobotMng implements Updatable {
 			if (PlaceOp.getInstance().decanting()) {
 				PlaceOp.getInstance().idle();
 			}
-			if (LiftMode.SUSPEND == LiftOp.recent || LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
+			if (SUSPEND == LiftOp.recent || SUSPEND_PREPARE == LiftOp.recent) {
 				ClipOp.getInstance().open();
 			}
 
 			ChassisCtrl.mode = ChassisCtrlMode.FASTER_CONTROL;
-			LiftOp.getInstance().sync(LiftMode.IDLE);
+			LiftOp.getInstance().sync(IDLE);
 		} else if (liftDecantUpping.getEnabled()) {
 			if (ArmOp.getInstance().isNotSafe()) {
 				ArmOp.getInstance().safe();
 			}
 
-			if (LiftMode.IDLE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_LOW);
-			} else if (LiftMode.DECANT_LOW == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.DECANT_HIGH);
+			if (IDLE == LiftOp.recent) {
+				LiftOp.getInstance().sync(DECANT_LOW);
+			} else if (DECANT_LOW == LiftOp.recent) {
+				LiftOp.getInstance().sync(DECANT_HIGH);
 			}
 
 			ChassisCtrl.mode = ChassisCtrlMode.NONE_SPECIFIED;
@@ -161,23 +167,23 @@ public class RobotMng implements Updatable {
 				ArmOp.getInstance().safe();
 			}
 
-			LiftOp.getInstance().sync(LiftMode.SUSPEND_PREPARE);
+			LiftOp.getInstance().sync(SUSPEND_PREPARE);
 		} else if (liftSuspendLv2Modding.getEnabled()) {
 			liftSuspendLv2Modding.ticker.tickAndMod(3);
 
 			switch (liftSuspendLv2Modding.ticker.getTicked()) {
 				case 1:
-					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2_PREPARE);
+					LiftOp.getInstance().sync(SUSPEND_Lv2_PREPARE);
 					break;
 				case 2:
-					LiftOp.getInstance().sync(LiftMode.SUSPEND_Lv2);
+					LiftOp.getInstance().sync(SUSPEND_Lv2);
 					break;
 			}
 		}
 
 		if (decantOrSuspend.getEnabled()) {
-			if (LiftMode.SUSPEND_PREPARE == LiftOp.recent) {
-				LiftOp.getInstance().sync(LiftMode.SUSPEND);
+			if (SUSPEND_PREPARE == LiftOp.recent) {
+				LiftOp.getInstance().sync(SUSPEND);
 			} else {
 				ArmOp.getInstance().safe();
 				PlaceOp.getInstance().flip();
