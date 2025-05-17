@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.opmodes.tests;
 
+import static org.betastudio.ftc.Annotations.TestShelved;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.eventloop.integral.ActionBasedAutonomous;
 
+@Disabled
+@TestShelved
 @Autonomous(group = "9_Tests")
 public class ImuCalibrateTest extends ActionBasedAutonomous {
 	@Override

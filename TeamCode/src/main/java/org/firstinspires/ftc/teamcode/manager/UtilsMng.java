@@ -34,7 +34,7 @@ import static org.firstinspires.ftc.teamcode.Hardwares.rightLift;
 import static org.firstinspires.ftc.teamcode.Hardwares.rightRear;
 import static org.firstinspires.ftc.teamcode.Hardwares.rightScale;
 import static org.firstinspires.ftc.teamcode.Hardwares.rotate;
-import static org.firstinspires.ftc.teamcode.structure.ScaleOp.operateLeftPosition;
+import static org.firstinspires.ftc.teamcode.structure.ScaleOp.calculateLeftPosition;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -201,7 +201,7 @@ public class UtilsMng {
 	 * 使秤臂收回。
 	 */
 	public void scaleBack() {
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(SCALE_BACH))), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(calculateLeftPosition(SCALE_BACH))), new StatementAction(() -> rightScale.setPosition(SCALE_BACH))));
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class UtilsMng {
 	 */
 	public void scaleOperate(final double rightScalePosition) {
 		final double finalRightScalePosition = min(0.5, max(rightScalePosition, 0.08));
-		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(operateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
+		builder.append(new AssembledAction(new StatementAction(() -> leftScale.setPosition(calculateLeftPosition(finalRightScalePosition))), new StatementAction(() -> rightScale.setPosition(finalRightScalePosition))));
 	}
 
 	/**

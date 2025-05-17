@@ -43,4 +43,8 @@ public final class Pose2dUtil {
 	public static String str(@NonNull final Pose2d p) {
 		return String.format(Locale.SIMPLIFIED_CHINESE, "(%.2f,%.2f):%.2f", p.getX(), p.getY(), p.getHeading());
 	}
+
+	public static double dis(@NonNull final Pose2d p) {
+		return Math.sqrt(p.getX() * p.getX() + p.getY() * p.getY());
+	}
 }

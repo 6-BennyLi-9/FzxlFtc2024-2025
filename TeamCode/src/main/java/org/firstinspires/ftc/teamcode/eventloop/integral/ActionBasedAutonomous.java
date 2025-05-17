@@ -1,14 +1,21 @@
 package org.firstinspires.ftc.teamcode.eventloop.integral;
 
+import static org.betastudio.ftc.Interfaces.Nameable;
+import static org.betastudio.ftc.Interfaces.ThreadEx;
+import static org.betastudio.ftc.util.ExceptionsUtil.getOriginException;
+
+import static java.lang.String.*;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.acmerobotics.roadrunner.SampleMecanumDrive;
-import org.betastudio.ftc.Interfaces;
 import org.betastudio.ftc.RunMode;
 import org.betastudio.ftc.action.Action;
+import org.betastudio.ftc.action.Actions;
 import org.betastudio.ftc.action.builder.ActionBuilder;
 import org.betastudio.ftc.action.builder.LinkedActionBuilder;
+import org.betastudio.ftc.action.render.ClientRender;
 import org.betastudio.ftc.action.utils.AssembledAction;
 import org.betastudio.ftc.action.utils.LinkedAction;
 import org.betastudio.ftc.action.utils.SleepingAction;
@@ -17,7 +24,6 @@ import org.betastudio.ftc.ui.client.UpdateConfig;
 import org.betastudio.ftc.ui.client.implementation.BaseMapClient;
 import org.betastudio.ftc.ui.dashboard.DashTelemetry;
 import org.betastudio.ftc.ui.log.FtcLogTunnel;
-import org.betastudio.ftc.util.ExceptionsUtil;
 import org.betastudio.ftc.util.Timer;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Hardwares;
@@ -30,18 +36,19 @@ import org.firstinspires.ftc.teamcode.manager.UtilsMng;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, Interfaces.ThreadEx {
-	public static final String                   LOW_TPS_WARNING = "⚠警告⚠ TPS偏低！ ⚠警告⚠";
-	public              SampleMecanumDrive       drive;
-	public              UtilsMng                 utils;
-	public              Timer                    timer;
-	public              Client                   client;
-	public              ActionBuilder            builder;
-	public              Runnable                 runner;
-	protected           boolean                  is_terminate_method_called;
-	protected           HeadingTrajectoryBuilder track;
-	private             Throwable                inlineUncaughtException;
-	private             Action                   action;
+public abstract class ActionBasedAutonomous extends OverclockOpMode implements IntegralOpMode, ThreadEx {
+	public static final String LOW_TPS_WARNING = "⚠警告⚠ TPS偏低！ ⚠警告⚠";
+
+	public    SampleMecanumDrive       drive;
+	public    UtilsMng                 utils;
+	public    Timer                    timer;
+	public    Client                   client;
+	public    ActionBuilder            builder;
+	public    Runnable                 runner;
+	protected boolean                  is_terminate_method_called;
+	protected HeadingTrajectoryBuilder track;
+	private   Throwable                inlineUncaughtException;
+	private   Action                   action;
 
 	public abstract void actionBuildEntry();
 
@@ -72,9 +79,9 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		track = new HeadingTrajectoryBuilder(drive);
 		TrajectoryAction.setClient(client);
 
-		client.putData("TPS", "wait for start");
+		client.putData("TPS", "wait for start");  // useless
 		client.putData("time", "wait for start");
-		client.putLine("ROBOT INITIALIZE COMPLETE!");
+		client.putData("HEAD","ROBOT CORE INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
 		FtcLogTunnel.MAIN.report("Op inline initialized");
@@ -83,23 +90,30 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		track.setCurrent(getInitialPose());
 		actionBuildEntry();
 		action = builder.store();
+		if (action instanceof Nameable) {
+			((Nameable) action).setName("MAIN");
+		}
+		action = Actions.metaFor(action, new ClientRender(client));
 		runner = () -> {
 			if (! action.activate()) {
-				client.putLine("Core Action Finished");
+				client.putLine("CORE ACTION FINISHED");
 				runner = () -> {};
 			}
 		};
+
+		client.putData("HEAD","ROBOT ACTION INITIALIZE COMPLETE!");
 	}
 
 	@Override
 	public void loop_init() {
-		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()) + "(not started)");
+		client.changeData("TPS", (1.0e3 / timer.restartAndGetDeltaTime()));
 		client.update();
 	}
 
 	@Override
 	public void op_start() {
 		FtcLogTunnel.MAIN.report("Op inline started successfully");
+		client.deleteData("HEAD");
 	}
 
 	@Override
@@ -109,7 +123,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 
 		if (null != inlineUncaughtException) {
 			FtcLogTunnel.MAIN.report(inlineUncaughtException);
-			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			Throwable cause = getOriginException(inlineUncaughtException);
 			throw new RuntimeException(cause);
 		}
 
@@ -140,13 +154,13 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		RunMode.globalRunMode = RunMode.TERMINATE;
 
 		if (null != inlineUncaughtException) {
-			Throwable cause = ExceptionsUtil.getOriginException(inlineUncaughtException);
+			Throwable cause = getOriginException(inlineUncaughtException);
 			FtcLogTunnel.MAIN.report(cause);
 			throw new RuntimeException(cause);
 		}
 
 		FtcLogTunnel.MAIN.report("Op inline closed");
-		FtcLogTunnel.MAIN.save(String.format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
+		FtcLogTunnel.MAIN.save(format(Locale.SIMPLIFIED_CHINESE, "%tc", System.currentTimeMillis()));
 	}
 
 	@Override
@@ -180,7 +194,7 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		builder.append(new LinkedAction(actions));
 	}
 
-	public void executeSleep(final long sleepMS){
+	public void executeSleep(final long sleepMS) {
 		builder.append(new SleepingAction(sleepMS));
 	}
 

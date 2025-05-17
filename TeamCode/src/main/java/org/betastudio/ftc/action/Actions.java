@@ -5,17 +5,13 @@ import static org.betastudio.ftc.Interfaces.ProgressRender;
 
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.action.render.NullptrRender;
 import org.jetbrains.annotations.Contract;
 
 public final class Actions {
 	@NonNull
-	public static ProgressRender DEFAULT_RENDER = new NullptrRender();
-
-	@NonNull
-	@Contract("_ -> new")
-	public static ActionRunnerMeta metaFor(final Action action) {
-		return new ActionRunnerMeta(action, DEFAULT_RENDER);
+	@Contract("_, _ -> new")
+	public static ActionRunnerMeta metaFor(final Action action, final ProgressRender render) {
+		return new ActionRunnerMeta(action, render);
 	}
 
 	/**

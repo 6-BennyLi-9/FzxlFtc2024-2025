@@ -1,16 +1,18 @@
 package org.betastudio.ftc.action.utils;
 
+import static org.betastudio.ftc.Interfaces.ProgressMarker;
+import static org.betastudio.ftc.Interfaces.ProgressedTask;
+
 import androidx.annotation.NonNull;
 
-import org.betastudio.ftc.Interfaces;
-import org.betastudio.ftc.action.ActionImplementFactory;
+import org.betastudio.ftc.action.AbstractActionImplement;
 import org.betastudio.ftc.util.ProgressMarkerImplement;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
-public class ConsumerAction<T> extends ActionImplementFactory implements Interfaces.ProgressedTask {
+public class ConsumerAction<T> extends AbstractActionImplement implements ProgressedTask {
 	private final ProgressMarkerImplement marker;
 
 	public ConsumerAction(@NonNull final Collection <T> collection, final Consumer <T> consumer) {
@@ -30,7 +32,7 @@ public class ConsumerAction<T> extends ActionImplementFactory implements Interfa
 	}
 
 	@Override
-	public Interfaces.ProgressMarker getWorkerProgress() {
+	public ProgressMarker getWorkerProgress() {
 		return marker;
 	}
 }

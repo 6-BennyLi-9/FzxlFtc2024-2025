@@ -69,7 +69,7 @@ public class Right extends ActionBasedAutonomous {
 	}
 
 	public void appendIntake(final Pose2d intake) {
-		utils.waitMs(200);
+		utils.waitMs(150);
 		utils.scaleOperate(AutonomousConfigures.RIGHT_SCALE_INTAKE_POSITION);
 		executeAssembled(track.runTo(intake), utils.pack());
 		utils.armDisplay();

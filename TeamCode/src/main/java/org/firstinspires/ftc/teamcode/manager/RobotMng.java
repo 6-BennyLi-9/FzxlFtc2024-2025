@@ -69,7 +69,11 @@ public class RobotMng implements Updatable {
 	public static final double                           driverTriggerBufFal = 0.2;
 	/// 旋转触发缓冲失败的阈值
 	public static final double                           rotateTriggerBufFal = 0.03;
-	/// 滑轨伸出时移动方式，默认为累加
+	/**
+	 * 滑轨伸出时移动方式
+	 * <p>
+	 *默认为累加
+	 */
 	public static final boolean                          scaleTypeAdding     = true;
 	/// 滑轨当前位置
 	public static       double                           scaleRecent         = (SCALE_BACH + SCALE_PROBE) / 2;

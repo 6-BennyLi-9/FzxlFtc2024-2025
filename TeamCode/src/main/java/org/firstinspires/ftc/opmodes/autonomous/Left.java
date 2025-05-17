@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.opmodes.autonomous;
 
-import static org.betastudio.ftc.util.Pose2dUtil.t;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.DECANT;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_PARK_PREPARE;
-import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_1;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_2;
+import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_SAMPLE_3;
 import static org.firstinspires.ftc.opmodes.autonomous.AutonomousConfigures.LEFT_START;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -25,15 +26,15 @@ public class Left extends ActionBasedAutonomous {
 		appendDecanting();
 
 		/// 夹取 1
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE);
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_1, LEFT_SAMPLE_1);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 2
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, t(LEFT_SAMPLE, - 25));
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_2, LEFT_SAMPLE_2);
 		/// 倒出
 		appendDecanting();
 		/// 夹取 3
-		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, t(LEFT_SAMPLE, 25));
+		appendIntake(AutonomousConfigures.LEFT_SCALE_INTAKE_POSITION_3, LEFT_SAMPLE_3);
 		/// 倒出
 		appendDecanting();
 
@@ -42,7 +43,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.closeClip();
 
 		executeLinked(track.runTo(LEFT_PARK_PREPARE));
-		executeAssembled(utils.pack(), DriveOp.build(0, - 0.25, 0));
+		executeAssembled(utils.pack(), DriveOp.build(0, 0.25, 0));
 	}
 
 	@Override

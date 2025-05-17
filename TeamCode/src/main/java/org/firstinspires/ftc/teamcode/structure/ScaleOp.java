@@ -29,8 +29,8 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 		return instance;
 	}
 
-	public strictfp static double operateLeftPosition(final double rightPosition) {
-		return 0.9580952380952381 - 0.9761904761904762 * rightPosition;
+	public strictfp static double calculateLeftPosition(final double rightPosition) {
+		return 0.9604347826087 - 0.9130434782609 * rightPosition;
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class ScaleOp implements Interfaces.HardwareController, Interfaces.Initia
 
 	public void manage(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPosition(operateLeftPosition(position));
+		leftScaleController.setTargetPosition(calculateLeftPosition(position));
 		rightScaleController.setTargetPosition(position);
 	}
 
 	public void manageSmooth(double position) {
 		position = min(max(position, SCALE_MIN_POSITION), SCALE_MAX_POSITION);
-		leftScaleController.setTargetPositionTolerance(operateLeftPosition(position), SMOOTH);
+		leftScaleController.setTargetPositionTolerance(calculateLeftPosition(position), SMOOTH);
 		rightScaleController.setTargetPositionTolerance(position, SMOOTH);
 	}
 

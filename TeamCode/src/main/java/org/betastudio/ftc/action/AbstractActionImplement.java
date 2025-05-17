@@ -9,19 +9,20 @@ import java.util.concurrent.Callable;
 /**
  * 子类只需调用 {@link #setAction(Callable)}并重写 {@link #paramsString()}即可
  */
-public abstract class ActionImplementFactory implements Action, ThreadEx, Nameable {
+public abstract class AbstractActionImplement implements Action, ThreadEx, Nameable {
 	public static ForceHandleExceptionPolicy <String>  paramsPolicy = new RuntimeExceptionPolicy <>();
 	public static ForceHandleExceptionPolicy <Boolean> actionPolicy = new RuntimeExceptionPolicy <>();
-	private       Callable <Boolean>                   action;
-	private       Callable <String>                    params;
-	private       boolean                              isStopRequested;
-	private       String                               name         = "[unnamed]";
 
-	protected ActionImplementFactory() {
+	private Callable <Boolean> action;
+	private Callable <String>  params;
+	private boolean            isStopRequested;
+	private String             name = "[unnamed]";
+
+	protected AbstractActionImplement() {
 		this(() -> false, () -> "[unsetted]");
 	}
 
-	protected ActionImplementFactory(final Callable <Boolean> action, final Callable <String> params) {
+	protected AbstractActionImplement(final Callable <Boolean> action, final Callable <String> params) {
 		this.action = action;
 		this.params = params;
 	}
