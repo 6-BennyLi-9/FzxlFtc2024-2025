@@ -7,11 +7,11 @@ import org.betastudio.ftc.ui.telemetry.TelemetryLine;
 import java.util.Objects;
 
 public final class LogMessages {
-	public abstract static class LogMessage implements Message {
+	public abstract static class LogMsg implements Message {
 		public abstract TelemetryMsg buildTelemetryMsg();
 	}
 
-	public static class ExceptionMsg extends LogMessage {
+	public static class ExceptionMsg extends LogMsg {
 		private final Throwable exception;
 
 		public ExceptionMsg(final Throwable exception) {
@@ -37,7 +37,7 @@ public final class LogMessages {
 		}
 	}
 
-	public static class StringMsg extends LogMessage {
+	public static class StringMsg extends LogMsg {
 		private final String message;
 
 		public StringMsg(final String message) {

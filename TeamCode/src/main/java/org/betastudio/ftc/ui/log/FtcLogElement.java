@@ -8,18 +8,18 @@ public interface FtcLogElement {
 
 	LogElementType getType();
 
-	LogMessages.LogMessage getMessage();
+	LogMessages.LogMsg getMessage();
 
 	class ElementImpl implements FtcLogElement {
-		private final LogMessages.LogMessage message;
-		private final Timestamp              timestamp;
+		private final LogMessages.LogMsg message;
+		private final Timestamp          timestamp;
 		private final LogElementType         type;
 
-		public ElementImpl(final LogMessages.LogMessage message) {
+		public ElementImpl(final LogMessages.LogMsg message) {
 			this(LogElementType.INFO, message);
 		}
 
-		public ElementImpl(final LogElementType type, final LogMessages.LogMessage message) {
+		public ElementImpl(final LogElementType type, final LogMessages.LogMsg message) {
 			this.message = message;
 			this.timestamp = new Timestamp();
 			this.type = type;
@@ -36,7 +36,7 @@ public interface FtcLogElement {
 		}
 
 		@Override
-		public LogMessages.LogMessage getMessage() {
+		public LogMessages.LogMsg getMessage() {
 			return message;
 		}
 	}
