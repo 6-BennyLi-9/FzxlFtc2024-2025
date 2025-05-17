@@ -9,7 +9,7 @@ import org.betastudio.ftc.ui.log.FtcLogTunnel;
 @Deprecated
 public class ButtonProcessorEx extends ButtonProcessor {
 	public static final ButtonCallback defaultCallback = () -> {};
-	@Beta(date = "2025-2-26")
+	@Beta(date = "25.2.6")
 	public static       boolean        runUsingThread;
 	private             ButtonCallback callback;
 	private             boolean        isAutoActive;
@@ -60,7 +60,7 @@ public class ButtonProcessorEx extends ButtonProcessor {
 	}
 
 	/// hook方法，当按键被激活时调用
-	@Beta(date = "2025-2-26")
+	@Beta(date = "25.2.6")
 	protected void activeButtonMark() {
 		tryActivate();
 	}
