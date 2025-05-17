@@ -34,4 +34,8 @@ public final class HardwareConfigures {
 	public static double SCALE_BACH               = 0;
 	public static double RATCHET_LOOSEN           = 0.05;
 	public static double RATCHET_TIGHT            = 0.8;
+
+	public static double DRIVER_TRIGGER_BUF_FAL = 0.2;
+	public static double ROTATE_TRIGGER_BUF_FAL = 0.03;
+	public static double SCALE_BUF_FAL          = 0.025;
 }
