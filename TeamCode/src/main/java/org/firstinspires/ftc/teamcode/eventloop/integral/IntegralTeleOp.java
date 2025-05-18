@@ -59,7 +59,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 		telemetry.clearAll();
 
 		client.putData("TPS", "wait for start");
-		client.putData("time", "wait for start");
 		client.putLine("ROBOT INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
@@ -98,7 +97,6 @@ public abstract class IntegralTeleOp extends OverclockOpMode implements Integral
 			terminateOpModeNow();
 		}
 		client.changeData("TPS", 1.0e3 / timer.restartAndGetDeltaTime());
-		client.changeData("time", getRuntime());
 
 		if (null != inlineUncaughtException) {
 			Throwable cause = getOriginException(inlineUncaughtException);
