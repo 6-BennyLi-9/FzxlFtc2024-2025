@@ -14,7 +14,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
  */
 @Config
 public final class AutonomousConfigures {
-	/* Left  点位 */
+	// Left  点位
 	@TestSucceed
 	public static final Pose2d LEFT_START        = p(40, 65, - 90);
 	@TestSucceed
@@ -27,7 +27,7 @@ public final class AutonomousConfigures {
 	public static final Pose2d LEFT_SAMPLE_3     = t(LEFT_SAMPLE_1, 25);
 	@TestSucceed
 	public static final Pose2d LEFT_PARK_PREPARE = p(38, 10, 180);
-	/* Right 点位 */
+	// Right 点位
 	@TestSucceed
 	public static final Pose2d RIGHT_START       = p(- 8, 60, 90);
 	@TestSucceed
@@ -39,12 +39,11 @@ public final class AutonomousConfigures {
 	public static final Pose2d GET_SUSPEND       = p(- 43, 60, - 90);
 	public static final Pose2d RIGHT_PARK        = p(- 45, 60, 90);
 
-	/* Left  硬件参数 */
+	// Left  硬件参数
 	public static double LEFT_SCALE_INTAKE_POSITION_1  = 0.32;
 	public static double LEFT_SCALE_INTAKE_POSITION_2  = 0.34;
 	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.36;
-	/* Right 硬件参数 */
+	// Right 硬件参数
 	public static double RIGHT_SCALE_INTAKE_POSITION   = 0.3;
-	/// 到达人类玩家处后前进的距离
 	public static double RIGHT_GET_SUSPENDING_DISTANCE = 1.5;
 }
