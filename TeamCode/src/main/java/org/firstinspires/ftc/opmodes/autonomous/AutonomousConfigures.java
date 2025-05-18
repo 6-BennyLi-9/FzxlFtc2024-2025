@@ -18,7 +18,7 @@ public final class AutonomousConfigures {
 	@TestSucceed
 	public static final Pose2d LEFT_START        = p(40, 67, - 90);
 	@TestSucceed
-	public static final Pose2d DECANT            = p(55.5, 55.5, - 135);
+	public static final Pose2d DECANT            = p(56, 56, - 135);
 	@TestSucceed
 	public static final Pose2d LEFT_SAMPLE_1     = p(58, 49, - 90);
 	@TestSucceed
@@ -35,7 +35,7 @@ public final class AutonomousConfigures {
 	public static final Pose2d SUSPEND_2         = p(- 2, 32, 90);
 	public static final Pose2d SUSPEND_3         = p(6, 33, 90);
 	public static final Pose2d RIGHT_SAMPLE_1    = p(- 50, 44, - 90);
-	public static final Pose2d RIGHT_SAMPLE_2    = p(- 60.5, 42, - 90);
+	public static final Pose2d RIGHT_SAMPLE_2    = p(- 62, 42, - 90);
 	public static final Pose2d GET_SUSPEND       = p(- 43, 60, - 90);
 	public static final Pose2d RIGHT_PARK        = p(- 45, 60, 90);
 
@@ -45,5 +45,5 @@ public final class AutonomousConfigures {
 	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.34;
 	// Right 硬件参数
 	public static double RIGHT_SCALE_INTAKE_POSITION   = 0.22;
-	public static double RIGHT_GET_SUSPENDING_DISTANCE = 1.5;
+	public static double RIGHT_GET_SUSPENDING_DISTANCE = 5;
 }
