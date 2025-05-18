@@ -44,7 +44,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.closeClip();
 
 		executeLinked(track.runTo(LEFT_PARK_PREPARE));
-		executeAssembled(utils.pack(), DriveOp.build(0, 0.25, 0));
+		executeAssembled(utils.pack(), DriveOp.build(0, 0.5, 0));
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class Left extends ActionBasedAutonomous {
 		utils.waitMs(1050);
 		/// 倒入box
 		utils.halfOpenClaw();
-		utils.waitMs(100);
+		utils.waitMs(250);
 		utils.openClaw();
 		utils.waitMs(50);
 		executeManager();
