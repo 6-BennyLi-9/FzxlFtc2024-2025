@@ -16,7 +16,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 public final class AutonomousConfigures {
 	// Left  点位
 	@TestSucceed
-	public static final Pose2d LEFT_START        = p(40, 65, - 90);
+	public static final Pose2d LEFT_START        = p(40, 67, - 90);
 	@TestSucceed
 	public static final Pose2d DECANT            = p(55.5, 55.5, - 135);
 	@TestSucceed
@@ -29,7 +29,7 @@ public final class AutonomousConfigures {
 	public static final Pose2d LEFT_PARK_PREPARE = p(38, 10, 180);
 	// Right 点位
 	@TestSucceed
-	public static final Pose2d RIGHT_START       = p(- 8, 60, 90);
+	public static final Pose2d RIGHT_START       = p(- 8, 62, 90);
 	@TestSucceed
 	public static final Pose2d SUSPEND_1         = p(- 11.5, 32, 90);
 	public static final Pose2d SUSPEND_2         = p(- 2, 32, 90);
@@ -40,10 +40,10 @@ public final class AutonomousConfigures {
 	public static final Pose2d RIGHT_PARK        = p(- 45, 60, 90);
 
 	// Left  硬件参数
-	public static double LEFT_SCALE_INTAKE_POSITION_1  = 0.32;
-	public static double LEFT_SCALE_INTAKE_POSITION_2  = 0.34;
-	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.36;
+	public static double LEFT_SCALE_INTAKE_POSITION_1  = 0.28;
+	public static double LEFT_SCALE_INTAKE_POSITION_2  = 0.32;
+	public static double LEFT_SCALE_INTAKE_POSITION_3  = 0.34;
 	// Right 硬件参数
-	public static double RIGHT_SCALE_INTAKE_POSITION   = 0.3;
+	public static double RIGHT_SCALE_INTAKE_POSITION   = 0.22;
 	public static double RIGHT_GET_SUSPENDING_DISTANCE = 1.5;
 }
