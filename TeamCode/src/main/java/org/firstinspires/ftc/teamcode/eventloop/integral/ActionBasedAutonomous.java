@@ -80,7 +80,6 @@ public abstract class ActionBasedAutonomous extends OverclockOpMode implements I
 		TrajectoryAction.setClient(client);
 
 		client.putData("TPS", "wait for start");  // useless
-		client.putData("time", "wait for start");
 		client.putData("HEAD", "ROBOT CORE INITIALIZE COMPLETE!");
 		client.putLine("=======================");
 
